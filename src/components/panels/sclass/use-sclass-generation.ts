@@ -87,7 +87,7 @@ export function useSClassGeneration() {
 
   // ========== Helpers ==========
 
-  /** 获取组内Cảnh cột表 */
+  /** 获取组内Danh sách cảnh */
   const getGroupScenes = useCallback(
     (group: ShotGroup): SplitScene[] => {
       return group.sceneIds

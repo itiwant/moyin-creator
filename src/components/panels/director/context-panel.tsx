@@ -756,10 +756,10 @@ export function DirectorContextPanel() {
         )}
       </div>
 
-      {/* 树形Cấu trúc */}
+      {/* Dạng câyCấu trúc */}
       <ScrollArea className="flex-1">
         <div className="p-2 space-y-1">
-          {/*  tập cột表 */}
+          {/*  Danh sách tập */}
           {episodes.map((episode) => {
             const episodeScenes = scriptData.scenes.filter((s) =>
               episode.sceneIds.includes(s.id)
@@ -792,7 +792,7 @@ export function DirectorContextPanel() {
                   </span>
                 </button>
 
-                {/* Cảnh cột表 */}
+                {/* Danh sách cảnh */}
                 {expandedEpisodes.has(episode.id) && (
                   <div className="ml-4 space-y-0.5">
                     {episodeScenes.map((scene) => {

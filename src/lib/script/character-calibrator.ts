@@ -88,7 +88,7 @@ export interface CalibrationOptions {
   previousCharacters?: CalibratedCharacter[];
   /** 提示词Ngôn ngữTùy chọn */
   promptLanguage?: PromptLanguage;
-  /** Hiệu chuẩn严格度 */
+  /** Mức độ chặt chẽ hiệu chuẩn */
   strictness?: CalibrationStrictness;
 }
 

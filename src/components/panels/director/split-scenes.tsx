@@ -1669,7 +1669,7 @@ export function SplitScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
           // Check if image host is configured
           if (!isImageHostConfigured()) {
             console.warn('[SplitScenes] Image host not configured. Please configure an image host in settings.');
-            throw new Error('Lưu trữ ảnhChưa cấu hình，请先在Cài đặtđang xử lý... Catbox 或其他可用Lưu trữ ảnh');
+            throw new Error('Lưu trữ ảnh chưa được cấu hình, vui lòng cài đặt Catbox hoặc dịch vụ lưu trữ ảnh khả dụng trong Cài đặt');
           }
           
           let imageData = url;
@@ -1720,7 +1720,7 @@ export function SplitScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
         frameLabel: 'First frame',
       });
       if (!firstFrameConverted) {
-        throw new Error('无法获取Khung hình đầuảnh的 HTTP URL，请Tạo lạiảnh');
+        throw new Error('Không thể lấy HTTP URL của ảnh Khung hình đầu, vui lòng Tạo lại ảnh');
       }
       imageWithRoles.push({ url: firstFrameConverted, role: 'first_frame' });
       console.log('[SplitScenes] First frame HTTP URL:', firstFrameConverted.substring(0, 60));
@@ -1784,7 +1784,7 @@ export function SplitScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
         videoUrl: finalVideoUrl,
         videoMediaId: mediaId,
       });
-      toast.success(`Phân cảnh ${sceneId + 1} Tạo video hoàn tất，đã lưu到Thư viện phương tiện`);
+      toast.success(`Phân cảnh ${sceneId + 1} Tạo video hoàn tất, đã lưu vào thư viện phương tiện`);
       
       // 视觉连续性：仅当Phân cảnh需要Khung hình cuối时，提取video最后一帧
       const currentScene = splitScenes.find(s => s.id === sceneId);
@@ -1817,8 +1817,8 @@ export function SplitScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
     } catch (error) {
       const err = error as Error;
 
-      // 用户主动Hủy：abort() 触发的 AbortError 或Tùy chỉnh '用户已Hủy'
-      if (err.name === 'AbortError' || err.message === '用户已Hủy') {
+      // 用户主动Hủy：abort() 触发的 AbortError 或Tùy chỉnh 'Người dùng đã hủy'
+      if (err.name === 'AbortError' || err.message === 'Người dùng đã hủy') {
         console.log(`[SplitScenes] Scene ${sceneId} video generation cancelled by user`);
         setIsGenerating(false);
         setCurrentGeneratingId(null);
@@ -1837,7 +1837,7 @@ export function SplitScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
           videoProgress: 0,
           videoError: `MODERATION_SKIPPED:${err.message}`,
         });
-        toast.warning(`Phân cảnh ${sceneId + 1} 因Bỏ qua kiểm duyệt nội dung`);
+        toast.warning(`Phân cảnh ${sceneId + 1} bị bỏ qua do kiểm duyệt nội dung`);
         console.log(`[SplitScenes] Scene ${sceneId} skipped due to content moderation`);
       } else {
         // 普通错误
@@ -1858,7 +1858,7 @@ export function SplitScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
   // 复用 handleGenerateSingleVideo 的统一 API gọi API逻辑，避免使用不存在的 /api/ai/video 端点
   const handleGenerateVideos = useCallback(async () => {
     if (splitScenes.length === 0) {
-      toast.error("没有可Tạo的Phân cảnh");
+      toast.error("Không có phân cảnh nào để Tạo");
       return;
     }
 
@@ -1873,7 +1873,7 @@ export function SplitScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
       s => !(s.videoPromptZh?.trim() || s.videoPrompt?.trim())
     );
     if (scenesWithoutPrompts.length > 0) {
-      toast.warning(`还有 ${scenesWithoutPrompts.length} Phân cảnh没有Gợi ý，将使用Mặc địnhGợi ý`);
+      toast.warning(`Còn ${scenesWithoutPrompts.length} phân cảnh chưa có gợi ý, sẽ dùng gợi ý mặc định`);
     }
 
     // Filter scenes that need generation (idle or failed)
@@ -1882,12 +1882,12 @@ export function SplitScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
     );
 
     if (scenesToGenerate.length === 0) {
-      toast.info("Tất cảPhân cảnhĐã tạo或正在Tạođang xử lý...
+      toast.info("Tất cả phân cảnh đã tạo hoặc đang tạo...
       return;
     }
 
     setIsGenerating(true);
-    toast.info(`Bắt đầu串 hàngTạo ${scenesToGenerate.length}  video...每次处理 ${concurrency} `);
+    toast.info(`Bắt đầu tạo tuần tự ${scenesToGenerate.length} video... mỗi lần xử lý ${concurrency}`);
 
     let successCount = 0;
     const totalCount = scenesToGenerate.length;
@@ -1955,7 +1955,7 @@ export function SplitScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
     const promptToUse = scene.imagePromptZh?.trim() || scene.imagePrompt?.trim() 
       || scene.videoPromptZh?.trim() || scene.videoPrompt?.trim() || '';
     if (!promptToUse) {
-      toast.warning("请先填写Khung hình đầuGợi ý后再Tạoảnh");
+      toast.warning("Vui lòng điền Gợi ý Khung hình đầu trước khi Tạo ảnh");
       return;
     }
 
@@ -2073,7 +2073,7 @@ export function SplitScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
         const persistResult = await persistSceneImage(apiResult.imageUrl, sceneId, 'first');
         updateSplitSceneImage(sceneId, persistResult.localPath, scene.width, scene.height, persistResult.httpUrl || undefined);
         autoSaveImageToLibrary(sceneId, persistResult.localPath);
-        toast.success(`Phân cảnh ${sceneId + 1} Tạo ảnh hoàn tất，đã lưu到Thư viện phương tiện`);
+        toast.success(`Phân cảnh ${sceneId + 1} Tạo ảnh hoàn tất, đã lưu vào thư viện phương tiện`);
         setIsGenerating(false);
         return;
       }
@@ -2105,7 +2105,7 @@ export function SplitScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
 
           if (!statusResponse.ok) {
             if (statusResponse.status === 404) {
-              throw new Error('任务不存在');
+              throw new Error('Nhiệm vụ không tồn tại');
             }
             throw new Error(`Failed to check task status: ${statusResponse.status}`);
           }
@@ -2123,13 +2123,13 @@ export function SplitScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
             }
             imageUrl = imageUrl || normalizeUrlValue(statusData.output_url) || normalizeUrlValue(statusData.result_url) || normalizeUrlValue(statusData.url);
 
-            if (!imageUrl) throw new Error('任务Hoàn thành但没有ảnh URL');
+            if (!imageUrl) throw new Error('Nhiệm vụ hoàn thành nhưng không có ảnh URL');
             
             // 持久化到本地 + Lưu trữ ảnh
             const persistResult = await persistSceneImage(imageUrl, sceneId, 'first');
             updateSplitSceneImage(sceneId, persistResult.localPath, scene.width, scene.height, persistResult.httpUrl || undefined);
             autoSaveImageToLibrary(sceneId, persistResult.localPath);
-            toast.success(`Phân cảnh ${sceneId + 1} Tạo ảnh hoàn tất，đã lưu到Thư viện phương tiện`);
+            toast.success(`Phân cảnh ${sceneId + 1} Tạo ảnh hoàn tất, đã lưu vào thư viện phương tiện`);
             setIsGenerating(false);
             return;
           }
@@ -2142,18 +2142,18 @@ export function SplitScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
 
           await new Promise<void>((resolve, reject) => {
             const tid = setTimeout(resolve, pollInterval);
-            imageSignal.addEventListener('abort', () => { clearTimeout(tid); reject(new Error('用户已Hủy')); }, { once: true });
+            imageSignal.addEventListener('abort', () => { clearTimeout(tid); reject(new Error('Người dùng đã hủy')); }, { once: true });
           });
         }
-        throw new Error('Tạo ảnh超时');
+        throw new Error('Tạo ảnh quá thời gian chờ');
       }
 
       throw new Error('Invalid API response: no image URL or task ID');
     } catch (error) {
       const err = error as Error;
 
-      // 用户主动Hủy：abort() 触发的 AbortError 或Tùy chỉnh '用户已Hủy'
-      if (err.name === 'AbortError' || err.message === '用户已Hủy') {
+      // 用户主动Hủy：abort() 触发的 AbortError 或Tùy chỉnh 'Người dùng đã hủy'
+      if (err.name === 'AbortError' || err.message === 'Người dùng đã hủy') {
         console.log(`[SplitScenes] Scene ${sceneId} image generation cancelled by user`);
         setIsGenerating(false);
         return;
@@ -2275,7 +2275,7 @@ export function SplitScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
 
   const handleMergedGenerate = useCallback(async (mode: 'first'|'last'|'both', strategy: 'cluster'|'minimal'|'none' = 'cluster', exemplar: boolean = true) => {
     if (splitScenes.length === 0) {
-      toast.error('没有可Tạo的Phân cảnh');
+      toast.error('Không có phân cảnh nào để Tạo');
       return;
     }
 
@@ -2307,7 +2307,7 @@ export function SplitScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
     console.log('[MergedGen] Using config:', { platform, model, imageBaseUrl });
 
     setIsMergedRunning(true);
-    mergedAbortRef.current = false; // Đặt lạiDừng标志
+    mergedAbortRef.current = false; // Đặt lại cờ Dừng
     console.log('[MergedGen] Bắt đầu九宫格合并Tạo, mode:', mode, 'strategy:', strategy, 'exemplar:', exemplar);
 
     const aspect = storyboardConfig.aspectRatio || '9:16';
@@ -2327,7 +2327,7 @@ export function SplitScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
     // 构建任务 cột表（根据用户Chọn的 mode）
     const tasks: GridTask[] = [];
     for (const scene of splitScenes) {
-      if (isSceneCompleted(scene)) continue; // videoĐã hoàn thành，跳过
+      if (isSceneCompleted(scene)) continue; // Video đã hoàn thành, bỏ qua
       
       // 仅Khung hình đầu 或 首+尾：检查是否需要Khung hình đầu
       if ((mode === 'first' || mode === 'both') && !scene.imageDataUrl) {
@@ -2354,7 +2354,7 @@ export function SplitScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
     if (firstCount > 0) parts.push(`${firstCount}Khung hình đầu`);
     if (endCount > 0) parts.push(`${endCount}Khung hình cuối`);
     const completedCount = splitScenes.filter(isSceneCompleted).length;
-    const skipInfo = completedCount > 0 ? `（跳过${completedCount}Đã hoàn thànhvideo）` : '';
+    const skipInfo = completedCount > 0 ? `(bỏ qua ${completedCount} video đã hoàn thành)` : '';
     toast.info(`Bắt đầu九宫格合并Tạo：${parts.join('、')}${skipInfo}`);
 
     // 任务分页（每9任务一页，混合Khung hình đầu和Khung hình cuối）
@@ -2367,7 +2367,7 @@ export function SplitScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
     const collectRefsFromTasks = (pageTasks: GridTask[]): string[] => {
       if (strategy === 'none') return [];
       const refs: string[] = [];
-      const seenScenes = new Set<number>(); // 避免同一Cảnh重复收 tập
+      const seenScenes = new Set<number>(); // Tránh thu thập trùng lặp cùng một cảnh
       for (const task of pageTasks) {
         if (seenScenes.has(task.scene.id)) continue;
         seenScenes.add(task.scene.id);
@@ -2952,20 +2952,20 @@ export function SplitScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
     // 使用ánh xạ dịch vụ配置
     const featureConfig = getFeatureConfig('character_generation');
     if (!featureConfig) {
-      throw new Error('请先在Cài đặtđang xử lý...ạo ảnhánh xạ dịch vụ');
+      throw new Error('Vui lòng cấu hình ánh xạ dịch vụ Tạo ảnh trong Cài đặt');
     }
     const platform = featureConfig.platform;
     const model = featureConfig.models?.[0];
     if (!model) {
-      throw new Error('请先在Cài đặtđang xử lý...ạo ảnhModel');
+      throw new Error('Vui lòng chọn Model Tạo ảnh trong Cài đặt');
     }
     const apiKeyToUse = apiKey || featureConfig.keyManager.getCurrentKey() || '';
     if (!apiKeyToUse) {
-      throw new Error('请先在Cài đặtđang xử lý...ạo ảnhánh xạ dịch vụ');
+      throw new Error('Vui lòng cấu hình ánh xạ dịch vụ Tạo ảnh trong Cài đặt');
     }
     const imageBaseUrl = featureConfig.baseUrl?.replace(/\/+$/, '');
     if (!imageBaseUrl) {
-      throw new Error('请先在Cài đặtđang xử lý...ạo ảnhánh xạ dịch vụ');
+      throw new Error('Vui lòng cấu hình ánh xạ dịch vụ Tạo ảnh trong Cài đặt');
     }
 
     // Call image generation API with smart routing
@@ -3030,7 +3030,7 @@ export function SplitScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
       }
     }
 
-    if (!directUrl) throw new Error('任务Hoàn thành但没有ảnh URL');
+    if (!directUrl) throw new Error('Nhiệm vụ hoàn thành nhưng không có ảnh URL');
 
     const frameType = isEndFrame ? 'end' as const : 'first' as const;
     const persistResult = await persistSceneImage(directUrl, sceneId, frameType);
@@ -3231,7 +3231,7 @@ export function SplitScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
           });
 
           if (!statusResponse.ok) {
-            if (statusResponse.status === 404) throw new Error('任务不存在');
+            if (statusResponse.status === 404) throw new Error('Nhiệm vụ không tồn tại');
             throw new Error(`Failed to check task status: ${statusResponse.status}`);
           }
 
@@ -3247,7 +3247,7 @@ export function SplitScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
             }
             imageUrl = imageUrl || normalizeUrlValue(statusData.output_url) || normalizeUrlValue(statusData.url);
 
-            if (!imageUrl) throw new Error('任务Hoàn thành但没有ảnh URL');
+            if (!imageUrl) throw new Error('Nhiệm vụ hoàn thành nhưng không có ảnh URL');
             
             // 持久化到本地 + Lưu trữ ảnh
             const persistResult = await persistSceneImage(imageUrl, sceneId, 'end');
@@ -3274,7 +3274,7 @@ export function SplitScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
 
           await new Promise<void>((resolve, reject) => {
             const tid = setTimeout(resolve, pollInterval);
-            endFrameSignal.addEventListener('abort', () => { clearTimeout(tid); reject(new Error('用户已Hủy')); }, { once: true });
+            endFrameSignal.addEventListener('abort', () => { clearTimeout(tid); reject(new Error('Người dùng đã hủy')); }, { once: true });
           });
         }
         throw new Error('Khung hình cuốiTạo超时');
@@ -3284,8 +3284,8 @@ export function SplitScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
     } catch (error) {
       const err = error as Error;
 
-      // 用户主动Hủy：abort() 触发的 AbortError 或Tùy chỉnh '用户已Hủy'
-      if (err.name === 'AbortError' || err.message === '用户已Hủy') {
+      // 用户主动Hủy：abort() 触发的 AbortError 或Tùy chỉnh 'Người dùng đã hủy'
+      if (err.name === 'AbortError' || err.message === 'Người dùng đã hủy') {
         console.log(`[SplitScenes] Scene ${sceneId} end frame generation cancelled by user`);
         setIsGenerating(false);
         return;

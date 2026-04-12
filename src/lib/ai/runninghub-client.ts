@@ -126,7 +126,7 @@ export async function submitAngleSwitchTask(
 }
 
 /**
- * 查询任务状态
+ * Truy vấn nhiệm vụ状态
  */
 export async function queryTaskStatus(
   taskId: string,

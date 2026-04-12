@@ -406,12 +406,12 @@ async function ensureMinImageSize(
 
 // ==================== Tạo video主入sổ ====================
 
-/** AbortSignal 感知的 sleep：若信号触发则立即以 '用户已Hủy' 拒绝 */
+/** AbortSignal 感知的 sleep：若信号触发则立即以 'Người dùng đã hủy' 拒绝 */
 function sleepOrAbort(ms: number, signal?: AbortSignal): Promise<void> {
   return new Promise<void>((resolve, reject) => {
-    if (signal?.aborted) return reject(new Error('用户已Hủy'));
+    if (signal?.aborted) return reject(new Error('Người dùng đã hủy'));
     const tid = setTimeout(resolve, ms);
-    signal?.addEventListener('abort', () => { clearTimeout(tid); reject(new Error('用户已Hủy')); }, { once: true });
+    signal?.addEventListener('abort', () => { clearTimeout(tid); reject(new Error('Người dùng đã hủy')); }, { once: true });
   });
 }
 
@@ -464,7 +464,7 @@ export async function callVideoGenerationApi(
   console.log('[VideoGen] Detected API format:', { model, format, platform: resolvedPlatform });
 
   return retryOperation(() => {
-    if (signal?.aborted) return Promise.reject(new Error('用户已Hủy'));
+    if (signal?.aborted) return Promise.reject(new Error('Người dùng đã hủy'));
     // 每次Thử lại动态取当前 key（keyManager.handleError 已 rotate，需要用新 key）
     const currentApiKey = keyManager?.getCurrentKey?.() || apiKey;
     const keyHint = currentApiKey ? `${currentApiKey.substring(0, 8)}…` : '(none)';
@@ -837,7 +837,7 @@ async function callVolcVideoApi(
     );
 
     if (!statusResponse.ok) {
-      if (statusResponse.status === 404) throw new Error('任务不存在');
+      if (statusResponse.status === 404) throw new Error('Nhiệm vụ không tồn tại');
       console.warn('[VideoGen] Volc query failed:', statusResponse.status);
       await sleepOrAbort(pollInterval, signal);
       continue;
@@ -954,7 +954,7 @@ async function callWanVideoApi(
     );
 
     if (!statusResponse.ok) {
-      if (statusResponse.status === 404) throw new Error('任务不存在');
+      if (statusResponse.status === 404) throw new Error('Nhiệm vụ không tồn tại');
       console.warn('[VideoGen] Wan query failed:', statusResponse.status);
       await sleepOrAbort(pollInterval, signal);
       continue;
@@ -1088,7 +1088,7 @@ async function callKlingVideoApi(
     });
 
     if (!statusResponse.ok) {
-      if (statusResponse.status === 404) throw new Error('任务不存在');
+      if (statusResponse.status === 404) throw new Error('Nhiệm vụ không tồn tại');
       console.warn('[VideoGen] Kling query failed:', statusResponse.status);
       continue;
     }
@@ -1628,7 +1628,7 @@ export async function callJuxinVideoGenerationApi(
 
     if (!statusResponse.ok) {
       if (statusResponse.status === 404) {
-        throw new Error('任务不存在');
+        throw new Error('Nhiệm vụ không tồn tại');
       }
       console.warn('[VideoGen] Grok query failed:', statusResponse.status);
       await sleepOrAbort(pollInterval, signal);

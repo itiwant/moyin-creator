@@ -97,20 +97,20 @@ export async function callImageGenerationApi(
 ): Promise<{ imageUrl: string; httpUrl: string }> {
   const featureConfig = getImageApiConfig();
   if (!featureConfig) {
-    throw new Error('请先在Cài đặtđang xử lý...ạo ảnhánh xạ dịch vụ');
+    throw new Error('Vui lòng cấu hình ánh xạ dịch vụ Tạo ảnh trong Cài đặt');
   }
   const platform = featureConfig.platform;
   const model = featureConfig.models?.[0];
   if (!model) {
-    throw new Error('请先在Cài đặtđang xử lý...ạo ảnhModel');
+    throw new Error('Vui lòng chọn Model Tạo ảnh trong Cài đặt');
   }
   const apiKeyToUse = apiKey || featureConfig.keyManager?.getCurrentKey?.() || '';
   if (!apiKeyToUse) {
-    throw new Error('请先在Cài đặtđang xử lý...ạo ảnhánh xạ dịch vụ');
+    throw new Error('Vui lòng cấu hình ánh xạ dịch vụ Tạo ảnh trong Cài đặt');
   }
   const imageBaseUrl = featureConfig.baseUrl?.replace(/\/+$/, '');
   if (!imageBaseUrl) {
-    throw new Error('请先在Cài đặtđang xử lý...ạo ảnhánh xạ dịch vụ');
+    throw new Error('Vui lòng cấu hình ánh xạ dịch vụ Tạo ảnh trong Cài đặt');
   }
   // Call image generation API with smart routing (auto-selects chat/completions or images/generations)
   const imageKeyManager = featureConfig.keyManager;
@@ -143,7 +143,7 @@ export async function callImageGenerationApi(
 
     for (let attempt = 0; attempt < maxAttempts; attempt++) {
       // 检查外部đang xử lý...
-      if (signal?.aborted) throw new Error('用户已Hủy');
+      if (signal?.aborted) throw new Error('Người dùng đã hủy');
 
       const progress = Math.min(Math.floor((attempt / maxAttempts) * 100), 99);
       onProgress?.(progress);
@@ -161,7 +161,7 @@ export async function callImageGenerationApi(
       });
 
       if (!statusResponse.ok) {
-        if (statusResponse.status === 404) throw new Error('任务不存在');
+        if (statusResponse.status === 404) throw new Error('Nhiệm vụ không tồn tại');
         throw new Error(`Failed to check task status: ${statusResponse.status}`);
       }
 
@@ -196,10 +196,10 @@ export async function callImageGenerationApi(
 
       await new Promise<void>((resolve, reject) => {
         const tid = setTimeout(resolve, pollInterval);
-        signal?.addEventListener('abort', () => { clearTimeout(tid); reject(new Error('用户已Hủy')); }, { once: true });
+        signal?.addEventListener('abort', () => { clearTimeout(tid); reject(new Error('Người dùng đã hủy')); }, { once: true });
       });
     }
-    throw new Error('Tạo ảnh超时');
+    throw new Error('Tạo ảnh quá thời gian chờ');
   }
 
   throw new Error('Invalid API response: no image URL or task ID');

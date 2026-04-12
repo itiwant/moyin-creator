@@ -216,7 +216,7 @@ export function SceneGallery({ onSceneSelect, selectedSceneId }: SceneGalleryPro
     return result;
   };
   
-  // 最终Hiện的Cảnh cột表（带层级）
+  // 最终Hiện的Danh sách cảnh（带层级）
   const currentScenes = useMemo(() => {
     return buildSceneTree(rootScenes);
   }, [rootScenes, childScenesMap, expandedScenes]);

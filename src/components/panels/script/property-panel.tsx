@@ -191,31 +191,31 @@ export function PropertyPanel({
     
     // 多视角联合图（AI视角phân tích的产出）
     if (scene.viewpoints && scene.viewpoints.length > 0) {
-      lines.push(`## 多视角联合图（AIphân tích）`);
-      lines.push(`视角数量：${scene.viewpoints.length} `);
+      lines.push(`## Ảnh kết hợp đa góc nhìn (AI phân tích)`);
+      lines.push(`Số góc nhìn: ${scene.viewpoints.length}`);
       lines.push('');
       scene.viewpoints.forEach((vp, idx) => {
-        lines.push(`### 视角 ${idx + 1}: ${vp.name}`);
+        lines.push(`### Góc nhìn ${idx + 1}: ${vp.name}`);
         lines.push(`- ID: ${vp.id}`);
         if (vp.nameEn) lines.push(`- Tên tiếng Anh: ${vp.nameEn}`);
-        if (vp.keyProps && vp.keyProps.length > 0) lines.push(`- quan trọng道具: ${vp.keyProps.join('、')}`);
-        if (vp.shotIds && vp.shotIds.length > 0) lines.push(`- 关联Phân cảnhID: ${vp.shotIds.join(', ')}`);
-        lines.push(`- 网格位置: ${vp.gridIndex}`);
+        if (vp.keyProps && vp.keyProps.length > 0) lines.push(`- Đạo cụ quan trọng: ${vp.keyProps.join('、')}`);
+        if (vp.shotIds && vp.shotIds.length > 0) lines.push(`- ID Phân cảnh liên kết: ${vp.shotIds.join(', ')}`);
+        lines.push(`- Vị trí lưới: ${vp.gridIndex}`);
         lines.push('');
       });
     }
     
     // 出Thống kê cảnh
     if (scene.importance || scene.appearanceCount || scene.episodeNumbers?.length) {
-      lines.push(`## 出Thống kê cảnh`);
+      lines.push(`## Thống kê cảnh`);
       if (scene.importance) {
         const importanceLabel = scene.importance === 'main' ? 'Cảnh chính' : 
                                scene.importance === 'secondary' ? 'Cảnh phụ' : 'Cảnh chuyển tiếp';
-        lines.push(`重要程度：${importanceLabel}`);
+        lines.push(`Mức độ quan trọng: ${importanceLabel}`);
       }
-      if (scene.appearanceCount) lines.push(`出Cảnh次数：${scene.appearanceCount} 次`);
+      if (scene.appearanceCount) lines.push(`Số lần xuất hiện: ${scene.appearanceCount} lần`);
       if (scene.episodeNumbers && scene.episodeNumbers.length > 0) {
-        lines.push(`出现 tập数：第 ${scene.episodeNumbers.join(', ')}  tập`);
+        lines.push(`Xuất hiện trong tập: ${scene.episodeNumbers.join(', ')}`);
       }
       lines.push('');
     }
@@ -237,22 +237,22 @@ export function PropertyPanel({
     
     // 格式化Nhân vật数据
     const lines: string[] = [];
-    lines.push(`# Nhân vật设定：${character.name}`);
+    lines.push(`# Ảnh thiết kế nhân vật: ${character.name}`);
     lines.push('');
     
     // 基本信息（优先显示）
     if (character.gender || character.age) {
-      lines.push(`## 基本信息`);
+      lines.push(`## Thông tin cơ bản`);
       const basicInfo: string[] = [];
       if (character.gender) basicInfo.push(`Giới tính：${character.gender}`);
-      if (character.age) basicInfo.push(`年龄：${character.age}`);
+      if (character.age) basicInfo.push(`Tuổi: ${character.age}`);
       lines.push(basicInfo.join(' | '));
       lines.push('');
     }
     
     // 身份/nền（主要描述）
     if (character.role) {
-      lines.push(`## 身份/nền`);
+      lines.push(`## Danh tính/Nền`);
       lines.push(character.role);
       lines.push('');
     }
@@ -287,7 +287,7 @@ export function PropertyPanel({
     
     // quan trọng hàng为/事迹
     if (character.keyActions) {
-      lines.push(`## quan trọng hàng为/事迹`);
+      lines.push(`## Hành động/Sự tích quan trọng`);
       lines.push(character.keyActions);
       lines.push('');
     }

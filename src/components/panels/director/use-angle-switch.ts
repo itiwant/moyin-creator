@@ -143,7 +143,7 @@ export function useAngleSwitch({
       const history = angleSwitchTarget.type === "start" 
         ? (updatedScene?.startFrameAngleSwitchHistory || [])
         : (updatedScene?.endFrameAngleSwitchHistory || []);
-      setSelectedHistoryIndex(history.length - 1); // đã chọn最新的
+      setSelectedHistoryIndex(history.length - 1); // đã chọn mới nhất
 
       setAngleSwitchResult({
         originalImage,
@@ -154,7 +154,7 @@ export function useAngleSwitch({
       setAngleSwitchOpen(false);
       setAngleSwitchResultOpen(true);
 
-      toast.success("Chuyển góc nhìnTạo完成");
+      toast.success("Tạo chuyển góc nhìn hoàn tất");
     } catch (error) {
       toast.error(`Chuyển góc nhìnThất bại: ${(error as Error).message}`);
     } finally {
@@ -187,7 +187,7 @@ export function useAngleSwitch({
     setAngleSwitchResult(null);
     setAngleSwitchTarget(null);
     setSelectedHistoryIndex(-1);
-    toast.success("Góc nhìn已Áp dụng");
+    toast.success("Đã áp dụng góc nhìn");
   }, [angleSwitchResult, angleSwitchTarget, splitScenes, selectedHistoryIndex, updateSplitSceneImage, updateSplitSceneEndFrame]);
 
   // Helper to get history for current target

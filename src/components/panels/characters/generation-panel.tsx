@@ -115,7 +115,7 @@ export function GenerationPanel({ selectedCharacter, onCharacterCreated }: Gener
   const [tags, setTags] = useState<string[]>([]);  // Thẻ nhân vật
   const [notes, setNotes] = useState("");           // Ghi chú nhân vật
   // === 专业Nhân vậtThiết kếtrường（世界级大师Tạo）===
-  const [visualPromptEn, setVisualPromptEn] = useState(""); // 英文Prompt thị giác
+  const [visualPromptEn, setVisualPromptEn] = useState(""); // Prompt thị giác tiếng Anh
   const [visualPromptZh, setVisualPromptZh] = useState(""); // đang xử lý...ompt thị giác
   // === 6层身份neo ===
   const [identityAnchors, setIdentityAnchors] = useState<CharacterIdentityAnchors | undefined>();
@@ -137,7 +137,7 @@ export function GenerationPanel({ selectedCharacter, onCharacterCreated }: Gener
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const [previewCharacterId, setPreviewCharacterId] = useState<string | null>(null);
   
-  // AI Hiệu chuẩn信息折叠区Trạng thái：有数据时Mặc địnhMở rộng
+  // Khu vực thu gọn thông tin Hiệu chuẩn AITrạng thái：有数据时Mặc địnhMở rộng
   const [calibrationExpanded, setCalibrationExpanded] = useState(true);
   const [isManuallyModified, setIsManuallyModified] = useState(false);
 
@@ -388,7 +388,7 @@ export function GenerationPanel({ selectedCharacter, onCharacterCreated }: Gener
         visualPromptZh,
         effectiveLang,
         identityAnchors,
-        referenceImages.length > 0,  // 有Ảnh tham chiếu时简化Mô tả
+        referenceImages.length > 0,  // Đơn giản hóa mô tả khi có Ảnh tham chiếu
         storyYear,
         era
       );
@@ -492,7 +492,7 @@ export function GenerationPanel({ selectedCharacter, onCharacterCreated }: Gener
             <div className="relative rounded-lg overflow-hidden border-2 border-amber-500/50 bg-muted">
               <img 
                 src={previewUrl} 
-                alt="Nhân vật设定Xem trước"
+                alt="Xem trước ảnh thiết kế nhân vật"
                 className="w-full h-auto"
               />
               <div className="absolute top-2 left-2 bg-amber-500 text-white text-xs px-2 py-1 rounded">
@@ -519,7 +519,7 @@ export function GenerationPanel({ selectedCharacter, onCharacterCreated }: Gener
   return (
     <div className="h-full flex flex-col overflow-hidden">
       <div className="p-3 pb-2 border-b shrink-0">
-        <h3 className="font-medium text-sm">Tạo控制台</h3>
+        <h3 className="font-medium text-sm">Bảng điều khiển tạo</h3>
       </div>
       
       <div className="flex-1 min-h-0 overflow-y-auto">
@@ -530,7 +530,7 @@ export function GenerationPanel({ selectedCharacter, onCharacterCreated }: Gener
             <Input
               value={name}
               onChange={(e) => setName(e.target.value)}
-              placeholder="例如：小明、机器猫"
+              placeholder="Ví dụ: Tiểu Minh, Mèo máy"
               disabled={isGenerating}
             />
           </div>
@@ -551,7 +551,7 @@ export function GenerationPanel({ selectedCharacter, onCharacterCreated }: Gener
               </Select>
             </div>
             <div className="space-y-2">
-              <Label className="text-xs">年龄段</Label>
+              <Label className="text-xs">Độ tuổi</Label>
               <Select value={age} onValueChange={setAge} disabled={isGenerating}>
                 <SelectTrigger>
                   <SelectValue placeholder="Chọn" />
@@ -571,7 +571,7 @@ export function GenerationPanel({ selectedCharacter, onCharacterCreated }: Gener
             <Input
               value={personality}
               onChange={(e) => setPersonality(e.target.value)}
-              placeholder="开朗、勇敢..."
+              placeholder="Vui vẻ, dũng cảm..."
               disabled={isGenerating}
             />
           </div>
@@ -582,16 +582,16 @@ export function GenerationPanel({ selectedCharacter, onCharacterCreated }: Gener
             <Textarea
               value={description}
               onChange={(e) => setDescription(e.target.value)}
-              placeholder="详细Mô tảNhân vậtngoại hình..."
+              placeholder="Mô tả chi tiết ngoại hình nhân vật..."
               className="min-h-[80px] text-sm resize-none"
               disabled={isGenerating}
             />
           </div>
 
-          {/* AI Hiệu chuẩn信息折叠区 */}
+          {/* Khu vực thu gọn thông tin Hiệu chuẩn AI */}
           {hasCalibrationData && (
             <div className="border rounded-lg overflow-hidden">
-              {/* 折叠区Đầu */}
+              {/* Đầu khu vực thu gọn */}
               <button
                 type="button"
                 className="w-full flex items-center justify-between p-2 hover:bg-muted/50 transition-colors"
@@ -604,18 +604,18 @@ export function GenerationPanel({ selectedCharacter, onCharacterCreated }: Gener
                   ) : (
                     <ChevronRight className="h-4 w-4 text-muted-foreground" />
                   )}
-                  <span className="text-xs font-medium">AI Hiệu chuẩn信息</span>
+                  <span className="text-xs font-medium">Thông tin Hiệu chuẩn AI</span>
                 </div>
                 <div className="flex items-center gap-1">
                   {isManuallyModified ? (
                     <>
                       <AlertTriangle className="h-3 w-3 text-amber-500" />
-                      <span className="text-[10px] text-amber-500">已修改</span>
+                      <span className="text-[10px] text-amber-500">Đã sửa</span>
                     </>
                   ) : (
                     <>
                       <CheckCircle2 className="h-3 w-3 text-green-500" />
-                      <span className="text-[10px] text-green-500">已Hiệu chuẩn</span>
+                      <span className="text-[10px] text-green-500">Đã hiệu chuẩn</span>
                     </>
                   )}
                 </div>
@@ -1009,7 +1009,7 @@ export function GenerationPanel({ selectedCharacter, onCharacterCreated }: Gener
                 // AI Hiệu chuẩn信息
                 if (hasCalibrationData) {
                   lines.push('');
-                  lines.push(`AI Hiệu chuẩn信息: ${isManuallyModified ? '已修改' : '已Hiệu chuẩn'}`);
+                  lines.push(`AI Hiệu chuẩn信息: ${isManuallyModified ? 'Đã sửa' : '已Hiệu chuẩn'}`);
                   
                   // 6层身份neo
                   if (identityAnchors) {

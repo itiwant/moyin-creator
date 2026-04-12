@@ -7,7 +7,7 @@ export type CompletionStatus = 'pending' | 'in_progress' | 'completed';
 // 提示词Ngôn ngữTùy chọn
 export type PromptLanguage = 'zh' | 'en' | 'zh+en';
 
-// AI角色Hiệu chuẩn严格度
+// AI角色Mức độ chặt chẽ hiệu chuẩn
 export type CalibrationStrictness = 'strict' | 'normal' | 'loose';
 
 /** 被lọc的角色记录（用于恢复） */

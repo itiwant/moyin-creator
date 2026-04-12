@@ -837,7 +837,7 @@ async function pollForVariationImage(
       });
 
       if (!response.ok) {
-        if (response.status === 404) throw new Error('任务不存在');
+        if (response.status === 404) throw new Error('Nhiệm vụ không tồn tại');
         continue;
       }
 
@@ -868,5 +868,5 @@ async function pollForVariationImage(
     }
   }
 
-  throw new Error('Tạo ảnh超时');
+  throw new Error('Tạo ảnh quá thời gian chờ');
 }

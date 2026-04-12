@@ -172,7 +172,7 @@ function buildCharacterContext(project: any, character: any): {
   const characterBio = [
     character.name,
     character.gender ? `Giới tính：${character.gender}` : '',
-    character.age ? `年龄：${character.age}` : '',
+    character.age ? `Tuổi: ${character.age}` : '',
     character.personality ? `性格：${character.personality}` : '',
     character.role ? `身份：${character.role}` : '',
     character.traits ? `特质：${character.traits}` : '',

@@ -146,7 +146,7 @@ interface EpisodeTreeProps {
   // 单Phân cảnhHiệu chuẩn callback
   onCalibrateSingleShot?: (shotId: string) => void;
   singleShotCalibrationStatus?: Record<string, 'idle' | 'calibrating' | 'completed' | 'error'>;
-  // Hiệu chuẩn严格度相关
+  // Mức độ chặt chẽ hiệu chuẩn相关
   calibrationStrictness?: CalibrationStrictness;
   onCalibrationStrictnessChange?: (strictness: CalibrationStrictness) => void;
   lastFilteredCharacters?: FilteredCharacterRecord[];
@@ -202,7 +202,7 @@ export function EpisodeTree({
   // 单Phân cảnhHiệu chuẩn
   onCalibrateSingleShot,
   singleShotCalibrationStatus,
-  // Hiệu chuẩn严格度相关
+  // Mức độ chặt chẽ hiệu chuẩn相关
   calibrationStrictness,
   onCalibrationStrictnessChange,
   lastFilteredCharacters,
@@ -661,7 +661,7 @@ export function EpisodeTree({
         </Tabs>
       </div>
 
-      {/* tiêu đề和进度 - 仅在Cấu trúc tập phim Tab 显示 */}
+      {/* Tiêu đề và tiến độ - chỉ hiển thị trong Tab Cấu trúc tập phim */}
       {activeTab === "structure" && (
         <div className="p-3 border-b">
           <div className="flex items-center justify-between">
@@ -678,7 +678,7 @@ export function EpisodeTree({
         </div>
       )}
 
-      {/* 筛选 + 新建nút - 仅在Cấu trúc tập phim Tab 显示 */}
+      {/* Lọc + nút Tạo mới - chỉ hiển thị trong Tab Cấu trúc tập phim */}
       {activeTab === "structure" && (
         <div className="px-3 py-2 border-b flex items-center justify-between">
           <div className="flex items-center gap-1">
@@ -869,11 +869,11 @@ export function EpisodeTree({
         </div>
       )}
 
-      {/* Cấu trúc tập phim Tab Nội dung - 树形Cấu trúc */}
+      {/* Nội dung Tab Cấu trúc tập phim - Cấu trúc dạng cây */}
       {activeTab === "structure" && (
       <ScrollArea className="flex-1">
         <div className="p-2 pb-20 space-y-1">
-          {/*  tập cột表 */}
+          {/*  Danh sách tập */}
           {episodes.map((episode) => {
             const episodeScenes = scriptData.scenes.filter((s) =>
               episode.sceneIds.includes(s.id)
@@ -932,7 +932,7 @@ export function EpisodeTree({
                           {episodeGenerationStatus?.[episode.index] === 'generating' ? (
                             <><Loader2 className="h-3 w-3 mr-2 animate-spin" />Đang tạo...</>
                           ) : episodeGenerationStatus?.[episode.index] === 'completed' ? (
-                            <><RefreshCw className="h-3 w-3 mr-2" />更新Phân cảnh</>
+                            <><RefreshCw className="h-3 w-3 mr-2" />Cập nhật phân cảnh</>
                           ) : (
                             <><Wand2 className="h-3 w-3 mr-2" />Tạo phân cảnh</>
                           )}
@@ -970,7 +970,7 @@ export function EpisodeTree({
                   </DropdownMenu>
                 </div>
 
-                {/* Cảnh cột表 */}
+                {/* Danh sách cảnh */}
                 {expandedEpisodes.has(episode.id) && (
                   <div className="ml-4 space-y-0.5">
                     {episodeScenes.map((scene) => {
@@ -1001,7 +1001,7 @@ export function EpisodeTree({
                               ) : (
                                 <span className="w-3" />
                               )}
-                              {/* Trạng thái tạo phân cảnhchỉ thị器 */}
+                              {/* Chỉ thị trạng thái tạo phân cảnh */}
                               {shotStatus === "generating" && sceneShots.length === 0 ? (
                                 <Loader2 className="h-3 w-3 text-primary animate-spin" />
                               ) : (
@@ -1101,7 +1101,7 @@ export function EpisodeTree({
             );
           })}
 
-          {/* Danh sách nhân vật - 分为nhân vật chính组和群演nhân vật phụ组 */}
+          {/* Danh sách nhân vật - chia thành nhóm nhân vật chính và nhóm quần chúng nhân vật phụ */}
           {(() => {
             // lọc掉Nhân vật cha，并去重
             const seenIds = new Set<string>();
@@ -1113,7 +1113,7 @@ export function EpisodeTree({
                 return true;
               });
             
-            // 分组：nhân vật chính组 (protagonist, supporting) 和 群演nhân vật phụ组 (minor, extra)
+            // 分组：Nhóm nhân vật chính (protagonist, supporting) 和 群演nhân vật phụ组 (minor, extra)
             const mainCharacters = allCharacters.filter(c => {
               const tags = c.tags || [];
               return tags.includes('protagonist') || tags.includes('supporting');
@@ -1157,7 +1157,7 @@ export function EpisodeTree({
             
             return (
               <>
-                {/* nhân vật chính组 */}
+                {/* Nhóm nhân vật chính */}
                 <div className="mt-4 pt-4 border-t">
                   <div className="px-2 py-1 text-xs font-medium text-muted-foreground flex items-center justify-between">
                     <div className="flex items-center gap-1">
@@ -1188,15 +1188,15 @@ export function EpisodeTree({
                             <DropdownMenuSeparator />
                             <DropdownMenuSub>
                               <DropdownMenuSubTrigger className="text-xs">
-                                <Wand2 className="h-3 w-3 mr-2" />Hiệu chuẩn严格度
+                                <Wand2 className="h-3 w-3 mr-2" />Mức độ chặt chẽ hiệu chuẩn
                               </DropdownMenuSubTrigger>
                               <DropdownMenuSubContent>
                                 <DropdownMenuRadioGroup
                                   value={calibrationStrictness || 'normal'}
                                   onValueChange={(v) => onCalibrationStrictnessChange?.(v as CalibrationStrictness)}
                                 >
-                                  <DropdownMenuRadioItem value="strict" className="text-xs">严格</DropdownMenuRadioItem>
-                                  <DropdownMenuRadioItem value="normal" className="text-xs">标准</DropdownMenuRadioItem>
+                                  <DropdownMenuRadioItem value="strict" className="text-xs">Chặt chẽ</DropdownMenuRadioItem>
+                                  <DropdownMenuRadioItem value="normal" className="text-xs">Tiêu chuẩn</DropdownMenuRadioItem>
                                   <DropdownMenuRadioItem value="loose" className="text-xs">宽松</DropdownMenuRadioItem>
                                 </DropdownMenuRadioGroup>
                               </DropdownMenuSubContent>

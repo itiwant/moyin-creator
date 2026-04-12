@@ -118,7 +118,7 @@ export interface PendingCharacterData {
   // === promptNgôn ngữ偏好（从Kịch bản面板透传）===
   promptLanguage?: import('@/types/script').PromptLanguage;  // 'vi' | 'en' | 'vi+en'
   // === 专业Nhân vậtThiết kếtrường（世界级大师Tạo） ===
-  visualPromptEn?: string;  // 英文Prompt thị giác
+  visualPromptEn?: string;  // Prompt thị giác tiếng Anh
   visualPromptZh?: string;  // đang xử lý...ompt thị giác
   // === 6层身份neo（Nhân vật一致性） ===
   identityAnchors?: CharacterIdentityAnchors;  // Neo danh tính - khóa 6 lớp đặc trưng

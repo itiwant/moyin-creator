@@ -130,54 +130,54 @@ export const DEPTH_OF_FIELD_PRESETS = [
 // 转焦预设
 export const FOCUS_TRANSITION_PRESETS = [
   { id: 'none' as const, label: 'Tiêu cự cố định', labelEn: 'None', promptToken: '' },
-  { id: 'rack-to-fg' as const, label: '转焦到前景', labelEn: 'Rack to FG', promptToken: 'rack focus to foreground,' },
-  { id: 'rack-to-bg' as const, label: '转焦到背景', labelEn: 'Rack to BG', promptToken: 'rack focus to background,' },
-  { id: 'rack-between' as const, label: 'nhân vật间转焦', labelEn: 'Rack Between', promptToken: 'rack focus between characters,' },
-  { id: 'pull-focus' as const, label: '跟焦', labelEn: 'Pull Focus', promptToken: 'pull focus following subject movement,' },
+  { id: 'rack-to-fg' as const, label: 'Chuyển tiêu điểm đến tiền cảnh', labelEn: 'Rack to FG', promptToken: 'rack focus to foreground,' },
+  { id: 'rack-to-bg' as const, label: 'Chuyển tiêu điểm đến hậu cảnh', labelEn: 'Rack to BG', promptToken: 'rack focus to background,' },
+  { id: 'rack-between' as const, label: 'Chuyển tiêu điểm giữa nhân vật', labelEn: 'Rack Between', promptToken: 'rack focus between characters,' },
+  { id: 'pull-focus' as const, label: 'Theo tiêu điểm', labelEn: 'Pull Focus', promptToken: 'pull focus following subject movement,' },
 ] as const;
 
 // 器材预设 (Camera Rig)
 export const CAMERA_RIG_PRESETS = [
-  { id: 'tripod' as const, label: '三脚架', labelEn: 'Tripod', emoji: '📐', promptToken: 'static tripod shot,' },
+  { id: 'tripod' as const, label: 'Chân máy ba chân', labelEn: 'Tripod', emoji: '📐', promptToken: 'static tripod shot,' },
   { id: 'handheld' as const, label: 'Cầm tay', labelEn: 'Handheld', emoji: '🤲', promptToken: 'handheld camera, slight shake, documentary feel,' },
-  { id: 'steadicam' as const, label: '斯坦尼康', labelEn: 'Steadicam', emoji: '🎥', promptToken: 'smooth steadicam shot,' },
-  { id: 'dolly' as const, label: '轨道', labelEn: 'Dolly', emoji: '🛤️', promptToken: 'dolly tracking shot, smooth rail movement,' },
-  { id: 'crane' as const, label: '摇臂', labelEn: 'Crane', emoji: '🏗️', promptToken: 'crane shot, sweeping vertical movement,' },
-  { id: 'drone' as const, label: '航拍', labelEn: 'Drone', emoji: '🚁', promptToken: 'aerial drone shot, bird\'s eye perspective,' },
-  { id: 'shoulder' as const, label: '肩扛', labelEn: 'Shoulder', emoji: '💪', promptToken: 'shoulder-mounted camera, subtle movement,' },
-  { id: 'slider' as const, label: '滑轨', labelEn: 'Slider', emoji: '↔️', promptToken: 'slider shot, short smooth lateral movement,' },
+  { id: 'steadicam' as const, label: 'Steadicam', labelEn: 'Steadicam', emoji: '🎥', promptToken: 'smooth steadicam shot,' },
+  { id: 'dolly' as const, label: 'Dolly', labelEn: 'Dolly', emoji: '🛤️', promptToken: 'dolly tracking shot, smooth rail movement,' },
+  { id: 'crane' as const, label: 'Cần máy', labelEn: 'Crane', emoji: '🏗️', promptToken: 'crane shot, sweeping vertical movement,' },
+  { id: 'drone' as const, label: 'Quay drone', labelEn: 'Drone', emoji: '🚁', promptToken: 'aerial drone shot, bird\'s eye perspective,' },
+  { id: 'shoulder' as const, label: 'Cầm vai', labelEn: 'Shoulder', emoji: '💪', promptToken: 'shoulder-mounted camera, subtle movement,' },
+  { id: 'slider' as const, label: 'Thanh trượt', labelEn: 'Slider', emoji: '↔️', promptToken: 'slider shot, short smooth lateral movement,' },
 ] as const;
 
 // 运动Tốc độ预设
 export const MOVEMENT_SPEED_PRESETS = [
-  { id: 'very-slow' as const, label: '极慢', labelEn: 'Very Slow', promptToken: 'very slow camera movement,' },
-  { id: 'slow' as const, label: '慢', labelEn: 'Slow', promptToken: 'slow camera movement,' },
-  { id: 'normal' as const, label: '正常', labelEn: 'Normal', promptToken: '' },
-  { id: 'fast' as const, label: '快', labelEn: 'Fast', promptToken: 'fast camera movement,' },
-  { id: 'very-fast' as const, label: '极快', labelEn: 'Very Fast', promptToken: 'very fast camera movement,' },
+  { id: 'very-slow' as const, label: 'Cực chậm', labelEn: 'Very Slow', promptToken: 'very slow camera movement,' },
+  { id: 'slow' as const, label: 'Chậm', labelEn: 'Slow', promptToken: 'slow camera movement,' },
+  { id: 'normal' as const, label: 'Bình thường', labelEn: 'Normal', promptToken: '' },
+  { id: 'fast' as const, label: 'Nhanh', labelEn: 'Fast', promptToken: 'fast camera movement,' },
+  { id: 'very-fast' as const, label: 'Cực nhanh', labelEn: 'Very Fast', promptToken: 'very fast camera movement,' },
 ] as const;
 
 // Bầu không khí特效预设 (On-set SFX)
 export const ATMOSPHERIC_EFFECT_PRESETS = {
   weather: [
-    { id: 'rain' as const, label: '雨', emoji: '🌧️', promptToken: 'rain' },
-    { id: 'heavy-rain' as const, label: '暴雨', emoji: '⛈️', promptToken: 'heavy rain pouring' },
-    { id: 'snow' as const, label: '雪', emoji: '❄️', promptToken: 'snow falling' },
-    { id: 'blizzard' as const, label: '暴风雪', emoji: '🌨️', promptToken: 'blizzard, heavy snowstorm' },
-    { id: 'fog' as const, label: '浓雾', emoji: '🌫️', promptToken: 'dense fog' },
-    { id: 'mist' as const, label: '薄雾', emoji: '🌁', promptToken: 'light mist' },
+    { id: 'rain' as const, label: 'Mưa', emoji: '🌧️', promptToken: 'rain' },
+    { id: 'heavy-rain' as const, label: 'Mưa bão', emoji: '⛈️', promptToken: 'heavy rain pouring' },
+    { id: 'snow' as const, label: 'Tuyết', emoji: '❄️', promptToken: 'snow falling' },
+    { id: 'blizzard' as const, label: 'Bão tuyết', emoji: '🌨️', promptToken: 'blizzard, heavy snowstorm' },
+    { id: 'fog' as const, label: 'Sương mù dày', emoji: '🌫️', promptToken: 'dense fog' },
+    { id: 'mist' as const, label: 'Sương mù nhẹ', emoji: '🌁', promptToken: 'light mist' },
   ],
   environment: [
-    { id: 'dust' as const, label: '尘土', emoji: '💨', promptToken: 'dust particles in air' },
-    { id: 'sandstorm' as const, label: '沙暴', emoji: '🏜️', promptToken: 'sandstorm' },
-    { id: 'smoke' as const, label: '烟雾', emoji: '💨', promptToken: 'smoke' },
-    { id: 'haze' as const, label: '薄霾', emoji: '🌫️', promptToken: 'atmospheric haze' },
-    { id: 'fire' as const, label: '火焰', emoji: '🔥', promptToken: 'fire, flames' },
-    { id: 'sparks' as const, label: '火花', emoji: '✨', promptToken: 'sparks flying' },
+    { id: 'dust' as const, label: 'Bụi đất', emoji: '💨', promptToken: 'dust particles in air' },
+    { id: 'sandstorm' as const, label: 'Bão cát', emoji: '🏜️', promptToken: 'sandstorm' },
+    { id: 'smoke' as const, label: 'Khói', emoji: '💨', promptToken: 'smoke' },
+    { id: 'haze' as const, label: 'Sương mù mỏng', emoji: '🌫️', promptToken: 'atmospheric haze' },
+    { id: 'fire' as const, label: 'Lửa', emoji: '🔥', promptToken: 'fire, flames' },
+    { id: 'sparks' as const, label: 'Tia lửa', emoji: '✨', promptToken: 'sparks flying' },
   ],
   artistic: [
-    { id: 'lens-flare' as const, label: 'Ống kính光晕', emoji: '🌟', promptToken: 'lens flare' },
-    { id: 'light-rays' as const, label: '丁达尔效应', emoji: '🌅', promptToken: 'god rays, light rays through atmosphere' },
+    { id: 'lens-flare' as const, label: 'Quầng sáng ống kính', emoji: '🌟', promptToken: 'lens flare' },
+    { id: 'light-rays' as const, label: 'Hiệu ứng Tyndall', emoji: '🌅', promptToken: 'god rays, light rays through atmosphere' },
     { id: 'falling-leaves' as const, label: '落叶', emoji: '🍂', promptToken: 'falling leaves' },
     { id: 'cherry-blossom' as const, label: '樱花', emoji: '🌸', promptToken: 'cherry blossom petals floating' },
     { id: 'fireflies' as const, label: '萤火虫', emoji: '✨', promptToken: 'fireflies glowing' },
