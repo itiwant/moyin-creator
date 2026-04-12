@@ -1981,7 +1981,7 @@ export function SClassScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
 
   const buildAnchorPhrase = (styleTokens?: string[]) => {
     const style = styleTokens && styleTokens.length > 0 ? `Artistic style consistent: ${styleTokens.join(', ')}. ` : '';
-    // 强制禁止Tạovăn bản，防止出现Chat气泡、字幕等
+    // 强制bị cấmTạovăn bản，防止出现Chat气泡、字幕等
     const noTextConstraint = 'IMPORTANT: NO TEXT, NO WORDS, NO LETTERS, NO CAPTIONS, NO SPEECH BUBBLES, NO DIALOGUE BOXES, NO SUBTITLES, NO WRITING of any kind.';
     return `${style}Keep character appearance, wardrobe and facial features consistent. Keep lighting and color grading consistent. ${noTextConstraint}`;
   };
@@ -2051,14 +2051,14 @@ export function SClassScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
     const fullStyleNegative = getStyleNegativePrompt(currentStyleId);
     const dedup = (arr: string[]) => Array.from(new Set(arr.filter(Boolean)));
 
-    // === 统一任务 cột表方案：Hỗ trợ混合lưới 9 ô ===
-    // 任务Loại定义
+    // === 统一nhiệm vụ cột表方案：Hỗ trợ混合lưới 9 ô ===
+    // nhiệm vụLoại定义
     type GridTask = { scene: SplitScene; type: 'first' | 'end' };
     
     // Quan trọng:videođã tạo的Phân cảnh视为hoàn thành，不需要再TạoKhung hình đầu或Khung hình cuối
     const isSceneCompleted = (s: SplitScene) => s.videoUrl || s.videoStatus === 'completed';
 
-    // 构建任务 cột表（根据người dùngChọn的 mode）
+    // 构建nhiệm vụ cột表（根据người dùngChọn的 mode）
     const tasks: GridTask[] = [];
     for (const scene of splitScenes) {
       if (isSceneCompleted(scene)) continue; // Video đã hoàn thành, bỏ qua
@@ -2091,13 +2091,13 @@ export function SClassScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
     const skipInfo = completedCount > 0 ? `(bỏ qua ${completedCount} video đã hoàn thành)` : '';
     toast.info(`Bắt đầu Tạo gộp lưới 9 ô: ${parts.join(', ')}${skipInfo}`);
 
-    // 任务分页（每9任务一页，混合Khung hình đầu和Khung hình cuối）
+    // nhiệm vụ分页（每9nhiệm vụ一页，混合Khung hình đầu和Khung hình cuối）
     const taskPages: GridTask[][] = [];
     for (let i = 0; i < tasks.length; i += 9) {
       taskPages.push(tasks.slice(i, i + 9));
     }
 
-    // 建立Ảnh tham chiếu池（按策略thu thập，从任务 cột表đang xử lý...ảnh）
+    // 建立Ảnh tham chiếu池（按策略thu thập，从nhiệm vụ cột表đang xử lý...ảnh）
     const collectRefsFromTasks = (pageTasks: GridTask[]): string[] => {
       if (strategy === 'none') return [];
       const refs: string[] = [];
@@ -2219,7 +2219,7 @@ export function SClassScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
       });
     };
 
-    // Tạolưới 9 ôảnh并切割（Hỗ trợ混合Khung hình đầu+Khung hình cuối任务）
+    // Tạolưới 9 ôảnh并切割（Hỗ trợ混合Khung hình đầu+Khung hình cuốinhiệm vụ）
     const generateGridAndSlice = async (
       pageTasks: GridTask[],
       refs: string[]
@@ -2258,7 +2258,7 @@ export function SClassScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
       // 2. bố cụcMô tả (Layout)
       gridPromptParts.push(`Layout: ${rows} rows, ${cols} columns, reading order left-to-right, top-to-bottom.`);
       
-      // 3. 每ô的Nội dungMô tả（根据任务LoạiChọnKhung hình đầu或Khung hình cuốiprompt）
+      // 3. 每ô的Nội dungMô tả（根据nhiệm vụLoạiChọnKhung hình đầu或Khung hình cuốiprompt）
       pageTasks.forEach((task, idx) => {
         const s = task.scene;
         const row = Math.floor(idx / cols) + 1;
@@ -2305,7 +2305,7 @@ export function SClassScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
       const gridPrompt = gridPromptParts.join('\n'); // Dùng ký tự xuống dòng để ngăn cách rõ hơn
       console.log('[MergedGen] Grid prompt:', gridPrompt.substring(0, 200) + '...');
       
-      // 标记Tất cả任务对应的Phân cảnh为Đang tạo
+      // 标记Tất cảnhiệm vụ对应的Phân cảnh为Đang tạo
       pageTasks.forEach(task => {
         if (task.type === 'end') {
           updateSplitSceneEndFrameStatus(task.scene.id, { endFrameStatus: 'generating', endFrameProgress: 10 });
@@ -2374,7 +2374,7 @@ export function SClassScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
       let taskId = apiResult.taskId;
       console.log('[MergedGen] API result: gridImageUrl=', gridImageUrl?.substring(0, 50), 'taskId=', taskId);
       
-      // 如果是异步任务，luân phiên
+      // 如果是异步nhiệm vụ，luân phiên
       if (!gridImageUrl && taskId) {
         console.log('[MergedGen] Polling task:', taskId);
         const pollInterval = 2000;
@@ -2382,7 +2382,7 @@ export function SClassScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
         
         for (let attempt = 0; attempt < maxAttempts; attempt++) {
           const progress = Math.min(10 + Math.floor((attempt / maxAttempts) * 80), 90);
-          // 根据任务Loại更新各自的Tiến độ
+          // 根据nhiệm vụLoại更新各自的Tiến độ
           pageTasks.forEach(task => {
             if (task.type === 'end') {
               updateSplitSceneEndFrameStatus(task.scene.id, { endFrameProgress: progress });
@@ -2433,7 +2433,7 @@ export function SClassScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
       if (!gridImageUrl) {
         console.error('[MergedGen] Không lấy được ảnh URL, apiResult:', apiResult);
         if (taskId) {
-          throw new Error(`lưới 9 ôTạo超时（任务 ${taskId} 在 3  phút内未hoàn thành），API 服务可能繁忙，请稍后Thử lại`);
+          throw new Error(`lưới 9 ôTạohết thời gian（nhiệm vụ ${taskId} 在 3  phút内未hoàn thành），API 服务可能繁忙，请稍后Thử lại`);
         }
         throw new Error('Không lấy được ảnh URL lưới 9 ô, vui lòng kiểm tra phản hồi API');
       }
@@ -2456,7 +2456,7 @@ export function SClassScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
       const folderId = getImageFolderId();
       const imageHostConfigured = isImageHostConfigured();
       
-      // 回填：根据任务Loại决定更新Khung hình đầu还是Khung hình cuối
+      // 回填：根据nhiệm vụLoại决定更新Khung hình đầu还是Khung hình cuối
       // 先持久化到本地file系统（local-image://），Tránh base64 被 partialize 清除导致Nhập后ảnh丢失
       for (let i = 0; i < pageTasks.length; i++) {
         const task = pageTasks[i];
@@ -2503,7 +2503,7 @@ export function SClassScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
       return slicedImages;
     };
 
-    // 辅助：Đặt lại一页đang xử lý... cả任务的Trạng thái为 failed
+    // 辅助：Đặt lại一页đang xử lý... cảnhiệm vụ的Trạng thái为 failed
     const resetPageTasksToError = (pageTasks: GridTask[], errorMsg: string) => {
       for (const task of pageTasks) {
         if (task.type === 'end') {
@@ -2913,7 +2913,7 @@ export function SClassScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
 
           await new Promise(r => setTimeout(r, pollInterval));
         }
-        throw new Error('Khung hình cuốiTạo超时');
+        throw new Error('Khung hình cuốiTạohết thời gian');
       }
 
       throw new Error('Invalid API response');

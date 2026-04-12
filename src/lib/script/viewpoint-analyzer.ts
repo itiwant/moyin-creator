@@ -103,7 +103,7 @@ export async function analyzeSceneViewpoints(
 
   const systemPrompt = `你是chuyên nghiệp的影视美术指导，擅长分析场景并确定需要的拍摄góc nhìn。
 
-${globalContextSection}【任务】
+${globalContextSection}【nhiệm vụ】
 根据本 tậpđại cương、场景thông tin和分镜内容，分析该场景需要哪些不同的góc nhìn/机位来Tạo场景背景图。
 
 【重要原则】

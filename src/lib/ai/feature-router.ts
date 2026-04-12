@@ -197,7 +197,7 @@ export function getFeatureConfig(feature: AIFeature): FeatureConfig | null {
 }
 
 /**
- * 重置luân phiênchỉ mục（用于新任务开始时）
+ * 重置luân phiênchỉ mục（用于新nhiệm vụ开始时）
  */
 export function resetFeatureRoundRobin(feature?: AIFeature): void {
   if (feature) {
@@ -279,7 +279,7 @@ export async function callFeatureAPI(
   console.log(`[callFeatureAPI] BaseURL: ${baseUrl}`);
   
   // gọi API底层 API
-  // Cấu trúc化 JSON 输出任务默认关闭深度思考，Tránh reasoning 耗尽 token
+  // Cấu trúc化 JSON 输出nhiệm vụ默认关闭深度思考，Tránh reasoning 耗尽 token
   const disableThinking = options?.disableThinking ?? true;
   return await callChatAPI(systemPrompt, userPrompt, {
     apiKey: config.allApiKeys.join(','),

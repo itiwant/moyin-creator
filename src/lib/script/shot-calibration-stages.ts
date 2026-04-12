@@ -114,7 +114,7 @@ export async function calibrateShotsMultiStage(
   // thời đại/Bối cảnh thế giới上下文：供 Stage 2/4/5 Thị giácTạoSử dụng（Tránh AI 产生与thời đại不符的幻觉）
   const eraContextParts = [
     contextLine,
-    era ? `⚠️ thời đại背景：${era}——Tất cảnhân vậttrang phục、Kiểu tóc、đạo cụ、建筑必须严格符合「${era}」时期，禁止出现其他thời đại的元素（如古装剧禁止西装/T恤/手机等现代vật phẩm）` : '',
+    era ? `⚠️ thời đại背景：${era}——Tất cảnhân vậttrang phục、Kiểu tóc、đạo cụ、建筑必须严格符合「${era}」时期，bị cấm出现其他thời đại的元素（如古装剧bị cấm西装/T恤/手机等现代vật phẩm）` : '',
     worldSetting ? `Bối cảnh thế giới设定：${worldSetting.slice(0, 300)}` : '',
     characterBios ? `nhân vật造型Tham chiếu：${characterBios.slice(0, 300)}` : '',
   ].filter(Boolean);
@@ -235,7 +235,7 @@ ${contextLine}${narrativeAnchorBlock}${episodeSynopsis ? `\n\n【本 tậpđại
 ⚠️ 规则：
 - 场景归属绝对Cố định：主场景不可thay đổi，闪回用"画面叠加"Mô tả
 - 角色列表必须đầy đủ来自原文，不增不减
-- **thời đại一致性**：nhân vậttrang phục、Kiểu tóc、đạo cụ、环境细节必须严格符合剧本设定的thời đại背景，禁止混入其他thời đại元素
+- **thời đại一致性**：nhân vậttrang phục、Kiểu tóc、đạo cụ、环境细节必须严格符合剧本设定的thời đại背景，bị cấm混入其他thời đại元素
 - visualDescription: 纯đang xử lý...细画面Mô tả（trang phục/đạo cụ必须符合thời đại）
 ${s2VisualPromptRule}
 - emotionTags Tùy chọn: happy/sad/angry/surprised/fearful/calm/tense/excited/mysterious/romantic/funny/touching/serious/relaxed/playful/gentle/passionate/low
@@ -316,14 +316,14 @@ ${s2VisualPromptRule}
   const s4LangWarning = promptLanguage === 'zh'
     ? '\n⚠️ imagePromptZh 必须纯中文'
     : promptLanguage === 'en'
-    ? '\n⚠️ imagePrompt 必须100%纯英文，禁止任何đang xử lý...'
-    : '\n⚠️ imagePrompt 必须100%纯英文，禁止任何đang xử lý...\n⚠️ imagePromptZh 必须纯đang xử lý...
+    ? '\n⚠️ imagePrompt 必须100%纯英文，bị cấm任何đang xử lý...'
+    : '\n⚠️ imagePrompt 必须100%纯英文，bị cấm任何đang xử lý...\n⚠️ imagePromptZh 必须纯đang xử lý...
 
   const s4System = `你是AI图像Tạo专家。根据Mô tả thị giác和拍摄参数，Tạokhung đầu提示词。${eraContextBlock}
 
 ${styleDesc}${mediaTypeHint}
 
-⚠️ thời đại一致性（最重要）：nhân vật的trang phục、Kiểu tóc、配饰必须严格符合剧本设定的thời đại背景。例如古装剧đang xử lý...n vật必须穿古代服饰，禁止出现西装、T恤、现代Kiểu tóc等。
+⚠️ thời đại一致性（最重要）：nhân vật的trang phục、Kiểu tóc、配饰必须严格符合剧本设定的thời đại背景。例如古装剧đang xử lý...n vật必须穿古代服饰，bị cấm出现西装、T恤、现代Kiểu tóc等。
 
 ${s4Fields} 必须包含：
 a) 场景环境（地点+环境细节+时间氛围）

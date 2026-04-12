@@ -297,29 +297,29 @@ export function buildVideoPrompt(
     promptParts.push(`Setting: ${sceneInfo}`);
   }
 
-  // Thoại：有内容且开启时包含，否则明确禁止
+  // Thoại：有内容且开启时包含，否则明确bị cấm
   if (scene.audioDialogueEnabled !== false && scene.dialogue?.trim()) {
     promptParts.push(`Dialogue: "${scene.dialogue.trim()}"`);
   } else {
-    promptParts.push('Dialogue: 禁止Thoại');
+    promptParts.push('Dialogue: bị cấmThoại');
   }
-  // 环境音：有内容且开启时包含，否则明确禁止
+  // 环境音：有内容且开启时包含，否则明确bị cấm
   if (scene.audioAmbientEnabled !== false && scene.ambientSound?.trim()) {
     promptParts.push(`Ambient: ${scene.ambientSound.trim()}`);
   } else {
-    promptParts.push('Ambient: 禁止环境音');
+    promptParts.push('Ambient: bị cấm环境音');
   }
-  // Hiệu ứng âm thanh：有内容且开启时包含，否则明确禁止
+  // Hiệu ứng âm thanh：有内容且开启时包含，否则明确bị cấm
   if (scene.audioSfxEnabled !== false && scene.soundEffectText?.trim()) {
     promptParts.push(`SFX: ${scene.soundEffectText.trim()}`);
   } else {
-    promptParts.push('SFX: 禁止Hiệu ứng âm thanh');
+    promptParts.push('SFX: bị cấmHiệu ứng âm thanh');
   }
-  // 背景Nhạc：有内容且开启时包含，否则明确禁止
+  // 背景Nhạc：有内容且开启时包含，否则明确bị cấm
   if (scene.audioBgmEnabled === true && scene.backgroundMusic?.trim()) {
     promptParts.push(`Music: ${scene.backgroundMusic.trim()}`);
   } else {
-    promptParts.push('Music: 禁止背景Nhạc');
+    promptParts.push('Music: bị cấm背景Nhạc');
   }
 
   // ---------- Layer 5: Thị giác风格 (Style) ----------

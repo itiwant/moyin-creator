@@ -951,8 +951,8 @@ async function enrichCharactersWithVisualPrompts(
       return `【${timeline}trang phục指导】
 - 男性：长衫马褂、đang xử lý...西装礼帽（上层xã hội）、布衣长衫（平民）
 - 女性：旗袍、女学生装（上衣下裙）、短发或盘发
-- 禁止出现T恤、牛仔裤、运动鞋等现代服饰
-- 禁止出现手机、电脑等现代电子产品`;
+- bị cấm出现T恤、牛仔裤、运动鞋等现代服饰
+- bị cấm出现手机、电脑等现代电子产品`;
     }
 
     // 古代各朝代
@@ -960,25 +960,25 @@ async function enrichCharactersWithVisualPrompts(
       return `【唐朝trang phục指导】
 - 男性：圆领袍、幞头、革带；武将可穿铠甲
 - 女性：高腰襟裙、披帛、发髀簪起、花钗装饰
-- 绝对禁止任何现代trang phục（西装/T恤/牵仔裤/运动鞋）`;
+- 绝对bị cấm任何现代trang phục（西装/T恤/牵仔裤/运动鞋）`;
     }
     if (/宋朝|宋代/.test(timeline)) {
       return `【宋朝trang phục指导】
 - 男性：直裰、交领袖衫、乌纱帽；文人偏素雅
 - 女性：褒子、裙、披帛，Kiểu tóc简约典雅
-- 绝对禁止任何现代trang phục`;
+- 绝对bị cấm任何现代trang phục`;
     }
     if (/明朝|明代/.test(timeline)) {
       return `【明朝trang phục指导】
 - 男性：曳服、直裰、网巾或乌纱帽
 - 女性：交领衫、马面裙、披风，Kiểu tóc丰富多变
-- 绝对禁止任何现代trang phục`;
+- 绝对bị cấm任何现代trang phục`;
     }
     if (/清朝|清代/.test(timeline)) {
       return `【清朝trang phục指导】
 - 男性：长袍马褂、瓜皮帽、辨子；官员穿补服
 - 女性：旗装（溜肩、立领、Lỏng lẻo）、旗头或两把头
-- 绝对禁止任何现代trang phục`;
+- 绝对bị cấm任何现代trang phục`;
     }
 
     // 泛古代/武侠/仙侠/宫斗/玄幻等
@@ -987,20 +987,20 @@ async function enrichCharactersWithVisualPrompts(
 - Tất cả角色必须穿着đang xử lý...服饰（长袍、袖衫、披风、带子等）
 - Kiểu tóc必须是古代式样（簪发、发髀、束发、发笪等）
 - 武侠/仙侠可加入飘逸江湖风格元素（剑、披风、护腕等）
-- 绝对禁止任何现代trang phục（西装/T恤/牛仔裤/运动鞋/手机/眼镜等）`;
+- 绝对bị cấm任何现代trang phục（西装/T恤/牛仔裤/运动鞋/手机/眼镜等）`;
     }
 
     // 科幻/未来
     if (/科幻|未来|星际|太空/.test(timeline)) {
       return `【${timeline}trang phục指导】
 - 可以Thiết kế未来感/科技感trang phục，但需保持内部一致性
-- 禁止出现与Bối cảnh thế giới不符的trang phục元素`;
+- bị cấm出现与Bối cảnh thế giới不符的trang phục元素`;
     }
 
     // 其他未识别的thời đại — 用通用约束而非返回空
     return `【${timeline}trang phục指导】
 请根据「${timeline}」thời đại背景Thiết kế角色trang phục，trang phục、Kiểu tóc、配饰必须严格符合该thời đại特征。
-绝对禁止出现与该thời đại不符的trang phục元素。`;
+绝对bị cấm出现与该thời đại不符的trang phục元素。`;
   };
   
   const eraFashionGuidance = getEraFashionGuidance();
@@ -1105,7 +1105,7 @@ ${promptLanguage === 'zh' ? `【核心输出：6层Danh tínhneo】
 【trang phục要求】
 - trang phục必须严格符合故事设定的thời đại背景（${background.era || '现代'}）
 - 根据角色Tuổi和Danh tínhThiết kế合适的trang phục
-- 绝对不要Thiết kế与剧本thời đại不符的服饰（如古装剧禁止现代trang phục，现代剧禁止古代服饰）
+- 绝对不要Thiết kế与剧本thời đại不符的服饰（如古装剧bị cấm现代trang phục，现代剧bị cấm古代服饰）
 
 请返回JSON格式（注意：只返回单角色对象，不要数组包裹）：
 {

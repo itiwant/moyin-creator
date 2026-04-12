@@ -70,7 +70,7 @@ export async function analyzeCharacterStages(
   
   const systemPrompt = `你是chuyên nghiệp的影góc nhìn色Thiết kế顾问，擅长分析角色在长篇剧 tậpđang xử lý...变化。
 
-你的任务是分析剧本đại cương，判断每主要角色是否需要多阶段的形象变体。
+你的nhiệm vụ是分析剧本đại cương，判断每主要角色是否需要多阶段的形象变体。
 
 【判断标准】
 角色需要多阶段形象的情况：

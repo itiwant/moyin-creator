@@ -173,7 +173,7 @@ export function SceneGallery({ onSceneSelect, selectedSceneId }: SceneGalleryPro
   // Mở rộng/Thu gọnTrạng thái
   const [expandedScenes, setExpandedScenes] = useState<Set<string>>(new Set());
   
-  // 联合图任务hoàn thành后Tự độngMở rộng父Cảnh（让người dùng看到切割后的conCảnh）
+  // 联合图nhiệm vụhoàn thành后Tự độngMở rộng父Cảnh（让người dùng看到切割后的conCảnh）
   useEffect(() => {
     if (!contactSheetTasks) return;
     for (const [sceneId, task] of Object.entries(contactSheetTasks)) {

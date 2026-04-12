@@ -77,7 +77,7 @@ export interface AdvancedGenerationOptions {
   enableVisualContinuity: boolean;
   /** Bật断点续传：Tạo hàng loạtđang xử lý...从上次位置Tiếp tục */
   enableResumeGeneration: boolean;
-  /** BậtNội dungkiểm duyệt容错：遇到敏感Nội dungTự động跳过，Tiếp tụcTạo其他Phân cảnh */
+  /** BậtNội dungkiểm duyệt容错：遇到nhạy cảmNội dungTự động跳过，Tiếp tụcTạo其他Phân cảnh */
   enableContentModeration: boolean;
   /** Bật多ModelTự động切换：首Phân cảnhSử dụng t2v，后续Sử dụng i2v */
   enableAutoModelSwitch: boolean;

@@ -880,7 +880,7 @@ const STORYBOARD_STRUCTURE_PROMPT = `
 1. 保留原有的每一镜头/场景，一都不能少
 2. người dùng输入有12镜头，输出必须有12场景
 3. 每gốc镜头转换为一 **X-X 日/夜 内/外 地点** 格式的场景
-4. 绝对禁止合并、省略、压缩镜头数量
+4. 绝对bị cấm合并、省略、压缩镜头数量
 
 **★★★ 场景内容格式（极其重要）★★★**
 
@@ -888,7 +888,7 @@ const STORYBOARD_STRUCTURE_PROMPT = `
 1. nhân vật行：nhân vật：角色A、角色B
 2. 一动作行：△[将该镜头Tất cả画面、动作、Thoại、Hiệu ứng âm thanh等压缩为一句đầy đủ的Mô tả thị giác]
 
-禁止在场景内写多行！禁止分别列出Thoại、Hiệu ứng âm thanh！Tất cả内容必须压缩到一 △ 行中。
+bị cấm在场景内写多行！bị cấm分别列出Thoại、Hiệu ứng âm thanh！Tất cả内容必须压缩到一 △ 行中。
 
 示例：
 người dùng输入【镜头1】包含画面Mô tả+Thoại+Hiệu ứng âm thanh，你的输出应该是：
@@ -955,7 +955,7 @@ export async function generateScriptFromIdea(
 người dùng输入包含 ${originalShotCount} 镜头/场景，你的输出必须有对应的 ${originalShotCount} 场景（**1-1** 到 **1-${originalShotCount}**）。
 
 Quan trọng:每场景内只能有一 △ 动作行！将该镜头的Tất cả画面、Thoại、Hiệu ứng âm thanh压缩成一句话。
-禁止分别列出多行Thoại或Hiệu ứng âm thanh，否则会Tạo多分镜！`
+bị cấm分别列出多行Thoại或Hiệu ứng âm thanh，否则会Tạo多分镜！`
     : '';
   
   const userPrompt = `请根据以下创意输入Tạođầy đủ剧本：

@@ -309,7 +309,7 @@ export async function calibrateScenes(
   // 3. 构建共享的 system prompt
   const systemPrompt = `你是chuyên nghiệp的影视美术指导和场景Thiết kế师，擅长为hiện có场景补充chuyên nghiệp的Thị giácThiết kế方案。${seriesCtxBlock}
 
-【核心任务】
+【核心nhiệm vụ】
 为以下场景补充美术Thiết kếthông tin，用于Tạo场景概念图。
 
 【重要约束】
@@ -577,7 +577,7 @@ thời đại：${background.era || '未知'}
 【故事đại cương】
 ${background.outline?.slice(0, 1000) || '无'}
 
-【任务】
+【nhiệm vụ】
 为以下场景Tạochuyên nghiệp的Thị giác提示词：
 
 ${keyScenes.map((s, i) => `${i+1}. ${s.name}

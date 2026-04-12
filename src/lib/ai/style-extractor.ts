@@ -84,7 +84,7 @@ function extractErrorMessage(status: number, errorText: string): string {
   }
 
   if (status === 401 || status === 403) {
-    return 'API Key 无效或已hết hạn，请检查“图片理解”服务的 Key 配置';
+    return 'API Key không hợp lệ hoặc đãhết hạn，请检查“图片理解”服务的 Key 配置';
   }
 
   if (status >= 500) {

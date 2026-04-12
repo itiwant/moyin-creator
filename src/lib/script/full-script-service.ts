@@ -287,7 +287,7 @@ export async function importSingleEpisodeContent(
 }
 
 /**
- * 轻量 AI 为单 tậpTạo标题+đại cương（trang quản trị任务，不阻塞Cấu trúcbổ sung）
+ * 轻量 AI 为单 tậpTạo标题+đại cương（trang quản trịnhiệm vụ，不阻塞Cấu trúcbổ sung）
  */
 async function generateSingleEpisodeTitleAndSynopsis(
   projectId: string,
@@ -502,7 +502,7 @@ export async function generateEpisodeShots(
         // 为每场景分析góc nhìn（支持并发）
         const updatedScenes = [...scriptData.scenes];
         
-        // 准备场景分析任务
+        // 准备场景分析nhiệm vụ
         const sceneAnalysisTasks = episodeScenes.map((scene, i) => ({
           scene,
           index: i,
@@ -529,7 +529,7 @@ export async function generateEpisodeShots(
           return { scene, sceneShots, result };
         };
         
-        // 错开启动的并发控制：每5秒启动一新任务，同时最多 concurrency 
+        // 错开启动的并发控制：每5秒启动一新nhiệm vụ，同时最多 concurrency 
         const settledResults = await runStaggered(
           sceneAnalysisTasks.map((_, taskIndex) => async () => {
             console.log(`[generateEpisodeShots] 🚀 启动场景 ${taskIndex + 1}/${sceneAnalysisTasks.length}`);
@@ -1161,9 +1161,9 @@ export async function calibrateEpisodeTitles(
 你的chuyên nghiệp能力：
 - 精通剧 tập命名艺术：能用简短有力的标题捕捉每 tập核心冲突和情感转折
 - tự sựCấu trúc把控：理解商战、家族、情感等不同类型剧 tập的命名风格
-- 市场敏感度：知道什么样的标题能吸引观众，提升点击率
+- 市场nhạy cảm度：知道什么样的标题能吸引观众，提升点击率
 
-你的任务是根据剧本的全局背景和每 tập内容，为每 tậpTạo简短有吸引力的标题。
+你的nhiệm vụ是根据剧本的全局背景和每 tập内容，为每 tậpTạo简短有吸引力的标题。
 ${seriesCtx ? `\n【剧级知识Tham chiếu】\n${seriesCtx}\n` : ''}
 【剧本thông tin】
 tên phim：${title}
@@ -1412,7 +1412,7 @@ export async function calibrateEpisodeShots(
     let calibratedCount = 0;
     const updatedShots: Shot[] = [...project.shots];
     
-    // 准备Tất cả批次任务
+    // 准备Tất cả批次nhiệm vụ
     const allBatches: { batch: Shot[]; batchNum: number; batchData: any[] }[] = [];
     for (let i = 0; i < episodeShots.length; i += batchSize) {
       const batch = episodeShots.slice(i, i + batchSize);
@@ -1881,7 +1881,7 @@ async function callAIForShotCalibration(
 - 动态捕捉：能准确判断镜头的bắt đầu状态和kết thúc状态是否有显著差异
 - AI视频Tạo经验：深谙 Seedance、Sora、Runway 等 AI 视频模型的工作原理
 
-你的任务是根据剧本全局背景和分镜thông tin，为每分镜Tạochuyên nghiệp的Mô tả thị giác和3 lớp提示词。
+你的nhiệm vụ是根据剧本全局背景和分镜thông tin，为每分镜Tạochuyên nghiệp的Mô tả thị giác和3 lớp提示词。
 
 【剧本thông tin】
 ${contextInfo}
@@ -1916,11 +1916,11 @@ ${characterBios ? `
 
 3. **角色đầy đủ识别**：出场角色必须đầy đủ来自原文，按出现thứ tự列出
    - 例：原文"张明与父母吃着饭" → characterNames: ["张明", "张父", "张母"]
-   - 禁止bỏ sót角色，禁止新增原文đang xử lý...角色
+   - bị cấmbỏ sót角色，bị cấm新增原文đang xử lý...角色
 
 3. **đang xử lý...离**：
    - **đang xử lý...ường**（visualDescription, ambientSound, soundEffect, imagePromptZh, videoPromptZh, endFramePromptZh）：必须是纯中文
-   - **英文trường**（visualPrompt, imagePrompt, videoPrompt, endFramePrompt）：必须是100%纯英文，绝对禁止夹杂任何đang xử lý...
+   - **英文trường**（visualPrompt, imagePrompt, videoPrompt, endFramePrompt）：必须是100%纯英文，绝对bị cấm夹杂任何đang xử lý...
    - 如果不确定某词怎么翻译，用英文Mô tả或近义词代替，但绝不能留中文
 
 4. **thời lượng估算**：根据动作复杂度和Thoại长度估算合理的分镜thời lượng（秒）
@@ -1933,7 +1933,7 @@ ${characterBios ? `
    - ambientSound（环境音）：如"外鸟鸣"、"餐厅嗨杂声"、"风声"
    - soundEffect（Hiệu ứng âm thanh）：如"酒杯碎裂声"、"脚步声"、"门关闭声"
 
-【任务】
+【nhiệm vụ】
 为每分镜Tạo：
 
 **基础trường：**
@@ -2317,7 +2317,7 @@ export async function generateEpisodeSynopses(
 - tự sựNhịp điệu把控：理解不同类型剧 tập的Nhịp điệu特点
 - Sự kiện quan trọng提取：能准确识别推动剧情发展的quan trọng场景和动作
 
-你的任务是根据剧本全局背景和每 tập内容，为每 tậpTạo简洁的đại cương和Sự kiện quan trọng。
+你的nhiệm vụ是根据剧本全局背景和每 tập内容，为每 tậpTạo简洁的đại cương和Sự kiện quan trọng。
 ${seriesCtx ? `\n【剧级知识Tham chiếu】\n${seriesCtx}\n` : ''}
 【剧本thông tin】
 tên phim：${title}

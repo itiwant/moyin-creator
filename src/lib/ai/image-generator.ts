@@ -115,7 +115,7 @@ function geminiSupportsImageSize(model: string): boolean {
 
 /**
  * 规范化分辨率值为 Gemini 官方要求的格式
- * 官方要求大写 K（例如 1K、2K、4K），小写会被拒绝
+ * 官方要求大写 K（例如 1K、2K、4K），小写会被từ chối
  */
 function normalizeResolutionForGemini(resolution?: string): string {
   if (!resolution) return '2K';
@@ -353,10 +353,10 @@ async function submitViaChatCompletions(
   console.log('[ImageGenerator] Submitting via chat completions:', { model, endpoint, isGemini, geminiImageSize: geminiHasImageSize ? normalizeResolutionForGemini(resolution) : 'N/A' });
 
   const response = await retryOperation(async () => {
-    // 每次Thử lại独立tạo AbortController，Tránh共享 controller 在Thử lại时已超时
+    // 每次Thử lại独立tạo AbortController，Tránh共享 controller 在Thử lại时已hết thời gian
     const controller = new AbortController();
     const timeoutId = setTimeout(
-      () => controller.abort(new DOMException('图片Tạo请求超时（60秒），请检查网络后Thử lại', 'TimeoutError')),
+      () => controller.abort(new DOMException('图片Tạo请求hết thời gian（60秒），请检查网络后Thử lại', 'TimeoutError')),
       60000
     );
 
@@ -395,7 +395,7 @@ async function submitViaChatCompletions(
 
         // 401 专项提示：引导người dùng检查 API Key
         if (resp.status === 401) {
-          msg = `API Key 无效或已hết hạn，请前往「设置」检查图片Tạo服务的 API Key 配置（gốcthông tin：${msg}）`;
+          msg = `API Key không hợp lệ hoặc đãhết hạn，请前往「设置」检查图片Tạo服务的 API Key 配置（gốcthông tin：${msg}）`;
         }
         // 502 专项提示：上游服务临时không khả dụng
         if (resp.status === 502) {
@@ -569,7 +569,7 @@ async function submitImageTask(
 
   try {
     const data = await retryOperation(async () => {
-      // 每次Thử lại独立tạo AbortController，Tránh共享 controller 在Thử lại时已超时
+      // 每次Thử lại独立tạo AbortController，Tránh共享 controller 在Thử lại时已hết thời gian
       const controller = new AbortController();
       const timeoutId = setTimeout(() => controller.abort(), 60000);
 
@@ -607,7 +607,7 @@ async function submitImageTask(
           }
 
           if (response.status === 401 || response.status === 403) {
-            throw new Error('API Key 无效或已hết hạn');
+            throw new Error('API Key không hợp lệ hoặc đã hết hạn');
           } else if (response.status === 529 || response.status === 503) {
             // 上游负载饱和/服务không khả dụng，需要触发Thử lại
             const err = new Error(errorMessage || `上游服务暂时不Khả dụng (${response.status})`) as Error & { status?: number };
@@ -685,7 +685,7 @@ async function submitImageTask(
     return { taskId, pollUrl };
   } catch (error) {
     if (error instanceof Error) {
-      if (error.name === 'AbortError') throw new Error('API 请求超时');
+      if (error.name === 'AbortError') throw new Error('API 请求hết thời gian');
       throw error;
     }
     throw new Error('gọi API图片Tạo API 时发生未知lỗi');
@@ -768,7 +768,7 @@ async function pollTaskStatus(
     }
   }
 
-  throw new Error('图片Tạo超时');
+  throw new Error('图片Tạohết thời gian');
 }
 
 /**
@@ -973,7 +973,7 @@ async function submitViaKlingImages(
   if (directUrl) return { imageUrl: directUrl };
 
   const taskId = data.data?.task_id;
-  if (!taskId) throw new Error('Kling image 返回空任务 ID');
+  if (!taskId) throw new Error('Kling image 返回空nhiệm vụ ID');
 
   const pollUrl = `${rootBase}/${nativePath}/${taskId}`;
   const pollInterval = 2000;
@@ -997,7 +997,7 @@ async function submitViaKlingImages(
       throw new Error(pollData.data?.task_status_msg || 'Kling image Tạothất bại');
     }
   }
-  throw new Error('Kling image Tạo超时');
+  throw new Error('Kling image Tạohết thời gian');
 }
 
 /**

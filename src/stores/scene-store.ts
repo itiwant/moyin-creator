@@ -80,7 +80,7 @@ interface SceneState {
   generatingSceneId: string | null;
   generationPrefs: SceneGenerationPrefs;
   generationPrefsByProject: Record<string, SceneGenerationPrefs>;
-  // 联合图Tự độngTạo任务跟踪 (parentSceneId → Trạng thái)
+  // 联合图Tự độngTạonhiệm vụ跟踪 (parentSceneId → Trạng thái)
   contactSheetTasks: Record<string, { status: 'generating' | 'splitting' | 'saving' | 'done' | 'error'; progress: number; message?: string }>;
 }
 
@@ -105,7 +105,7 @@ interface SceneActions {
   setGenerationStatus: (status: SceneGenerationStatus, error?: string) => void;
   setGeneratingScene: (id: string | null) => void;
   setGenerationPrefs: (prefs: Partial<SceneGenerationPrefs>) => void;
-  // 联合图任务Quản lý
+  // 联合图nhiệm vụQuản lý
   setContactSheetTask: (parentSceneId: string, task: { status: 'generating' | 'splitting' | 'saving' | 'done' | 'error'; progress: number; message?: string } | null) => void;
   
   // Project scoping helpers

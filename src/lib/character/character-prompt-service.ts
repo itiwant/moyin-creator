@@ -208,7 +208,7 @@ async function callAIForCharacterDesign(
 - **AI图像Tạo经验**：深谙 Midjourney、DALL-E、Stable Diffusion 等 AI 绘图模型的工作原理，能写出高质量的提示词
 - **一致性保持**：知道如何Mô tảKhuôn mặt特征、体型等không thay đổi元素，确保角色在不同阶段仍可辨认
 
-你的任务是根据剧本thông tin，为角色Thiết kế**多阶段Thị giác形象**。
+你的nhiệm vụ是根据剧本thông tin，为角色Thiết kế**多阶段Thị giác形象**。
 
 【剧本thông tin】
 tên phim：《${context.projectTitle}》
@@ -230,7 +230,7 @@ ${context.characterAppearances.length > 0
   : '暂无出场dữ liệu'
 }
 
-【任务要求】
+【nhiệm vụ要求】
 1. **分析角色成长cung**：根据剧情判断角色是否有明显的阶段变化
    - Tuổi变化：小孩→少年→成年→老年
    - Danh tính变化：普通人→商业大亨、学徒→武林高手

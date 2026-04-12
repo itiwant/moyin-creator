@@ -295,7 +295,7 @@ const STYLIZED_PROFILES: CinematographyProfile[] = [
     defaultAngle: 'low-angle',
     defaultFocalLength: '35mm',
     defaultTechnique: 'bokeh',
-    promptGuidance: 'MV追求极致Thị giác冲击——每一帧都要像海报。极浅景深把一切虚化成五彩光斑，霓虹逆光勾勒nhân vật轮廓。nhanh斯坦尼康环绕拍摄，配合频繁的速度变化（慢放与快进交替）。大量Sử dụng光粒子和镜头光晕增加梦幻感。',
+    promptGuidance: 'MV追求极致Thị giác冲击——每一帧都要像海报。极浅景深把一切虚化成五彩光斑，霓虹逆光勾勒nhân vật轮廓。nhanh斯坦尼康环绕拍摄，配合dày的速度变化（慢放与快进交替）。大量Sử dụng光粒子和镜头光晕增加梦幻感。',
     referenceFilms: ['爱乐之城MV段落', 'Beyoncé - Lemonade', 'The Weeknd - Blinding Lights'],
   },
 ];

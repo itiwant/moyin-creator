@@ -95,7 +95,7 @@ export const MODEL_DISPLAY_NAMES: Record<string, string> = {
   'mj_uploads': 'Midjourney 图片上传',
   'mj_action': 'Midjourney 动作',
   'mj_modal': 'Midjourney Popup提交',
-  'mj_fetch': 'Midjourney 任务查询',
+  'mj_fetch': 'Midjourney nhiệm vụ查询',
   'mj_notify': 'Midjourney 回调通知',
 
   // --- Ideogram ---
@@ -365,7 +365,7 @@ export const MODEL_DISPLAY_NAMES: Record<string, string> = {
   'suno_music': 'Suno NhạcTạo',
   'suno_lyrics': 'Suno 歌词Tạo',
   'suno_upload': 'Suno 音频上传',
-  'suno_fetch': 'Suno 任务查询',
+  'suno_fetch': 'Suno nhiệm vụ查询',
 };
 
 /**

@@ -468,7 +468,7 @@ Return a RAW JSON array (no markdown code block). BILINGUAL output required.
       }
       
       if (response.status === 401 || response.status === 403) {
-        throw new Error('API Key 无效或已hết hạn');
+        throw new Error('API Key không hợp lệ hoặc đã hết hạn');
       }
       throw new Error(errorMessage);
     }

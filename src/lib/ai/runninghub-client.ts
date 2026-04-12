@@ -31,7 +31,7 @@ export interface RunningHubTaskResult {
 }
 
 /**
- * 提交góc nhìn切换任务
+ * 提交góc nhìn切换nhiệm vụ
  */
 export async function submitAngleSwitchTask(
   params: RunningHubSubmitParams
@@ -92,7 +92,7 @@ export async function submitAngleSwitchTask(
 
         const error = new Error(
           response.status === 401 || response.status === 403
-            ? 'API Key 无效或已hết hạn'
+            ? 'API Key không hợp lệ hoặc đãhết hạn'
             : response.status >= 500
               ? 'RunningHub 服务暂时không khả dụng'
               : errorMessage
@@ -121,7 +121,7 @@ export async function submitAngleSwitchTask(
     if (error instanceof Error) {
       throw error;
     }
-    throw new Error('提交 RunningHub 任务thất bại');
+    throw new Error('提交 RunningHub nhiệm vụthất bại');
   }
 }
 
@@ -178,7 +178,7 @@ export async function queryTaskStatus(
 }
 
 /**
- * luân phiên任务直到hoàn thành
+ * luân phiênnhiệm vụ直到hoàn thành
  */
 export async function pollTaskUntilComplete(
   taskId: string,
@@ -221,7 +221,7 @@ export async function pollTaskUntilComplete(
     }
   }
 
-  throw new Error('góc nhìn切换超时，请Thử lại');
+  throw new Error('góc nhìn切换hết thời gian，请Thử lại');
 }
 
 /**
@@ -249,7 +249,7 @@ export async function generateAngleSwitch(params: {
     prompt: anglePrompt,
   });
 
-  // 提交任务
+  // 提交nhiệm vụ
   onProgress?.(0, 'SUBMITTING');
   const taskId = await submitAngleSwitchTask({
     referenceImage,

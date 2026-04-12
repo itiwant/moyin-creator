@@ -141,7 +141,7 @@ export const useProjectStore = create<ProjectStore>()(
         state.activeProject = project;
 
         // 异步扫描磁盘上 _p/ thư mục，将bỏ sót的项目恢复到 cột表中
-        // 解决路径切换/Nhập/迁移后项目 cột表为空的问题
+        // 解决路径切换/Nhập/迁移后项目 cột表为trống问题
         discoverProjectsFromDisk().catch((err) =>
           console.warn('[ProjectStore] Disk discovery failed:', err)
         );

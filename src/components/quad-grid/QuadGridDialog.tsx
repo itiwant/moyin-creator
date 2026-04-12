@@ -76,7 +76,7 @@ export function QuadGridDialog({
     onGenerate(selectedType, useCharacterRef);
   };
 
-  // Tạo期间禁止ĐóngChat框
+  // Tạo期间bị cấmĐóngChat框
   const handleOpenChange = (newOpen: boolean) => {
     if (isGenerating && !newOpen) return; // Đang tạo, không được đóng
     onOpenChange(newOpen);

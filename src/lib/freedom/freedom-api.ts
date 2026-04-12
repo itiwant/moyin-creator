@@ -217,7 +217,7 @@ const FREEDOM_VIDEO_ROUTE_MAP: Record<string, FreedomVideoRoute> = {
   'openAI官方视频格式': 'openai_official',
   'openAI视频格式': 'openai_official',
   '豆包视频异步': 'volc',  // doubao-seedance uses /volc/v1/contents/generations/tasks
-  '异步': 'wan',
+  'async': 'wan',
   '文生视频': 'kling',
   '图生视频': 'kling',
   '视频延长': 'kling',
@@ -225,7 +225,7 @@ const FREEDOM_VIDEO_ROUTE_MAP: Record<string, FreedomVideoRoute> = {
   '动作控制': 'kling',
   'đa phương thức视频chỉnh sửa': 'kling',
   'Người ảo': 'kling',
-  '对sổ型': 'kling',
+  'ghép hình môi': 'kling',
   '视频特效': 'kling',
   'openai': 'unified', // 某些Tùy chỉnh供应商把视频模型标为通用 openai
   '视频统一格式': 'unified',
@@ -308,7 +308,7 @@ function detectFreedomVideoRoute(model: string, endpointTypes?: string[]): Freed
       if (FREEDOM_VIDEO_ROUTE_MAP[t] === 'wan') return 'wan';
     }
     // Replicate: endpoint type uses '{org}/{model}异步' pattern (contains '/' before '异步')
-    if (endpointTypes.some(t => t.includes('/') && t.endsWith('异步'))) return 'replicate';
+    if (endpointTypes.some(t => t.includes('/') && t.endsWith('async'))) return 'replicate';
     for (const t of endpointTypes) {
       if (FREEDOM_VIDEO_ROUTE_MAP[t] === 'unified') return 'unified';
     }
@@ -669,7 +669,7 @@ async function generateViaMidjourneyEndpoint(
     throw new Error(submitData.description || submitData.error || `Midjourney 提交thất bại (code=${submitData.code})`);
   }
   const taskId = submitData.result || submitData.task_id || submitData.id;
-  if (!taskId) throw new Error('Midjourney 返回空任务 ID');
+  if (!taskId) throw new Error('Midjourney 返回空nhiệm vụ ID');
 
   const pollUrl = `${rootBase}/mj/task/${taskId}/fetch`;
   for (let i = 0; i < IMAGE_POLL_MAX_ATTEMPTS; i++) {
@@ -696,7 +696,7 @@ async function generateViaMidjourneyEndpoint(
     }
   }
 
-  throw new Error('Midjourney Tạo超时');
+  throw new Error('Midjourney Tạohết thời gian');
 }
 
 function toIdeogramAspectRatio(model: string, aspectRatio?: string): string | undefined {
@@ -834,7 +834,7 @@ async function generateViaReplicateImageEndpoint(
       throw new Error(pollData.error || 'Replicate 图片Tạothất bại');
     }
   }
-  throw new Error('Replicate 图片Tạo超时');
+  throw new Error('Replicate 图片Tạohết thời gian');
 }
 
 // ==================== Video Generation ====================
@@ -1135,7 +1135,7 @@ async function generateVideoViaOpenAIOfficial(
   const taskId = submitData.id || submitData.video_id;
   const directUrl = extractVideoUrl(submitData);
   if (directUrl) return { url: directUrl, taskId: taskId ? String(taskId) : undefined };
-  if (!taskId) throw new Error('Sora 返回空任务 ID');
+  if (!taskId) throw new Error('Sora 返回空nhiệm vụ ID');
 
   const pollUrl = buildEndpoint(baseUrl, `videos/${taskId}`);
   for (let i = 0; i < VIDEO_POLL_MAX_ATTEMPTS; i++) {
@@ -1155,7 +1155,7 @@ async function generateVideoViaOpenAIOfficial(
     }
   }
 
-  throw new Error('Sora Tạo超时');
+  throw new Error('Tạo Sora hết thời gian');
 }
 
 async function generateVideoViaUnified(
@@ -1258,7 +1258,7 @@ async function generateVideoViaUnified(
     submitData.output?.id;
   const directUrl = extractVideoUrl(submitData);
   if (directUrl) return { url: directUrl, taskId: taskId ? String(taskId) : undefined };
-  if (!taskId) throw new Error('统一视频giao diện返回空任务 ID');
+  if (!taskId) throw new Error('统一视频giao diện返回空nhiệm vụ ID');
 
   // luân phiên：Trực tiếpSử dụng端点类型对应的 URL
   const pollUrl = `${rootBase}${endpointPaths.poll(String(taskId))}`;
@@ -1280,7 +1280,7 @@ async function generateVideoViaUnified(
     }
   }
 
-  throw new Error('视频Tạo超时');
+  throw new Error('视频Tạohết thời gian');
 }
 
 async function generateVideoViaVolc(
@@ -1327,7 +1327,7 @@ async function generateVideoViaVolc(
 
   const submitData = await submitResp.json();
   const taskId = submitData.id;
-  if (!taskId) throw new Error('Volc 返回空任务 ID');
+  if (!taskId) throw new Error('Volc 返回空nhiệm vụ ID');
 
   const pollUrl = `${rootBase}/volc/v1/contents/generations/tasks/${taskId}`;
   for (let i = 0; i < VIDEO_POLL_MAX_ATTEMPTS; i++) {
@@ -1348,7 +1348,7 @@ async function generateVideoViaVolc(
     }
   }
 
-  throw new Error('Volc 视频Tạo超时');
+  throw new Error('Volc 视频Tạohết thời gian');
 }
 
 async function generateVideoViaWan(
@@ -1386,7 +1386,7 @@ async function generateVideoViaWan(
 
   const submitData = await submitResp.json();
   const taskId = submitData.output?.task_id;
-  if (!taskId) throw new Error('Wan 返回空任务 ID');
+  if (!taskId) throw new Error('Wan 返回空nhiệm vụ ID');
 
   const pollUrl = `${rootBase}/alibailian/api/v1/tasks/${taskId}`;
   for (let i = 0; i < VIDEO_POLL_MAX_ATTEMPTS; i++) {
@@ -1407,7 +1407,7 @@ async function generateVideoViaWan(
     }
   }
 
-  throw new Error('Wan 视频Tạo超时');
+  throw new Error('Wan 视频Tạohết thời gian');
 }
 
 // Native Kling endpoint paths (relative to /kling/v1/videos/)
@@ -1475,7 +1475,7 @@ async function generateVideoViaKling(
 
   const submitData = await submitResp.json();
   const taskId = submitData.data?.task_id;
-  if (!taskId) throw new Error('Kling 返回空任务 ID');
+  if (!taskId) throw new Error('Kling 返回空nhiệm vụ ID');
 
   // Poll URL mirrors the submit path: GET /kling/v1/videos/{path}/{task_id}
   const pollUrl = `${rootBase}/kling/v1/videos/${endpointPath}/${taskId}`;
@@ -1500,7 +1500,7 @@ async function generateVideoViaKling(
     }
   }
 
-  throw new Error('Kling 视频Tạo超时');
+  throw new Error('Kling 视频Tạohết thời gian');
 }
 
 /**
@@ -1562,7 +1562,7 @@ async function generateVideoViaReplicate(
       throw new Error(pollData.error || 'Replicate 视频Tạothất bại');
     }
   }
-  throw new Error('Replicate 视频Tạo超时');
+  throw new Error('Replicate 视频Tạohết thời gian');
 }
 
 // ==================== Helpers ====================

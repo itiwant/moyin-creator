@@ -88,7 +88,7 @@ export async function selectTrailerShots(
 
     const systemPrompt = `你是一位chuyên nghiệp的电影预告片剪辑师，擅长从大量素材đang xử lý...具吸引力的镜头来制作预告片。
 
-你的任务是从给定的分镜列表đang xử lý...最适合做预告片的 ${targetCount} 分镜。
+你的nhiệm vụ是从给定的分镜列表đang xử lý...最适合做预告片的 ${targetCount} 分镜。
 
 【预告片Cấu trúc原则】
 1. **开场**：建立氛围，吸引注意（1-2镜头）
