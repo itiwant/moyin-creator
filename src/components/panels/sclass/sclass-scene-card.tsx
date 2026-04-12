@@ -5,7 +5,7 @@
 
 /**
  * Phân cảnh卡片组件 (Split Scene Card Component)
- * Hiện单Phân cảnh的Tất cả信息，包括Khung hình đầu/Khung hình cuốiảnh、videoXem trước、promptChỉnh sửa等
+ * Hiệnphân cảnh đơn的Tất cả信息，包括Khung hình đầu/Khung hình cuốiảnh、videoXem trước、promptChỉnh sửa等
  * 用于 SplitScene Loại（与 scene-card.tsx đang xử lý...IScene Loại不同）
  */
 
@@ -876,14 +876,14 @@ export function SClassSceneCard({
 
         {/* 第三排：prompt系统（Kịch bảnHành động + 三层prompt + 情绪Thẻ） - 彩色分区 */}
         <div className="space-y-1.5">
-          {/* 折叠/Mở rộng Header：Chevron + tiêu đề + 填充Trạng thái徽章 */}
+          {/* Header thu gọn/mở rộng: Chevron + tiêu đề + Huy hiệu trạng thái điền */}
           <button
             onClick={() => setShowPromptDetails(!showPromptDetails)}
             className="w-full flex items-center gap-2 px-2.5 py-2 rounded-md bg-muted/50 border hover:bg-muted/70 transition-colors"
           >
             <ChevronRight className={cn("h-3.5 w-3.5 text-muted-foreground shrink-0 transition-transform duration-200", showPromptDetails && "rotate-90")} />
             <span className="text-xs font-medium">prompt</span>
-            {/* 填充Trạng thái徽章 */}
+            {/* Huy hiệu trạng thái điền */}
             <div className="flex items-center gap-1.5 ml-auto">
               <span className={cn(
                 "text-[9px] px-1.5 py-0.5 rounded-full inline-flex items-center gap-0.5 border",
@@ -1233,7 +1233,7 @@ export function SClassSceneCard({
           </div>
         </div>
 
-        {/* 第四排：âm thanh控制（môi trường音/音效/对白） */}
+        {/* 第四排：âm thanh控制（môi trường音/音效/Thoại） */}
         <div className="space-y-1">
           <Label className="text-[10px] text-muted-foreground mb-0.5 block">âm thanh控制</Label>
           {/* môi trường音 */}
@@ -1282,7 +1282,7 @@ export function SClassSceneCard({
               className="flex-1 h-6 px-1.5 text-[10px] rounded border bg-transparent disabled:opacity-40 placeholder:text-muted-foreground/30"
             />
           </div>
-          {/* 对白 */}
+          {/* Thoại */}
           <div className="flex items-center gap-1.5">
             <button
               onClick={() => onUpdateField?.(scene.id, 'audioDialogueEnabled', scene.audioDialogueEnabled === false)}
@@ -1294,7 +1294,7 @@ export function SClassSceneCard({
                   : "bg-muted text-muted-foreground line-through"
               )}
             >
-              对白
+              Thoại
             </button>
             <input
               type="text"

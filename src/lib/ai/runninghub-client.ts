@@ -3,7 +3,7 @@
 // Commercial licensing available. See COMMERCIAL_LICENSE.md.
 /**
  * RunningHub API Client
- * 视角切换功能的API客户端
+ * góc nhìn切换功能的API客户端
  */
 
 import { retryOperation } from '@/lib/utils/retry';
@@ -14,7 +14,7 @@ const normalizeBaseUrl = (baseUrl: string) => baseUrl.replace(/\/+$/, '');
 
 export interface RunningHubSubmitParams {
   referenceImage: string;  // Ảnh gốcURL或base64
-  anglePrompt: string;     // 视角提示词
+  anglePrompt: string;     // góc nhìn提示词
   apiKey: string;
   baseUrl: string;
   appId: string;
@@ -31,7 +31,7 @@ export interface RunningHubTaskResult {
 }
 
 /**
- * 提交视角切换任务
+ * 提交góc nhìn切换任务
  */
 export async function submitAngleSwitchTask(
   params: RunningHubSubmitParams
@@ -221,11 +221,11 @@ export async function pollTaskUntilComplete(
     }
   }
 
-  throw new Error('视角切换超时，请Thử lại');
+  throw new Error('góc nhìn切换超时，请Thử lại');
 }
 
 /**
- * 一键Tạo视角切换（组合函数）
+ * 一键Tạogóc nhìn切换（组合函数）
  */
 export async function generateAngleSwitch(params: {
   referenceImage: string;
@@ -259,7 +259,7 @@ export async function generateAngleSwitch(params: {
     appId,
   });
 
-  // 轮询结果
+  // 轮询kết quả
   onProgress?.(10, 'POLLING');
   const resultUrl = await pollTaskUntilComplete(taskId, apiKey, baseUrl, onProgress);
 

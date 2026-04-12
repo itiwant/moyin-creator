@@ -389,7 +389,7 @@ export function MediaView() {
     // Cài đặt故事板ảnh为当前ảnh
     setStoryboardImage(item.url, item.id);
     
-    // Trực tiếpCài đặt为Chỉnh sửaTrạng thái，并Tạo单Phân cảnh
+    // Trực tiếpCài đặt为Chỉnh sửaTrạng thái，并Tạophân cảnh đơn
     const { setSplitScenes, setStoryboardConfig } = useDirectorStore.getState();
     
     // Cài đặt配置为单Cảnh
@@ -398,7 +398,7 @@ export function MediaView() {
       storyPrompt: item.name,
     });
     
-    // Tạo单Phân cảnh（包含Tất cả必需属性）
+    // Tạophân cảnh đơn（包含Tất cả必需属性）
     setSplitScenes([{
       id: 0,
       // Thông tin cảnh

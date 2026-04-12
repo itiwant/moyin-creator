@@ -175,7 +175,7 @@ export function AngleController({
     setTheta(prev => (prev + deltaX * sensitivity) % 360);
     setPhi(prev => Math.max(30, Math.min(150, prev - deltaY * sensitivity)));
     
-    // 实时计算吸附结果
+    // 实时计算吸附kết quả
     snapToGrid(
       theta + deltaX * sensitivity, 
       phi - deltaY * sensitivity, 

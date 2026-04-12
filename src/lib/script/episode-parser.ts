@@ -3,7 +3,7 @@
 // Commercial licensing available. See COMMERCIAL_LICENSE.md.
 /**
  * Episode Parser - đang xử lý...规则解析器
- * 解析标准đang xử lý...格式，提取 tập、场景、对白、动作等Cấu trúc化信息
+ * 解析标准đang xử lý...格式，提取 tập、场景、Thoại、动作等Cấu trúc化信息
  * 
  * 支持的格式：
  * -  tập标记：第X tập
@@ -11,7 +11,7 @@
  * - nhân vật行：nhân vật：张明、张父
  * - 字幕：【字幕：2002年夏】
  * - 动作描写：△外栀子花绽放...
- * - 对白：张父：（喝酒）我们明明真是太有出息了！
+ * - Thoại：张父：（喝酒）我们明明真是太有出息了！
  * - 闪回：【闪回】...【闪回kết thúc】
  * - 旁白/VO：【VO：...】
  */
@@ -248,7 +248,7 @@ function detectGenre(outline: string, characterBios: string): string {
 function extractWorldSetting(outline: string, characterBios: string): string {
   const fullText = `${outline}\n${characterBios}`;
   
-  // 匹配常见Bối cảnh thế giới描述chế độ
+  // 匹配常见Bối cảnh thế giớiMô tảchế độ
   const patterns = [
     /(?:Bối cảnh thế giới|世界设定|背景设定)[：:] *([^\n]{10,200})/,
     /(?:故事发生在|故事背景[：:是]) *([^\n]{10,200})/,
@@ -262,7 +262,7 @@ function extractWorldSetting(outline: string, characterBios: string): string {
     }
   }
   
-  return ''; // 无Bối cảnh thế giới描述则Để trống
+  return ''; // 无Bối cảnh thế giớiMô tả则Để trống
 }
 
 /**
@@ -286,7 +286,7 @@ function extractThemes(outline: string, characterBios: string): string[] {
     { keywords: /背叛|出卖|信任/, theme: '背叛与信任' },
     { keywords: /命运|宿命|天命/, theme: '命运' },
     { keywords: /战争|和平|反战/, theme: '战争与和平' },
-    { keywords: /传承|继承|使命/, theme: '传承' },
+    { keywords: /传承|kế thừa|使命/, theme: '传承' },
     { keywords: /生死|生命|死亡|牺牲/, theme: '生死' },
   ];
   
@@ -381,12 +381,12 @@ export function parseScenes(episodeText: string): SceneRawContent[] {
         const sceneNumber = match[1]; // 如 "1-1"
         const rawDesc = match[2].replace(/\*{1,2}/g, '').trim(); // 如 "规则怪谈世界， tập合广场，日"
         
-        // 从描述đang xử lý...取时间（日/夜/晨/暮等），通常在末尾
+        // 从Mô tảđang xử lý...取时间（日/夜/晨/暮等），通常在末尾
         const timeWords = ['日', '夜', '晨', '暮', 'Hoàng hôn', 'Bình minh', '清晨', '傍晚'];
         let timeOfDay = '日'; // 默认值
         let locationDesc = rawDesc;
         
-        // 检查描述末尾是否以时间词结尾（可能用逗号、空格ngăn cách）
+        // 检查Mô tả末尾是否以时间词结尾（可能用逗号、空格ngăn cách）
         for (const tw of timeWords) {
           const endPattern = new RegExp(`[，,\\s]${tw}\\s*$`);
           if (endPattern.test(rawDesc)) {
@@ -394,7 +394,7 @@ export function parseScenes(episodeText: string): SceneRawContent[] {
             locationDesc = rawDesc.replace(endPattern, '').trim();
             break;
           }
-          // 也处理整描述就是时间词的情况
+          // 也处理整Mô tả就是时间词的情况
           if (rawDesc === tw) {
             timeOfDay = tw;
             locationDesc = '未知地点';
@@ -402,7 +402,7 @@ export function parseScenes(episodeText: string): SceneRawContent[] {
           }
         }
         
-        // 尝试从描述đang xử lý...内/外 标记
+        // 尝试从Mô tảđang xử lý...内/外 标记
         let interior = '';
         const interiorMatch = locationDesc.match(/[，,\s](内|外|内\/外)\s*/);
         if (interiorMatch) {
@@ -464,7 +464,7 @@ export function parseScenes(episodeText: string): SceneRawContent[] {
     // 解析nhân vật
     const characters = parseCharacters(content);
     
-    // 解析对白
+    // 解析Thoại
     const dialogues = parseDialogues(content);
     
     // 解析动作
@@ -499,7 +499,7 @@ function parseAlternativeSceneFormat(text: string): SceneRawContent[] {
   
   // 尝试匹配其他常见格式
   // 格式1: 场景X 或 场景 X
-  // 格式2: [场景描述]
+  // 格式2: [场景Mô tả]
   // 格式3: Trực tiếp按段落分
   
   const altRegex = /(?:场景\s*(\d+)|【场景[：:]?\s*([^\】]+)】)/g;
@@ -595,7 +595,7 @@ function parseCharacters(text: string): string[] {
     });
   }
   
-  // 2. 从对白đang xử lý...话人
+  // 2. 从Thoạiđang xử lý...话人
   const dialogueRegex = /^([^：:（\(【\n]{1,10})[：:](?:\s*[（\(][^）\)]+[）\)])?/gm;
   const dialogueMatches = [...text.matchAll(dialogueRegex)];
   dialogueMatches.forEach(m => {
@@ -610,13 +610,13 @@ function parseCharacters(text: string): string[] {
 }
 
 /**
- * 解析对白
+ * 解析Thoại
  */
 function parseDialogues(text: string): DialogueLine[] {
   const dialogues: DialogueLine[] = [];
   
-  // 对白格式：角色名：（动作）台词
-  // 或：角色名：台词
+  // Thoại格式：角色tên:（动作）台词
+  // 或：角色tên:台词
   const dialogueRegex = /^([^：:（\(【\n△]{1,10})[：:]\s*(?:[（\(]([^）\)]+)[）\)])?\s*(.+)$/gm;
   
   const matches = [...text.matchAll(dialogueRegex)];
@@ -626,7 +626,7 @@ function parseDialogues(text: string): DialogueLine[] {
     const parenthetical = match[2]?.trim();
     const line = match[3]?.trim();
     
-    // lọc掉非对白内容
+    // lọc掉非Thoại内容
     if (character && line && !character.match(/^[字幕旁白场景nhân vật]/)) {
       dialogues.push({
         character,
@@ -715,13 +715,13 @@ function chineseToNumber(chinese: string): number {
 /**
  * 从nhân vật小传文本đang xử lý...色信息
  * 支持两种格式：
- * 1. 紧凑格式：角色名：年龄：XX身份：... （从 Word/微信复制的无换行文本）
- * 2. 标准格式：角色名：描述 或 角色名（年龄）：描述
+ * 1. 紧凑格式：角色tên:年龄：XX身份：... （从 Word/微信复制的无换行文本）
+ * 2. 标准格式：角色tên:Mô tả 或 角色名（年龄）：Mô tả
  */
 export function parseCharacterBios(bios: string): ScriptCharacter[] {
   if (!bios || !bios.trim()) return [];
   
-  // 检测紧凑格式：角色名：年龄/年两：XX （至少2条目才认定为紧凑格式）
+  // 检测紧凑格式：角色tên:年龄/年两：XX （至少2条目才认定为紧凑格式）
   const compactEntryRegex = /([\u4e00-\u9fa5]{2,12})[：:]\s*(?:年龄|年两)[：:]\s*(\d{1,3})/g;
   const compactMatches = [...bios.matchAll(compactEntryRegex)];
   
@@ -734,7 +734,7 @@ export function parseCharacterBios(bios: string): ScriptCharacter[] {
 }
 
 /**
- * 紧凑格式解析：角色名：年龄：XX身份：...quan trọng行为：...
+ * 紧凑格式解析：角色tên:年龄：XX身份：...quan trọng行为：...
  * Tự động剥离段落标记（一、核心nhân vật chính 等）提取真实角色名
  */
 function parseCompactBioFormat(bios: string, matches: RegExpMatchArray[]): ScriptCharacter[] {
@@ -750,7 +750,7 @@ function parseCompactBioFormat(bios: string, matches: RegExpMatchArray[]): Scrip
     const actualName = stripSectionKeywords(rawName);
     if (!actualName || actualName.length < 2 || actualName.length > 8) continue;
     
-    // 提取描述：从年龄后到下一角色条目之前
+    // 提取Mô tả：从年龄后到下一角色条目之前
     const descStart = match.index! + match[0].length;
     const descEnd = i < matches.length - 1 ? matches[i + 1].index! : bios.length;
     let description = bios.slice(descStart, descEnd).trim();
@@ -789,7 +789,7 @@ function stripSectionKeywords(name: string): string {
 }
 
 /**
- * 标准格式解析（原逻辑）：角色名：描述 或 角色名（年龄）：描述
+ * 标准格式解析（原逻辑）：角色tên:Mô tả 或 角色名（年龄）：Mô tả
  */
 function parseStandardBioFormat(bios: string): ScriptCharacter[] {
   const characters: ScriptCharacter[] = [];
@@ -823,7 +823,7 @@ function parseStandardBioFormat(bios: string): ScriptCharacter[] {
 }
 
 /**
- * 从描述đang xử lý...格特点
+ * 从Mô tảđang xử lý...格特点
  */
 function extractPersonality(description: string): string {
   // 查找性格相关quan trọng词
@@ -836,7 +836,7 @@ function extractPersonality(description: string): string {
 }
 
 /**
- * 从描述đang xử lý...ặc trưng cốt lõi
+ * 从Mô tảđang xử lý...ặc trưng cốt lõi
  */
 function extractTraits(description: string): string {
   // 查找特质相关quan trọng词
@@ -962,7 +962,7 @@ function extractCharactersFromScenes(
         }
       }
       
-      // 从对白đang xử lý...话人
+      // 从Thoạiđang xử lý...话人
       for (const dialogue of scene.dialogues) {
         const parts = splitMultipleCharacters(dialogue.character);
         for (const part of parts) {

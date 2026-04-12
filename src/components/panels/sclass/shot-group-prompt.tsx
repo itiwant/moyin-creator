@@ -11,7 +11,7 @@
  * - Hiện @tham chiếuThẻ（Nhân vật图/Cảnh图/Khung hình đầu/video/âm thanh）+ 配额
  * - 用户可Chỉnh sửa/覆盖Tự động prompt
  * - 实时字符计数（5000上限）
- * - 对白唇形同步Xem trước
+ * - Thoại唇形同步Xem trước
  */
 
 import React, { useMemo, useState, useCallback } from "react";
@@ -210,11 +210,11 @@ export function ShotGroupPrompt({
           </Tooltip>
         </TooltipProvider>
 
-        {/* 对白数 */}
+        {/* Thoại数 */}
         {result.dialogueSegments.length > 0 && (
           <div className="flex items-center gap-1 px-1.5 py-0.5 rounded bg-amber-500/10 text-amber-600 dark:text-amber-400">
             <MessageCircle className="h-3 w-3" />
-            <span>{result.dialogueSegments.length} 段对白</span>
+            <span>{result.dialogueSegments.length} 段Thoại</span>
           </div>
         )}
 

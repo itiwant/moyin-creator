@@ -635,7 +635,7 @@ async function callUnifiedVideoApi(
     submitData.output?.id
   )?.toString();
 
-  // 某些ModelTrực tiếpQuay lại结果
+  // 某些ModelTrực tiếpQuay lạikết quả
   const directUrl = extractVideoUrl(submitData);
   if (directUrl) return directUrl;
   if (!taskId) {

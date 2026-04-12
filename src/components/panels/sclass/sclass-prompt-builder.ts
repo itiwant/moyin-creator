@@ -7,7 +7,7 @@
  * 核心功能：
  * 1. Tự động从 character-library-store 提取Nhân vậtẢnh tham chiếu → @Image
  * 2. Tự động从 scene-store 提取CảnhẢnh tham chiếu → @Image
- * 3. Tự động从 splitScene.dialogue 提取对白 → 唇形同步指令
+ * 3. Tự động从 splitScene.dialogue 提取Thoại → 唇形同步指令
  * 4. 合并组内各Ống kính的三层prompt为「Ống kính1→Ống kính2→Ống kính3」Cấu trúc
  * 5. 收 tập用户Tải lên的 @Video / @Audio tham chiếu
  * 6. 检查 Seedance 2.0 限制（≤9图 + ≤3video + ≤3âm thanh，Tổng≤12，prompt≤5000字符）
@@ -20,7 +20,7 @@ import type { ShotGroup, AssetRef, AssetPurpose, SClassAspectRatio, SClassResolu
 
 // ==================== Types ====================
 
-/** @tham chiếu收 tập结果 */
+/** @tham chiếu收 tậpkết quả */
 export interface CollectedRefs {
   /** ảnhtham chiếu（Nhân vật图 + Cảnh图 + Khung hình đầu图），最多 9 张 */
   images: AssetRef[];
@@ -36,7 +36,7 @@ export interface CollectedRefs {
   limitWarnings: string[];
 }
 
-/** 组级 prompt 构建结果 */
+/** 组级 prompt 构建kết quả */
 export interface GroupPromptResult {
   /** 最终组装的 prompt（发送给 API） */
   prompt: string;
@@ -48,7 +48,7 @@ export interface GroupPromptResult {
   refs: CollectedRefs;
   /** 各Ống kính的 prompt đoạn（用于 UI Xem trước） */
   shotSegments: ShotSegment[];
-  /** 对白唇形同步đoạn */
+  /** Thoại唇形同步đoạn */
   dialogueSegments: DialogueSegment[];
 }
 
@@ -60,13 +60,13 @@ export interface ShotSegment {
   shotIndex: number;
   /** Ống kínhMô tả（Hành động + Ống kínhNgôn ngữ） */
   description: string;
-  /** 对白文本 */
+  /** Thoại文本 */
   dialogue: string;
   /** Thời lượng（秒） */
   duration: number;
 }
 
-/** 对白唇形同步đoạn */
+/** Thoại唇形同步đoạn */
 export interface DialogueSegment {
   sceneId: number;
   characterName: string;
@@ -376,7 +376,7 @@ export function collectAllRefs(
 // ==================== Dialogue / Lip-Sync ====================
 
 /**
- * 从组内Ống kính提取对白，Tạo唇形同步đoạn
+ * 从组内Ống kính提取Thoại，Tạo唇形同步đoạn
  */
 export function extractDialogueSegments(
   scenes: SplitScene[],
@@ -391,14 +391,14 @@ export function extractDialogueSegments(
     if (scene.dialogue && scene.dialogue.trim()) {
       const dialogueText = scene.dialogue.trim();
 
-      // 检测对白文本是否已包含说话人格式（如 "村民：妹con" 或 "村民（操着方言）：妹con"）
+      // 检测Thoại文本是否已包含说话人格式（如 "村民：妹con" 或 "村民（操着方言）：妹con"）
       const speakerMatch = dialogueText.match(/^([^\uff1a:]{1,20})[\uff1a:](.+)$/s);
 
       let characterName: string;
       let text: string;
 
       if (speakerMatch) {
-        // 对白自带说话人，Trực tiếpSử dụng
+        // Thoại自带说话人，Trực tiếpSử dụng
         characterName = speakerMatch[1].trim();
         text = speakerMatch[2].trim();
       } else {
@@ -424,7 +424,7 @@ export function extractDialogueSegments(
 }
 
 /**
- * 将对白đoạn转为唇形同步指令文本
+ * 将Thoạiđoạn转为唇形同步指令文本
  */
 function buildDialoguePromptPart(segments: DialogueSegment[]): string {
   if (segments.length === 0) return '';
@@ -433,7 +433,7 @@ function buildDialoguePromptPart(segments: DialogueSegment[]): string {
     `[约${s.timeOffset}s处] ${s.characterName}：「${s.text}」— sổ型同步，自然sổ部Hành động`
   );
 
-  return `\n\n对白与sổ型同步：\n${lines.join('\n')}`;
+  return `\n\nThoại与sổ型同步：\n${lines.join('\n')}`;
 }
 
 // ==================== Shot Segment Building ====================
@@ -525,7 +525,7 @@ export interface BuildGroupPromptOptions {
   styleTokens?: string[];
   /** Tỷ lệ khung hình */
   aspectRatio?: SClassAspectRatio;
-  /** 是否包含对白唇形同步 */
+  /** 是否包含Thoại唇形同步 */
   enableLipSync?: boolean;
   /** ô图tham chiếu（如果提供，Sử dụngô图chế độ收 tậptham chiếu） */
   gridImageRef?: AssetRef | null;
@@ -570,7 +570,7 @@ const EDIT_TYPE_TEMPLATE: Record<EditType, string> = {
  * Nhân vậtTham chiếu：@ảnh4（Nhân vậtA）保持Nhân vậtngoại hình一致
  * CảnhTham chiếu：@ảnh6 作为CảnhTham chiếu
  *
- * 对白与sổ型同步：
+ * Thoại与sổ型同步：
  * [约2s处] Nhân vậtA：「Hội thoại」— sổ型同步，自然sổ部Hành động
  *
  * Phong cách：电影感, 暖色调...
@@ -722,7 +722,7 @@ export function buildGroupPrompt(options: BuildGroupPromptOptions): GroupPromptR
     promptParts.push(...audioDesignLines);
   }
 
-  // 对白唇形同步
+  // Thoại唇形同步
   const dialogueSegments = enableLipSync
     ? extractDialogueSegments(scenes, characters)
     : [];

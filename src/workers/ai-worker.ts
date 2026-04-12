@@ -173,7 +173,7 @@ async function handleGenerateScreenplay(command: GenerateScreenplayCommand): Pro
     
     // Only require API key if not in mock mode
     if (!apiKey && !mockMode) {
-      throw new Error('未配置 API Key，请在设置đang xử lý...启用 Mock chế độ');
+      throw new Error('未配置 API Key，请在设置đang xử lý...bật Mock chế độ');
     }
     
     // Call the backend API with correct schema

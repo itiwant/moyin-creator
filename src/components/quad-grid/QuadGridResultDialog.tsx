@@ -5,7 +5,7 @@
 
 /**
  * Quad Grid Result Dialog - Kết quả lưới 4 ôChat框
- * Hiển thị2x2切图结果，Hỗ trợChọn/Áp dụng/Sao chép sang Phân cảnh khác/Lưu到Thư viện phương tiện
+ * Hiển thị2x2切图kết quả，Hỗ trợChọn/Áp dụng/Sao chép sang Phân cảnh khác/Lưu到Thư viện phương tiện
  */
 
 import { useState } from "react";

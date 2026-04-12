@@ -5,7 +5,7 @@
 
 /**
  * Phân cảnh卡片组件 (Split Scene Card Component)
- * Hiện单Phân cảnh的Tất cả信息，包括Khung hình đầu/Khung hình cuốiảnh、videoXem trước、promptChỉnh sửa等
+ * Hiệnphân cảnh đơn的Tất cả信息，包括Khung hình đầu/Khung hình cuốiảnh、videoXem trước、promptChỉnh sửa等
  * 用于 SplitScene Loại（与 scene-card.tsx đang xử lý...IScene Loại不同）
  */
 
@@ -85,7 +85,7 @@ import { useResolvedImageUrl } from "@/hooks/use-resolved-image-url";
 
 export interface SplitSceneCardProps {
   scene: SplitScene;
-  /** promptNgôn ngữCài đặt（来自Kịch bản面板），决定Chỉnh sửa/Hiện哪Ngôn ngữtrường */
+  /** Cài đặt ngôn ngữ prompt (từ panel Kịch bản), quyết định trường ngôn ngữ nào được chỉnh sửa/hiển thị */
   promptLanguage?: PromptLanguage;
   // 三层prompt更新回调
   onUpdateImagePrompt: (id: number, prompt: string, promptZh?: string) => void;
@@ -375,7 +375,7 @@ export function SplitSceneCard({
 
   return (
     <div className="group relative border rounded-lg overflow-hidden bg-card hover:border-primary/50 transition-colors">
-      {/* Phân cảnh编号和控制栏 */}
+      {/* Số thứ tự phân cảnh và thanh điều khiển */}
       <div className="flex items-center justify-between px-3 py-1.5 bg-muted/30 border-b">
         <div className="flex items-center gap-2">
           <span className="text-sm font-bold text-muted-foreground">Phân cảnh #{scene.id + 1}</span>
@@ -432,7 +432,7 @@ export function SplitSceneCard({
         )}
       </div>
 
-      {/* 第一排：Khung hình đầuảnh + Khung hình cuốiảnh + Thư viện nhân vật */}
+      {/* Hàng 1: Ảnh khung đầu + Ảnh khung cuối + Thư viện nhân vật */}
       <div className="p-2 space-y-2">
         <div className="flex gap-2">
           {/* Khung hình đầuảnh */}
@@ -752,7 +752,7 @@ export function SplitSceneCard({
                 disabled={isGeneratingAny}
               />
             )}
-            {/* Tham chiếu cảnhChọn器 */}
+            {/* Bộ chọn cảnh tham chiếu */}
             {selectedFrameTarget === 'start' ? (
               // Khung hình đầuCảnhTham chiếu已在上方渲染
               null
@@ -772,7 +772,7 @@ export function SplitSceneCard({
                 />
               )
             )}
-            {/* Thư viện phương tiệnChọn器 */}
+            {/* Bộ chọn thư viện phương tiện */}
             {onUploadImage && (
               <MediaLibrarySelector
                 sceneId={scene.id}
@@ -790,7 +790,7 @@ export function SplitSceneCard({
           </div>
         </div>
 
-        {/* 第二排：Tạoảnh/videonút + videoXem trước */}
+        {/* Hàng 2: Nút Tạo ảnh/video + Xem trước video */}
         <div className="flex items-center gap-2">
           {!hasImage ? (
             <div className="flex items-center gap-1">
@@ -908,16 +908,16 @@ export function SplitSceneCard({
           )}
         </div>
 
-        {/* 第三排：Gợi ý系统（Kịch bảnHành động + 三层Gợi ý + Cảm xúcThẻ） - 彩色分区 */}
+        {/* Hàng 3: Hệ thống gợi ý (Hành động kịch bản + 3 lớp Gợi ý + Thẻ cảm xúc) - phân vùng màu sắc */}
         <div className="space-y-1.5">
-          {/* 折叠/Mở rộng Header：Chevron + tiêu đề + 填充Trạng thái徽章 */}
+          {/* Header thu gọn/mở rộng: Chevron + tiêu đề + Huy hiệu trạng thái điền */}
           <button
             onClick={() => setShowPromptDetails(!showPromptDetails)}
             className="w-full flex items-center gap-2 px-2.5 py-2 rounded-md bg-muted/50 border hover:bg-muted/70 transition-colors"
           >
             <ChevronRight className={cn("h-3.5 w-3.5 text-muted-foreground shrink-0 transition-transform duration-200", showPromptDetails && "rotate-90")} />
             <span className="text-xs font-medium">Gợi ý</span>
-            {/* 填充Trạng thái徽章 */}
+            {/* Huy hiệu trạng thái điền */}
             <div className="flex items-center gap-1.5 ml-auto">
               <span className={cn(
                 "text-[9px] px-1.5 py-0.5 rounded-full inline-flex items-center gap-0.5 border",
@@ -958,7 +958,7 @@ export function SplitSceneCard({
 
           {showPromptDetails ? (
             <div className="space-y-2 pl-1">
-              {/* ━━ Hành động kịch bản (nguồn gợi ý)━━ 紫色左边框 */}
+              {/* ━━ Hành động kịch bản (nguồn gợi ý) ━━ viền trái tím */}
               <div className="border-l-[3px] border-violet-500 pl-3 py-1 space-y-1">
                 <Label className="text-[10px] text-violet-600 dark:text-violet-400 flex items-center gap-1 font-medium">
                   <Edit3 className="h-3 w-3" />
@@ -976,7 +976,7 @@ export function SplitSceneCard({
                 </div>
               </div>
 
-              {/* ━━ Khung hình đầuGợi ý ━━ 蓝色左边框 */}
+              {/* ━━ Gợi ý khung hình đầu ━━ viền trái xanh lam */}
               <div className="border-l-[3px] border-blue-500 pl-3 py-1 space-y-1">
                 <Label className="text-[10px] text-blue-600 dark:text-blue-400 flex items-center gap-1 font-medium">
                   <ImageIcon className="h-3 w-3" />
@@ -1013,7 +1013,7 @@ export function SplitSceneCard({
                 )}
               </div>
 
-              {/* ━━ Gợi ý khung hình cuối ━━ 橙色左边框 */}
+              {/* ━━ Gợi ý khung hình cuối ━━ viền trái cam */}
               <div className="border-l-[3px] border-orange-500 pl-3 py-1 space-y-1">
                 <Label className="text-[10px] text-orange-600 dark:text-orange-400 flex items-center gap-1 font-medium">
                   <span>◉</span>
@@ -1058,13 +1058,13 @@ export function SplitSceneCard({
                 )}
               </div>
 
-              {/* ━━ videoGợi ý ━━ 绿色左边框 */}
+              {/* ━━ Gợi ý video ━━ viền trái xanh lá */}
               <div className="border-l-[3px] border-green-500 pl-3 py-1 space-y-1.5">
                 <Label className="text-[10px] text-green-600 dark:text-green-400 flex items-center gap-1 font-medium">
                   <Play className="h-3 w-3" />
                   Gợi ý video (hành động động)
                 </Label>
-                {/* videoGợi ý文本 */}
+                {/* Văn bản gợi ý video */}
                 {editingPrompt === 'video' ? (
                   <>
                     <Textarea
@@ -1267,7 +1267,7 @@ export function SplitSceneCard({
           </div>
         </div>
 
-        {/* 第四排：Điều khiển âm thanh（Âm thanh môi trường/Hiệu ứng âm thanh/对白） */}
+        {/* 第四排：Điều khiển âm thanh（Âm thanh môi trường/Hiệu ứng âm thanh/Thoại） */}
         <div className="space-y-1">
           <Label className="text-[10px] text-muted-foreground mb-0.5 block">Điều khiển âm thanh</Label>
           {/* Âm thanh môi trường */}
@@ -1316,7 +1316,7 @@ export function SplitSceneCard({
               className="flex-1 h-6 px-1.5 text-[10px] rounded border bg-transparent disabled:opacity-40 placeholder:text-muted-foreground/30"
             />
           </div>
-          {/* 对白 */}
+          {/* Thoại */}
           <div className="flex items-center gap-1.5">
             <button
               onClick={() => onUpdateField?.(scene.id, 'audioDialogueEnabled', scene.audioDialogueEnabled === false)}
@@ -1328,7 +1328,7 @@ export function SplitSceneCard({
                   : "bg-muted text-muted-foreground line-through"
               )}
             >
-              对白
+              Thoại
             </button>
             <input
               type="text"

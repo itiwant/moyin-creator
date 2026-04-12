@@ -60,7 +60,7 @@ export class VideoCache {
   
   // 从 VideoSample 渲染到 canvas
   private renderSampleToCanvas(sample: VideoSample, sinkData: VideoSinkData): CachedFrame {
-    // 获取或创建 canvas
+    // 获取或tạo canvas
     let canvas = sinkData.canvasPool.pop();
     if (!canvas) {
       canvas = document.createElement("canvas");
@@ -128,7 +128,7 @@ export class VideoCache {
 
         if (done || !sample) break;
         
-        // 渲染 sample 到 canvas 并创建 CachedFrame
+        // 渲染 sample 到 canvas 并tạo CachedFrame
         const frame = this.renderSampleToCanvas(sample, sinkData);
         this.replaceCurrentFrame(sinkData, frame);
         sinkData.lastTime = frame.timestamp;

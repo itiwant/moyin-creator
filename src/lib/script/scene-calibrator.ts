@@ -58,7 +58,7 @@ export interface CalibratedScene {
   eraDetails?: string;
   /** 英文视觉提示词 */
   visualPromptEn?: string;
-  /** đang xử lý...描述 */
+  /** đang xử lý...Mô tả */
   visualPromptZh?: string;
   /** gốc名称变体 */
   nameVariants: string[];
@@ -88,7 +88,7 @@ export interface SceneStats {
   times: string[];
   /** 动作描写样本（用于推断场景道具/布局） */
   actionSamples: string[];
-  /** 对白样本（用于理解场景用途） */
+  /** Thoại样本（用于理解场景用途） */
   dialogueSamples: string[];
 }
 
@@ -167,7 +167,7 @@ export function collectSceneStats(
         stat.actionSamples.push(`第${epIndex} tập: ${contentSample}`);
       }
       
-      // 收 tập对白样本（用于理解场景đang xử lý...什么）
+      // 收 tậpThoại样本（用于理解场景đang xử lý...什么）
       if (scene.dialogues && stat.dialogueSamples.length < 5) {
         for (const d of scene.dialogues.slice(0, 2)) {
           if (d && stat.dialogueSamples.length < 5) {
@@ -251,7 +251,7 @@ function cleanLocationString(location: string): string {
  * 【重要】此函数只补充现有场景的美术Thiết kế信息，不改变：
  * - 场景列表（不新增、不删除、不合并）
  * - 场景顺序
- * - viewpoints（多视角联合图数据）
+ * - viewpoints（多góc nhìn联合图数据）
  * - sceneIds、shotIds 等关联数据
  */
 export async function calibrateScenes(
@@ -324,7 +324,7 @@ export async function calibrateScenes(
 - **quan trọng道具**：必须根据「动作描写」推断
 - Bố cục không gian、thời đại特征、importance 分类
 
-请以JSON格式返回分析结果。`;
+请以JSON格式返回分析kết quả。`;
 
   // 共享的背景上下文
   const outlineContext = safeTruncate(background.outline || '', 1500);
@@ -346,7 +346,7 @@ export async function calibrateScenes(
             ? `\n   动作描写: ${s.actionSamples.join('; ')}`
             : '';
           const dialogueInfo = s.dialogueSamples.length
-            ? `\n   对白样本: ${s.dialogueSamples.join('; ')}`
+            ? `\n   Thoại样本: ${s.dialogueSamples.join('; ')}`
             : '';
           return `${i + 1}. [sceneId: ${s.sceneId}] ${s.name}\n   地点: ${s.location} [出场${s.appearCount}次,  tập数${s.episodes}]\n   角色: ${s.characters}${actionInfo}${dialogueInfo}`;
         }).join('\n\n');
@@ -447,10 +447,10 @@ ${sceneList}
     });
     
     if (failedBatches > 0) {
-      console.warn(`[SceneCalibrator] ${failedBatches} 批次失败，Sử dụng部分结果`);
+      console.warn(`[SceneCalibrator] ${failedBatches} 批次失败，Sử dụng部分kết quả`);
     }
     
-    console.log('[calibrateScenes] AI 返回', sceneResults.size, '场景结果');
+    console.log('[calibrateScenes] AI 返回', sceneResults.size, '场景kết quả');
     
     // 【quan trọng】按gốc顺序遍历 currentScenes，只更新美术trường
     const scenes: CalibratedScene[] = currentScenes.map((orig, i) => {
@@ -512,7 +512,7 @@ ${sceneList}
     return {
       scenes: fallbackScenes,
       mergeRecords: [],
-      analysisNotes: 'AIHiệu chuẩn失败，返回基于统计的结果',
+      analysisNotes: 'AIHiệu chuẩn失败，返回基于统计的kết quả',
     };
   }
 }
@@ -590,14 +590,14 @@ ${keyScenes.map((s, i) => `${i+1}. ${s.name}
 
 【输出要求】
 为每场景Tạo：
-${promptLanguage !== 'en' ? '- đang xử lý...描述（100-150字，包含空间感、氛围、细节）' : ''}
+${promptLanguage !== 'en' ? '- đang xử lý...Mô tả（100-150字，包含空间感、氛围、细节）' : ''}
 ${promptLanguage !== 'zh' ? '- 英文视觉提示词（50-80词，适合AI图像Tạo，包含风格、光影、bố cục）' : ''}
 
 请返回JSON格式：
 {
   "scenes": [
     {
-      "name": "场景名"${promptLanguage !== 'en' ? ',\n      "visualPromptZh": "đang xử lý...描述"' : ''}${promptLanguage !== 'zh' ? ',\n      "visualPromptEn": "English visual prompt for AI image generation"' : ''}
+      "name": "场景名"${promptLanguage !== 'en' ? ',\n      "visualPromptZh": "đang xử lý...Mô tả"' : ''}${promptLanguage !== 'zh' ? ',\n      "visualPromptEn": "English visual prompt for AI image generation"' : ''}
     }
   ]
 }`;
@@ -606,7 +606,7 @@ ${promptLanguage !== 'zh' ? '- 英文视觉提示词（50-80词，适合AI图像
     // 统一从ánh xạ dịch vụ获取配置
     const result = await callFeatureAPI('script_analysis', systemPrompt, '请为以上场景Tạo专业视觉提示词');
     
-    // 解析结果
+    // 解析kết quả
     let cleaned = result.replace(/```json\n?/g, '').replace(/```\n?/g, '').trim();
     const jsonStart = cleaned.indexOf('{');
     const jsonEnd = cleaned.lastIndexOf('}');
@@ -641,7 +641,7 @@ ${promptLanguage !== 'zh' ? '- 英文视觉提示词（50-80词，适合AI图像
 // ==================== 转换函数 ====================
 
 /**
- * 将Hiệu chuẩn结果转换回 ScriptScene 格式
+ * 将Hiệu chuẩnkết quả转换回 ScriptScene 格式
  */
 export function convertToScriptScenes(
   calibrated: CalibratedScene[],
@@ -689,7 +689,7 @@ export function convertToScriptScenes(
         `出场${c.appearanceCount}次`,
         ...(c.keyProps || []).slice(0, 3),
       ],
-      // 【修复】保留gốc场景的 viewpoints 数据（AI视角分析结果）
+      // 【修复】保留gốc场景的 viewpoints 数据（AIgóc nhìn分析kết quả）
       viewpoints: original?.viewpoints,
     };
   });

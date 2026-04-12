@@ -43,7 +43,7 @@ import { translateToken, type CinematographyField } from '@/lib/generation/media
 // ==================== 辅助函数 ====================
 
 /**
- * 根据情绪标签构建氛围描述文本
+ * 根据情绪标签构建氛围Mô tả文本
  */
 export function buildEmotionDescription(emotionTags: EmotionTag[]): string {
   if (!emotionTags || emotionTags.length === 0) return '';
@@ -125,10 +125,10 @@ export function buildVideoPrompt(
   const rigToken = findPresetToken(CAMERA_RIG_PRESETS, effectiveRig, mt, 'cameraRig');
   if (rigToken) cameraDesignParts.push(rigToken);
 
-  // 1.1 判断高级机位描述
+  // 1.1 判断高级机位Mô tả
   const hasCameraPosition = scene.cameraPosition?.trim();
 
-  // 1.2 bắt đầu景别（仅当没有高级机位描述时）
+  // 1.2 bắt đầu景别（仅当没有高级机位Mô tả时）
   if (!hasCameraPosition && scene.shotSize) {
     const shotPreset = SHOT_SIZE_PRESETS.find(p => p.id === scene.shotSize);
     if (shotPreset) {
@@ -297,11 +297,11 @@ export function buildVideoPrompt(
     promptParts.push(`Setting: ${sceneInfo}`);
   }
 
-  // 对白：有内容且开启时包含，否则明确禁止
+  // Thoại：有内容且开启时包含，否则明确禁止
   if (scene.audioDialogueEnabled !== false && scene.dialogue?.trim()) {
     promptParts.push(`Dialogue: "${scene.dialogue.trim()}"`);
   } else {
-    promptParts.push('Dialogue: 禁止对白');
+    promptParts.push('Dialogue: 禁止Thoại');
   }
   // 环境音：有内容且开启时包含，否则明确禁止
   if (scene.audioAmbientEnabled !== false && scene.ambientSound?.trim()) {

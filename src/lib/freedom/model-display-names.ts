@@ -90,7 +90,7 @@ export const MODEL_DISPLAY_NAMES: Record<string, string> = {
   'mj-zoom': 'Midjourney 缩放',
   'mj_imagine': 'Midjourney 绘图',
   'mj_blend': 'Midjourney 混合chế độ',
-  'mj_describe': 'Midjourney 图片描述',
+  'mj_describe': 'Midjourney 图片Mô tả',
   'mj_shorten': 'Midjourney 提示词精简',
   'mj_uploads': 'Midjourney 图片上传',
   'mj_action': 'Midjourney 动作',

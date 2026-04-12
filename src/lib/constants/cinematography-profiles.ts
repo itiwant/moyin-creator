@@ -260,7 +260,7 @@ const STYLIZED_PROFILES: CinematographyProfile[] = [
     defaultSpeed: { playbackSpeed: 'normal' },
     defaultAngle: 'eye-level',
     defaultFocalLength: '50mm',
-    promptGuidance: '古典武侠追求「意境」——山间薄雾与落叶营造江湖的苍茫感。摇臂从高处缓缓降至nhân vật，如nhìn từ trên天下的视角。自然侧光模拟透过竹林的斑驳光影，暖色温呼应水墨丹青。打斗场面可加入慢动作，展现武术之美。',
+    promptGuidance: '古典武侠追求「意境」——山间薄雾与落叶营造江湖的苍茫感。摇臂从高处缓缓降至nhân vật，如nhìn từ trên天下的góc nhìn。自然侧光模拟透过竹林的斑驳光影，暖色温呼应水墨丹青。打斗场面可加入慢动作，展现武术之美。',
     referenceFilms: ['卧虎藏龙', '英雄', '刺客聂隐娘', '一代宗师'],
   },
   {
@@ -352,7 +352,7 @@ const GENRE_PROFILES: CinematographyProfile[] = [
     defaultSpeed: { playbackSpeed: 'normal' },
     defaultAngle: 'eye-level',
     defaultFocalLength: '50mm',
-    promptGuidance: '悬疑片的摄影核心是「控制信息揭示」——浅景深Chọn性地让观众只看到导演想让他们看到的。轨道极慢推进制造压迫感，低调侧光让画面总有一半隐藏在阴影đang xử lý...是重要tự sự手法，从前景线索转焦到背景嫌疑人，或反向操作。薄雾为画面增加朦胧感，暗示真相的不确定性。',
+    promptGuidance: '悬疑片的摄影核心是「控制信息揭示」——浅景深Chọn性地让观众只看到Đạo diễn想让他们看到的。轨道极慢推进制造压迫感，低调侧光让画面总有一半隐藏在阴影đang xử lý...是重要tự sự手法，从前景线索转焦到背景嫌疑人，或反向操作。薄雾为画面增加朦胧感，暗示真相的不确定性。',
     referenceFilms: ['消失的爱人', '七宗罪', '杀人回忆', '十二怒汉'],
   },
 ];

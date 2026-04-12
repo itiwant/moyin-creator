@@ -8,7 +8,7 @@
  *
  * 功能：
  * - 左侧：按phân loại显示档案列表（emoji + 名称）
- * - 右侧：悬停/đã chọn时显示详细描述、摄影参数、Tham chiếu影片
+ * - 右侧：悬停/đã chọn时显示详细Mô tả、摄影参数、Tham chiếu影片
  * - 支持 Popover popup出chế độ和内嵌chế độ
  */
 
@@ -124,7 +124,7 @@ export function CinematographyProfilePicker({
           </div>
         </div>
 
-        {/* 描述 */}
+        {/* Mô tả */}
         <div className="text-xs text-muted-foreground mb-3 leading-relaxed">
           {previewProfile.description}
         </div>

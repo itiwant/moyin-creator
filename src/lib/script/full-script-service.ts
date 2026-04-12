@@ -86,7 +86,7 @@ export async function importFullScript(
     const aiAnalysis = await analyzeScriptStructureWithAI(processedText);
     
     if (aiAnalysis) {
-      // AI 检测成功：基于 AI 结果插入标记 + 补全đại cương
+      // AI 检测成功：基于 AI kết quả插入标记 + 补全đại cương
       normalizeResult = applyAIAnalysis(processedText, aiAnalysis);
       console.log('[importFullScript] AI Cấu trúc检测完成:', normalizeResult.changes);
     } else {
@@ -447,14 +447,14 @@ export async function generateEpisodeShots(
     
     store.setShots(projectId, allShots);
     
-    // === AI 视角分析（分镜Tạo后Tự động执行）===
+    // === AI góc nhìn分析（分镜Tạo后Tự động执行）===
     let viewpointAnalyzed = false;
     let viewpointSkippedReason: string | undefined;
     let analysisExecuted = false;
     let viewpointCount = 0;
     
     console.log('\n============================================');
-    console.log('[generateEpisodeShots] === 开始 AI 视角分析 ===');
+    console.log('[generateEpisodeShots] === 开始 AI góc nhìn分析 ===');
     console.log('[generateEpisodeShots] apiKey:', options.apiKey ? `已配置(长度${options.apiKey.length})` : '未配置');
     console.log('[generateEpisodeShots] provider:', options.provider);
     console.log('[generateEpisodeShots] baseUrl:', options.baseUrl || '默认');
@@ -464,14 +464,14 @@ export async function generateEpisodeShots(
     
     if (!options.apiKey) {
       viewpointSkippedReason = 'apiKey 未配置';
-      console.error('[generateEpisodeShots] ❌ 跳过 AI 视角分析: apiKey 未配置');
+      console.error('[generateEpisodeShots] ❌ 跳过 AI góc nhìn分析: apiKey 未配置');
     } else if (episodeScenes.length === 0) {
       viewpointSkippedReason = '无场景';
-      console.warn('[generateEpisodeShots] ⚠️ 跳过 AI 视角分析: 无场景');
+      console.warn('[generateEpisodeShots] ⚠️ 跳过 AI góc nhìn分析: 无场景');
     }
     
     if (options.apiKey && episodeScenes.length > 0) {
-      onProgress?.(`正在 AI 分析场景视角（共 ${episodeScenes.length} 场景）...`);
+      onProgress?.(`正在 AI 分析场景góc nhìn（共 ${episodeScenes.length} 场景）...`);
       
       try {
         // 获取本 tậpđại cương和Sự kiện quan trọng
@@ -494,12 +494,12 @@ export async function generateEpisodeShots(
         console.log('[generateEpisodeShots] viewpointOptions 已构建, genre:', viewpointOptions.genre || '未知');
         
         // 获取并发数配置（Sử dụng顶部静态Nhập的 store）
-        // 智谱 API 并发限制较严，视角分析最多Sử dụng 10 并发
+        // 智谱 API 并发限制较严，góc nhìn分析最多Sử dụng 10 并发
         const userConcurrency = useAPIConfigStore.getState().concurrency || 1;
         const concurrency = Math.min(userConcurrency, 10);
         console.log(`[generateEpisodeShots] Sử dụng并发数: ${concurrency} (用户设置: ${userConcurrency}, 上限: 10)`);
         
-        // 为每场景分析视角（支持并发）
+        // 为每场景分析góc nhìn（支持并发）
         const updatedScenes = [...scriptData.scenes];
         
         // 准备场景分析任务
@@ -522,7 +522,7 @@ export async function generateEpisodeShots(
           
           console.log(`[generateEpisodeShots] 🔄 gọi API analyzeSceneViewpoints for "${scene.location}"...`);
           const result = await analyzeSceneViewpoints(scene, sceneShots, viewpointOptions);
-          console.log(`[generateEpisodeShots] ✅ AI 分析完成，返回 ${result.viewpoints.length} 视角:`, 
+          console.log(`[generateEpisodeShots] ✅ AI 分析完成，返回 ${result.viewpoints.length} góc nhìn:`, 
             result.viewpoints.map(v => v.name).join(', '));
           console.log(`[generateEpisodeShots] 📝 analysisNote: ${result.analysisNote}`);
           
@@ -539,12 +539,12 @@ export async function generateEpisodeShots(
           5000
         );
         
-        // 处理Tất cả结果
+        // 处理Tất cảkết quả
         for (const settledResult of settledResults) {
           if (settledResult.status === 'fulfilled') {
             const { scene, sceneShots, result } = settledResult.value;
             
-            // 更新场景的视角数据
+            // 更新场景的góc nhìn数据
             const sceneIndex = updatedScenes.findIndex(s => s.id === scene.id);
             if (sceneIndex !== -1) {
               const viewpointsData = result.viewpoints.map((v: any, idx: number) => ({
@@ -556,14 +556,14 @@ export async function generateEpisodeShots(
                 gridIndex: idx,
               }));
               
-              // 检查是否有未分配的分镜，并将它们分配到合适的视角
+              // 检查是否有未分配的分镜，并将它们分配到合适的góc nhìn
               const allAssignedShotIds = new Set(viewpointsData.flatMap((v: any) => v.shotIds));
               const unassignedShots = sceneShots.filter((s: any) => !allAssignedShotIds.has(s.id));
               
               if (unassignedShots.length > 0) {
                 console.log(`[generateEpisodeShots] ⚠️ 发现 ${unassignedShots.length} 未分配的分镜:`, unassignedShots.map((s: any) => s.id));
                 
-                // 策略：根据分镜内容thông minh分配到最匹配的视角
+                // 策略：根据分镜内容thông minh分配到最匹配的góc nhìn
                 for (const shot of unassignedShots) {
                   const shotText = [
                     shot.actionSummary,
@@ -572,7 +572,7 @@ export async function generateEpisodeShots(
                     shot.dialogue,
                   ].filter(Boolean).join(' ').toLowerCase();
                   
-                  // 查找最匹配的视角
+                  // 查找最匹配的góc nhìn
                   let bestViewpointIdx = 0;
                   let bestScore = 0;
                   
@@ -582,7 +582,7 @@ export async function generateEpisodeShots(
                     const vpKeywords = vp.keyProps || [];
                     
                     let score = 0;
-                    const nameKeywords = vpName.replace(/(视角|区|位)$/g, '').split('');
+                    const nameKeywords = vpName.replace(/(góc nhìn|区|位)$/g, '').split('');
                     for (const char of nameKeywords) {
                       if (shotText.includes(char)) score += 1;
                     }
@@ -604,7 +604,7 @@ export async function generateEpisodeShots(
                   }
                   
                   viewpointsData[bestViewpointIdx].shotIds.push(shot.id);
-                  console.log(`[generateEpisodeShots]   - 分镜 ${shot.id} 分配到视角 "${viewpointsData[bestViewpointIdx].name}" (score: ${bestScore})`);
+                  console.log(`[generateEpisodeShots]   - 分镜 ${shot.id} 分配到góc nhìn "${viewpointsData[bestViewpointIdx].name}" (score: ${bestScore})`);
                 }
               }
               
@@ -630,11 +630,11 @@ export async function generateEpisodeShots(
         
         // 保存更新后的场景数据
         console.log('\n============================================');
-        console.log('[generateEpisodeShots] 📦 保存 AI 视角到 scriptData.scenes...');
+        console.log('[generateEpisodeShots] 📦 保存 AI góc nhìn到 scriptData.scenes...');
         console.log('[generateEpisodeShots] updatedScenes đang xử lý...的场景:');
         updatedScenes.forEach(s => {
           if (s.viewpoints && s.viewpoints.length > 0) {
-            console.log(`  - ${s.location}: ${s.viewpoints.length} 视角 [${s.viewpoints.map((v: any) => v.name).join(', ')}]`);
+            console.log(`  - ${s.location}: ${s.viewpoints.length} góc nhìn [${s.viewpoints.map((v: any) => v.name).join(', ')}]`);
           }
         });
         
@@ -643,8 +643,8 @@ export async function generateEpisodeShots(
           scenes: updatedScenes,
         });
         
-        console.log('[generateEpisodeShots] ✅ AI 视角已保存到 store');
-        console.log('[generateEpisodeShots] 总计 AI 分析视角数:', viewpointCount);
+        console.log('[generateEpisodeShots] ✅ AI góc nhìn已保存到 store');
+        console.log('[generateEpisodeShots] 总计 AI 分析góc nhìn数:', viewpointCount);
         console.log('============================================\n');
         
         viewpointAnalyzed = analysisExecuted;
@@ -652,11 +652,11 @@ export async function generateEpisodeShots(
           viewpointSkippedReason = '无分镜';
         }
         
-        onProgress?.(`AI 视角分析完成（${viewpointCount} 视角）`);
+        onProgress?.(`AI góc nhìn分析完成（${viewpointCount} góc nhìn）`);
       } catch (e) {
         const err = e as Error;
         console.error('\n============================================');
-        console.error('[generateEpisodeShots] ❌ AI 视角分析失败:', err);
+        console.error('[generateEpisodeShots] ❌ AI góc nhìn分析失败:', err);
         console.error('[generateEpisodeShots] Error name:', err.name);
         console.error('[generateEpisodeShots] Error message:', err.message);
         console.error('[generateEpisodeShots] Error stack:', err.stack);
@@ -726,7 +726,7 @@ async function generateShotsForEpisode(
 
 /**
  * 基于场景gốc内容Tạo分镜（规则化Tạo，不依赖AI）
- * 每对白或动作Tạo一分镜
+ * 每Thoại或动作Tạo一分镜
  */
 function generateShotsFromSceneContent(
   scene: {
@@ -758,14 +758,14 @@ function generateShotsFromSceneContent(
     // 跳过纯 markdown 格式行（如 **xxx**）
     if (trimmedLine.match(/^\*\*[^nhân vật\*]+\*\*$/)) continue;
     
-    // 对白行
+    // Thoại行
     const dialogueMatch = trimmedLine.match(/^([^：:（\([【\n△\*]{1,10})[：:]\s*(?:[（\(]([^）\)]+)[）\)])?\s*(.+)$/);
     if (dialogueMatch) {
       const charName = dialogueMatch[1].trim();
       const parenthetical = dialogueMatch[2]?.trim() || '';
       const dialogueText = dialogueMatch[3].trim();
       
-      // 跳过非对白
+      // 跳过非Thoại
       if (charName.match(/^[字幕旁白场景nhân vật]/)) continue;
       
       const charId = characters.find(c => c.name === charName)?.id || '';
@@ -789,7 +789,7 @@ function generateShotsFromSceneContent(
     if (trimmedLine.startsWith('△')) {
       const actionText = trimmedLine.slice(1).trim();
       
-      // 从动作描述đang xử lý...能的角色
+      // 从动作Mô tảđang xử lý...能的角色
       const mentionedChars = characters.filter(c => 
         actionText.includes(c.name)
       );
@@ -847,7 +847,7 @@ function generateShotsFromSceneContent(
     }
   }
   
-  // 如果场景没有Tạo任何分镜，创建一默认的建立镜头
+  // 如果场景没有Tạo任何分镜，tạo一默认的建立镜头
   if (shots.length === 0) {
     shots.push(createShot({
       index: index,
@@ -914,7 +914,7 @@ function getEpisodeIndexFromId(episodeId: string): number {
 }
 
 /**
- * 创建分镜对象
+ * tạo分镜对象
  */
 function createShot(params: {
   index: number;
@@ -1083,7 +1083,7 @@ function extractEpisodeSummary(episode: EpisodeRawScript): string {
       parts.push(`场景：${scene.sceneHeader}`);
     }
     
-    // 取前几条对白
+    // 取前几条Thoại
     const dialogueSample = scene.dialogues.slice(0, 3).map(d => 
       `${d.character}：${d.line.slice(0, 30)}`
     ).join('\n');
@@ -1211,7 +1211,7 @@ ${characterBios.slice(0, 1000)}
       },
     });
     
-    // 处理结果
+    // 处理kết quả
     let calibratedCount = 0;
     for (const ep of missingEpisodes) {
       const newTitle = results.get(String(ep.episodeIndex));
@@ -1370,7 +1370,7 @@ export async function calibrateEpisodeShots(
   const background = project.projectBackground;
   const episodeScript = project.episodeRawScripts.find(ep => ep.episodeIndex === episodeIndex);
   
-  // 提取该 tập的gốc剧本内容（对白+动作）
+  // 提取该 tập的gốc剧本内容（Thoại+动作）
   const episodeRawContent = episodeScript?.rawContent || '';
   
   // 构建剧级上下文摘要
@@ -1387,7 +1387,7 @@ export async function calibrateEpisodeShots(
     episodeTitle: episode.title,
     episodeSynopsis: episodeScript?.synopsis || '',  // Sử dụng每 tậpđại cương
     episodeKeyEvents: episodeScript?.keyEvents || [],  // Sự kiện quan trọng
-    episodeRawContent,  // 该 tậpgốc剧本内容（đầy đủ对白、动作描写）
+    episodeRawContent,  // 该 tậpgốc剧本内容（đầy đủThoại、动作描写）
     episodeSeason: episodeScript?.season,  // 本 tập季节
     totalEpisodes: project.episodeRawScripts.length,
     currentEpisode: episodeIndex,
@@ -1423,7 +1423,7 @@ export async function calibrateEpisodeShots(
         const scene = scriptData.scenes.find(s => s.id === shot.sceneRefId);
         let sourceText = shot.actionSummary || '';
         if (shot.dialogue) {
-          sourceText += `\n对白：「${shot.dialogue}」`;
+          sourceText += `\nThoại：「${shot.dialogue}」`;
         }
         // 尝试查找场景对应的天气
         let sceneWeather = '';
@@ -1506,7 +1506,7 @@ export async function calibrateEpisodeShots(
       .filter((r): r is { status: 'fulfilled'; value: any } => r.status === 'fulfilled')
       .map(r => r.value);
     
-    // 处理结果
+    // 处理kết quả
     for (const { batch, calibrations, success } of results) {
       if (success) {
         for (const shot of batch) {
@@ -1646,7 +1646,7 @@ export async function calibrateSingleShot(
     // 准备分镜数据
     let sourceText = shot.actionSummary || '';
     if (shot.dialogue) {
-      sourceText += `\n对白：「${shot.dialogue}」`;
+      sourceText += `\nThoại：「${shot.dialogue}」`;
     }
     
     // 查找场景天气
@@ -1685,7 +1685,7 @@ export async function calibrateSingleShot(
     const calibration = calibrations[shot.id];
     
     if (!calibration) {
-      return { success: false, calibratedCount: 0, totalShots: 1, error: 'AI Hiệu chuẩn未返回结果' };
+      return { success: false, calibratedCount: 0, totalShots: 1, error: 'AI Hiệu chuẩn未返回kết quả' };
     }
     
     // 更新分镜
@@ -1800,11 +1800,11 @@ async function callAIForShotCalibration(
   visualDescription: string;
   visualPrompt: string;
   // 三层提示词系统
-  imagePrompt: string;      // 首帧提示词（静态描述）
+  imagePrompt: string;      // 首帧提示词（静态Mô tả）
   imagePromptZh: string;    // 首帧提示词中文
   videoPrompt: string;      // 视频提示词（动态动作）
   videoPromptZh: string;    // 视频提示词中文
-  endFramePrompt: string;   // 尾帧提示词（静态描述）
+  endFramePrompt: string;   // 尾帧提示词（静态Mô tả）
   endFramePromptZh: string; // 尾帧提示词中文
   needsEndFrame: boolean;   // 是否需要尾帧
   shotSize: string;
@@ -1820,9 +1820,9 @@ async function callAIForShotCalibration(
   shotPurpose: string;        // 镜头目的：为什么用这镜头
   storyAlignment?: string;    // 与整体tự sự的一致性
   visualFocus: string;        // 视觉焦点：观众应该看什么
-  cameraPosition: string;     // 机位描述
+  cameraPosition: string;     // 机位Mô tả
   characterBlocking: string;  // nhân vật布局
-  rhythm: string;             // 节奏描述
+  rhythm: string;             // 节奏Mô tả
   // === 拍摄控制trường ===
   lightingStyle?: string;
   lightingDirection?: string;
@@ -1852,7 +1852,7 @@ async function callAIForShotCalibration(
   // 截取gốc剧本内容（避免过长，取前3000字）
   const rawContentPreview = episodeRawContent ? episodeRawContent.slice(0, 3000) : '';
   
-  // Sử dụng共享的风格描述函数
+  // Sử dụng共享的风格Mô tả函数
   const styleDesc = getStyleDescription(styleId || 'cinematic');
   
   // 摄影风格档案指导文本
@@ -1881,7 +1881,7 @@ async function callAIForShotCalibration(
 - 动态捕捉：能准确判断镜头的bắt đầu状态和kết thúc状态是否有显著差异
 - AI视频Tạo经验：深谙 Seedance、Sora、Runway 等 AI 视频模型的工作原理
 
-你的任务是根据剧本全局背景和分镜信息，为每分镜Tạo专业的视觉描述和三层提示词。
+你的任务是根据剧本全局背景和分镜信息，为每分镜Tạo专业的Mô tả thị giác和三层提示词。
 
 【剧本信息】
 ${contextInfo}
@@ -1902,14 +1902,14 @@ ${characterBios ? `
 
 1. **场景归属绝对Cố định**（最重要！）：
    - 每分镜都有一【主场景】（由 sceneLocation trường指定），这是**绝对不可thay đổi的**
-   - 即使分镜描述đang xử lý...其他场景（如闪回、叠画、回忆画面、穿插镜头），**主场景仍然是 sceneLocation**
+   - 即使分镜Mô tảđang xử lý...其他场景（如闪回、叠画、回忆画面、穿插镜头），**主场景vẫn是 sceneLocation**
    - 闪回/叠画是「当前主场景内的视觉表现手法」，不是场景切换
-   - 你Tạo的Tất cả描述（visualDescription、imagePrompt 等）都必须以**主场景为背景**
-   - 如果原文包含闪回/叠画内容，用「画面叠加」「画đang xử lý...主观回忆」等方式描述，而不是描述成另一场景
-   - 例：主场景是"张家客厅"，原文提到"闪回台球厅"，应描述为"张家客厅đang xử lý...叠加台球厅的回忆画面"
+   - 你Tạo的Tất cảMô tả（visualDescription、imagePrompt 等）都必须以**主场景为背景**
+   - 如果原文包含闪回/叠画内容，用「画面叠加」「画đang xử lý...主观回忆」等方式Mô tả，而不是Mô tả成另一场景
+   - 例：主场景是"张家客厅"，原文提到"闪回台球厅"，应Mô tả为"张家客厅đang xử lý...叠加台球厅的回忆画面"
 
 2. **严格基于原文**：每分镜都附带了【gốc剧本文本】，你的Tất cảTạo内容必须完全基于该原文：
-   - 视觉描述必须包含原文đang xử lý...Tất cảquan trọng元素（nhân vật、动作、道具、场景）
+   - Mô tả thị giác必须包含原文đang xử lý...Tất cảquan trọng元素（nhân vật、动作、道具、场景）
    - 不得Thêm原文đang xử lý...内容
    - 不得混入其他分镜的内容
    - 不得遗漏原文đang xử lý...信息
@@ -1921,12 +1921,12 @@ ${characterBios ? `
 3. **đang xử lý...离**：
    - **đang xử lý...ường**（visualDescription, ambientSound, soundEffect, imagePromptZh, videoPromptZh, endFramePromptZh）：必须是纯中文
    - **英文trường**（visualPrompt, imagePrompt, videoPrompt, endFramePrompt）：必须是100%纯英文，绝对禁止夹杂任何đang xử lý...
-   - 如果不确定某词怎么翻译，用英文描述或近义词代替，但绝不能留中文
+   - 如果不确定某词怎么翻译，用英文Mô tả或近义词代替，但绝不能留中文
 
-4. **时长估算**：根据动作复杂度和对白长度估算合理的分镜时长（秒）
-   - 纯动作无对白：3-5秒
-   - 简短对白：4-6秒
-   - 较长对白：6-10秒
+4. **时长估算**：根据动作复杂度和Thoại长度估算合理的分镜时长（秒）
+   - 纯动作无Thoại：3-5秒
+   - 简短Thoại：4-6秒
+   - 较长Thoại：6-10秒
    - 复杂动作序列：5-8秒
 
 5. **音频Thiết kế**（必须用đang xử lý...根据原文识别并输出：
@@ -1937,8 +1937,8 @@ ${characterBios ? `
 为每分镜Tạo：
 
 **基础trường：**
-1. đang xử lý...描述 (visualDescription): 详细、有画面感的**纯đang xử lý...描述，必须包含原文Tất cảquan trọng元素（环境、nhân vật、动作、道具）
-2. 英文视觉描述 (visualPrompt): 用于AI绘图的**纯英文**描述，40词内
+1. đang xử lý...Mô tả (visualDescription): 详细、有画面感的**纯đang xử lý...Mô tả，必须包含原文Tất cảquan trọng元素（环境、nhân vật、动作、道具）
+2. 英文Mô tả thị giác (visualPrompt): 用于AI绘图的**纯英文**Mô tả，40词内
 3. 景别 (shotSize): ECU/CU/MCU/MS/MLS/LS/WS/FS
 4. 镜头运动 (cameraMovement): none/static/tracking/orbit/zoom-in/zoom-out/pan-left/pan-right/tilt-up/tilt-down/dolly-in/dolly-out/truck-left/truck-right/crane-up/crane-down/drone-aerial/360-roll
 4b. 特殊拍摄手法 (specialTechnique): none/hitchcock-zoom/timelapse/crash-zoom-in/crash-zoom-out/whip-pan/bullet-time/fpv-shuttle/macro-closeup/first-person/slow-motion/probe-lens/spinning-tilt
@@ -1952,9 +1952,9 @@ ${characterBios ? `
 10. tự sự功能 (narrativeFunction): 铺垫/升级/cao trào/转折/过渡/尾声
 11. 镜头目的 (shotPurpose): 为什么用这镜头？一句话说明
 12. 视觉焦点 (visualFocus): 观众应该按什么顺序看？用箭头表示
-13. 机位描述 (cameraPosition): 摄影机相对于nhân vật的位置
+13. 机位Mô tả (cameraPosition): 摄影机相对于nhân vật的位置
 14. nhân vật布局 (characterBlocking): nhân vật在画面đang xử lý...关系
-15. 节奏描述 (rhythm): 这镜头的节奏感
+15. 节奏Mô tả (rhythm): 这镜头的节奏感
 
 **拍摄控制trường（Cinematography Controls）：**
 16. 灯光风格 (lightingStyle): natural/high-key/low-key/silhouette/chiaroscuro/neon
@@ -1975,7 +1975,7 @@ ${characterBios ? `
 
 【三层提示词系统 - 重要】
 
-【16. 首帧提示词 (imagePrompt/imagePromptZh): 用于 AI 图像Tạo，描述视频第一帧的đầy đủ静态画面
+【16. 首帧提示词 (imagePrompt/imagePromptZh): 用于 AI 图像Tạo，Mô tả视频第一帧的đầy đủ静态画面
     **必须包含以下Tất cả元素**（缺一不可）：
     
     a) **场景环境**：
@@ -1988,14 +1988,14 @@ ${characterBios ? `
        - 光线质感（柔和/硬朗/漫射）
        - 光影氛围（温暖/冷色调/明暗对比）
     
-    c) **nhân vật描述**（每出场nhân vật都要写）：
+    c) **nhân vậtMô tả**（每出场nhân vật都要写）：
        - 年龄段（青年/đang xử lý...年）
        - 服装概述（休闲装/正装/工作服等）
        - Biểu cảm神态（căng thẳng/严肃/微笑/担忧）
        - Tư thế动作（坐着/站立/俯身/Cầm tayvật phẩm）
     
     d) **bố cục与景别**：
-       - 景别描述（đang xử lý...入画/Cận cảnh半身/Cực cận cảnhKhuôn mặt）
+       - 景别Mô tả（đang xử lý...入画/Cận cảnh半身/Cực cận cảnhKhuôn mặt）
        - nhân vật位置关系（左đang xử lý...、前后关系）
        - 视觉焦点（主体在画面何处）
     
@@ -2010,15 +2010,15 @@ ${characterBios ? `
     - imagePromptZh: 纯đang xử lý...0-100字，包含以上Tất cả元素
     - imagePrompt: 纯英文，60-80词，对应đang xử lý...的đầy đủ翻译，适合AI图像模型
 
-11. 视频提示词 (videoPrompt/videoPromptZh): 描述视频đang xử lý...内容
+11. 视频提示词 (videoPrompt/videoPromptZh): Mô tả视频đang xử lý...内容
     - **必须强调动作**（如"反复观看"、"căng thẳng地吃饭"等动词）
     - 画面动作（nhân vật动作、物体移动）
-    - 镜头运动描述
-    - 对白提示（如有）
+    - 镜头运动Mô tả
+    - Thoại提示（如有）
     - videoPromptZh: 纯中文
     - videoPrompt: 纯英文
 
-【18. 尾帧提示词 (endFramePrompt/endFramePromptZh): 用于 AI 图像Tạo，描述视频最后一帧的đầy đủ静态画面
+【18. 尾帧提示词 (endFramePrompt/endFramePromptZh): 用于 AI 图像Tạo，Mô tả视频最后一帧的đầy đủ静态画面
     
     **与首帧同等重要！必须包含以下Tất cả元素**（缺一不可）：
     
@@ -2026,18 +2026,18 @@ ${characterBios ? `
     
     b) **光线Thiết kế**：与首帧保持一致（除非剧情有时间变化）
     
-    c) **nhân vật描述**（重点！描述动作完成后的状态）：
+    c) **nhân vậtMô tả**（重点！Mô tả动作完成后的状态）：
        - 同样包含年龄、服装
        - **新的Biểu cảm神态**（动作完成后的情绪）
        - **新的Tư thế位置**（动作完成后的位置）
        - 道具的新状态
     
     d) **bố cục与景别**：
-       - 如有镜头运动，描述运动kết thúc后的新景别
+       - 如有镜头运动，Mô tả运动kết thúc后的新景别
        - nhân vật新的位置关系
     
     e) **变化对比**（核心！）：
-       - 明确描述与首帧的差异（位置/动作/Biểu cảm/道具状态）
+       - 明确Mô tả与首帧的差异（位置/动作/Biểu cảm/道具状态）
     
     f) **画面风格**：与首帧保持一致
     
@@ -2053,7 +2053,7 @@ ${characterBios ? `
     - vật phẩm状态变化（翻页、收起等）
     
     **可以设置为 false**：
-    - 纯对白（位置không thay đổi）
+    - 纯Thoại（位置không thay đổi）
     - 仅Biểu cảm微小变化
     - 完全静态镜头
     
@@ -2077,7 +2077,7 @@ ${getMediaTypeGuidance(mt)}
 ` : '';
 })()}
 镜头Thiết kế原则：
-- 情感对白、内心活动: CU/ECU Cận cảnhCực cận cảnh
+- 情感Thoại、内心活动: CU/ECU Cận cảnhCực cận cảnh
 - 动作场面、追逐: MS/WS + Tracking跟随
 - 场景建立、过渡: WS/FS Viễn cảnh
 - căng thẳng对峙: 快速切换景别
@@ -2144,7 +2144,7 @@ ${getMediaTypeGuidance(mt)}
     const sourceText = shot.sourceText || shot.actionSummary || '';
     const hasFlashback = /闪回|叠画|回忆|穿插/.test(sourceText);
     const flashbackNote = hasFlashback 
-      ? `\n⚠️ 注意：原文包含闪回/叠画内容，但主场景仍然是「${shot.sceneLocation}」，不要描述成另一场景！`
+      ? `\n⚠️ 注意：原文包含闪回/叠画内容，但主场景vẫn是「${shot.sceneLocation}」，不要Mô tả成另一场景！`
       : '';
     // 构建场景美术Thiết kế信息（如果有）
     const artDesignParts = [
@@ -2162,7 +2162,7 @@ ${getMediaTypeGuidance(mt)}
 ${sourceText}
 【已解析信息】
 动作: ${shot.actionSummary}
-对白: ${shot.dialogue || '无'}
+Thoại: ${shot.dialogue || '无'}
 当前角色: ${chars}
 氛围: ${shot.sceneAtmosphere}
 时间: ${shot.sceneTime}${shot.sceneWeather ? `
@@ -2193,7 +2193,7 @@ ${shotDescriptions}`;
   // 统一从ánh xạ dịch vụ获取配置（单分镜Hiệu chuẩn用更大 token 预算）
   const result = await callFeatureAPI('script_analysis', systemPrompt, userPrompt, { maxTokens: 16384 });
   
-  // 解析 JSON 结果（增强版）
+  // 解析 JSON kết quả（增强版）
   try {
     let cleaned = result;
     
@@ -2379,7 +2379,7 @@ ${characterBios.slice(0, 800)}
       },
     });
     
-    // 处理结果
+    // 处理kết quả
     let generatedCount = 0;
     for (const ep of episodes) {
       const res = results.get(String(ep.episodeIndex));

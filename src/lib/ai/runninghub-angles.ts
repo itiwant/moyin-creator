@@ -3,7 +3,7 @@
 // Commercial licensing available. See COMMERCIAL_LICENSE.md.
 /**
  * RunningHub Angle Constants
- * 96种视角定义：8方向 × 4俯仰角 × 3景别
+ * 96种góc nhìn定义：8方向 × 4俯仰角 × 3景别
  */
 
 export type HorizontalDirection = 
@@ -62,7 +62,7 @@ export const ELEVATION_ANGLES: Array<{
   description: string;
 }> = [
   { id: 'low-angle', label: '仰视', description: '从下往上拍' },
-  { id: 'eye-level', label: '平视', description: '水平视角' },
+  { id: 'eye-level', label: '平视', description: '水平góc nhìn' },
   { id: 'elevated', label: '微俯视', description: '略微俯视' },
   { id: 'high-angle', label: '大俯视', description: '从上往下拍' },
 ];
@@ -106,7 +106,7 @@ const SHOT_SIZE_PROMPTS: Record<ShotSize, string> = {
 };
 
 /**
- * Tạo单视角的提示词
+ * Tạo单góc nhìn的提示词
  * 精确匹配96种标准提示词格式
  */
 export function generateAnglePrompt(
@@ -122,7 +122,7 @@ export function generateAnglePrompt(
 }
 
 /**
- * TạoTất cả96种视角预设
+ * TạoTất cả96种góc nhìn预设
  */
 export function generateAllAnglePresets(): AnglePreset[] {
   const presets: AnglePreset[] = [];
@@ -172,7 +172,7 @@ export function getAngleLabel(
 }
 
 /**
- * 常用视角快捷方式
+ * 常用góc nhìn快捷方式
  */
 export const COMMON_ANGLES: Array<{
   name: string;

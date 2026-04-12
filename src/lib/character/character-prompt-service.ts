@@ -29,10 +29,10 @@ export interface CharacterStageAppearance {
   stageId: string;           // 阶段ID
   stageName: string;         // 阶段名称（如"少年时期"、"成为大亨后"）
   episodeRange: string;      //  tập数范围（如"1-5"、"10-20"）
-  description: string;       // 该阶段的角色描述
+  description: string;       // 该阶段的角色Mô tả
   visualPromptEn: string;    // 英文视觉提示词
   visualPromptZh: string;    // đang xử lý...提示词
-  ageDescription?: string;   // 年龄描述
+  ageDescription?: string;   // 年龄Mô tả
   clothingStyle?: string;    // 服装风格
   keyChanges?: string;       // 与上一阶段的quan trọng变化
 }
@@ -44,7 +44,7 @@ export interface CharacterDesign {
   characterId: string;
   characterName: string;
   // Thông tin cơ bản
-  baseDescription: string;      // 基础角色描述
+  baseDescription: string;      // 基础角色Mô tả
   baseVisualPromptEn: string;   // 基础英文提示词
   baseVisualPromptZh: string;   // 基础đang xử lý...词
   // 多阶段形象
@@ -206,7 +206,7 @@ async function callAIForCharacterDesign(
 - **角色视觉Thiết kế**：能准确捕捉角色的外在形象、服装风格、肢体Ngôn ngữ
 - **角色成长弧线**：理解角色在不同剧情阶段的形象变化（从少年到成年、从普通人到英雄等）
 - **AI图像Tạo经验**：深谙 Midjourney、DALL-E、Stable Diffusion 等 AI 绘图模型的工作原理，能写出高质量的提示词
-- **一致性保持**：知道如何描述Khuôn mặt特征、体型等không thay đổi元素，确保角色在不同阶段仍可辨认
+- **一致性保持**：知道如何Mô tảKhuôn mặt特征、体型等không thay đổi元素，确保角色在不同阶段仍可辨认
 
 你的任务是根据剧本信息，为角色Thiết kế**多阶段视觉形象**。
 
@@ -247,28 +247,28 @@ ${context.characterAppearances.length > 0
 
 4. **提示词要求**：
    - 英文提示词：40-60词，适合AI图像Tạo
-   - đang xử lý...词：详细描述，包含细节
+   - đang xử lý...词：详细Mô tả，包含细节
 
 请以JSON格式返回：
 {
   "characterName": "角色名",
-  "baseDescription": "角色基础描述（一句话）",
+  "baseDescription": "角色基础Mô tả（一句话）",
   "baseVisualPromptEn": "基础英文提示词",
   "baseVisualPromptZh": "基础đang xử lý...词",
   "consistencyElements": {
-    "facialFeatures": "Khuôn mặt特征描述（英文）",
-    "bodyType": "体型描述（英文）",
-    "uniqueMarks": "独特标记描述（英文，如无则为空）"
+    "facialFeatures": "Khuôn mặt特征Mô tả（英文）",
+    "bodyType": "体型Mô tả（英文）",
+    "uniqueMarks": "独特标记Mô tả（英文，如无则为空）"
   },
   "stages": [
     {
       "stageId": "stage_1",
       "stageName": "阶段名称（如：少年时期）",
       "episodeRange": "1-5",
-      "description": "该阶段角色状态描述",
+      "description": "该阶段角色状态Mô tả",
       "visualPromptEn": "该阶段英文视觉提示词",
       "visualPromptZh": "该阶段đang xử lý...提示词",
-      "ageDescription": "年龄描述",
+      "ageDescription": "年龄Mô tả",
       "clothingStyle": "服装风格",
       "keyChanges": "与上一阶段的变化（第一阶段为空）"
     }
@@ -280,7 +280,7 @@ ${context.characterAppearances.length > 0
   // 统一从ánh xạ dịch vụ获取配置
   const result = await callFeatureAPI('script_analysis', systemPrompt, userPrompt);
   
-  // 解析结果
+  // 解析kết quả
   try {
     let cleaned = result.replace(/```json\n?/g, '').replace(/```\n?/g, '').trim();
     const jsonStart = cleaned.indexOf('{');
@@ -391,7 +391,7 @@ export function generateVariationsFromDesign(design: CharacterDesign): Array<{
 }
 
 /**
- * 为角色库的角色更新基础描述和Đặc điểm thị giác
+ * 为角色库的角色更新基础Mô tả和Đặc điểm thị giác
  * 
  * @param design 角色Thiết kế
  * @returns 可用于 updateCharacter() 的更新对象

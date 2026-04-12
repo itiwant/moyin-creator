@@ -353,7 +353,7 @@ async function submitViaChatCompletions(
   console.log('[ImageGenerator] Submitting via chat completions:', { model, endpoint, isGemini, geminiImageSize: geminiHasImageSize ? normalizeResolutionForGemini(resolution) : 'N/A' });
 
   const response = await retryOperation(async () => {
-    // 每次Thử lại独立创建 AbortController，避免共享 controller 在Thử lại时已超时
+    // 每次Thử lại独立tạo AbortController，避免共享 controller 在Thử lại时已超时
     const controller = new AbortController();
     const timeoutId = setTimeout(
       () => controller.abort(new DOMException('图片Tạo请求超时（60秒），请检查网络后Thử lại', 'TimeoutError')),
@@ -569,7 +569,7 @@ async function submitImageTask(
 
   try {
     const data = await retryOperation(async () => {
-      // 每次Thử lại独立创建 AbortController，避免共享 controller 在Thử lại时已超时
+      // 每次Thử lại独立tạo AbortController，避免共享 controller 在Thử lại时已超时
       const controller = new AbortController();
       const timeoutId = setTimeout(() => controller.abort(), 60000);
 
@@ -900,7 +900,7 @@ export async function submitGridImageRequest(params: {
     || data.task_id?.toString()
     || data.id?.toString();
 
-  // 如果只有 taskId 没有 imageUrl，Tự động轮询获取结果（与 generateImage 行为一致）
+  // 如果只有 taskId 没有 imageUrl，Tự động轮询获取kết quả（与 generateImage 行为一致）
   if (!imageUrl && taskId) {
     console.log('[GridImageAPI] Got taskId without imageUrl, polling...', taskId);
     const pollUrl = `${rootBase}${imagePaths.poll(taskId)}`;

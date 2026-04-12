@@ -5,7 +5,7 @@
 
 /**
  * Phân cảnh组件 (Split Scenes Component)
- * HiệnPhân cảnh切割结果，Hỗ trợChỉnh sửaprompt、Tải lênKhung hình cuối、ChọnThư viện nhân vật、Thêm情绪Thẻ
+ * HiệnPhân cảnh切割kết quả，Hỗ trợChỉnh sửaprompt、Tải lênKhung hình cuối、ChọnThư viện nhân vật、Thêm情绪Thẻ
  */
 
 import React, { useState, useCallback, useMemo, useRef } from "react";
@@ -1233,7 +1233,7 @@ export function SplitScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
         });
       });
       
-      // Tạo thành công后才ĐóngChọnChat框，Mở结果Chat框
+      // Tạo thành công后才ĐóngChọnChat框，Mởkết quảChat框
       setQuadGridOpen(false);
       setQuadGridResultOpen(true);
       toast.success('Tạo lưới 4 ô hoàn tất, đã tự động lưu vào thư viện');
@@ -2675,7 +2675,7 @@ export function SplitScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
         console.log(`[MergedGen] Ref[${i}] format:`, prefix + '...');
       });
       
-      // 解析结果辅助函数（用于轮询阶段）
+      // 解析kết quả辅助函数（用于轮询阶段）
       const normalizeUrl = (url: any): string | undefined => {
         if (!url) return undefined;
         if (Array.isArray(url)) return url[0] || undefined;
@@ -2896,7 +2896,7 @@ export function SplitScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
           toast.success(`第 ${fp.index + 1} 页Thử lạiThành công（${pageInfo}）`);
         } catch (retryErr: any) {
           const retryMsg = retryErr.message || String(retryErr);
-          console.error(`[MergedGen] 第 ${fp.index + 1} 页Thử lại仍然Thất bại:`, retryMsg);
+          console.error(`[MergedGen] 第 ${fp.index + 1} 页Thử lạivẫnThất bại:`, retryMsg);
           // 再次Đặt lại为 error Trạng thái
           resetPageTasksToError(fp.pageTasks, `Thử lạiThất bại: ${retryMsg}`);
           toast.error(`第 ${fp.index + 1} 页Thử lạiThất bại: ${retryMsg.substring(0, 80)}`);

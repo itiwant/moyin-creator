@@ -115,7 +115,7 @@ ${background?.outline ? `đại cương：${background.outline.slice(0, 500)}` :
 ${shotSummaries.map(s => 
   `[${s.index}] ${s.id}
    动作：${s.actionSummary.slice(0, 100)}
-   描述：${s.visualDescription.slice(0, 100)}
+   Mô tả：${s.visualDescription.slice(0, 100)}
    角色：${s.characterNames.join('、') || '无'}
    tự sự功能：${s.narrativeFunction || '未知'}
    情绪：${Array.isArray(s.emotionTags) ? s.emotionTags.join(', ') : '无'}`
@@ -217,7 +217,7 @@ function selectTrailerShotsByRules(shots: Shot[], targetCount: number): Shot[] {
     if (emotionTags.includes('mysterious')) score += 4;
     if (emotionTags.includes('touching')) score += 3;
     
-    // 有对白的镜头更有吸引力
+    // 有Thoại的镜头更有吸引力
     if (shot.dialogue) score += 2;
     
     // 有多角色的镜头更有戏剧性
@@ -266,7 +266,7 @@ function selectTrailerShotsByRules(shots: Shot[], targetCount: number): Shot[] {
 }
 
 /**
- * 将chọn的 Shot 转换为 SplitScene 格式（用于 AI 导演分镜chỉnh sửa）
+ * 将chọn的 Shot 转换为 SplitScene 格式（用于 AI Đạo diễn分镜chỉnh sửa）
  */
 export function convertShotsToSplitScenes(
   shots: Shot[],

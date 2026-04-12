@@ -10,7 +10,7 @@
  * - Đầu nhóm：Tên nhóm + Ống kính数 + TổngThời lượng预算条
  * - 组级thao tác：Tạo video / Mở rộng折叠
  * - Mở rộng后渲染内部的 SceneCard  cột表
- * - 组级video结果Hiện
+ * - 组级videokết quảHiện
  */
 
 import React, { useState, useMemo, useCallback } from "react";
@@ -402,7 +402,7 @@ export function ShotGroupCard({
         </div>
       </div>
 
-      {/* ========== AI Hiệu chuẩn结果Xem trước ========== */}
+      {/* ========== AI Hiệu chuẩnkết quảXem trước ========== */}
       {(isCalibrated || isCalibrationFailed) && (
         <div className="px-3 py-2 border-t bg-purple-500/5 space-y-1.5">
           {isCalibrated && group.narrativeArc && (
@@ -434,7 +434,7 @@ export function ShotGroupCard({
         </div>
       )}
 
-      {/* ========== Tạo结果区（ô图 + Prompt + video） ========== */}
+      {/* ========== Tạokết quả区（ô图 + Prompt + video） ========== */}
       {(group.gridImageUrl || group.lastPrompt || group.videoUrl) && (
         <div className="px-3 py-2 border-t bg-muted/5 space-y-2">
           {/* ô图Xem trước + Tải xuống */}

@@ -9,7 +9,7 @@
  * 核心特性：
  *   - 双重约束分批（input token + output token）
  *   - 60K token Hard Cap（防止超长上下文模型 TTFT 过高 / Lost in the middle）
- *   - 容错隔离（单批次失败不影响其他批次，部分成功也返回结果）
+ *   - 容错隔离（单批次失败不影响其他批次，部分成功也返回kết quả）
  *   - 单批次Thử lại（指数退避，最多 2 次）
  *   - 并发 tập成（复用 runStaggered + 用户 concurrency 设置）
  *   - 进度回调
@@ -48,7 +48,7 @@ export interface ProcessBatchedOptions<TItem, TResult> {
   buildPrompts: (batch: TItem[]) => { system: string; user: string };
 
   /**
-   * 解析 AI 返回的gốc文本为Cấu trúc化结果
+   * 解析 AI 返回的gốc文本为Cấu trúc化kết quả
    * 返回 Map<itemKey, result>，key 用于跨批次合并
    */
   parseResult: (raw: string, batch: TItem[]) => Map<string, TResult>;
@@ -82,7 +82,7 @@ export interface ProcessBatchedOptions<TItem, TResult> {
 }
 
 export interface ProcessBatchedResult<TResult> {
-  /** 合并后的Tất cả结果 */
+  /** 合并后的Tất cảkết quả */
   results: Map<string, TResult>;
   /** 失败的批次数 */
   failedBatches: number;
@@ -100,7 +100,7 @@ export interface ProcessBatchedResult<TResult> {
  *   2. 双重约束贪心分组（input + output）
  *   3. 通过 runStaggered 并发执行
  *   4. 单批次Thử lại + 容错隔离
- *   5. 合并结果
+ *   5. 合并kết quả
  */
 export async function processBatched<TItem, TResult>(
   opts: ProcessBatchedOptions<TItem, TResult>,
@@ -159,7 +159,7 @@ export async function processBatched<TItem, TResult>(
   );
 
   console.log(
-    `[BatchProcessor] 分批结果: ${batches.length} 批次 ` +
+    `[BatchProcessor] 分批kết quả: ${batches.length} 批次 ` +
     `(${batches.map(b => b.length).join(', ')} items)`,
   );
 
@@ -211,7 +211,7 @@ export async function processBatched<TItem, TResult>(
   }
 
   if (failedBatches > 0) {
-    console.warn(`[BatchProcessor] ${failedBatches}/${batches.length} 批次失败，返回部分结果`);
+    console.warn(`[BatchProcessor] ${failedBatches}/${batches.length} 批次失败，返回部分kết quả`);
   }
 
   // 合并

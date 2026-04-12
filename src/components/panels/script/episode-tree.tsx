@@ -143,7 +143,7 @@ interface EpisodeTreeProps {
   onGenerateTrailer?: (duration: TrailerDuration) => void;
   onClearTrailer?: () => void;
   trailerApiOptions?: TrailerGenerationOptions | null;
-  // 单Phân cảnhHiệu chuẩn callback
+  // phân cảnh đơnHiệu chuẩn callback
   onCalibrateSingleShot?: (shotId: string) => void;
   singleShotCalibrationStatus?: Record<string, 'idle' | 'calibrating' | 'completed' | 'error'>;
   // Mức độ chặt chẽ hiệu chuẩn相关
@@ -199,7 +199,7 @@ export function EpisodeTree({
   onGenerateTrailer,
   onClearTrailer,
   trailerApiOptions,
-  // 单Phân cảnhHiệu chuẩn
+  // phân cảnh đơnHiệu chuẩn
   onCalibrateSingleShot,
   singleShotCalibrationStatus,
   // Mức độ chặt chẽ hiệu chuẩn相关
@@ -326,7 +326,7 @@ export function EpisodeTree({
     onConfirmCalibration?.([...localKeptCharacters, ...restored], []);
   }, [localKeptCharacters, localFilteredCharacters, onConfirmCalibration]);
 
-  // 如果没有episodes，创建一默认的
+  // 如果没有episodes，tạo一默认的
   const episodes = useMemo(() => {
     if (!scriptData) return [];
     if (scriptData.episodes && scriptData.episodes.length > 0) {
@@ -470,7 +470,7 @@ export function EpisodeTree({
     if (editingItem?.type === "scene") {
       onUpdateScene?.(editingItem.id, { name: formData.name, location: formData.location, time: formData.time, atmosphere: formData.atmosphere });
     } else {
-      // 如果有 AI 结果，Sử dụng AI Tạo的đầy đủCảnh数据
+      // 如果有 AI kết quả，Sử dụng AI Tạo的đầy đủCảnh数据
       if (sceneAiResult?.scene) {
         onAddScene?.(sceneAiResult.scene, targetEpisodeId || undefined);
       } else {
@@ -554,7 +554,7 @@ export function EpisodeTree({
     if (editingItem?.type === "character") {
       onUpdateCharacter?.(editingItem.id, { name: formData.name, gender: formData.gender, age: formData.age, personality: formData.personality });
     } else {
-      // 如果有 AI 结果，Sử dụng AI Tạo的đầy đủNhân vật数据
+      // 如果有 AI kết quả，Sử dụng AI Tạo的đầy đủNhân vật数据
       if (aiResult?.character) {
         onAddCharacter?.(aiResult.character);
       } else {
@@ -1329,7 +1329,7 @@ export function EpisodeTree({
                 </div>
                 <div className="flex gap-2">
                   <Input
-                    placeholder="输入Cảnh名或描述..."
+                    placeholder="Nhập tên cảnh hoặc mô tả..."
                     value={sceneAiQuery}
                     onChange={(e) => setSceneAiQuery(e.target.value)}
                     onKeyDown={(e) => {
@@ -1353,11 +1353,11 @@ export function EpisodeTree({
                   </Button>
                 </div>
                 {!onAIFindScene && (
-                  <p className="text-xs text-amber-500">请先Nhập kịch bản以启用 AI 查找</p>
+                  <p className="text-xs text-amber-500">Vui lòng Nhập kịch bản trước để bật AI tìm kiếm</p>
                 )}
               </div>
 
-              {/* AI 结果显示 */}
+              {/* Hiển thị kết quả AI */}
               {sceneAiResult && (
                 <div className={cn(
                   "rounded-lg border p-3 space-y-3",
@@ -1372,12 +1372,12 @@ export function EpisodeTree({
                     <p className="text-sm">{sceneAiResult.message}</p>
                   </div>
                   
-                  {/* 找到Cảnh时显示Thông tin cảnh */}
+                  {/* Hiển thị thông tin cảnh khi tìm thấy */}
                   {sceneAiResult.scene && (
                     <div className="space-y-2 pl-6">
                       <div className="grid grid-cols-2 gap-2 text-sm">
                         <div>
-                          <span className="text-muted-foreground">Cảnh名：</span>
+                          <span className="text-muted-foreground">Tên cảnh:</span>
                           <span className="font-medium">{sceneAiResult.scene.name || sceneAiResult.scene.location}</span>
                         </div>
                         {sceneAiResult.scene.time && (
@@ -1395,13 +1395,13 @@ export function EpisodeTree({
                       </div>
                       {sceneAiResult.scene.location && sceneAiResult.scene.location !== sceneAiResult.scene.name && (
                         <div className="text-sm">
-                          <span className="text-muted-foreground">Địa điểm详情：</span>
+                          <span className="text-muted-foreground">Chi tiết địa điểm:</span>
                           <p className="text-xs mt-1 text-muted-foreground">{sceneAiResult.scene.location}</p>
                         </div>
                       )}
                       {sceneAiResult.scene.visualPrompt && (
                         <div className="text-sm">
-                          <span className="text-muted-foreground">视觉描述：</span>
+                          <span className="text-muted-foreground">Mô tả thị giác:</span>
                           <p className="text-xs mt-1 text-muted-foreground">{sceneAiResult.scene.visualPrompt}</p>
                         </div>
                       )}
@@ -1430,7 +1430,7 @@ export function EpisodeTree({
                 ) : sceneAiResult && !sceneAiResult.found ? (
                   <Button onClick={handleSaveScene} variant="secondary" className="gap-1">
                     <Plus className="h-4 w-4" />
-                    仍然创建
+                    Vẫn tạo
                   </Button>
                 ) : null}
               </DialogFooter>
@@ -1463,7 +1463,7 @@ export function EpisodeTree({
           {editingItem?.type === "character" ? (
             <div className="space-y-4 py-4">
               <div className="space-y-2">
-                <Label>Nhân vật名</Label>
+                <Label>Tên nhân vật</Label>
                 <Input value={formData.name || ""} onChange={(e) => setFormData({ ...formData, name: e.target.value })} />
               </div>
               <div className="space-y-2">
@@ -1489,7 +1489,7 @@ export function EpisodeTree({
               {/* Khu vực nhập AI */}
               <div className="space-y-2">
                 <Label className="text-sm text-muted-foreground">
-                  描述你需要的Nhân vật，例如：
+                  Mô tả你需要的Nhân vật，例如：
                 </Label>
                 <div className="text-xs text-muted-foreground space-y-1 pl-2">
                   <p>• “缺第10 tập的王大哥这Nhân vật”</p>
@@ -1498,7 +1498,7 @@ export function EpisodeTree({
                 </div>
                 <div className="flex gap-2">
                   <Input
-                    placeholder="输入Nhân vật名或描述..."
+                    placeholder="输入Nhân vật名或Mô tả..."
                     value={aiQuery}
                     onChange={(e) => setAiQuery(e.target.value)}
                     onKeyDown={(e) => {
@@ -1522,11 +1522,11 @@ export function EpisodeTree({
                   </Button>
                 </div>
                 {!onAIFindCharacter && (
-                  <p className="text-xs text-amber-500">请先Nhập kịch bản以启用 AI 查找</p>
+                  <p className="text-xs text-amber-500">Vui lòng Nhập kịch bản trước để bật AI tìm kiếm</p>
                 )}
               </div>
 
-              {/* AI 结果显示 */}
+              {/* Hiển thị kết quả AI */}
               {aiResult && (
                 <div className={cn(
                   "rounded-lg border p-3 space-y-3",
@@ -1546,7 +1546,7 @@ export function EpisodeTree({
                     <div className="space-y-2 pl-6">
                       <div className="grid grid-cols-2 gap-2 text-sm">
                         <div>
-                          <span className="text-muted-foreground">Nhân vật名：</span>
+                          <span className="text-muted-foreground">Nhân vậttên:</span>
                           <span className="font-medium">{aiResult.character.name}</span>
                         </div>
                         {aiResult.character.gender && (
@@ -1576,7 +1576,7 @@ export function EpisodeTree({
                       )}
                       {aiResult.character.visualPromptZh && (
                         <div className="text-sm">
-                          <span className="text-muted-foreground">视觉描述：</span>
+                          <span className="text-muted-foreground">Mô tả thị giác:</span>
                           <p className="text-xs mt-1 text-muted-foreground">{aiResult.character.visualPromptZh}</p>
                         </div>
                       )}
@@ -1598,7 +1598,7 @@ export function EpisodeTree({
                 ) : aiResult && !aiResult.found ? (
                   <Button onClick={handleSaveCharacter} variant="secondary" className="gap-1">
                     <Plus className="h-4 w-4" />
-                    仍然创建
+                    Vẫn tạo
                   </Button>
                 ) : null}
               </DialogFooter>

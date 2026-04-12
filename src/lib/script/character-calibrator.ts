@@ -7,7 +7,7 @@
  * Sử dụng AI thông minhHiệu chuẩn从剧本đang xử lý...角色列表
  * 
  * 功能：
- * 1. 统计每角色的出场次数、对白条数、出场 tập数
+ * 1. 统计每角色的出场次数、Thoại条数、出场 tập数
  * 2. AI 分析识别真正角色 vs 非角色词
  * 3. AI 合并重复角色（王总 = 投资人王总）
  * 4. AI 分类nhân vật chính/nhân vật phụ/龙套（结合出场统计）
@@ -45,7 +45,7 @@ export interface CalibratedCharacter {
   episodeRange?: [number, number];
   /** 出场次数 */
   appearanceCount: number;
-  /** AI 补充的角色描述 */
+  /** AI 补充的角色Mô tả */
   role?: string;
   /** AI 推断的年龄 */
   age?: string;
@@ -60,7 +60,7 @@ export interface CalibratedCharacter {
   visualPromptEn?: string;
   /** đang xử lý...提示词 */
   visualPromptZh?: string;
-  /** Khuôn mặt特征描述 */
+  /** Khuôn mặt特征Mô tả */
   facialFeatures?: string;
   /** 独特标记（疆痕、胎记等） */
   uniqueMarks?: string;
@@ -96,7 +96,7 @@ export interface CalibrationOptions {
 
 /**
  * 从 episodeRawScripts đang xử lý...取Tất cả角色
- * 这会遍历Tất cả tập的Tất cả场景，提取场景nhân vật和对白说话人
+ * 这会遍历Tất cả tập的Tất cả场景，提取场景nhân vật和Thoại说话人
  */
 export function extractAllCharactersFromEpisodes(
   episodeScripts: EpisodeRawScript[]
@@ -123,7 +123,7 @@ export function extractAllCharactersFromEpisodes(
         }
       }
       
-      // 从对白đang xử lý...话人
+      // 从Thoạiđang xử lý...话人
       const dialogues = scene.dialogues || [];
       for (const dialogue of dialogues) {
         if (dialogue && dialogue.character && dialogue.character.trim()) {
@@ -150,7 +150,7 @@ export interface CharacterStats {
   name: string;
   /** 场景出场次数 */
   sceneCount: number;
-  /** 对白条数 */
+  /** Thoại条数 */
   dialogueCount: number;
   /** 出场的 tập数列表 */
   episodes: number[];
@@ -158,7 +158,7 @@ export interface CharacterStats {
   firstEpisode: number;
   /** 最后出场 tập数 */
   lastEpisode: number;
-  /** 对白样本（前3条） */
+  /** Thoại样本（前3条） */
   dialogueSamples: string[];
   /** 出场场景样本 */
   sceneSamples: string[];
@@ -229,7 +229,7 @@ export function collectCharacterStats(
         }
       }
       
-      // 检查对白
+      // 检查Thoại
       const dialogues = scene.dialogues || [];
       for (const dialogue of dialogues) {
         if (!dialogue || !dialogue.character) continue;
@@ -286,7 +286,7 @@ export async function calibrateCharacters(
     const s = stats.get(c.name);
     const name = c.name;
     
-    // 判断是否是Quần chúng（纯职业称呿、数字编号、群体描述）
+    // 判断是否是Quần chúng（纯职业称呿、数字编号、群体Mô tả）
     // loose chế độ下不标记Quần chúng，Tất cả保留给 AI 判断
     const isGroupExtra = strictness === 'loose' ? false : [
       '保安', '警察', '员工', '护士', '医生', '记者', 
@@ -328,7 +328,7 @@ export async function calibrateCharacters(
   const charsToProcess = charsWithStats.slice(0, maxCharsToSend);
   const skippedCount = charsWithStats.length - charsToProcess.length;
   
-  // 3. 准备批处理 items（每角色带上统计信息和对白样本）
+  // 3. 准备批处理 items（每角色带上统计信息和Thoại样本）
   const batchItems = charsToProcess.map(c => ({
     name: c.name,
     sceneCount: c.sceneCount,
@@ -348,14 +348,14 @@ export async function calibrateCharacters(
   const strictnessInstructions = strictness === 'strict'
     ? `【筛选chế độ：严格】
 - 只保留明确的nhân vật chính、重要nhân vật phụ、和有具体名字的次要角色
-- 出场 ≤1 且无对白的角色lọc
+- 出场 ≤1 且无Thoại的角色lọc
 - 纯称呼没有具体名字的角色lọc（如"学习委员"、"戴眼镜的男生"）
 - Quần chúngTất cảlọc`
     : strictness === 'loose'
     ? `【筛选chế độ：Lỏng lẻo】
 - 几乎不lọc，保留Tất cả能识别的角色
 - 包括Quần chúng、低频角色、只有称呼的角色（如"学习委员"、"戴眼镜的男生"）
-- 只lọc纯描述词（如"眼框微湿"、"干练优雅"）和非nhân vật词（如"全体员工"、"核心团队"）`
+- 只lọc纯Mô tả词（如"眼框微湿"、"干练优雅"）和非nhân vật词（如"全体员工"、"核心团队"）`
     : `【筛选chế độ：标准】
 - 有名字或称呼的角色Tất cả保留
 - 只lọc纯Quần chúng、群体、非角色词`;
@@ -382,7 +382,7 @@ ${strictnessInstructions}
 **2. 重要nhân vật phụ (supporting)** - 必须保留
    - 有具体名字或昵称：刀疑哥、龙哥、李强、王艳、小乐、阿强
    - 有Cố định称呼：赖董、王总、周总、李医生
-   - 出场 ≥1 且有对白、或出场 ≥2
+   - 出场 ≥1 且有Thoại、或出场 ≥2
 
 **3. 次要角色 (minor)** - 必须保留
    - 有具体名字，偶尔出场
@@ -404,7 +404,7 @@ ${strictness !== 'strict' ? `【极其重要 - Lỏng lẻo筛选原则】
 - 数字编号：保安1、警察2、护士3、员工A
 - 群体词：若干人、众人、几名保安、两大妈、一群人
 - 非角色词：全体员工、保安部、核心团队
-- 描述词：眼框微湿、干练优雅、眼神沉静
+- Mô tả词：眼框微湿、干练优雅、眼神沉静
 
 **绝对不能lọc的：**
 - 任何有姓名的：张明、李强、王艳、林风、马克
@@ -424,7 +424,7 @@ ${strictness !== 'strict' ? `【极其重要 - Lỏng lẻo筛选原则】
 
 【重要】每bị lọc的角色请在 filteredCharacters đang xử lý...滤原因。
 
-请以JSON格式返回分析结果。`;
+请以JSON格式返回分析kết quả。`;
 
   // 共享的背景上下文（每批都带，用 safeTruncate 截断）
   const outlineContext = safeTruncate(background.outline || '', 1500);
@@ -448,12 +448,12 @@ ${strictness !== 'strict' ? `【极其重要 - Lỏng lẻo筛选原则】
       items: batchItems,
       feature: 'script_analysis',
       buildPrompts: (batch) => {
-        // 每批构建独立的角色列表和对白样本
+        // 每批构建独立的角色列表和Thoại样本
         const charList = batch.map((c, i) => {
           if (c.sceneCount === 0 && c.dialogueCount === 0) {
             return `${i + 1}. ${c.name} [未统计到出场]`;
           }
-          return `${i + 1}. ${c.name} [出场${c.sceneCount}场, 对白${c.dialogueCount}条,  tập数${c.episodeCount}]`;
+          return `${i + 1}. ${c.name} [出场${c.sceneCount}场, Thoại${c.dialogueCount}条,  tập数${c.episodeCount}]`;
         }).join('\n');
         
         const batchDialogues: string[] = [];
@@ -482,7 +482,7 @@ ${biosContext || '无'}
 【待Hiệu chuẩn的角色列表 + 出场统计】（共${batch.length}）
 ${charList}
 
-【角色对白样本】
+【角色Thoại样本】
 ${batchDialogues.slice(0, 100).join('\n')}
 
 请按照分级规则Hiệu chuẩn角色，返回JSON格式：
@@ -494,7 +494,7 @@ ${batchDialogues.slice(0, 100).join('\n')}
       "appearanceCount": 150,
       "dialogueCount": 200,
       "episodeSpan": [1, 60],
-      "role": "角色描述",
+      "role": "角色Mô tả",
       "age": "年龄",
       "gender": "Giới tính",
       "relationships": "关系"
@@ -533,7 +533,7 @@ ${batchDialogues.slice(0, 100).join('\n')}
           const lastCompleteChar = cleaned.lastIndexOf('},');
           if (lastCompleteChar > 0) {
             const truncated = cleaned.slice(0, lastCompleteChar + 1);
-            const fixedJson = truncated + '],"filteredWords":[],"mergeRecords":[],"analysisNotes":"部分结果"}';
+            const fixedJson = truncated + '],"filteredWords":[],"mergeRecords":[],"analysisNotes":"部分kết quả"}';
             try {
               batchParsed = JSON.parse(fixedJson);
             } catch {
@@ -541,7 +541,7 @@ ${batchDialogues.slice(0, 100).join('\n')}
               if (charsMatch) {
                 try {
                   const charsArray = JSON.parse('[' + charsMatch[1] + ']');
-                  batchParsed = { characters: charsArray, filteredWords: [], mergeRecords: [], analysisNotes: '部分结果' };
+                  batchParsed = { characters: charsArray, filteredWords: [], mergeRecords: [], analysisNotes: '部分kết quả' };
                 } catch {
                   throw jsonErr;
                 }
@@ -573,7 +573,7 @@ ${batchDialogues.slice(0, 100).join('\n')}
         return map;
       },
       estimateItemTokens: (item) => estimateTokens(
-        `${item.name} [出场${item.sceneCount}场, 对白${item.dialogueCount}条] ` +
+        `${item.name} [出场${item.sceneCount}场, Thoại${item.dialogueCount}条] ` +
         item.dialogueSamples.join(' ')
       ),
       estimateItemOutputTokens: () => 200,
@@ -584,7 +584,7 @@ ${batchDialogues.slice(0, 100).join('\n')}
     });
     
     if (failedBatches > 0) {
-      console.warn(`[CharacterCalibrator] ${failedBatches} 批次失败，Sử dụng部分结果`);
+      console.warn(`[CharacterCalibrator] ${failedBatches} 批次失败，Sử dụng部分kết quả`);
     }
     
     parsed = {
@@ -617,7 +617,7 @@ ${batchDialogues.slice(0, 100).join('\n')}
       filteredWords: [],
       filteredCharacters: [],
       mergeRecords: [],
-      analysisNotes: `AI角色分析失败(${err.message})，返回基于统计的结果`,
+      analysisNotes: `AI角色分析失败(${err.message})，返回基于统计的kết quả`,
     };
   }
     
@@ -635,7 +635,7 @@ ${batchDialogues.slice(0, 100).join('\n')}
     episodeRange: c.episodeSpan,
   }));
     
-  // === 第三步：为nhân vật chính和重要nhân vật phụTạo专业视觉提示词（独立 try/catch，失败不影响Hiệu chuẩn结果）===
+  // === 第三步：为nhân vật chính和重要nhân vật phụTạo专业视觉提示词（独立 try/catch，失败不影响Hiệu chuẩnkết quả）===
   let enrichedCharacters = characters;
   try {
     enrichedCharacters = await enrichCharactersWithVisualPrompts(
@@ -647,11 +647,11 @@ ${batchDialogues.slice(0, 100).join('\n')}
     console.log('[CharacterCalibrator] 视觉提示词Tạo完成');
   } catch (enrichError) {
     const err = enrichError instanceof Error ? enrichError : new Error(String(enrichError));
-    console.warn('[CharacterCalibrator] 视觉提示词Tạo失败（不影响角色Hiệu chuẩn结果）:', err.message);
-    // enrichment 失败不影响主要Hiệu chuẩn结果，继续Sử dụng characters
+    console.warn('[CharacterCalibrator] 视觉提示词Tạo失败（不影响角色Hiệu chuẩnkết quả）:', err.message);
+    // enrichment 失败不影响主要Hiệu chuẩnkết quả，继续Sử dụng characters
   }
     
-  // === 第四步：合并上次Hiệu chuẩn结果，防止角色丢失 ===
+  // === 第四步：合并上次Hiệu chuẩnkết quả，防止角色丢失 ===
   let finalCharacters = enrichedCharacters;
   if (previousCharacters && previousCharacters.length > 0) {
     const currentNames = new Set(enrichedCharacters.map(c => c.name));
@@ -726,7 +726,7 @@ function collectCharacterContexts(
   const contexts: string[] = [];
   const characterNames = new Set(characters.map(c => c.name));
   
-  // 遍历剧本，收 tập角色出现的场景和对白
+  // 遍历剧本，收 tập角色出现的场景和Thoại
   for (const ep of episodeScripts.slice(0, 5)) { // 只取前5 tập作为样本
     for (const scene of ep.scenes.slice(0, 10)) { // 每 tập最多10场景
       // 检查场景đang xử lý...我们关注的角色
@@ -738,7 +738,7 @@ function collectCharacterContexts(
         contexts.push(`[第${ep.episodeIndex} tập-${scene.sceneHeader}]`);
         contexts.push(`nhân vật: ${relevantChars.join(', ')}`);
         
-        // 收 tập相关对白（前3条）
+        // 收 tập相关Thoại（前3条）
         const relevantDialogues = scene.dialogues
           .filter(d => characterNames.has(d.character) || characters.some(c => d.character.includes(c.name)))
           .slice(0, 3);
@@ -755,7 +755,7 @@ function collectCharacterContexts(
 }
 
 /**
- * 将Hiệu chuẩn结果转换回 ScriptCharacter 格式
+ * 将Hiệu chuẩnkết quả转换回 ScriptCharacter 格式
  * 注意：保留gốc角色的Tất cảtrường，只补充/更新 AI Hiệu chuẩn的trường
  */
 export function convertToScriptCharacters(
@@ -1038,7 +1038,7 @@ ${promptLanguage === 'zh' ? `【核心输出：6层身份neo】
    - jawline: 下颌线（棱角分明/柔和圆润/突出方正）
    - cheekbones: 颧骨（高颧骨/不明显/宽颧骨）
 
-② 五官层（精确描述）
+② 五官层（精确Mô tả）
    - eyeShape: 眼型（杏仁形/圆眼/内双/单眼皮/上挑形）
    - eyeDetails: 眼部细节（双眼皮、轻微内眦褶、深邃眼窝）
    - noseShape: 鼻型（高鼻梁、圆鼻头、小巧挺鼻）
@@ -1073,7 +1073,7 @@ ${promptLanguage === 'zh' ? `【核心输出：6层身份neo】
    - jawline: 下颌线（sharp angular/soft rounded/prominent）
    - cheekbones: 颧骨（high prominent/subtle/wide set）
 
-② 五官层（精确描述）
+② 五官层（精确Mô tả）
    - eyeShape: 眼型（almond/round/hooded/monolid/upturned）
    - eyeDetails: 眼部细节（double eyelids, slight epicanthic fold, deep-set）
    - noseShape: 鼻型（straight bridge, rounded tip, button nose）
@@ -1110,7 +1110,7 @@ ${promptLanguage === 'zh' ? `【核心输出：6层身份neo】
 请返回JSON格式（注意：只返回单角色对象，不要数组包裹）：
 {
   "name": "角色名",
-  "detailedDescription": "详细的đang xử lý...描述（100-200字）",
+  "detailedDescription": "详细的đang xử lý...Mô tả（100-200字）",
 ${promptLanguage === 'zh' ? '  "visualPromptZh": "đang xử lý...提示词",' : promptLanguage === 'en' ? '  "visualPromptEn": "English visual prompt, 40-60 words",' : '  "visualPromptEn": "English visual prompt, 40-60 words",\n  "visualPromptZh": "đang xử lý...提示词",'}
   "clothingStyle": "符合年代的服装风格",
   "identityAnchors": {

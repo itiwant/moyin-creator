@@ -54,7 +54,7 @@ function summarizeScene(scene: SplitScene, characters: Character[]): string {
   if (charNames) parts.push(`Nhân vật：${charNames}`);
   if (scene.actionSummary) parts.push(`Hành động：${scene.actionSummary}`);
   if (scene.cameraMovement) parts.push(`运镜：${scene.cameraMovement}`);
-  if (scene.dialogue) parts.push(`对白：${scene.dialogue}`);
+  if (scene.dialogue) parts.push(`Thoại：${scene.dialogue}`);
   if (scene.ambientSound) parts.push(`môi trường音：${scene.ambientSound}`);
   if (scene.soundEffectText) parts.push(`音效：${scene.soundEffectText}`);
   if (scene.emotionTags?.length) parts.push(`情绪：${scene.emotionTags.join('、')}`);
@@ -94,7 +94,7 @@ export async function calibrateGroup(
   const systemPrompt = `你是一位资深电影Đạo diễn兼剪辑师，擅长多Ống kínhtự sựvideo的节奏把控和tự sự连贯性优化。
 
 【核心约束 — 严格执 hàng】
-1. 严格基于以下Ống kính数据，不得ThêmKịch bảnđang xử lý...的Nhân vật、Cảnh或对白。
+1. 严格基于以下Ống kính数据，不得ThêmKịch bảnđang xử lý...的Nhân vật、Cảnh或Thoại。
 2. 只做tự sự连贯优化和过渡Thiết kế，不改变各Ống kính的核心Nội dung和情绪基调。
 3. 保留每Ống kính的原有运镜和Hành độngThiết kế，只在Ống kính衔接处增加过渡指令。
 4. âm thanhThiết kế必须基于各Ống kính已有的môi trường音/音效信息，不凭空创造新音源。

@@ -58,7 +58,7 @@ export async function analyzeCharacterStages(
   promptLanguage: PromptLanguage = 'zh+en'
 ): Promise<CharacterStageAnalysis[]> {
   
-  // 只分析主要角色（前3或有详细描述的）
+  // 只分析主要角色（前3或有详细Mô tả的）
   const mainCharacters = characters.slice(0, 5).filter(c => 
     c.role || c.personality || c.appearance
   );
@@ -68,7 +68,7 @@ export async function analyzeCharacterStages(
     return [];
   }
   
-  const systemPrompt = `你是专业的影视角色Thiết kế顾问，擅长分析角色在长篇剧 tậpđang xử lý...变化。
+  const systemPrompt = `你是专业的影góc nhìn色Thiết kế顾问，擅长分析角色在长篇剧 tậpđang xử lý...变化。
 
 你的任务是分析剧本đại cương，判断每主要角色是否需要多阶段的形象变体。
 
@@ -89,7 +89,7 @@ export async function analyzeCharacterStages(
 - 阶段之间要有明显的形象区分
 - 保持Khuôn mặt特征、体型等一致性元素
 
-请以JSON格式返回分析结果。`;
+请以JSON格式返回分析kết quả。`;
 
   const userPrompt = `【剧本信息】
 tên phim：《${background.title}》
@@ -146,7 +146,7 @@ ${promptLanguage !== 'en' ? '          "visualPromptZh": "35-40 tuổiđang xử
     // 统一从ánh xạ dịch vụ获取配置
     const result = await callFeatureAPI('script_analysis', systemPrompt, userPrompt);
     
-    // 解析JSON结果
+    // 解析JSONkết quả
     let cleaned = result.replace(/```json\n?/g, '').replace(/```\n?/g, '').trim();
     const jsonStart = cleaned.indexOf('{');
     const jsonEnd = cleaned.lastIndexOf('}');
@@ -163,7 +163,7 @@ ${promptLanguage !== 'en' ? '          "visualPromptZh": "35-40 tuổiđang xử
 }
 
 /**
- * 将阶段分析结果转换为 CharacterVariation 格式
+ * 将阶段分析kết quả转换为 CharacterVariation 格式
  * 可Trực tiếp用于 addVariation()
  */
 export function convertStagesToVariations(

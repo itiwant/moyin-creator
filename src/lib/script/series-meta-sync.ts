@@ -4,7 +4,7 @@
 /**
  * Series Meta Sync — 剧级元数据工具模块
  *
- * 1. populateSeriesMetaFromImport: 首次Nhập时从解析结果 + AI 分析构建 SeriesMeta
+ * 1. populateSeriesMetaFromImport: 首次Nhập时从解析kết quả + AI 分析构建 SeriesMeta
  * 2. buildSeriesContextSummary: 从 SeriesMeta 构建紧凑的 AI 注入上下文摘要
  * 3. syncToSeriesMeta: Hiệu chuẩn完成后回写丰富数据到 SeriesMeta
  */
@@ -24,8 +24,8 @@ import type { ScriptStructureAnalysis } from './script-normalizer';
 // ==================== 1. 首次Nhập填充 ====================
 
 /**
- * 从Nhập结果构建 SeriesMeta
- * 优先Sử dụng AI 分析结果，不足时从 background + scriptData 补全
+ * 从Nhậpkết quả构建 SeriesMeta
+ * 优先Sử dụng AI 分析kết quả，不足时从 background + scriptData 补全
  */
 export function populateSeriesMetaFromImport(
   background: ProjectBackground,
@@ -192,7 +192,7 @@ export type CalibrationSyncType = 'character' | 'scene' | 'shot';
  *
  * @param meta 当前 SeriesMeta
  * @param syncType Hiệu chuẩn类型
- * @param results Hiệu chuẩn结果数据
+ * @param results Hiệu chuẩnkết quả数据
  * @returns 更新后的 partial SeriesMeta（用于 updateSeriesMeta）
  */
 export function syncToSeriesMeta(
@@ -232,7 +232,7 @@ export function syncToSeriesMeta(
           };
         });
         updates.characters = updatedChars;
-        console.log(`[syncToSeriesMeta:character] 回写 ${results.characters.length} 角色Hiệu chuẩn结果`);
+        console.log(`[syncToSeriesMeta:character] 回写 ${results.characters.length} 角色Hiệu chuẩnkết quả`);
       }
       break;
     }

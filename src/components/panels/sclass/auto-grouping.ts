@@ -37,7 +37,7 @@ const DEFAULT_CONFIG: GroupingConfig = {
 
 // ==================== Helpers ====================
 
-/** 获取单Phân cảnh的有效Thời lượng */
+/** 获取phân cảnh đơn的有效Thời lượng */
 function getSceneDuration(scene: SplitScene, defaultDuration: number): number {
   return scene.duration > 0 ? scene.duration : defaultDuration;
 }

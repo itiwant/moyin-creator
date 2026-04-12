@@ -35,7 +35,7 @@ export interface IProvider {
  * 
  * 核心供应商：
  * 1. 魔因API (memefast) - 全功能 AI trung gian（推荐），支持文本/ảnh/video/识图
- * 2. RunningHub - 视角切换/đa góc độTạo
+ * 2. RunningHub - góc nhìn切换/đa góc độTạo
  */
 export const DEFAULT_PROVIDERS: Omit<IProvider, 'id' | 'apiKey'>[] = [
   {

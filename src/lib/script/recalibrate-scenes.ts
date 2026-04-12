@@ -4,7 +4,7 @@
 /**
  * 风格切换重新Hiệu chuẩn服务
  * 
- * 当用户在导演/S级面板切换视觉风格时，将现有 SplitScene[] 重新送入
+ * 当用户在Đạo diễn/S级面板切换视觉风格时，将现有 SplitScene[] 重新送入
  * 5阶段Hiệu chuẩn流程（calibrateShotsMultiStage），用新风格重写提示词和拍摄参数，
  * 同时保留已Tạo的图片/视频 URL không thay đổi。
  */
@@ -21,7 +21,7 @@ function toShotInputData(scenes: SplitScene[]): ShotInputData[] {
   return scenes.map(scene => {
     let sourceText = scene.actionSummary || '';
     if (scene.dialogue) {
-      sourceText += `\n对白：「${scene.dialogue}」`;
+      sourceText += `\nThoại：「${scene.dialogue}」`;
     }
     return {
       shotId: scene.id.toString(),
@@ -89,7 +89,7 @@ function buildGlobalContext(scriptProjectId?: string): GlobalContext {
 }
 
 /**
- * 将Hiệu chuẩn结果写回 SplitScene（对齐 full-script-service.ts:1265-1305 的映射）
+ * 将Hiệu chuẩnkết quả写回 SplitScene（对齐 full-script-service.ts:1265-1305 的映射）
  * 保留已Tạo的图片/视频 URL không thay đổi
  */
 function applyCalibrationToScene(
@@ -191,7 +191,7 @@ export async function recalibrateSplitScenes(
     },
   );
 
-  // 4. 将Hiệu chuẩn结果写回 SplitScene
+  // 4. 将Hiệu chuẩnkết quả写回 SplitScene
   let calibratedCount = 0;
   const updatedScenes = splitScenes.map(scene => {
     const calibration = calibrations[scene.id.toString()];

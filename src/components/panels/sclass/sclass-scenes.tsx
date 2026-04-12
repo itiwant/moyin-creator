@@ -5,7 +5,7 @@
 
 /**
  * Phân cảnh组件 (Split Scenes Component)
- * HiệnPhân cảnh切割结果，Hỗ trợChỉnh sửaprompt、Tải lênKhung hình cuối、ChọnThư viện nhân vật、Thêm情绪Thẻ
+ * HiệnPhân cảnh切割kết quả，Hỗ trợChỉnh sửaprompt、Tải lênKhung hình cuối、ChọnThư viện nhân vật、Thêm情绪Thẻ
  */
 
 import React, { useState, useCallback, useMemo, useRef } from "react";
@@ -1008,7 +1008,7 @@ export function SClassScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
         });
       });
       
-      // Tạo thành công后才ĐóngChọnChat框，Mở结果Chat框
+      // Tạo thành công后才ĐóngChọnChat框，Mởkết quảChat框
       setQuadGridOpen(false);
       setQuadGridResultOpen(true);
       toast.success('Tạo lưới 4 ô hoàn tất, đã tự động lưu vào thư viện phương tiện');
@@ -2349,7 +2349,7 @@ export function SClassScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
         console.log(`[MergedGen] Ref[${i}] format:`, prefix + '...');
       });
       
-      // 解析结果辅助函数（用于轮询阶段）
+      // 解析kết quả辅助函数（用于轮询阶段）
       const normalizeUrl = (url: any): string | undefined => {
         if (!url) return undefined;
         if (Array.isArray(url)) return url[0] || undefined;
@@ -2575,7 +2575,7 @@ export function SClassScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
           toast.success(`第 ${fp.index + 1} 页Thử lạiThành công（${pageInfo}）`);
         } catch (retryErr: any) {
           const retryMsg = retryErr.message || String(retryErr);
-          console.error(`[MergedGen] 第 ${fp.index + 1} 页Thử lại仍然Thất bại:`, retryMsg);
+          console.error(`[MergedGen] 第 ${fp.index + 1} 页Thử lạivẫnThất bại:`, retryMsg);
           // 再次Đặt lại为 error Trạng thái
           resetPageTasksToError(fp.pageTasks, `Thử lạiThất bại: ${retryMsg}`);
           toast.error(`第 ${fp.index + 1} 页Thử lạiThất bại: ${retryMsg.substring(0, 80)}`);
@@ -3385,7 +3385,7 @@ export function SClassScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
       {/* Row 1.5: Seedance 2.0 âm thanh/运镜Gợi ý（实际控制复用每Phân cảnh的 per-scene âm thanh开关） */}
       <div className="flex flex-wrap items-center gap-3 p-2 rounded-lg bg-muted/20 border">
         <Music className="h-3.5 w-3.5 text-muted-foreground" />
-        <span className="text-xs text-muted-foreground">âm thanh/运镜: 复用每Phân cảnh的独立开关（对白 / 音效 / môi trường声 / 运镜）Tự động聚合</span>
+        <span className="text-xs text-muted-foreground">âm thanh/运镜: 复用每Phân cảnh的独立开关（Thoại / 音效 / môi trường声 / 运镜）Tự động聚合</span>
         <span className="text-xs text-muted-foreground/60">Thời lượng上限 15s · Seedance 2.0</span>
       </div>
 

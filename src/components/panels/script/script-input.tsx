@@ -251,7 +251,7 @@ export function ScriptInput({
               Dán kịch bản đầy đủ(bao gồm đại cương, tiểu sử nhân vật, nội dung từng tập)
             </Label>
             <Textarea
-              placeholder="支持的格式：\n• 第X tập（ tập标记）\n• **1-1日 内 Địa điểm**（Cảnh头）\n• nhân vật：Nhân vậtA、Nhân vậtB\n• Nhân vật名：（Hành động）Hội thoại\n• △Hành động描写\n• 【字幕】【闪回】等"
+              placeholder="支持的格式：\n• 第X tập（ tập标记）\n• **1-1日 内 Địa điểm**（Cảnh头）\n• nhân vật：Nhân vậtA、Nhân vậtB\n• Nhân vậttên:（Hành động）Hội thoại\n• △Hành động描写\n• 【字幕】【闪回】等"
               value={rawScript}
               onChange={(e) => onRawScriptChange(e.target.value)}
               className="min-h-[200px] max-h-[40vh] resize-none text-sm overflow-y-auto"
@@ -482,7 +482,7 @@ export function ScriptInput({
                   </div>
                   <div className="flex items-center gap-2">
                     <span className="w-4 h-4 rounded-full bg-primary/10 text-primary flex items-center justify-center text-[10px] font-bold">3</span>
-                    <span>Chọn phân cảnh → 右栏点「去AI导演Tạo video」</span>
+                    <span>Chọn phân cảnh → 右栏点「去AIĐạo diễnTạo video」</span>
                   </div>
                 </div>
               </div>
@@ -636,7 +636,7 @@ export function ScriptInput({
                 disabled={parseStatus === "parsing"}
               />
               <p className="text-[10px] text-muted-foreground">
-                此风格将用于Hiệu chuẩn phân cảnh AI时Tạo视觉描述
+                此风格将用于Hiệu chuẩn phân cảnh AI时TạoMô tả thị giác
               </p>
             </div>
           </div>

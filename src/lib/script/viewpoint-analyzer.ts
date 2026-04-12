@@ -4,7 +4,7 @@
 /**
  * AI Viewpoint Analyzer
  * 
- * Sử dụng AI 分析场景和分镜内容，thông minhTạo合适的视角列表
+ * Sử dụng AI 分析场景和分镜内容，thông minhTạo合适的góc nhìn列表
  * 替代原有的硬编码quan trọng词匹配
  */
 
@@ -43,8 +43,8 @@ export interface ViewpointAnalysisOptions {
 }
 
 /**
- * AI 分析场景视角
- * 根据场景信息和分镜内容，thông minhTạo该场景需要的视角列表
+ * AI 分析场景góc nhìn
+ * 根据场景信息和分镜内容，thông minhTạo该场景需要的góc nhìn列表
  */
 export async function analyzeSceneViewpoints(
   scene: ScriptScene,
@@ -52,14 +52,14 @@ export async function analyzeSceneViewpoints(
   options?: ViewpointAnalysisOptions
 ): Promise<ViewpointAnalysisResult> {
   
-  // 如果没有分镜，返回默认视角
+  // 如果没有分镜，返回默认góc nhìn
   if (shots.length === 0) {
     return {
       viewpoints: [
         { id: 'overview', name: '全景', nameEn: 'Overview', description: '整体空间', descriptionEn: 'Overall space', keyProps: [], keyPropsEn: [], shotIndexes: [] },
         { id: 'detail', name: '细节', nameEn: 'Detail', description: '细节Cực cận cảnh', descriptionEn: 'Detail close-up', keyProps: [], keyPropsEn: [], shotIndexes: [] },
       ],
-      analysisNote: '无分镜，Sử dụng默认视角',
+      analysisNote: '无分镜，Sử dụng默认góc nhìn',
     };
   }
   
@@ -67,10 +67,10 @@ export async function analyzeSceneViewpoints(
   const shotSummaries = shots.map((shot, idx) => {
     const parts = [
       `【分镜${idx + 1}】`,
-      shot.actionSummary && `动作描述: ${shot.actionSummary}`,
-      shot.visualDescription && `画面描述: ${shot.visualDescription}`,
+      shot.actionSummary && `动作Mô tả: ${shot.actionSummary}`,
+      shot.visualDescription && `画面Mô tả: ${shot.visualDescription}`,
       shot.visualFocus && `视觉焦点: ${shot.visualFocus}`,
-      shot.dialogue && `对白: ${shot.dialogue.slice(0, 80)}`,
+      shot.dialogue && `Thoại: ${shot.dialogue.slice(0, 80)}`,
       shot.ambientSound && `环境声: ${shot.ambientSound}`,
       shot.characterBlocking && `nhân vật布局: ${shot.characterBlocking}`,
       shot.shotSize && `景别: ${shot.shotSize}`,
@@ -101,21 +101,21 @@ export async function analyzeSceneViewpoints(
     ? `【剧本信息】\n${globalContextParts.join('\n')}\n\n`
     : '';
 
-  const systemPrompt = `你是专业的影视美术指导，擅长分析场景并确定需要的拍摄视角。
+  const systemPrompt = `你是专业的影视美术指导，擅长分析场景并确定需要的拍摄góc nhìn。
 
 ${globalContextSection}【任务】
-根据本 tậpđại cương、场景信息和分镜内容，分析该场景需要哪些不同的视角/机位来Tạo场景背景图。
+根据本 tậpđại cương、场景信息和分镜内容，分析该场景需要哪些不同的góc nhìn/机位来Tạo场景背景图。
 
 【重要原则】
-1. 视角必须与场景类型匹配：
+1. góc nhìn必须与场景类型匹配：
    - 大巴车/xe hơi场景：车、座位区、过道、驾驶位等
    - 室内家居：客厅、卧室、厨房、边等
    - 户外场景：全景、Cận cảnh、特定地标等
    - 古代场景：堂屋、庭院、案几等
-2. 从分镜动作和画面描述đang xử lý...际需要的视角
-3. 结合本 tậpđại cương理解场景的tự sự功能，确定哪些视角是核心的
-4. 每视角要有quan trọng道具（从分镜的视觉焦点和环境声đang xử lý...
-5. 输出4-6视角
+2. 从分镜动作和画面Mô tảđang xử lý...际需要的góc nhìn
+3. 结合本 tậpđại cương理解场景的tự sự功能，确定哪些góc nhìn是核心的
+4. 每góc nhìn要有quan trọng道具（从分镜的视觉焦点和环境声đang xử lý...
+5. 输出4-6góc nhìn
 
 【输出格式】
 返回 JSON:
@@ -129,7 +129,7 @@ ${globalContextSection}【任务】
       "descriptionEn": "English description",
       "keyProps": ["道具1", "道具2"],
       "keyPropsEn": ["prop1", "prop2"],
-      "shotIndexes": [1, 2]  // 哪些分镜需要这视角
+      "shotIndexes": [1, 2]  // 哪些分镜需要这góc nhìn
     }
   ],
   "analysisNote": "分析说明"
@@ -143,7 +143,7 @@ ${globalContextSection}【任务】
 【分镜内容（共 ${shots.length} 分镜）】
 ${shotSummaries}
 
-请根据以上本 tậpđại cương和分镜内容，分析该场景需要的视角，返回 JSON。`;
+请根据以上本 tậpđại cương和分镜内容，分析该场景需要的góc nhìn，返回 JSON。`;
 
   try {
     console.log('[analyzeSceneViewpoints] 🚀 开始gọi API AI API...');
@@ -166,11 +166,11 @@ ${shotSummaries}
     
     const parsed = JSON.parse(cleaned);
     
-    console.log('[analyzeSceneViewpoints] 🎯 JSON 解析成功，视角数量:', parsed.viewpoints?.length || 0);
+    console.log('[analyzeSceneViewpoints] 🎯 JSON 解析成功，góc nhìn数量:', parsed.viewpoints?.length || 0);
     
     const viewpoints = (parsed.viewpoints || []).map((v: any, idx: number) => ({
       id: v.id || `viewpoint_${idx}`,
-      name: v.name || '未命名视角',
+      name: v.name || '未命名góc nhìn',
       nameEn: v.nameEn || 'Unnamed Viewpoint',
       description: v.description || '',
       descriptionEn: v.descriptionEn || '',
@@ -179,7 +179,7 @@ ${shotSummaries}
       shotIndexes: v.shotIndexes || [],
     }));
     
-    console.log('[analyzeSceneViewpoints] 📦 返回视角:', viewpoints.map((v: any) => v.name).join(', '));
+    console.log('[analyzeSceneViewpoints] 📦 返回góc nhìn:', viewpoints.map((v: any) => v.name).join(', '));
     
     return {
       viewpoints,
@@ -192,20 +192,20 @@ ${shotSummaries}
     console.error('[analyzeSceneViewpoints] Error message:', err.message);
     console.error('[analyzeSceneViewpoints] Error stack:', err.stack);
     
-    // 降级：返回基础视角
+    // 降级：返回基础góc nhìn
     return {
       viewpoints: [
         { id: 'overview', name: '全景', nameEn: 'Overview', description: '整体Bố cục không gian', descriptionEn: 'Overall spatial layout', keyProps: [], keyPropsEn: [], shotIndexes: [] },
         { id: 'medium', name: 'đang xử lý... nameEn: 'Medium Shot', description: 'đang xử lý...', descriptionEn: 'Medium view', keyProps: [], keyPropsEn: [], shotIndexes: [] },
         { id: 'detail', name: '细节', nameEn: 'Detail', description: '细节Cực cận cảnh', descriptionEn: 'Detail close-up', keyProps: [], keyPropsEn: [], shotIndexes: [] },
       ],
-      analysisNote: 'AI 分析失败，Sử dụng默认视角',
+      analysisNote: 'AI 分析失败，Sử dụng默认góc nhìn',
     };
   }
 }
 
 /**
- * 批量分析多场景的视角
+ * 批量分析多场景的góc nhìn
  */
 export async function analyzeMultipleScenesViewpoints(
   scenesWithShots: Array<{ scene: ScriptScene; shots: Shot[] }>,

@@ -32,7 +32,7 @@ export function calculateProgress(items: { status?: CompletionStatus }[]): strin
 
 /**
  * 景别名称 → ShotSizeType 映射表
- * 用于将剧本đang xử lý...描述转换为标准化 ID
+ * 用于将剧本đang xử lý...Mô tả转换为标准化 ID
  */
 export const SHOT_SIZE_MAP: Record<string, ShotSizeType> = {
   'ECU': 'ecu', 'Extreme Close-Up': 'ecu', 'Cực cận cảnh': 'ecu',

@@ -142,7 +142,7 @@ function generatePromptFromText(scene: ScenePromptRequest['scenes'][0], storyCon
   const videoPromptParts: string[] = [];
   if (action) videoPromptParts.push(action);
   if (camera) videoPromptParts.push(`镜头: ${camera}`);
-  if (dialogue) videoPromptParts.push(`对白: "${dialogue.substring(0, 50)}"`);
+  if (dialogue) videoPromptParts.push(`Thoại: "${dialogue.substring(0, 50)}"`);
   const videoPromptZh = videoPromptParts.join('。') || `${sceneName} 的动态画面`;
   
   // Determine end frame need
@@ -375,13 +375,13 @@ Return a RAW JSON array (no markdown code block). BILINGUAL output required.
   {
     "id": 1,
     "imagePrompt": "English static first frame description...",
-    "imagePromptZh": "đang xử lý...静态描述...",
+    "imagePromptZh": "đang xử lý...静态Mô tả...",
     "needsEndFrame": true,
     "endFramePrompt": "English static end frame description...",
-    "endFramePromptZh": "đang xử lý...静态描述...",
+    "endFramePromptZh": "đang xử lý...静态Mô tả...",
     "endFrameReason": "Character walks into room - position change",
     "videoPrompt": "English action/motion description...",
-    "videoPromptZh": "đang xử lý.../运动描述..."
+    "videoPromptZh": "đang xử lý.../运动Mô tả..."
   },
   {
     "id": 2,

@@ -5,7 +5,7 @@
 
 /**
  * Angle Switch Result Dialog
- * Chuyển góc nhìn结果Xem trướcChat框
+ * Chuyển góc nhìnkết quảXem trướcChat框
  */
 
 import {

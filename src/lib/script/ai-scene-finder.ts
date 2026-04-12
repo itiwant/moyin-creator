@@ -4,7 +4,7 @@
 /**
  * AI Scene Finder
  * 
- * 根据用户自然Ngôn ngữ描述，从剧本đang xử lý...景并Tạo专业场景数据
+ * 根据用户自然Ngôn ngữMô tả，从剧本đang xử lý...景并Tạo专业场景数据
  * 
  * 功能：
  * 1. 解析用户输入（如 "缺第5 tập的张家客厅"）
@@ -183,11 +183,11 @@ async function generateSceneData(
 请返回JSON格式，包含以下trường：
 {
   "name": "场景名称（简短）",
-  "location": "地点详细描述",
+  "location": "地点详细Mô tả",
   "time": "时间（如 'ban ngày'、'ban đêm'、'Hoàng hôn'、'清晨'）",
-  "atmosphere": "氛围描述（如 'căng thẳng'、'ấm cúng'、'压抑'、'热闹'）",
-  "visualPrompt": "英文视觉提示词，用于AI图像Tạo，描述场景环境、光线、色调、Phong cách kiến trúc等",
-  "visualPromptZh": "đang xử lý...描述",
+  "atmosphere": "氛围Mô tả（如 'căng thẳng'、'ấm cúng'、'压抑'、'热闹'）",
+  "visualPrompt": "英文视觉提示词，用于AI图像Tạo，Mô tả场景环境、光线、色调、Phong cách kiến trúc等",
+  "visualPromptZh": "đang xử lý...Mô tả",
   "tags": ["标签1", "标签2"],
   "notes": "场景备注（剧情作用）"
 }`;
@@ -285,7 +285,7 @@ ${contexts.slice(0, 3).join('\n\n')}
 }
 
 /**
- * 主函数：根据用户描述查找并Tạo场景
+ * 主函数：根据用户Mô tả查找并Tạo场景
  */
 export async function findSceneByDescription(
   userQuery: string,
@@ -306,11 +306,11 @@ export async function findSceneByDescription(
       confidence: 0,
       episodeNumbers: [],
       contexts: [],
-      message: '无法识别场景名。请用类似"缺第5 tập的张家客厅"或"Thêm医院走廊这场景"的方式描述。',
+      message: '无法识别场景名。请用类似"缺第5 tập的张家客厅"或"Thêm医院走廊这场景"的方式Mô tả。',
     };
   }
   
-  console.log('[findSceneByDescription] 解析结果:', { name, episodeNumber });
+  console.log('[findSceneByDescription] 解析kết quả:', { name, episodeNumber });
   
   // 2. 检查是否已存在
   const existing = existingScenes.find(s => 
@@ -337,7 +337,7 @@ export async function findSceneByDescription(
   const searchResult = searchSceneInScripts(name, episodeScripts, episodeNumber || undefined);
   
   if (!searchResult.found) {
-    // 没找到但可以让用户确认是否创建
+    // 没找到但可以让用户确认是否tạo
     return {
       found: false,
       name,
@@ -345,8 +345,8 @@ export async function findSceneByDescription(
       episodeNumbers: [],
       contexts: [],
       message: episodeNumber 
-        ? `在第 ${episodeNumber}  tậpđang xử lý...场景「${name}」。是否仍要创建这场景？`
-        : `在剧本đang xử lý...场景「${name}」。是否仍要创建这场景？`,
+        ? `在第 ${episodeNumber}  tậpđang xử lý...场景「${name}」。是否仍要tạo这场景？`
+        : `在剧本đang xử lý...场景「${name}」。是否仍要tạo这场景？`,
     };
   }
   

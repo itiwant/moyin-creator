@@ -4,7 +4,7 @@
 /**
  * Visual Style Presets - 视觉风格预设
  * 
- * 统一的视觉风格定义，Tất cả板块（剧本、角色、场景、AI导演）共用
+ * 统一的视觉风格定义，Tất cả板块（剧本、角色、场景、AIĐạo diễn）共用
  * 来源：纳米漫剧流水线 - 风格库
  */
 
@@ -650,7 +650,7 @@ export function getStylesByCategory(categoryId: string): StylePreset[] {
 }
 
 /**
- * 获取风格描述
+ * 获取风格Mô tả
  * @param styleId 风格 ID
  */
 export function getStyleDescription(styleId: string): string {

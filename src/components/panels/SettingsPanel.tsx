@@ -1596,7 +1596,7 @@ export function SettingsPanel() {
         open={addDialogOpen}
         onOpenChange={setAddDialogOpen}
         onSubmit={(providerData) => {
-          // 魔因API：已存在时合并 Key，不重复创建
+          // 魔因API：已存在时合并 Key，不重复tạo
           const existingMemefast = providerData.platform === 'memefast'
             ? providers.find((p) => p.platform === 'memefast')
             : null;

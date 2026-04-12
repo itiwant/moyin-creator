@@ -83,7 +83,7 @@ export function DirectorContextPanel() {
   // 从Kịch bảnThêm phân cảnh时，同步Kịch bảnPhong cách到Đạo diễn面板的 storyboardConfig
   const addScenesAndSyncStyle: typeof addScenesFromScript = useCallback((scenes) => {
     addScenesFromScript(scenes);
-    // 如果Đạo diễn面板尚未Cài đặt visualStyleId，从Kịch bản项目继承
+    // 如果Đạo diễn面板尚未Cài đặt visualStyleId，从Kịch bản项目kế thừa
     const directorStyleId = projectData?.storyboardConfig?.visualStyleId;
     if (!directorStyleId && scriptProject?.styleId) {
       const style = getStyleById(scriptProject.styleId);
@@ -366,7 +366,7 @@ export function DirectorContextPanel() {
     return matchSceneAndViewpoint(sceneName, actionSummary, sceneLibraryScenes, true);
   };
 
-  // Thêm单Phân cảnh到Phân cảnhChỉnh sửa（chế độ二）
+  // Thêmphân cảnh đơn到Phân cảnhChỉnh sửa（chế độ二）
   const handleAddShotToSplitScenes = (shot: Shot, scene: ScriptScene) => {
     // Debug: 检查 Shot đang xử lý...prompt数据
     console.log('[ContextPanel] Adding shot to split scenes:', {
@@ -426,7 +426,7 @@ export function DirectorContextPanel() {
       ambientSound: shot.ambientSound || '',
       soundEffects: [] as SoundEffectTag[],
       soundEffectText: shot.soundEffect || '',
-      // 对白
+      // Thoại
       dialogue: shot.dialogue || '',
       // Hành độngMô tả
       actionSummary: shot.actionSummary || '',
@@ -565,7 +565,7 @@ export function DirectorContextPanel() {
         ambientSound: shot.ambientSound || '',
         soundEffects: [] as SoundEffectTag[],
         soundEffectText: shot.soundEffect || '',
-        // 对白
+        // Thoại
         dialogue: shot.dialogue || '',
         // Hành độngMô tả
         actionSummary: shot.actionSummary || '',
@@ -609,7 +609,7 @@ export function DirectorContextPanel() {
     toast.success(`Đã thêm ${scenesToAdd.length} phân cảnh vào danh sách chỉnh sửa${matchInfo}`);
   };
 
-  // 发送单Phân cảnh到AIĐạo diễn输入（chế độ一）
+  // 发送phân cảnh đơn到AIĐạo diễn输入（chế độ一）
   const handleSendShot = (shot: Shot, scene: ScriptScene) => {
     // 构建故事Gợi ý
     const parts: string[] = [];
@@ -654,7 +654,7 @@ export function DirectorContextPanel() {
     if (scene.time) parts.push(`Thời gian: ${scene.time}`);
     if (scene.atmosphere) parts.push(`Không khí: ${scene.atmosphere}`);
 
-    // ThêmTất cảPhân cảnh的Hành động和对白
+    // ThêmTất cảPhân cảnh的Hành động和Thoại
     sceneShots.forEach((shot, idx) => {
       const shotParts: string[] = [];
       if (shot.actionSummary) shotParts.push(shot.actionSummary);

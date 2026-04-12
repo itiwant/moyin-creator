@@ -4,7 +4,7 @@
 /**
  * AI Character Finder
  * 
- * 根据用户自然Ngôn ngữ描述，从剧本đang xử lý...色并Tạo专业角色数据
+ * 根据用户自然Ngôn ngữMô tả，从剧本đang xử lý...色并Tạo专业角色数据
  * 
  * 功能：
  * 1. 解析用户输入（如 "缺第10 tập的王大哥这角色"）
@@ -26,7 +26,7 @@ export interface CharacterSearchResult {
   confidence: number;
   /** 出现的 tập数 */
   episodeNumbers: number[];
-  /** 找到的上下文（对白、场景等） */
+  /** 找到的上下文（Thoại、场景等） */
   contexts: string[];
   /** AI Tạo的đầy đủ角色数据 */
   character?: ScriptCharacter;
@@ -56,7 +56,7 @@ function parseUserQuery(query: string): { name: string | null; episodeNumber: nu
     episodeNumber = parseInt(episodeMatch[1] || episodeMatch[2] || episodeMatch[3]);
   }
   
-  // 提取角色名：常见chế độ
+  // 提取角色tên:常见chế độ
   // 1. "王大哥这角色" → 王大哥
   // 2. "缺张小宝这人" → 张小宝
   // 3. "需要李明" → 李明
@@ -84,7 +84,7 @@ function parseUserQuery(query: string): { name: string | null; episodeNumber: nu
     }
   }
   
-  // chế độ3：角色：/角色名：后面的内容
+  // chế độ3：角色：/角色tên:后面的内容
   if (!name) {
     nameMatch = cleanQuery.match(/角色[：:名]?\s*[「「"']?([^「」""'\s,，。！？]{2,8})[」」"']?/);
     if (nameMatch) {
@@ -141,7 +141,7 @@ function searchCharacterInScripts(
         c === name || c.includes(name) || name.includes(c)
       );
       
-      // 检查对白
+      // 检查Thoại
       const relevantDialogues = scene.dialogues?.filter(d => 
         d.character === name || d.character.includes(name) || name.includes(d.character)
       ) || [];
@@ -157,7 +157,7 @@ function searchCharacterInScripts(
           sceneSamples.push(`第${ep.episodeIndex} tập - ${scene.sceneHeader || '场景'}`);
         }
         
-      // 收 tập对白样本
+      // 收 tậpThoại样本
         for (const d of relevantDialogues.slice(0, 3)) {
           if (dialogueSamples.length < 5) {
             dialogueSamples.push(`${d.character}: ${d.line.slice(0, 50)}${d.line.length > 50 ? '...' : ''}`);
@@ -214,7 +214,7 @@ async function generateCharacterData(
     
     // 如果有明确的 storyStartYear 且是近现代年份（1800年以后），Trực tiếp判定为现代剧
     if (startYear && startYear >= 1800) {
-      console.log('[detectStoryType] 检测结果: modern (基于 storyStartYear:', startYear, ')');
+      console.log('[detectStoryType] 检测kết quả: modern (基于 storyStartYear:', startYear, ')');
       return 'modern';
     }
     
@@ -223,7 +223,7 @@ async function generateCharacterData(
     const yearMatch = textForYearExtraction.match(/(19\d{2}|20\d{2})\s*年/);
     if (yearMatch) {
       const extractedYear = parseInt(yearMatch[1]);
-      console.log('[detectStoryType] 检测结果: modern (从文本提取年份:', extractedYear, ')');
+      console.log('[detectStoryType] 检测kết quả: modern (从文本提取年份:', extractedYear, ')');
       return 'modern';
     }
     
@@ -235,14 +235,14 @@ async function generateCharacterData(
     const allText = `${era} ${timeline} ${genre} ${outline}`;
     
     if (ancientKeywords.some(kw => allText.includes(kw))) {
-      console.log('[detectStoryType] 检测结果: ancient (基于quan trọng词)');
+      console.log('[detectStoryType] 检测kết quả: ancient (基于quan trọng词)');
       return 'ancient';
     }
     if (futureKeywords.some(kw => allText.includes(kw))) {
-      console.log('[detectStoryType] 检测结果: future (基于quan trọng词)');
+      console.log('[detectStoryType] 检测kết quả: future (基于quan trọng词)');
       return 'future';
     }
-    console.log('[detectStoryType] 检测结果: modern (默认)');
+    console.log('[detectStoryType] 检测kết quả: modern (默认)');
     return 'modern';
   };
   
@@ -322,7 +322,7 @@ async function generateCharacterData(
   const eraInfo = getEraInfo();
   const eraFashionGuidance = getEraFashionGuidance();
   
-  const systemPrompt = `你是专业的影视角色Thiết kế师，擅长从剧本信息đang xử lý...色特征并Tạo专业的角色数据。
+  const systemPrompt = `你是专业的影góc nhìn色Thiết kế师，擅长从剧本信息đang xử lý...色特征并Tạo专业的角色数据。
 
 请根据提供的剧本信息和角色上下文，Tạođầy đủ的角色数据。
 
@@ -336,12 +336,12 @@ ${eraFashionGuidance}
 {
   "name": "角色名",
   "gender": "男/女",
-  "age": "年龄描述，如 '30 tuổi左右' 或 'đang xử lý...,
+  "age": "年龄Mô tả，如 '30 tuổi左右' 或 'đang xử lý...,
   "personality": "性格特点，2-3词",
   "role": "角色身份/职业/在剧đang xử lý...",
-  "appearance": "Đặc điểm ngoại hình描述（服装必须符合年代）",
+  "appearance": "Đặc điểm ngoại hìnhMô tả（服装必须符合年代）",
   "relationships": "与其他角色的关系",
-  "visualPromptEn": "英文视觉提示词，用于AI图像Tạo，描述外貌、服装（必须符合年代）、气质",
+  "visualPromptEn": "英文视觉提示词，用于AI图像Tạo，Mô tả外貌、服装（必须符合年代）、气质",
   "visualPromptZh": "đang xử lý...提示词",
   "importance": "protagonist/supporting/minor"
 }`;
@@ -363,7 +363,7 @@ ${name}
 【角色出场上下文】
 ${contexts.slice(0, 3).join('\n\n')}
 
-【角色对白样本】
+【角色Thoại样本】
 ${dialogueSamples.join('\n')}
 
 请基于以上信息，Tạo角色「${name}」的đầy đủ数据。
@@ -426,7 +426,7 @@ ${dialogueSamples.join('\n')}
 }
 
 /**
- * 主函数：根据用户描述查找并Tạo角色
+ * 主函数：根据用户Mô tả查找并Tạo角色
  */
 export async function findCharacterByDescription(
   userQuery: string,
@@ -447,11 +447,11 @@ export async function findCharacterByDescription(
       confidence: 0,
       episodeNumbers: [],
       contexts: [],
-      message: '无法识别角色名。请用类似"缺第10 tập的王大哥"或"Thêm张小宝这角色"的方式描述。',
+      message: '无法识别角色名。请用类似"缺第10 tập的王大哥"或"Thêm张小宝这角色"的方式Mô tả。',
     };
   }
   
-  console.log('[findCharacterByDescription] 解析结果:', { name, episodeNumber });
+  console.log('[findCharacterByDescription] 解析kết quả:', { name, episodeNumber });
   
   // 2. 检查是否已存在
   const existing = existingCharacters.find(c => 
@@ -474,7 +474,7 @@ export async function findCharacterByDescription(
   const searchResult = searchCharacterInScripts(name, episodeScripts, episodeNumber || undefined);
   
   if (!searchResult.found) {
-    // 没找到但可以让用户确认是否创建
+    // 没找到但可以让用户确认是否tạo
     return {
       found: false,
       name,
@@ -482,8 +482,8 @@ export async function findCharacterByDescription(
       episodeNumbers: [],
       contexts: [],
       message: episodeNumber 
-        ? `在第 ${episodeNumber}  tậpđang xử lý...角色「${name}」。是否仍要创建这角色？`
-        : `在剧本đang xử lý...角色「${name}」。是否仍要创建这角色？`,
+        ? `在第 ${episodeNumber}  tậpđang xử lý...角色「${name}」。是否仍要tạo这角色？`
+        : `在剧本đang xử lý...角色「${name}」。是否仍要tạo这角色？`,
     };
   }
   

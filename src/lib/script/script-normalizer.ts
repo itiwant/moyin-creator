@@ -32,7 +32,7 @@ import { getFeatureConfig } from '@/lib/ai/feature-router';
  *   2. đang xử lý...段落：一、 二、 三、...
  *   3. 场景号：数字-数字（如 1-1、2-3）
  *   4. 动作描写：△
- *   5. 对白：角色名：或 角色名（
+ *   5. Thoại：角色tên:或 角色名（
  *   6. 补充说明：补充: / 注：/ 备注：
  */
 export function preprocessLineBreaks(text: string): { text: string; inserted: boolean } {
@@ -70,8 +70,8 @@ export function preprocessLineBreaks(text: string): { text: string; inserted: bo
     '\n'
   );
   
-  // 5. 对白前换行：2-8字đang xử lý...+ 全角冒号/括号（避免切断 "年龄：" 等属性）
-  // 仅当前面不是换行且不在属性描述đang xử lý...有đang xử lý...号）
+  // 5. Thoại前换行：2-8字đang xử lý...+ 全角冒号/括号（避免切断 "年龄：" 等属性）
+  // 仅当前面不是换行且不在属性Mô tảđang xử lý...有đang xử lý...号）
   result = result.replace(
     /(?<!\n)(?<![\u4e00-\u9fa5：])(?=[\u4e00-\u9fa5]{2,8}[（(][^）)]{0,10}[）)][：:])/g,
     '\n'
@@ -87,7 +87,7 @@ export function preprocessLineBreaks(text: string): { text: string; inserted: bo
     '\n'
   );
   
-  // 7. 角色传记条目前换行：句号/感叹号/分号等标点后紧跟 角色名：年龄/年两：
+  // 7. 角色传记条目前换行：句号/感叹号/分号等标点后紧跟 角色tên:年龄/年两：
   // 处理紧凑格式nhân vật小传（Tất cả角色挤在同一行）
   result = result.replace(
     /([。！；;）\)」】])\s*(?=[\u4e00-\u9fa5]{2,8}[：:]\s*(?:年龄|年两)[：:])/g,
@@ -111,7 +111,7 @@ export interface NormalizationResult {
   normalized: string;
   /** 变更日志（用于 console.log 追踪） */
   changes: string[];
-  /** AI 分析结果（用于覆盖解析器的 era/genre） */
+  /** AI 分析kết quả（用于覆盖解析器的 era/genre） */
   aiAnalysis?: ScriptStructureAnalysis;
 }
 
@@ -160,7 +160,7 @@ export function normalizeScriptFormat(text: string): NormalizationResult {
 // AI Cấu trúc检测层
 // ============================================================
 
-/** AI Cấu trúc分析结果 */
+/** AI Cấu trúc分析kết quả */
 export interface ScriptStructureAnalysis {
   /** 作品名称 */
   title: string;
@@ -172,7 +172,7 @@ export interface ScriptStructureAnalysis {
   hasOutline: boolean;
   /** AI Tạo的đại cương（仅当 hasOutline=false 时填充） */
   generatedOutline: string;
-  /** nhân vật/角色描述区域bắt đầu文本（精确复制原文前30字符） */
+  /** nhân vật/角色Mô tả区域bắt đầu文本（精确复制原文前30字符） */
   characterSectionKeyword: string;
   /** đại cương/故事概述区域bắt đầu文本（原文前30字符，无则Để trống） */
   outlineSectionKeyword: string;
@@ -202,7 +202,7 @@ export interface ScriptStructureAnalysis {
 
 /**
  * AI Cấu trúc检测：gọi API LLM 分析剧本Cấu trúc，识别标题/đại cương/nhân vật/年代，并补全缺失đại cương
- * @returns 分析结果，AI 不可用或gọi API失败时返回 null
+ * @returns 分析kết quả，AI 不可用或gọi API失败时返回 null
  */
 export async function analyzeScriptStructureWithAI(text: string): Promise<ScriptStructureAnalysis | null> {
   // 检查 AI 是否可用
@@ -228,7 +228,7 @@ export async function analyzeScriptStructureWithAI(text: string): Promise<Script
   "genre": "类型（武侠/商战/爱情/悬疑/科幻/仙侠/军旅/家庭等）",
   "hasOutline": false,
   "generatedOutline": "如果文本đang xử lý...纲/故事概述区域，基于全文内容Tạo一段简洁đại cương（100-200字）；如果已有đại cương则Để trống字符串",
-  "characterSectionKeyword": "nhân vật/角色描述区域开始处的原文文本（精确复制前30字符），找不到则Để trống",
+  "characterSectionKeyword": "nhân vật/角色Mô tả区域开始处的原文文本（精确复制前30字符），找不到则Để trống",
   "outlineSectionKeyword": "đại cương/故事概述区域开始处的原文文本（精确复制前30字符），找不到则Để trống",
   "logline": "一句话概括整故事（比如：被驱逐的侠客为救百姓重返雁城）",
   "centralConflict": "chính tuyếnmâu thuẫn（如：nhân vật chính vs 反派+外部势力）",
@@ -248,10 +248,10 @@ export async function analyzeScriptStructureWithAI(text: string): Promise<Script
 4. hasOutline：原文đang xử lý...有“đại cương”“故事简介”“故事背景”等明确的概述性段落
 5. generatedOutline：仅当 hasOutline=false 时Tạo
 6. characterSectionKeyword：必须是原文đang xử lý...在的文本đoạn
-7. characters：从nhân vật小传/角色描述đang xử lý...ất cả角色，包含名字、年龄、身份、phe phái、性格、quan trọng行为
+7. characters：从nhân vật小传/角色Mô tảđang xử lý...ất cả角色，包含名字、年龄、身份、phe phái、性格、quan trọng行为
 8. factions：从「一、核心nhân vật chính」「二、chính diện势力角色」「三、反派势力角色」等分类đang xử lý...营
-9. keyItems：从đại cương+角色描述đang xử lý...要vật phẩm（如vũ khí、信物、象征物）
-10. geography：从场景头和角色描述đang xử lý...要地名
+9. keyItems：从đại cương+角色Mô tảđang xử lý...要vật phẩm（如vũ khí、信物、象征物）
+10. geography：从场景头和角色Mô tảđang xử lý...要地名
 11. 只分析Cấu trúc，不修改任何原文内容`;
 
     // 最多Thử lại 2 次（共 3 次尝试），避免临时网络错误导致降级
@@ -309,7 +309,7 @@ export async function analyzeScriptStructureWithAI(text: string): Promise<Script
         return null;
       }
     }
-    console.log('[scriptNormalizer] AI 分析结果:', {
+    console.log('[scriptNormalizer] AI 分析kết quả:', {
       title: analysis.title,
       era: analysis.era,
       genre: analysis.genre,
@@ -331,7 +331,7 @@ export async function analyzeScriptStructureWithAI(text: string): Promise<Script
 }
 
 /**
- * 基于 AI 分析结果插入Cấu trúc标记
+ * 基于 AI 分析kết quả插入Cấu trúc标记
  * 原文内容一字不差，只插入标记 + AI Tạo的đại cương
  */
 export function applyAIAnalysis(text: string, analysis: ScriptStructureAnalysis): NormalizationResult {
@@ -453,7 +453,7 @@ function normalizeTitle(text: string, changes: string[]): string {
       continue;
     }
     
-    // 跳过已有冒号的描述行（如 "角色名：年龄：35"）
+    // 跳过已有冒号的Mô tả行（如 "角色tên:年龄：35"）
     if (/[：:].{15,}/.test(trimmed)) continue;
     
     // 跳过括号标记行
@@ -478,12 +478,12 @@ function normalizeTitle(text: string, changes: string[]): string {
  * 支持：
  * - 显式标题：nhân vật介绍：、角色介绍：、主要角色：、角色设定：
  * - đang xử lý...角色分类：一、核心nhân vật chính / 一、主要角色
- * - 角色描述chế độ：XX：年龄：35 / XX：35 tuổi
+ * - 角色Mô tảchế độ：XX：年龄：35 / XX：35 tuổi
  */
 function normalizeCharacterSection(text: string, changes: string[]): string {
   // 1. 显式角色区域标题 → 替换为 "nhân vật小传："
   const explicitHeaders = [
-    /^((?:nhân vật|角色)(?:介绍|设定|简介|列表|描述)[：:])/m,
+    /^((?:nhân vật|角色)(?:介绍|设定|简介|列表|Mô tả)[：:])/m,
     /^((?:主要|核心|重要)(?:角色|nhân vật)[：:])/m,
     /^(角色表[：:])/m,
   ];
@@ -507,12 +507,12 @@ function normalizeCharacterSection(text: string, changes: string[]): string {
     return text.slice(0, insertPos) + 'nhân vật小传：\n' + text.slice(insertPos);
   }
   
-  // 3. 角色描述特征chế độ：角色名：年龄：XX 或 角色名：XX tuổi，身份：...
+  // 3. 角色Mô tả特征chế độ：角色tên:年龄：XX 或 角色tên:XX tuổi，身份：...
   const charDescPattern = /^([\u4e00-\u9fa5]{2,8}[：:]\s*(?:年龄[：:]|Giới tính[：:]|身份[：:]|\d{1,3} tuổi))/m;
   const charDescMatch = charDescPattern.exec(text);
   if (charDescMatch && charDescMatch.index !== undefined) {
     const insertPos = charDescMatch.index;
-    changes.push(`nhân vật小传标记: 在角色描述"${charDescMatch[1].substring(0, 15)}..."前插入`);
+    changes.push(`nhân vật小传标记: 在角色Mô tả"${charDescMatch[1].substring(0, 15)}..."前插入`);
     return text.slice(0, insertPos) + 'nhân vật小传：\n' + text.slice(insertPos);
   }
   

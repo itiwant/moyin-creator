@@ -189,7 +189,7 @@ export function PropertyPanel({
       lines.push('');
     }
     
-    // 多视角联合图（AI视角phân tích的产出）
+    // 多góc nhìn联合图（AIgóc nhìnphân tích的产出）
     if (scene.viewpoints && scene.viewpoints.length > 0) {
       lines.push(`## Ảnh kết hợp đa góc nhìn (AI phân tích)`);
       lines.push(`Số góc nhìn: ${scene.viewpoints.length}`);
@@ -250,7 +250,7 @@ export function PropertyPanel({
       lines.push('');
     }
     
-    // 身份/nền（主要描述）
+    // 身份/nền（主要Mô tả）
     if (character.role) {
       lines.push(`## Danh tính/Nền`);
       lines.push(character.role);
@@ -422,13 +422,13 @@ export function PropertyPanel({
         lines.push(`**Phân cảnh**: ${[s.shotSize, s.cameraMovement].filter(Boolean).join(' | ')}`);
       }
       if ((s as any).visualDescription) {
-        lines.push(`**视觉描述**: ${(s as any).visualDescription}`);
+        lines.push(`**Mô tả thị giác**: ${(s as any).visualDescription}`);
       }
       if (s.actionSummary) {
         lines.push(`**Hành động**: ${s.actionSummary}`);
       }
       if (s.dialogue) {
-        lines.push(`**对白**: 「${s.dialogue}」`);
+        lines.push(`**Thoại**: 「${s.dialogue}」`);
       }
       if (s.characterNames && s.characterNames.length > 0) {
         lines.push(`**出CảnhNhân vật**: ${s.characterNames.join('、')}`);
@@ -537,16 +537,16 @@ export function PropertyPanel({
     if (shot.characterNames && shot.characterNames.length > 0) {
       lines.push(`出CảnhNhân vật: ${shot.characterNames.join('、')}`);
     }
-    // 对白trường始终显示，无对白时明确标注“无”，防止AIVideo模型幻觉
-    lines.push(`对白: ${shot.dialogue ? `「${shot.dialogue}」` : '无'}`);
+    // Thoạitrường始终显示，无Thoại时明确标注“无”，防止AIVideo模型幻觉
+    lines.push(`Thoại: ${shot.dialogue ? `「${shot.dialogue}」` : '无'}`);
     if (shot.actionSummary) {
-      lines.push(`Hành động描述: ${shot.actionSummary}`);
+      lines.push(`Hành độngMô tả: ${shot.actionSummary}`);
     }
     lines.push('');
 
-    // 视觉描述
+    // Mô tả thị giác
     if ((shot as any).visualDescription) {
-      lines.push('【视觉描述】');
+      lines.push('【Mô tả thị giác】');
       lines.push((shot as any).visualDescription);
       lines.push('');
     }
@@ -579,7 +579,7 @@ export function PropertyPanel({
         lines.push(`视觉焦点: ${(shot as any).visualFocus}`);
       }
       if ((shot as any).cameraPosition) {
-        lines.push(`机位描述: ${(shot as any).cameraPosition}`);
+        lines.push(`机位Mô tả: ${(shot as any).cameraPosition}`);
       }
       if ((shot as any).characterBlocking) {
         lines.push(`nhân vật布局: ${(shot as any).characterBlocking}`);
@@ -614,7 +614,7 @@ export function PropertyPanel({
 
       // ===== Videoprompt =====
       lines.push('───────────────────────────────────────');
-      lines.push('【Videoprompt】用于图生Video，描述Hành động和运动');
+      lines.push('【Videoprompt】用于图生Video，Mô tảHành động和运动');
       lines.push('───────────────────────────────────────');
       if (promptLanguage !== 'en' && shot.videoPromptZh) {
         lines.push(`Tiếng Trung: ${shot.videoPromptZh}`);
@@ -897,7 +897,7 @@ export function PropertyPanel({
             <div className="space-y-3">
               <div className="space-y-1">
                 <Label className="text-xs">身份/nền</Label>
-                <Textarea value={editData.role || ""} onChange={(e) => setEditData({ ...editData, role: e.target.value })} className="min-h-[60px]" placeholder="详细的身份nền描述" />
+                <Textarea value={editData.role || ""} onChange={(e) => setEditData({ ...editData, role: e.target.value })} className="min-h-[60px]" placeholder="详细的身份nềnMô tả" />
               </div>
               <div className="grid grid-cols-2 gap-2">
                 <div className="space-y-1">
@@ -1046,7 +1046,7 @@ export function PropertyPanel({
               <div className="p-3 bg-blue-500/10 border border-blue-500/20 rounded-lg space-y-2">
                 <div className="text-xs text-blue-600 dark:text-blue-400 flex items-center gap-1 font-medium">
                   <CheckCircle2 className="h-3 w-3" />
-                  已创建 {character.stageCharacterIds.length} giai đoạn版本
+                  已tạo {character.stageCharacterIds.length} giai đoạn版本
                 </div>
                 <div className="text-xs text-muted-foreground">
                   请在đang xử lý...ấp各giai đoạn版本（如「{character.name}（青年版）」），rồi去Thư viện nhân vậtTạo形象
@@ -1247,19 +1247,19 @@ export function PropertyPanel({
                 </>
               )}
               
-              {/* 多视角联合图预览 - 仅显示 AI phân tích的视角 */}
+              {/* 多góc nhìn联合图预览 - 仅显示 AI phân tích的góc nhìn */}
               {sceneShots.length > 0 && (() => {
-                // 只Sử dụng AI phân tích的视角
+                // 只Sử dụng AI phân tích的góc nhìn
                 if (!scene.viewpoints || scene.viewpoints.length === 0) {
                   return (
                     <>
                       <Separator className="my-2" />
                       <div className="text-xs font-medium text-primary mb-2">
                         <Grid3X3 className="h-3 w-3 inline mr-1" />
-                        多视角联合图
+                        多góc nhìn联合图
                       </div>
                       <div className="text-xs text-muted-foreground">
-                        未phân tích视角（可选，Hiệu chuẩn phân cảnh AI后Tự độngTạo）
+                        未phân tíchgóc nhìn（可选，Hiệu chuẩn phân cảnh AI后Tự độngTạo）
                       </div>
                     </>
                   );
@@ -1278,14 +1278,14 @@ export function PropertyPanel({
                     <Separator className="my-2" />
                     <div className="text-xs font-medium text-primary mb-2">
                       <Grid3X3 className="h-3 w-3 inline mr-1" />
-                      多视角联合图
+                      多góc nhìn联合图
                     </div>
                     
                     <div className="text-xs text-muted-foreground mb-2">
-                      AI phân tích {viewpoints.length} 视角
+                      AI phân tích {viewpoints.length} góc nhìn
                     </div>
                     
-                    {/* 视角 cột表 */}
+                    {/* góc nhìn cột表 */}
                     <div className="space-y-1.5">
                       {viewpoints.slice(0, 6).map((vp, idx) => (
                         <div 
@@ -1305,7 +1305,7 @@ export function PropertyPanel({
                       ))}
                       {viewpoints.length > 6 && (
                         <div className="text-xs text-muted-foreground text-center py-1">
-                          还有 {viewpoints.length - 6} 视角...
+                          还有 {viewpoints.length - 6} góc nhìn...
                         </div>
                       )}
                     </div>
@@ -1368,7 +1368,7 @@ export function PropertyPanel({
               onClick={() => onGoToDirectorFromScene?.(scene.id)}
             >
               <Film className="h-4 w-4 mr-2" />
-              去AI导演Tạo video
+              去AIĐạo diễnTạo video
             </Button>
             <Button
               variant="outline"
@@ -1473,11 +1473,11 @@ export function PropertyPanel({
                 </Select>
               </div>
               <div className="space-y-1">
-                <Label className="text-xs">Hành động描述</Label>
+                <Label className="text-xs">Hành độngMô tả</Label>
                 <Textarea value={editData.actionSummary || ""} onChange={(e) => setEditData({ ...editData, actionSummary: e.target.value })} className="min-h-[80px]" />
               </div>
               <div className="space-y-1">
-                <Label className="text-xs">对白</Label>
+                <Label className="text-xs">Thoại</Label>
                 <Textarea value={editData.dialogue || ""} onChange={(e) => setEditData({ ...editData, dialogue: e.target.value })} className="min-h-[60px]" />
               </div>
             </div>
@@ -1508,7 +1508,7 @@ export function PropertyPanel({
                 )}
               </div>
 
-              {/* 详细视觉描述 */}
+              {/* 详细Mô tả thị giác */}
               {(shot as any).visualDescription && (
                 <div className="bg-gradient-to-r from-primary/5 to-transparent p-3 rounded-lg border-l-2 border-primary/30">
                   <div className="text-xs text-muted-foreground mb-1 flex items-center gap-1">
@@ -1519,9 +1519,9 @@ export function PropertyPanel({
                 </div>
               )}
 
-              {/* Hành động描述 */}
+              {/* Hành độngMô tả */}
               <div>
-                <div className="text-xs text-muted-foreground mb-1">Hành động描述</div>
+                <div className="text-xs text-muted-foreground mb-1">Hành độngMô tả</div>
                 <div className="text-sm">{shot.actionSummary}</div>
               </div>
 
@@ -1546,7 +1546,7 @@ export function PropertyPanel({
                   )}
                   {shot.dialogue && (
                     <div>
-                      <span className="text-xs text-muted-foreground">对白: </span>
+                      <span className="text-xs text-muted-foreground">Thoại: </span>
                       <span className="text-xs italic">"{shot.dialogue}"</span>
                     </div>
                   )}
@@ -1633,7 +1633,7 @@ export function PropertyPanel({
               onClick={() => onGoToDirector?.(shot.id)}
             >
               <ArrowRight className="h-4 w-4 mr-2" />
-              去AI导演Tạo
+              去AIĐạo diễnTạo
             </Button>
             <Button
               variant="secondary"
