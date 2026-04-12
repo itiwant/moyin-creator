@@ -557,14 +557,14 @@ export const VISUAL_STYLE_PRESETS: readonly StylePreset[] = [
 ] as const;
 
 // ============================================================
-// Tùy chỉnh风格查找回调（用户dữ liệu，存储在 localStorage）
+// Tùy chỉnh风格查找回调（người dùngdữ liệu，存储在 localStorage）
 // 通过回调Tránh常量文件Trực tiếp依赖 zustand store
 // ============================================================
 let _customStyleLookup: ((id: string) => StylePreset | undefined) | null = null;
 
 /**
  * 注册Tùy chỉnh风格查找函数（由 custom-style-store gọi API）
- * Tùy chỉnh风格是用户人资产，不包含在内置预设中
+ * Tùy chỉnh风格是người dùng人资产，不包含在内置预设中
  */
 export function registerCustomStyleLookup(fn: (id: string) => StylePreset | undefined) {
   _customStyleLookup = fn;
@@ -589,7 +589,7 @@ export function getStyleById(styleId: string): StylePreset | undefined {
   return _findStyle(styleId);
 }
 
-/** 获取风格的prompt（styleId 为空时返回空字符串，表示不施加风格） */
+/** 获取风格的prompt（styleId 为空时返回空ký tự串，表示不施加风格） */
 export function getStylePrompt(styleId: string | null | undefined): string {
   if (!styleId) return '';
   const style = _findStyle(styleId);

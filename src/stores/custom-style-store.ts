@@ -3,7 +3,7 @@
 // Commercial licensing available. See COMMERCIAL_LICENSE.md.
 /**
  * Custom Style Store
- * 用户Tùy chỉnhPhong cáchTài sảnQuản lý，独立于内置预设
+ * người dùngTùy chỉnhPhong cáchTài sảnQuản lý，独立于内置预设
  * Sử dụng localStorage 持久化（全局Tài sản，不按项目分割）
  */
 
@@ -16,7 +16,7 @@ import { registerCustomStyleLookup, type StylePreset } from '@/lib/constants/vis
 export interface CustomStyle {
   id: string;
   name: string;                 // Phong cáchTên（必填）
-  prompt: string;               // 用户gốcprompt（可能混合了Phong cách+Mô tả cảnh）
+  prompt: string;               // người dùnggốcprompt（可能混合了Phong cách+Mô tả cảnh）
   negativePrompt: string;       // Prompt phủ định
   description: string;          // Mô tả
   referenceImages: string[];    // Ảnh tham chiếu路径 (local-image://styles/...)
@@ -194,7 +194,7 @@ export const useCustomStyleStore = create<CustomStyleStore>()(
 
 // ==================== 注册Tùy chỉnhPhong cách查找回调 ====================
 // 让 visual-styles.ts 的工具函数（getStyleById/getStylePrompt 等）
-// 能查找到用户Tùy chỉnhPhong cách（存储在 localStorage 的用户dữ liệu）
+// 能查找到người dùngTùy chỉnhPhong cách（存储在 localStorage 的người dùngdữ liệu）
 
 /**
  * 从promptđang xử lý...hong cáchphân loại（Hỗ trợTrung-Anhquan trọng词）
@@ -243,7 +243,7 @@ registerCustomStyleLookup((id: string): StylePreset | undefined => {
   const style = useCustomStyleStore.getState().styles.find(s => s.id === id);
   if (!style) return undefined;
 
-  // thông minh推断 category/mediaType（用户Chỉnh sửa器目前无这两trường）
+  // thông minh推断 category/mediaType（người dùngChỉnh sửa器目前无这两trường）
   const effectivePrompt = style.prompt || '';
   const category = inferCategoryFromPrompt(effectivePrompt);
   const mediaType = inferMediaType(category);

@@ -147,13 +147,13 @@ export function collectSceneStats(
         stat.episodeNumbers.push(epIndex);
       }
       
-      // 收 tập内容样本
+      // thu thập内容样本
       if (stat.contentSamples.length < 5) {
         const sample = scene.content?.slice(0, 150) || scene.sceneHeader;
         stat.contentSamples.push(`第${epIndex} tập: ${sample}`);
       }
       
-      // 收 tập动作描写（用于推断đạo cụ和场景bố cục）
+      // thu thập动作描写（用于推断đạo cụ和场景bố cục）
       if (scene.actions && scene.actions.length > 0 && stat.actionSamples.length < 8) {
         // Sử dụngPhân tích出的动作描写（△开头）
         for (const action of scene.actions.slice(0, 3)) {
@@ -167,7 +167,7 @@ export function collectSceneStats(
         stat.actionSamples.push(`第${epIndex} tập: ${contentSample}`);
       }
       
-      // 收 tậpThoại样本（用于理解场景đang xử lý...什么）
+      // thu thậpThoại样本（用于理解场景đang xử lý...什么）
       if (scene.dialogues && stat.dialogueSamples.length < 5) {
         for (const d of scene.dialogues.slice(0, 2)) {
           if (d && stat.dialogueSamples.length < 5) {
@@ -176,14 +176,14 @@ export function collectSceneStats(
         }
       }
       
-      // 收 tập角色
+      // thu thập角色
       for (const char of (scene.characters || [])) {
         if (!stat.characters.includes(char)) {
           stat.characters.push(char);
         }
       }
       
-      // 收 tập时间
+      // thu thập时间
       const time = extractTimeFromHeader(scene.sceneHeader);
       if (time && !stat.times.includes(time)) {
         stat.times.push(time);
@@ -229,7 +229,7 @@ function normalizeLocation(location: string): string {
 }
 
 /**
- * 清理场景地点字符串，移除nhân vậtthông tin等无关内容
+ * 清理场景地点ký tự串，移除nhân vậtthông tin等无关内容
  */
 function cleanLocationString(location: string): string {
   if (!location) return '';
@@ -273,7 +273,7 @@ export async function calibrateScenes(
   
   console.log('[calibrateScenes] nhẹchế độ：为', currentScenes.length, 'hiện có场景补充美术Thiết kế');
   
-  // 1. 收 tập场景的动作描写样本（用于推断đạo cụ）
+  // 1. thu thập场景的动作描写样本（用于推断đạo cụ）
   const stats = collectSceneStats(episodeScripts);
   
   // 2. 准备场景批处理 items（每场景带上统计thông tin）
@@ -330,7 +330,7 @@ export async function calibrateScenes(
   const outlineContext = safeTruncate(background.outline || '', 1500);
 
   try {
-    // 闭包收 tập跨批次的聚合trường
+    // 闭包thu thập跨批次的聚合trường
     const allMergeRecords: SceneMergeRecord[] = [];
     const allAnalysisNotes: string[] = [];
     
@@ -423,7 +423,7 @@ ${sceneList}
           }
         }
         
-        // 收 tập聚合trường
+        // thu thập聚合trường
         allMergeRecords.push(...(batchParsed.mergeRecords || []));
         if (batchParsed.analysisNotes) allAnalysisNotes.push(batchParsed.analysisNotes);
         
@@ -656,7 +656,7 @@ export function convertToScriptScenes(
       normalizeLocation(orig.location) === normalizeLocation(c.location)
     );
     
-    // 清理地点字符串
+    // 清理地点ký tự串
     const cleanedLocation = cleanLocationString(c.location);
     const nextVisualPromptZh = c.visualPromptZh || original?.visualPrompt;
     const nextVisualPromptEn = c.visualPromptEn || original?.visualPromptEn;

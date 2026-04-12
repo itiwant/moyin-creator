@@ -131,7 +131,7 @@ export async function importFullScript(
     store.setRawScript(projectId, fullText);
     store.setParseStatus(projectId, "ready");
     
-    // 4. 构建剧级元dữ liệu（SeriesMeta）— 用户选的风格和Ngôn ngữTrực tiếp传入
+    // 4. 构建剧级元dữ liệu（SeriesMeta）— người dùng选的风格和Ngôn ngữTrực tiếp传入
     const aiResult = normalizeResult.aiAnalysis || null;
     const seriesMeta = populateSeriesMetaFromImport(background, scriptData, aiResult, importSettings);
     store.setSeriesMeta(projectId, seriesMeta);
@@ -169,7 +169,7 @@ export interface SingleEpisodeImportResult {
 }
 
 /**
- * 单 tậpCấu trúcbổ sung — Phân tích用户粘贴的单 tập剧本内容为场景Cấu trúc
+ * 单 tậpCấu trúcbổ sung — Phân tíchngười dùng粘贴的单 tập剧本内容为场景Cấu trúc
  *
  * 流程：
  * 1. preprocessLineBreaks → parseScenes → 转换为 ScriptScene[]
@@ -497,7 +497,7 @@ export async function generateEpisodeShots(
         // 智谱 API 并发限制较严，góc nhìn分析最多Sử dụng 10 并发
         const userConcurrency = useAPIConfigStore.getState().concurrency || 1;
         const concurrency = Math.min(userConcurrency, 10);
-        console.log(`[generateEpisodeShots] Sử dụng并发数: ${concurrency} (用户设置: ${userConcurrency}, 上限: 10)`);
+        console.log(`[generateEpisodeShots] Sử dụng并发数: ${concurrency} (người dùng设置: ${userConcurrency}, 上限: 10)`);
         
         // 为每场景分析góc nhìn（支持并发）
         const updatedScenes = [...scriptData.scenes];
@@ -1275,7 +1275,7 @@ export interface ShotCalibrationResult {
 }
 
 /**
- * 根据用户Chọn的提示词Ngôn ngữ，清理/保留分镜提示词trường，TránhNgôn ngữ切换后残留旧trường
+ * 根据người dùngChọn的提示词Ngôn ngữ，清理/保留分镜提示词trường，TránhNgôn ngữ切换后残留旧trường
  */
 function applyPromptLanguageToShotPrompts(
   existingShot: Shot,
@@ -1406,7 +1406,7 @@ export async function calibrateEpisodeShots(
   }
   
   try {
-    // 获取用户设置的并发数
+    // 获取người dùng设置的并发数
     const concurrency = useAPIConfigStore.getState().concurrency || 1;
     const batchSize = 5; // 每 AI gọi API处理 5 分镜
     let calibratedCount = 0;

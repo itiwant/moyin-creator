@@ -11,7 +11,7 @@
  * Layer 3: 氛围修饰 (Mood) - 辅助
  * Layer 4: 场景音频 (Setting & Audio)
  * Layer 5: Thị giác风格 (Style)
- * Base: 用户提示词
+ * Base: người dùng提示词
  *
  * 摄影风格档案回退规则：逐镜trường为空时Sử dụng项目级摄影档案默认值
  */
@@ -85,7 +85,7 @@ function findPresetToken<T extends { id: string; promptToken: string }>(
   const preset = presets.find(p => p.id === id);
   if (!preset?.promptToken) return undefined;
   const translated = translateToken(mediaType ?? 'cinematic', field, id, preset.promptToken);
-  return translated || undefined; // 空字符串 → undefined（跳过）
+  return translated || undefined; // 空ký tự串 → undefined（跳过）
 }
 
 // ==================== 视频 Prompt 构建配置 ====================
@@ -107,7 +107,7 @@ export interface VideoPromptConfig {
  * @param scene - 分镜dữ liệu (SplitScene)
  * @param cinProfile - 摄影风格档案 (undefined 表示未设置)
  * @param config - 额外配置 (styleTokens , v.v.)
- * @returns 组装好的đầy đủ prompt 字符串
+ * @returns 组装好的đầy đủ prompt ký tự串
  */
 export function buildVideoPrompt(
   scene: SplitScene,
@@ -327,7 +327,7 @@ export function buildVideoPrompt(
     promptParts.push(`Style: ${config.styleTokens.join(', ')}`);
   }
 
-  // ---------- Base Prompt: 用户视频提示词 ----------
+  // ---------- Base Prompt: người dùng视频提示词 ----------
   const basePrompt = scene.videoPromptZh || scene.videoPrompt || '';
   if (basePrompt.trim()) {
     promptParts.push(basePrompt.trim());
@@ -345,6 +345,6 @@ export function buildVideoPrompt(
     promptParts.push(scene.continuityRef.lightingContinuity.trim());
   }
 
-  // 最终组装
+  // lắp ráp cuối cùng
   return promptParts.join('. ');
 }

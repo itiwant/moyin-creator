@@ -387,7 +387,7 @@ ${s5VideoFields}：
 - ⚠️ Tất cảMô tả必须保持thời đại一致性（trang phục/đạo cụ/环境不能偏离剧本设定的thời đại）
 
 ${s5EndFields}：
-仅当 needsEndFrame=true 时Tạo，否则设为空字符串。
+仅当 needsEndFrame=true 时Tạo，否则设为空ký tự串。
 - Mô tả动作hoàn thành后的最终画面
 - 包含与khung đầu相同的场景环境和光线
 - 重点Mô tả与khung đầu的差异（新位置/新Tư thế/新Biểu cảm/đạo cụ新状态）

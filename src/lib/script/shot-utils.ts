@@ -23,7 +23,7 @@ export function getShotCompletionStatus(shot: Shot): CompletionStatus {
 }
 
 /**
- * 计算一组带 status trường的 items 的Tiến độ字符串
+ * 计算一组带 status trường的 items 的Tiến độký tự串
  */
 export function calculateProgress(items: { status?: CompletionStatus }[]): string {
   const completed = items.filter((i) => i.status === "completed").length;
@@ -46,7 +46,7 @@ export const SHOT_SIZE_MAP: Record<string, ShotSizeType> = {
 };
 
 /**
- * 将Kích thước cảnh字符串转换为标准化 ShotSizeType
+ * 将Kích thước cảnhký tự串转换为标准化 ShotSizeType
  */
 export function normalizeShotSize(shotSize: string | undefined | null): ShotSizeType | null {
   if (!shotSize) return null;

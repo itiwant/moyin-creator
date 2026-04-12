@@ -4,10 +4,10 @@
 /**
  * AI Scene Finder
  * 
- * 根据用户自然Ngôn ngữMô tả，从剧本đang xử lý...景并Tạochuyên nghiệp场景dữ liệu
+ * 根据người dùng自然Ngôn ngữMô tả，从剧本đang xử lý...景并Tạochuyên nghiệp场景dữ liệu
  * 
  * chức năng：
- * 1. Phân tích用户输入（如 "缺第5 tập的张家客厅"）
+ * 1. Phân tíchngười dùng输入（如 "缺第5 tập的张家客厅"）
  * 2. 搜索剧本đang xử lý...thông tin
  * 3. AI Tạođầy đủ场景dữ liệu（包括Thị giác提示词）
  */
@@ -44,7 +44,7 @@ export interface SceneFinderOptions {
 // ==================== 核心函数 ====================
 
 /**
- * Phân tích用户输入，提取场景名和 tập数thông tin
+ * Phân tíchngười dùng输入，提取场景名和 tập数thông tin
  */
 function parseSceneQuery(query: string): { name: string | null; episodeNumber: number | null } {
   let name: string | null = null;
@@ -85,7 +85,7 @@ function parseSceneQuery(query: string): { name: string | null; episodeNumber: n
     }
   }
   
-  // chế độ4：Trực tiếp就是场景名（2-15字符）
+  // chế độ4：Trực tiếp就是场景名（2-15ký tự）
   if (!name) {
     const pureQuery = cleanQuery.replace(/^[缺需要Thêm找查想请帮我的]+/g, '').trim();
     if (pureQuery.length >= 2 && pureQuery.length <= 15 && /^[\u4e00-\u9fa5A-Za-z\s]+$/.test(pureQuery)) {
@@ -138,7 +138,7 @@ function searchSceneInScripts(
         
         matchedScenes.push({ episodeIndex: ep.episodeIndex, scene });
         
-        // 收 tập上下文
+        // thu thập上下文
         if (contexts.length < 5) {
           const sceneContext = [
             `【第${ep.episodeIndex} tập - ${sceneHeader}】`,
@@ -234,7 +234,7 @@ ${contexts.slice(0, 3).join('\n\n')}
     
     const parsed = JSON.parse(cleaned);
     
-    // 确保Tất cảtrường都是字符串类型（AI 可能返回对象）
+    // 确保Tất cảtrường都是ký tự串类型（AI 可能返回对象）
     const ensureString = (val: any): string | undefined => {
       if (val === null || val === undefined) return undefined;
       if (typeof val === 'string') return val;
@@ -249,7 +249,7 @@ ${contexts.slice(0, 3).join('\n\n')}
       return String(val);
     };
     
-    // 确保 tags 是字符串数组
+    // 确保 tags 是ký tự串数组
     const ensureTags = (val: any): string[] | undefined => {
       if (!val) return undefined;
       if (Array.isArray(val)) {
@@ -285,7 +285,7 @@ ${contexts.slice(0, 3).join('\n\n')}
 }
 
 /**
- * 主函数：根据用户Mô tả查找并Tạo场景
+ * 主函数：根据người dùngMô tả查找并Tạo场景
  */
 export async function findSceneByDescription(
   userQuery: string,
@@ -294,9 +294,9 @@ export async function findSceneByDescription(
   existingScenes: ScriptScene[],
   _options?: SceneFinderOptions // 不再需要，保留以tương thích
 ): Promise<SceneSearchResult> {
-  console.log('[findSceneByDescription] 用户查询:', userQuery);
+  console.log('[findSceneByDescription] người dùng查询:', userQuery);
   
-  // 1. Phân tích用户输入
+  // 1. Phân tíchngười dùng输入
   const { name, episodeNumber } = parseSceneQuery(userQuery);
   
   if (!name) {
@@ -337,7 +337,7 @@ export async function findSceneByDescription(
   const searchResult = searchSceneInScripts(name, episodeScripts, episodeNumber || undefined);
   
   if (!searchResult.found) {
-    // 没找到但可以让用户确认是否tạo
+    // 没找到但可以让người dùng确认是否tạo
     return {
       found: false,
       name,

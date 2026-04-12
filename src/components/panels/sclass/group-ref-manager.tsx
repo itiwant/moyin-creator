@@ -7,8 +7,8 @@
  * GroupRefManager — Hạng Scấp nhóm @tham chiếuQuản lý器
  *
  * chức năng：
- * - Tự động收 tập：Nhân vậtẢnh tham chiếu、CảnhẢnh tham chiếu、Khung hình đầuảnh → 只读Hiển thị
- * - Thủ côngTải lên：videotham chiếu（chuyển động máy/Hành động复刻）、âm thanhtham chiếu（Nhịp điệu/BGM）
+ * - Tự độngthu thập：Nhân vậtẢnh tham chiếu、CảnhẢnh tham chiếu、Khung hình đầuảnh → 只读Hiển thị
+ * - Thủ côngTải lên：videotham chiếu（chuyển động máy/Hành độngsao chép）、âm thanhtham chiếu（Nhịp điệu/BGM）
  * - hạn mức条：≤9 ảnh + ≤3 video + ≤3 âm thanh，Tổng ≤12
  * - Xóađã tải lên的video/âm thanhtham chiếu
  *
@@ -149,7 +149,7 @@ export function GroupRefManager({
   const audioInputRef = useRef<HTMLInputElement>(null);
   const [isDragOver, setIsDragOver] = useState<"video" | "audio" | null>(null);
 
-  // ========== Tự động收 tập的ảnhtham chiếu ==========
+  // ========== Tự độngthu thập的ảnhtham chiếu ==========
   const autoImages = useMemo(() => {
     const allCharIds = Array.from(
       new Set(scenes.flatMap((s) => s.characterIds || []))

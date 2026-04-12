@@ -11,7 +11,7 @@
  *   - 60K token Hard Cap（防止超长上下文模型 TTFT 过高 / Lost in the middle）
  *   - 容错隔离（单批次thất bại不影响其他批次，部分成功也返回kết quả）
  *   - 单批次Thử lại（指数退避，最多 2 次）
- *   - 并发 tập成（复用 runStaggered + 用户 concurrency 设置）
+ *   - 并发 tập成（复用 runStaggered + người dùng concurrency 设置）
  *   - Tiến độ回调
  */
 

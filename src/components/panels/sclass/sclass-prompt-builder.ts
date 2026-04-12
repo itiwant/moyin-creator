@@ -9,8 +9,8 @@
  * 2. Tự động从 scene-store 提取CảnhẢnh tham chiếu → @Image
  * 3. Tự động从 splitScene.dialogue 提取Thoại → 唇形同步指令
  * 4. 合并trong nhóm各Ống kính的3 lớpprompt为「Ống kính1→Ống kính2→Ống kính3」Cấu trúc
- * 5. 收 tập用户Tải lên的 @Video / @Audio tham chiếu
- * 6. 检查 Seedance 2.0 限制（≤9图 + ≤3video + ≤3âm thanh，Tổng≤12，prompt≤5000字符）
+ * 5. thu thậpngười dùngTải lên的 @Video / @Audio tham chiếu
+ * 6. 检查 Seedance 2.0 限制（≤9图 + ≤3video + ≤3âm thanh，Tổng≤12，prompt≤5000ký tự）
  */
 
 import type { SplitScene } from '@/stores/director-store';
@@ -20,58 +20,58 @@ import type { ShotGroup, AssetRef, AssetPurpose, SClassAspectRatio, SClassResolu
 
 // ==================== Types ====================
 
-/** @tham chiếu收 tậpkết quả */
+/** Kết quả thu thập @tham chiếu */
 export interface CollectedRefs {
-  /** ảnhtham chiếu（Nhân vật图 + Cảnh图 + Khung hình đầu图），最多 9 张 */
+  /** Ảnh tham chiếu (ảnh Nhân vật + ảnh Cảnh + ảnh Khung hình đầu), tối đa 9 ảnh */
   images: AssetRef[];
-  /** videotham chiếu（用户Tải lên），最多 3  */
+  /** Video tham chiếu (người dùng Tải lên), tối đa 3 */
   videos: AssetRef[];
-  /** âm thanhtham chiếu（用户Tải lên），最多 3  */
+  /** Âm thanh tham chiếu (người dùng Tải lên), tối đa 3 */
   audios: AssetRef[];
-  /** Tổngfile数 */
+  /** Tổng số file */
   totalFiles: number;
-  /** 是否vượt quá限制 */
+  /** Có vượt quá giới hạn không */
   overLimit: boolean;
-  /** vượt giới hạn详情 */
+  /** Chi tiết vượt giới hạn */
   limitWarnings: string[];
 }
 
-/** cấp nhóm prompt 构建kết quả */
+/** Kết quả xây dựng prompt cấp nhóm */
 export interface GroupPromptResult {
-  /** 最终组装的 prompt（发送给 API） */
+  /** Prompt đã lắp ráp cuối cùng (gửi đến API) */
   prompt: string;
   /** prompt Số ký tự */
   charCount: number;
-  /** 是否vượt quá 5000 字符限制 */
+  /** Có vượt quá giới hạn 5000 ký tự không */
   overCharLimit: boolean;
-  /** 收 tập到的 @tham chiếu */
+  /** @tham chiếu đã thu thập */
   refs: CollectedRefs;
-  /** 各Ống kính的 prompt đoạn（用于 UI Xem trước） */
+  /** Đoạn prompt của từng Ống kính (dùng cho UI Xem trước) */
   shotSegments: ShotSegment[];
-  /** Thoại唇形同步đoạn */
+  /** Đoạn đồng bộ hình môi Thoại */
   dialogueSegments: DialogueSegment[];
 }
 
-/** 单Ống kính的 prompt đoạn */
+/** Đoạn prompt của Ống kính đơn */
 export interface ShotSegment {
   sceneId: number;
   sceneName: string;
-  /** 该Ống kính在trong nhóm的chỉ mục（1-based） */
+  /** Chỉ mục của Ống kính này trong nhóm (1-based) */
   shotIndex: number;
   /** Ống kínhMô tả（Hành động + Ống kínhNgôn ngữ） */
   description: string;
-  /** Thoại文本 */
+  /** Văn bản Thoại */
   dialogue: string;
-  /** Thời lượng（秒） */
+  /** Thời lượng (giây) */
   duration: number;
 }
 
-/** Thoại唇形同步đoạn */
+/** Đoạn đồng bộ hình môi Thoại */
 export interface DialogueSegment {
   sceneId: number;
   characterName: string;
   text: string;
-  /** 在videođang xử lý...Thời gian位置（秒） */
+  /** Vị trí Thời gian trong video (giây) */
   timeOffset: number;
 }
 
@@ -103,7 +103,7 @@ function calculateGridLayout(count: number): { cols: number; rows: number; padde
  * bố cục规则（N×N 策略，与 handleMergedGenerate 一致）：
  * - 1-4 张 → 2×2，不足的ôĐể trống
  * - 5-9 张 → 3×3，不足的ôĐể trống
- * Tỷ lệ khung hình：N×N 网格下，整图Tỷ lệ khung hình = 单格Tỷ lệ khung hình = 目标画幅比
+ * Tỷ lệ khung hình：N×N 网格下，整图Tỷ lệ khung hình = 单格Tỷ lệ khung hình = 目标Tỉ lệ khung hình比
  *
  * @param imageUrls ảnh URL  cột表（base64 / http / local-image://）
  * @param aspectRatio 目标Tỷ lệ khung hình，如 '16:9' 或 '9:16'
@@ -113,7 +113,7 @@ export async function mergeToGridImage(
   imageUrls: string[],
   aspectRatio: string = '16:9',
 ): Promise<string> {
-  if (imageUrls.length === 0) throw new Error('mergeToGridImage: không có ảnh可合并');
+  if (imageUrls.length === 0) throw new Error('mergeToGridImage: không có ảnh để ghép');
   if (imageUrls.length === 1) {
     // 单张Trực tiếpQuay lại，无需合并
     return imageUrls[0];
@@ -138,7 +138,7 @@ export async function mergeToGridImage(
       const img = new Image();
       img.crossOrigin = 'anonymous';
       img.onload = () => resolve(img);
-      img.onerror = () => reject(new Error(`加载ảnhThất bại: ${src.substring(0, 60)}...`));
+      img.onerror = () => reject(new Error(`Tải ảnh thất bại: ${src.substring(0, 60)}...`));
       img.src = src;
     });
 
@@ -209,7 +209,7 @@ export function collectCharacterRefs(
     refs.push({
       id: `char_${charId}`,
       type: 'image',
-      tag: `@ảnh`,  // tag 会在最终组装时重新编号
+      tag: `@ảnh`,  // tag sẽ được đánh số lại khi lắp ráp cuối cùng
       localUrl: imageUrl,
       httpUrl: null,
       fileName: `${char.name}_ref.png`,
@@ -276,7 +276,7 @@ export function collectSceneRefs(
 }
 
 /**
- * 收 tậptrong nhóm各Ống kính的Khung hình đầuảnh作为 @Image
+ * thu thậptrong nhóm各Ống kính的Khung hình đầuảnh作为 @Image
  */
 export function collectFirstFrameRefs(scenes: SplitScene[]): AssetRef[] {
   const refs: AssetRef[] = [];
@@ -315,13 +315,13 @@ export function collectAllRefs(
   sceneLibrary: Scene[],
   gridImageRef?: AssetRef | null,
 ): CollectedRefs {
-  // 1. 收 tậpNhân vậtẢnh tham chiếu（去重：trong nhómTất cảỐng kính的 characterIds 合并）
+  // 1. thu thậpNhân vậtẢnh tham chiếu（去重：trong nhómTất cảỐng kính的 characterIds 合并）
   const allCharIds = Array.from(
     new Set(scenes.flatMap(s => s.characterIds || []))
   );
   const charRefs = collectCharacterRefs(allCharIds, characters);
 
-  // 2. 收 tậpCảnhẢnh tham chiếu
+  // 2. thu thậpCảnhẢnh tham chiếu
   const sceneRefs = collectSceneRefs(scenes, sceneLibrary);
 
   let images: AssetRef[];
@@ -344,7 +344,7 @@ export function collectAllRefs(
     images = allImageRefs.slice(0, SEEDANCE_LIMITS.maxImages);
   }
 
-  // 5. 用户Tải lên的video/âm thanhtham chiếu（已在 group 中）
+  // 5. người dùngTải lên的video/âm thanhtham chiếu（已在 group 中）
   const videoSlice = (group.videoRefs || []).slice(0, SEEDANCE_LIMITS.maxVideos);
   const audioSlice = (group.audioRefs || []).slice(0, SEEDANCE_LIMITS.maxAudios);
 
@@ -357,10 +357,10 @@ export function collectAllRefs(
   const totalFiles = taggedImages.length + taggedVideos.length + taggedAudios.length;
   const warnings: string[] = [];
   if (taggedImages.length >= SEEDANCE_LIMITS.maxImages) {
-    warnings.push(`ảnhtham chiếu已达上限 ${SEEDANCE_LIMITS.maxImages}`);
+    warnings.push(`Ảnh tham chiếu đã đạt giới hạn ${SEEDANCE_LIMITS.maxImages}`);
   }
   if (totalFiles > SEEDANCE_LIMITS.maxTotalFiles) {
-    warnings.push(`Tổngfile数 ${totalFiles} vượt quá限制 ${SEEDANCE_LIMITS.maxTotalFiles}`);
+    warnings.push(`Tổng file ${totalFiles} vượt quá giới hạn ${SEEDANCE_LIMITS.maxTotalFiles}`);
   }
 
   return {
@@ -430,10 +430,10 @@ function buildDialoguePromptPart(segments: DialogueSegment[]): string {
   if (segments.length === 0) return '';
 
   const lines = segments.map(s =>
-    `[约${s.timeOffset}s处] ${s.characterName}：「${s.text}」— sổ型同步，自然sổ部Hành động`
+    `[khoảng ${s.timeOffset}s] ${s.characterName}：「${s.text}」— đồng bộ hình môi, Hành động môi tự nhiên`
   );
 
-  return `\n\nThoại与sổ型同步：\n${lines.join('\n')}`;
+  return `\n\nĐồng bộ hình môi Thoại:\n${lines.join('\n')}`;
 }
 
 // ==================== Shot Segment Building ====================
@@ -450,7 +450,7 @@ function buildShotSegment(
 
   // lọc无效值的辅助函数
   const isValid = (v?: string | null): v is string =>
-    !!v && !['none', 'null', '无', '无技法', 'Mặc định'].includes(v.toLowerCase().trim());
+    !!v && !['none', 'null', 'không', 'không có kỹ thuật', 'Mặc định'].includes(v.toLowerCase().trim());
 
   // ===== Ống kínhNgôn ngữ（chuyển động máy + Kích thước cảnh + 角度 + Tiêu cự + 摄影技法） =====
   if (isValid(scene.cameraMovement)) parts.push(scene.cameraMovement);
@@ -521,40 +521,40 @@ export interface BuildGroupPromptOptions {
   scenes: SplitScene[];
   characters: Character[];
   sceneLibrary: Scene[];
-  /** Phong cách token（从 storyboardConfig） */
+  /** Token Phong cách (từ storyboardConfig) */
   styleTokens?: string[];
   /** Tỷ lệ khung hình */
   aspectRatio?: SClassAspectRatio;
-  /** 是否包含Thoại唇形同步 */
+  /** Có chứa đồng bộ hình môi Thoại không */
   enableLipSync?: boolean;
-  /** ô图tham chiếu（如果提供，Sử dụngô图chế độ收 tậptham chiếu） */
+  /** Tham chiếu ảnh lưới (nếu được cung cấp, dùng chế độ thu thập tham chiếu ảnh lưới) */
   gridImageRef?: AssetRef | null;
 }
 
-/** purpose → đang xử lý...i ý语映射 */
+/** Ánh xạ purpose → văn bản gợi ý */
 const PURPOSE_PROMPT_MAP: Record<AssetPurpose, string> = {
-  character_ref: '保持Nhân vậtngoại hình一致',
-  scene_ref: '作为CảnhTham chiếu',
-  first_frame: '作为Khung hình đầu',
-  grid_image: '为Nhân vậtTham chiếuô图，保持Nhân vật一致性',
-  camera_replicate: '精准复刻Ống kính运动轨迹和Tốc độ',
-  action_replicate: '复刻Hành độngNhịp điệu和幅度',
-  effect_replicate: '复刻Thị giác特效和转场效果',
-  beat_sync: '作为背景Nhạc，videoNhịp điệu严格KhớpNhạc节拍',
-  bgm: '作为背景NhạcTham chiếu',
-  voice_ref: '作为语音Tham chiếu',
-  prev_video: '接续前段video，保持Nhân vật和Cảnh一致',
-  video_extend: '作为被kéo dài的video，平滑nối kết',
-  video_edit_src: '作为被Chỉnh sửa的源video',
-  general: '作为Tham chiếu',
+  character_ref: 'Giữ ngoại hình Nhân vật nhất quán',
+  scene_ref: 'Làm Tham chiếu Cảnh',
+  first_frame: 'Làm Khung hình đầu',
+  grid_image: 'Ảnh lưới Tham chiếu Nhân vật, giữ nhất quán Nhân vật',
+  camera_replicate: 'Sao chép chính xác quỹ đạo chuyển động Ống kính và Tốc độ',
+  action_replicate: 'Sao chép Nhịp điệu và biên độ Hành động',
+  effect_replicate: 'Sao chép hiệu ứng đặc biệt thị giác và hiệu ứng chuyển tiếp',
+  beat_sync: 'Làm nhạc nền, Nhịp điệu video khớp chính xác với nhịp Nhạc',
+  bgm: 'Làm Tham chiếu nhạc nền',
+  voice_ref: 'Làm Tham chiếu giọng nói',
+  prev_video: 'Nối tiếp video đoạn trước, giữ nhất quán Nhân vật và Cảnh',
+  video_extend: 'Là video được kéo dài, nối kết mượt mà',
+  video_edit_src: 'Là video nguồn được Chỉnh sửa',
+  general: 'Làm Tham chiếu',
 };
 
-/** Chỉnh sửaLoại → prompt 模板前缀 */
+/** Tiền tố mẫu prompt → Loại Chỉnh sửa */
 const EDIT_TYPE_TEMPLATE: Record<EditType, string> = {
-  plot_change: '颠覆@video1里的cốt truyện，',
-  character_swap: 'video1đang xử lý...ân vật换成ảnhđang xử lý...ân vật，Hành động完全模仿原video，',
-  attribute_modify: '将video1中',
-  element_add: '在video1的hình ảnhđang xử lý...m',
+  plot_change: 'Đảo ngược cốt truyện trong @video1, ',
+  character_swap: 'Thay thế nhân vật trong video1 bằng nhân vật trong ảnh, Hành động hoàn toàn bắt chước video gốc, ',
+  attribute_modify: 'Thay đổi trong video1 ',
+  element_add: 'Thêm vào hình ảnh của video1 ',
 };
 
 /**
@@ -594,7 +594,7 @@ export function buildGroupPrompt(options: BuildGroupPromptOptions): GroupPromptR
     return buildExtendEditPrompt(group, scenes, characters, sceneLibrary, styleTokens);
   }
 
-  // 1. 收 tậpTất cả @tham chiếu（ô图chế độ或旧版chế độ）
+  // 1. thu thậpTất cả @tham chiếu（ô图chế độ或旧版chế độ）
   const refs = collectAllRefs(group, scenes, characters, sceneLibrary, gridImageRef);
 
   // 2. 构建各Ống kínhđoạn
@@ -606,7 +606,7 @@ export function buildGroupPrompt(options: BuildGroupPromptOptions): GroupPromptR
   let timeOffset = 0;
   const totalDuration = shotSegments.reduce((sum, s) => sum + s.duration, 0);
 
-  // 4. 如果用户已Thủ côngChỉnh sửa过 mergedPrompt，优先Sử dụng
+  // 4. 如果người dùng已Thủ côngChỉnh sửa过 mergedPrompt，优先Sử dụng
   if (group.mergedPrompt && group.mergedPrompt.trim()) {
     const dialogueSegs = enableLipSync ? extractDialogueSegments(scenes, characters) : [];
     return {
@@ -638,11 +638,11 @@ export function buildGroupPrompt(options: BuildGroupPromptOptions): GroupPromptR
   // tiêu đề hàng
   if (gridImageRef) {
     promptParts.push(
-      `多Ống kínhtự sựvideo，Tham chiếu @ảnh1 ô图（共${scenes.length}Ống kính，TổngThời lượng${totalDuration}s）：`
+      `Video tự sự đa Ống kính, Tham chiếu @ảnh1 ảnh lưới (tổng ${scenes.length} Ống kính, Tổng Thời lượng ${totalDuration}s):`
     );
   } else {
     promptParts.push(
-      `多Ống kínhtự sựvideo（共${scenes.length}Ống kính，TổngThời lượng${totalDuration}s）：`
+      `Video tự sự đa Ống kính (tổng ${scenes.length} Ống kính, Tổng Thời lượng ${totalDuration}s):`
     );
   }
   promptParts.push('');
@@ -735,12 +735,12 @@ export function buildGroupPrompt(options: BuildGroupPromptOptions): GroupPromptR
 
   // Tỷ lệ khung hìnhGợi ý
   if (aspectRatio) {
-    promptParts.push(`画幅：${aspectRatio}`);
+    promptParts.push(`Tỉ lệ khung hình: ${aspectRatio}`);
   }
 
   // 一致性约束
   promptParts.push('');
-  promptParts.push('Tất cảỐng kính保持Nhân vậtngoại hình一致，Ống kính间平滑chuyển tiếp，不出现文字或hình mờ。');
+  promptParts.push('Tất cả Ống kính giữ ngoại hình Nhân vật nhất quán, chuyển tiếp mượt mà giữa các Ống kính, không xuất hiện văn bản hoặc hình mờ.');
 
   const prompt = promptParts.join('\n');
 
@@ -771,21 +771,21 @@ function buildExtendEditPrompt(
   sceneLibrary: Scene[],
   styleTokens?: string[],
 ): GroupPromptResult {
-  // --- 收 tậptham chiếu（不建ô图） ---
-  // source video 占 @video1，用户Tải lên的 videoRefs 从 @video2 Bắt đầu
+  // --- thu thậptham chiếu（不建ô图） ---
+  // source video 占 @video1，người dùngTải lên的 videoRefs 从 @video2 Bắt đầu
   const sourceVideoRef: AssetRef | null = group.sourceVideoUrl ? {
     id: 'source_video',
     type: 'video',
     tag: '@video1',
     localUrl: group.sourceVideoUrl,
     httpUrl: group.sourceVideoUrl.startsWith('http') ? group.sourceVideoUrl : null,
-    fileName: '源video',
+    fileName: 'Video nguồn',
     fileSize: 0,
     duration: null,
     purpose: group.generationType === 'extend' ? 'video_extend' : 'video_edit_src',
   } : null;
 
-  // 用户额外Tải lên的video/âm thanh
+  // người dùng额外Tải lên的video/âm thanh
   const userVideoRefs = (group.videoRefs || []).slice(0, sourceVideoRef ? SEEDANCE_LIMITS.maxVideos - 1 : SEEDANCE_LIMITS.maxVideos);
   const allVideoRefs = sourceVideoRef ? [sourceVideoRef, ...userVideoRefs] : userVideoRefs;
   const taggedVideos = allVideoRefs.map((ref, i) => ({ ...ref, tag: `@video${i + 1}` }));
@@ -793,7 +793,7 @@ function buildExtendEditPrompt(
   const audioSlice = (group.audioRefs || []).slice(0, SEEDANCE_LIMITS.maxAudios);
   const taggedAudios = audioSlice.map((ref, i) => ({ ...ref, tag: `@âm thanh${i + 1}` }));
 
-  // ảnhtham chiếu（Nhân vậtẢnh tham chiếu + 用户额外Tải lên）
+  // ảnhtham chiếu（Nhân vậtẢnh tham chiếu + người dùng额外Tải lên）
   const allCharIds = Array.from(new Set(scenes.flatMap(s => s.characterIds || [])));
   const charRefs = collectCharacterRefs(allCharIds, characters);
   const taggedImages = charRefs.slice(0, SEEDANCE_LIMITS.maxImages).map((ref, i) => ({ ...ref, tag: `@ảnh${i + 1}` }));
@@ -805,11 +805,11 @@ function buildExtendEditPrompt(
     audios: taggedAudios,
     totalFiles,
     overLimit: totalFiles > SEEDANCE_LIMITS.maxTotalFiles,
-    limitWarnings: totalFiles > SEEDANCE_LIMITS.maxTotalFiles ? [`Tổngfile数 ${totalFiles} vượt quá限制 ${SEEDANCE_LIMITS.maxTotalFiles}`] : [],
+    limitWarnings: totalFiles > SEEDANCE_LIMITS.maxTotalFiles ? [`Tổng file ${totalFiles} vượt quá giới hạn ${SEEDANCE_LIMITS.maxTotalFiles}`] : [],
   };
 
   // --- 构建 prompt ---
-  // 用户Thủ côngChỉnh sửa优先
+  // người dùngThủ côngChỉnh sửa优先
   if (group.mergedPrompt && group.mergedPrompt.trim()) {
     return {
       prompt: group.mergedPrompt,
@@ -842,7 +842,7 @@ function buildExtendEditPrompt(
       .map(r => {
         const charId = r.id.replace('char_', '');
         const char = characters.find(c => c.id === charId);
-        return `Tham chiếu${r.tag}（${char?.name || 'Nhân vật'}）保持Nhân vậtngoại hình一致`;
+        return `Tham chiếu ${r.tag} (${char?.name || 'Nhân vật'}) giữ ngoại hình Nhân vật nhất quán`;
       });
     if (charRefHints.length > 0) {
       promptParts.push(charRefHints.join('；'));

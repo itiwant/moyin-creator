@@ -165,7 +165,7 @@ function pickFeatureConfig(feature: AIFeature, requestedModel?: string): Feature
     if (exact) return exact;
     // UI 展开的变体模型（如 gemini-3.1-pro 从绑定的 gemini-3-pro 展开而来）不会
     // 精确Khớp到任何 config.model，此时回退到轮询配置而非返回 null，
-    // Tránh用户选了可用变体却报"未配置"lỗi
+    // Tránhngười dùng选了可用变体却报"未配置"lỗi
   }
   return getFeatureConfig(feature) ?? all[0];
 }

@@ -368,7 +368,7 @@ export function MediaView() {
       setProjectFolderId(item.folderId);
     }
     
-    // Cài đặt故事板ảnh并进入Xem trướcTrạng thái（等待用户Nhấp切割）
+    // Cài đặt故事板ảnh并进入Xem trướcTrạng thái（等待người dùngNhấp切割）
     setStoryboardImage(item.url, item.id);
     setStoryboardStatus('preview');
     

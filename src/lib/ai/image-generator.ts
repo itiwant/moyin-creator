@@ -361,9 +361,9 @@ async function submitViaChatCompletions(
     );
 
     // 外部 signal 取消时同步取消内部 controller，并传播 reason
-    const onExternalAbort = () => controller.abort(signal?.reason || new Error('用户已取消'));
+    const onExternalAbort = () => controller.abort(signal?.reason || new Error('người dùng已取消'));
     if (signal) {
-      if (signal.aborted) throw new Error('用户已取消');
+      if (signal.aborted) throw new Error('người dùng已取消');
       signal.addEventListener('abort', onExternalAbort, { once: true });
     }
 
@@ -393,7 +393,7 @@ async function submitViaChatCompletions(
         let msg = `图片Tạo API Lỗi: ${resp.status}`;
         try { const j = JSON.parse(errorText); msg = j.error?.message || msg; } catch {}
 
-        // 401 专项提示：引导用户检查 API Key
+        // 401 专项提示：引导người dùng检查 API Key
         if (resp.status === 401) {
           msg = `API Key 无效或已hết hạn，请前往「设置」检查图片Tạo服务的 API Key 配置（gốcthông tin：${msg}）`;
         }
@@ -830,7 +830,7 @@ export async function submitGridImageRequest(params: {
   const data = await retryOperation(async () => {
     // 每次Thử lại动态取当前 key（利用 keyManager rotate 后的新 key）
     const currentApiKey = keyManager?.getCurrentKey?.() || apiKey;
-    if (signal?.aborted) throw new Error('用户已取消');
+    if (signal?.aborted) throw new Error('người dùng已取消');
     const response = await fetch(endpoint, {
       method: 'POST',
       headers: {

@@ -154,7 +154,7 @@ ${shotSummaries}
     const result = await callFeatureAPI('script_analysis', systemPrompt, userPrompt);
     
     console.log('[analyzeSceneViewpoints] ✅ AI API gọi API成功，返回内容长度:', result.length);
-    console.log('[analyzeSceneViewpoints] gốc响应前 200 字符:', result.slice(0, 200));
+    console.log('[analyzeSceneViewpoints] gốc响应前 200 ký tự:', result.slice(0, 200));
     
     // Phân tích JSON
     let cleaned = result.replace(/```json\n?/g, '').replace(/```\n?/g, '').trim();

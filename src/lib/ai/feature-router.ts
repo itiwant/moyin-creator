@@ -50,7 +50,7 @@ const FEATURE_PLATFORM_MAP: Partial<Record<AIFeature, string>> = {
 
 /**
  * 默认模型映射：当供应商未显式绑定模型时，为特定chức năng提供默认模型
- * 仅在 fallback 路径đang xử lý...用户显式绑定优先）
+ * 仅在 fallback 路径đang xử lý...người dùng显式绑定优先）
  */
 const FEATURE_DEFAULT_MODEL: Partial<Record<AIFeature, Record<string, string>>> = {
   image_understanding: {

@@ -58,12 +58,12 @@ export function populateSeriesMetaFromImport(
     characters: scriptData.characters || [],
     factions: aiAnalysis?.factions || undefined,
 
-    // Thị giác系统 — Trực tiếpSử dụng用户在NhậppanelChọn的风格
+    // Thị giác系统 — Trực tiếpSử dụngngười dùng在NhậppanelChọn的风格
     styleId: importSettings?.styleId,
     recurringLocations: undefined,
     colorPalette: undefined,
 
-    // Cài đặt sản xuất — promptLanguage 从用户ChọnTrực tiếp映射
+    // Cài đặt sản xuất — promptLanguage 从người dùngChọnTrực tiếp映射
     language: scriptData.language || 'đang xử lý...
     promptLanguage: importSettings?.promptLanguage,
   };
@@ -217,7 +217,7 @@ export function syncToSeriesMeta(
           );
           if (!calibrated) return existing;
 
-          // 只回写 AI Hiệu chuẩn产出的trường，不Ghi đè用户手动chỉnh sửa的
+          // 只回写 AI Hiệu chuẩn产出的trường，不Ghi đèngười dùng手动chỉnh sửa的
           return {
             ...existing,
             identityAnchors: calibrated.identityAnchors || existing.identityAnchors,

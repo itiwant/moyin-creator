@@ -10,7 +10,7 @@
  * - 双chế độ：Phân cảnhchế độ（从Kịch bản流水线Nhập）+ Tự dochế độ（纯Phương tiệnTải lên）
  *
  * Seedance 2.0 限制：
- * - 输入：≤9ảnh + ≤3video(≤15s) + ≤3âm thanh(MP3,≤15s) + 文本(5000字符) ，Tổngfile≤12
+ * - 输入：≤9ảnh + ≤3video(≤15s) + ≤3âm thanh(MP3,≤15s) + 文本(5000ký tự) ，Tổngfile≤12
  * - 输出：4-15s，480p/720p/1080p，16:9/9:16/4:3/3:4/21:9/1:1
  */
 
@@ -29,9 +29,9 @@ export type AssetPurpose =
   | 'scene_ref'         // CảnhTham chiếu
   | 'first_frame'       // Khung hình đầu
   | 'grid_image'        // ô图
-  | 'camera_replicate'  // chuyển động máy复刻
-  | 'action_replicate'  // Hành động复刻
-  | 'effect_replicate'  // 特效复刻
+  | 'camera_replicate'  // chuyển động máysao chép
+  | 'action_replicate'  // Hành độngsao chép
+  | 'effect_replicate'  // 特效sao chép
   | 'beat_sync'         // Nhạc卡点
   | 'bgm'              // 背景Nhạc
   | 'voice_ref'        // 语音Tham chiếu
@@ -44,7 +44,7 @@ export type AssetPurpose =
 /** Tạo videoTrạng thái */
 export type VideoGenStatus = 'idle' | 'generating' | 'completed' | 'failed';
 
-/** 输出video画幅比 */
+/** 输出videoTỉ lệ khung hình比 */
 export type SClassAspectRatio = '16:9' | '9:16' | '4:3' | '3:4' | '21:9' | '1:1';
 
 /** 输出videoĐộ phân giải */
@@ -118,7 +118,7 @@ export interface GenerationRecord {
  */
 export interface ShotGroup {
   id: string;
-  /** Tên nhóm（Tự độngTạo或用户Tùy chỉnh） */
+  /** Tên nhóm（Tự độngTạo或người dùngTùy chỉnh） */
   name: string;
   /** tham chiếu director-store đang xử lý...litScene.id  cột表 */
   sceneIds: number[];
@@ -130,7 +130,7 @@ export interface ShotGroup {
   videoRefs: AssetRef[];
   /** @âm thanhtham chiếu */
   audioRefs: AssetRef[];
-  /** 合并后的prompt（用户可Chỉnh sửa） */
+  /** 合并后的prompt（người dùng可Chỉnh sửa） */
   mergedPrompt: string;
   /** Tạo的video URL */
   videoUrl: string | null;

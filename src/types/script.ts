@@ -349,7 +349,7 @@ export type CameraRig =
   | 'crane'         // 摇臂：垂直Nâng hạ/大幅cung
   | 'drone'         // 航拍：nhìn từ trên/大范围运动
   | 'shoulder'      // 肩扛：轻微晃动/新闻纪实
-  | 'slider';       // 滑轨：短距离平滑移动
+  | 'slider';       // 滑轨：短距离mượt mà移动
 
 export type MovementSpeed = 'very-slow' | 'slow' | 'normal' | 'fast' | 'very-fast';
 
@@ -462,8 +462,8 @@ export interface Shot {
   sceneViewpointId?: string; // 关联的场景góc nhìnID（联合图切割后的góc nhìn）
   
   // === 分镜核心thông tin ===
-  actionSummary: string;     // 动作Mô tả（用户Ngôn ngữ）
-  visualDescription?: string; // 详细的hình ảnhMô tả（用户Ngôn ngữ，如：“法坛全景，黑暗đang xử lý...芒笼罩...”）
+  actionSummary: string;     // 动作Mô tả（người dùngNgôn ngữ）
+  visualDescription?: string; // 详细的hình ảnhMô tả（người dùngNgôn ngữ，如：“法坛全景，黑暗đang xử lý...芒笼罩...”）
   completionStatus?: CompletionStatus;
   
   // === 镜头Ngôn ngữ ===

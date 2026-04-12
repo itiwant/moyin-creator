@@ -253,7 +253,7 @@ export function cacheDiscoveredLimits(
  *
  * Sử dụng Số ký tự/1.5 作为保守上限：
  *   - đang xử lý...1 token ≈ 0.6~1.0 汉字，/1.5 相当于放大估算（偏安全）
- *   - 英文/标点/JSON: 1 token ≈ 3~4 字符，/1.5 也偏安全
+ *   - 英文/标点/JSON: 1 token ≈ 3~4 ký tự，/1.5 也偏安全
  *   - 宁可高估 token 数（多分批），也不低估（撞限制）
  *   - 不引入 tiktoken 等重型库，Tránh前端 WASM tương thích性和体积问题
  */

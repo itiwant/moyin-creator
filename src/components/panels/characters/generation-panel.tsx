@@ -250,7 +250,7 @@ export function GenerationPanel({ selectedCharacter, onCharacterCreated }: Gener
       
       // TODO: 处理多阶段Nhân vậtbiến thể
       // 如果有 stageInfo 或 consistencyElements，应该：
-      // 1. 在Mô tả nhân vậtđang xử lý... ý用户这是多阶段Nhân vật
+      // 1. 在Mô tả nhân vậtđang xử lý... ýngười dùng这是多阶段Nhân vật
       // 2. TạoNhân vật后Tự động为其Thêm variations
       // 注：这部分逻辑应该在 handleCreateAndGenerate 后执 hàng
 
@@ -1141,7 +1141,7 @@ function fileToBase64(file: File): Promise<string> {
  * 
  * @param anchors - 6层Danh tínhneo
  * @param hasReferenceImages - 是否有Ảnh tham chiếu
- * @returns 构建的prompt字符串
+ * @returns 构建的promptký tự串
  * 
  * Ảnh tham chiếu优先级逻辑：
  * - 有Ảnh tham chiếu时：只Sử dụng最强neo（uniqueMarks + colorAnchors），其他特征由Ảnh tham chiếu引导
@@ -1289,7 +1289,7 @@ function buildCharacterSheetPrompt(
   }
   let primaryVisualPrompt: string | undefined;
   if (lang === 'vi' || lang === 'vi+en') {
-    // đang xử lý...（vi+en 只是让用户同时看到两种，Tạo时用中文）
+    // đang xử lý...（vi+en 只是让người dùng同时看到两种，Tạo时用中文）
     primaryVisualPrompt = visualPromptZh || visualPromptEn;
   } else {
     // en：英文优先

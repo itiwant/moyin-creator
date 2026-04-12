@@ -426,7 +426,7 @@ export async function callVideoGenerationApi(
   keyManager?: { getCurrentKey?: () => string | null; handleError: (status: number, errorText?: string) => boolean; getAvailableKeyCount: () => number; getTotalKeyCount: () => number },
   platform?: string,
   videoResolution?: '480p' | '720p' | '1080p',
-  /** Seedance 2.0: videotham chiếu URL  cột表 (chuyển động máy/Hành động复刻) */
+  /** Seedance 2.0: videotham chiếu URL  cột表 (chuyển động máy/Hành độngsao chép) */
   videoRefs?: string[],
   /** Seedance 2.0: âm thanhtham chiếu URL  cột表 (Nhịp điệu/BGM) */
   audioRefs?: string[],
@@ -728,7 +728,7 @@ async function callVolcVideoApi(
     }
   }
 
-  // Seedance 2.0 多模态：videotham chiếu（kéo dài/Chỉnh sửa/chuyển động máy复刻等）
+  // Seedance 2.0 多模态：videotham chiếu（kéo dài/Chỉnh sửa/chuyển động máysao chép等）
   if (videoRefs && videoRefs.length > 0) {
     for (const vUrl of videoRefs) {
       if (vUrl) {

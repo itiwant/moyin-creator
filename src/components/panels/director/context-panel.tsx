@@ -5,7 +5,7 @@
 
 /**
  * Director Context Panel Component
- * 全局Cột phải - AIĐạo diễnchế độ：HiệnKịch bảnphân cấp树，让用户Chọn要Tạo的Nội dung
+ * 全局Cột phải - AIĐạo diễnchế độ：HiệnKịch bảnphân cấp树，让người dùngChọn要Tạo的Nội dung
  */
 
 import { useState, useMemo, useCallback } from "react";
@@ -666,7 +666,7 @@ export function DirectorContextPanel() {
 
     const storyPrompt = parts.join("\n");
 
-    // 收 tậpCảnhđang xử lý... cảNhân vật
+    // thu thậpCảnhđang xử lý... cảNhân vật
     const characterNames: string[] = [];
     if (scriptData) {
       const charIds = new Set<string>();

@@ -1,6 +1,6 @@
 /**
  * 模型友好名映射表
- * API ID → 用户可读的显示名
+ * API ID → người dùng可读的显示名
  *
  * dữ liệu来源: https://memefast.top/api/pricing_new (2026-02-19)
  * 不在此表đang xử lý...Trực tiếp显示gốc ID
@@ -359,7 +359,7 @@ export const MODEL_DISPLAY_NAMES: Record<string, string> = {
   'audio1.0': 'Audio 1.0 语音合成',
 
   // --- Whisper ---
-  'whisper-1': 'Whisper 语音转文字',
+  'whisper-1': 'Whisper 语音转văn bản',
 
   // --- SunoAI ---
   'suno_music': 'Suno NhạcTạo',

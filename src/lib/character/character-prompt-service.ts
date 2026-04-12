@@ -100,7 +100,7 @@ export async function generateCharacterDesign(
     throw new Error('角色không tồn tại');
   }
   
-  // 收 tập角色相关的上下文thông tin
+  // thu thập角色相关的上下文thông tin
   const context = buildCharacterContext(project, character);
   
   // gọi API AI Tạo角色Thiết kế
@@ -134,7 +134,7 @@ function buildCharacterContext(project: any, character: any): {
   const episodes = project.episodeRawScripts || [];
   const shots = project.shots || [];
   
-  // 收 tập角色在各 tậpđang xử lý...thông tin
+  // thu thập角色在各 tậpđang xử lý...thông tin
   const characterAppearances: Array<{
     episodeIndex: number;
     episodeTitle: string;
@@ -368,7 +368,7 @@ export function convertDesignToVariations(design: CharacterDesign): Array<Omit<C
       design.consistencyElements.uniqueMarks,
       stage.visualPromptEn,
     ].filter(Boolean).join(', '),
-    // referenceImage Để trống，等待用户Tạo
+    // referenceImage Để trống，等待người dùngTạo
     referenceImage: undefined,
     generatedAt: undefined,
   }));

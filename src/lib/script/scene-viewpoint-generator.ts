@@ -144,7 +144,7 @@ const ENVIRONMENT_KEYWORDS: Record<SceneEnvironmentType, string[]> = {
 };
 
 /**
- * 清理场景地点字符串，移除nhân vậtthông tin等无关内容
+ * 清理场景地点ký tự串，移除nhân vậtthông tin等无关内容
  */
 function cleanLocationString(location: string): string {
   // 移除 "nhân vật：XXX" 部分
@@ -161,7 +161,7 @@ function cleanLocationString(location: string): string {
  * 从场景地点推断环境类型
  */
 export function detectEnvironmentType(location: string): SceneEnvironmentType {
-  // 先清理地点字符串
+  // 先清理地点ký tự串
   const cleanedLocation = cleanLocationString(location);
   const normalizedLocation = cleanedLocation.toLowerCase();
   
@@ -1148,8 +1148,8 @@ ${totalCells} 格子分别Hiển thị：${gridItemsZh}。
 
 Quan trọng:
 - 必须精确Tạo ${gridLayout.rows} 行 ${gridLayout.cols} 列，不能多也不能少。
-- 这是一张干净的Tham chiếu图，图片上不要Thêm任何文字Ghi đè。
-- 不要Thêm标签、标题、说明文字、水印或任何类型的文字。
+- 这是一张干净的Tham chiếu图，图片上不要Thêm任何văn bảnGhi đè。
+- 不要Thêm标签、标题、说明văn bản、hình mờ或任何类型的văn bản。
 
 风格：${styleTokens.length > 0 ? styleTokens.join('、') : '动画风格，柔和色彩，细节丰富'}，Tất cả格子光照一致，格子之间用细白边框ngăn cách，只有背景，没有nhân vật。`;
     
@@ -1368,8 +1368,8 @@ ${gridItemsZh}
 
 Quan trọng:
 - 必须精确Tạo ${gridLayout.rows} 行 ${gridLayout.cols} 列，不能多也不能少。
-- 这是一张干净的Tham chiếu图，图片上不要Thêm任何文字Ghi đè。
-- 不要Thêm标签、标题、说明文字、水印或任何类型的文字。
+- 这是一张干净的Tham chiếu图，图片上不要Thêm任何văn bảnGhi đè。
+- 不要Thêm标签、标题、说明văn bản、hình mờ或任何类型的văn bản。
 
 风格：${styleTokens.length > 0 ? styleTokens.join('、') : '动画风格，柔和色彩，细节丰富'}，Tất cả格子光照一致，格子之间用细白边框ngăn cách，只有背景，没有nhân vật。`;
     

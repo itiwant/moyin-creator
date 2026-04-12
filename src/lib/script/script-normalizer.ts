@@ -8,7 +8,7 @@
  * 使Phân tích器能正确提取标题、đại cương、nhân vật小传、 tập数等thông tin。
  * 
  * 双层架构：
- * 1. AI 检测（优先）：gọi API LLM 理解内容语义，精准识别Cấu trúc + bổ sungthiếuđại cương
+ * 1. AI 检测（优先）：gọi API LLM 理解内容语义，chính xác识别Cấu trúc + bổ sungthiếuđại cương
  * 2. 正则兜底（降级）：无 AI 配置或 AI gọi APIthất bại时Sử dụng硬编码chế độKhớp
  * 
  * 核心原则：
@@ -23,7 +23,7 @@ import { getFeatureConfig } from '@/lib/ai/feature-router';
 /**
  * 预处理：为缺少换行的文本Tự động在Cấu trúc标记前插入换行
  * 
- * 用户从 Word/微信/网页复制的剧本经常丢失换行，变成一整段文字。
+ * người dùng从 Word/微信/网页复制的剧本经常丢失换行，变成一整段văn bản。
  * 本函数在quan trọngCấu trúc标记前插入 \n，使后续的行首正则能正常Khớp。
  * 
  * 检测条件：文本无换行 或 平均行长 > 500 字
@@ -172,9 +172,9 @@ export interface ScriptStructureAnalysis {
   hasOutline: boolean;
   /** AI Tạo的đại cương（仅当 hasOutline=false 时填充） */
   generatedOutline: string;
-  /** nhân vật/角色Mô tả区域bắt đầu文本（精确复制原文前30字符） */
+  /** nhân vật/角色Mô tả区域bắt đầu文本（精确复制原文前30ký tự） */
   characterSectionKeyword: string;
-  /** đại cương/故事概述区域bắt đầu文本（原文前30字符，无则Để trống） */
+  /** đại cương/故事概述区域bắt đầu文本（原文前30ký tự，无则Để trống） */
   outlineSectionKeyword: string;
   // === 剧级元dữ liệu提取（可选，AI 有能力时填充） ===
   /** 一句话概括 */
@@ -219,7 +219,7 @@ export async function analyzeScriptStructureWithAI(text: string): Promise<Script
       ? text.substring(0, MAX_ANALYSIS_LENGTH) + '\n...\uff08后续内容省略\uff09'
       : text;
     
-    const systemPrompt = `你是剧本Cấu trúc分析专家。分析用户提供的剧本/角色规格文本，识别Cấu trúc要素并提取剧级元dữ liệu。
+    const systemPrompt = `你是剧本Cấu trúc分析专家。分析người dùng提供的剧本/角色规格文本，识别Cấu trúc要素并提取剧级元dữ liệu。
 
 严格返回以下 JSON 格式（不要Thêm任何其他内容）：
 {
@@ -227,9 +227,9 @@ export async function analyzeScriptStructureWithAI(text: string): Promise<Script
   "era": "thời đại背景（古代/现代/民国/清末/未来/当代等）",
   "genre": "类型（武侠/商战/爱情/悬疑/科幻/仙侠/军旅/家庭等）",
   "hasOutline": false,
-  "generatedOutline": "如果文本đang xử lý...纲/故事概述区域，基于全文内容Tạo一段简洁đại cương（100-200字）；如果hiện cóđại cương则Để trống字符串",
-  "characterSectionKeyword": "nhân vật/角色Mô tả区域开始处的原文文本（精确复制前30字符），找不到则Để trống",
-  "outlineSectionKeyword": "đại cương/故事概述区域开始处的原文文本（精确复制前30字符），找不到则Để trống",
+  "generatedOutline": "如果文本đang xử lý...纲/故事概述区域，基于全文内容Tạo一段简洁đại cương（100-200字）；如果hiện cóđại cương则Để trốngký tự串",
+  "characterSectionKeyword": "nhân vật/角色Mô tả区域开始处的原文文本（精确复制前30ký tự），找不到则Để trống",
+  "outlineSectionKeyword": "đại cương/故事概述区域开始处的原文文本（精确复制前30ký tự），找不到则Để trống",
   "logline": "一句话概括整故事（比如：被驱逐的侠客为救百姓重返雁城）",
   "centralConflict": "chính tuyếnmâu thuẫn（如：nhân vật chính vs 反派+外部势力）",
   "themes": ["Chủ đềquan trọng词1", "Chủ đềquan trọng词2"],

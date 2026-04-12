@@ -39,14 +39,14 @@ export type CinematographyField =
 /**
  * 每种非-cinematic 媒介的trường级翻译表。
  * - key = preset id
- * - value = 替换后的 promptToken（空字符串 = 静默跳过）
+ * - value = 替换后的 promptToken（空ký tự串 = 静默跳过）
  *
  * 不在表đang xử lý...reset id → 沿用gốc token（tương thích未来新增预设）
  */
 type FieldOverrides = Record<string, string>;
 
 /**
- * 'skip' 表示该trường在该媒介下整体跳过（返回空字符串）
+ * 'skip' 表示该trường在该媒介下整体跳过（返回空ký tự串）
  */
 type FieldStrategy = FieldOverrides | 'skip';
 
@@ -180,7 +180,7 @@ const TRANSLATION_TABLES: Partial<Record<MediaType, MediaTranslationTable>> = {
  * @param field       - 摄影参数维度
  * @param presetId    - 预设 ID（如 'dolly', 'shallow'）
  * @param originalToken - gốc promptToken（来自预设dữ liệu）
- * @returns 翻译后的 token；空字符串表示该参数在此媒介下不适用
+ * @returns 翻译后的 token；空ký tự串表示该参数在此媒介下不适用
  */
 export function translateToken(
   mediaType: MediaType,

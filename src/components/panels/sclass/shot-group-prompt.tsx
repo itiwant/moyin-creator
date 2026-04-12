@@ -9,8 +9,8 @@
  * chức năng：
  * - Tự độnggọi API sclass-prompt-builder 组装多Ống kính prompt
  * - Hiện @tham chiếuThẻ（Nhân vật图/Cảnh图/Khung hình đầu/video/âm thanh）+ hạn mức
- * - 用户可Chỉnh sửa/Ghi đèTự động prompt
- * - 实时字符计数（5000上限）
+ * - người dùng可Chỉnh sửa/Ghi đèTự động prompt
+ * - 实时ký tự计数（5000上限）
  * - Thoại唇形同步Xem trước
  */
 

@@ -4,10 +4,10 @@
 /**
  * AI Character Finder
  * 
- * 根据用户自然Ngôn ngữMô tả，从剧本đang xử lý...色并Tạochuyên nghiệp角色dữ liệu
+ * 根据người dùng自然Ngôn ngữMô tả，从剧本đang xử lý...色并Tạochuyên nghiệp角色dữ liệu
  * 
  * chức năng：
- * 1. Phân tích用户输入（如 "缺第10 tập的王大哥这角色"）
+ * 1. Phân tíchngười dùng输入（如 "缺第10 tập的王大哥这角色"）
  * 2. 搜索剧本đang xử lý...thông tin
  * 3. AI Tạođầy đủ角色dữ liệu（包括Thị giác提示词）
  */
@@ -44,7 +44,7 @@ export interface FinderOptions {
 // ==================== 核心函数 ====================
 
 /**
- * Phân tích用户输入，提取角色名和 tập数thông tin
+ * Phân tíchngười dùng输入，提取角色名和 tập数thông tin
  */
 function parseUserQuery(query: string): { name: string | null; episodeNumber: number | null } {
   let name: string | null = null;
@@ -92,7 +92,7 @@ function parseUserQuery(query: string): { name: string | null; episodeNumber: nu
     }
   }
   
-  // chế độ4：Trực tiếp就是角色名（2-8字符）
+  // chế độ4：Trực tiếp就是角色名（2-8ký tự）
   if (!name) {
     // 去掉常见动词和助词
     const pureQuery = cleanQuery.replace(/^[缺需要Thêm找查想请帮我的]+/g, '').trim();
@@ -152,19 +152,19 @@ function searchCharacterInScripts(
           foundInEpisode = true;
         }
         
-        // 收 tập场景thông tin
+        // thu thập场景thông tin
         if (sceneSamples.length < 3) {
           sceneSamples.push(`第${ep.episodeIndex} tập - ${scene.sceneHeader || '场景'}`);
         }
         
-      // 收 tậpThoại样本
+      // thu thậpThoại样本
         for (const d of relevantDialogues.slice(0, 3)) {
           if (dialogueSamples.length < 5) {
             dialogueSamples.push(`${d.character}: ${d.line.slice(0, 50)}${d.line.length > 50 ? '...' : ''}`);
           }
         }
         
-        // 收 tập上下文
+        // thu thập上下文
         if (contexts.length < 5) {
           const sceneContext = [
             `【${scene.sceneHeader || '场景'}】`,
@@ -305,7 +305,7 @@ async function generateCharacterData(
 请Thiết kế符合当代đang xử lý...装风格，根据角色Tuổi和Danh tínhChọn合适的现代trang phục。`;
   };
   
-  // 构建Thông tin thời đại字符串
+  // 构建Thông tin thời đạiký tự串
   const getEraInfo = () => {
     if (storyType === 'ancient') {
       return `thời đại背景：${background.era || background.timelineSetting || '古代'}`;
@@ -384,16 +384,16 @@ ${dialogueSamples.join('\n')}
     
     const parsed = JSON.parse(cleaned);
     
-    // 确保Tất cảtrường都是字符串类型（AI 可能返回对象）
+    // 确保Tất cảtrường都是ký tự串类型（AI 可能返回对象）
     const ensureString = (val: any): string | undefined => {
       if (val === null || val === undefined) return undefined;
       if (typeof val === 'string') return val;
       if (typeof val === 'object') {
-        // 如果是对象，尝试转换为字符串
+        // 如果是对象，尝试转换为ký tự串
         if (Array.isArray(val)) {
           return val.join(', ');
         }
-        // 对象转换为键值对字符串
+        // 对象转换为键值对ký tự串
         return Object.entries(val)
           .map(([k, v]) => `${k}: ${v}`)
           .join('; ');
@@ -426,7 +426,7 @@ ${dialogueSamples.join('\n')}
 }
 
 /**
- * 主函数：根据用户Mô tả查找并Tạo角色
+ * 主函数：根据người dùngMô tả查找并Tạo角色
  */
 export async function findCharacterByDescription(
   userQuery: string,
@@ -435,9 +435,9 @@ export async function findCharacterByDescription(
   existingCharacters: ScriptCharacter[],
   _options?: FinderOptions // 不再需要，保留以tương thích
 ): Promise<CharacterSearchResult> {
-  console.log('[findCharacterByDescription] 用户查询:', userQuery);
+  console.log('[findCharacterByDescription] người dùng查询:', userQuery);
   
-  // 1. Phân tích用户输入
+  // 1. Phân tíchngười dùng输入
   const { name, episodeNumber } = parseUserQuery(userQuery);
   
   if (!name) {
@@ -474,7 +474,7 @@ export async function findCharacterByDescription(
   const searchResult = searchCharacterInScripts(name, episodeScripts, episodeNumber || undefined);
   
   if (!searchResult.found) {
-    // 没找到但可以让用户确认是否tạo
+    // 没找到但可以让người dùng确认是否tạo
     return {
       found: false,
       name,

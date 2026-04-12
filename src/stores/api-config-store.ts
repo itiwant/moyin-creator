@@ -596,7 +596,7 @@ export const useAPIConfigStore = create<APIConfigStore>()(
         if (!baseUrl) return { success: false, count: 0, error: 'Base URL Chưa cấu hình' };
 
         try {
-          // 用 Set 收 tậpTất cả key 的Model，Tự động去重
+          // 用 Set thu thậpTất cả key 的Model，Tự động去重
           const allModelIds = new Set<string>();
           const isMemefast = provider.platform === 'memefast';
           const memefastTypes: Record<string, string> = {};
@@ -829,7 +829,7 @@ export const useAPIConfigStore = create<APIConfigStore>()(
       getFeatureBindings: (feature) => {
         const bindings = get().featureBindings;
         const value = bindings?.[feature];
-        // tương thích旧dữ liệu：如果是字符串，转为数组
+        // tương thích旧dữ liệu：如果是ký tự串，转为数组
         if (typeof value === 'string') return [value];
         return value || [];
       },

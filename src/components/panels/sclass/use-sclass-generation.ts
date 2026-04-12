@@ -5,7 +5,7 @@
  * use-sclass-generation.ts — Hạng S Seedance 2.0 Tạo video Hook
  *
  * 核心chức năng：
- * 1. generateGroupVideo(group) — mỗi nhómTạo：收 tập @tham chiếu → 构建多模态请求 → gọi API API → 轮询
+ * 1. generateGroupVideo(group) — mỗi nhómTạo：thu thập @tham chiếu → 构建多模态请求 → gọi API API → 轮询
  * 2. generateAllGroups() — Tạo hàng loạt：逐组串 hàng，各组独立Tạo
  * 3. generateSingleShot(sceneId) — ống kính đơnTạo（tương thíchchế độ）
  * 4. Tự độngTải lên base64/local ảnh到 HTTP URL
@@ -231,7 +231,7 @@ export function useSClassGeneration() {
             sceneIds.length === cachedSceneIds.length &&
             sceneIds.every((id, i) => id === cachedSceneIds[i]);
 
-          // 收 tậptrong nhómPhân cảnh的Khung hình đầuảnh
+          // thu thậptrong nhómPhân cảnh的Khung hình đầuảnh
           const firstFrameUrls = groupScenes
             .map(s => s.imageDataUrl || s.imageHttpUrl || '')
             .filter(Boolean);
@@ -287,11 +287,11 @@ export function useSClassGeneration() {
           lastPrompt: promptResult.prompt || null,
         });
 
-        // 4e. Xác nhận是否Tiếp tụcTạo video（用户可在此处仅Xem trướcô图/prompt 后中止）
+        // 4e. Xác nhận是否Tiếp tụcTạo video（người dùng可在此处仅Xem trướcô图/prompt 后中止）
         if (options?.confirmBeforeGenerate) {
           const proceed = await options.confirmBeforeGenerate();
           if (!proceed) {
-            // 用户Hủy，Đặt lạiTrạng thái但保留 gridImageUrl + lastPrompt
+            // người dùngHủy，Đặt lạiTrạng thái但保留 gridImageUrl + lastPrompt
             updateGroupVideoStatus(group.id, {
               videoStatus: 'idle',
               videoProgress: 0,
@@ -305,11 +305,11 @@ export function useSClassGeneration() {
           }
         }
 
-        // 5. 收 tậpảnhtham chiếu → 转 HTTP URL
+        // 5. thu thậpảnhtham chiếu → 转 HTTP URL
         const imageRefs = promptResult.refs.images;
         const imageWithRoles = await prepareImageUrls(imageRefs);
 
-        // 5b. 收 tậpvideo/âm thanhtham chiếu → 转 HTTP URL（Seedance 2.0 多模态输入）
+        // 5b. thu thậpvideo/âm thanhtham chiếu → 转 HTTP URL（Seedance 2.0 多模态输入）
         const videoRefUrls: string[] = [];
         // nhóm trướcvideonối kết（链式Thử lại时传入）— kéo dài/Chỉnh sửa组已在 refs.videos đang xử lý...sourceVideoUrl，跳过
         if (!isExtendOrEdit && options?.prevVideoUrl) {
@@ -780,7 +780,7 @@ export function useSClassGeneration() {
    * @param sourceGroupId 来nhóm nguồn ID（必须Đã hoàn thành且有 videoUrl）
    * @param extendDuration kéo dàiThời lượng (4-15s)
    * @param direction Hướng kéo dài
-   * @param description 用户Mô tả bổ sung(tùy chọn)
+   * @param description người dùngMô tả bổ sung(tùy chọn)
    */
   const generateChainExtension = useCallback(
     async (

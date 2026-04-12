@@ -153,7 +153,7 @@ export function SettingsPanel() {
   // Ghi đè场景：
   //  1. 旧Phiên bản升级后hiện có key 但 featureBindings 为空
   //  2. 旧Phiên bản留下无效绑定（Model名错、provider ID 变更等）
-  //  3. 用户Chỉnh sửa填 key 后页面刷新
+  //  3. người dùngChỉnh sửa填 key 后页面刷新
   useEffect(() => {
     const mf = providers.find(p => p.platform === 'memefast');
     if (!mf || parseApiKeys(mf.apiKey).length === 0) return;
@@ -1612,7 +1612,7 @@ export function SettingsPanel() {
           }
           // 如果Thêm的是 memefast Nhà cung cấp，Tự động设置默认ánh xạ dịch vụ（仅在对应服务尚Chưa cấu hình时）
           if (providerData.platform === 'memefast') {
-            // Sử dụng provider.id（而非 platform 字符串）Tránh多Nhà cung cấp时的歧义Phân tích
+            // Sử dụng provider.id（而非 platform ký tự串）Tránh多Nhà cung cấp时的歧义Phân tích
             const pid = provider.id;
             const MEMEFAST_DEFAULT_BINDINGS: Record<string, string> = {
               // NOTE: MemeFast 端点已升级，旧的 deepseek-v3 已不在 cột表đang xử lý... deepseek-v3.2
@@ -1623,7 +1623,7 @@ export function SettingsPanel() {
             };
             for (const [feature, binding] of Object.entries(MEMEFAST_DEFAULT_BINDINGS)) {
               const current = getFeatureBindings(feature as AIFeature);
-              // 仅在Chưa cấu hình时设置默认值，TránhGhi đè用户手动Chọn
+              // 仅在Chưa cấu hình时设置默认值，TránhGhi đèngười dùng手动Chọn
               if (!current || current.length === 0) {
                 setFeatureBindings(feature as AIFeature, [binding]);
                 continue;
@@ -1670,7 +1670,7 @@ export function SettingsPanel() {
           updateProvider(provider);
 
           // Chỉnh sửa memefast 时也Tự động设置默认ánh xạ dịch vụ：初始状态会预置一空 key 的 memefast，
-          // 用户通常是“Chỉnh sửa填 key”，如果不在这里补默认映射，会导致ánh xạ dịch vụ一直是 0/6。
+          // người dùng通常是“Chỉnh sửa填 key”，如果不在这里补默认映射，会导致ánh xạ dịch vụ一直是 0/6。
           if (provider.platform === 'memefast' && parseApiKeys(provider.apiKey).length > 0) {
             const pid = provider.id;
             const MEMEFAST_DEFAULT_BINDINGS: Record<string, string> = {

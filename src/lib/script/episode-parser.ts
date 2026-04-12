@@ -28,7 +28,7 @@ import type {
 } from "@/types/script";
 
 /**
- * 清理场景地点字符串，移除nhân vậtthông tin等无关内容
+ * 清理场景地点ký tự串，移除nhân vậtthông tin等无关内容
  * 如 "乡村公路/大巴车 nhân vật：沈星晴、村民" -> "乡村公路/大巴车"
  */
 function cleanLocationString(location: string): string {
@@ -1112,6 +1112,6 @@ function extractLogline(outline: string): string {
  * 提取 tập概述
  */
 function extractEpisodeDescription(content: string): string {
-  // 取前100字符作为概述
+  // 取前100ký tự作为概述
   return content.replace(/\*{1,2}/g, '').slice(0, 100).trim() + '...';
 }

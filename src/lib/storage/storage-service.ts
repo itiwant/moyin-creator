@@ -166,7 +166,7 @@ class StorageService {
       ]);
     } catch (err) {
       console.warn(`[StorageService] 清理项目 ${id} 关联dữ liệuthất bại:`, err);
-      // 即使清理thất bại也继续删除项目元dữ liệu，Tránh阻塞用户操作
+      // 即使清理thất bại也继续删除项目元dữ liệu，Tránh阻塞người dùng操作
     }
     await this.projectsAdapter.remove(id);
   }

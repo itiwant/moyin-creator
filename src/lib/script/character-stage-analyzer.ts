@@ -7,7 +7,7 @@
  * 分析剧本đại cương，Tự động识别主要角色的阶段变化，Tạo多阶段变体。
  * 
  * chức năng：
- * 1. 分析đại cươngđang xử lý...跨度和角色成长轨迹
+ * 1. 分析đại cươngđang xử lý...跨度和角色成长quỹ đạo
  * 2. 为主要角色Tạo阶段变体（青年版、đang xử lý...）
  * 3. 每变体包含 tập数范围，供分镜时Tự độnggọi API
  */
@@ -216,7 +216,7 @@ export function getVariationForEpisode(
 
 /**
  * nhanh检测đại cương是否包含多阶段线索
- * 用于在Nhập剧本时提示用户
+ * 用于在Nhập剧本时提示người dùng
  */
 export function detectMultiStageHints(outline: string, totalEpisodes: number): {
   hasTimeSpan: boolean;

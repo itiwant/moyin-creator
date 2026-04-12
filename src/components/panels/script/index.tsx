@@ -497,7 +497,7 @@ export function ScriptView() {
     setImportError(undefined);
 
     try {
-      // 1. 规则Phân tíchNhập（把用户选的风格和Ngôn ngữ一起传进去）
+      // 1. 规则Phân tíchNhập（把người dùng选的风格和Ngôn ngữ一起传进去）
       const result = await importFullScript(text, projectId, { styleId, promptLanguage });
       
       if (!result.success) {
@@ -1319,7 +1319,7 @@ export function ScriptView() {
   }, [importStatus, scriptProject?.projectBackground?.outline, episodeRawScripts.length]);
 
   // Generate script from idea (Sáng tácchế độ)
-  // AIphân tích用户输入，Tạo标准格式剧本，rồi走Nhập流程
+  // AIphân tíchngười dùng输入，Tạo标准格式剧本，rồi走Nhập流程
   const handleGenerateFromIdea = useCallback(async (idea: string) => {
     if (!idea.trim()) {
       toast.error("Vui lòng Nhập ý tưởng câu chuyện");
@@ -1363,7 +1363,7 @@ export function ScriptView() {
         styleId,
       });
 
-      // LưuTạo的剧本到 rawScript（方便用户Xem/chỉnh sửa）
+      // LưuTạo的剧本到 rawScript（方便người dùngXem/chỉnh sửa）
       setRawScript(projectId, generatedScript);
       setParseStatus(projectId, "idle");
       toast.success('Tạo kịch bản thành công! Đang tự động nhập...');
@@ -1818,7 +1818,7 @@ export function ScriptView() {
 
       const storyPrompt = promptParts.join("\n");
 
-      // 收 tậpTất cảPhân cảnh的Nhân vật
+      // thu thậpTất cảPhân cảnh的Nhân vật
       const allCharacterNames = new Set<string>();
       sceneShots.forEach((shot) => {
         shot.characterNames?.forEach((name) => allCharacterNames.add(name));

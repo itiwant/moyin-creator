@@ -4,7 +4,7 @@
 
 /**
  * SaveToPropsDialog - Lưuảnh到Thư viện đạo cụPopup
- * 在Studio Tạo ảnh ảnh后，用户可以Chọn thư mục并Lưu
+ * 在Studio Tạo ảnh ảnh后，người dùng可以Chọn thư mục并Lưu
  */
 
 import { useState } from 'react';

@@ -70,7 +70,7 @@ export function StylePicker({
   const [hoveredStyle, setHoveredStyle] = useState<StylePreset | null>(null);
   const [isOpen, setIsOpen] = useState(false);
 
-  // 用户Tùy chỉnh风格（用户dữ liệu，存储在 localStorage）
+  // người dùngTùy chỉnh风格（người dùngdữ liệu，存储在 localStorage）
   const customStyles = useCustomStyleStore((s) => s.styles);
   const customAsPresets: StylePreset[] = useMemo(() =>
     customStyles.map((s) => ({
