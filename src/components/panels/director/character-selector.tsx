@@ -4,7 +4,7 @@
 "use client";
 
 /**
- * Thư viện nhân vậtChọn弹窗组件 (Character Selector)
+ * Thư viện nhân vậtChọnPopup组件 (Character Selector)
  * 从Thư viện nhân vậtđang xử lý...hân vật关联到Phân cảnh
  */
 
@@ -67,7 +67,7 @@ export function CharacterSelector({
     }
   };
 
-  // 只统计在Thư viện nhân vậtđang xử lý...Nhân vật（过滤无效ID）
+  // 只统计在Thư viện nhân vậtđang xử lý...Nhân vật（lọc无效ID）
   const selectedCharacters = visibleCharacters.filter(c => selectedIds.includes(c.id));
   const validSelectedCount = selectedCharacters.length;
 

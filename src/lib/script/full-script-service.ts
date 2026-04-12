@@ -2,13 +2,13 @@
 // Licensed under AGPL-3.0-or-later. See LICENSE for details.
 // Commercial licensing available. See COMMERCIAL_LICENSE.md.
 /**
- * Full Script Service - đầy đủ剧本导入和按集分镜生成服务
+ * Full Script Service - đầy đủ剧本导入和按 tập分镜生成服务
  * 
  * 核心功能：
- * 1. 导入đầy đủ剧本（包含大纲、nhân vật小传、60集内容）
- * 2. 按集生成分镜（一次生成一集）
- * 3. 更新单集或Tất cả分镜
- * 4. AI校准：为缺失标题的集数生成标题
+ * 1. 导入đầy đủ剧本（包含đại cương、nhân vật小传、60 tập内容）
+ * 2. 按 tập生成分镜（一次生成一 tập）
+ * 3. 更新单 tập或Tất cả分镜
+ * 4. AI校准：为缺失标题的 tập数生成标题
  */
 
 import type {
@@ -86,7 +86,7 @@ export async function importFullScript(
     const aiAnalysis = await analyzeScriptStructureWithAI(processedText);
     
     if (aiAnalysis) {
-      // AI 检测成功：基于 AI 结果插入标记 + 补全大纲
+      // AI 检测成功：基于 AI 结果插入标记 + 补全đại cương
       normalizeResult = applyAIAnalysis(processedText, aiAnalysis);
       console.log('[importFullScript] AI Cấu trúc检测完成:', normalizeResult.changes);
     } else {
@@ -106,7 +106,7 @@ export async function importFullScript(
         background: null,
         episodes: [],
         scriptData: null,
-        error: "未能解析出任何集数，请检查剧本格式",
+        error: "未能解析出任何 tập数，请检查剧本格式",
       };
     }
     
@@ -131,7 +131,7 @@ export async function importFullScript(
     store.setRawScript(projectId, fullText);
     store.setParseStatus(projectId, "ready");
     
-    // 4. 构建剧级元数据（SeriesMeta）— 用户选的风格和语言Trực tiếp传入
+    // 4. 构建剧级元数据（SeriesMeta）— 用户选的风格和Ngôn ngữTrực tiếp传入
     const aiResult = normalizeResult.aiAnalysis || null;
     const seriesMeta = populateSeriesMetaFromImport(background, scriptData, aiResult, importSettings);
     store.setSeriesMeta(projectId, seriesMeta);
@@ -160,7 +160,7 @@ export async function importFullScript(
   }
 }
 
-// ==================== 单集Cấu trúc补全 ====================
+// ==================== 单 tậpCấu trúc补全 ====================
 
 export interface SingleEpisodeImportResult {
   success: boolean;
@@ -169,13 +169,13 @@ export interface SingleEpisodeImportResult {
 }
 
 /**
- * 单集Cấu trúc补全 — 解析用户粘贴的单集剧本内容为场景Cấu trúc
+ * 单 tậpCấu trúc补全 — 解析用户粘贴的单 tập剧本内容为场景Cấu trúc
  *
  * 流程：
  * 1. preprocessLineBreaks → parseScenes → 转换为 ScriptScene[]
  * 2. 原子写回 store（episodeRawScripts + scriptData.scenes + episodes.sceneIds）
- * 3. 清理本集旧 shot
- * 4. 轻量 AI 生成标题+大纲（后台不阻塞）
+ * 3. 清理本 tập旧 shot
+ * 4. 轻量 AI 生成标题+đại cương（后台不阻塞）
  */
 export async function importSingleEpisodeContent(
   rawContent: string,
@@ -194,7 +194,7 @@ export async function importSingleEpisodeContent(
     const scriptData = project.scriptData;
     const episode = scriptData.episodes.find(e => e.index === episodeIndex);
     if (!episode) {
-      return { success: false, sceneCount: 0, error: `找不到第 ${episodeIndex} 集` };
+      return { success: false, sceneCount: 0, error: `找不到第 ${episodeIndex}  tập` };
     }
 
     // === 1. 预处理 + 场景解析 ===
@@ -270,9 +270,9 @@ export async function importSingleEpisodeContent(
 
     console.log(`${TAG} Cấu trúc补全完成: ${newScenes.length} 场景`);
 
-    // === 4. 轻量 AI 标题+大纲（后台不阻塞） ===
+    // === 4. 轻量 AI 标题+đại cương（后台不阻塞） ===
     generateSingleEpisodeTitleAndSynopsis(projectId, episodeIndex).catch(e => {
-      console.warn(`${TAG} 标题/大纲生成失败（不影响Cấu trúc补全）:`, e);
+      console.warn(`${TAG} 标题/đại cương生成失败（不影响Cấu trúc补全）:`, e);
     });
 
     return { success: true, sceneCount: newScenes.length };
@@ -287,7 +287,7 @@ export async function importSingleEpisodeContent(
 }
 
 /**
- * 轻量 AI 为单集生成标题+大纲（后台任务，不阻塞Cấu trúc补全）
+ * 轻量 AI 为单 tập生成标题+đại cương（后台任务，不阻塞Cấu trúc补全）
  */
 async function generateSingleEpisodeTitleAndSynopsis(
   projectId: string,
@@ -300,8 +300,8 @@ async function generateSingleEpisodeTitleAndSynopsis(
   const epRaw = project.episodeRawScripts.find(e => e.episodeIndex === episodeIndex);
   if (!epRaw || !epRaw.rawContent) return;
 
-  // 已有有意义标题和大纲则跳过
-  const hasTitle = epRaw.title && !/^第[\d一二三四五六七八九十百千]+集$/.test(epRaw.title.trim());
+  // 已有有意义标题和đại cương则跳过
+  const hasTitle = epRaw.title && !/^第[\d一二三四五六七八九十百千]+ tập$/.test(epRaw.title.trim());
   const hasSynopsis = !!(epRaw.synopsis && epRaw.synopsis.trim().length > 0);
   if (hasTitle && hasSynopsis) return;
 
@@ -309,19 +309,19 @@ async function generateSingleEpisodeTitleAndSynopsis(
   const seriesCtx = buildSeriesContextSummary(project.seriesMeta || null);
   const contentSummary = epRaw.rawContent.slice(0, 800);
 
-  const system = `你是剧本Cấu trúc分析专家。根据剧本全局背景和单集内容，生成该集的标题和大纲。
-${seriesCtx ? `\n【剧级知识Tham chiếu】\n${seriesCtx}\n` : ''}剧名：${background?.title || project.scriptData?.title || '未命名'}
+  const system = `你是剧本Cấu trúc分析专家。根据剧本全局背景和单 tập内容，生成该 tập的标题和đại cương。
+${seriesCtx ? `\n【剧级知识Tham chiếu】\n${seriesCtx}\n` : ''}tên phim：${background?.title || project.scriptData?.title || '未命名'}
 类型：${background?.genre || '未知'}
-${background?.era ? `时代：${background.era}` : ''}
+${background?.era ? `thời đại：${background.era}` : ''}
 
 请以 JSON 格式返回：
 {
-  "title": "6-15字标题（体现本集核心冲突/转折）",
-  "synopsis": "100-200字大纲（概括本集主要剧情）",
+  "title": "6-15字标题（体现本 tập核心冲突/转折）",
+  "synopsis": "100-200字đại cương（概括本 tập主要剧情）",
   "keyEvents": ["quan trọng事件1", "quan trọng事件2", "quan trọng事件3"]
 }`;
 
-  const user = `第${episodeIndex}集内容：\n${contentSummary}`;
+  const user = `第${episodeIndex} tập内容：\n${contentSummary}`;
 
   try {
     const result = await callFeatureAPI('script_analysis', system, user, {
@@ -337,7 +337,7 @@ ${background?.era ? `时代：${background.era}` : ''}
     const updates: Partial<EpisodeRawScript> = {};
 
     if (!hasTitle && parsed.title) {
-      const fullTitle = `第${episodeIndex}集：${parsed.title}`;
+      const fullTitle = `第${episodeIndex} tập：${parsed.title}`;
       updates.title = fullTitle;
       // 同步到 scriptData.episodes
       const cur = useScriptStore.getState();
@@ -360,16 +360,16 @@ ${background?.era ? `时代：${background.era}` : ''}
 
     if (Object.keys(updates).length > 0) {
       useScriptStore.getState().updateEpisodeRawScript(projectId, episodeIndex, updates);
-      console.log(`[generateSingleEpisodeTitleAndSynopsis] 第${episodeIndex}集标题/大纲已生成`);
+      console.log(`[generateSingleEpisodeTitleAndSynopsis] 第${episodeIndex} tập标题/đại cương已生成`);
     }
   } catch (e) {
-    console.warn('[generateSingleEpisodeTitleAndSynopsis] AI 调用失败:', e);
+    console.warn('[generateSingleEpisodeTitleAndSynopsis] AI gọi API失败:', e);
   }
 }
 
 /**
- * 为单集生成分镜
- * @param episodeIndex 集索引（1-based）
+ * 为单 tập生成分镜
+ * @param episodeIndex  tập索引（1-based）
  * @param projectId 项目ID
  * @param options 生成Tùy chọn
  */
@@ -391,18 +391,18 @@ export async function generateEpisodeShots(
   );
   
   if (!episodeScript) {
-    throw new Error(`找不到第 ${episodeIndex} 集的剧本`);
+    throw new Error(`找不到第 ${episodeIndex}  tập的剧本`);
   }
   
-  // 更新集的生成状态
+  // 更新 tập的生成状态
   store.updateEpisodeRawScript(projectId, episodeIndex, {
     shotGenerationStatus: 'generating',
   });
   
   try {
-    onProgress?.(`正在为第 ${episodeIndex} 集生成分镜...`);
+    onProgress?.(`正在为第 ${episodeIndex}  tập生成分镜...`);
     
-    // 获取该集对应的场景
+    // 获取该 tập对应的场景
     const scriptData = project.scriptData;
     if (!scriptData) {
       throw new Error("剧本数据不存在");
@@ -410,7 +410,7 @@ export async function generateEpisodeShots(
     
     const episode = scriptData.episodes.find((ep) => ep.index === episodeIndex);
     if (!episode) {
-      throw new Error(`找不到第 ${episodeIndex} 集的Cấu trúc数据`);
+      throw new Error(`找不到第 ${episodeIndex}  tập的Cấu trúc数据`);
     }
     
     const episodeScenes = scriptData.scenes.filter((s) =>
@@ -422,7 +422,7 @@ export async function generateEpisodeShots(
       const rawScene = episodeScript.scenes[idx];
       return {
         ...scene,
-        // 使用原始内容生成分镜
+        // 使用gốc内容生成分镜
         rawContent: rawScene?.content || '',
         dialogues: rawScene?.dialogues || [],
         actions: rawScene?.actions || [],
@@ -439,7 +439,7 @@ export async function generateEpisodeShots(
       onProgress
     );
     
-    // 更新现有分镜（移除该集旧分镜，添加新分镜）
+    // 更新现有分镜（移除该 tập旧分镜，添加新分镜）
     const existingShots = project.shots.filter(
       (shot) => shot.episodeId !== episode.id
     );
@@ -474,16 +474,16 @@ export async function generateEpisodeShots(
       onProgress?.(`正在 AI 分析场景视角（共 ${episodeScenes.length} 场景）...`);
       
       try {
-        // 获取本集大纲和quan trọng事件
+        // 获取本 tậpđại cương和quan trọng事件
         const episodeSynopsis = episodeScript.synopsis || '';
         const keyEvents = episodeScript.keyEvents || [];
         
-        console.log('[generateEpisodeShots] 本集大纲:', episodeSynopsis ? `已配置(${episodeSynopsis.length}字)` : '未配置');
+        console.log('[generateEpisodeShots] 本 tậpđại cương:', episodeSynopsis ? `已配置(${episodeSynopsis.length}字)` : '未配置');
         console.log('[generateEpisodeShots] quan trọng事件:', keyEvents.length > 0 ? keyEvents.join(', ') : '未配置');
         
         const background = project.projectBackground;
         const viewpointOptions: ViewpointAnalysisOptions = {
-          episodeSynopsis,  // 传入本集大纲
+          episodeSynopsis,  // 传入本 tậpđại cương
           keyEvents,        // 传入quan trọng事件
           title: background?.title,
           genre: background?.genre,
@@ -520,7 +520,7 @@ export async function generateEpisodeShots(
           analysisExecuted = true;
           onProgress?.(`AI 分析场景 ${i + 1}/${episodeScenes.length}: ${scene.location}...`);
           
-          console.log(`[generateEpisodeShots] 🔄 调用 analyzeSceneViewpoints for "${scene.location}"...`);
+          console.log(`[generateEpisodeShots] 🔄 gọi API analyzeSceneViewpoints for "${scene.location}"...`);
           const result = await analyzeSceneViewpoints(scene, sceneShots, viewpointOptions);
           console.log(`[generateEpisodeShots] ✅ AI 分析完成，返回 ${result.viewpoints.length} 视角:`, 
             result.viewpoints.map(v => v.name).join(', '));
@@ -671,7 +671,7 @@ export async function generateEpisodeShots(
       lastGeneratedAt: Date.now(),
     });
     
-    onProgress?.(`第 ${episodeIndex} 集分镜生成完成！共 ${newShots.length} 分镜`);
+    onProgress?.(`第 ${episodeIndex}  tập分镜生成完成！共 ${newShots.length} 分镜`);
     
     return { shots: newShots, viewpointAnalyzed, viewpointSkippedReason };
   } catch (error) {
@@ -683,7 +683,7 @@ export async function generateEpisodeShots(
 }
 
 /**
- * 为指定集的场景生成分镜
+ * 为指定 tập的场景生成分镜
  */
 async function generateShotsForEpisode(
   scenes: Array<{
@@ -725,7 +725,7 @@ async function generateShotsForEpisode(
 }
 
 /**
- * 基于场景原始内容生成分镜（规则化生成，不依赖AI）
+ * 基于场景gốc内容生成分镜（规则化生成，不依赖AI）
  * 每对白或动作生成一分镜
  */
 function generateShotsFromSceneContent(
@@ -798,7 +798,7 @@ function generateShotsFromSceneContent(
         index: index++,
         episodeId,
         sceneRefId: scene.id,
-        // 保留đầy đủ的原始动作文本，不要截断，便于AI校准时使用
+        // 保留đầy đủ的gốc动作文本，不要截断，便于AI校准时使用
         actionSummary: actionText,
         visualDescription: `${scene.location}，${actionText}`,
         characterNames: mentionedChars.map(c => c.name),
@@ -867,8 +867,8 @@ function generateShotsFromSceneContent(
 }
 
 /**
- * 根据集数自动匹配角色的阶段变体
- * 用于分镜生成时自动Chọn正确版本的角色（如第50集自动用张明đang xử lý...
+ * 根据 tập数自动匹nhân vật phụ色的阶段变体
+ * 用于分镜生成时自动Chọn正确版本的角色（如第50 tập自动用张明đang xử lý...
  */
 function matchCharacterVariationsForEpisode(
   characterIds: string[],
@@ -889,11 +889,11 @@ function matchCharacterVariationsForEpisode(
       if (scriptChar?.characterLibraryId) {
         const libChar = charLibStore.getCharacterById(scriptChar.characterLibraryId);
         if (libChar && libChar.variations.length > 0) {
-          // 查找匹配当前集数的阶段变体
+          // 查找匹配当前 tập数的阶段变体
           const matchedVariation = getVariationForEpisode(libChar.variations, episodeIndex);
           if (matchedVariation) {
             characterVariations[charId] = matchedVariation.id;
-            console.log(`[VariationMatch] 角色 ${scriptChar.name} 第${episodeIndex}集 -> 使用变体 "${matchedVariation.name}"`);
+            console.log(`[VariationMatch] 角色 ${scriptChar.name} 第${episodeIndex} tập -> 使用变体 "${matchedVariation.name}"`);
           }
         }
         break;
@@ -905,7 +905,7 @@ function matchCharacterVariationsForEpisode(
 }
 
 /**
- * 从 episodeId 提取集数
+ * 从 episodeId 提取 tập数
  */
 function getEpisodeIndexFromId(episodeId: string): number {
   // episodeId 格式为 "ep_X"
@@ -930,7 +930,7 @@ function createShot(params: {
   ambientSound?: string;
   cameraMovement?: string;
 }): Shot {
-  // 自动匹配角色阶段变体
+  // 自动匹nhân vật phụ色阶段变体
   const episodeIndex = getEpisodeIndexFromId(params.episodeId);
   const characterVariations = matchCharacterVariationsForEpisode(
     params.characterIds,
@@ -973,7 +973,7 @@ function detectAmbientSound(text: string, atmosphere: string): string {
 }
 
 /**
- * 更新Tất cả集的分镜
+ * 更新Tất cả tập的分镜
  */
 export async function regenerateAllEpisodeShots(
   projectId: string,
@@ -984,14 +984,14 @@ export async function regenerateAllEpisodeShots(
   const project = store.projects[projectId];
   
   if (!project || !project.episodeRawScripts.length) {
-    throw new Error("没有可生成的集");
+    throw new Error("没有可生成的 tập");
   }
   
   const totalEpisodes = project.episodeRawScripts.length;
   
   for (let i = 0; i < totalEpisodes; i++) {
     const ep = project.episodeRawScripts[i];
-    onProgress?.(i + 1, totalEpisodes, `正在生成第 ${ep.episodeIndex} 集...`);
+    onProgress?.(i + 1, totalEpisodes, `正在生成第 ${ep.episodeIndex}  tập...`);
     
     await generateEpisodeShots(
       ep.episodeIndex,
@@ -1003,7 +1003,7 @@ export async function regenerateAllEpisodeShots(
 }
 
 /**
- * 获取集的生成状态摘要
+ * 获取 tập的生成状态摘要
  */
 export function getEpisodeGenerationSummary(projectId: string): {
   total: number;
@@ -1031,7 +1031,7 @@ export function getEpisodeGenerationSummary(projectId: string): {
 
 // ==================== AI 校准功能 ====================
 
-// CalibrationOptions 已不需要，统一从服务映射获取配置
+// CalibrationOptions 已不需要，统一从ánh xạ dịch vụ获取配置
 export interface CalibrationOptions {
   // 保Để trốnggiao diện以保持tương thích性
 }
@@ -1044,18 +1044,18 @@ export interface CalibrationResult {
 }
 
 /**
- * 检查集数是否缺失标题
- * 缺失标题的判断标准：标题为空，或只有"第X集"没有冒号后的内容
+ * 检查 tập数是否缺失标题
+ * 缺失标题的判断标准：标题为空，或只有"第X tập"没有冒号后的内容
  */
 function isMissingTitle(title: string): boolean {
   if (!title || title.trim() === '') return true;
-  // 匹配 "第X集" 或 "第XX集" 但没有后续标题
-  const onlyEpisodeNum = /^第[\d一二三四五六七八九十百千]+集$/;
+  // 匹配 "第X tập" 或 "第XX tập" 但没有后续标题
+  const onlyEpisodeNum = /^第[\d一二三四五六七八九十百千]+ tập$/;
   return onlyEpisodeNum.test(title.trim());
 }
 
 /**
- * 获取缺失标题的集数列表
+ * 获取缺失标题的 tập数列表
  */
 export function getMissingTitleEpisodes(projectId: string): EpisodeRawScript[] {
   const store = useScriptStore.getState();
@@ -1070,7 +1070,7 @@ export function getMissingTitleEpisodes(projectId: string): EpisodeRawScript[] {
 
 
 /**
- * 从集内容đang xử lý...要
+ * 从 tập内容đang xử lý...要
  */
 function extractEpisodeSummary(episode: EpisodeRawScript): string {
   const parts: string[] = [];
@@ -1104,7 +1104,7 @@ function extractEpisodeSummary(episode: EpisodeRawScript): string {
 }
 
 /**
- * AI校准：为缺失标题的集数生成标题
+ * AI校准：为缺失标题的 tập数生成标题
  * @param projectId 项目ID
  * @param options AI配置
  * @param onProgress 进度回调
@@ -1121,7 +1121,7 @@ export async function calibrateEpisodeTitles(
     return { success: false, calibratedCount: 0, totalMissing: 0, error: '项目不存在' };
   }
   
-  // 找出缺失标题的集数
+  // 找出缺失标题的 tập数
   const missingEpisodes = getMissingTitleEpisodes(projectId);
   const totalMissing = missingEpisodes.length;
   
@@ -1129,7 +1129,7 @@ export async function calibrateEpisodeTitles(
     return { success: true, calibratedCount: 0, totalMissing: 0 };
   }
   
-  onProgress?.(0, totalMissing, `找到 ${totalMissing} 集缺失标题，开始校准...`);
+  onProgress?.(0, totalMissing, `找到 ${totalMissing}  tập缺失标题，开始校准...`);
   
   // 获取全局背景信息
   const background = project.projectBackground;
@@ -1140,7 +1140,7 @@ export async function calibrateEpisodeTitles(
     totalEpisodes: project.episodeRawScripts.length,
   };
   
-  // 注入概览里的世界观知识（角色、阵营、时代、力量体系等）
+  // 注入概览里的Bối cảnh thế giới知识（角色、phe phái、thời đại、力量hệ thống等）
   const seriesCtx = buildSeriesContextSummary(project.seriesMeta || null);
   
   try {
@@ -1159,24 +1159,24 @@ export async function calibrateEpisodeTitles(
         const system = `你是好莱坞资深编剧，拥有艾美奖最佳编剧提名经历。
 
 你的专业能力：
-- 精通剧集命名艺术：能用简短有力的标题捕捉每集核心冲突和情感转折
-- 叙事Cấu trúc把控：理解商战、家族、情感等不同类型剧集的命名风格
+- 精通剧 tập命名艺术：能用简短有力的标题捕捉每 tập核心冲突和情感转折
+- 叙事Cấu trúc把控：理解商战、家族、情感等不同类型剧 tập的命名风格
 - 市场敏感度：知道什么样的标题能吸引观众，提升点击率
 
-你的任务是根据剧本的全局背景和每集内容，为每集生成简短有吸引力的标题。
+你的任务是根据剧本的全局背景和每 tập内容，为每 tập生成简短有吸引力的标题。
 ${seriesCtx ? `\n【剧级知识Tham chiếu】\n${seriesCtx}\n` : ''}
 【剧本信息】
-剧名：${title}
-总集数：${totalEpisodes}集
+tên phim：${title}
+总 tập数：${totalEpisodes} tập
 
-【故事大纲】
+【故事đại cương】
 ${outline.slice(0, 1500)}
 
 【主要nhân vật】
 ${characterBios.slice(0, 1000)}
 
 【要求】
-1. 标题要能概括该集的主要内容或转折点
+1. 标题要能概括该 tập的主要内容或转折点
 2. 标题长度控制在6-15字
 3. 风格要符合剧本类型（如商战剧用商战术语，武侠剧用江湖气息）
 4. 标题之间要有连贯性，体现剧情发展
@@ -1184,14 +1184,14 @@ ${characterBios.slice(0, 1000)}
 请以JSON格式返回，格式为：
 {
   "titles": {
-    "1": "第1集标题",
-    "2": "第2集标题"
+    "1": "第1 tập标题",
+    "2": "第2 tập标题"
   }
 }`;
         const episodeContents = batch.map(ep => 
-          `第${ep.index}集内容摘要：${ep.contentSummary}`
+          `第${ep.index} tập内容摘要：${ep.contentSummary}`
         ).join('\n\n');
-        const user = `请为以下集数生成标题：\n\n${episodeContents}`;
+        const user = `请为以下 tập数生成标题：\n\n${episodeContents}`;
         return { system, user };
       },
       parseResult: (raw) => {
@@ -1205,7 +1205,7 @@ ${characterBios.slice(0, 1000)}
         }
         return result;
       },
-      estimateItemOutputTokens: () => 30, // 标题很短，每集约 30 tokens
+      estimateItemOutputTokens: () => 30, // 标题很短，每 tập约 30 tokens
       onProgress: (completed, total, message) => {
         onProgress?.(completed, total, `[标题校准] ${message}`);
       },
@@ -1217,14 +1217,14 @@ ${characterBios.slice(0, 1000)}
       const newTitle = results.get(String(ep.episodeIndex));
       if (newTitle) {
         store.updateEpisodeRawScript(projectId, ep.episodeIndex, {
-          title: `第${ep.episodeIndex}集：${newTitle}`,
+          title: `第${ep.episodeIndex} tập：${newTitle}`,
         });
         
         const scriptData = store.projects[projectId]?.scriptData;
         if (scriptData) {
           const epData = scriptData.episodes.find(e => e.index === ep.episodeIndex);
           if (epData) {
-            epData.title = `第${ep.episodeIndex}集：${newTitle}`;
+            epData.title = `第${ep.episodeIndex} tập：${newTitle}`;
             store.setScriptData(projectId, { ...scriptData });
           }
         }
@@ -1234,10 +1234,10 @@ ${characterBios.slice(0, 1000)}
     }
     
     if (failedBatches > 0) {
-      console.warn(`[集标题校准] ${failedBatches}/${totalBatches} 批次失败`);
+      console.warn(`[ tập标题校准] ${failedBatches}/${totalBatches} 批次失败`);
     }
     
-    onProgress?.(calibratedCount, totalMissing, `已校准 ${calibratedCount}/${totalMissing} 集`);
+    onProgress?.(calibratedCount, totalMissing, `已校准 ${calibratedCount}/${totalMissing}  tập`);
     
     return {
       success: true,
@@ -1275,7 +1275,7 @@ export interface ShotCalibrationResult {
 }
 
 /**
- * 根据用户Chọn的提示词语言，清理/保留分镜提示词trường，避免语言切换后残留旧trường
+ * 根据用户Chọn的提示词Ngôn ngữ，清理/保留分镜提示词trường，避免Ngôn ngữ切换后残留旧trường
  */
 function applyPromptLanguageToShotPrompts(
   existingShot: Shot,
@@ -1342,7 +1342,7 @@ export async function calibrateEpisodeShots(
     return { success: false, calibratedCount: 0, totalShots: 0, error: '项目不存在' };
   }
   
-  // 找到该集的分镜
+  // 找到该 tập的分镜
   const scriptData = project.scriptData;
   if (!scriptData) {
     return { success: false, calibratedCount: 0, totalShots: 0, error: '剧本数据不存在' };
@@ -1350,10 +1350,10 @@ export async function calibrateEpisodeShots(
   
   const episode = scriptData.episodes.find(ep => ep.index === episodeIndex);
   if (!episode) {
-    return { success: false, calibratedCount: 0, totalShots: 0, error: `找不到第 ${episodeIndex} 集` };
+    return { success: false, calibratedCount: 0, totalShots: 0, error: `找不到第 ${episodeIndex}  tập` };
   }
   
-  // 获取该集的Tất cả分镜（可选：只校准指定场景的分镜）
+  // 获取该 tập的Tất cả分镜（可选：只校准指定场景的分镜）
   let episodeShots = project.shots.filter(shot => shot.episodeId === episode.id);
   if (filterSceneId) {
     episodeShots = episodeShots.filter(shot => shot.sceneRefId === filterSceneId);
@@ -1361,16 +1361,16 @@ export async function calibrateEpisodeShots(
   const totalShots = episodeShots.length;
   
   if (totalShots === 0) {
-    return { success: false, calibratedCount: 0, totalShots: 0, error: '该集没有分镜' };
+    return { success: false, calibratedCount: 0, totalShots: 0, error: '该 tập没有分镜' };
   }
   
-  onProgress?.(0, totalShots, `开始校准第 ${episodeIndex} 集的 ${totalShots} 分镜...`);
+  onProgress?.(0, totalShots, `开始校准第 ${episodeIndex}  tập的 ${totalShots} 分镜...`);
   
   // 获取全局背景信息
   const background = project.projectBackground;
   const episodeScript = project.episodeRawScripts.find(ep => ep.episodeIndex === episodeIndex);
   
-  // 提取该集的原始剧本内容（对白+动作）
+  // 提取该 tập的gốc剧本内容（对白+动作）
   const episodeRawContent = episodeScript?.rawContent || '';
   
   // 构建剧级上下文摘要
@@ -1385,16 +1385,16 @@ export async function calibrateEpisodeShots(
     worldSetting: background?.worldSetting || '',
     themes: background?.themes || [],
     episodeTitle: episode.title,
-    episodeSynopsis: episodeScript?.synopsis || '',  // 使用每集大纲
+    episodeSynopsis: episodeScript?.synopsis || '',  // 使用每 tậpđại cương
     episodeKeyEvents: episodeScript?.keyEvents || [],  // quan trọng事件
-    episodeRawContent,  // 该集原始剧本内容（đầy đủ对白、动作描写）
-    episodeSeason: episodeScript?.season,  // 本集季节
+    episodeRawContent,  // 该 tậpgốc剧本内容（đầy đủ对白、动作描写）
+    episodeSeason: episodeScript?.season,  // 本 tập季节
     totalEpisodes: project.episodeRawScripts.length,
     currentEpisode: episodeIndex,
     seriesContextSummary,  // 剧级上下文
   };
   
-  // 构建原始场景天气映射（从原始解析的场景đang xử lý...weather）
+  // 构建gốc场景天气映射（从gốc解析的场景đang xử lý...weather）
   const rawSceneWeatherMap = new Map<string, string>();
   if (episodeScript?.scenes) {
     for (const rawScene of episodeScript.scenes) {
@@ -1408,7 +1408,7 @@ export async function calibrateEpisodeShots(
   try {
     // 获取用户设置的并发数
     const concurrency = useAPIConfigStore.getState().concurrency || 1;
-    const batchSize = 5; // 每 AI 调用处理 5 分镜
+    const batchSize = 5; // 每 AI gọi API处理 5 分镜
     let calibratedCount = 0;
     const updatedShots: Shot[] = [...project.shots];
     
@@ -1466,7 +1466,7 @@ export async function calibrateEpisodeShots(
         console.log(`[calibrateShots] 🚀 启动批次 ${batchNum}/${totalBatches}`);
         onProgress?.(calibratedCount, totalShots, `🚀 处理批次 ${batchNum}/${totalBatches}...`);
         
-        // 带Thử lại机制的 AI 调用
+        // 带Thử lại机制的 AI gọi API
         let calibrations: Record<string, any> = {};
         let retryCount = 0;
         const maxRetries = 3;
@@ -1615,7 +1615,7 @@ export async function calibrateSingleShot(
   
   onProgress?.(`正在校准分镜...`);
   
-  // 获取分镜所属的场景和集信息
+  // 获取分镜所属的场景和 tập信息
   const scene = scriptData.scenes.find(s => s.id === shot.sceneRefId);
   const episode = scriptData.episodes.find(ep => ep.id === shot.episodeId);
   const episodeIndex = episode?.index || 1;
@@ -1633,7 +1633,7 @@ export async function calibrateSingleShot(
     characterBios: background?.characterBios || '',
     worldSetting: background?.worldSetting || '',
     themes: background?.themes || [],
-    episodeTitle: episode?.title || `第${episodeIndex}集`,
+    episodeTitle: episode?.title || `第${episodeIndex} tập`,
     episodeSynopsis: episodeScript?.synopsis || '',
     episodeKeyEvents: episodeScript?.keyEvents || [],
     episodeRawContent,
@@ -1680,7 +1680,7 @@ export async function calibrateSingleShot(
       currentDuration: shot.duration,
     }];
     
-    // 调用 AI 校准
+    // gọi API AI 校准
     const calibrations = await callAIForShotCalibration(shotData, options, globalContext);
     const calibration = calibrations[shot.id];
     
@@ -1757,12 +1757,12 @@ export async function calibrateSingleShot(
 }
 
 /**
- * 调用 AI API 校准分镜 - 复用 callChatAPI
+ * gọi API AI API 校准分镜 - 复用 callChatAPI
  */
 async function callAIForShotCalibration(
   shots: Array<{
     shotId: string;
-    sourceText: string;        // 原始剧本文本đoạn（该分镜对应的原文）
+    sourceText: string;        // gốc剧本文本đoạn（该分镜对应的原文）
     actionSummary: string;
     dialogue?: string;
     characterNames?: string[];
@@ -1773,7 +1773,7 @@ async function callAIForShotCalibration(
     // 场景美术设计trường（与 ScriptScene trường名对齐）
     architectureStyle?: string;   // 建筑风格
     colorPalette?: string;        // 色彩基调
-    eraDetails?: string;          // 时代特征
+    eraDetails?: string;          // thời đại特征
     lightingDesign?: string;      // 光影设计
     currentShotSize?: string;
     currentCameraMovement?: string;
@@ -1789,10 +1789,10 @@ async function callAIForShotCalibration(
     worldSetting?: string;
     themes?: string[];
     episodeTitle: string;
-    episodeSynopsis?: string;  // 每集大纲
+    episodeSynopsis?: string;  // 每 tậpđại cương
     episodeKeyEvents?: string[];  // quan trọng事件
-    episodeRawContent?: string;  // 该集原始剧本内容
-    episodeSeason?: string;      // 本集季节
+    episodeRawContent?: string;  // 该 tậpgốc剧本内容
+    episodeSeason?: string;      // 本 tập季节
     totalEpisodes?: number;
     currentEpisode?: number;
   }
@@ -1814,7 +1814,7 @@ async function callAIForShotCalibration(
   characterNames: string[]; // đầy đủ角色列表
   ambientSound: string;     // 环境音
   soundEffect: string;      // 音效
-  // === 叙事驱动trường（基于《电影语言的语法》） ===
+  // === 叙事驱动trường（基于《电影Ngôn ngữ的语法》） ===
   narrativeFunction: string;  // 叙事功能：铺垫/升级/cao trào/转折/过渡/尾声
   conflictStage?: string;     // 冲突阶段
   shotPurpose: string;        // 镜头目的：为什么用这镜头
@@ -1841,7 +1841,7 @@ async function callAIForShotCalibration(
   photographyTechnique?: string;
   specialTechnique?: string;
 }>> {
-  // 不再需要 apiKey/provider/baseUrl，统一从服务映射获取
+  // 不再需要 apiKey/provider/baseUrl，统一从ánh xạ dịch vụ获取
   const { styleId, cinematographyProfileId } = options;
   const { 
     title, genre, era, outline, characterBios, worldSetting, themes,
@@ -1849,7 +1849,7 @@ async function callAIForShotCalibration(
     episodeSeason, totalEpisodes, currentEpisode 
   } = globalContext;
   
-  // 截取原始剧本内容（避免过长，取前3000字）
+  // 截取gốc剧本内容（避免过长，取前3000字）
   const rawContentPreview = episodeRawContent ? episodeRawContent.slice(0, 3000) : '';
   
   // 使用共享的风格描述函数
@@ -1862,21 +1862,21 @@ async function callAIForShotCalibration(
   
   // 构建更đầy đủ的上下文信息
   const contextInfo = [
-    `剧名：《${title}》`,
+    `tên phim：《${title}》`,
     genre ? `类型：${genre}` : '',
-    era ? `时代背景：${era}` : '',
-    totalEpisodes ? `总集数：${totalEpisodes}集` : '',
-    `当前：第${currentEpisode}集「${episodeTitle}」`,
+    era ? `thời đại背景：${era}` : '',
+    totalEpisodes ? `总 tập数：${totalEpisodes} tập` : '',
+    `当前：第${currentEpisode} tập「${episodeTitle}」`,
     episodeSeason ? `季节：${episodeSeason}` : '',
   ].filter(Boolean).join(' | ');
   
-  const systemPrompt = `你是世界级顶尖电影摄影大师，精通丹尼艾尔·阿里洪《电影语言的语法》的Tất cả理论，拥有奥斯卡最佳摄影奖经验。
+  const systemPrompt = `你是世界级顶尖电影摄影大师，精通丹尼艾尔·阿里洪《电影Ngôn ngữ的语法》的Tất cả理论，拥有奥斯卡最佳摄影奖经验。
 
 你的核心理念：**镜头不是孤立的画面，而是叙事链条đang xử lý...。每镜头的景别、运动、时长都必须服务于叙事。**
 
 你的专业能力：
-- 精通镜头语言：能准确判断每镜头的景别、运动方式、光线设计
-- **叙事驱动设计**：理解每镜头在整集故事đang xử lý...和功能，确保镜头设计服务于叙事
+- 精通镜头Ngôn ngữ：能准确判断每镜头的景别、运动方式、光线设计
+- **叙事驱动设计**：理解每镜头在整 tập故事đang xử lý...和功能，确保镜头设计服务于叙事
 - 场面调度：运用三角形原理、内外反拍等技法处理Chat场面
 - 动态捕捉：能准确判断镜头的bắt đầu状态和kết thúc状态是否有显著差异
 - AI视频生成经验：深谙 Seedance、Sora、Runway 等 AI 视频模型的工作原理
@@ -1886,13 +1886,13 @@ async function callAIForShotCalibration(
 【剧本信息】
 ${contextInfo}
 ${episodeSynopsis ? `
-本集大纲：${episodeSynopsis}` : ''}
+本 tậpđại cương：${episodeSynopsis}` : ''}
 ${episodeKeyEvents && episodeKeyEvents.length > 0 ? `
 quan trọng事件：${episodeKeyEvents.join('、')}` : ''}
 ${worldSetting ? `
-世界观：${worldSetting.slice(0, 200)}` : ''}
+Bối cảnh thế giới：${worldSetting.slice(0, 200)}` : ''}
 ${themes && themes.length > 0 ? `
-主题：${themes.join('、')}` : ''}
+Chủ đề：${themes.join('、')}` : ''}
 ${outline ? `
 故事背景：${outline.slice(0, 400)}` : ''}
 ${characterBios ? `
@@ -1908,7 +1908,7 @@ ${characterBios ? `
    - 如果原文包含闪回/叠画内容，用「画面叠加」「画đang xử lý...主观回忆」等方式描述，而不是描述成另一场景
    - 例：主场景是"张家客厅"，原文提到"闪回台球厅"，应描述为"张家客厅đang xử lý...叠加台球厅的回忆画面"
 
-2. **严格基于原文**：每分镜都附带了【原始剧本文本】，你的Tất cả生成内容必须完全基于该原文：
+2. **严格基于原文**：每分镜都附带了【gốc剧本文本】，你的Tất cả生成内容必须完全基于该原文：
    - 视觉描述必须包含原文đang xử lý...Tất cảquan trọng元素（nhân vật、动作、道具、场景）
    - 不得添加原文đang xử lý...内容
    - 不得混入其他分镜的内容
@@ -1930,7 +1930,7 @@ ${characterBios ? `
    - 复杂动作序列：5-8秒
 
 5. **音频设计**（必须用đang xử lý...根据原文识别并输出：
-   - ambientSound（环境音）：如"窗外鸟鸣"、"餐厅嗨杂声"、"风声"
+   - ambientSound（环境音）：如"外鸟鸣"、"餐厅嗨杂声"、"风声"
    - soundEffect（音效）：如"酒杯碎裂声"、"脚步声"、"门关闭声"
 
 【任务】
@@ -1948,7 +1948,7 @@ ${characterBios ? `
 8. 环境音 (ambientSound): **đang xử lý...，根据场景推断
 9. 音效 (soundEffect): **đang xử lý...，根据动作推断
 
-**叙事驱动trường（重要！必须基于本集大纲分析）：**
+**叙事驱动trường（重要！必须基于本 tậpđại cương分析）：**
 10. 叙事功能 (narrativeFunction): 铺垫/升级/cao trào/转折/过渡/尾声
 11. 镜头目的 (shotPurpose): 为什么用这镜头？一句话说明
 12. 视觉焦点 (visualFocus): 观众应该按什么顺序看？用箭头表示
@@ -1980,7 +1980,7 @@ ${characterBios ? `
     
     a) **场景环境**：
        - 地点类型（家庭餐厅/办公室/街道等）
-       - 环境细节（窗外景色、室内陈设、道具布置）
+       - 环境细节（外景色、室内陈设、道具布置）
        - 时间氛围（ban ngày/傍晚/ban đêm、季节感）
     
     b) **光线设计**：
@@ -1992,7 +1992,7 @@ ${characterBios ? `
        - 年龄段（青年/đang xử lý...年）
        - 服装概述（休闲装/正装/工作服等）
        - Biểu cảm神态（căng thẳng/严肃/微笑/担忧）
-       - Tư thế动作（坐着/站立/俯身/手持物品）
+       - Tư thế动作（坐着/站立/俯身/手持vật phẩm）
     
     d) **bố cục与景别**：
        - 景别描述（đang xử lý...入画/近景半身/特写Khuôn mặt）
@@ -2000,7 +2000,7 @@ ${characterBios ? `
        - 视觉焦点（主体在画面何处）
     
     e) **重要道具**：
-       - 剧情quan trọng道具（证书、物品、食物等）
+       - 剧情quan trọng道具（证书、vật phẩm、食物等）
        - 道具状态（手持/放置/Hiển thị）
     
     f) **画面风格**：
@@ -2047,10 +2047,10 @@ ${characterBios ? `
 19. 是否需要尾帧 (needsEndFrame):
     **必须设置为 true**：
     - nhân vật位置变化（走动、起身、坐下等）
-    - 动作序列（拿起物品、放下东西等）
-    - 状态变化（门打开/关闭、物品移动等）
+    - 动作序列（拿起vật phẩm、放下东西等）
+    - 状态变化（门打开/关闭、vật phẩm移动等）
     - 镜头运动（非Static）
-    - 物品状态变化（翻页、收起等）
+    - vật phẩm状态变化（翻页、收起等）
     
     **可以设置为 false**：
     - 纯对白（位置không thay đổi）
@@ -2091,7 +2091,7 @@ ${getMediaTypeGuidance(mt)}
 {
   "shots": {
     "shot_id_1": {
-      "visualDescription": "窗外栩子花绽放，餐桌旁，张明神情căng thẳng地与父母吃饭，父亲手持985研究生毕业证书反复观看。",
+      "visualDescription": "外栩子花绽放，餐桌旁，张明神情căng thẳng地与父母吃饭，父亲手持985研究生毕业证书反复观看。",
       "visualPrompt": "Gardenias blooming outside window, at dining table Zhang Ming eating nervously with parents, father holding graduate certificate examining it repeatedly",
       "shotSize": "MS",
       "cameraMovement": "static",
@@ -2103,14 +2103,14 @@ ${getMediaTypeGuidance(mt)}
       "soundEffect": "",
       "narrativeFunction": "铺垫",
       "shotPurpose": "建立家庭表面和谐但暗藏张力的氛围，用毕业证书暗示父亲对儿子的期望",
-      "visualFocus": "窗外栀子花 → 张明căng thẳng的脸 → 父亲手đang xử lý...",
+      "visualFocus": "外栀子花 → 张明căng thẳng的脸 → 父亲手đang xử lý...",
       "cameraPosition": "张明侧后方45°，可见三人关系",
       "characterBlocking": "张明(đang xử lý...s 父母(两侧)，形成包围感",
       "rhythm": "缓慢、压抑，营造表面平静下的căng thẳng感",
       "lightingStyle": "natural",
       "lightingDirection": "side",
       "colorTemperature": "warm-3200K",
-      "lightingNotes": "午后侧光透过窗户，形成温暖但带有压迫感的明暗对比",
+      "lightingNotes": "午后侧光透过户，形成温暖但带有压迫感的明暗对比",
       "depthOfField": "medium",
       "focusTarget": "张明căng thẳng的Khuôn mặtBiểu cảm",
       "focusTransition": "rack-focus",
@@ -2123,12 +2123,12 @@ ${getMediaTypeGuidance(mt)}
       "focalLength": "50mm",
       "photographyTechnique": "",
       "imagePrompt": "Cinematic medium shot, modern Chinese family dining room, warm afternoon sunlight through window with blooming gardenias outside, young man Zhang Ming (25, casual clothes, tense expression) sitting at dining table with his middle-aged parents, father (50s, stern face, holding graduate certificate examining it), mother (50s, worried look) beside them, wooden dining table with home-cooked dishes, warm color tones, realistic film style",
-      "imagePromptZh": "电影感đang xử lý...代đang xử lý...餐厅，午后温暖阳光透过窗户洒入，窗外栩子花盛开。青年张明（25岁，休闲装，神情căng thẳng）坐在餐桌旁，đang xử lý...（50多岁，严肃Biểu cảm，手持985研究生毕业证书反复查看），母亲（50多岁，担忧神情）坐在旁边。木质餐桌上摆着家常菜肴，温暖色调，写实电影风格。",
+      "imagePromptZh": "电影感đang xử lý...代đang xử lý...餐厅，午后温暖阳光透过户洒入，外栩子花盛开。青年张明（25 tuổi，休闲装，神情căng thẳng）坐在餐桌旁，đang xử lý...（50多 tuổi，严肃Biểu cảm，手持985研究生毕业证书反复查看），母亲（50多 tuổi，担忧神情）坐在旁边。木质餐桌上摆着家常菜肴，温暖色调，写实电影风格。",
       "videoPrompt": "Father repeatedly examining graduate certificate with focused attention, Zhang Ming eating nervously with chopsticks, occasionally glancing at father, mother sitting beside watching silently with worried expression",
       "videoPromptZh": "父亲专注地反复观看毕业证书，张明用筷子căng thẳng地吃饭，不时偷瞄父亲，母亲坐在旁边默默看着，神情担忧。",
       "needsEndFrame": true,
       "endFramePrompt": "Cinematic medium shot, same modern Chinese family dining room, warm afternoon light. Father (50s) now lowering the certificate with satisfied yet stern expression, Zhang Ming (25) stopped eating and looking down nervously, mother (50s) glancing between husband and son with concern. Certificate now placed on table beside dishes, tense atmosphere, warm color tones, realistic film style",
-      "endFramePromptZh": "电影感đang xử lý...样的现代đang xử lý...餐厅，午后温暖光线。父亲（50多岁）已放下证书，Biểu cảmhài lòng但仍严肃；张明（25岁）停下筷子，低头神情căng thẳng；母亲（50多岁）目光在父子之间游移，神情担忧。证书已放在餐桌上菜肴旁边，气氛căng thẳng，温暖色调，写实电影风格。"
+      "endFramePromptZh": "电影感đang xử lý...样的现代đang xử lý...餐厅，午后温暖光线。父亲（50多 tuổi）已放下证书，Biểu cảmhài lòng但仍严肃；张明（25 tuổi）停下筷子，低头神情căng thẳng；母亲（50多 tuổi）目光在父子之间游移，神情担忧。证书已放在餐桌上菜肴旁边，气氛căng thẳng，温暖色调，写实电影风格。"
     }
   }
 }
@@ -2150,7 +2150,7 @@ ${getMediaTypeGuidance(mt)}
     const artDesignParts = [
       shot.architectureStyle ? `建筑风格: ${shot.architectureStyle}` : '',
       shot.colorPalette ? `色彩基调: ${shot.colorPalette}` : '',
-      shot.eraDetails ? `时代特征: ${shot.eraDetails}` : '',
+      shot.eraDetails ? `thời đại特征: ${shot.eraDetails}` : '',
       shot.lightingDesign ? `光影设计: ${shot.lightingDesign}` : '',
     ].filter(Boolean);
     const artDesignSection = artDesignParts.length > 0 
@@ -2158,7 +2158,7 @@ ${getMediaTypeGuidance(mt)}
       : '';
     return `ID: ${shot.shotId}
 【⭐ 主场景（绝对不可thay đổi）】: ${shot.sceneLocation}${flashbackNote}${artDesignSection}
-【原始剧本文本】
+【gốc剧本文本】
 ${sourceText}
 【已解析信息】
 动作: ${shot.actionSummary}
@@ -2171,7 +2171,7 @@ ${sourceText}
 当前镜头运动: ${shot.currentCameraMovement || '待定'}`;
   }).join('\n\n═══════════════════════════════════════\n\n');
   
-  const userPrompt = `请严格基于每分镜的【原始剧本文本】生成校准内容。
+  const userPrompt = `请严格基于每分镜的【gốc剧本文本】生成校准内容。
 
 ⚠️ 重要提醒（必须遵守）：
 1. **场景归属绝对固定**：每分镜的【主场景】已经标注，即使原文提到闪回/叠画/回忆，主场景仍không thay đổi
@@ -2182,15 +2182,15 @@ ${sourceText}
 6. 角色列表必须đầy đủ
 7. 栩子花 = gardenias（不是 peonies/peony）
 
-🎬 **叙事驱动分析（基于《电影语言的语法》）**：
-- 根据「本集大纲」判断每镜头在整集故事đang xử lý...功能
+🎬 **叙事驱动分析（基于《电影Ngôn ngữ的语法》）**：
+- 根据「本 tậpđại cương」判断每镜头在整 tập故事đang xử lý...功能
 - 镜头设计必须服务于故事的情绪节奏和叙事弧线
 - 景别Chọn要配合叙事功能（铺垫用全景、cao trào用特写等）
 - 考虑nhân vật布局和机位对故事张力的影响
 
 ${shotDescriptions}`;
   
-  // 统一从服务映射获取配置（单分镜校准用更大 token 预算）
+  // 统一从ánh xạ dịch vụ获取配置（单分镜校准用更大 token 预算）
   const result = await callFeatureAPI('script_analysis', systemPrompt, userPrompt, { maxTokens: 16384 });
   
   // 解析 JSON 结果（增强版）
@@ -2245,7 +2245,7 @@ ${shotDescriptions}`;
   }
 }
 
-// ==================== AI 生成每集大纲 ====================
+// ==================== AI 生成每 tậpđại cương ====================
 
 export interface SynopsisGenerationResult {
   success: boolean;
@@ -2255,8 +2255,8 @@ export interface SynopsisGenerationResult {
 }
 
 /**
- * AI 生成每集大纲
- * 基于全局背景和每集内容，生成简洁的集大纲
+ * AI 生成每 tậpđại cương
+ * 基于全局背景和每 tập内容，生成简洁的 tậpđại cương
  */
 export async function generateEpisodeSynopses(
   projectId: string,
@@ -2274,7 +2274,7 @@ export async function generateEpisodeSynopses(
   const totalEpisodes = episodes.length;
   
   if (totalEpisodes === 0) {
-    return { success: false, generatedCount: 0, totalEpisodes: 0, error: '没有集数据' };
+    return { success: false, generatedCount: 0, totalEpisodes: 0, error: '没有 tập数据' };
   }
   
   // 获取全局背景
@@ -2290,10 +2290,10 @@ export async function generateEpisodeSynopses(
     totalEpisodes,
   };
   
-  // 注入概览里的世界观知识（角色、阵营、核心冲突、quan trọng物品等）
+  // 注入概览里的Bối cảnh thế giới知识（角色、phe phái、核心冲突、Vật phẩm quan trọng等）
   const seriesCtx = buildSeriesContextSummary(project.seriesMeta || null);
   
-  onProgress?.(0, totalEpisodes, `开始为 ${totalEpisodes} 集生成大纲...`);
+  onProgress?.(0, totalEpisodes, `开始为 ${totalEpisodes}  tập生成đại cương...`);
   
   try {
     // 准备 batch items
@@ -2313,49 +2313,49 @@ export async function generateEpisodeSynopses(
         const system = `你是好莱坞资深剧本医生(Script Doctor)，擅长分析剧本Cấu trúc和叙事节奏。
 
 你的专业能力：
-- 剧本Cấu trúc分析：能快速提炼每集的核心冲突、转折点和情感cao trào
-- 叙事节奏把控：理解不同类型剧集的节奏特点
+- 剧本Cấu trúc分析：能快速提炼每 tập的核心冲突、转折点和情感cao trào
+- 叙事节奏把控：理解不同类型剧 tập的节奏特点
 - quan trọng事件提取：能准确识别推动剧情发展的quan trọng场景和动作
 
-你的任务是根据剧本全局背景和每集内容，为每集生成简洁的大纲和quan trọng事件。
+你的任务是根据剧本全局背景和每 tập内容，为每 tập生成简洁的đại cương和quan trọng事件。
 ${seriesCtx ? `\n【剧级知识Tham chiếu】\n${seriesCtx}\n` : ''}
 【剧本信息】
-剧名：${title}
+tên phim：${title}
 类型：${genre || '未知'}
-${era ? `时代背景：${era}` : ''}
-${worldSetting ? `世界观：${worldSetting.slice(0, 200)}` : ''}
-${themes && themes.length > 0 ? `主题：${themes.join('、')}` : ''}
-总集数：${total}集
+${era ? `thời đại背景：${era}` : ''}
+${worldSetting ? `Bối cảnh thế giới：${worldSetting.slice(0, 200)}` : ''}
+${themes && themes.length > 0 ? `Chủ đề：${themes.join('、')}` : ''}
+总 tập数：${total} tập
 
-【故事大纲】
+【故事đại cương】
 ${outline.slice(0, 1000)}
 
 【主要nhân vật】
 ${characterBios.slice(0, 800)}
 
 【要求】
-为每集生成：
-1. synopsis: 100-200字的集大纲，概括本集主要剧情发展
+为每 tập生成：
+1. synopsis: 100-200字的 tậpđại cương，概括本 tập主要剧情发展
 2. keyEvents: 3-5quan trọng事件，每10-20字
 
 注意：
-- 大纲要突出本集的核心冲突和转折
+- đại cương要突出本 tập的核心冲突和转折
 - quan trọng事件要具体、可视觉化
-- 保持前后集的连贯性
+- 保持前后 tập的连贯性
 
 请以JSON格式返回：
 {
   "synopses": {
     "1": {
-      "synopsis": "本集大纲...",
+      "synopsis": "本 tậpđại cương...",
       "keyEvents": ["事件1", "事件2", "事件3"]
     }
   }
 }`;
         const episodeContents = batch.map(ep => 
-          `第${ep.index}集「${ep.title}」：\n${ep.contentSummary}`
+          `第${ep.index} tập「${ep.title}」：\n${ep.contentSummary}`
         ).join('\n\n---\n\n');
-        const user = `请为以下集数生成大纲和quan trọng事件：\n\n${episodeContents}`;
+        const user = `请为以下 tập数生成đại cương和quan trọng事件：\n\n${episodeContents}`;
         return { system, user };
       },
       parseResult: (raw) => {
@@ -2373,9 +2373,9 @@ ${characterBios.slice(0, 800)}
         }
         return result;
       },
-      estimateItemOutputTokens: () => 200, // 大纲 + keyEvents 约 200 tokens
+      estimateItemOutputTokens: () => 200, // đại cương + keyEvents 约 200 tokens
       onProgress: (completed, total, message) => {
-        onProgress?.(completed, total, `[大纲生成] ${message}`);
+        onProgress?.(completed, total, `[đại cương生成] ${message}`);
       },
     });
     
@@ -2394,15 +2394,15 @@ ${characterBios.slice(0, 800)}
     }
     
     if (failedBatches > 0) {
-      console.warn(`[集大纲生成] ${failedBatches}/${totalBatches} 批次失败`);
+      console.warn(`[ tậpđại cương生成] ${failedBatches}/${totalBatches} 批次失败`);
     }
     
-    onProgress?.(generatedCount, totalEpisodes, `已生成 ${generatedCount}/${totalEpisodes} 集大纲`);
+    onProgress?.(generatedCount, totalEpisodes, `已生成 ${generatedCount}/${totalEpisodes}  tậpđại cương`);
     
-    // 大纲生成完成后，更Dự án mới元数据 MD
+    // đại cương生成完成后，更Dự án mới元数据 MD
     const updatedMetadata = exportProjectMetadata(projectId);
     store.setMetadataMarkdown(projectId, updatedMetadata);
-    console.log('[generateSynopses] 元数据已更新，包含新生成的大纲');
+    console.log('[generateSynopses] 元数据已更新，包含新生成的đại cương');
     
     return {
       success: true,
@@ -2415,7 +2415,7 @@ ${characterBios.slice(0, 800)}
       success: false,
       generatedCount: 0,
       totalEpisodes,
-      error: error instanceof Error ? error.message : '大纲生成失败',
+      error: error instanceof Error ? error.message : 'đại cương生成失败',
     };
   }
 }
@@ -2451,51 +2451,51 @@ export function exportProjectMetadata(projectId: string): string {
   const genre = meta?.genre || background?.genre;
   const era = meta?.era || background?.era;
   if (genre) sections.push(`- **类型**：${genre}`);
-  if (era) sections.push(`- **时代**：${era}`);
-  sections.push(`- **总集数**：${episodes.length}集`);
-  if (meta?.language || scriptData?.language) sections.push(`- **语言**：${meta?.language || scriptData?.language}`);
+  if (era) sections.push(`- **thời đại**：${era}`);
+  sections.push(`- **总 tập数**：${episodes.length} tập`);
+  if (meta?.language || scriptData?.language) sections.push(`- **Ngôn ngữ**：${meta?.language || scriptData?.language}`);
   if (meta?.logline) sections.push(`- **Logline**：${meta.logline}`);
   if (meta?.centralConflict) sections.push(`- **核心冲突**：${meta.centralConflict}`);
-  if (meta?.themes?.length) sections.push(`- **主题**：${meta.themes.join('、')}`);
+  if (meta?.themes?.length) sections.push(`- **Chủ đề**：${meta.themes.join('、')}`);
   sections.push('');
   
-  // 故事大纲
+  // 故事đại cương
   const outline = meta?.outline || background?.outline;
   if (outline) {
-    sections.push('## 故事大纲');
+    sections.push('## 故事đại cương');
     sections.push(outline);
     sections.push('');
   }
   
-  // 世界观设定
+  // Bối cảnh thế giới设定
   const worldNotes = meta?.worldNotes || background?.worldSetting;
   if (worldNotes || meta?.powerSystem || meta?.socialSystem) {
-    sections.push('## 世界观设定');
+    sections.push('## Bối cảnh thế giới设定');
     if (worldNotes) sections.push(worldNotes);
-    if (meta?.socialSystem) sections.push(`- **社会体系**：${meta.socialSystem}`);
-    if (meta?.powerSystem) sections.push(`- **力量体系**：${meta.powerSystem}`);
+    if (meta?.socialSystem) sections.push(`- **xã hộihệ thống**：${meta.socialSystem}`);
+    if (meta?.powerSystem) sections.push(`- **力量hệ thống**：${meta.powerSystem}`);
     sections.push('');
   }
   
-  // 地理设定
+  // Cài đặt địa lý
   if (meta?.geography?.length) {
-    sections.push('## 地理设定');
+    sections.push('## Cài đặt địa lý');
     for (const g of meta.geography) {
       sections.push(`- **${g.name}**：${g.desc}`);
     }
     sections.push('');
   }
   
-  // quan trọng物品
+  // Vật phẩm quan trọng
   if (meta?.keyItems?.length) {
-    sections.push('## quan trọng物品');
+    sections.push('## Vật phẩm quan trọng');
     for (const item of meta.keyItems) {
       sections.push(`- **${item.name}**：${item.desc}`);
     }
     sections.push('');
   }
   
-  // 主要nhân vật（原始小传）
+  // 主要nhân vật（gốc小传）
   if (background?.characterBios) {
     sections.push('## 主要nhân vật');
     sections.push(background.characterBios);
@@ -2519,19 +2519,19 @@ export function exportProjectMetadata(projectId: string): string {
     }
   }
   
-  // 阵营/势力
+  // phe phái/势力
   if (meta?.factions?.length) {
-    sections.push('## 阵营/势力');
+    sections.push('## phe phái/势力');
     for (const f of meta.factions) {
       sections.push(`- **${f.name}**：${f.members.join('、')}`);
     }
     sections.push('');
   }
   
-  // 剧集大纲
-  sections.push('## 剧集大纲');
+  // 剧 tậpđại cương
+  sections.push('## 剧 tậpđại cương');
   for (const ep of episodes) {
-    sections.push(`### 第${ep.episodeIndex}集：${ep.title.replace(/^第\d+集[：:]？/, '')}`);
+    sections.push(`### 第${ep.episodeIndex} tập：${ep.title.replace(/^第\d+ tập[：:]？/, '')}`);
     if (ep.synopsis) {
       sections.push(ep.synopsis);
     }
@@ -2542,7 +2542,7 @@ export function exportProjectMetadata(projectId: string): string {
       }
     }
     // 显示场景数量
-    sections.push(`> 本集包含 ${ep.scenes.length} 场景`);
+    sections.push(`> 本 tập包含 ${ep.scenes.length} 场景`);
     sections.push('');
   }
   
@@ -2554,7 +2554,7 @@ export function exportProjectMetadata(projectId: string): string {
 }
 
 /**
- * 获取缺失大纲的集数
+ * 获取缺失đại cương的 tập数
  */
 export function getMissingSynopsisEpisodes(projectId: string): EpisodeRawScript[] {
   const store = useScriptStore.getState();

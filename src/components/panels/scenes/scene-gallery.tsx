@@ -90,7 +90,7 @@ export function SceneGallery({ onSceneSelect, selectedSceneId }: SceneGalleryPro
   const { activeEpisodeIndex } = useMediaPanelStore();
   const scriptProject = useActiveScriptProject();
 
-  // 集作用域过滤
+  //  tập作用域lọc
   const hasEpisodeScope = activeEpisodeIndex != null;
   const activeEpisodeId = hasEpisodeScope
     ? scriptProject?.scriptData?.episodes.find(ep => ep.index === activeEpisodeIndex)?.id
@@ -120,7 +120,7 @@ export function SceneGallery({ onSceneSelect, selectedSceneId }: SceneGalleryPro
     } else {
       items = scenes.filter((s) => s.projectId === activeProjectId);
     }
-    // Tập này过滤：只HiệnTập này关联的Cảnh + 无集绑定的全局Cảnh
+    // Tập nàylọc：只HiệnTập này关联的Cảnh + 无 tập绑定的全局Cảnh
     if (hasEpisodeScope && episodeViewScope === 'episode' && activeEpisodeId) {
       items = items.filter(s => !s.linkedEpisodeId || s.linkedEpisodeId === activeEpisodeId);
     }
@@ -147,7 +147,7 @@ export function SceneGallery({ onSceneSelect, selectedSceneId }: SceneGalleryPro
     // 根Cảnh：没有 parentSceneId 的Cảnh
     const roots = items.filter(s => !s.parentSceneId);
     
-    // 构建父con关系映射（Hỗ trợ多层嵌套）
+    // 构建父con关系映射（Hỗ trợ多层lồng nhau）
     const childMap = new Map<string, Scene[]>();
     items.forEach(s => {
       if (s.parentSceneId) {
@@ -266,7 +266,7 @@ export function SceneGallery({ onSceneSelect, selectedSceneId }: SceneGalleryPro
   };
 
   const handleDeleteFolder = (id: string) => {
-    if (confirm("Bạn có chắc muốn xóa此Thư mục?Thư mục内的Cảnh将Di chuyển đếnthư mục cha。")) {
+    if (confirm("Bạn có chắc muốn xóa thư mục này? Các cảnh bên trong sẽ được chuyển lên thư mục cha.")) {
       deleteFolder(id);
       toast.success("Thư mụcđã xóa");
     }

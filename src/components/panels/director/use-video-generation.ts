@@ -174,7 +174,7 @@ const VIDEO_FORMAT_MAP: Record<string, 'openai_official' | 'unified' | 'volc' | 
   'Hành động控制': 'kling',
   '多模态videoChỉnh sửa': 'kling',
   '数字人': 'kling',
-  '对口型': 'kling',
+  '对sổ型': 'kling',
   'video特效': 'kling',
   // 统一格式: /v1/video/generations
   'openai': 'unified', // 某些Tùy chỉnhNhà cung cấp会把videoModel标记为通用 openai
@@ -311,7 +311,7 @@ function handleVideoSubmitError(
   }
   // Tất cả 500/502/503/529 均视为可Thử lại的临时服务错误，携带 status 供Thử lại机制识别
   if (status >= 500) {
-    const err = new Error(errorMessage || `上游服务暂时不可用 (${status})`) as Error & { status?: number };
+    const err = new Error(errorMessage || `上游服务暂时不Khả dụng (${status})`) as Error & { status?: number };
     err.status = status;
     throw err;
   }
@@ -327,7 +327,7 @@ function handleVideoSubmitError(
  * 当九宫格切割后的ảnh尺寸过小时，Tự động放大到满足最低要求后重新Tải lên。
  * @param imageUrl  HTTP URL ảnh地址
  * @param minDimension  宽高的最小像素值（Mặc định 300，匹配 Seedance 等Model要求）
- * @returns 原始 URL（尺寸达标）或放大后重新Tải lên的新 URL
+ * @returns gốc URL（尺寸达标）或放大后重新Tải lên的新 URL
  */
 async function ensureMinImageSize(
   imageUrl: string,
@@ -404,7 +404,7 @@ async function ensureMinImageSize(
   }
 }
 
-// ==================== Tạo video主入口 ====================
+// ==================== Tạo video主入sổ ====================
 
 /** AbortSignal 感知的 sleep：若信号触发则立即以 '用户已Hủy' 拒绝 */
 function sleepOrAbort(ms: number, signal?: AbortSignal): Promise<void> {
@@ -440,7 +440,7 @@ export async function callVideoGenerationApi(
   const featureConfig = getFeatureConfig('video_generation');
   const resolvedPlatform = platform || featureConfig?.platform;
   if (!resolvedPlatform) {
-    throw new Error('请先在Cài đặtđang xử lý...ạo video服务映射');
+    throw new Error('请先在Cài đặtđang xử lý...ạo videoánh xạ dịch vụ');
   }
   const model = featureConfig?.models?.[0];
   if (!model) {
@@ -448,7 +448,7 @@ export async function callVideoGenerationApi(
   }
   const videoBaseUrl = featureConfig?.baseUrl?.replace(/\/+$/, '');
   if (!videoBaseUrl) {
-    throw new Error('请先在Cài đặtđang xử lý...ạo video服务映射');
+    throw new Error('请先在Cài đặtđang xử lý...ạo videoánh xạ dịch vụ');
   }
 
   // 确保Tất cả输入ảnh满足video API 的最小尺寸要求（如 Seedance ≥ 300px）
@@ -620,7 +620,7 @@ async function callUnifiedVideoApi(
 
   console.log('[VideoGen] Unified submit response:', submitData);
 
-  // 提取任务 ID（覆盖各Nền tảng的嵌套响应格式）
+  // 提取任务 ID（覆盖各Nền tảng的lồng nhau响应格式）
   const taskId = (
     submitData.task_id ||
     submitData.id ||
@@ -794,7 +794,7 @@ async function callVolcVideoApi(
 
   // 提取任务 ID（tương thích多种响应格式）
   // MemeFast trung gian: { id: "cgt-..." }  /  原生火山方舟: { id: "01973..." }
-  // 也tương thích response.* / result.* 嵌套格式
+  // 也tương thích response.* / result.* lồng nhau格式
   const taskId = (
     submitData.id ||
     submitData.task_id ||
@@ -1522,7 +1522,7 @@ export async function callJuxinVideoGenerationApi(
 ): Promise<string> {
   const apiBaseUrl = baseUrl?.replace(/\/+$/, '');
   if (!apiBaseUrl) {
-    throw new Error('请先在Cài đặtđang xử lý...ạo video服务映射');
+    throw new Error('请先在Cài đặtđang xử lý...ạo videoánh xạ dịch vụ');
   }
   if (!model) {
     throw new Error('请先在Cài đặtđang xử lý...ạo videoModel');

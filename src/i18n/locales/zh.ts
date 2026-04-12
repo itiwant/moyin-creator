@@ -14,8 +14,8 @@ const zh = {
     edit: "编辑",
     close: "关闭",
     back: "返回",
-    next: "下一步",
-    previous: "上一步",
+    next: "Bước tiếp theo",
+    previous: "Bước trước",
     add: "添加",
     create: "创建",
     update: "更新",
@@ -37,7 +37,7 @@ const zh = {
     initializing: "正在初始化...",
     processing: "处理đang xử lý...",
     success: "成功",
-    error: "错误",
+    error: "Lỗi",
     warning: "警告",
     info: "信息",
     unknown_error: "未知错误",
@@ -128,7 +128,7 @@ const zh = {
     theme_dark: "深色",
     switch_to_light: "切换到浅色chế độ",
     switch_to_dark: "切换到深色chế độ",
-    language: "语言",
+    language: "Ngôn ngữ",
   },
 
   dashboard: {
@@ -156,7 +156,7 @@ const zh = {
     untitled_project: "未đặt tên项目",
     enter_new_name: "输入新名称...",
     new_name_placeholder: "输入项目名称...",
-    episodes: "集",
+    episodes: " tập",
     shots: "分镜",
   },
 

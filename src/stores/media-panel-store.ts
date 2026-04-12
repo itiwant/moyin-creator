@@ -89,7 +89,7 @@ export interface PendingDirectorData {
   sceneCount?: number; // 1 for single shot, N for scene with N shots
   styleId?: string; // Visual style from script
   sourceType?: 'shot' | 'scene' | 'episode'; // What triggered this jump
-  // 集作用域透传
+  //  tập作用域透传
   sourceEpisodeIndex?: number;
   sourceEpisodeId?: string;
 }
@@ -109,13 +109,13 @@ export interface PendingCharacterData {
   tags?: string[];    // Thẻ nhân vật
   notes?: string;     // Ghi chú nhân vật
   styleId?: string;
-  // 集作用域透传
+  //  tập作用域透传
   sourceEpisodeIndex?: number;
   sourceEpisodeId?: string;
   // === 年代信息（从Kịch bản元数据传递）===
   storyYear?: number;  // Năm câu chuyện, ví dụ 2002
   era?: string;        // Mô tả bối cảnh thời đại
-  // === prompt语言偏好（从Kịch bản面板透传）===
+  // === promptNgôn ngữ偏好（从Kịch bản面板透传）===
   promptLanguage?: import('@/types/script').PromptLanguage;  // 'vi' | 'en' | 'vi+en'
   // === 专业Nhân vật设计trường（世界级大师Tạo） ===
   visualPromptEn?: string;  // 英文Prompt thị giác
@@ -146,10 +146,10 @@ export interface PendingSceneData {
   styleId?: string;
   tags?: string[];        // CảnhThẻ
   notes?: string;         // CảnhGhi chú
-  // 集作用域透传
+  //  tập作用域透传
   sourceEpisodeIndex?: number;
   sourceEpisodeId?: string;
-  // prompt语言偏好
+  // promptNgôn ngữ偏好
   promptLanguage?: import('@/types/script').PromptLanguage;
   
   // === 专业Cảnh设计（đầy đủ传递）===
@@ -180,7 +180,7 @@ export interface PendingViewpointData {
   pageIndex: number;    // 属于第几张联合图（从0Bắt đầu）
 }
 
-// 联合图prompt集合（Hỗ trợ多张）
+// 联合图prompt tập合（Hỗ trợ多张）
 export interface ContactSheetPromptSet {
   pageIndex: number;          // 第几张联合图（从0Bắt đầu）
   prompt: string;             // 英文prompt

@@ -3,14 +3,14 @@
 // Commercial licensing available. See COMMERCIAL_LICENSE.md.
 /**
  * Episode Parser - đang xử lý...规则解析器
- * 解析标准đang xử lý...格式，提取集、场景、对白、动作等Cấu trúc化信息
+ * 解析标准đang xử lý...格式，提取 tập、场景、对白、动作等Cấu trúc化信息
  * 
  * 支持的格式：
- * - 集标记：第X集
+ * -  tập标记：第X tập
  * - 场景头：**1-1日 内 沪上 张家** 或 1-1 日 内 沪上 张家
  * - nhân vật行：nhân vật：张明、张父
  * - 字幕：【字幕：2002年夏】
- * - 动作描写：△窗外栀子花绽放...
+ * - 动作描写：△外栀子花绽放...
  * - 对白：张父：（喝酒）我们明明真是太有出息了！
  * - 闪回：【闪回】...【闪回kết thúc】
  * - 旁白/VO：【VO：...】
@@ -44,7 +44,7 @@ function cleanLocationString(location: string): string {
 }
 
 /**
- * 解析đầy đủ剧本文本，提取背景信息和各集内容
+ * 解析đầy đủ剧本文本，提取背景信息和各 tập内容
  */
 export function parseFullScript(fullText: string): {
   background: ProjectBackground;
@@ -56,31 +56,31 @@ export function parseFullScript(fullText: string): {
   const titleMatch = fullText.match(/[《「]([^》」]+)[》」]/);
   const title = titleMatch ? titleMatch[1] : '未命名剧本';
   
-  // 2. 提取大纲（从"大纲："到"nhân vật小传："之间的内容）
-  // 支持 Markdown 格式：**大纲：** 或 大纲： 或 【大纲】
-  // 末尾 |$ 兜底：无nhân vật小传/无集标记时匹配到文本末尾
-  const outlineMatch = fullText.match(/(?:\*{0,2}大纲[：:]​?\*{0,2}|【大纲】)([\s\S]*?)(?=(?:\*{0,2}nhân vật小传[：:]|【nhân vật|第[一二三四五六七八九十\d]+集|$))/i);
+  // 2. 提取đại cương（从"đại cương："到"nhân vật小传："之间的内容）
+  // 支持 Markdown 格式：**đại cương：** 或 đại cương： 或 【đại cương】
+  // 末尾 |$ 兜底：无nhân vật小传/无 tập标记时匹配到文本末尾
+  const outlineMatch = fullText.match(/(?:\*{0,2}đại cương[：:]​?\*{0,2}|【đại cương】)([\s\S]*?)(?=(?:\*{0,2}nhân vật小传[：:]|【nhân vật|第[一二三四五六七八九十\d]+ tập|$))/i);
   const outline = outlineMatch ? outlineMatch[1].trim() : '';
   
-  // 3. 提取nhân vật小传（从"nhân vật小传："到第一集之前的内容）
+  // 3. 提取nhân vật小传（从"nhân vật小传："到第一 tập之前的内容）
   // 支持 Markdown 格式：**nhân vật小传：** 或 nhân vật小传： 或 【nhân vật小传】
-  // 末尾 |$ 兜底：无集标记时匹配到文本末尾
-  const characterBiosMatch = fullText.match(/(?:\*{0,2}nhân vật小传[：:]\*{0,2}|【nhân vật小传】)([\s\S]*?)(?=\*{0,2}第[一二三四五六七八九十\d]+集|$)/i);
+  // 末尾 |$ 兜底：无 tập标记时匹配到文本末尾
+  const characterBiosMatch = fullText.match(/(?:\*{0,2}nhân vật小传[：:]\*{0,2}|【nhân vật小传】)([\s\S]*?)(?=\*{0,2}第[一二三四五六七八九十\d]+ tập|$)/i);
   const characterBios = characterBiosMatch ? characterBiosMatch[1].trim() : '';
   
-  // 4. 提取时代背景和时间线设定
+  // 4. 提取thời đại背景和时间线设定
   const { era, timelineSetting, storyStartYear, storyEndYear } = extractTimelineInfo(outline, characterBios);
   
   // 5. 提取类型（genre）
   const genre = detectGenre(outline, characterBios);
   
-  // 6. 提取世界观/风格设定
+  // 6. 提取Bối cảnh thế giới/风格设定
   const worldSetting = extractWorldSetting(outline, characterBios);
   
-  // 7. 提取主题quan trọng词
+  // 7. 提取Chủ đềquan trọng词
   const themes = extractThemes(outline, characterBios);
   
-  // 8. 解析各集内容
+  // 8. 解析各 tập内容
   const episodes = parseEpisodes(fullText);
   
   return {
@@ -101,7 +101,7 @@ export function parseFullScript(fullText: string): {
 }
 
 /**
- * 从大纲和nhân vật小传đang xử lý...间线信息
+ * 从đại cương和nhân vật小传đang xử lý...间线信息
  */
 function extractTimelineInfo(outline: string, characterBios: string): {
   era: string;
@@ -141,7 +141,7 @@ function extractTimelineInfo(outline: string, characterBios: string): {
     }
   }
   
-  // 2. 提取时代背景（如"现代"、"民国"、"唐朝"）
+  // 2. 提取thời đại背景（如"现代"、"民国"、"唐朝"）
   const eraPatterns = [
     /(现代|当代|近代|民国|清末|清朝|明朝|宋朝|唐朝|汉朝|三国|战国|春秋|古代|远古|未来)/,
     /(二十世纪|二十一世纪|20世纪|21世纪|\d{2}年代)/,
@@ -156,7 +156,7 @@ function extractTimelineInfo(outline: string, characterBios: string): {
     }
   }
   
-  // 3. 根据年份推断时代
+  // 3. 根据年份推断thời đại
   if (storyStartYear) {
     if (storyStartYear >= 2000) {
       era = '现代';
@@ -203,7 +203,7 @@ function extractTimelineInfo(outline: string, characterBios: string): {
 }
 
 /**
- * 从大纲和nhân vật小传đang xử lý...本类型（genre）
+ * 从đại cương和nhân vật小传đang xử lý...本类型（genre）
  * 通用检测，不硬编码具体类型名，而是通过quan trọng词chế độ匹配
  */
 function detectGenre(outline: string, characterBios: string): string {
@@ -243,14 +243,14 @@ function detectGenre(outline: string, characterBios: string): string {
 }
 
 /**
- * 从大纲đang xử lý...界观/风格设定
+ * 从đại cươngđang xử lý...界观/风格设定
  */
 function extractWorldSetting(outline: string, characterBios: string): string {
   const fullText = `${outline}\n${characterBios}`;
   
-  // 匹配常见世界观描述chế độ
+  // 匹配常见Bối cảnh thế giới描述chế độ
   const patterns = [
-    /(?:世界观|世界设定|背景设定)[：:] *([^\n]{10,200})/,
+    /(?:Bối cảnh thế giới|世界设定|背景设定)[：:] *([^\n]{10,200})/,
     /(?:故事发生在|故事背景[：:是]) *([^\n]{10,200})/,
     /(?:设定[：:]) *([^\n]{10,200})/,
   ];
@@ -262,24 +262,24 @@ function extractWorldSetting(outline: string, characterBios: string): string {
     }
   }
   
-  return ''; // 无世界观描述则Để trống
+  return ''; // 无Bối cảnh thế giới描述则Để trống
 }
 
 /**
- * 从大纲đang xử lý...题quan trọng词
+ * 从đại cươngđang xử lý...题quan trọng词
  */
 function extractThemes(outline: string, characterBios: string): string[] {
   const fullText = `${outline}\n${characterBios}`;
   const themes: string[] = [];
   
-  // 主题quan trọng词库（通用，覆盖各类剧本）
+  // Chủ đềquan trọng词库（通用，覆盖各类剧本）
   const themePatterns: Array<{ keywords: RegExp; theme: string }> = [
     { keywords: /奋斗|拼搏|逆袭|成长/, theme: '奋斗' },
     { keywords: /复仇|报仇|雪恨/, theme: '复仇' },
     { keywords: /爱情|爱恋|真爱|恋爱/, theme: '爱情' },
     { keywords: /亲情|家庭|家人/, theme: '亲情' },
     { keywords: /友情|兄弟|义气|忠诚/, theme: '友情' },
-    { keywords: /权力|争斗|权谋|阴谋/, theme: '权谋' },
+    { keywords: /quyền lực|争斗|权谋|阴谋/, theme: '权谋' },
     { keywords: /正义|公平|法治|真相/, theme: '正义' },
     { keywords: /自由|解放|独立/, theme: '自由' },
     { keywords: /救赎|原谅|和解|忏悔/, theme: '救赎' },
@@ -296,26 +296,26 @@ function extractThemes(outline: string, characterBios: string): string[] {
     }
   }
   
-  return themes.slice(0, 5); // 最多返回5主题
+  return themes.slice(0, 5); // 最多返回5Chủ đề
 }
 
 /**
- * 解析各集剧本
+ * 解析各 tập剧本
  */
 export function parseEpisodes(text: string): EpisodeRawScript[] {
   const episodes: EpisodeRawScript[] = [];
   
-  // 匹配集标记：第X集 或 第X集：标题
-  // 支持 **第X集** 或 **第X集：标题** 格式
-  const episodeRegex = /\*{0,2}第([\u4e00\u4e8c\u4e09\u56db\u4e94\u516d\u4e03\u516b\u4e5d\u5341\u767e\u5343\d]+)集[\uff1a:]?\s*([^\n\*]*?)\*{0,2}(?=\n|$)/g;
+  // 匹配 tập标记：第X tập 或 第X tập：标题
+  // 支持 **第X tập** 或 **第X tập：标题** 格式
+  const episodeRegex = /\*{0,2}第([\u4e00\u4e8c\u4e09\u56db\u4e94\u516d\u4e03\u516b\u4e5d\u5341\u767e\u5343\d]+) tập[\uff1a:]?\s*([^\n\*]*?)\*{0,2}(?=\n|$)/g;
   const matches = [...text.matchAll(episodeRegex)];
   
   if (matches.length === 0) {
-    // 如果没有找到集标记，把整文本当作第一集
+    // 如果没有找到 tập标记，把整文本当作第一 tập
     const scenes = parseScenes(text);
     return [{
       episodeIndex: 1,
-      title: '第一集',
+      title: '第一 tập',
       rawContent: text,
       scenes,
       shotGenerationStatus: 'idle',
@@ -327,12 +327,12 @@ export function parseEpisodes(text: string): EpisodeRawScript[] {
     const episodeIndex = chineseToNumber(match[1]);
     // 清理标题：移除前后空格和 ** 符号
     let rawTitle = match[2]?.trim().replace(/^\*+|\*+$/g, '').trim() || '';
-    // 确保标题包含集号
+    // 确保标题包含 tập号
     const episodeTitle = rawTitle 
-      ? `第${episodeIndex}集：${rawTitle}` 
-      : `第${episodeIndex}集`;
+      ? `第${episodeIndex} tập：${rawTitle}` 
+      : `第${episodeIndex} tập`;
     
-    // 获取本集内容（从当前集到下一集之间）
+    // 获取本 tập内容（从当前 tập到下一 tập之间）
     const startIndex = match.index! + match[0].length;
     const endIndex = i < matches.length - 1 ? matches[i + 1].index! : text.length;
     const rawContent = text.slice(startIndex, endIndex).trim();
@@ -357,7 +357,7 @@ export function parseEpisodes(text: string): EpisodeRawScript[] {
 }
 
 /**
- * 解析单集内的场景
+ * 解析单 tập内的场景
  */
 export function parseScenes(episodeText: string): SceneRawContent[] {
   const scenes: SceneRawContent[] = [];
@@ -371,7 +371,7 @@ export function parseScenes(episodeText: string): SceneRawContent[] {
   
   if (sceneMatches.length === 0) {
     // 没有找到标准场景头，尝试宽松的 数字-数字 格式
-    // 匹配如：1-1 规则怪谈世界，集合广场，日  或  1-2 全球同一会议直播间，日
+    // 匹配如：1-1 规则怪谈世界， tập合广场，日  或  1-2 全球同一会议直播间，日
     const looseSceneRegex = /^\*{0,2}(\d+-\d+)\s+([^\*\n]+)\*{0,2}$/gm;
     const looseMatches = [...episodeText.matchAll(looseSceneRegex)];
     
@@ -379,7 +379,7 @@ export function parseScenes(episodeText: string): SceneRawContent[] {
       for (let i = 0; i < looseMatches.length; i++) {
         const match = looseMatches[i];
         const sceneNumber = match[1]; // 如 "1-1"
-        const rawDesc = match[2].replace(/\*{1,2}/g, '').trim(); // 如 "规则怪谈世界，集合广场，日"
+        const rawDesc = match[2].replace(/\*{1,2}/g, '').trim(); // 如 "规则怪谈世界， tập合广场，日"
         
         // 从描述đang xử lý...取时间（日/夜/晨/暮等），通常在末尾
         const timeWords = ['日', '夜', '晨', '暮', 'Hoàng hôn', 'Bình minh', '清晨', '傍晚'];
@@ -600,7 +600,7 @@ function parseCharacters(text: string): string[] {
   const dialogueMatches = [...text.matchAll(dialogueRegex)];
   dialogueMatches.forEach(m => {
     const name = m[1].trim();
-    // 过滤掉非人名的内容
+    // lọc掉非人名的内容
     if (name && !name.match(/^[△【字幕旁白VO场景]/)) {
       characters.add(name);
     }
@@ -626,7 +626,7 @@ function parseDialogues(text: string): DialogueLine[] {
     const parenthetical = match[2]?.trim();
     const line = match[3]?.trim();
     
-    // 过滤掉非对白内容
+    // lọc掉非对白内容
     if (character && line && !character.match(/^[字幕旁白场景nhân vật]/)) {
       dialogues.push({
         character,
@@ -735,7 +735,7 @@ export function parseCharacterBios(bios: string): ScriptCharacter[] {
 
 /**
  * 紧凑格式解析：角色名：年龄：XX身份：...quan trọng行为：...
- * 自动剥离段落标记（一、核心主角 等）提取真实角色名
+ * 自动剥离段落标记（一、核心nhân vật chính 等）提取真实角色名
  */
 function parseCompactBioFormat(bios: string, matches: RegExpMatchArray[]): ScriptCharacter[] {
   const characters: ScriptCharacter[] = [];
@@ -775,14 +775,14 @@ function parseCompactBioFormat(bios: string, matches: RegExpMatchArray[]): Scrip
 
 /**
  * 从含段落标记的名字đang xử lý...实角色名
- * 如 "核心主角萧惊鸿" → "萧惊鸿"，"chính diện势力角色赵将军" → "赵将军"
+ * 如 "核心nhân vật chính萧惊鸿" → "萧惊鸿"，"chính diện势力角色赵将军" → "赵将军"
  */
 function stripSectionKeywords(name: string): string {
   // 1. 移除开头的đang xử lý...：一、 二. 等
   name = name.replace(/^[一二三四五六七八九十\d]+[、.]\s*/, '');
   // 2. 移除段落类别quan trọng词
   name = name.replace(
-    /^(?:核心|主要|chính diện|反面|反派|次要|重要|quan trọng|群众|正派|其他)(?:势力)?(?:角色|主角|配角|nhân vật)?/,
+    /^(?:核心|主要|chính diện|反面|反派|次要|重要|quan trọng|群众|正派|其他)(?:势力)?(?:角色|nhân vật chính|nhân vật phụ|nhân vật)?/,
     ''
   ).trim();
   return name;
@@ -794,13 +794,13 @@ function stripSectionKeywords(name: string): string {
 function parseStandardBioFormat(bios: string): ScriptCharacter[] {
   const characters: ScriptCharacter[] = [];
   
-  const charRegex = /([^：:\n，,]+?)(?:[（\(](\d+岁?)[）\)])?[：:]\s*([^\n]+(?:\n(?![^：:\n]+[：:])[^\n]+)*)/g;
+  const charRegex = /([^：:\n，,]+?)(?:[（\(](\d+ tuổi?)[）\)])?[：:]\s*([^\n]+(?:\n(?![^：:\n]+[：:])[^\n]+)*)/g;
   const matches = [...bios.matchAll(charRegex)];
   
   let index = 1;
   for (const match of matches) {
     const name = match[1].trim();
-    const age = match[2]?.replace('岁', '') || '';
+    const age = match[2]?.replace(' tuổi', '') || '';
     const description = match[3].trim();
     
     // 跳过非角色内容
@@ -886,7 +886,7 @@ function splitMultipleCharacters(rawName: string): string[] {
 }
 
 /**
- * 检查是否为有效角色名（放宽过滤，让 AI 做智能校准）
+ * 检查是否为有效角色名（放宽lọc，让 AI 做智能校准）
  */
 function isValidCharacterName(name: string): boolean {
   // 跳过空名字
@@ -897,7 +897,7 @@ function isValidCharacterName(name: string): boolean {
   if (/^\d+$/.test(name)) return false;
   // 跳过包含特殊符号的
   if (/[\*\-\+\=\>\<\|\[\]\{\}]/.test(name)) return false;
-  // 跳过明显的非角色词（只过滤最明显的，其他交给AI）
+  // 跳过明显的非角色词（只lọc最明显的，其他交给AI）
   const obviousNonCharacters = [
     'VO', '旁白', 'os', '左边', '右边', 'đang xử lý... '背影', '远处',
     '效率', '回流率', '分拣', '客户', '眼眶', '微湿', '手持', '笔挺',
@@ -908,7 +908,7 @@ function isValidCharacterName(name: string): boolean {
 }
 
 /**
- * 处理单角色名字并添加到集合
+ * 处理单角色名字并添加到 tập合
  */
 function processAndAddCharacter(
   rawName: string,
@@ -985,7 +985,7 @@ function extractCharactersFromScenes(
     newCharacters.push({
       id: `char_${index.value}`,
       name,
-      role: count > 5 ? `重要配角（出场${count}次）` : `次要角色（出场${count}次）`,
+      role: count > 5 ? `重要nhân vật phụ（出场${count}次）` : `次要角色（出场${count}次）`,
     });
     index.value++;
   }
@@ -1103,13 +1103,13 @@ function detectAtmosphere(content: string): string {
  * 提取剧本概述
  */
 function extractLogline(outline: string): string {
-  // 取大纲的第一句话作为概述
+  // 取đại cương的第一句话作为概述
   const firstSentence = outline.match(/^[^。！？\n]+[。！？]/);
   return firstSentence ? firstSentence[0] : outline.slice(0, 100);
 }
 
 /**
- * 提取集概述
+ * 提取 tập概述
  */
 function extractEpisodeDescription(content: string): string {
   // 取前100字符作为概述

@@ -4,13 +4,13 @@
 // 完成状态
 export type CompletionStatus = 'pending' | 'in_progress' | 'completed';
 
-// 提示词语言Tùy chọn
+// 提示词Ngôn ngữTùy chọn
 export type PromptLanguage = 'zh' | 'en' | 'zh+en';
 
 // AI角色校准严格度
 export type CalibrationStrictness = 'strict' | 'normal' | 'loose';
 
-/** 被过滤的角色记录（用于恢复） */
+/** 被lọc的角色记录（用于恢复） */
 export interface FilteredCharacterRecord {
   name: string;
   reason: string;
@@ -18,12 +18,12 @@ export interface FilteredCharacterRecord {
 
 /**
  * 角色阶段信息
- * 用于nhãn角色在特定集数范围内的形象版本
+ * 用于nhãn角色在特定 tập数范围内的形象版本
  */
 export interface CharacterStageInfo {
   stageName: string;              // 阶段名称："青年版"、"Phiên bản trung niên"、"Khởi nghiệp ban đầu"
-  episodeRange: [number, number]; // 适用集数范围：[bắt đầu集, kết thúc集]
-  ageDescription?: string;        // 该阶段年龄描述："25岁"、"50岁"
+  episodeRange: [number, number]; // 适用 tập数范围：[bắt đầu tập, kết thúc tập]
+  ageDescription?: string;        // 该阶段年龄描述："25 tuổi"、"50 tuổi"
 }
 
 /**
@@ -98,7 +98,7 @@ export interface ScriptCharacter {
   characterLibraryId?: string; // 关联的角色库ID
   
   // === 多阶段角色支持 ===
-  baseCharacterId?: string;        // 原始角色ID（阶段角色指向基础角色，如"张明青年版"指向"张明"）
+  baseCharacterId?: string;        // gốc角色ID（阶段角色指向基础角色，如"张明青年版"指向"张明"）
   stageInfo?: CharacterStageInfo;  // 阶段信息（仅阶段角色有此trường）
   stageCharacterIds?: string[];    // 派生的阶段角色ID列表（仅基础角色有此trường）
   consistencyElements?: CharacterConsistencyElements; // 一致性元素（基础角色定义，阶段角色继承）
@@ -117,7 +117,7 @@ export interface ScriptScene {
   time: string;
   atmosphere: string;
   visualPrompt?: string; // đang xử lý...视觉描述（用于场景概念图生成）
-  tags?: string[]; // 场景标签，如: #木柱 #窗棂 #古建筑
+  tags?: string[]; // 场景标签，如: #木柱 #棂 #古建筑
   notes?: string; // 地点备注（ghi chú cốt truyện）
   status?: CompletionStatus; // 场景生成状态
   sceneLibraryId?: string; // 关联的场景库ID
@@ -129,10 +129,10 @@ export interface ScriptScene {
   colorPalette?: string;        // 色彩基调（暖色调/冷色调/đang xử lý...）
   keyProps?: string[];          // quan trọng道具列表
   spatialLayout?: string;       // Bố cục không gian描述
-  eraDetails?: string;          // 时代特征（如2000年代的装修风格）
+  eraDetails?: string;          // thời đại特征（如2000年代的装修风格）
   
   // === 出场统计（AI校准时填充）===
-  episodeNumbers?: number[];    // 出现在哪些集
+  episodeNumbers?: number[];    // 出现在哪些 tập
   appearanceCount?: number;     // 出场次数
   importance?: 'main' | 'secondary' | 'transition';  // 场景重要性
   
@@ -152,7 +152,7 @@ export interface ScriptScene {
  */
 export interface SceneViewpointData {
   id: string;           // 视角ID，如 'dining', 'sofa', 'window'
-  name: string;         // Tên tiếng Trung: khu bàn ăn, khu sofa、窗边
+  name: string;         // Tên tiếng Trung: khu bàn ăn, khu sofa、边
   nameEn: string;       // Tên tiếng Anh
   shotIds: string[];    // 关联的分镜ID列表
   keyProps: string[];   // 该视角需要的道具
@@ -165,7 +165,7 @@ export interface ScriptParagraph {
   sceneRefId: string;
 }
 
-// 场景原始Nội dung（保留đầy đủ对白和动作）
+// 场景gốcNội dung（保留đầy đủ对白和动作）
 export interface SceneRawContent {
   sceneHeader: string;        // 场景头：如 "1-1日 内 沪上 张家"
   characters: string[];       // 出场nhân vật
@@ -184,44 +184,44 @@ export interface DialogueLine {
   line: string;               // 台词Nội dung
 }
 
-// 集的原始剧本Nội dung
+//  tập的gốc剧本Nội dung
 export interface EpisodeRawScript {
-  episodeIndex: number;       // 第几集
-  title: string;              // 集标题
-  synopsis?: string;          // 集大纲/摘要（AI生成或手动编辑）
+  episodeIndex: number;       // 第几 tập
+  title: string;              //  tập标题
+  synopsis?: string;          //  tậpđại cương/摘要（AI生成或手动编辑）
   keyEvents?: string[];       // Tập nàyquan trọng事件
-  rawContent: string;         // 原始đầy đủNội dung
+  rawContent: string;         // gốcđầy đủNội dung
   scenes: SceneRawContent[];  // 解析后的场景列表
   shotGenerationStatus: 'idle' | 'generating' | 'completed' | 'error';  // 分镜生成状态
   lastGeneratedAt?: number;   // 上次生成时间
-  synopsisGeneratedAt?: number; // 大纲生成时间
+  synopsisGeneratedAt?: number; // đại cương生成时间
   season?: string;            // 季节（春/夏/秋/冬，从字幕提取）
 }
 
 // mục目背景信息
 export interface ProjectBackground {
-  title: string;              // 剧名
+  title: string;              // tên phim
   genre?: string;             // 类型（商战/武侠/爱情等）
-  era?: string;               // 时代背景（民国/现代/古代等）
+  era?: string;               // thời đại背景（民国/现代/古代等）
   timelineSetting?: string;   // 精确时间线设定（如"2022年夏天"、"1990-2020年"）
   storyStartYear?: number;    // 故事开始年份（用于推算角色年龄）
   storyEndYear?: number;      // 故事kết thúc年份
-  totalEpisodes?: number;     // Tổng集数
-  outline: string;            // 故事大纲
+  totalEpisodes?: number;     // Tổng tập数
+  outline: string;            // 故事đại cương
   characterBios: string;      // nhân vật小传
-  worldSetting?: string;      // 世界观/风格设定
-  themes?: string[];          // 主题quan trọng词
+  worldSetting?: string;      // Bối cảnh thế giới/风格设定
+  themes?: string[];          // Chủ đềquan trọng词
 }
 
-// ==================== 剧级数据（SeriesMeta）— 跨集共享 ====================
+// ==================== 剧级数据（SeriesMeta）— 跨 tập共享 ====================
 
-/** đặt tên实体：地理/物品/阵营等 */
+/** đặt tên实体：địa lý/vật phẩm/phe phái等 */
 export interface NamedEntity {
   name: string;
   desc: string;
 }
 
-/** 阵营/势力 */
+/** phe phái/势力 */
 export interface Faction {
   name: string;
   members: string[];
@@ -235,7 +235,7 @@ export interface CharacterRelationship {
 }
 
 /**
- * 剧级元数据 — mục目主页Hiển thị，Tất cả集共享
+ * 剧级元数据 — mục目主页Hiển thị，Tất cả tập共享
  * 首次导入时由 AI + 正则自动填充，校准后回写丰富
  */
 export interface SeriesMeta {
@@ -243,30 +243,30 @@ export interface SeriesMeta {
   title: string;
   logline?: string;                   // 一句话概括
   outline?: string;                   // 100-500字đầy đủ故事线
-  centralConflict?: string;           // 主线矛盾
+  centralConflict?: string;           // chính tuyếnmâu thuẫn
   themes?: string[];                  // [复仇, 权谋, 友情]
 
-  // === 世界观 ===
+  // === Bối cảnh thế giới ===
   era?: string;                       // 古代/现代/未来
   genre?: string;                     // 武侠/商战/爱情
   timelineSetting?: string;           // 精确时间线
-  geography?: NamedEntity[];          // 地理设定
-  socialSystem?: string;              // 社会体系
-  powerSystem?: string;               // 力量体系
-  keyItems?: NamedEntity[];           // quan trọng物品
-  worldNotes?: string;                // 世界观补充（自由文本）
+  geography?: NamedEntity[];          // Cài đặt địa lý
+  socialSystem?: string;              // xã hộihệ thống
+  powerSystem?: string;               // 力量hệ thống
+  keyItems?: NamedEntity[];           // Vật phẩm quan trọng
+  worldNotes?: string;                // Bối cảnh thế giới补充（自由文本）
 
-  // === 角色体系 ===
+  // === 角色hệ thống ===
   characters: ScriptCharacter[];      // 从 scriptData.characters 提升
-  factions?: Faction[];               // 阵营/势力
+  factions?: Faction[];               // phe phái/势力
   relationships?: CharacterRelationship[];  // 角色关系
 
   // === 视觉系统 ===
   styleId?: string;
-  recurringLocations?: ScriptScene[]; // 常驻场景库（≥2集出现的）
+  recurringLocations?: ScriptScene[]; // 常驻场景库（≥2 tập出现的）
   colorPalette?: string;              // Toàn bộ主色调
 
-  // === 制作设定 ===
+  // === Cài đặt sản xuất ===
   language?: string;
   promptLanguage?: PromptLanguage;
   calibrationStrictness?: CalibrationStrictness;
@@ -274,13 +274,13 @@ export interface SeriesMeta {
   metadataGeneratedAt?: number;
 }
 
-// 集（Episode）
+//  tập（Episode）
 export interface Episode {
   id: string;
   index: number;
   title: string;
   description?: string;
-  sceneIds: string[]; // 该集包含的场景ID
+  sceneIds: string[]; // 该 tập包含的场景ID
 }
 
 export interface ScriptData {
@@ -291,7 +291,7 @@ export interface ScriptData {
   targetDuration?: string;
   characters: ScriptCharacter[];
   scenes: ScriptScene[];
-  episodes: Episode[]; // 集列表
+  episodes: Episode[]; //  tập列表
   storyParagraphs: ScriptParagraph[];
 }
 
@@ -369,7 +369,7 @@ export type EffectIntensity = 'subtle' | 'moderate' | 'heavy';
 
 // Tốc độ控制 (Speed Ramping)
 export type PlaybackSpeed = 
-  | 'slow-motion-4x'  // 0.25x 超慢：con弹时间
+  | 'slow-motion-4x'  // 0.25x 超慢：conpopup时间
   | 'slow-motion-2x'  // 0.5x 慢动作：动作cao trào
   | 'normal'           // 1x
   | 'fast-2x'          // 2x 快进：时间流逝
@@ -456,19 +456,19 @@ export interface VideoInterval {
 export interface Shot {
   id: string;
   index: number;
-  episodeId?: string;        // 所属集ID
+  episodeId?: string;        // 所属 tậpID
   sceneRefId: string;        // Script scene id
   sceneId?: string;          // Scene store id
   sceneViewpointId?: string; // 关联的场景视角ID（联合图切割后的视角）
   
   // === 分镜核心信息 ===
-  actionSummary: string;     // 动作描述（用户语言）
-  visualDescription?: string; // 详细的hình ảnh描述（用户语言，如：“法坛全景，黑暗đang xử lý...芒笼罩...”）
+  actionSummary: string;     // 动作描述（用户Ngôn ngữ）
+  visualDescription?: string; // 详细的hình ảnh描述（用户Ngôn ngữ，如：“法坛全景，黑暗đang xử lý...芒笼罩...”）
   completionStatus?: CompletionStatus;
   
-  // === 镜头语言 ===
+  // === 镜头Ngôn ngữ ===
   cameraMovement?: string;   // 鎡头运动（Dolly In, Pan Right, Static, Tracking等）
-  specialTechnique?: string; // 特殊拍摄手法（希区柯克变焦、con弹时间、FPV穿梭等）
+  specialTechnique?: string; // 特殊拍摄手法（希区柯克变焦、conpopup时间、FPV穿梭等）
   shotSize?: string;         // 景别（Wide Shot, Medium Shot, Close-up, ECU等）
   duration?: number;         // 预估时长（秒）
   
@@ -497,11 +497,11 @@ export interface Shot {
   // === 情绪标签 ===
   emotionTags?: string[];  // 情绪标签 ID 数组，如 ['sad', 'tense', 'serious']
   
-  // === 叙事驱动trường（基于《电影语言的语法》） ===
+  // === 叙事驱动trường（基于《电影Ngôn ngữ的语法》） ===
   narrativeFunction?: string;   // 叙事功能：铺垫/升级/cao trào/转折/过渡/尾声
   conflictStage?: string;       // 冲突阶段：引入/激化/对抗/转折/解决/余波/辅助
   shotPurpose?: string;         // 镜头目的：此镜头如何服务于故事核心
-  storyAlignment?: string;      // 与世界观/故事核心的一致性：aligned/minor-deviation/needs-review
+  storyAlignment?: string;      // 与Bối cảnh thế giới/故事核心的一致性：aligned/minor-deviation/needs-review
   visualFocus?: string;         // 视觉焦点：观众应该看什么（按顺序）
   cameraPosition?: string;      // 机位描述：摄影机相对于nhân vật的位置
   characterBlocking?: string;   // nhân vật布局：nhân vật在hình ảnhđang xử lý...关系

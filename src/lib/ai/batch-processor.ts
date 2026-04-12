@@ -11,7 +11,7 @@
  *   - 60K token Hard Cap（防止超长上下文模型 TTFT 过高 / Lost in the middle）
  *   - 容错隔离（单批次失败不影响其他批次，部分成功也返回结果）
  *   - 单批次Thử lại（指数退避，最多 2 次）
- *   - 并发集成（复用 runStaggered + 用户 concurrency 设置）
+ *   - 并发 tập成（复用 runStaggered + 用户 concurrency 设置）
  *   - 进度回调
  */
 
@@ -43,12 +43,12 @@ export interface ProcessBatchedOptions<TItem, TResult> {
 
   /**
    * 构建 prompt 函数 — 接收一 batch 的 items，返回 system + user prompt
-   * 每批调用一次，prompt đang xử lý...全局上下文（用 safeTruncate 截断）
+   * 每批gọi API一次，prompt đang xử lý...全局上下文（用 safeTruncate 截断）
    */
   buildPrompts: (batch: TItem[]) => { system: string; user: string };
 
   /**
-   * 解析 AI 返回的原始文本为Cấu trúc化结果
+   * 解析 AI 返回的gốc文本为Cấu trúc化结果
    * 返回 Map<itemKey, result>，key 用于跨批次合并
    */
   parseResult: (raw: string, batch: TItem[]) => Map<string, TResult>;
@@ -93,7 +93,7 @@ export interface ProcessBatchedResult<TResult> {
 // ==================== Core ====================
 
 /**
- * 自适应批处理 AI 调用
+ * 自适应批处理 AI gọi API
  *
  * 自动完成：
  *   1. 从 Registry 查出模型的 contextWindow 和 maxOutput

@@ -172,7 +172,7 @@ export interface ShotGroup {
   extendDirection?: ExtendDirection;
   /** Chỉnh sửaLoại（仅 edit 时有效） */
   editType?: EditType;
-  /** 来源组 ID（kéo dài/Chỉnh sửa的原始video组） */
+  /** 来源组 ID（kéo dài/Chỉnh sửa的gốcvideo组） */
   sourceGroupId?: string;
   /** 来源video URL（冗余存储，避免原组被删后找不到） */
   sourceVideoUrl?: string;
@@ -183,7 +183,7 @@ export interface ShotGroup {
  */
 export interface SingleShotOverride {
   sceneId: number;
-  /** 单Ống kính独立prompt（覆盖Phân cảnh原始prompt） */
+  /** 单Ống kính独立prompt（覆盖Phân cảnhgốcprompt） */
   prompt: string;
   /** @tham chiếuTài sản */
   assetRefs: AssetRef[];
@@ -212,7 +212,7 @@ export interface SClassProjectData {
   mode: SClassMode;
   /** 是否已从 director 数据Tự động分组过 */
   hasAutoGrouped: boolean;
-  /** 最近一次九宫格Tạo的原始大图 URL（用于Tạo video时复用，避免重新合并） */
+  /** 最近一次九宫格Tạo的gốc大图 URL（用于Tạo video时复用，避免重新合并） */
   lastGridImageUrl: string | null;
   /** lastGridImageUrl 对应的Phân cảnh ID  cột表（用于判断是否可复用） */
   lastGridSceneIds: number[] | null;

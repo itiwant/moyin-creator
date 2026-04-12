@@ -119,7 +119,7 @@ interface ScriptInputProps {
   sceneCalibrationStatus?: 'idle' | 'calibrating' | 'completed' | 'error';
   // 二次校准追踪（đang xử lý...nút触发）
   secondPassTypes?: Set<string>;
-  // prompt语言
+  // promptNgôn ngữ
   promptLanguage?: PromptLanguage;
   onPromptLanguageChange?: (value: PromptLanguage) => void;
 }
@@ -248,10 +248,10 @@ export function ScriptInput({
         <TabsContent value="import" className="flex-1 mt-3 overflow-y-auto">
           <div className="space-y-2">
             <Label className="text-xs text-muted-foreground">
-              Dán kịch bản đầy đủ（包含大纲、nhân vật小传、各集Nội dung）
+              Dán kịch bản đầy đủ（包含đại cương、nhân vật小传、各 tậpNội dung）
             </Label>
             <Textarea
-              placeholder="支持的格式：\n• 第X集（集标记）\n• **1-1日 内 Địa điểm**（Cảnh头）\n• nhân vật：Nhân vậtA、Nhân vậtB\n• Nhân vật名：（Hành động）Hội thoại\n• △Hành động描写\n• 【字幕】【闪回】等"
+              placeholder="支持的格式：\n• 第X tập（ tập标记）\n• **1-1日 内 Địa điểm**（Cảnh头）\n• nhân vật：Nhân vậtA、Nhân vậtB\n• Nhân vật名：（Hành động）Hội thoại\n• △Hành động描写\n• 【字幕】【闪回】等"
               value={rawScript}
               onChange={(e) => onRawScriptChange(e.target.value)}
               className="min-h-[200px] max-h-[40vh] resize-none text-sm overflow-y-auto"
@@ -260,10 +260,10 @@ export function ScriptInput({
             {/* 导入状态Gợi ý */}
             {importStatus === "ready" && (
               <div className="space-y-1">
-                <p className="text-xs text-green-600">✓ 导入成功！可在右侧Nhấp集名生成Phân cảnh</p>
+                <p className="text-xs text-green-600">✓ 导入成功！可在右侧Nhấp tập名生成Phân cảnh</p>
                 {(missingTitleCount ?? 0) > 0 && (
                   <p className="text-xs text-amber-600">
-                    ⚠ {missingTitleCount} 集缺少tiêu đề，可使用AI校准生成
+                    ⚠ {missingTitleCount}  tập缺少tiêu đề，可使用AI校准生成
                   </p>
                 )}
               </div>
@@ -470,7 +470,7 @@ export function ScriptInput({
             {/* 创作chế độ工作流引导 */}
             {parseStatus === "ready" && (
               <div className="p-3 rounded-lg bg-primary/5 border border-primary/20 space-y-2">
-                <div className="text-xs font-medium text-primary">✨ 剧本已生成，下一步</div>
+                <div className="text-xs font-medium text-primary">✨ 剧本已生成，Bước tiếp theo</div>
                 <div className="space-y-1.5 text-xs text-muted-foreground">
                   <div className="flex items-center gap-2">
                     <span className="w-4 h-4 rounded-full bg-primary/10 text-primary flex items-center justify-center text-[10px] font-bold">1</span>
@@ -493,11 +493,11 @@ export function ScriptInput({
 
       {/* 设置区域 - 根据chế độ显示不同Tùy chọn */}
       <div className="space-y-3 pt-2 border-t">
-        {/* 导入chế độ：显示语言、Cảnh数量、Phân cảnh数量 */}
+        {/* 导入chế độ：显示Ngôn ngữ、Cảnh数量、Phân cảnh数量 */}
         {mode === "import" && (
           <div className="space-y-3">
             <div className="space-y-1">
-              <Label className="text-xs">剧本语言</Label>
+              <Label className="text-xs">剧本Ngôn ngữ</Label>
               <Select
                 value={language}
                 onValueChange={onLanguageChange}
@@ -515,7 +515,7 @@ export function ScriptInput({
             </div>
 
             <div className="space-y-1">
-              <Label className="text-xs">prompt语言</Label>
+              <Label className="text-xs">promptNgôn ngữ</Label>
               <Select
                 value={promptLanguage || "zh"}
                 onValueChange={(v) => onPromptLanguageChange?.(v as PromptLanguage)}
@@ -642,11 +642,11 @@ export function ScriptInput({
           </div>
         )}
 
-        {/* 创作chế độ：显示语言、时长、风格、Cảnh数量、Phân cảnh数量 */}
+        {/* 创作chế độ：显示Ngôn ngữ、时长、风格、Cảnh数量、Phân cảnh数量 */}
         {mode === "create" && (
           <div className="space-y-3">
             <div className="space-y-1">
-              <Label className="text-xs">prompt语言</Label>
+              <Label className="text-xs">promptNgôn ngữ</Label>
               <Select
                 value={promptLanguage || "zh"}
                 onValueChange={(v) => onPromptLanguageChange?.(v as PromptLanguage)}
@@ -669,7 +669,7 @@ export function ScriptInput({
             </div>
             <div className="grid grid-cols-3 gap-2">
               <div className="space-y-1">
-                <Label className="text-xs">语言</Label>
+                <Label className="text-xs">Ngôn ngữ</Label>
                 <Select
                   value={language}
                   onValueChange={onLanguageChange}
@@ -856,13 +856,13 @@ export function ScriptInput({
               ) : (
                 <>
                   <RefreshCw className="h-4 w-4 mr-2" />
-                  AI校准（生成{missingTitleCount}集tiêu đề）
+                  AI校准（生成{missingTitleCount} tậptiêu đề）
                 </>
               )}
             </Button>
           )}
           
-          {/* 生成大纲nút - 导入成功后显示 */}
+          {/* 生成đại cươngnút - 导入成功后显示 */}
           {mode === "import" && importStatus === "ready" && onGenerateSynopses && (
             <Button
               onClick={handleGenerateSynopses}
@@ -873,14 +873,14 @@ export function ScriptInput({
               {isGeneratingSynopsis || synopsisStatus === 'generating' ? (
                 <>
                   <Loader2 className="h-4 w-4 mr-2 animate-spin" />
-                  生成大纲đang xử lý...
+                  生成đại cươngđang xử lý...
                 </>
               ) : (
                 <>
                   <BookOpen className="h-4 w-4 mr-2" />
                   {(missingSynopsisCount ?? 0) > 0 
-                    ? `生成大纲（${missingSynopsisCount}集缺失）`
-                    : 'Tạo lại大纲'
+                    ? `生成đại cương（${missingSynopsisCount} tập缺失）`
+                    : 'Tạo lạiđại cương'
                   }
                 </>
               )}

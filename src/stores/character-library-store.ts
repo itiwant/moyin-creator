@@ -52,7 +52,7 @@ export interface CharacterVariation {
   
   // === 阶段biến thể特有trường ===
   isStageVariation?: boolean;      // Có phải biến thể theo giai đoạn (thay đổi tuổi/thời kỳ) không
-  episodeRange?: [number, number]; // 适用Số tập范围：[bắt đầu集, kết thúc集]
+  episodeRange?: [number, number]; // 适用Số tập范围：[bắt đầu tập, kết thúc tập]
   ageDescription?: string;         // Tuổi giai đoạn này: "25 tuổi"、"50 tuổi"
   stageDescription?: string;       // Mô tả giai đoạn: "Khởi nghiệp ban đầu"、"Đỉnh sự nghiệp"
 }

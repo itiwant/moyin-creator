@@ -5,7 +5,7 @@
  * use-sclass-generation.ts — Hạng S Seedance 2.0 Tạo video Hook
  *
  * 核心功能：
- * 1. generateGroupVideo(group) — 单组Tạo：收集 @tham chiếu → 构建多模态请求 → 调用 API → 轮询
+ * 1. generateGroupVideo(group) — 单组Tạo：收 tập @tham chiếu → 构建多模态请求 → gọi API API → 轮询
  * 2. generateAllGroups() — Tạo hàng loạt：逐组串 hàng，各组独立Tạo
  * 3. generateSingleShot(sceneId) — 单镜Tạo（tương thíchchế độ）
  * 4. Tự độngTải lên base64/local ảnh到 HTTP URL
@@ -231,7 +231,7 @@ export function useSClassGeneration() {
             sceneIds.length === cachedSceneIds.length &&
             sceneIds.every((id, i) => id === cachedSceneIds[i]);
 
-          // 收集组内Phân cảnh的Khung hình đầuảnh
+          // 收 tập组内Phân cảnh的Khung hình đầuảnh
           const firstFrameUrls = groupScenes
             .map(s => s.imageDataUrl || s.imageHttpUrl || '')
             .filter(Boolean);
@@ -239,7 +239,7 @@ export function useSClassGeneration() {
           if (firstFrameUrls.length > 0) {
             let gridDataUrl: string;
             if (canReuseGrid) {
-              // 复用步骤③Lưu的原始九宫格图
+              // 复用步骤③Lưu的gốc九宫格图
               gridDataUrl = cachedGridUrl!;
               console.log('[SClassGen] 复用缓存九宫格图:', gridDataUrl.substring(0, 60));
             } else {
@@ -305,11 +305,11 @@ export function useSClassGeneration() {
           }
         }
 
-        // 5. 收集ảnhtham chiếu → 转 HTTP URL
+        // 5. 收 tậpảnhtham chiếu → 转 HTTP URL
         const imageRefs = promptResult.refs.images;
         const imageWithRoles = await prepareImageUrls(imageRefs);
 
-        // 5b. 收集video/âm thanhtham chiếu → 转 HTTP URL（Seedance 2.0 多模态输入）
+        // 5b. 收 tậpvideo/âm thanhtham chiếu → 转 HTTP URL（Seedance 2.0 多模态输入）
         const videoRefUrls: string[] = [];
         // 前组video衔接（链式Thử lại时传入）— kéo dài/Chỉnh sửa组已在 refs.videos đang xử lý...sourceVideoUrl，跳过
         if (!isExtendOrEdit && options?.prevVideoUrl) {
@@ -328,7 +328,7 @@ export function useSClassGeneration() {
 
         updateGroupVideoStatus(group.id, { videoProgress: 10 });
 
-        // 6. 调用Tạo video API
+        // 6. gọi APITạo video API
         const prompt =
           promptResult.prompt || `Multi-shot video: ${group.name}`;
         const duration = Math.max(
@@ -415,7 +415,7 @@ export function useSClassGeneration() {
         }
 
         if (!videoUrl) {
-          throw lastVideoError || new Error("Tạo video thất bại：没有可用 API Key");
+          throw lastVideoError || new Error("Tạo video thất bại：没有Khả dụng API Key");
         }
 
         // 7. Lưuvideo到本地
@@ -514,7 +514,7 @@ export function useSClassGeneration() {
         return [];
       }
 
-      // 过滤需要Tạo的组（idle 或 failed）
+      // lọc需要Tạo的组（idle 或 failed）
       const groupsToGenerate = groups.filter(
         (g) => g.videoStatus === "idle" || g.videoStatus === "failed"
       );
@@ -701,7 +701,7 @@ export function useSClassGeneration() {
         }
 
         if (!videoUrl) {
-          throw lastVideoError || new Error("Tạo video thất bại：没有可用 API Key");
+          throw lastVideoError || new Error("Tạo video thất bại：没有Khả dụng API Key");
         }
 
         const localUrl = await saveVideoLocally(videoUrl, sceneId);

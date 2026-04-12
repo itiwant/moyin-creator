@@ -3,7 +3,7 @@
 // Commercial licensing available. See COMMERCIAL_LICENSE.md.
 
 /**
- * SaveToPropsDialog - Lưuảnh到Thư viện đạo cụ弹窗
+ * SaveToPropsDialog - Lưuảnh到Thư viện đạo cụPopup
  * 在Studio Tạo ảnh ảnh后，用户可以Chọn thư mục并Lưu
  */
 
@@ -63,7 +63,7 @@ export function SaveToPropsDialog({
     const name = propName.trim() || `Đạo cụ_${Date.now()}`;
     setSaving(true);
     try {
-      // 尝试持久化到本地存储（Electron），浏览器端回退为原始URL
+      // 尝试持久化到本地存储（Electron），浏览器端回退为gốcURL
       const localPath = await saveImageToLocal(
         imageUrl,
         'props',

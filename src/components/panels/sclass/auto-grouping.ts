@@ -8,7 +8,7 @@
  * 策略：
  *   1. 按顺序贪心填装，每组TổngThời lượng ≤ maxDuration（Mặc định15s）
  *   2. Cảnh切换优先断开（不同 sceneName 的Ống kính优先不在同一组）
- *   3. Nhân vật重叠度高的Ống kính优先同组（characterIds 交集）
+ *   3. Nhân vật重叠度高的Ống kính优先同组（characterIds 交 tập）
  *   4. 每组 2~maxPerGroup Ống kính
  */
 

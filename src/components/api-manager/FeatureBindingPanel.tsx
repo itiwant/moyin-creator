@@ -5,8 +5,8 @@
 
 /**
  * Feature Binding Panel (Multi-Select Mode)
- * 品牌phân loạiChọn model — 仿 MemeFast pricing 页面
- * 一级：品牌 pill（带 SVG logo + Model数）
+ * thương hiệuphân loạiChọn model — 仿 MemeFast pricing 页面
+ * 一级：thương hiệu pill（带 SVG logo + Model数）
  * 二级：Model cột表（checkbox 多选）
  */
 
@@ -126,7 +126,7 @@ const DEFAULT_PLATFORM_CAPABILITIES: Record<string, ModelCapability[]> = {
 
 /**
  * Model级别能力映射
- * 精确控制每Model在服务映射đang xử lý...范围
+ * 精确控制每Model在ánh xạ dịch vụđang xử lý...范围
  * 未 cột出的Model将 fallback 到Nền tảng级别能力
  */
 const MODEL_CAPABILITIES: Record<string, ModelCapability[]> = {
@@ -214,7 +214,7 @@ function modelSupportsCapability(
       case 'text':
         return modelType === '文本';
       case 'image_generation':
-        return modelType === '图像';
+        return modelType === 'ảnh';
       case 'video_generation':
         // 音video类đang xử lý...带“video”Thẻ的（排除纯âm thanh/TTS/音乐）
         return modelType === '音video' && (modelTagsList?.some(t => t.includes('video')) ?? false);
@@ -345,7 +345,7 @@ export function FeatureBindingPanel() {
     });
   };
 
-  // 按品牌分组（品牌phân loại UI）
+  // 按thương hiệu分组（thương hiệuphân loại UI）
   const brandGroupsByFeature = useMemo(() => {
     const result: Partial<Record<AIFeature, Array<{ brandId: string; options: ProviderOption[] }>>> = {};
 
@@ -359,7 +359,7 @@ export function FeatureBindingPanel() {
         brandMap.get(brandId)!.push(opt);
       }
 
-      // 排序：Model数多的品牌在前
+      // 排序：Model数多的thương hiệu在前
       const sorted = [...brandMap.entries()]
         .map(([brandId, options]) => ({ brandId, options }))
         .sort((a, b) => b.options.length - a.options.length);
@@ -370,12 +370,12 @@ export function FeatureBindingPanel() {
     return result;
   }, [optionsByFeature]);
 
-  // 每 feature đã chọn的品牌过滤器
+  // 每 feature đã chọn的thương hiệulọc器
   const [selectedBrand, setSelectedBrand] = useState<Record<string, string | null>>({});
   // 每 feature 的Tìm kiếmquan trọng词
   const [searchQuery, setSearchQuery] = useState<Record<string, string>>({});
 
-  // MemeFast Nhà cung cấp ID 集合（用于分组Gợi ý）
+  // MemeFast Nhà cung cấp ID  tập合（用于分组Gợi ý）
   const memefastProviderIds = useMemo(() => {
     const ids = new Set<string>();
     for (const p of providers) {
@@ -389,7 +389,7 @@ export function FeatureBindingPanel() {
       <div className="flex items-center justify-between">
         <h3 className="font-bold text-foreground flex items-center gap-2">
           <Link2 className="h-4 w-4" />
-          服务映射
+          ánh xạ dịch vụ
         </h3>
         <span className="text-xs text-muted-foreground">
           Đã cấu hình: {configuredCount}/{FEATURE_CONFIGS.length}
@@ -421,7 +421,7 @@ export function FeatureBindingPanel() {
             setFeatureBindings(feature.key, null);
           };
           
-          // 检查有效/失效绑定（失效=Model被过滤、下线，或Nền tảngChưa cấu hình）
+          // 检查有效/失效绑定（失效=Model被lọc、ngừng hoạt động，或Nền tảngChưa cấu hình）
           const validBindings: string[] = [];
           const invalidBindings: string[] = [];
           for (const binding of currentBindings) {
@@ -483,12 +483,12 @@ export function FeatureBindingPanel() {
                       )}
                       {isFreedomFeature && (
                         <span className="text-xs bg-muted text-muted-foreground px-1.5 py-0.5 rounded">
-                          可用 {selectableOptionKeys.length}
+                          Khả dụng {selectableOptionKeys.length}
                         </span>
                       )}
                       {isFreedomFeature && invalidBindings.length > 0 && (
                         <span className="text-xs bg-amber-500/15 text-amber-700 dark:text-amber-300 px-1.5 py-0.5 rounded">
-                          暂不可用 {invalidBindings.length}
+                          暂不Khả dụng {invalidBindings.length}
                         </span>
                       )}
                     </div>
@@ -603,7 +603,7 @@ export function FeatureBindingPanel() {
                         const activeBrand = selectedBrand[feature.key] || null;
                         const query = (searchQuery[feature.key] || '').toLowerCase();
 
-                        // 过滤后的Model cột表
+                        // lọc后的Model cột表
                         const filteredOptions = options.filter(o => {
                           if (query && !o.model.toLowerCase().includes(query) && !getModelDisplayName(o.model).toLowerCase().includes(query)) return false;
                           if (activeBrand && extractBrandFromModel(o.model) !== activeBrand) return false;
@@ -613,7 +613,7 @@ export function FeatureBindingPanel() {
                         return (
                           <>
                             <div className="flex flex-wrap gap-1.5">
-                              {/* Tất cả品牌 */}
+                              {/* Tất cảthương hiệu */}
                               <button
                                 type="button"
                                 onClick={() => setSelectedBrand(prev => ({ ...prev, [feature.key]: null }))}
@@ -624,7 +624,7 @@ export function FeatureBindingPanel() {
                                     : "bg-muted/30 border-border hover:bg-accent/50 text-muted-foreground"
                                 )}
                               >
-                                Tất cả品牌
+                                Tất cảthương hiệu
                                 <span className={cn(
                                   "text-[10px] px-1 py-0.5 rounded-full min-w-[18px] text-center",
                                   !activeBrand ? "bg-primary/20" : "bg-muted"

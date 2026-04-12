@@ -4,7 +4,7 @@
 /**
  * Cinematography Profile Presets — 摄影风格档案预设
  *
- * 在「画风Chọn」和「逐镜拍摄控制trường」之间，提供项目级摄影语言基准。
+ * 在「画风Chọn」和「逐镜拍摄控制trường」之间，提供项目级摄影Ngôn ngữ基准。
  * AI 校准时以此为默认倾向，prompt builder 在逐镜trường为空时回退到此处。
  */
 
@@ -31,7 +31,7 @@ export type CinematographyCategory =
   | 'documentary'   // 纪实类
   | 'stylized'      // 风格化
   | 'genre'         // 类型片
-  | 'era';          // 时代风格
+  | 'era';          // thời đại风格
 
 export interface CinematographyProfile {
   id: string;
@@ -90,7 +90,7 @@ export const CINEMATOGRAPHY_CATEGORIES: { id: CinematographyCategory; name: stri
   { id: 'documentary', name: '纪实类', emoji: '📹' },
   { id: 'stylized', name: '风格化', emoji: '🎨' },
   { id: 'genre', name: '类型片', emoji: '🎭' },
-  { id: 'era', name: '时代风格', emoji: '📅' },
+  { id: 'era', name: 'thời đại风格', emoji: '📅' },
 ];
 
 // ==================== 预设 cột表 ====================
@@ -243,7 +243,7 @@ const STYLIZED_PROFILES: CinematographyProfile[] = [
     defaultAngle: 'low-angle',
     defaultFocalLength: '35mm',
     defaultTechnique: 'reflection',
-    promptGuidance: '赛博朋克的视觉语言是「冷暖冲突」——霓虹紫红与冰蓝同框，轮廓光把nhân vật从暗色背景đang xử lý...浅景深让霓虹灯化为迷幻光斑，薄霾为光线增加体积感。镜头慢速滑动穿过雨夜街道，营造未来都市的疏离感。',
+    promptGuidance: '赛博朋克的视觉Ngôn ngữ是「冷暖冲突」——霓虹紫红与冰蓝同框，轮廓光把nhân vật从暗色背景đang xử lý...浅景深让霓虹灯化为迷幻光斑，薄霾为光线增加体积感。镜头慢速滑动穿过雨夜街道，营造未来都市的疏离感。',
     referenceFilms: ['银翼杀手2049', '攻壳机动队', '黑客帝国', '创战纪'],
   },
   {
@@ -317,7 +317,7 @@ const GENRE_PROFILES: CinematographyProfile[] = [
     defaultSpeed: { playbackSpeed: 'normal' },
     defaultAngle: 'eye-level',
     defaultFocalLength: '50mm',
-    promptGuidance: '家庭剧的摄影要像一安静的观察者——三脚架稳定不干扰，暖色光如午后阳光洒入窗户。đang xử lý...让家庭成员都在画面đang xử lý...见，传递「团聚」感。偶尔的丁达尔光线从窗户射入，为平凡的家庭场景增添一丝诗意。',
+    promptGuidance: '家庭剧的摄影要像一安静的观察者——三脚架稳定不干扰，暖色光如午后阳光洒入户。đang xử lý...让家庭成员都在画面đang xử lý...见，传递「团聚」感。偶尔的丁达尔光线从户射入，为平凡的家庭场景增添一丝诗意。',
     referenceFilms: ['小偷家族', '步履不停', '请回答1988', '都挺好'],
   },
   {
@@ -357,7 +357,7 @@ const GENRE_PROFILES: CinematographyProfile[] = [
   },
 ];
 
-// ---------- 时代风格 (era) ----------
+// ---------- thời đại风格 (era) ----------
 
 const ERA_PROFILES: CinematographyProfile[] = [
   {
@@ -379,7 +379,7 @@ const ERA_PROFILES: CinematographyProfile[] = [
   },
   {
     id: 'golden-age-hollywood',
-    name: '好莱坞黄金时代',
+    name: '好莱坞黄金thời đại',
     nameEn: 'Golden Age Hollywood',
     category: 'era',
     description: '高调三点布光、暖色温、深景深、轨道优雅运动、光芒四射、端庄华丽',
@@ -391,7 +391,7 @@ const ERA_PROFILES: CinematographyProfile[] = [
     defaultSpeed: { playbackSpeed: 'normal' },
     defaultAngle: 'eye-level',
     defaultFocalLength: '50mm',
-    promptGuidance: '好莱坞黄金时代的摄影追求「完美」——三点布光消除一切不美的阴影，让明星容光焕发。深景深和精心bố cục让每一帧都像油画，轨道缓慢优雅移动如华尔兹。暖色温赋予画面怀旧的金色光芒。一切都要端庄、华丽、无可挑剔。',
+    promptGuidance: '好莱坞黄金thời đại的摄影追求「完美」——三点布光消除一切不美的阴影，让明星容光焕发。深景深和精心bố cục让每一帧都像油画，轨道缓慢优雅移动如华尔兹。暖色温赋予画面怀旧的金色光芒。一切都要端庄、华丽、无可挑剔。',
     referenceFilms: ['卡萨布兰卡', '公民凯恩', '日落大道', '乱世佳人'],
   },
 ];
@@ -418,7 +418,7 @@ export const CINEMATOGRAPHY_PROFILE_CATEGORIES: {
   { id: 'documentary', name: '纪实类', emoji: '📹', profiles: DOCUMENTARY_PROFILES },
   { id: 'stylized', name: '风格化', emoji: '🎨', profiles: STYLIZED_PROFILES },
   { id: 'genre', name: '类型片', emoji: '🎭', profiles: GENRE_PROFILES },
-  { id: 'era', name: '时代风格', emoji: '📅', profiles: ERA_PROFILES },
+  { id: 'era', name: 'thời đại风格', emoji: '📅', profiles: ERA_PROFILES },
 ];
 
 /** 根据 ID 获取摄影档案 */
@@ -459,7 +459,7 @@ export function buildCinematographyGuidance(profileId: string): string {
     '',
     `**Tham chiếu影片：** ${profile.referenceFilms.join('、')}`,
     '',
-    '⚠️ 以上是本项目的摄影语言基准。每Phân cảnh的拍摄控制trường应以此为默认值，但如果剧情的叙事功能（如cao trào、转折）需要偏离基准，可以自由调整——quan trọng是要有叙事理由，Không随机变化。',
+    '⚠️ 以上是本项目的摄影Ngôn ngữ基准。每Phân cảnh的拍摄控制trường应以此为默认值，但如果剧情的叙事功能（如cao trào、转折）需要偏离基准，可以自由调整——quan trọng是要有叙事理由，Không随机变化。',
   ].filter(Boolean);
 
   return lines.join('\n');

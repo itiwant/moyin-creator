@@ -1610,7 +1610,7 @@ export function SettingsPanel() {
           } else {
             provider = addProvider(providerData);
           }
-          // 如果添加的是 memefast Nhà cung cấp，自动设置默认服务映射（仅在对应服务尚Chưa cấu hình时）
+          // 如果添加的是 memefast Nhà cung cấp，自动设置默认ánh xạ dịch vụ（仅在对应服务尚Chưa cấu hình时）
           if (providerData.platform === 'memefast') {
             // 使用 provider.id（而非 platform 字符串）避免多Nhà cung cấp时的歧义解析
             const pid = provider.id;
@@ -1669,8 +1669,8 @@ export function SettingsPanel() {
         onSave={(provider) => {
           updateProvider(provider);
 
-          // Chỉnh sửa memefast 时也自动设置默认服务映射：初始状态会预置一空 key 的 memefast，
-          // 用户通常是“Chỉnh sửa填 key”，如果不在这里补默认映射，会导致服务映射一直是 0/6。
+          // Chỉnh sửa memefast 时也自动设置默认ánh xạ dịch vụ：初始状态会预置一空 key 的 memefast，
+          // 用户通常是“Chỉnh sửa填 key”，如果不在这里补默认映射，会导致ánh xạ dịch vụ一直是 0/6。
           if (provider.platform === 'memefast' && parseApiKeys(provider.apiKey).length > 0) {
             const pid = provider.id;
             const MEMEFAST_DEFAULT_BINDINGS: Record<string, string> = {

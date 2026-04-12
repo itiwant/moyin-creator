@@ -97,7 +97,7 @@ export async function callImageGenerationApi(
 ): Promise<{ imageUrl: string; httpUrl: string }> {
   const featureConfig = getImageApiConfig();
   if (!featureConfig) {
-    throw new Error('请先在Cài đặtđang xử lý...ạo ảnh服务映射');
+    throw new Error('请先在Cài đặtđang xử lý...ạo ảnhánh xạ dịch vụ');
   }
   const platform = featureConfig.platform;
   const model = featureConfig.models?.[0];
@@ -106,11 +106,11 @@ export async function callImageGenerationApi(
   }
   const apiKeyToUse = apiKey || featureConfig.keyManager?.getCurrentKey?.() || '';
   if (!apiKeyToUse) {
-    throw new Error('请先在Cài đặtđang xử lý...ạo ảnh服务映射');
+    throw new Error('请先在Cài đặtđang xử lý...ạo ảnhánh xạ dịch vụ');
   }
   const imageBaseUrl = featureConfig.baseUrl?.replace(/\/+$/, '');
   if (!imageBaseUrl) {
-    throw new Error('请先在Cài đặtđang xử lý...ạo ảnh服务映射');
+    throw new Error('请先在Cài đặtđang xử lý...ạo ảnhánh xạ dịch vụ');
   }
   // Call image generation API with smart routing (auto-selects chat/completions or images/generations)
   const imageKeyManager = featureConfig.keyManager;

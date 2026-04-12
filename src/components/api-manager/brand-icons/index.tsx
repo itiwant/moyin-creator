@@ -3,7 +3,7 @@
 // Commercial licensing available. See COMMERCIAL_LICENSE.md.
 
 /**
- * 品牌 SVG 图标（源自 MemeFast pricing 页面 lobe-icons）
+ * thương hiệu SVG 图标（源自 MemeFast pricing 页面 lobe-icons）
  * 拆分为多file避免单file过大
  */
 
@@ -23,8 +23,8 @@ const ALL_ICONS: Record<string, BrandIconFn> = {
 };
 
 /**
- * 获取品牌图标
- * @param brandId 品牌 ID（来自 extractBrandFromModel）
+ * 获取thương hiệu图标
+ * @param brandId ID thương hiệu（来自 extractBrandFromModel）
  * @param size 图标尺寸（px），默认 16
  * @returns ReactNode
  */

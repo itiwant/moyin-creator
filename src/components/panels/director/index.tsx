@@ -166,7 +166,7 @@ export function DirectorView() {
     setStoryboardProgress(0);
 
     try {
-      // 从服务映射获取Tạo ảnh配置
+      // 从ánh xạ dịch vụ获取Tạo ảnh配置
       const featureConfig = getFeatureConfig('character_generation');
       if (!featureConfig) {
         throw new Error('Vui lòng cấu hình API Tạo ảnh trong Cài đặt trước');
@@ -226,7 +226,7 @@ export function DirectorView() {
       return;
     }
 
-    // 从服务映射获取Tạo video配置
+    // 从ánh xạ dịch vụ获取Tạo video配置
     const videoConfig = getFeatureConfig('video_generation');
     if (!videoConfig) {
       toast.error('Vui lòng cấu hình API Tạo video trong Cài đặt trước');
@@ -590,18 +590,18 @@ export function DirectorView() {
           <div className="flex items-center gap-2">
             {showHeaderStatus && (
               <span className={storyboardStatus === "editing" ? "hidden" : "text-xs text-muted-foreground capitalize"}>
-                {storyboardStatus === "generating" && `故事板 ${storyboardProgress}%`}
+                {storyboardStatus === "generating" && `Storyboard ${storyboardProgress}%`}
                 {storyboardStatus === "preview" && "Xem trước"}
-                {storyboardStatus === "splitting" && "切割đang xử lý..."}
+                {storyboardStatus === "splitting" && "Đang cắt..."}
                 {storyboardStatus === "editing" && "Chỉnh sửaCảnh"}
-                {storyboardStatus === "error" && "错误"}
+                {storyboardStatus === "error" && "Lỗi"}
                 {storyboardStatus === "idle" && screenplayStatus === "generating" && "TạoKịch bản..."}
-                {storyboardStatus === "idle" && screenplayStatus === "ready" && "就绪"}
+                {storyboardStatus === "idle" && screenplayStatus === "ready" && "Sẵn sàng"}
                 {storyboardStatus === "idle" && screenplayStatus === "generating_images" && `ảnh ${overallProgress}%`}
-                {storyboardStatus === "idle" && screenplayStatus === "images_ready" && "ảnh就绪"}
+                {storyboardStatus === "idle" && screenplayStatus === "images_ready" && "Ảnh sẵn sàng"}
                 {storyboardStatus === "idle" && screenplayStatus === "generating_videos" && `video ${overallProgress}%`}
-                {storyboardStatus === "idle" && screenplayStatus === "completed" && "完成"}
-                {storyboardStatus === "idle" && screenplayStatus === "error" && "错误"}
+                {storyboardStatus === "idle" && screenplayStatus === "completed" && "Hoàn tất"}
+                {storyboardStatus === "idle" && screenplayStatus === "error" && "Lỗi"}
               </span>
             )}
             <Button
@@ -611,7 +611,7 @@ export function DirectorView() {
               onClick={() => setActiveTab('settings')}
             >
               <Settings className="h-3 w-3 mr-1" />
-              {hasRequiredApis ? 'API' : '配置 API'}
+              {hasRequiredApis ? 'API' : 'Cấu hình API'}
             </Button>
           </div>
         </div>
@@ -665,7 +665,7 @@ export function DirectorView() {
             className="flex-1"
           >
             <ChevronLeft className="h-4 w-4 mr-1" />
-            上一步
+            Bước trước
           </Button>
           <Button
             variant="outline"
@@ -674,7 +674,7 @@ export function DirectorView() {
             disabled={!canGoNext}
             className="flex-1"
           >
-            下一步
+            Bước tiếp theo
             <ChevronRight className="h-4 w-4 ml-1" />
           </Button>
         </div>

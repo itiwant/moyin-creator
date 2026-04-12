@@ -183,7 +183,7 @@ export function ScriptView() {
     finalCount: number;
   } | null>(null);
   
-  // Nhân vật校准Xác nhận弹窗状态
+  // Nhân vật校准Xác nhậnPopup状态
   const pendingCalibrationCharacters = calibrationState?.pendingCalibrationCharacters || null;
   const pendingFilteredCharacters = calibrationState?.pendingFilteredCharacters || [];
   const calibrationDialogOpen = calibrationState?.calibrationDialogOpen || false;
@@ -196,7 +196,7 @@ export function ScriptView() {
   // 单Phân cảnh校准状态
   const singleShotCalibrationStatus = calibrationState?.singleShotCalibrationStatus || {};
   
-  // 单集Cấu trúc补全状态
+  // 单 tậpCấu trúc补全状态
   const structureCompletionStatus = calibrationState?.structureCompletionStatus || 'idle';
   const [structureOverwriteConfirmOpen, setStructureOverwriteConfirmOpen] = useState(false);
   const prevEpisodeRef = useRef<{ index: number | null; rawLen: number }>({ index: null, rawLen: 0 });
@@ -287,12 +287,12 @@ export function ScriptView() {
   const shots = scriptProject?.shots || [];
   const promptLanguage = scriptProject?.promptLanguage || 'zh';
 
-  // 当前集作用域：从 activeEpisodeIndex 映射到 episodeId
+  // 当前 tập作用域：从 activeEpisodeIndex 映射到 episodeId
   const activeEpisodeId = activeEpisodeIndex != null
     ? scriptData?.episodes.find(ep => ep.index === activeEpisodeIndex)?.id ?? undefined
     : undefined;
 
-  // 进入集时自动聚焦到对应 episode
+  // 进入 tập时自动聚焦到对应 episode
   useEffect(() => {
     if (activeEpisodeIndex != null && scriptData?.episodes) {
       const ep = scriptData.episodes.find(e => e.index === activeEpisodeIndex);
@@ -303,16 +303,16 @@ export function ScriptView() {
     }
   }, [activeEpisodeIndex, scriptData?.episodes]);
 
-  // 优先检查新的服务映射
+  // 优先检查新的ánh xạ dịch vụ
   const chatConfigured = isFeatureConfigured('script_analysis') || checkChatKeys().isAllConfigured;
   const episodeRawScripts = scriptProject?.episodeRawScripts || [];
 
-  // 集作用域下显示该集gốcNội dung，Toàn bộgóc nhìn显示đầy đủ rawScript
+  //  tập作用域下显示该 tậpgốcNội dung，Toàn bộgóc nhìn显示đầy đủ rawScript
   const effectiveRawScript = activeEpisodeIndex != null
     ? episodeRawScripts.find(ep => ep.episodeIndex === activeEpisodeIndex)?.rawContent ?? ""
     : rawScript;
   
-  // === 单集Cấu trúc补全: rawContent 从空→非空 自动触发 ===
+  // === 单 tậpCấu trúc补全: rawContent 从空→非空 自动触发 ===
   const handleStructureCompletion = useCallback(async () => {
     if (activeEpisodeIndex == null || !scriptData) return;
     setStructureCompletionStatus('processing');
@@ -343,7 +343,7 @@ export function ScriptView() {
     const prev = prevEpisodeRef.current;
     const currentLen = effectiveRawScript.length;
 
-    // 集切换 → 只更新 ref
+    //  tập切换 → 只更新 ref
     if (prev.index !== (activeEpisodeIndex ?? null)) {
       prevEpisodeRef.current = { index: activeEpisodeIndex ?? null, rawLen: currentLen };
       return;
@@ -351,7 +351,7 @@ export function ScriptView() {
 
     prevEpisodeRef.current = { index: activeEpisodeIndex ?? null, rawLen: currentLen };
 
-    // 只在集作用域 + idle 状态下触发
+    // 只在 tập作用域 + idle 状态下触发
     if (activeEpisodeIndex == null) return;
     if (structureCompletionStatus !== 'idle') return;
 
@@ -369,7 +369,7 @@ export function ScriptView() {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [effectiveRawScript, activeEpisodeIndex, structureCompletionStatus]);
 
-  // 计算各集的Phân cảnh生成状态
+  // 计算各 tập的Phân cảnh生成状态
   const episodeGenerationStatus = episodeRawScripts.reduce((acc, ep) => {
     acc[ep.episodeIndex] = ep.shotGenerationStatus;
     return acc;
@@ -381,7 +381,7 @@ export function ScriptView() {
       setSelectedItemId(id);
       setSelectedItemType(type);
 
-      // đã chọn集时进入集作用域（设置 activeEpisodeIndex，激活 P4C 自动Cấu trúc补全）
+      // đã chọn tập时进入 tập作用域（设置 activeEpisodeIndex，激活 P4C 自动Cấu trúc补全）
       if (type === "episode" && id.startsWith("episode_")) {
         const epIndex = parseInt(id.replace("episode_", ""), 10);
         if (!Number.isNaN(epIndex)) {
@@ -406,7 +406,7 @@ export function ScriptView() {
       ? shots.find((s) => s.id === selectedItemId)
       : undefined;
   
-  // 获取đã chọn的集数据（包含大纲）
+  // 获取đã chọn的 tập数据（包含đại cương）
   const selectedEpisode = selectedItemType === "episode" && selectedItemId
     ? (() => {
         const epIndex = parseInt(selectedItemId.replace('episode_', ''));
@@ -421,12 +421,12 @@ export function ScriptView() {
     ? shots.filter(s => s.sceneRefId === selectedItemId || s.sceneId === selectedItemId)
     : undefined;
   
-  // 获取đã chọn集的Tất cảPhân cảnh（Phân cảnhTrực tiếp有 episodeId trường）
+  // 获取đã chọn tập的Tất cảPhân cảnh（Phân cảnhTrực tiếp有 episodeId trường）
   const selectedEpisodeShots = selectedItemType === "episode" && selectedEpisode
     ? shots.filter(shot => (shot as any).episodeId === selectedEpisode.id)
     : [];
 
-  // 为单集生成Phân cảnh（需要先定义，因为 handleImportFullScript 依赖它）
+  // 为单 tập生成Phân cảnh（需要先定义，因为 handleImportFullScript 依赖它）
   const handleGenerateEpisodeShots = useCallback(async (episodeIndex: number) => {
     // 使用 feature router 获取 API 配置
     const featureConfig = getFeatureConfig('script_analysis');
@@ -497,7 +497,7 @@ export function ScriptView() {
     setImportError(undefined);
 
     try {
-      // 1. 规则解析导入（把用户选的风格和语言一起传进去）
+      // 1. 规则解析导入（把用户选的风格和Ngôn ngữ一起传进去）
       const result = await importFullScript(text, projectId, { styleId, promptLanguage });
       
       if (!result.success) {
@@ -510,7 +510,7 @@ export function ScriptView() {
         `Nhập thành công: ${result.episodes.length} tập, ${rawCharacterCount} nhân vật (chờ hiệu chỉnh), ${result.scriptData?.scenes.length || 0} Cảnh`
       );
       
-      // 2. 校准（缺tiêu đề的集）
+      // 2. 校准（缺tiêu đề的 tập）
       const missingTitles = getMissingTitleEpisodes(projectId);
       if (missingTitles.length > 0 && hasAI) {
         setMissingTitleCount(missingTitles.length);
@@ -540,7 +540,7 @@ export function ScriptView() {
         }
       }
       
-      // 3. 生成（每集大纲）
+      // 3. 生成（每 tậpđại cương）
       if (hasAI && result.episodes.length > 0) {
         toast.info(`Đang tạo đại cương cho ${result.episodes.length} tập...`);
         setSynopsisStatus('generating');
@@ -568,7 +568,7 @@ export function ScriptView() {
         }
       }
       
-      // 4. 生成（第1集Phân cảnh）——此时元数据与大纲已就绪
+      // 4. 生成（第1 tậpPhân cảnh）——此时元数据与đại cương已就绪
       let viewpointResult: { viewpointAnalyzed: boolean; viewpointSkippedReason?: string } | null = null;
       if (result.episodes.length > 0) {
         toast.info("Đang tự động tạo phân cảnh tập 1...");
@@ -587,7 +587,7 @@ export function ScriptView() {
         setCharacterCalibrationStatus('calibrating');
         
         try {
-          // 统一从服务映射获取配置，不需要手动传参
+          // 统一从ánh xạ dịch vụ获取配置，不需要手动传参
           const calibResult = await calibrateCharacters(
             result.scriptData.characters,
             result.projectBackground,
@@ -595,7 +595,7 @@ export function ScriptView() {
             { promptLanguage }
           );
           
-          // 转换并更新Nhân vật cột表
+          // 转换并更新Danh sách nhân vật
           const sortedChars = sortByImportance(calibResult.characters);
           const currentProject = useScriptStore.getState().projects[projectId];
           const currentScriptData = currentProject?.scriptData;
@@ -692,7 +692,7 @@ export function ScriptView() {
     }
   }, [projectId, styleId, targetDuration, promptLanguage, episodeRawScripts.length]);
 
-  // 计算缺失tiêu đề和大纲的集数
+  // 计算缺失tiêu đề和đại cương的 tập数
   useEffect(() => {
     if (importStatus === 'ready' && projectId) {
       const missingTitles = getMissingTitleEpisodes(projectId);
@@ -703,7 +703,7 @@ export function ScriptView() {
     }
   }, [importStatus, projectId, episodeRawScripts]);
 
-  // AI校准：为缺失tiêu đề的集数生成tiêu đề
+  // AI校准：为缺失tiêu đề的 tập数生成tiêu đề
   const handleCalibrate = useCallback(async () => {
     const featureConfig = getFeatureConfig('script_analysis');
     if (!featureConfig) {
@@ -820,7 +820,7 @@ export function ScriptView() {
       return;
     }
 
-    // 找到Cảnh所属的集
+    // 找到Cảnh所属的 tập
     const episode = scriptData?.episodes.find(ep => ep.sceneIds.includes(sceneId));
     if (!episode) {
       toast.error('Không tìm thấy tập của cảnh');
@@ -921,7 +921,7 @@ export function ScriptView() {
     }
   }, [projectId, styleId, promptLanguage, shots, directorProject?.cinematographyProfileId, setSingleShotCalibrationStatusInStore]);
 
-  // AI生成每集大纲
+  // AI生成每 tậpđại cương
   const handleGenerateSynopses = useCallback(async () => {
     const featureConfig = getFeatureConfig('script_analysis');
     if (!featureConfig) {
@@ -984,7 +984,7 @@ export function ScriptView() {
       return;
     }
     
-    // 从分集剧本đang xử lý...取Tất cảNhân vật（而不是使用当前 scriptData.characters）
+    // 从tập剧本đang xử lý...取Tất cảNhân vật（而不是使用当前 scriptData.characters）
     const rawCharacters = extractAllCharactersFromEpisodes(episodeRawScripts);
     
     if (rawCharacters.length === 0) {
@@ -1028,7 +1028,7 @@ export function ScriptView() {
         negativePrompt: c.negativePrompt,
       })) || [];
       
-      // 统一从服务映射获取配置，不需要手动传参
+      // 统一从ánh xạ dịch vụ获取配置，不需要手动传参
       const calibResult = await calibrateCharacters(
         rawCharacters,
         background,
@@ -1036,7 +1036,7 @@ export function ScriptView() {
         { previousCharacters: existingCalibrated, promptLanguage, strictness: scriptProject?.calibrationStrictness || 'normal' }
       );
       
-      // 转换并更新Nhân vật cột表（保留gốc数据）
+      // 转换并更新Danh sách nhân vật（保留gốc数据）
       const sortedChars = sortByImportance(calibResult.characters);
       
       // 不再硬编码lọc，由 calibrator 根据严格度统一处理
@@ -1067,7 +1067,7 @@ export function ScriptView() {
         
         try {
           console.log('[handleCalibrateCharacters] Bắt đầu AI phân tích giai đoạn nhân vật...');
-          // 统一从服务映射获取配置，不需要手动传参
+          // 统一从ánh xạ dịch vụ获取配置，不需要手动传参
           const analyses = await analyzeCharacterStages(
             background,
             newCharacters,
@@ -1153,7 +1153,7 @@ export function ScriptView() {
               console.log(`[StageAnalysis] Đã tạo ${analysis. cho nhân vật ${analysis.characterName}stages.length} Nhân vật giai đoạn`);
             }
             
-            // hợp nhấtNhân vật giai đoạn到Nhân vật cột表，Nhân vật giai đoạn紧跟在其Nhân vật cha后面
+            // hợp nhấtNhân vật giai đoạn到Danh sách nhân vật，Nhân vật giai đoạn紧跟在其Nhân vật cha后面
             const sortedCharacters: import("@/types/script").ScriptCharacter[] = [];
             for (const char of newCharacters) {
               sortedCharacters.push(char);
@@ -1181,7 +1181,7 @@ export function ScriptView() {
         }
       }
       
-      // === 第三步：Lưu到临时状态，打开Xác nhận弹窗 ===
+      // === 第三步：Lưu到临时状态，打开Xác nhậnPopup ===
       setScriptCalibrationState(projectId, {
         pendingCalibrationCharacters: newCharacters,
         pendingFilteredCharacters: calibResult.filteredCharacters || [],
@@ -1298,7 +1298,7 @@ export function ScriptView() {
 
   // Nhập kịch bản后检测是否需要多Nhân vật giai đoạn（仅用于显示Gợi ý）
   const handleAnalyzeCharacterStages = useCallback(async () => {
-    // 已整合到 handleCalibrateCharacters đang xử lý...调用即可
+    // 已整合到 handleCalibrateCharacters đang xử lý...gọi API即可
     await handleCalibrateCharacters();
   }, [handleCalibrateCharacters]);
 
@@ -1368,7 +1368,7 @@ export function ScriptView() {
       setParseStatus(projectId, "idle");
       toast.success('剧本生成成功！正在自动导入...');
 
-      // 第二步：自动调用导入流程（复用导入的Tất cả后续逻辑）
+      // 第二步：自动gọi API导入流程（复用导入的Tất cả后续逻辑）
       await handleImportFullScript(generatedScript);
       
     } catch (error) {
@@ -1425,7 +1425,7 @@ export function ScriptView() {
         result.episodes = [{
           id: "default",
           index: 1,
-          title: result.title || "第1集",
+          title: result.title || "第1 tập",
           sceneIds: result.scenes.map((s) => s.id),
         }];
       }
@@ -1600,7 +1600,7 @@ export function ScriptView() {
         tags: character.tags,
         notes: character.notes,
         styleId,
-        // === prompt语言偏好 ===
+        // === promptNgôn ngữ偏好 ===
         promptLanguage: scriptProject?.promptLanguage || 'zh',
         // === 专业Nhân vật设计trường（世界级大师生成）===
         visualPromptEn: character.visualPromptEn,
@@ -1614,7 +1614,7 @@ export function ScriptView() {
         // === 年代信息（从剧本元数据传递）===
         storyYear: background?.storyStartYear,
         era: background?.era || background?.timelineSetting,
-        // === 集作用域透传 ===
+        // ===  tập作用域透传 ===
         sourceEpisodeIndex: activeEpisodeIndex ?? undefined,
         sourceEpisodeId: activeEpisodeId,
       });
@@ -1686,10 +1686,10 @@ export function ScriptView() {
           spatialLayout: scene.spatialLayout,
           viewpoints: contactSheetData.viewpoints,
           contactSheetPrompts: contactSheetData.contactSheetPrompts,
-          // === 集作用域透传 ===
+          // ===  tập作用域透传 ===
           sourceEpisodeIndex: activeEpisodeIndex ?? undefined,
           sourceEpisodeId: activeEpisodeId,
-          // === prompt语言偏好 ===
+          // === promptNgôn ngữ偏好 ===
           promptLanguage: scriptProject?.promptLanguage || 'zh',
         });
 
@@ -1718,10 +1718,10 @@ export function ScriptView() {
             keyProps: scene.keyProps,
             spatialLayout: scene.spatialLayout,
           }),
-          // === 集作用域透传 ===
+          // ===  tập作用域透传 ===
           sourceEpisodeIndex: activeEpisodeIndex ?? undefined,
           sourceEpisodeId: activeEpisodeId,
-          // === prompt语言偏好 ===
+          // === promptNgôn ngữ偏好 ===
           promptLanguage: scriptProject?.promptLanguage || 'zh',
         });
 
@@ -1773,7 +1773,7 @@ export function ScriptView() {
         sceneCount: 1, // 单Phân cảnh
         styleId, // 继承剧本的风格
         sourceType: 'shot',
-        // === 集作用域透传 ===
+        // ===  tập作用域透传 ===
         sourceEpisodeIndex: activeEpisodeIndex ?? undefined,
         sourceEpisodeId: activeEpisodeId,
       });
@@ -1818,7 +1818,7 @@ export function ScriptView() {
 
       const storyPrompt = promptParts.join("\n");
 
-      // 收集Tất cảPhân cảnh的Nhân vật
+      // 收 tậpTất cảPhân cảnh的Nhân vật
       const allCharacterNames = new Set<string>();
       sceneShots.forEach((shot) => {
         shot.characterNames?.forEach((name) => allCharacterNames.add(name));
@@ -1833,7 +1833,7 @@ export function ScriptView() {
         sceneCount: shotCount,
         styleId,
         sourceType: 'scene',
-        // === 集作用域透传 ===
+        // ===  tập作用域透传 ===
         sourceEpisodeIndex: activeEpisodeIndex ?? undefined,
         sourceEpisodeId: activeEpisodeId,
       });
@@ -1855,7 +1855,7 @@ export function ScriptView() {
 
   const handleDeleteEpisodeBundle = useCallback((episodeIndex: number) => {
     deleteEpisodeBundle(projectId, episodeIndex);
-    // 清除đã chọn状态（如果Xóa的是Đang chọn集）
+    // 清除đã chọn状态（如果Xóa的是Đang chọn tập）
     const ep = scriptData?.episodes?.find(e => e.index === episodeIndex);
     if (ep && selectedItemId === ep.id) {
       setSelectedItemId(null);
@@ -2020,7 +2020,7 @@ export function ScriptView() {
     }
     
     if (!episodeRawScripts || episodeRawScripts.length === 0) {
-      toast.error('缺少分集剧本数据');
+      toast.error('缺少tập剧本数据');
       return;
     }
     
@@ -2120,7 +2120,7 @@ export function ScriptView() {
     }
   }, [scriptProject?.projectBackground, episodeRawScripts, scriptData, projectId, promptLanguage, setScriptData, addSecondPass, removeSecondPass]);
 
-  // AI Cảnh校准（单集）
+  // AI Cảnh校准（单 tập）
   const handleCalibrateEpisodeScenes = useCallback(async (episodeIndex: number) => {
     const featureConfig = getFeatureConfig('script_analysis');
     if (!featureConfig) {
@@ -2138,7 +2138,7 @@ export function ScriptView() {
     
     addSecondPass('scenes');
     setSceneCalibrationStatus('calibrating');
-    toast.info(`正在 AI 校准第 ${episodeIndex} 集的Cảnh...`);
+    toast.info(`正在 AI 校准第 ${episodeIndex}  tập的Cảnh...`);
     
     try {
       const result = await calibrateEpisodeScenes(
@@ -2157,7 +2157,7 @@ export function ScriptView() {
       // 转换并更新Cảnh cột表
       const newCalibratedScenes = convertToScriptScenes(result.scenes, currentScenes, promptLanguage);
       
-      // hợp nhất：保留其他集的Cảnh，替换该集的Cảnh
+      // hợp nhất：保留其他 tập的Cảnh，替换该 tập的Cảnh
       const calibratedIds = new Set(newCalibratedScenes.map(s => s.id));
       const otherScenes = currentScenes.filter(s => !calibratedIds.has(s.id));
       const mergedScenes = [...otherScenes, ...newCalibratedScenes];
@@ -2171,7 +2171,7 @@ export function ScriptView() {
       
       setSceneCalibrationStatus('completed');
       removeSecondPass('scenes');
-      toast.success(`第 ${episodeIndex} 集Cảnh校准完成！`);
+      toast.success(`第 ${episodeIndex}  tậpCảnh校准完成！`);
     } catch (error) {
       const err = error as Error;
       console.error('[handleCalibrateEpisodeScenes] Hiệu chỉnh thất bại:', err);
@@ -2455,7 +2455,7 @@ export function ScriptView() {
             onCalibrationStrictnessChange={handleCalibrationStrictnessChange}
             lastFilteredCharacters={scriptProject?.lastFilteredCharacters || []}
             onRestoreFilteredCharacter={handleRestoreFilteredCharacter}
-            // 校准Xác nhận弹窗
+            // 校准Xác nhậnPopup
             calibrationDialogOpen={calibrationDialogOpen}
             pendingCalibrationCharacters={pendingCalibrationCharacters}
             pendingFilteredCharacters={pendingFilteredCharacters}
@@ -2498,13 +2498,13 @@ export function ScriptView() {
         </ResizablePanel>
       </ResizablePanelGroup>
 
-      {/* Cấu trúc补全覆盖Xác nhận弹窗 */}
+      {/* Cấu trúc补全覆盖Xác nhậnPopup */}
       <AlertDialog open={structureOverwriteConfirmOpen} onOpenChange={setStructureOverwriteConfirmOpen}>
         <AlertDialogContent>
           <AlertDialogHeader>
             <AlertDialogTitle>覆盖现有CảnhCấu trúc？</AlertDialogTitle>
             <AlertDialogDescription>
-              该集已有Cảnh数据，重新解析将替换现有Cảnh并清理对应Phân cảnh。Xác nhận继续？
+              该 tập已有Cảnh数据，重新解析将替换现有Cảnh并清理对应Phân cảnh。Xác nhận继续？
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>

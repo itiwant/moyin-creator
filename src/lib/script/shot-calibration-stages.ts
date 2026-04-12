@@ -4,7 +4,7 @@
 /**
  * 5阶段分镜校准模块
  * 
- * 将 30+ trường拆分为 5 独立 AI 调用，避免推理模型 token 耗尽
+ * 将 30+ trường拆分为 5 独立 AI gọi API，避免推理模型 token 耗尽
  * 
  * Stage 1: 叙事骨架 (9 fields) — 景别/运动/时长 + 叙事分析
  * Stage 2: 视觉描述 (6 fields) — đang xử lý...述 + 角色 + 音频
@@ -87,20 +87,20 @@ export async function calibrateShotsMultiStage(
     : '';
   const contextLine = [
     `《${title}》`, genre || '', era || '',
-    totalEpisodes ? `共${totalEpisodes}集` : '',
-    `第${currentEpisode}集「${episodeTitle}」`,
+    totalEpisodes ? `共${totalEpisodes} tập` : '',
+    `第${currentEpisode} tập「${episodeTitle}」`,
     episodeSeason || '',
   ].filter(Boolean).join(' | ');
 
   // 剧级上下文摘要：来自 SeriesMeta
   const seriesCtx = globalContext.seriesContextSummary || '';
 
-  // 叙事neo：故事核心 + 世界观 + 核心冲突（截断避免过长）
+  // 叙事neo：故事核心 + Bối cảnh thế giới + 核心冲突（截断避免过长）
   const narrativeAnchorParts = [
     seriesCtx ? `【剧级知识】\n${seriesCtx}` : '',
     outline ? `【故事核心】\n${outline.slice(0, 600)}` : '',
-    worldSetting ? `【世界观/规则】\n${worldSetting.slice(0, 400)}` : '',
-    themes?.length ? `【核心主题】${themes.join('、')}` : '',
+    worldSetting ? `【Bối cảnh thế giới/规则】\n${worldSetting.slice(0, 400)}` : '',
+    themes?.length ? `【核心Chủ đề】${themes.join('、')}` : '',
     characterBios ? `【主要nhân vật】\n${characterBios.slice(0, 400)}` : '',
   ].filter(Boolean);
   const narrativeAnchorBlock = narrativeAnchorParts.length > 0
@@ -111,11 +111,11 @@ export async function calibrateShotsMultiStage(
   const mt = getMediaType(styleId || 'cinematic');
   const mediaTypeHint = mt !== 'cinematic' ? `\n【媒介类型】${getMediaTypeGuidance(mt)}` : '';
 
-  // 时代/世界观上下文：供 Stage 2/4/5 视觉生成使用（避免 AI 产生与时代不符的幻觉）
+  // thời đại/Bối cảnh thế giới上下文：供 Stage 2/4/5 视觉生成使用（避免 AI 产生与thời đại不符的幻觉）
   const eraContextParts = [
     contextLine,
-    era ? `⚠️ 时代背景：${era}——Tất cảnhân vật服装、发型、道具、建筑必须严格符合「${era}」时期，禁止出现其他时代的元素（如古装剧禁止西装/T恤/手机等现代物品）` : '',
-    worldSetting ? `世界观设定：${worldSetting.slice(0, 300)}` : '',
+    era ? `⚠️ thời đại背景：${era}——Tất cảnhân vật服装、发型、道具、建筑必须严格符合「${era}」时期，禁止出现其他thời đại的元素（如古装剧禁止西装/T恤/手机等现代vật phẩm）` : '',
+    worldSetting ? `Bối cảnh thế giới设定：${worldSetting.slice(0, 300)}` : '',
     characterBios ? `nhân vật造型Tham chiếu：${characterBios.slice(0, 300)}` : '',
   ].filter(Boolean);
   const eraContextBlock = eraContextParts.length > 0
@@ -181,14 +181,14 @@ export async function calibrateShotsMultiStage(
   onStageProgress?.(1, 5, '叙事骨架');
   console.log('[MultiStage] Stage 1/5: 叙事骨架');
 
-  const s1System = `你是电影叙事分析师，精通镜头语言和叙事Cấu trúc。分析每分镜的叙事功能并确定镜头参数。
+  const s1System = `你是电影叙事分析师，精通镜头Ngôn ngữ和叙事Cấu trúc。分析每分镜的叙事功能并确定镜头参数。
 
-${contextLine}${narrativeAnchorBlock}${episodeSynopsis ? `\n\n【本集大纲】\n${episodeSynopsis}` : ''}${episodeKeyEvents?.length ? `\nquan trọng事件：${episodeKeyEvents.join('、')}` : ''}
+${contextLine}${narrativeAnchorBlock}${episodeSynopsis ? `\n\n【本 tậpđại cương】\n${episodeSynopsis}` : ''}${episodeKeyEvents?.length ? `\nquan trọng事件：${episodeKeyEvents.join('、')}` : ''}
 
 【⚠️ 叙事一致性校验 — 必须执行】
 每分镜必须回答：
-1. 此镜头如何推动本集核心冲突的发展？（铺垫→升级→cao trào→转折→尾声）
-2. 此镜头是否违反世界观设定？（如有违反，在 storyAlignment đang xử lý...
+1. 此镜头如何推动本 tập核心冲突的发展？（铺垫→升级→cao trào→转折→尾声）
+2. 此镜头是否违反Bối cảnh thế giới设定？（如有违反，在 storyAlignment đang xử lý...
 3. shotPurpose 必须体现该镜头与故事核心的关系，不能只描述画面
 
 为每分镜输出 JSON：
@@ -197,9 +197,9 @@ ${contextLine}${narrativeAnchorBlock}${episodeSynopsis ? `\n\n【本集大纲】
 - specialTechnique: none/hitchcock-zoom/timelapse/crash-zoom-in/crash-zoom-out/whip-pan/bullet-time/fpv-shuttle/macro-closeup/first-person/slow-motion/probe-lens/spinning-tilt
 - duration: 秒数(整数)，纯动作3-5秒/简短对白4-6秒/长对白6-10秒/复杂动作5-8秒
 - narrativeFunction: 铺垫/升级/cao trào/转折/过渡/尾声
-- conflictStage: 此镜头在本集核心冲突đang xử lý...（引入/激化/对抗/转折/解决/余波，无关填"辅助"）
+- conflictStage: 此镜头在本 tập核心冲突đang xử lý...（引入/激化/对抗/转折/解决/余波，无关填"辅助"）
 - shotPurpose: 一句话说明此镜头如何服务于故事核心（中文）
-- storyAlignment: 与世界观/故事核心的一致性（aligned/minor-deviation/needs-review）
+- storyAlignment: 与Bối cảnh thế giới/故事核心的一致性（aligned/minor-deviation/needs-review）
 - visualFocus: 视觉焦点顺序（用→表示）
 - cameraPosition: 机位描述（中文）
 - characterBlocking: nhân vật布局（中文）
@@ -230,13 +230,13 @@ ${contextLine}${narrativeAnchorBlock}${episodeSynopsis ? `\n\n【本集大纲】
     ? '{"shots":{"shot_id":{"visualDescription":"","visualPrompt":"","characterNames":[],"emotionTags":[],"ambientSound":"","soundEffect":""}}}'
     : '{"shots":{"shot_id":{"visualDescription":"","characterNames":[],"emotionTags":[],"ambientSound":"","soundEffect":""}}}';
 
-  const s2System = `你是影视视觉描述师。基于原始剧本文本和叙事分析，生成视觉描述和音频设计。${eraContextBlock}
+  const s2System = `你是影视视觉描述师。基于gốc剧本文本和叙事分析，生成视觉描述和音频设计。${eraContextBlock}
 
 ⚠️ 规则：
 - 场景归属绝对固定：主场景不可thay đổi，闪回用"画面叠加"描述
 - 角色列表必须đầy đủ来自原文，不增不减
-- **时代一致性**：nhân vật服装、发型、道具、环境细节必须严格符合剧本设定的时代背景，禁止混入其他时代元素
-- visualDescription: 纯đang xử lý...细画面描述（服装/道具必须符合时代）
+- **thời đại一致性**：nhân vật服装、发型、道具、环境细节必须严格符合剧本设定的thời đại背景，禁止混入其他thời đại元素
+- visualDescription: 纯đang xử lý...细画面描述（服装/道具必须符合thời đại）
 ${s2VisualPromptRule}
 - emotionTags Tùy chọn: happy/sad/angry/surprised/fearful/calm/tense/excited/mysterious/romantic/funny/touching/serious/relaxed/playful/gentle/passionate/low
 - ambientSound/soundEffect: 纯中文
@@ -287,7 +287,7 @@ ${s2VisualPromptRule}
         const artParts = [
           s.architectureStyle ? `建筑:${s.architectureStyle}` : '',
           s.colorPalette ? `色彩:${s.colorPalette}` : '',
-          s.eraDetails ? `时代:${s.eraDetails}` : '',
+          s.eraDetails ? `thời đại:${s.eraDetails}` : '',
           s.lightingDesign ? `光影:${s.lightingDesign}` : '',
         ].filter(Boolean);
         return `ID: ${s.shotId}\n场景: ${s.sceneLocation} | 时间: ${s.sceneTime}${s.sceneWeather ? ` | 天气:${s.sceneWeather}` : ''}\n景别: ${prev.shotSize || '?'} | 运动: ${prev.cameraMovement || '?'} | 节奏: ${prev.rhythm || '?'}\n视觉描述: ${prev.visualDescription || '?'}${artParts.length ? `\n场景美术: ${artParts.join(' | ')}` : ''}`;
@@ -323,7 +323,7 @@ ${s2VisualPromptRule}
 
 ${styleDesc}${mediaTypeHint}
 
-⚠️ 时代一致性（最重要）：nhân vật的服装、发型、配饰必须严格符合剧本设定的时代背景。例如古装剧đang xử lý...n vật必须穿古代服饰，禁止出现西装、T恤、现代发型等。
+⚠️ thời đại一致性（最重要）：nhân vật的服装、发型、配饰必须严格符合剧本设定的thời đại背景。例如古装剧đang xử lý...n vật必须穿古代服饰，禁止出现西装、T恤、现代发型等。
 
 ${s4Fields} 必须包含：
 a) 场景环境（地点+环境细节+时间氛围）
@@ -335,7 +335,7 @@ f) 画面风格（电影感/色调）
 ${s4LangWarning}
 
 needsEndFrame 判断：
-- true: nhân vật位置变化/动作序列/物品状态变化/镜头运动(非Static)
+- true: nhân vật位置变化/动作序列/vật phẩm状态变化/镜头运动(非Static)
 - false: 纯对白+位置không thay đổi/仅微Biểu cảm
 - 不确定时设 true
 
@@ -384,14 +384,14 @@ needsEndFrame 判断：
 ${s5VideoFields}：
 - 描述视频đang xử lý...动作（nhân vật动作、物体移动、镜头运动）
 - 强调动词，描述运动quá trình
-- ⚠️ Tất cả描述必须保持时代一致性（服装/道具/环境不能偏离剧本设定的时代）
+- ⚠️ Tất cả描述必须保持thời đại一致性（服装/道具/环境不能偏离剧本设定的thời đại）
 
 ${s5EndFields}：
 仅当 needsEndFrame=true 时生成，否则设为空字符串。
 - 描述动作完成后的最终画面
 - 包含与首帧相同的场景环境和光线
 - 重点描述与首帧的差异（新位置/新Tư thế/新Biểu cảm/道具新状态）
-- 保持与首帧相同的画面风格和时代设定
+- 保持与首帧相同的画面风格和thời đại设定
 ${s5LangWarning}
 
 格式：${s5JsonFormat}`;

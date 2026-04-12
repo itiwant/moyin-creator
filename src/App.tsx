@@ -74,7 +74,7 @@ function App() {
     };
   }, [isMigrating]);
 
-  // 同步主题到 html 元素
+  // 同步Chủ đề到 html 元素
   useEffect(() => {
     const root = document.documentElement;
     root.classList.remove("light", "dark");

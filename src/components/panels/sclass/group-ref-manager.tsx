@@ -7,7 +7,7 @@
  * GroupRefManager — Hạng S组级 @tham chiếuQuản lý器
  *
  * 功能：
- * - Tự động收集：Nhân vậtẢnh tham chiếu、CảnhẢnh tham chiếu、Khung hình đầuảnh → 只读Hiển thị
+ * - Tự động收 tập：Nhân vậtẢnh tham chiếu、CảnhẢnh tham chiếu、Khung hình đầuảnh → 只读Hiển thị
  * - Thủ côngTải lên：videotham chiếu（运镜/Hành động复刻）、âm thanhtham chiếu（节奏/BGM）
  * - 配额条：≤9 ảnh + ≤3 video + ≤3 âm thanh，Tổng ≤12
  * - Xóađã tải lên的video/âm thanhtham chiếu
@@ -149,7 +149,7 @@ export function GroupRefManager({
   const audioInputRef = useRef<HTMLInputElement>(null);
   const [isDragOver, setIsDragOver] = useState<"video" | "audio" | null>(null);
 
-  // ========== Tự động收集的ảnhtham chiếu ==========
+  // ========== Tự động收 tập的ảnhtham chiếu ==========
   const autoImages = useMemo(() => {
     const allCharIds = Array.from(
       new Set(scenes.flatMap((s) => s.characterIds || []))
@@ -294,7 +294,7 @@ export function GroupRefManager({
         </div>
       </div>
 
-      {/* ========== Tự động收集的ảnhtham chiếu（折叠Hiển thị） ========== */}
+      {/* ========== Tự động收 tập的ảnhtham chiếu（折叠Hiển thị） ========== */}
       <AutoImageSection
         charRefs={autoImages.charRefs}
         sceneRefs={autoImages.sceneRefs}
@@ -420,7 +420,7 @@ function AutoImageSection({
   if (totalCount === 0) {
     return (
       <div className="text-xs text-muted-foreground/60 py-1">
-        Chưa cóTự động收集的ảnhtham chiếu（Vui lòng tạo trướcKhung hình đầuảnh、关联Nhân vật或Cảnh）
+        Chưa cóTự động收 tập的ảnhtham chiếu（Vui lòng tạo trướcKhung hình đầuảnh、关联Nhân vật或Cảnh）
       </div>
     );
   }
@@ -433,7 +433,7 @@ function AutoImageSection({
       >
         <ImageIcon className="h-3 w-3 text-blue-500" />
         <span>
-          Tự động收集 {totalCount} 张ảnh
+          Tự động收 tập {totalCount} 张ảnh
           {truncated && <span className="text-amber-500 ml-1">(超出限制已截断至 {SEEDANCE_LIMITS.maxImages})</span>}
         </span>
         <span className="text-[10px]">{expanded ? "▼" : "▶"}</span>

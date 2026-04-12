@@ -114,7 +114,7 @@ export function classifyModelByName(modelName: string): ModelCapability[] {
 // ==================== Endpoint Routing ====================
 
 /**
- * 模型 API 调用格式
+ * 模型 API gọi API格式
  * 基于 MemeFast 等平台 /v1/models 返回的 supported_endpoint_types trường
  */
 export type ModelApiFormat =

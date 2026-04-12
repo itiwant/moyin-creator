@@ -324,7 +324,7 @@ export function SplitScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
   // Get current project data
   const projectData = useActiveDirectorProject();
 
-  // 获取当前项目的prompt语言Cài đặt（来自Kịch bản面板）
+  // 获取当前项目的promptNgôn ngữCài đặt（来自Kịch bản面板）
   const promptLanguage = useScriptStore(state => {
     const pid = state.activeProjectId;
     return pid ? state.projects[pid]?.promptLanguage : undefined;
@@ -831,7 +831,7 @@ export function SplitScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
     });
   }, []);
 
-  // 收集Nhân vậtẢnh tham chiếu - 必须在 handleQuadGridGenerate 之前定义
+  // 收 tậpNhân vậtẢnh tham chiếu - 必须在 handleQuadGridGenerate 之前定义
   const getCharacterReferenceImages = useCallback((
     characterIds: string[],
     variationMap?: Record<string, string>,
@@ -960,7 +960,7 @@ export function SplitScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
       return;
     }
 
-    // Get API key - 使用服务映射配置
+    // Get API key - 使用ánh xạ dịch vụ配置
     const featureConfig = getFeatureConfig('character_generation');
     if (!featureConfig) {
       toast.error('Vui lòng cấu hình API tạo ảnh trong Cài đặt trước');
@@ -1124,7 +1124,7 @@ export function SplitScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
         return undefined;
       };
 
-      // 调用 API - 使用智能路由（Tự độngChọn chat completions 或 images/generations）
+      // gọi API API - 使用智能路由（Tự độngChọn chat completions 或 images/generations）
       console.log('[QuadGrid] Calling API, model:', model);
       const apiResult = await submitGridImageRequest({
         model,
@@ -1479,7 +1479,7 @@ export function SplitScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
       return;
     }
     
-    // 从服务映射获取 platform 和 model
+    // 从ánh xạ dịch vụ获取 platform 和 model
     const platform = featureConfig.platform;
     const model = featureConfig.models?.[0];
     if (!model) {
@@ -1526,7 +1526,7 @@ export function SplitScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
 
       // Khung hình đầuảnhChọn逻辑：
       // 1. 如果本地持久化ảnh存在且Đã cấu hìnhLưu trữ ảnh，始终优先使用本地图重新Tải lên到当前Lưu trữ ảnh
-      // 2. 否则仅在 imageSource === 'ai-generated' 且已有可用 HTTP URL 时复用该 URL
+      // 2. 否则仅在 imageSource === 'ai-generated' 且已有Khả dụng HTTP URL 时复用该 URL
       // 3. 其余情况使用 imageDataUrl，并在后续转换为 HTTP URL
       let firstFrameUrl = scene.imageDataUrl || (isHttpImageUrl(scene.imageHttpUrl) ? scene.imageHttpUrl : '');
       const hasValidHttpUrl = isHttpImageUrl(scene.imageHttpUrl);
@@ -1746,7 +1746,7 @@ export function SplitScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
 
       console.log('[SplitScenes] image_with_roles:', imageWithRoles.length, 'images', imageWithRoles.map(i => i.role));
 
-      // 调用统一Tạo video API（Tự động路由到正确的 MemeFast 端点）
+      // gọi API统一Tạo video API（Tự động路由到正确的 MemeFast 端点）
       const videoUrl = await callVideoGenerationApi(
         apiKey,
         fullPrompt,
@@ -1855,7 +1855,7 @@ export function SplitScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
   }, [splitScenes, storyboardConfig, getApiKey, updateSplitSceneVideo, autoSaveVideoToLibrary, buildEmotionDescription, getCharacterReferenceImages]);
 
   // Handle generate videos - serial processing based on concurrency
-  // 复用 handleGenerateSingleVideo 的统一 API 调用逻辑，避免使用不存在的 /api/ai/video 端点
+  // 复用 handleGenerateSingleVideo 的统一 API gọi API逻辑，避免使用不存在的 /api/ai/video 端点
   const handleGenerateVideos = useCallback(async () => {
     if (splitScenes.length === 0) {
       toast.error("没有可Tạo的Phân cảnh");
@@ -1893,7 +1893,7 @@ export function SplitScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
     const totalCount = scenesToGenerate.length;
 
     // Process scenes sequentially (serial) or with limited concurrency
-    // 逐调用 handleGenerateSingleVideo，复用其đầy đủ的 API 调用逻辑
+    // 逐gọi API handleGenerateSingleVideo，复用其đầy đủ的 API gọi API逻辑
     for (let i = 0; i < scenesToGenerate.length; i += concurrency) {
       const batch = scenesToGenerate.slice(i, i + concurrency);
       
@@ -1923,7 +1923,7 @@ export function SplitScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
     const scene = splitScenes.find(s => s.id === sceneId);
     if (!scene) return;
 
-    // 使用服务映射配置 - 不再 fallback 到硬编码
+    // 使用ánh xạ dịch vụ配置 - 不再 fallback 到硬编码
     const featureConfig = getFeatureConfig('character_generation');
     if (!featureConfig) {
       toast.error('Vui lòng cấu hình ánh xạ dịch vụ tạo ảnh trong Cài đặt trước');
@@ -2005,7 +2005,7 @@ export function SplitScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
         referenceImages.push(...storyboardConfig.characterReferenceImages);
       }
       
-      // 3. Thêm原始Phân cảnh图作为Phong cáchTham chiếu
+      // 3. ThêmgốcPhân cảnh图作为Phong cáchTham chiếu
       if (storyboardImage) {
         referenceImages.push(storyboardImage);
       }
@@ -2279,7 +2279,7 @@ export function SplitScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
       return;
     }
 
-    // 获取图像Tạo能力 - 使用服务映射配置
+    // 获取图像Tạo能力 - 使用ánh xạ dịch vụ配置
     const featureConfig = getFeatureConfig('character_generation');
     if (!featureConfig) {
       toast.error('Vui lòng cấu hình ánh xạ dịch vụ tạo ảnh trong Cài đặt trước');
@@ -2363,11 +2363,11 @@ export function SplitScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
       taskPages.push(tasks.slice(i, i + 9));
     }
 
-    // 建立Ảnh tham chiếu池（按策略收集，从任务 cột表đang xử lý...ảnh）
+    // 建立Ảnh tham chiếu池（按策略收 tập，从任务 cột表đang xử lý...ảnh）
     const collectRefsFromTasks = (pageTasks: GridTask[]): string[] => {
       if (strategy === 'none') return [];
       const refs: string[] = [];
-      const seenScenes = new Set<number>(); // 避免同一Cảnh重复收集
+      const seenScenes = new Set<number>(); // 避免同一Cảnh重复收 tập
       for (const task of pageTasks) {
         if (seenScenes.has(task.scene.id)) continue;
         seenScenes.add(task.scene.id);
@@ -2683,7 +2683,7 @@ export function SplitScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
         return undefined;
       };
       
-      // 调用 API Tạo九宫格ảnh - 使用智能路由（Tự độngChọn chat completions 或 images/generations）
+      // gọi API API Tạo九宫格ảnh - 使用智能路由（Tự độngChọn chat completions 或 images/generations）
       console.log('[MergedGen] Calling API with', apiReferenceImages.length, 'reference images, model:', model);
       const apiResult = await submitGridImageRequest({
         model,
@@ -2889,7 +2889,7 @@ export function SplitScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
 
         console.log(`[MergedGen] Tự độngThử lại第 ${fp.index + 1} 页（${pageInfo}）`);
         try {
-          // 重新收集Ảnh tham chiếu（可能在其他页Thành công后有新的图可用）
+          // 重新收 tậpẢnh tham chiếu（可能在其他页Thành công后有新的图可用）
           const freshRefs = collectOptimizedRefsFromTasks(fp.pageTasks);
           await generateGridAndSlice(fp.pageTasks, freshRefs);
           succeededCount++;
@@ -2949,10 +2949,10 @@ export function SplitScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
     } else {
       updateSplitSceneImageStatus(sceneId, { imageStatus: 'generating', imageProgress: 0, imageError: null });
     }
-    // 使用服务映射配置
+    // 使用ánh xạ dịch vụ配置
     const featureConfig = getFeatureConfig('character_generation');
     if (!featureConfig) {
-      throw new Error('请先在Cài đặtđang xử lý...ạo ảnh服务映射');
+      throw new Error('请先在Cài đặtđang xử lý...ạo ảnhánh xạ dịch vụ');
     }
     const platform = featureConfig.platform;
     const model = featureConfig.models?.[0];
@@ -2961,11 +2961,11 @@ export function SplitScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
     }
     const apiKeyToUse = apiKey || featureConfig.keyManager.getCurrentKey() || '';
     if (!apiKeyToUse) {
-      throw new Error('请先在Cài đặtđang xử lý...ạo ảnh服务映射');
+      throw new Error('请先在Cài đặtđang xử lý...ạo ảnhánh xạ dịch vụ');
     }
     const imageBaseUrl = featureConfig.baseUrl?.replace(/\/+$/, '');
     if (!imageBaseUrl) {
-      throw new Error('请先在Cài đặtđang xử lý...ạo ảnh服务映射');
+      throw new Error('请先在Cài đặtđang xử lý...ạo ảnhánh xạ dịch vụ');
     }
 
     // Call image generation API with smart routing
@@ -3057,7 +3057,7 @@ export function SplitScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
       return;
     }
 
-    // 使用服务映射配置
+    // 使用ánh xạ dịch vụ配置
     const featureConfig = getFeatureConfig('character_generation');
     if (!featureConfig) {
       toast.error('Vui lòng cấu hình ánh xạ dịch vụ tạo ảnh trong Cài đặt trước');
@@ -3605,7 +3605,7 @@ export function SplitScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
                         onClick={() => {
                           // 仅为TrailerPhân cTạo ảnh video
                           toast.info(`Bắt đầuTạo ${trailerScenes.length} Trailervideo...`);
-                          // 循环调用单Tạo
+                          // 循环gọi API单Tạo
                           trailerScenes.forEach(scene => {
                             if (scene.imageDataUrl && scene.videoStatus !== 'completed') {
                               handleGenerateSingleVideo(scene.id);

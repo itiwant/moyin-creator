@@ -4,7 +4,7 @@
 
 /**
  * PropsLibrary - Thư viện đạo cụ主góc nhìn
- * Cây thư mục bên trái + 右侧Đạo cụ网格，Hỗ trợTùy chỉnhthư mụcQuản lý
+ * Cây thư mục bên trái + Lưới đạo cụ bên phải，Hỗ trợTùy chỉnhthư mụcQuản lý
  */
 
 import { useState, useRef } from 'react';
@@ -314,7 +314,7 @@ function FolderItem({
   );
 }
 
-// ── Tạo mớithư mục弹窗 ──────────────────────────────────────────────────────────────
+// ── Popup tạo thư mục mới ──────────────────────────────────────────────────────────────
 
 function NewFolderDialog({
   open,
@@ -421,7 +421,7 @@ export function PropsLibrary() {
             <span className="ml-auto text-[10px] opacity-60">{items.length}</span>
           </button>
 
-          {/* 用户Tùy chỉnhthư mục */}
+          {/* Thư mục tùy chỉnh của người dùng */}
           {folders.map((folder) => {
             const count = items.filter((i) => i.folderId === folder.id).length;
             return (
@@ -438,15 +438,15 @@ export function PropsLibrary() {
             );
           })}
 
-          {/* 无thư mụcGợi ý */}
+          {/* Gợi ý khi không có thư mục */}
           {folders.length === 0 && (
             <p className="text-[10px] text-muted-foreground px-3 py-2 leading-relaxed">
-              Nhấp右上角 + Tạo thư mục mới
+              Nhấpgóc trên phải + Tạo thư mục mới
             </p>
           )}
         </ScrollArea>
 
-        {/* 底部Tạo mớinút */}
+        {/* Nút Tạo mới ở dưới */}
         <div className="p-2 border-t border-border shrink-0">
           <Button
             variant="outline"
@@ -460,25 +460,25 @@ export function PropsLibrary() {
         </div>
       </div>
 
-      {/* ── 右侧Đạo cụ网格 ── */}
+      {/* ── Lưới đạo cụ bên phải ── */}
       <div className="flex-1 flex flex-col min-w-0">
-        {/* 面包屑/tiêu đề栏 */}
+        {/* Thanh breadcrumb/tiêu đề */}
         <div className="px-4 py-2.5 border-b border-border shrink-0 flex items-center gap-2">
           <Package className="w-4 h-4 text-muted-foreground" />
           <span className="text-sm font-medium">{currentFolderName}</span>
           <span className="text-xs text-muted-foreground">({visibleItems.length} Đạo cụ)</span>
         </div>
 
-        {/* Đạo cụ网格 */}
+        {/* Lưới đạo cụ */}
         <ScrollArea className="flex-1">
           {visibleItems.length === 0 ? (
             <div className="h-full flex flex-col items-center justify-center gap-4 text-muted-foreground py-24">
               <Package className="h-16 w-16 opacity-20" />
               <div className="text-center">
-                <p className="text-base font-medium">Thư viện đạo cụ为空</p>
+                <p className="text-base font-medium">Thư viện đạo cụ trống</p>
                 <p className="text-sm mt-1">
-                  在「Tự do」panel的Studio Tạo ảnh ảnh后，<br />
-                  Nhấp「Lưu vào Thư viện đạo cụ」即可ThêmĐạo cụ
+                  Sau khi Tạo ảnh trong Studio của panel「Tự do」,<br />
+                  Nhấp「Lưu vào Thư viện đạo cụ」để Thêm đạo cụ
                 </p>
               </div>
             </div>
@@ -492,7 +492,7 @@ export function PropsLibrary() {
         </ScrollArea>
       </div>
 
-      {/* Tạo mớithư mục弹窗 */}
+      {/* Popup tạo thư mục mới */}
       <NewFolderDialog open={newFolderOpen} onOpenChange={setNewFolderOpen} />
     </div>
   );

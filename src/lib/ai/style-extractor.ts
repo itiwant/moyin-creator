@@ -88,7 +88,7 @@ function extractErrorMessage(status: number, errorText: string): string {
   }
 
   if (status >= 500) {
-    return message || `上游服务暂时不可用 (${status})`;
+    return message || `上游服务暂时不Khả dụng (${status})`;
   }
 
   return message;

@@ -7,11 +7,11 @@
  *
  * 功能：
  * 1. 读取组内各 SplitScene 数据（只读，不修改 director-store）
- * 2. 调用 LLM Tạo组级叙事弧线、Ống kính过渡、âm thanh设计、优化 prompt
+ * 2. gọi API LLM Tạo组级叙事弧线、Ống kính过渡、âm thanh设计、优化 prompt
  * 3. 写入 sclass-store 的 ShotGroup 校准trường
  *
  * 数据安全：
- * - 只读 director-store，零污染原始Kịch bản数据
+ * - 只读 director-store，零污染gốcKịch bản数据
  * - 产物只写 sclass-store.ShotGroup 的校准trường
  */
 
@@ -122,7 +122,7 @@ ${sceneSummaries}
 transitions 数组长度必须为 ${scenes.length - 1}（每两相邻Ống kính之间一条）。
 calibratedPrompt 必须覆盖Tất cả ${scenes.length} Ống kính，保持Ống kính编号和Thời gian轴。`;
 
-  // ---- 调用 LLM ----
+  // ---- gọi API LLM ----
   const raw = await callFeatureAPI('script_analysis', systemPrompt, userPrompt, {
     temperature: 0.3, // 低温度确保稳定输出
     maxTokens: 4096,
@@ -172,7 +172,7 @@ calibratedPrompt 必须覆盖Tất cả ${scenes.length} Ống kính，保持Ố
 /**
  * 执 hàng校准并写入 store
  *
- * 这是 UI 层应该调用的入口。处理Trạng thái更新和错误。
+ * 这是 UI 层应该gọi API的入sổ。处理Trạng thái更新和错误。
  */
 export async function runCalibration(
   groupId: string,

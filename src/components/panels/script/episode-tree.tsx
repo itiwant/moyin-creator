@@ -136,7 +136,7 @@ interface EpisodeTreeProps {
   }>;
   // Cảnh校准相关
   onCalibrateScenes?: () => void;  // 全局校准Tất cảCảnh
-  onCalibrateEpisodeScenes?: (episodeIndex: number) => void;  // 校准单集Cảnh
+  onCalibrateEpisodeScenes?: (episodeIndex: number) => void;  // 校准单 tậpCảnh
   sceneCalibrationStatus?: 'idle' | 'calibrating' | 'completed' | 'error';
   // Trailer相关
   trailerConfig?: TrailerConfig | null;
@@ -151,7 +151,7 @@ interface EpisodeTreeProps {
   onCalibrationStrictnessChange?: (strictness: CalibrationStrictness) => void;
   lastFilteredCharacters?: FilteredCharacterRecord[];
   onRestoreFilteredCharacter?: (characterName: string) => void;
-  // 校准Xác nhận弹窗
+  // 校准Xác nhậnPopup
   calibrationDialogOpen?: boolean;
   pendingCalibrationCharacters?: ScriptCharacter[] | null;
   pendingFilteredCharacters?: FilteredCharacterRecord[];
@@ -207,7 +207,7 @@ export function EpisodeTree({
   onCalibrationStrictnessChange,
   lastFilteredCharacters,
   onRestoreFilteredCharacter,
-  // 校准Xác nhận弹窗
+  // 校准Xác nhậnPopup
   calibrationDialogOpen,
   pendingCalibrationCharacters,
   pendingFilteredCharacters,
@@ -219,7 +219,7 @@ export function EpisodeTree({
   const [filter, setFilter] = useState<FilterType>("all");
   // Nhân vật分组折叠状态
   const [extrasExpanded, setExtrasExpanded] = useState(false);
-  // Tab 状态: 剧集Cấu trúc vs Trailer
+  // Tab 状态: 剧 tậpCấu trúc vs Trailer
   const [activeTab, setActiveTab] = useState<"structure" | "trailer">("structure");
   // Trailer时长Chọn
   const [selectedTrailerDuration, setSelectedTrailerDuration] = useState<TrailerDuration>(30);
@@ -259,16 +259,16 @@ export function EpisodeTree({
     scene?: ScriptScene;
   } | null>(null);
 
-  // 被lọcNhân vật查看弹窗
+  // 被lọcNhân vật查看Popup
   const [filteredCharsDialogOpen, setFilteredCharsDialogOpen] = useState(false);
   
-  // 校准Xác nhận弹窗的本地编辑状态
+  // 校准Xác nhậnPopup的本地编辑状态
   const [localKeptCharacters, setLocalKeptCharacters] = useState<ScriptCharacter[]>([]);
   const [localFilteredCharacters, setLocalFilteredCharacters] = useState<FilteredCharacterRecord[]>([]);
   // 缓存用户手动xóa的Nhân vậtđầy đủ数据，便于恢复时不丢失 AI 生成的trường
   const [removedCharactersCache, setRemovedCharactersCache] = useState<Map<string, ScriptCharacter>>(new Map());
   
-  // 当Xác nhận弹窗打开时，从 props 同步
+  // 当Xác nhậnPopup打开时，从 props 同步
   useEffect(() => {
     if (calibrationDialogOpen && pendingCalibrationCharacters) {
       setLocalKeptCharacters([...pendingCalibrationCharacters]);
@@ -332,11 +332,11 @@ export function EpisodeTree({
     if (scriptData.episodes && scriptData.episodes.length > 0) {
       return scriptData.episodes;
     }
-    // 默认单集
+    // 默认单 tập
     return [{
       id: "default",
       index: 1,
-      title: scriptData.title || "第1集",
+      title: scriptData.title || "第1 tập",
       sceneIds: scriptData.scenes.map((s) => s.id),
     }];
   }, [scriptData]);
@@ -384,7 +384,7 @@ export function EpisodeTree({
   // CRUD handlers
   const handleAddEpisode = () => {
     setEditingItem(null);
-    setFormData({ title: `第${episodes.length + 1}集`, description: "" });
+    setFormData({ title: `第${episodes.length + 1} tập`, description: "" });
     setEpisodeDialogOpen(true);
   };
 
@@ -401,7 +401,7 @@ export function EpisodeTree({
         onUpdateEpisodeBundle?.(ep.index, { title: formData.title, synopsis: formData.description });
       }
     } else {
-      onAddEpisodeBundle?.(formData.title || `第${episodes.length + 1}集`, formData.description || '');
+      onAddEpisodeBundle?.(formData.title || `第${episodes.length + 1} tập`, formData.description || '');
     }
     setEpisodeDialogOpen(false);
     setFormData({});
@@ -648,7 +648,7 @@ export function EpisodeTree({
               className="rounded-none border-b-2 border-transparent data-[state=active]:border-primary data-[state=active]:bg-transparent h-9 px-4"
             >
               <Film className="h-3 w-3 mr-1" />
-              剧集Cấu trúc
+              剧 tậpCấu trúc
             </TabsTrigger>
             <TabsTrigger 
               value="trailer" 
@@ -661,7 +661,7 @@ export function EpisodeTree({
         </Tabs>
       </div>
 
-      {/* tiêu đề和进度 - 仅在剧集Cấu trúc Tab 显示 */}
+      {/* tiêu đề和进度 - 仅在剧 tậpCấu trúc Tab 显示 */}
       {activeTab === "structure" && (
         <div className="p-3 border-b">
           <div className="flex items-center justify-between">
@@ -678,7 +678,7 @@ export function EpisodeTree({
         </div>
       )}
 
-      {/* 筛选 + 新建nút - 仅在剧集Cấu trúc Tab 显示 */}
+      {/* 筛选 + 新建nút - 仅在剧 tậpCấu trúc Tab 显示 */}
       {activeTab === "structure" && (
         <div className="px-3 py-2 border-b flex items-center justify-between">
           <div className="flex items-center gap-1">
@@ -724,7 +724,7 @@ export function EpisodeTree({
               </Button>
             )}
             <Button size="sm" variant="outline" className="h-6 text-xs px-2" onClick={handleAddEpisode}>
-              <Plus className="h-3 w-3 mr-1" />新建集
+              <Plus className="h-3 w-3 mr-1" />新建 tập
             </Button>
           </div>
         </div>
@@ -869,11 +869,11 @@ export function EpisodeTree({
         </div>
       )}
 
-      {/* 剧集Cấu trúc Tab Nội dung - 树形Cấu trúc */}
+      {/* 剧 tậpCấu trúc Tab Nội dung - 树形Cấu trúc */}
       {activeTab === "structure" && (
       <ScrollArea className="flex-1">
         <div className="p-2 pb-20 space-y-1">
-          {/* 集 cột表 */}
+          {/*  tập cột表 */}
           {episodes.map((episode) => {
             const episodeScenes = scriptData.scenes.filter((s) =>
               episode.sceneIds.includes(s.id)
@@ -887,7 +887,7 @@ export function EpisodeTree({
 
             return (
               <div key={episode.id} className="space-y-0.5">
-                {/* 集tiêu đề */}
+                {/*  tậptiêu đề */}
                 <div className="flex items-center group">
                   <button
                     onClick={() => toggleEpisode(episode.id)}
@@ -1101,7 +1101,7 @@ export function EpisodeTree({
             );
           })}
 
-          {/* Nhân vật cột表 - 分为主角组和群演配角组 */}
+          {/* Danh sách nhân vật - 分为nhân vật chính组和群演nhân vật phụ组 */}
           {(() => {
             // lọc掉Nhân vật cha，并去重
             const seenIds = new Set<string>();
@@ -1113,7 +1113,7 @@ export function EpisodeTree({
                 return true;
               });
             
-            // 分组：主角组 (protagonist, supporting) 和 群演配角组 (minor, extra)
+            // 分组：nhân vật chính组 (protagonist, supporting) 和 群演nhân vật phụ组 (minor, extra)
             const mainCharacters = allCharacters.filter(c => {
               const tags = c.tags || [];
               return tags.includes('protagonist') || tags.includes('supporting');
@@ -1157,7 +1157,7 @@ export function EpisodeTree({
             
             return (
               <>
-                {/* 主角组 */}
+                {/* nhân vật chính组 */}
                 <div className="mt-4 pt-4 border-t">
                   <div className="px-2 py-1 text-xs font-medium text-muted-foreground flex items-center justify-between">
                     <div className="flex items-center gap-1">
@@ -1217,7 +1217,7 @@ export function EpisodeTree({
                   </div>
                 </div>
                 
-                {/* 群演配角组 - 可折叠 */}
+                {/* 群演nhân vật phụ组 - 可折叠 */}
                 {extraCharacters.length > 0 && (
                   <div className="mt-2 border-t border-dashed pt-2">
                     <button
@@ -1230,7 +1230,7 @@ export function EpisodeTree({
                         ) : (
                           <ChevronRight className="h-3 w-3" />
                         )}
-                        <span>群演配角 ({extraCharacters.length})</span>
+                        <span>群演nhân vật phụ ({extraCharacters.length})</span>
                       </div>
                     </button>
                     {extrasExpanded && (
@@ -1251,7 +1251,7 @@ export function EpisodeTree({
       <Dialog open={episodeDialogOpen} onOpenChange={setEpisodeDialogOpen}>
         <DialogContent className="sm:max-w-md">
           <DialogHeader>
-            <DialogTitle>{editingItem?.type === "episode" ? "编辑集" : "新建集"}</DialogTitle>
+            <DialogTitle>{editingItem?.type === "episode" ? "编辑 tập" : "新建 tập"}</DialogTitle>
           </DialogHeader>
           <div className="space-y-4 py-4">
             <div className="space-y-2">
@@ -1323,7 +1323,7 @@ export function EpisodeTree({
                   描述你需要的Cảnh，例如：
                 </Label>
                 <div className="text-xs text-muted-foreground space-y-1 pl-2">
-                  <p>• “缺第5集的张家客厅这Cảnh”</p>
+                  <p>• “缺第5 tập的张家客厅这Cảnh”</p>
                   <p>• “添加医院走廊这Địa điểm”</p>
                   <p>• “需要公司会议室”</p>
                 </div>
@@ -1492,7 +1492,7 @@ export function EpisodeTree({
                   描述你需要的Nhân vật，例如：
                 </Label>
                 <div className="text-xs text-muted-foreground space-y-1 pl-2">
-                  <p>• “缺第10集的王大哥这Nhân vật”</p>
+                  <p>• “缺第10 tập的王大哥这Nhân vật”</p>
                   <p>• “添加张小宝这人”</p>
                   <p>• “需要刀疑哥”</p>
                 </div>
@@ -1625,7 +1625,7 @@ export function EpisodeTree({
         </AlertDialogContent>
       </AlertDialog>
 
-      {/* Nhân vật校准Xác nhận弹窗 */}
+      {/* Nhân vật校准Xác nhậnPopup */}
       <Dialog open={calibrationDialogOpen} onOpenChange={(open) => { if (!open) onCancelCalibration?.(); }}>
         <DialogContent className="sm:max-w-2xl max-h-[80vh] overflow-y-auto">
           <DialogHeader>
@@ -1636,13 +1636,13 @@ export function EpisodeTree({
           </DialogHeader>
           
           <div className="space-y-4 py-2">
-            {/* 保留Nhân vật cột表 */}
+            {/* 保留Danh sách nhân vật */}
             <div>
               <h4 className="text-sm font-medium mb-2">保留Nhân vật ({localKeptCharacters.length})</h4>
               <div className="space-y-1 max-h-48 overflow-y-auto border rounded-md p-2">
                 {localKeptCharacters.map(char => {
                   const importance = char.tags?.find(t => ['protagonist', 'supporting', 'minor', 'extra'].includes(t));
-                  const labels: Record<string, string> = { protagonist: '主角', supporting: '配角', minor: '次要', extra: '群演' }; // TODO: extract to module constant
+                  const labels: Record<string, string> = { protagonist: 'nhân vật chính', supporting: 'nhân vật phụ', minor: '次要', extra: '群演' }; // TODO: extract to module constant
                   return (
                     <div key={char.id} className="flex items-center justify-between px-2 py-1 rounded hover:bg-muted text-xs">
                       <div className="flex items-center gap-2">
@@ -1663,7 +1663,7 @@ export function EpisodeTree({
               </div>
             </div>
             
-            {/* 被lọcNhân vật cột表 */}
+            {/* 被lọcDanh sách nhân vật */}
             {localFilteredCharacters.length > 0 && (
               <div>
                 <h4 className="text-sm font-medium mb-2">被lọcNhân vật ({localFilteredCharacters.length})</h4>
@@ -1697,7 +1697,7 @@ export function EpisodeTree({
         </DialogContent>
       </Dialog>
 
-      {/* 查看被lọcNhân vật弹窗 */}
+      {/* 查看被lọcNhân vậtPopup */}
       <Dialog open={filteredCharsDialogOpen} onOpenChange={setFilteredCharsDialogOpen}>
         <DialogContent className="sm:max-w-md">
           <DialogHeader>

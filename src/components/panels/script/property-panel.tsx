@@ -79,7 +79,7 @@ function StatusBadge({ status }: { status?: CompletionStatus }) {
   );
 }
 
-// 集的详细信息
+//  tập的详细信息
 interface EpisodeDetail extends Episode {
   synopsis?: string;
   keyEvents?: string[];
@@ -93,8 +93,8 @@ interface PropertyPanelProps {
   character?: ScriptCharacter;
   scene?: ScriptScene;
   shot?: Shot;
-  episode?: EpisodeDetail;  // 集信息
-  episodeShots?: Shot[];    // 该集的Tất cảPhân cảnh
+  episode?: EpisodeDetail;  //  tập信息
+  episodeShots?: Shot[];    // 该 tập的Tất cảPhân cảnh
   sceneShots?: Shot[];      // 该Cảnh的Tất cảPhân cảnh（用于多视角phân tích）
   onGoToCharacterLibrary?: (characterId: string) => void;
   onGoToSceneLibrary?: (sceneId: string) => void;
@@ -179,7 +179,7 @@ export function PropertyPanel({
       lines.push('');
     }
     
-    // Prompt thị giác（按prompt语言显示）
+    // Prompt thị giác（按promptNgôn ngữ显示）
     const includeZhScenePrompt = promptLanguage !== 'en';
     const includeEnScenePrompt = promptLanguage !== 'zh';
     if ((includeZhScenePrompt && scene.visualPrompt) || (includeEnScenePrompt && scene.visualPromptEn)) {
@@ -215,7 +215,7 @@ export function PropertyPanel({
       }
       if (scene.appearanceCount) lines.push(`出Cảnh次数：${scene.appearanceCount} 次`);
       if (scene.episodeNumbers && scene.episodeNumbers.length > 0) {
-        lines.push(`出现集数：第 ${scene.episodeNumbers.join(', ')} 集`);
+        lines.push(`出现 tập数：第 ${scene.episodeNumbers.join(', ')}  tập`);
       }
       lines.push('');
     }
@@ -393,7 +393,7 @@ export function PropertyPanel({
     }
   };
 
-  // 复制集Phân cảnh数据
+  // 复制 tậpPhân cảnh数据
   const handleCopyEpisodeShots = async () => {
     if (!episode || episodeShots.length === 0) return;
     
@@ -406,10 +406,10 @@ export function PropertyPanel({
     
     // 格式化Phân cảnh数据
     const lines: string[] = [];
-    lines.push(`# 第${episode.index}集：${episode.title.replace(/^第\d+集[：:]?/, '')}`);
+    lines.push(`# 第${episode.index} tập：${episode.title.replace(/^第\d+ tập[：:]?/, '')}`);
     lines.push('');
     if (episode.synopsis) {
-      lines.push(`## Tập này大纲`);
+      lines.push(`## Tập nàyđại cương`);
       lines.push(episode.synopsis);
       lines.push('');
     }
@@ -563,12 +563,12 @@ export function PropertyPanel({
       lines.push('');
     }
 
-    // 叙事驱动设计（基于《电影语言的语法》）
+    // 叙事驱动设计（基于《电影Ngôn ngữ的语法》）
     const hasNarrative = (shot as any).narrativeFunction || (shot as any).shotPurpose || 
                          (shot as any).visualFocus || (shot as any).cameraPosition || 
                          (shot as any).characterBlocking || (shot as any).rhythm;
     if (hasNarrative) {
-      lines.push('【叙事驱动设计】基于《电影语言的语法》');
+      lines.push('【叙事驱动设计】基于《电影Ngôn ngữ的语法》');
       if ((shot as any).narrativeFunction) {
         lines.push(`叙事功能: ${(shot as any).narrativeFunction}`);
       }
@@ -739,7 +739,7 @@ export function PropertyPanel({
     );
   }
 
-  // 集详情
+  //  tập详情
   if (selectedItemType === "episode" && episode) {
     return (
       <ScrollArea className="h-full">
@@ -750,25 +750,25 @@ export function PropertyPanel({
               <Clapperboard className="h-5 w-5 text-primary" />
             </div>
             <div className="flex-1">
-              <h3 className="font-medium">第{episode.index}集</h3>
-              <p className="text-sm text-muted-foreground">{episode.title.replace(/^第\d+集[：:]？/, '')}</p>
+              <h3 className="font-medium">第{episode.index} tập</h3>
+              <p className="text-sm text-muted-foreground">{episode.title.replace(/^第\d+ tập[：:]？/, '')}</p>
             </div>
           </div>
 
           <Separator />
 
-          {/* 大纲 */}
+          {/* đại cương */}
           {episode.synopsis ? (
             <div className="bg-gradient-to-r from-primary/5 to-transparent p-3 rounded-lg border-l-2 border-primary/30">
               <div className="text-xs text-muted-foreground mb-2 flex items-center gap-1">
                 <BookOpen className="h-3 w-3" />
-                Tập này大纲
+                Tập nàyđại cương
               </div>
               <div className="text-sm leading-relaxed whitespace-pre-wrap">{episode.synopsis}</div>
             </div>
           ) : (
             <div className="text-xs text-muted-foreground bg-muted/30 p-3 rounded-lg">
-              未生成大纲，Nhấp下方nút生成
+              未生成đại cương，Nhấp下方nút生成
             </div>
           )}
 
@@ -943,7 +943,7 @@ export function PropertyPanel({
                     🎭 Nhân vật giai đoạn：{character.stageInfo.stageName}
                   </div>
                   <div className="text-xs text-muted-foreground">
-                    适用集数：第{character.stageInfo.episodeRange[0]}-{character.stageInfo.episodeRange[1]}集
+                    适用 tập数：第{character.stageInfo.episodeRange[0]}-{character.stageInfo.episodeRange[1]} tập
                   </div>
                   {character.stageInfo.ageDescription && (
                     <div className="text-xs text-muted-foreground">
@@ -1331,7 +1331,7 @@ export function PropertyPanel({
                       <span className="text-xs text-muted-foreground">出Cảnh {scene.appearanceCount} 次</span>
                     )}
                     {scene.episodeNumbers && scene.episodeNumbers.length > 0 && (
-                      <span className="text-xs text-muted-foreground">第 {scene.episodeNumbers.join(', ')} 集</span>
+                      <span className="text-xs text-muted-foreground">第 {scene.episodeNumbers.join(', ')}  tập</span>
                     )}
                   </div>
                 </>

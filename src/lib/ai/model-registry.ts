@@ -20,7 +20,7 @@
 // ==================== Types ====================
 
 export interface ModelLimits {
-  /** 模型最大输入上下文窗口（tokens） */
+  /** 模型最大输入上下文sổ（tokens） */
   contextWindow: number;
   /** 模型最大输出 token 数（max_tokens 参数上限） */
   maxOutput: number;
@@ -101,7 +101,7 @@ let _getDiscoveredLimits: ((model: string) => DiscoveredModelLimits | undefined)
 let _setDiscoveredLimits: ((model: string, limits: Partial<DiscoveredModelLimits>) => void) | null = null;
 
 /**
- * 注入持久化缓存的读写函数（由 api-config-store 在初始化时调用）
+ * 注入持久化缓存的读写函数（由 api-config-store 在初始化时gọi API）
  * 这种chế độ避免了 model-registry ↔ api-config-store 的循环依赖
  */
 export function injectDiscoveryCache(
@@ -265,7 +265,7 @@ export function estimateTokens(text: string): number {
  * 智能截断文本，不在句子或段落đang xử lý...
  * 避免截断导致 JSON Cấu trúc损坏或 AI 理解混乱
  *
- * @param text 原始文本
+ * @param text gốc文本
  * @param maxLength 最大字符数
  * @param hint 截断时追加的提示后缀（帮助 AI 理解信息不đầy đủ，减少幻觉）
  */

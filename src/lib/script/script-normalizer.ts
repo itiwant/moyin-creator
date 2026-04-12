@@ -5,15 +5,15 @@
  * Script Format Normalizer - 剧本格式归一化器
  * 
  * 在 parseFullScript 之前自动检测非标准格式并插入Cấu trúc标记，
- * 使解析器能正确提取标题、大纲、nhân vật小传、集数等信息。
+ * 使解析器能正确提取标题、đại cương、nhân vật小传、 tập数等信息。
  * 
  * 双层架构：
- * 1. AI 检测（优先）：调用 LLM 理解内容语义，精准识别Cấu trúc + 补全缺失大纲
- * 2. 正则兜底（降级）：无 AI 配置或 AI 调用失败时使用硬编码chế độ匹配
+ * 1. AI 检测（优先）：gọi API LLM 理解内容语义，精准识别Cấu trúc + 补全缺失đại cương
+ * 2. 正则兜底（降级）：无 AI 配置或 AI gọi API失败时使用硬编码chế độ匹配
  * 
  * 核心原则：
- * - 只插入Cấu trúc标记（《》、大纲：、nhân vật小传：）+ AI 生成的大纲
- * - 不修改、不删除任何原始内容
+ * - 只插入Cấu trúc标记（《》、đại cương：、nhân vật小传：）+ AI 生成的đại cương
+ * - 不修改、不删除任何gốc内容
  * - 幂等：已有标准格式的文本不受影响
  */
 
@@ -28,7 +28,7 @@ import { getFeatureConfig } from '@/lib/ai/feature-router';
  * 
  * 检测条件：文本无换行 或 平均行长 > 500 字
  * 插入位置（按优先级）：
- *   1. 集标记：第X集 / 第X章 / Episode X
+ *   1.  tập标记：第X tập / 第X章 / Episode X
  *   2. đang xử lý...段落：一、 二、 三、...
  *   3. 场景号：数字-数字（如 1-1、2-3）
  *   4. 动作描写：△
@@ -46,9 +46,9 @@ export function preprocessLineBreaks(text: string): { text: string; inserted: bo
   
   let result = text;
   
-  // 1. 集/章/幕标记前换行
+  // 1.  tập/章/幕标记前换行
   result = result.replace(
-    /(?<!\n)(?=\*{0,2}第[一二三四五六七八九十百千\d]+[集章幕][：:]?)/g,
+    /(?<!\n)(?=\*{0,2}第[一二三四五六七八九十百千\d]+[ tập章幕][：:]?)/g,
     '\n'
   );
   
@@ -124,7 +124,7 @@ export function normalizeScriptFormat(text: string): NormalizationResult {
   
   // 检查已有标准标记
   const hasTitle = /[《「][^》」]+[》」]/.test(text);
-  const hasOutline = /(?:\*{0,2}大纲[：:]\*{0,2}|【大纲】)/i.test(text);
+  const hasOutline = /(?:\*{0,2}đại cương[：:]\*{0,2}|【đại cương】)/i.test(text);
   const hasCharBios = /(?:\*{0,2}nhân vật小传[：:]\*{0,2}|【nhân vật小传】)/i.test(text);
   
   // Tất cả标准，无需归一化
@@ -139,18 +139,18 @@ export function normalizeScriptFormat(text: string): NormalizationResult {
     normalized = normalizeTitle(normalized, changes);
   }
   
-  // === Step 2: nhân vật小传标记检测（先于大纲，因为大纲插入位置依赖nhân vật小传位置）===
+  // === Step 2: nhân vật小传标记检测（先于đại cương，因为đại cương插入位置依赖nhân vật小传位置）===
   if (!hasCharBios) {
     normalized = normalizeCharacterSection(normalized, changes);
   }
   
-  // === Step 3: 大纲标记检测 ===
-  const hasOutlineNow = /(?:\*{0,2}大纲[：:]\*{0,2}|【大纲】)/i.test(normalized);
+  // === Step 3: đại cương标记检测 ===
+  const hasOutlineNow = /(?:\*{0,2}đại cương[：:]\*{0,2}|【đại cương】)/i.test(normalized);
   if (!hasOutlineNow) {
     normalized = normalizeOutlineSection(normalized, changes);
   }
   
-  // === Step 4: 集标记归一化（第X章 → 第X集 等）===
+  // === Step 4:  tập标记归一化（第X章 → 第X tập 等）===
   normalized = normalizeEpisodeMarkers(normalized, changes);
   
   return { normalized, changes };
@@ -164,24 +164,24 @@ export function normalizeScriptFormat(text: string): NormalizationResult {
 export interface ScriptStructureAnalysis {
   /** 作品名称 */
   title: string;
-  /** 时代背景（古代/现代/民国/未来等） */
+  /** thời đại背景（古代/现代/民国/未来等） */
   era: string;
   /** 类型（武侠/商战/爱情等） */
   genre: string;
-  /** 原文đang xử lý...有大纲/故事概述 */
+  /** 原文đang xử lý...有đại cương/故事概述 */
   hasOutline: boolean;
-  /** AI 生成的大纲（仅当 hasOutline=false 时填充） */
+  /** AI 生成的đại cương（仅当 hasOutline=false 时填充） */
   generatedOutline: string;
   /** nhân vật/角色描述区域bắt đầu文本（精确复制原文前30字符） */
   characterSectionKeyword: string;
-  /** 大纲/故事概述区域bắt đầu文本（原文前30字符，无则Để trống） */
+  /** đại cương/故事概述区域bắt đầu文本（原文前30字符，无则Để trống） */
   outlineSectionKeyword: string;
   // === 剧级元数据提取（可选，AI 有能力时填充） ===
   /** 一句话概括 */
   logline?: string;
   /** 核心冲突 */
   centralConflict?: string;
-  /** 主题quan trọng词 */
+  /** Chủ đềquan trọng词 */
   themes?: string[];
   /** 提取的角色列表 */
   characters?: Array<{
@@ -192,17 +192,17 @@ export interface ScriptStructureAnalysis {
     personality?: string;
     keyActions?: string;
   }>;
-  /** 阵营/势力 */
+  /** phe phái/势力 */
   factions?: Array<{ name: string; members: string[] }>;
-  /** quan trọng物品 */
+  /** Vật phẩm quan trọng */
   keyItems?: Array<{ name: string; description: string }>;
-  /** 地理设定 */
+  /** Cài đặt địa lý */
   geography?: Array<{ name: string; description: string }>;
 }
 
 /**
- * AI Cấu trúc检测：调用 LLM 分析剧本Cấu trúc，识别标题/大纲/nhân vật/年代，并补全缺失大纲
- * @returns 分析结果，AI 不可用或调用失败时返回 null
+ * AI Cấu trúc检测：gọi API LLM 分析剧本Cấu trúc，识别标题/đại cương/nhân vật/年代，并补全缺失đại cương
+ * @returns 分析结果，AI 不可用或gọi API失败时返回 null
  */
 export async function analyzeScriptStructureWithAI(text: string): Promise<ScriptStructureAnalysis | null> {
   // 检查 AI 是否可用
@@ -213,7 +213,7 @@ export async function analyzeScriptStructureWithAI(text: string): Promise<Script
   }
   
   try {
-    // 发送较多内容以便提取剧级元数据（角色/阵营/物品/地理）
+    // 发送较多内容以便提取剧级元数据（角色/phe phái/vật phẩm/địa lý）
     const MAX_ANALYSIS_LENGTH = 10000;
     const analysisText = text.length > MAX_ANALYSIS_LENGTH
       ? text.substring(0, MAX_ANALYSIS_LENGTH) + '\n...\uff08后续内容省略\uff09'
@@ -224,20 +224,20 @@ export async function analyzeScriptStructureWithAI(text: string): Promise<Script
 严格返回以下 JSON 格式（不要添加任何其他内容）：
 {
   "title": "作品名称",
-  "era": "时代背景（古代/现代/民国/清末/未来/当代等）",
+  "era": "thời đại背景（古代/现代/民国/清末/未来/当代等）",
   "genre": "类型（武侠/商战/爱情/悬疑/科幻/仙侠/军旅/家庭等）",
   "hasOutline": false,
-  "generatedOutline": "如果文本đang xử lý...纲/故事概述区域，基于全文内容生成一段简洁大纲（100-200字）；如果已有大纲则Để trống字符串",
+  "generatedOutline": "如果文本đang xử lý...纲/故事概述区域，基于全文内容生成一段简洁đại cương（100-200字）；如果已有đại cương则Để trống字符串",
   "characterSectionKeyword": "nhân vật/角色描述区域开始处的原文文本（精确复制前30字符），找不到则Để trống",
-  "outlineSectionKeyword": "大纲/故事概述区域开始处的原文文本（精确复制前30字符），找不到则Để trống",
+  "outlineSectionKeyword": "đại cương/故事概述区域开始处的原文文本（精确复制前30字符），找不到则Để trống",
   "logline": "一句话概括整故事（比如：被驱逐的侠客为救百姓重返雁城）",
-  "centralConflict": "主线矛盾（如：主角 vs 反派+外部势力）",
-  "themes": ["主题quan trọng词1", "主题quan trọng词2"],
+  "centralConflict": "chính tuyếnmâu thuẫn（如：nhân vật chính vs 反派+外部势力）",
+  "themes": ["Chủ đềquan trọng词1", "Chủ đềquan trọng词2"],
   "characters": [
-    {"name": "角色名", "age": "年龄", "identity": "身份", "faction": "所属阵营", "personality": "性格特点", "keyActions": "quan trọng行为"}
+    {"name": "角色名", "age": "年龄", "identity": "身份", "faction": "所属phe phái", "personality": "性格特点", "keyActions": "quan trọng行为"}
   ],
-  "factions": [{"name": "阵营名", "members": ["角色名1", "角色名2"]}],
-  "keyItems": [{"name": "物品名", "description": "简述"}],
+  "factions": [{"name": "phe phái名", "members": ["角色名1", "角色名2"]}],
+  "keyItems": [{"name": "vật phẩm名", "description": "简述"}],
   "geography": [{"name": "地名", "description": "简述"}]
 }
 
@@ -245,12 +245,12 @@ export async function analyzeScriptStructureWithAI(text: string): Promise<Script
 1. title：从文本đang xử lý...品名称，不要编造
 2. era：必须根据内容语境判断，不要默认为现代（如有城主/剑法/江湖等当判为古代）
 3. genre：根据内容đang xử lý...判断
-4. hasOutline：原文đang xử lý...有“大纲”“故事简介”“故事背景”等明确的概述性段落
+4. hasOutline：原文đang xử lý...有“đại cương”“故事简介”“故事背景”等明确的概述性段落
 5. generatedOutline：仅当 hasOutline=false 时生成
 6. characterSectionKeyword：必须是原文đang xử lý...在的文本đoạn
-7. characters：从nhân vật小传/角色描述đang xử lý...ất cả角色，包含名字、年龄、身份、阵营、性格、quan trọng行为
-8. factions：从「一、核心主角」「二、chính diện势力角色」「三、反派势力角色」等分类đang xử lý...营
-9. keyItems：从大纲+角色描述đang xử lý...要物品（如vũ khí、信物、象征物）
+7. characters：从nhân vật小传/角色描述đang xử lý...ất cả角色，包含名字、年龄、身份、phe phái、性格、quan trọng行为
+8. factions：从「一、核心nhân vật chính」「二、chính diện势力角色」「三、反派势力角色」等分类đang xử lý...营
+9. keyItems：从đại cương+角色描述đang xử lý...要vật phẩm（如vũ khí、信物、象征物）
 10. geography：从场景头和角色描述đang xử lý...要地名
 11. 只分析Cấu trúc，不修改任何原文内容`;
 
@@ -265,7 +265,7 @@ export async function analyzeScriptStructureWithAI(text: string): Promise<Script
           console.log(`[scriptNormalizer] AI Cấu trúc检测Thử lại (${attempt}/${MAX_RETRIES})...`);
           await new Promise(r => setTimeout(r, 1500 * attempt));
         } else {
-          console.log('[scriptNormalizer] 调用 AI 分析剧本Cấu trúc...');
+          console.log('[scriptNormalizer] gọi API AI 分析剧本Cấu trúc...');
         }
         result = await callFeatureAPI('script_analysis', systemPrompt, analysisText, {
           temperature: 0.1,
@@ -274,7 +274,7 @@ export async function analyzeScriptStructureWithAI(text: string): Promise<Script
         break; // 成功则跳出Thử lại循环
       } catch (e) {
         lastError = e as Error;
-        console.warn(`[scriptNormalizer] AI 调用失败 (attempt ${attempt + 1}/${MAX_RETRIES + 1}):`, lastError.message);
+        console.warn(`[scriptNormalizer] AI gọi API失败 (attempt ${attempt + 1}/${MAX_RETRIES + 1}):`, lastError.message);
       }
     }
     
@@ -332,19 +332,19 @@ export async function analyzeScriptStructureWithAI(text: string): Promise<Script
 
 /**
  * 基于 AI 分析结果插入Cấu trúc标记
- * 原文内容一字不差，只插入标记 + AI 生成的大纲
+ * 原文内容一字不差，只插入标记 + AI 生成的đại cương
  */
 export function applyAIAnalysis(text: string, analysis: ScriptStructureAnalysis): NormalizationResult {
   const changes: string[] = [];
   let normalized = text;
   
   const hasTitle = /[《「][^》」]+[》」]/.test(text);
-  const hasOutline = /(?:\*{0,2}大纲[：:]\*{0,2}|【大纲】)/i.test(text);
+  const hasOutline = /(?:\*{0,2}đại cương[：:]\*{0,2}|【đại cương】)/i.test(text);
   const hasCharBios = /(?:\*{0,2}nhân vật小传[：:]\*{0,2}|【nhân vật小传】)/i.test(text);
   
   // === 1. 标题 ===
-  // 验证 AI 返回的 title 不是集标题（如"第一集 初遇"）
-  const isEpisodeTitle = analysis.title && /^第[一二三四五六七八九十百千\d]+集/.test(analysis.title);
+  // 验证 AI 返回的 title 不是 tập标题（如"第一 tập 初遇"）
+  const isEpisodeTitle = analysis.title && /^第[一二三四五六七八九十百千\d]+ tập/.test(analysis.title);
   if (!hasTitle && analysis.title && !isEpisodeTitle) {
     const titlePos = normalized.indexOf(analysis.title);
     // 标题应在文本前部
@@ -355,7 +355,7 @@ export function applyAIAnalysis(text: string, analysis: ScriptStructureAnalysis)
       changes.push(`[AI] 标题: 《${analysis.title}》`);
     }
   } else if (isEpisodeTitle) {
-    console.warn(`[applyAIAnalysis] AI 返回的标题疑似集标题，已跳过: "${analysis.title}"`);
+    console.warn(`[applyAIAnalysis] AI 返回的标题疑似 tập标题，已跳过: "${analysis.title}"`);
   }
   
   // === 2. nhân vật小传 ===
@@ -369,46 +369,46 @@ export function applyAIAnalysis(text: string, analysis: ScriptStructureAnalysis)
     }
   }
   
-  // === 3. 大纲 ===
-  const hasOutlineNow = /(?:\*{0,2}大纲[：:]\*{0,2}|【大纲】)/i.test(normalized);
+  // === 3. đại cương ===
+  const hasOutlineNow = /(?:\*{0,2}đại cương[：:]\*{0,2}|【đại cương】)/i.test(normalized);
   if (!hasOutlineNow) {
     if (!hasOutline && analysis.outlineSectionKeyword) {
-      // 原文有大纲内容但没有标准标记
+      // 原文有đại cương内容但没有标准标记
       const outlinePos = normalized.indexOf(analysis.outlineSectionKeyword);
       if (outlinePos !== -1) {
         normalized = normalized.substring(0, outlinePos)
-          + '大纲：\n'
+          + 'đại cương：\n'
           + normalized.substring(outlinePos);
-        changes.push(`[AI] 大纲标记: 在"${analysis.outlineSectionKeyword.substring(0, 20)}..."前插入`);
+        changes.push(`[AI] đại cương标记: 在"${analysis.outlineSectionKeyword.substring(0, 20)}..."前插入`);
       }
     } else {
-      // 原文无大纲 → 插入 AI 生成的大纲
+      // 原文无đại cương → 插入 AI 生成的đại cương
       const charBiosPos = normalized.search(/(?:\*{0,2}nhân vật小传[：:]\*{0,2}|【nhân vật小传】)/i);
       let outlineContent = (!analysis.hasOutline && analysis.generatedOutline)
         ? analysis.generatedOutline
         : '';
       
-      // 清理大纲đang xử lý...记，防止 parseEpisodes 误匹配
-      // "第1集 初遇：..." → "第1话 初遇：..."
+      // 清理đại cươngđang xử lý...记，防止 parseEpisodes 误匹配
+      // "第1 tập 初遇：..." → "第1话 初遇：..."
       if (outlineContent) {
         outlineContent = outlineContent.replace(
-          /第([一二三四五六七八九十百千\d]+)集([：:]?)/g,
+          /第([一二三四五六七八九十百千\d]+) tập([：:]?)/g,
           '第$1话$2'
         );
       }
       
       if (charBiosPos !== -1) {
         normalized = normalized.substring(0, charBiosPos)
-          + `大纲：\n${outlineContent}\n\n`
+          + `đại cương：\n${outlineContent}\n\n`
           + normalized.substring(charBiosPos);
         changes.push(outlineContent
-          ? `[AI] 大纲: AI 生成大纲（${outlineContent.length}字）`
-          : '[AI] 大纲标记: 插入空大纲');
+          ? `[AI] đại cương: AI 生成đại cương（${outlineContent.length}字）`
+          : '[AI] đại cương标记: 插入空đại cương');
       }
     }
   }
   
-  // === 4. 集标记归一化（复用正则逻辑） ===
+  // === 4.  tập标记归一化（复用正则逻辑） ===
   normalized = normalizeEpisodeMarkers(normalized, changes);
   
   return { normalized, changes, aiAnalysis: analysis };
@@ -435,8 +435,8 @@ function normalizeTitle(text: string, changes: string[]): string {
     // 跳过看起来像章节编号的行
     if (/^[一二三四五六七八九十百千\d]+[、.]/.test(trimmed)) continue;
     
-    // 跳过集/章标记
-    if (/^第[一二三四五六七八九十百千\d]+[集章幕]/.test(trimmed)) continue;
+    // 跳过 tập/章标记
+    if (/^第[一二三四五六七八九十百千\d]+[ tập章幕]/.test(trimmed)) continue;
     
     // 跳过剧本Cấu trúcquan trọng词行（nhân vật：XX、角色：XX、场景：XX 等）
     if (/^(?:nhân vật|角色|场景|地点|时间|背景|注|备注)[：:]/.test(trimmed)) continue;
@@ -477,8 +477,8 @@ function normalizeTitle(text: string, changes: string[]): string {
  * nhân vật小传区域检测与标记插入
  * 支持：
  * - 显式标题：nhân vật介绍：、角色介绍：、主要角色：、角色设定：
- * - đang xử lý...角色分类：一、核心主角 / 一、主要角色
- * - 角色描述chế độ：XX：年龄：35 / XX：35岁
+ * - đang xử lý...角色分类：一、核心nhân vật chính / 一、主要角色
+ * - 角色描述chế độ：XX：年龄：35 / XX：35 tuổi
  */
 function normalizeCharacterSection(text: string, changes: string[]): string {
   // 1. 显式角色区域标题 → 替换为 "nhân vật小传："
@@ -498,8 +498,8 @@ function normalizeCharacterSection(text: string, changes: string[]): string {
     }
   }
   
-  // 2. đang xử lý...角色分类：一、核心主角 / 一、chính diện势力角色 / 1. 主要角色
-  const numberedCharPattern = /^([一二三四五六七八九十\d]+[、.]\s*(?:核心|主要|chính diện|反面|反派|配角|主角|正派|女主|男主|重要|quan trọng|次要)[^\n]*)/m;
+  // 2. đang xử lý...角色分类：一、核心nhân vật chính / 一、chính diện势力角色 / 1. 主要角色
+  const numberedCharPattern = /^([一二三四五六七八九十\d]+[、.]\s*(?:核心|主要|chính diện|反面|反派|nhân vật phụ|nhân vật chính|正派|女主|男主|重要|quan trọng|次要)[^\n]*)/m;
   const numberedMatch = numberedCharPattern.exec(text);
   if (numberedMatch && numberedMatch.index !== undefined) {
     const insertPos = numberedMatch.index;
@@ -507,8 +507,8 @@ function normalizeCharacterSection(text: string, changes: string[]): string {
     return text.slice(0, insertPos) + 'nhân vật小传：\n' + text.slice(insertPos);
   }
   
-  // 3. 角色描述特征chế độ：角色名：年龄：XX 或 角色名：XX岁，身份：...
-  const charDescPattern = /^([\u4e00-\u9fa5]{2,8}[：:]\s*(?:年龄[：:]|Giới tính[：:]|身份[：:]|\d{1,3}岁))/m;
+  // 3. 角色描述特征chế độ：角色名：年龄：XX 或 角色名：XX tuổi，身份：...
+  const charDescPattern = /^([\u4e00-\u9fa5]{2,8}[：:]\s*(?:年龄[：:]|Giới tính[：:]|身份[：:]|\d{1,3} tuổi))/m;
   const charDescMatch = charDescPattern.exec(text);
   if (charDescMatch && charDescMatch.index !== undefined) {
     const insertPos = charDescMatch.index;
@@ -520,18 +520,18 @@ function normalizeCharacterSection(text: string, changes: string[]): string {
 }
 
 /**
- * 大纲区域检测与标记插入
+ * đại cương区域检测与标记插入
  * 支持：
  * - 显式标题：故事背景：、故事简介：、剧情简介：、概述：
- * - 如果找不到大纲但有nhân vật小传标记，在nhân vật小传前插入空大纲标记
+ * - 如果找不到đại cương但有nhân vật小传标记，在nhân vật小传前插入空đại cương标记
  */
 function normalizeOutlineSection(text: string, changes: string[]): string {
-  // 1. 显式大纲标题 → 替换为 "大纲："
+  // 1. 显式đại cương标题 → 替换为 "đại cương："
   const outlineHeaders = [
-    /^((?:故事(?:背景|简介|概述|大纲|梗概)|剧情(?:简介|概述|大纲|梗概))[：:])/m,
+    /^((?:故事(?:背景|简介|概述|đại cương|梗概)|剧情(?:简介|概述|đại cương|梗概))[：:])/m,
     /^((?:背景|概述|简介|梗概)[：:])/m,
-    /^(#+\s*(?:故事(?:背景|简介|概述|大纲|梗概)|剧情简介|背景|概述|简介)\s*)$/m,
-    /^(【(?:故事(?:背景|简介|概述|大纲)|大纲|简介)】)/m,
+    /^(#+\s*(?:故事(?:背景|简介|概述|đại cương|梗概)|剧情简介|背景|概述|简介)\s*)$/m,
+    /^(【(?:故事(?:背景|简介|概述|đại cương)|đại cương|简介)】)/m,
   ];
   
   for (const regex of outlineHeaders) {
@@ -539,58 +539,58 @@ function normalizeOutlineSection(text: string, changes: string[]): string {
     if (match && match.index !== undefined) {
       const before = text.slice(0, match.index);
       const after = text.slice(match.index + match[0].length);
-      changes.push(`大纲标记: "${match[0].trim()}" → "大纲："`);
-      return before + '大纲：' + after;
+      changes.push(`đại cương标记: "${match[0].trim()}" → "đại cương："`);
+      return before + 'đại cương：' + after;
     }
   }
   
-  // 2. 找不到大纲，但有nhân vật小传标记 → 在nhân vật小传前插入空大纲
+  // 2. 找不到đại cương，但有nhân vật小传标记 → 在nhân vật小传前插入空đại cương
   const charBiosPos = text.search(/(?:\*{0,2}nhân vật小传[：:]\*{0,2}|【nhân vật小传】)/i);
   if (charBiosPos !== -1) {
-    changes.push('大纲标记: 插入空大纲（未找到大纲内容）');
-    return text.slice(0, charBiosPos) + '大纲：\n\n' + text.slice(charBiosPos);
+    changes.push('đại cương标记: 插入空đại cương（未找到đại cương内容）');
+    return text.slice(0, charBiosPos) + 'đại cương：\n\n' + text.slice(charBiosPos);
   }
   
   return text;
 }
 
 /**
- * 集标记归一化
- * 第X章 → 第X集、EP.X → 第X集 等
+ *  tập标记归一化
+ * 第X章 → 第X tập、EP.X → 第X tập 等
  */
 function normalizeEpisodeMarkers(text: string, changes: string[]): string {
   let normalized = text;
   let changed = false;
   
-  // 第X章 → 第X集
+  // 第X章 → 第X tập
   normalized = normalized.replace(
     /^(\*{0,2})第([一二三四五六七八九十百千\d]+)章([：:]\s*[^\n]*)?(\*{0,2})$/gm,
     (_match, s1, num, title, s2) => {
       changed = true;
-      return `${s1}第${num}集${title || ''}${s2}`;
+      return `${s1}第${num} tập${title || ''}${s2}`;
     }
   );
   
-  // 第X幕 → 第X集
+  // 第X幕 → 第X tập
   normalized = normalized.replace(
     /^(\*{0,2})第([一二三四五六七八九十百千\d]+)幕([：:]\s*[^\n]*)?(\*{0,2})$/gm,
     (_match, s1, num, title, s2) => {
       changed = true;
-      return `${s1}第${num}集${title || ''}${s2}`;
+      return `${s1}第${num} tập${title || ''}${s2}`;
     }
   );
   
-  // Episode X / EP.X / EP X → 第X集（英文格式）
+  // Episode X / EP.X / EP X → 第X tập（英文格式）
   normalized = normalized.replace(
     /^(?:Episode|EP\.?)\s*(\d+)\s*[：:.\-]?\s*([^\n]*)?$/gim,
     (_match, num, title) => {
       changed = true;
-      return `第${num}集${title ? '：' + title.trim() : ''}`;
+      return `第${num} tập${title ? '：' + title.trim() : ''}`;
     }
   );
   
   if (changed) {
-    changes.push('集标记: 非标准集标记已归一化为"第X集"格式');
+    changes.push(' tập标记: 非标准 tập标记已归一化为"第X tập"格式');
   }
   
   return normalized;

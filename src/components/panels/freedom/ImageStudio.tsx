@@ -202,7 +202,7 @@ export function ImageStudio() {
             {hasIdeogramParams && (
               <>
                 <div className="space-y-2">
-                  <Label className="text-sm font-medium">渲染Tốc độ</Label>
+                  <Label className="text-sm font-medium">Tốc độ render</Label>
                   <Select
                     value={imageExtraParams.render_speed || 'Balanced'}
                     onValueChange={(v) => updateExtraParam('render_speed', v)}
@@ -303,7 +303,7 @@ export function ImageStudio() {
         }} />
       </div>
 
-      {/* Lưu vào Thư viện đạo cụ弹窗 */}
+      {/* Lưu vào Thư viện đạo cụPopup */}
       {imageResult && (
         <SaveToPropsDialog
           open={saveToPropsOpen}

@@ -28,17 +28,17 @@ export interface ViewpointAnalysisResult {
 }
 
 export interface ViewpointAnalysisOptions {
-  /** 本集大纲/剧情摘要 */
+  /** 本 tậpđại cương/剧情摘要 */
   episodeSynopsis?: string;
-  /** 本集quan trọng事件 */
+  /** 本 tậpquan trọng事件 */
   keyEvents?: string[];
-  /** 剧名 */
+  /** tên phim */
   title?: string;
   /** 类型（商战/武侠/爱情等） */
   genre?: string;
-  /** 时代背景 */
+  /** thời đại背景 */
   era?: string;
-  /** 世界观/风格设定 */
+  /** Bối cảnh thế giới/风格设定 */
   worldSetting?: string;
 }
 
@@ -82,20 +82,20 @@ export async function analyzeSceneViewpoints(
   // 统一处理可选参数
   const opts = options || {};
 
-  // 构建本集大纲部分
+  // 构建本 tậpđại cương部分
   const synopsisPart = opts.episodeSynopsis 
-    ? `【本集大纲】\n${opts.episodeSynopsis}\n`
+    ? `【本 tậpđại cương】\n${opts.episodeSynopsis}\n`
     : '';
   const keyEventsPart = opts.keyEvents && opts.keyEvents.length > 0
-    ? `【本集quan trọng事件】\n${opts.keyEvents.map((e, i) => `${i + 1}. ${e}`).join('\n')}\n`
+    ? `【本 tậpquan trọng事件】\n${opts.keyEvents.map((e, i) => `${i + 1}. ${e}`).join('\n')}\n`
     : '';
 
   // 构建全局故事上下文
   const globalContextParts = [
-    opts.title ? `剧名：《${opts.title}》` : '',
+    opts.title ? `tên phim：《${opts.title}》` : '',
     opts.genre ? `类型：${opts.genre}` : '',
-    opts.era ? `时代背景：${opts.era}` : '',
-    opts.worldSetting ? `世界观：${opts.worldSetting.slice(0, 200)}` : '',
+    opts.era ? `thời đại背景：${opts.era}` : '',
+    opts.worldSetting ? `Bối cảnh thế giới：${opts.worldSetting.slice(0, 200)}` : '',
   ].filter(Boolean);
   const globalContextSection = globalContextParts.length > 0
     ? `【剧本信息】\n${globalContextParts.join('\n')}\n\n`
@@ -104,16 +104,16 @@ export async function analyzeSceneViewpoints(
   const systemPrompt = `你是专业的影视美术指导，擅长分析场景并确定需要的拍摄视角。
 
 ${globalContextSection}【任务】
-根据本集大纲、场景信息和分镜内容，分析该场景需要哪些不同的视角/机位来生成场景背景图。
+根据本 tậpđại cương、场景信息和分镜内容，分析该场景需要哪些不同的视角/机位来生成场景背景图。
 
 【重要原则】
 1. 视角必须与场景类型匹配：
-   - 大巴车/xe hơi场景：车窗、座位区、过道、驾驶位等
-   - 室内家居：客厅、卧室、厨房、窗边等
+   - 大巴车/xe hơi场景：车、座位区、过道、驾驶位等
+   - 室内家居：客厅、卧室、厨房、边等
    - 户外场景：全景、近景、特定地标等
    - 古代场景：堂屋、庭院、案几等
 2. 从分镜动作和画面描述đang xử lý...际需要的视角
-3. 结合本集大纲理解场景的叙事功能，确定哪些视角是核心的
+3. 结合本 tậpđại cương理解场景的叙事功能，确定哪些视角是核心的
 4. 每视角要有quan trọng道具（从分镜的视觉焦点和环境声đang xử lý...
 5. 输出4-6视角
 
@@ -143,18 +143,18 @@ ${globalContextSection}【任务】
 【分镜内容（共 ${shots.length} 分镜）】
 ${shotSummaries}
 
-请根据以上本集大纲和分镜内容，分析该场景需要的视角，返回 JSON。`;
+请根据以上本 tậpđại cương和分镜内容，分析该场景需要的视角，返回 JSON。`;
 
   try {
-    console.log('[analyzeSceneViewpoints] 🚀 开始调用 AI API...');
+    console.log('[analyzeSceneViewpoints] 🚀 开始gọi API AI API...');
     console.log('[analyzeSceneViewpoints] 场景:', scene.location || scene.name);
     console.log('[analyzeSceneViewpoints] 分镜数量:', shots.length);
     
-    // 统一从服务映射获取配置
+    // 统一从ánh xạ dịch vụ获取配置
     const result = await callFeatureAPI('script_analysis', systemPrompt, userPrompt);
     
-    console.log('[analyzeSceneViewpoints] ✅ AI API 调用成功，返回内容长度:', result.length);
-    console.log('[analyzeSceneViewpoints] 原始响应前 200 字符:', result.slice(0, 200));
+    console.log('[analyzeSceneViewpoints] ✅ AI API gọi API成功，返回内容长度:', result.length);
+    console.log('[analyzeSceneViewpoints] gốc响应前 200 字符:', result.slice(0, 200));
     
     // 解析 JSON
     let cleaned = result.replace(/```json\n?/g, '').replace(/```\n?/g, '').trim();

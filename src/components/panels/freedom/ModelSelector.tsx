@@ -24,9 +24,9 @@ interface ModelSelectorProps {
 }
 
 interface SelectorModel {
-  id: string;       // Nhà cung cấp原始Model ID（Trực tiếp用于 API 调用）
-  name: string;     // Hiện名
-  brandId: string;  // 品牌 ID
+  id: string;       // ID Model gốc của nhà cung cấp (dùng trực tiếp cho API)
+  name: string;     // Tên hiển thị
+  brandId: string;  // ID thương hiệu
 }
 
 const KLING_VIDEO_VARIANTS = [
@@ -356,7 +356,7 @@ function expandBoundModel(type: 'image' | 'video', model: string): string[] {
 
 function shouldHideModel(type: 'image' | 'video', model: string): boolean {
   if (type === 'video') {
-    // 类目入口不Hiển thị
+    // 类目入sổ不Hiển thị
     if (model === 'kling-video') return true;
     if (model === 'sora-2-characters') return true;
 
@@ -385,18 +385,18 @@ function isModelAllowedByPanelType(
   if (type === 'image') {
     // 未同步到 model_type 时先放 hàng，避免误伤可用Model
     if (!modelType) return true;
-    return modelType === '图像';
+    return modelType === 'ảnh';
   }
 
-  // video面板：先按 model_type 粗过滤
-  if (modelType && modelType !== '音video') return false;
+  // video面板：先按 model_type 粗lọc
+  if (modelType && modelType !== 'âm thanh') return false;
 
-  // 再按 endpoint type 细过滤，排除纯âm thanh类Model
+  // 再按 endpoint type 细lọc，排除纯âm thanh类Model
   if (endpointTypes.length > 0) {
-    return endpointTypes.some((t) => /video|video|Tạo video từ văn bản|Tạo video từ ảnh|首Khung hình cuối|Tham chiếu生video|kéo dài|Hành động控制|数字人|omni-video/i.test(t));
+    return endpointTypes.some((t) => /video|video|Tạo video từ văn bản|Tạo video từ ảnh|首尾帧|参考生video|kéo dài|Hành động控制|数字人|omni-video/i.test(t));
   }
 
-  // endpoint 缺失时用Model名兜底判定（避免Tùy chỉnhMở rộng型号被误过滤）
+  // endpoint 缺失时用Model名兜底判定（避免Tùy chỉnhMở rộng型号被误lọc）
   return /kling|veo|sora|runway|vidu|hailuo|minimax\/video|wan|luma|grok-video|seedance|aigc-video/i.test(modelId);
 }
 
@@ -457,7 +457,7 @@ export function ModelSelector({ type, value, onChange, className }: ModelSelecto
     return counts;
   }, [models]);
 
-  // 按品牌分组
+  // 按thương hiệu分组
   const grouped = useMemo(() => {
     const groups: Record<string, { brand: ReturnType<typeof getBrandInfo>; models: SelectorModel[] }> = {};
     for (const model of filteredModels) {
@@ -514,7 +514,7 @@ export function ModelSelector({ type, value, onChange, className }: ModelSelecto
                       {brand.displayName}
                     </Badge>
                     <span className="text-xs text-muted-foreground">
-                      可用 {brandAvailableCounts[brandId] ?? brandModels.length}
+                      Khả dụng {brandAvailableCounts[brandId] ?? brandModels.length}
                     </span>
                   </div>
                   {brandModels.map((model) => (
@@ -544,9 +544,9 @@ export function ModelSelector({ type, value, onChange, className }: ModelSelecto
               {Object.keys(grouped).length === 0 && (
                 <div className="p-4 text-center text-sm text-muted-foreground space-y-2">
                   <Settings className="h-5 w-5 mx-auto mb-1 opacity-50" />
-                  <p>Chưa có可用Model</p>
+                  <p>Chưa có Model khả dụng</p>
                   <p className="text-xs">
-                    请先在Cài đặt → 服务映射 → {type === 'image' ? 'Tự dopanel-ảnh' : 'Tự dopanel-video'} đang xử lý...odel
+                    请先在Cài đặt → ánh xạ dịch vụ → {type === 'image' ? 'Tự dopanel-ảnh' : 'Tự dopanel-video'} đang xử lý...odel
                   </p>
                 </div>
               )}
@@ -558,7 +558,7 @@ export function ModelSelector({ type, value, onChange, className }: ModelSelecto
         <div className="flex items-start gap-1.5 rounded-md border border-amber-500/40 bg-amber-500/10 px-2 py-1.5 text-xs text-amber-700 dark:text-amber-300">
           <AlertTriangle className="mt-0.5 h-3.5 w-3.5 shrink-0" />
           <span>
-            当前已选Model不可用（可能已下线或被当前面板过滤），请重新Chọn可用Model。
+            Model đang chọn không khả dụng (có thể đã ngừng hoạt động hoặc bị lọc bởi panel hiện tại), vui lòng Chọn lại Model khả dụng.
           </span>
         </div>
       )}

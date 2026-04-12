@@ -4,12 +4,12 @@
 /**
  * Character Stage Analyzer
  * 
- * 分析剧本大纲，自动识别主要角色的阶段变化，生成多阶段变体。
+ * 分析剧本đại cương，自动识别主要角色的阶段变化，生成多阶段变体。
  * 
  * 功能：
- * 1. 分析大纲đang xử lý...跨度和角色成长轨迹
+ * 1. 分析đại cươngđang xử lý...跨度和角色成长轨迹
  * 2. 为主要角色生成阶段变体（青年版、đang xử lý...）
- * 3. 每变体包含集数范围，供分镜时自动调用
+ * 3. 每变体包含 tập数范围，供分镜时自动gọi API
  */
 
 import type { ProjectBackground, ScriptCharacter, PromptLanguage } from '@/types/script';
@@ -33,22 +33,22 @@ export interface CharacterStageAnalysis {
 export interface StageVariationData {
   name: string;                     // "青年版"、"đang xử lý...
   episodeRange: [number, number];   // [1, 15]
-  ageDescription: string;           // "25岁"
+  ageDescription: string;           // "25 tuổi"
   stageDescription: string;         // "Khởi nghiệp ban đầu，意气风发"
   visualPromptEn: string;           // 英文提示词
   visualPromptZh: string;           // đang xử lý...词
 }
 
-// AnalyzeOptions 已经不需要了，统一从服务映射获取配置
+// AnalyzeOptions 已经不需要了，统一从ánh xạ dịch vụ获取配置
 
 // ==================== 核心函数 ====================
 
 /**
  * 分析剧本角色，识别需要多阶段形象的角色
  * 
- * @param background 项目背景（包含大纲）
+ * @param background 项目背景（包含đại cương）
  * @param characters 角色列表
- * @param totalEpisodes 总集数
+ * @param totalEpisodes 总 tập数
  * @param options API配置
  */
 export async function analyzeCharacterStages(
@@ -68,36 +68,36 @@ export async function analyzeCharacterStages(
     return [];
   }
   
-  const systemPrompt = `你是专业的影视角色设计顾问，擅长分析角色在长篇剧集đang xử lý...变化。
+  const systemPrompt = `你是专业的影视角色设计顾问，擅长分析角色在长篇剧 tậpđang xử lý...变化。
 
-你的任务是分析剧本大纲，判断每主要角色是否需要多阶段的形象变体。
+你的任务是分析剧本đại cương，判断每主要角色是否需要多阶段的形象变体。
 
 【判断标准】
 角色需要多阶段形象的情况：
-1. 时间跨度大（如从25岁到50岁）
+1. 时间跨度大（如从25 tuổi到50 tuổi）
 2. 身份地位变化（从普通人到成功企业家）
 3. 外貌有显著变化（年轻→成熟→老年）
-4. 剧集数量多（30集以上的主角通常需要）
+4. 剧 tập数量多（30 tập以上的nhân vật chính通常需要）
 
 不需要多阶段的情况：
-1. 配角、出场少的角色
-2. 时间跨度短的剧集
+1. nhân vật phụ、出场少的角色
+2. 时间跨度短的剧 tập
 3. 角色外貌无明显变化
 
 【阶段划分原则】
-- 根据总集数合理划分，每阶段至少10集
+- 根据总 tập数合理划分，每阶段至少10 tập
 - 阶段之间要有明显的形象区分
 - 保持Khuôn mặt特征、体型等一致性元素
 
 请以JSON格式返回分析结果。`;
 
   const userPrompt = `【剧本信息】
-剧名：《${background.title}》
-总集数：${totalEpisodes}集
+tên phim：《${background.title}》
+总 tập数：${totalEpisodes} tập
 类型：${background.genre || '未知'}
-时代：${background.era || '现代'}
+thời đại：${background.era || '现代'}
 
-【故事大纲】
+【故事đại cương】
 ${background.outline?.slice(0, 1500) || '无'}
 
 【需要分析的角色】
@@ -121,16 +121,16 @@ ${mainCharacters.map(c => `
         {
           "name": "青年版",
           "episodeRange": [1, 15],
-          "ageDescription": "25岁",
+          "ageDescription": "25 tuổi",
           "stageDescription": "985毕业生，意气风发，白衬衫",
-${promptLanguage !== 'en' ? '          "visualPromptZh": "25岁đang xử lý...，干净利落的外表，白色衬衫，自信有抱负的神态"' : ''}${promptLanguage !== 'zh' ? `${promptLanguage === 'zh+en' ? ',' : ''}\n          "visualPromptEn": "25 year old Chinese male, clean-cut appearance, white dress shirt, confident and ambitious look"` : ''}
+${promptLanguage !== 'en' ? '          "visualPromptZh": "25 tuổiđang xử lý...，干净利落的外表，白色衬衫，自信有抱负的神态"' : ''}${promptLanguage !== 'zh' ? `${promptLanguage === 'zh+en' ? ',' : ''}\n          "visualPromptEn": "25 year old Chinese male, clean-cut appearance, white dress shirt, confident and ambitious look"` : ''}
         },
         {
           "name": "đang xử lý...,
           "episodeRange": [16, 40],
-          "ageDescription": "35-40岁",
+          "ageDescription": "35-40 tuổi",
           "stageDescription": "事业有成的企业家，更加沉稳",
-${promptLanguage !== 'en' ? '          "visualPromptZh": "35-40岁đang xử lý...，成熟商人形象，剪裁合身的西装"' : ''}${promptLanguage !== 'zh' ? `${promptLanguage === 'zh+en' ? ',' : ''}\n          "visualPromptEn": "35-40 year old Chinese male, mature businessman look, tailored suit, commanding presence"` : ''}
+${promptLanguage !== 'en' ? '          "visualPromptZh": "35-40 tuổiđang xử lý...，成熟商人形象，剪裁合身的西装"' : ''}${promptLanguage !== 'zh' ? `${promptLanguage === 'zh+en' ? ',' : ''}\n          "visualPromptEn": "35-40 year old Chinese male, mature businessman look, tailored suit, commanding presence"` : ''}
         }
       ],
       "consistencyElements": {
@@ -143,7 +143,7 @@ ${promptLanguage !== 'en' ? '          "visualPromptZh": "35-40岁đang xử lý
 }`;
 
   try {
-    // 统一从服务映射获取配置
+    // 统一从ánh xạ dịch vụ获取配置
     const result = await callFeatureAPI('script_analysis', systemPrompt, userPrompt);
     
     // 解析JSON结果
@@ -190,10 +190,10 @@ export function convertStagesToVariations(
 }
 
 /**
- * 根据集数获取角色应使用的变体
+ * 根据 tập数获取角色应使用的变体
  * 
  * @param variations 角色的变体列表
- * @param episodeIndex 当前集数
+ * @param episodeIndex 当前 tập数
  * @returns 匹配的变体，如果没有阶段变体则返回 undefined
  */
 export function getVariationForEpisode(
@@ -207,7 +207,7 @@ export function getVariationForEpisode(
     return undefined;
   }
   
-  // 找到匹配集数范围的变体
+  // 找到匹配 tập数范围的变体
   return stageVariations.find(v => {
     const [start, end] = v.episodeRange!;
     return episodeIndex >= start && episodeIndex <= end;
@@ -215,7 +215,7 @@ export function getVariationForEpisode(
 }
 
 /**
- * 快速检测大纲是否包含多阶段线索
+ * 快速检测đại cương是否包含多阶段线索
  * 用于在导入剧本时提示用户
  */
 export function detectMultiStageHints(outline: string, totalEpisodes: number): {
@@ -247,19 +247,19 @@ export function detectMultiStageHints(outline: string, totalEpisodes: number): {
   
   // 检测年龄变化（多种格式）
   const agePatterns = [
-    /(\d+)岁.*?(\d+)岁/,              // 25岁...50岁
-    /(\d+)-(\d+)岁/,                   // 25-50岁
-    /从(\d+)岁到(\d+)岁/,             // 从25岁到50岁
-    /(\d+)到(\d+)岁/,                  // 25到50岁
+    /(\d+) tuổi.*?(\d+) tuổi/,              // 25 tuổi...50 tuổi
+    /(\d+)-(\d+) tuổi/,                   // 25-50 tuổi
+    /从(\d+) tuổi到(\d+) tuổi/,             // 从25 tuổi到50 tuổi
+    /(\d+)到(\d+) tuổi/,                  // 25到50 tuổi
   ];
   let hasAgeChange = false;
   for (const pattern of agePatterns) {
     const ageMatch = outline.match(pattern);
     if (ageMatch) {
       const ageSpan = parseInt(ageMatch[2]) - parseInt(ageMatch[1]);
-      if (ageSpan >= 10) { // 年龄跨度至少10岁
+      if (ageSpan >= 10) { // 年龄跨度至少10 tuổi
         hasAgeChange = true;
-        hints.push(`年龄跨度${ageMatch[1]}岁到${ageMatch[2]}岁`);
+        hints.push(`年龄跨度${ageMatch[1]} tuổi到${ageMatch[2]} tuổi`);
         break;
       }
     }
@@ -269,7 +269,7 @@ export function detectMultiStageHints(outline: string, totalEpisodes: number): {
   const stageKeywords = [
     '青年', 'đang xử lý... '老年', '少年', '成年', '晚年', 
     '初期', '后期', '前期', '末期',
-    '年轻', '年迈', '成长', '岁月', '年华',
+    '年轻', '年迈', '成长', ' tuổi月', '年华',
     '创业初', '事业巅峰', '事业有成', '功成名就',
   ];
   const foundKeywords = stageKeywords.filter(k => outline.includes(k));
@@ -278,11 +278,11 @@ export function detectMultiStageHints(outline: string, totalEpisodes: number): {
   }
   
   // 综合判断 - 降低门槛
-  // 1. 20集以上且有任何线索
-  // 2. 或者40集以上的主角剧默认需要多阶段
+  // 1. 20 tập以上且有任何线索
+  // 2. 或者40 tập以上的nhân vật chính剧默认需要多阶段
   const suggestMultiStage = (
     (totalEpisodes >= 20 && (hasTimeSpan || hasAgeChange || foundKeywords.length >= 1)) ||
-    (totalEpisodes >= 40) // 40集以上的主角剧默认需要
+    (totalEpisodes >= 40) // 40 tập以上的nhân vật chính剧默认需要
   );
   
   console.log('[detectMultiStageHints]', {

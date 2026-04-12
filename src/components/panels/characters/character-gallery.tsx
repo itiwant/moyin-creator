@@ -78,7 +78,7 @@ export function CharacterGallery({ onCharacterSelect, selectedCharacterId }: Cha
   const { activeEpisodeIndex } = useMediaPanelStore();
   const scriptProject = useActiveScriptProject();
 
-  // 集作用域过滤
+  //  tập作用域lọc
   const hasEpisodeScope = activeEpisodeIndex != null;
   const activeEpisodeId = hasEpisodeScope
     ? scriptProject?.scriptData?.episodes.find(ep => ep.index === activeEpisodeIndex)?.id
@@ -108,7 +108,7 @@ export function CharacterGallery({ onCharacterSelect, selectedCharacterId }: Cha
     } else {
       chars = characters.filter((c) => c.projectId === activeProjectId);
     }
-    // Tập này过滤：只HiệnTập này关联的Nhân vật + 无集绑定的全局Nhân vật
+    // Tập nàylọc：只HiệnTập này关联的Nhân vật + 无 tập绑定的全局Nhân vật
     if (hasEpisodeScope && episodeViewScope === 'episode' && activeEpisodeId) {
       chars = chars.filter(c => !c.linkedEpisodeId || c.linkedEpisodeId === activeEpisodeId);
     }

@@ -100,7 +100,7 @@ export function DirectorContextPanel() {
     if (scriptData.episodes && scriptData.episodes.length > 0) {
       return scriptData.episodes;
     }
-    // Mặc định单集
+    // Mặc định单 tập
     return [{
       id: "default",
       index: 1,
@@ -438,7 +438,7 @@ export function DirectorContextPanel() {
       sceneLibraryId: sceneMatch?.sceneLibraryId,
       viewpointId: sceneMatch?.viewpointId,
       sceneReferenceImage: sceneMatch?.sceneReferenceImage,
-      // 叙事驱动设计（基于《电影语言的语法》）
+      // 叙事驱动设计（基于《电影Ngôn ngữ的语法》）
       narrativeFunction: (shot as any).narrativeFunction || '',
       shotPurpose: (shot as any).shotPurpose || '',
       visualFocus: (shot as any).visualFocus || '',
@@ -577,7 +577,7 @@ export function DirectorContextPanel() {
         sceneLibraryId: sceneMatch?.sceneLibraryId,
         viewpointId: sceneMatch?.viewpointId,
         sceneReferenceImage: sceneMatch?.sceneReferenceImage,
-        // 叙事驱动设计（基于《电影语言的语法》）
+        // 叙事驱动设计（基于《电影Ngôn ngữ的语法》）
         narrativeFunction: (shot as any).narrativeFunction || '',
         shotPurpose: (shot as any).shotPurpose || '',
         visualFocus: (shot as any).visualFocus || '',
@@ -666,7 +666,7 @@ export function DirectorContextPanel() {
 
     const storyPrompt = parts.join("\n");
 
-    // 收集Cảnhđang xử lý... cảNhân vật
+    // 收 tậpCảnhđang xử lý... cảNhân vật
     const characterNames: string[] = [];
     if (scriptData) {
       const charIds = new Set<string>();
@@ -759,7 +759,7 @@ export function DirectorContextPanel() {
       {/* 树形Cấu trúc */}
       <ScrollArea className="flex-1">
         <div className="p-2 space-y-1">
-          {/* 集 cột表 */}
+          {/*  tập cột表 */}
           {episodes.map((episode) => {
             const episodeScenes = scriptData.scenes.filter((s) =>
               episode.sceneIds.includes(s.id)
@@ -773,7 +773,7 @@ export function DirectorContextPanel() {
 
             return (
               <div key={episode.id} className="space-y-0.5">
-                {/* 集tiêu đề */}
+                {/*  tậptiêu đề */}
                 <button
                   onClick={() => toggleEpisode(episode.id)}
                   className="w-full flex items-center gap-1 px-2 py-1.5 rounded hover:bg-muted text-left"
@@ -915,7 +915,7 @@ export function DirectorContextPanel() {
         </div>
       </ScrollArea>
 
-      {/* 底部thao tác */}
+      {/* phía dướithao tác */}
       <div className="p-3 border-t space-y-2">
         {/* chế độ说明 */}
         <div className="text-[10px] text-muted-foreground space-y-1">

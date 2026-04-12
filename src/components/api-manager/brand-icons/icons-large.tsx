@@ -1,4 +1,4 @@
-// 大型品牌 SVG 图标（2000+ chars）
+// 大型thương hiệu SVG 图标（2000+ chars）
 // 源自 MemeFast pricing 页面 lobe-icons
 import type { BrandIconFn } from "./index";
 

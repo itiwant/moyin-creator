@@ -120,12 +120,12 @@ export function GenerationPanel({ selectedCharacter, onCharacterCreated }: Gener
   // === 6层身份neo ===
   const [identityAnchors, setIdentityAnchors] = useState<CharacterIdentityAnchors | undefined>();
   const [charNegativePrompt, setCharNegativePrompt] = useState<CharacterNegativePrompt | undefined>();
-  // === prompt语言偏好 ===
+  // === promptNgôn ngữ偏好 ===
   const [promptLanguage, setPromptLanguage] = useState<PromptLanguage>('vi');
   // === 年代信息（从Kịch bản元数据传递）===
   const [storyYear, setStoryYear] = useState<number | undefined>();
   const [era, setEra] = useState<string | undefined>();
-  // === 集作用域（从 pending 数据透传）===
+  // ===  tập作用域（从 pending 数据透传）===
   const [sourceEpisodeId, setSourceEpisodeId] = useState<string | undefined>();
   const [referenceImages, setReferenceImages] = useState<string[]>([]);
   const [styleId, setStyleId] = useState<string>(DEFAULT_STYLE_ID);
@@ -211,7 +211,7 @@ export function GenerationPanel({ selectedCharacter, onCharacterCreated }: Gener
         setNotes(pendingCharacterData.notes);
       }
       
-      // === 处理prompt语言偏好 ===
+      // === 处理promptNgôn ngữ偏好 ===
       if (pendingCharacterData.promptLanguage) {
         setPromptLanguage(pendingCharacterData.promptLanguage);
       }
@@ -238,7 +238,7 @@ export function GenerationPanel({ selectedCharacter, onCharacterCreated }: Gener
       if (pendingCharacterData.era) {
         setEra(pendingCharacterData.era);
       }
-      // === 集作用域透传 ===
+      // ===  tập作用域透传 ===
       setSourceEpisodeId(pendingCharacterData.sourceEpisodeId);
 
       if (pendingCharacterData.styleId) {
@@ -314,7 +314,7 @@ export function GenerationPanel({ selectedCharacter, onCharacterCreated }: Gener
     // === Đặt lại年代信息 ===
     setStoryYear(undefined);
     setEra(undefined);
-    // === Đặt lại集作用域 ===
+    // === Đặt lại tập作用域 ===
     setSourceEpisodeId(undefined);
     setReferenceImages([]);
     setStyleId(DEFAULT_STYLE_ID);
@@ -365,7 +365,7 @@ export function GenerationPanel({ selectedCharacter, onCharacterCreated }: Gener
       // === 6层身份neo（Nhân vật一致性）===
       identityAnchors: identityAnchors,
       negativePrompt: charNegativePrompt,
-      // === 集作用域 ===
+      // ===  tập作用域 ===
       linkedEpisodeId: sourceEpisodeId,
     });
     selectCharacter(targetId);
@@ -376,8 +376,8 @@ export function GenerationPanel({ selectedCharacter, onCharacterCreated }: Gener
     setGeneratingCharacter(targetId);
 
     try {
-      // 构建prompt：根据语言偏好Chọnprompt + 6层身份neo + Ảnh tham chiếu优先级逻辑 + 年代信息
-      // 获取实时的语言偏好（优先使用 pending 传来的，其次从 scriptProject 读取）
+      // 构建prompt：根据Ngôn ngữ偏好Chọnprompt + 6层身份neo + Ảnh tham chiếu优先级逻辑 + 年代信息
+      // 获取实时的Ngôn ngữ偏好（优先使用 pending 传来的，其次从 scriptProject 读取）
       const effectiveLang = promptLanguage || scriptProject?.promptLanguage || 'vi';
       const prompt = buildCharacterSheetPrompt(
         description, 
@@ -853,7 +853,7 @@ export function GenerationPanel({ selectedCharacter, onCharacterCreated }: Gener
                     </div>
                   )}
                   
-                  {/* 专业Prompt thị giác：根据语言偏好只Hiển thị一种，Chỉnh sửa后Trực tiếp用于Tạo */}
+                  {/* 专业Prompt thị giác：根据Ngôn ngữ偏好只Hiển thị一种，Chỉnh sửa后Trực tiếp用于Tạo */}
                   {(() => {
                     const effectiveLang = promptLanguage || scriptProject?.promptLanguage || 'vi';
                     const showZh = effectiveLang === 'vi' || effectiveLang === 'vi+en';
@@ -979,7 +979,7 @@ export function GenerationPanel({ selectedCharacter, onCharacterCreated }: Gener
               ) : (
                 <>
                   <FileImage className="h-4 w-4 mr-2" />
-                  Tạo设定图
+                  Tạoảnh thiết kế
                 </>
               )}
             </Button>
@@ -1083,7 +1083,7 @@ export function GenerationPanel({ selectedCharacter, onCharacterCreated }: Gener
                   lines.push('');
                   lines.push('--- 年代信息 ---');
                   if (storyYear) lines.push(`故事年份: ${storyYear}年`);
-                  if (era) lines.push(`时代背景: ${era}`);
+                  if (era) lines.push(`thời đại背景: ${era}`);
                 }
                 
                 // Phong cách thị giác
@@ -1154,7 +1154,7 @@ function buildPromptFromAnchors(
 ): string {
   if (!anchors) return '';
 
-  // 根据neo值Nội dungTự động检测语言（đang xử lý...o值 → đang xử lý...词）
+  // 根据neo值Nội dungTự động检测Ngôn ngữ（đang xử lý...o值 → đang xử lý...词）
   const isZh = promptLanguage === 'vi' || /[\u4e00-\u9fff]/.test(anchors.faceShape || anchors.eyeShape || '');
 
   const parts: string[] = [];
@@ -1231,7 +1231,7 @@ function buildPromptFromAnchors(
 }
 
 /**
- * 构建Nhân vật设定图prompt
+ * 构建Nhân vậtảnh thiết kếprompt
  * 
  * 优先级：
  * 1. 根据 promptLanguage Chọn主prompt：vi→visualPromptZh, en→visualPromptEn, vi+en→两者合并
@@ -1263,10 +1263,10 @@ function buildCharacterSheetPrompt(
     : 'anime style, professional quality';
   const isRealistic = stylePreset?.category === 'real';
   
-  // 根据语言偏好Chọn主Prompt thị giác
+  // 根据Ngôn ngữ偏好Chọn主Prompt thị giác
   const lang = promptLanguage || 'vi';
 
-  // 构建年代服装prompt（根据语言偏好）
+  // 构建年代服装prompt（根据Ngôn ngữ偏好）
   let eraPrompt = '';
   if (storyYear) {
     if (lang === 'vi') {
@@ -1313,7 +1313,7 @@ function buildCharacterSheetPrompt(
     const baseDesc = primaryVisualPrompt || description;
     characterDescription = `${baseDesc}, ${anchorPrompt}`;
   } else if (primaryVisualPrompt) {
-    // 使用AI大师prompt（已根据语言偏好Chọn）
+    // 使用AI大师prompt（已根据Ngôn ngữ偏好Chọn）
     characterDescription = primaryVisualPrompt;
   } else {
     // 只有Cơ bảnMô tả

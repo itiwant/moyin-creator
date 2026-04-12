@@ -66,7 +66,7 @@ function buildGlobalContext(scriptProjectId?: string): GlobalContext {
   }
 
   const background = project.projectBackground;
-  const episodeScript = project.episodeRawScripts[0]; // 默认取第一集
+  const episodeScript = project.episodeRawScripts[0]; // 默认取第一 tập
   const scriptData = project.scriptData;
   const episode = scriptData?.episodes?.[0];
 
@@ -153,8 +153,8 @@ export interface RecalibrationResult {
  * @param splitScenes 当前分镜列表
  * @param scriptProjectId 可选的 script-store projectId（默认用活跃项目）
  * @param onProgress 进度回调
- * @returns 校准后的 SplitScene[]（调用方负责写入 store）
- * @throws 校准失败时抛出异常（调用方负责捕获并保持原状态không thay đổi）
+ * @returns 校准后的 SplitScene[]（gọi API方负责写入 store）
+ * @throws 校准失败时抛出异常（gọi API方负责捕获并保持原状态không thay đổi）
  */
 export async function recalibrateSplitScenes(
   newStyleId: string,
@@ -175,7 +175,7 @@ export async function recalibrateSplitScenes(
   // 2. 构建 GlobalContext
   const globalContext = buildGlobalContext(scriptProjectId);
 
-  // 3. 调用 5 阶段校准
+  // 3. gọi API 5 阶段校准
   const calibrationOptions: CalibrationOptions = {
     styleId: newStyleId,
   };

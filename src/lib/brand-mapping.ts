@@ -3,8 +3,8 @@
 // Commercial licensing available. See COMMERCIAL_LICENSE.md.
 
 /**
- * 品牌注册表 + 模型名 → 品牌映射
- * 用于服务映射面板的品牌phân loạiChọn
+ * thương hiệu注册表 + 模型名 → thương hiệu映射
+ * 用于ánh xạ dịch vụ面板的thương hiệuphân loạiChọn
  */
 
 export interface BrandInfo {
@@ -13,7 +13,7 @@ export interface BrandInfo {
 }
 
 /**
- * 品牌注册表
+ * thương hiệu注册表
  * key: brandId, value: 显示名 + 主色
  */
 export const BRAND_REGISTRY: Record<string, BrandInfo> = {
@@ -47,7 +47,7 @@ export const BRAND_REGISTRY: Record<string, BrandInfo> = {
 };
 
 /**
- * 模型名前缀 → 品牌映射规则
+ * 模型名前缀 → thương hiệu映射规则
  * 顺序重要：更具体的chế độ应放在前面
  */
 const BRAND_PATTERNS: Array<{ pattern: RegExp; brand: string }> = [
@@ -142,7 +142,7 @@ const BRAND_PATTERNS: Array<{ pattern: RegExp; brand: string }> = [
 ];
 
 /**
- * 根据模型名称提取品牌 ID
+ * 根据模型名称提取ID thương hiệu
  */
 export function extractBrandFromModel(modelName: string): string {
   for (const { pattern, brand } of BRAND_PATTERNS) {
@@ -152,7 +152,7 @@ export function extractBrandFromModel(modelName: string): string {
 }
 
 /**
- * 获取品牌信息（含 fallback）
+ * 获取thương hiệu信息（含 fallback）
  */
 export function getBrandInfo(brandId: string): BrandInfo {
   return BRAND_REGISTRY[brandId] || BRAND_REGISTRY['other'];

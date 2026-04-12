@@ -13,10 +13,10 @@ import { persist } from 'zustand/middleware';
 // Đạo cụ项
 export interface PropItem {
   id: string;
-  name: string;           // Đạo cụTên（可Chỉnh sửa）
-  imageUrl: string;       // local-image://props/... 或远程URL
-  prompt: string;         // Tạo时的prompt（供Tham chiếu）
-  folderId: string | null; // 所属thư mục，null = Thư mục gốc
+  name: string;           // Tên đạo cụ (có thể chỉnh sửa)
+  imageUrl: string;       // local-image://props/... hoặc URL từ xa
+  prompt: string;         // Prompt khi tạo (để tham chiếu)
+  folderId: string | null; // Thư mục thuộc về, null = Thư mục gốc
   createdAt: number;
 }
 
@@ -24,7 +24,7 @@ export interface PropItem {
 export interface PropFolder {
   id: string;
   name: string;           // thư mụcTên
-  parentId: string | null; // 预留嵌套扩展（当前UI仅用一级）
+  parentId: string | null; // Dành cho mở rộng lồng nhau (UI hiện tại chỉ dùng một cấp)
   createdAt: number;
 }
 
@@ -45,7 +45,7 @@ interface PropsLibraryActions {
   // thư mụcthao tác
   addFolder: (name: string, parentId?: string | null) => PropFolder;
   renameFolder: (id: string, name: string) => void;
-  deleteFolder: (id: string) => void; // Xóa时conĐạo cụ移至Thư mục gốc
+  deleteFolder: (id: string) => void; // Khi xóa, đạo cụ con sẽ được chuyển về Thư mục gốc
 
   // UI Trạng thái
   setSelectedFolderId: (folderId: string | null | 'all') => void;

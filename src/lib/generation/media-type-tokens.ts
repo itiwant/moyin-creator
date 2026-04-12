@@ -41,7 +41,7 @@ export type CinematographyField =
  * - key = preset id
  * - value = 替换后的 promptToken（空字符串 = 静默跳过）
  *
- * 不在表đang xử lý...reset id → 沿用原始 token（tương thích未来新增预设）
+ * 不在表đang xử lý...reset id → 沿用gốc token（tương thích未来新增预设）
  */
 type FieldOverrides = Record<string, string>;
 
@@ -80,7 +80,7 @@ const ANIMATION_TABLE: MediaTranslationTable = {
     'pull-focus':   'focus tracking subject movement,',
   },
   // lightingStyle / lightingDirection / colorTemperature / movementSpeed / playbackSpeed
-  // → 概念相通，不做翻译，沿用原始 token
+  // → 概念相通，不做翻译，沿用gốc token
   // cameraAngle / focalLength / photographyTechnique → 虚拟摄像机可Trực tiếp使用
 };
 
@@ -179,7 +179,7 @@ const TRANSLATION_TABLES: Partial<Record<MediaType, MediaTranslationTable>> = {
  * @param mediaType   - 当前视觉风格的媒介类型
  * @param field       - 摄影参数维度
  * @param presetId    - 预设 ID（如 'dolly', 'shallow'）
- * @param originalToken - 原始 promptToken（来自预设数据）
+ * @param originalToken - gốc promptToken（来自预设数据）
  * @returns 翻译后的 token；空字符串表示该参数在此媒介下不适用
  */
 export function translateToken(
@@ -196,7 +196,7 @@ export function translateToken(
 
   const strategy = table[field];
 
-  // 该trường无特殊处理 → 沿用原始 token
+  // 该trường无特殊处理 → 沿用gốc token
   if (strategy === undefined) return originalToken;
 
   // 整体跳过

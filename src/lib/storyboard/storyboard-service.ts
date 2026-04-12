@@ -178,7 +178,7 @@ async function submitImageGenTask(
       }
       throw error;
     }
-    throw new Error('调用图片生成 API 时发生未知错误');
+    throw new Error('gọi API图片生成 API 时发生未知错误');
   }
 }
 

@@ -7,7 +7,7 @@
  * 使用 AI 智能校准从剧本đang xử lý...场景列表
  * 
  * 功能：
- * 1. 统计每场景的出场次数、出现集数
+ * 1. 统计每场景的出场次数、出现 tập数
  * 2. AI 分析识别重要场景 vs 过渡场景
  * 3. AI 合并相同地点的变体（张家客厅 = 张明家客厅）
  * 4. AI 补充场景信息（建筑风格、光影、道具等）
@@ -40,7 +40,7 @@ export interface CalibratedScene {
   atmosphere: string;
   /** 场景重要性 */
   importance: 'main' | 'secondary' | 'transition';
-  /** 出现的集数 */
+  /** 出现的 tập数 */
   episodeNumbers: number[];
   /** 出场次数 */
   appearanceCount: number;
@@ -54,13 +54,13 @@ export interface CalibratedScene {
   keyProps?: string[];
   /** Bố cục không gian */
   spatialLayout?: string;
-  /** 时代特征 */
+  /** thời đại特征 */
   eraDetails?: string;
   /** 英文视觉提示词 */
   visualPromptEn?: string;
   /** đang xử lý...描述 */
   visualPromptZh?: string;
-  /** 原始名称变体 */
+  /** gốc名称变体 */
   nameVariants: string[];
 }
 
@@ -78,7 +78,7 @@ export interface SceneStats {
   location: string;
   /** 出场次数 */
   appearanceCount: number;
-  /** 出现的集数 */
+  /** 出现的 tập数 */
   episodeNumbers: number[];
   /** 场景内容样本 */
   contentSamples: string[];
@@ -92,7 +92,7 @@ export interface SceneStats {
   dialogueSamples: string[];
 }
 
-/** @deprecated 不再需要手动传递，自动从服务映射获取 */
+/** @deprecated 不再需要手动传递，自动从ánh xạ dịch vụ获取 */
 export interface CalibrationOptions {
   apiKey?: string;
   provider?: string;
@@ -103,7 +103,7 @@ export interface CalibrationOptions {
 // ==================== 统计函数 ====================
 
 /**
- * 从分集剧本đang xử lý...ất cả场景的出场数据
+ * 从tập剧本đang xử lý...ất cả场景的出场数据
  */
 export function collectSceneStats(
   episodeScripts: EpisodeRawScript[]
@@ -147,27 +147,27 @@ export function collectSceneStats(
         stat.episodeNumbers.push(epIndex);
       }
       
-      // 收集内容样本
+      // 收 tập内容样本
       if (stat.contentSamples.length < 5) {
         const sample = scene.content?.slice(0, 150) || scene.sceneHeader;
-        stat.contentSamples.push(`第${epIndex}集: ${sample}`);
+        stat.contentSamples.push(`第${epIndex} tập: ${sample}`);
       }
       
-      // 收集动作描写（用于推断道具和场景布局）
+      // 收 tập动作描写（用于推断道具和场景布局）
       if (scene.actions && scene.actions.length > 0 && stat.actionSamples.length < 8) {
         // 使用解析出的动作描写（△开头）
         for (const action of scene.actions.slice(0, 3)) {
           if (action && stat.actionSamples.length < 8) {
-            stat.actionSamples.push(`第${epIndex}集: ${action.slice(0, 100)}`);
+            stat.actionSamples.push(`第${epIndex} tập: ${action.slice(0, 100)}`);
           }
         }
       } else if (scene.content && stat.actionSamples.length < 8) {
         // 如果没有△动作，使用场景内容的前200字作为动作样本
         const contentSample = scene.content.slice(0, 200).replace(/\n/g, ' ');
-        stat.actionSamples.push(`第${epIndex}集: ${contentSample}`);
+        stat.actionSamples.push(`第${epIndex} tập: ${contentSample}`);
       }
       
-      // 收集对白样本（用于理解场景đang xử lý...什么）
+      // 收 tập对白样本（用于理解场景đang xử lý...什么）
       if (scene.dialogues && stat.dialogueSamples.length < 5) {
         for (const d of scene.dialogues.slice(0, 2)) {
           if (d && stat.dialogueSamples.length < 5) {
@@ -176,14 +176,14 @@ export function collectSceneStats(
         }
       }
       
-      // 收集角色
+      // 收 tập角色
       for (const char of (scene.characters || [])) {
         if (!stat.characters.includes(char)) {
           stat.characters.push(char);
         }
       }
       
-      // 收集时间
+      // 收 tập时间
       const time = extractTimeFromHeader(scene.sceneHeader);
       if (time && !stat.times.includes(time)) {
         stat.times.push(time);
@@ -273,7 +273,7 @@ export async function calibrateScenes(
   
   console.log('[calibrateScenes] 轻量级chế độ：为', currentScenes.length, '现有场景补充美术设计');
   
-  // 1. 收集场景的动作描写样本（用于推断道具）
+  // 1. 收 tập场景的动作描写样本（用于推断道具）
   const stats = collectSceneStats(episodeScripts);
   
   // 2. 准备场景批处理 items（每场景带上统计信息）
@@ -316,13 +316,13 @@ export async function calibrateScenes(
 1. **不新增场景** - 只处理列表đang xử lý...
 2. **不删除场景** - 即使是过渡场景也保留
 3. **不合并场景** - 只记录“合并建议”，不自行合并
-4. **保持原始 sceneId** - 必须原样返回
+4. **保持gốc sceneId** - 必须原样返回
 
 【场景设计要素 - 必须基于动作描写推断】
 为每场景补充：
 - 建筑风格、光影设计、色彩基调
 - **quan trọng道具**：必须根据「动作描写」推断
-- Bố cục không gian、时代特征、importance 分类
+- Bố cục không gian、thời đại特征、importance 分类
 
 请以JSON格式返回分析结果。`;
 
@@ -330,7 +330,7 @@ export async function calibrateScenes(
   const outlineContext = safeTruncate(background.outline || '', 1500);
 
   try {
-    // 闭包收集跨批次的聚合trường
+    // 闭包收 tập跨批次的聚合trường
     const allMergeRecords: SceneMergeRecord[] = [];
     const allAnalysisNotes: string[] = [];
     
@@ -348,19 +348,19 @@ export async function calibrateScenes(
           const dialogueInfo = s.dialogueSamples.length
             ? `\n   对白样本: ${s.dialogueSamples.join('; ')}`
             : '';
-          return `${i + 1}. [sceneId: ${s.sceneId}] ${s.name}\n   地点: ${s.location} [出场${s.appearCount}次, 集数${s.episodes}]\n   角色: ${s.characters}${actionInfo}${dialogueInfo}`;
+          return `${i + 1}. [sceneId: ${s.sceneId}] ${s.name}\n   地点: ${s.location} [出场${s.appearCount}次,  tập数${s.episodes}]\n   角色: ${s.characters}${actionInfo}${dialogueInfo}`;
         }).join('\n\n');
         
         const user = `【剧本信息】
-剧名：《${background.title}》
+tên phim：《${background.title}》
 ${background.genre ? `类型：${background.genre}` : ''}
-${background.era ? `时代：${background.era}` : ''}
+${background.era ? `thời đại：${background.era}` : ''}
 ${background.storyStartYear ? `故事年份：${background.storyStartYear}年${background.storyEndYear && background.storyEndYear !== background.storyStartYear ? ` - ${background.storyEndYear}年` : ''}` : ''}
 ${background.timelineSetting ? `时间线：${background.timelineSetting}` : ''}
-${background.worldSetting ? `世界观：${safeTruncate(background.worldSetting, 200)}` : ''}
-总集数：${episodeScripts.length}集
+${background.worldSetting ? `Bối cảnh thế giới：${safeTruncate(background.worldSetting, 200)}` : ''}
+总 tập数：${episodeScripts.length} tập
 
-【故事大纲】
+【故事đại cương】
 ${outlineContext || '无'}
 
 【现有场景列表 - 请为每场景补充美术设计】（共${batch.length}）
@@ -375,7 +375,7 @@ ${sceneList}
 {
   "scenes": [
     {
-      "sceneId": "原始场景ID",
+      "sceneId": "gốc场景ID",
       "name": "场景名称",
       "location": "具体地点",
       "importance": "main/secondary/transition",
@@ -384,7 +384,7 @@ ${sceneList}
       "colorPalette": "色彩基调",
       "keyProps": ["道具1", "道具2"],
       "spatialLayout": "Bố cục không gian",
-      "eraDetails": "时代特征",
+      "eraDetails": "thời đại特征",
       "atmosphere": "氛围"
     }
   ],
@@ -423,7 +423,7 @@ ${sceneList}
           }
         }
         
-        // 收集聚合trường
+        // 收 tập聚合trường
         allMergeRecords.push(...(batchParsed.mergeRecords || []));
         if (batchParsed.analysisNotes) allAnalysisNotes.push(batchParsed.analysisNotes);
         
@@ -452,7 +452,7 @@ ${sceneList}
     
     console.log('[calibrateScenes] AI 返回', sceneResults.size, '场景结果');
     
-    // 【quan trọng】按原始顺序遍历 currentScenes，只更新美术trường
+    // 【quan trọng】按gốc顺序遍历 currentScenes，只更新美术trường
     const scenes: CalibratedScene[] = currentScenes.map((orig, i) => {
       let aiData = sceneResults.get(orig.id);
       if (!aiData) aiData = sceneResults.get('loc:' + normalizeLocation(orig.location || ''));
@@ -518,7 +518,7 @@ ${sceneList}
 }
 
 /**
- * AI 校准单集场景
+ * AI 校准单 tập场景
  */
 export async function calibrateEpisodeScenes(
   episodeIndex: number,
@@ -527,16 +527,16 @@ export async function calibrateEpisodeScenes(
   episodeScripts: EpisodeRawScript[],
   options: CalibrationOptions
 ): Promise<SceneCalibrationResult> {
-  // 找到该集的剧本
+  // 找到该 tập的剧本
   const episodeScript = episodeScripts.find(ep => ep.episodeIndex === episodeIndex);
   if (!episodeScript) {
-    throw new Error(`找不到第 ${episodeIndex} 集的剧本`);
+    throw new Error(`找不到第 ${episodeIndex}  tập的剧本`);
   }
   
-  // 只校准该集的场景
+  // 只校准该 tập的场景
   const singleEpisodeScripts = [episodeScript];
   
-  // 复用全局校准逻辑，但只传入单集数据
+  // 复用全局校准逻辑，但只传入单 tập数据
   return calibrateScenes(currentScenes, background, singleEpisodeScripts, options);
 }
 
@@ -565,16 +565,16 @@ async function enrichScenesWithVisualPrompts(
 
 你的专业能力：
 - **空间美学**：懂得如何用bố cục、光影、色彩传达情绪
-- **时代还原**：准确把握不同年代的建筑和室内装饰特征
+- **thời đại还原**：准确把握不同年代的建筑和室内装饰特征
 - **AI图像生成**：深谙 Midjourney、DALL-E 等 AI 绘图模型的最佳提示词写法
-- **电影语言**：理解场景如何为叙事服务
+- **电影Ngôn ngữ**：理解场景如何为叙事服务
 
 【剧本信息】
-剧名：《${background.title}》
+tên phim：《${background.title}》
 类型：${background.genre || '未知类型'}
-时代：${background.era || '未知'}
+thời đại：${background.era || '未知'}
 
-【故事大纲】
+【故事đại cương】
 ${background.outline?.slice(0, 1000) || '无'}
 
 【任务】
@@ -586,7 +586,7 @@ ${keyScenes.map((s, i) => `${i+1}. ${s.name}
    - 光影：${s.lightingDesign || '未知'}
    - 色彩：${s.colorPalette || '未知'}
    - 道具：${s.keyProps?.join(', ') || '未知'}
-   - 时代：${s.eraDetails || '未知'}`).join('\n\n')}
+   - thời đại：${s.eraDetails || '未知'}`).join('\n\n')}
 
 【输出要求】
 为每场景生成：
@@ -603,7 +603,7 @@ ${promptLanguage !== 'zh' ? '- 英文视觉提示词（50-80词，适合AI图像
 }`;
 
   try {
-    // 统一从服务映射获取配置
+    // 统一从ánh xạ dịch vụ获取配置
     const result = await callFeatureAPI('script_analysis', systemPrompt, '请为以上场景生成专业视觉提示词');
     
     // 解析结果
@@ -649,7 +649,7 @@ export function convertToScriptScenes(
   promptLanguage: PromptLanguage = 'zh+en',
 ): ScriptScene[] {
   return calibrated.map(c => {
-    // 查找原始场景数据
+    // 查找gốc场景数据
     const original = originalScenes?.find(orig => 
       orig.name === c.name || 
       orig.location === c.location ||
@@ -662,7 +662,7 @@ export function convertToScriptScenes(
     const nextVisualPromptEn = c.visualPromptEn || original?.visualPromptEn;
     
     return {
-      // 保留原始trường
+      // 保留gốctrường
       ...original,
       // 更新/补充 AI 校准的trường
       id: original?.id || c.id,
@@ -689,7 +689,7 @@ export function convertToScriptScenes(
         `出场${c.appearanceCount}次`,
         ...(c.keyProps || []).slice(0, 3),
       ],
-      // 【修复】保留原始场景的 viewpoints 数据（AI视角分析结果）
+      // 【修复】保留gốc场景的 viewpoints 数据（AI视角分析结果）
       viewpoints: original?.viewpoints,
     };
   });

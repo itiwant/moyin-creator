@@ -9,7 +9,7 @@
  * 2. Tự động从 scene-store 提取CảnhẢnh tham chiếu → @Image
  * 3. Tự động从 splitScene.dialogue 提取对白 → 唇形同步指令
  * 4. 合并组内各Ống kính的三层prompt为「Ống kính1→Ống kính2→Ống kính3」Cấu trúc
- * 5. 收集用户Tải lên的 @Video / @Audio tham chiếu
+ * 5. 收 tập用户Tải lên的 @Video / @Audio tham chiếu
  * 6. 检查 Seedance 2.0 限制（≤9图 + ≤3video + ≤3âm thanh，Tổng≤12，prompt≤5000字符）
  */
 
@@ -20,7 +20,7 @@ import type { ShotGroup, AssetRef, AssetPurpose, SClassAspectRatio, SClassResolu
 
 // ==================== Types ====================
 
-/** @tham chiếu收集结果 */
+/** @tham chiếu收 tập结果 */
 export interface CollectedRefs {
   /** ảnhtham chiếu（Nhân vật图 + Cảnh图 + Khung hình đầu图），最多 9 张 */
   images: AssetRef[];
@@ -44,7 +44,7 @@ export interface GroupPromptResult {
   charCount: number;
   /** 是否超出 5000 字符限制 */
   overCharLimit: boolean;
-  /** 收集到的 @tham chiếu */
+  /** 收 tập到的 @tham chiếu */
   refs: CollectedRefs;
   /** 各Ống kính的 prompt đoạn（用于 UI Xem trước） */
   shotSegments: ShotSegment[];
@@ -58,7 +58,7 @@ export interface ShotSegment {
   sceneName: string;
   /** 该Ống kính在组内的索引（1-based） */
   shotIndex: number;
-  /** Ống kínhMô tả（Hành động + Ống kính语言） */
+  /** Ống kínhMô tả（Hành động + Ống kínhNgôn ngữ） */
   description: string;
   /** 对白文本 */
   dialogue: string;
@@ -276,7 +276,7 @@ export function collectSceneRefs(
 }
 
 /**
- * 收集组内各Ống kính的Khung hình đầuảnh作为 @Image
+ * 收 tập组内各Ống kính的Khung hình đầuảnh作为 @Image
  */
 export function collectFirstFrameRefs(scenes: SplitScene[]): AssetRef[] {
   const refs: AssetRef[] = [];
@@ -315,13 +315,13 @@ export function collectAllRefs(
   sceneLibrary: Scene[],
   gridImageRef?: AssetRef | null,
 ): CollectedRefs {
-  // 1. 收集Nhân vậtẢnh tham chiếu（去重：组内Tất cảỐng kính的 characterIds 合并）
+  // 1. 收 tậpNhân vậtẢnh tham chiếu（去重：组内Tất cảỐng kính的 characterIds 合并）
   const allCharIds = Array.from(
     new Set(scenes.flatMap(s => s.characterIds || []))
   );
   const charRefs = collectCharacterRefs(allCharIds, characters);
 
-  // 2. 收集CảnhẢnh tham chiếu
+  // 2. 收 tậpCảnhẢnh tham chiếu
   const sceneRefs = collectSceneRefs(scenes, sceneLibrary);
 
   let images: AssetRef[];
@@ -430,10 +430,10 @@ function buildDialoguePromptPart(segments: DialogueSegment[]): string {
   if (segments.length === 0) return '';
 
   const lines = segments.map(s =>
-    `[约${s.timeOffset}s处] ${s.characterName}：「${s.text}」— 口型同步，自然口部Hành động`
+    `[约${s.timeOffset}s处] ${s.characterName}：「${s.text}」— sổ型同步，自然sổ部Hành động`
   );
 
-  return `\n\n对白与口型同步：\n${lines.join('\n')}`;
+  return `\n\n对白与sổ型同步：\n${lines.join('\n')}`;
 }
 
 // ==================== Shot Segment Building ====================
@@ -448,11 +448,11 @@ function buildShotSegment(
 ): ShotSegment {
   const parts: string[] = [];
 
-  // 过滤无效值的辅助函数
+  // lọc无效值的辅助函数
   const isValid = (v?: string | null): v is string =>
     !!v && !['none', 'null', '无', '无技法', 'Mặc định'].includes(v.toLowerCase().trim());
 
-  // ===== Ống kính语言（运镜 + 景别 + 角度 + Tiêu cự + 摄影技法） =====
+  // ===== Ống kínhNgôn ngữ（运镜 + 景别 + 角度 + Tiêu cự + 摄影技法） =====
   if (isValid(scene.cameraMovement)) parts.push(scene.cameraMovement);
   if (isValid(scene.shotSize)) parts.push(scene.shotSize);
   if (isValid(scene.cameraAngle)) parts.push(scene.cameraAngle);
@@ -527,7 +527,7 @@ export interface BuildGroupPromptOptions {
   aspectRatio?: SClassAspectRatio;
   /** 是否包含对白唇形同步 */
   enableLipSync?: boolean;
-  /** ô图tham chiếu（如果提供，使用ô图chế độ收集tham chiếu） */
+  /** ô图tham chiếu（如果提供，使用ô图chế độ收 tậptham chiếu） */
   gridImageRef?: AssetRef | null;
 }
 
@@ -570,8 +570,8 @@ const EDIT_TYPE_TEMPLATE: Record<EditType, string> = {
  * Nhân vậtTham chiếu：@ảnh4（Nhân vậtA）保持Nhân vậtngoại hình一致
  * CảnhTham chiếu：@ảnh6 作为CảnhTham chiếu
  *
- * 对白与口型同步：
- * [约2s处] Nhân vậtA：「Hội thoại」— 口型同步，自然口部Hành động
+ * 对白与sổ型同步：
+ * [约2s处] Nhân vậtA：「Hội thoại」— sổ型同步，自然sổ部Hành động
  *
  * Phong cách：电影感, 暖色调...
  * ```
@@ -594,7 +594,7 @@ export function buildGroupPrompt(options: BuildGroupPromptOptions): GroupPromptR
     return buildExtendEditPrompt(group, scenes, characters, sceneLibrary, styleTokens);
   }
 
-  // 1. 收集Tất cả @tham chiếu（ô图chế độ或旧版chế độ）
+  // 1. 收 tậpTất cả @tham chiếu（ô图chế độ或旧版chế độ）
   const refs = collectAllRefs(group, scenes, characters, sceneLibrary, gridImageRef);
 
   // 2. 构建各Ống kínhđoạn
@@ -771,7 +771,7 @@ function buildExtendEditPrompt(
   sceneLibrary: Scene[],
   styleTokens?: string[],
 ): GroupPromptResult {
-  // --- 收集tham chiếu（不建ô图） ---
+  // --- 收 tậptham chiếu（不建ô图） ---
   // source video 占 @video1，用户Tải lên的 videoRefs 从 @video2 Bắt đầu
   const sourceVideoRef: AssetRef | null = group.sourceVideoUrl ? {
     id: 'source_video',

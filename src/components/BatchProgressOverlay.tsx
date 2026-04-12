@@ -29,7 +29,7 @@ export function BatchProgressOverlay({
   current,
   total,
   message,
-  title = "Tạo hàng loạt中",
+  title = "Đang tạo hàng loạt",
 }: BatchProgressOverlayProps) {
   if (!isVisible) return null;
 
@@ -69,7 +69,7 @@ export function BatchProgressOverlay({
 
         {/* Warning */}
         <p className="mt-6 text-[10px] text-zinc-600 text-center">
-          请勿Đóng窗口或Làm mới页面
+          Vui lòng không Đóng cửa sổ hoặc Làm mới trang
         </p>
       </div>
     </div>

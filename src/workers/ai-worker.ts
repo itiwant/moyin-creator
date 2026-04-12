@@ -685,7 +685,7 @@ async function handleExecuteScreenplayImages(command: { type: string; payload: {
         completedCount: 0,
         failedCount: screenplay.scenes.length,
         totalCount: screenplay.scenes.length,
-        error: '未配置ảnh生成 API Key，请在服务映射đang xử lý...,
+        error: '未配置ảnh生成 API Key，请在ánh xạ dịch vụđang xử lý...,
       },
     });
     // Also report failure for each scene

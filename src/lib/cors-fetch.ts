@@ -47,11 +47,11 @@ export async function corsFetch(
   // 浏览器开发chế độ：走 Vite 代理
   const proxyUrl = `/__api_proxy?url=${encodeURIComponent(targetUrl)}`;
 
-  // 将原始 headers 序列化到 x-proxy-headers 头中
+  // 将gốc headers 序列化到 x-proxy-headers 头中
   // 这样代理đang xử lý...以把它们转发给目标服务器
   const proxyHeaders = new Headers(init?.headers);
 
-  // 把原始 headers 打包进一特殊头，代理端负责解包
+  // 把gốc headers 打包进一特殊头，代理端负责解包
   const originalHeaders: Record<string, string> = {};
   proxyHeaders.forEach((value, key) => {
     originalHeaders[key] = value;

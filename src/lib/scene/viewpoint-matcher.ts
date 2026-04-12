@@ -5,7 +5,7 @@
  * Viewpoint Matcher Service
  * 
  * 根据分镜动作描述智能匹配场景库đang xử lý...变体
- * 策略：先用quan trọng词快速匹配，匹配不到才调用 AI
+ * 策略：先用quan trọng词快速匹配，匹配不到才gọi API AI
  */
 
 import { getFeatureConfig } from '@/lib/ai/feature-router';
@@ -36,14 +36,14 @@ const VIEWPOINT_KEYWORDS: Record<string, string[]> = {
     '沙发', '看电视', '茶几', '倒茶', '喝茶', '坐下', '落座', '起身',
     '沙发上', '坐着', '躺在沙发', '电视机', '遥控器',
   ],
-  // 窗边相关
+  // 边相关
   'window': [
-    '窗', '窗外', '窗边', '阳台', '望向', '眺望', '窗帘', '窗户',
-    '倚窗', '窗前', '凭窗', '透过窗', '窗台',
+    '', '外', '边', '阳台', '望向', '眺望', '帘', '户',
+    '倚', '前', '凭', '透过', '台',
   ],
-  // 入口/门相关
+  // 入sổ/门相关
   'entrance': [
-    '门口', '门', '进门', '出门', '回家', '进来', '走进', '离开',
+    '门sổ', '门', '进门', '出门', '回家', '进来', '走进', '离开',
     '玄关', '换鞋', '开门', '关门', '门铃', '敲门', '门外',
   ],
   // 厨房相关
@@ -85,7 +85,7 @@ for (const [viewpointId, keywords] of Object.entries(VIEWPOINT_KEYWORDS)) {
 
 // ==================== 缓存 ====================
 
-// AI 匹配结果缓存（tránh trùng lặp调用）
+// AI 匹配结果缓存（tránh trùng lặpgọi API）
 const aiMatchCache = new Map<string, { viewpointId: string | null; timestamp: number }>();
 const CACHE_TTL = 1000 * 60 * 30; // 30分钟缓存
 
@@ -215,7 +215,7 @@ function getViewpointVariants(
 
 /**
  * 使用视角名称的quan trọng词模糊匹配动作描述
- * 用于自定义视角名称（如"大巴车窗视角"）与动作描述的匹配
+ * 用于自定义视角名称（如"大巴车视角"）与动作描述的匹配
  */
 function matchByViewpointNameKeywords(
   actionSummary: string,
@@ -270,14 +270,14 @@ function extractKeywords(name: string): string[] {
   
   // 3. 提取常见的位置词组（2-4字的名词短语）
   const locationPatterns = [
-    /车窗/, /座位/, /过道/, /乘客/, /目的地/, /车厢/, /车门/,
-    /窗户/, /窗边/, /窗外/, /窗台/,
-    /门口/, /门边/, /玄关/,
+    /车/, /座位/, /过道/, /乘客/, /目的地/, /车厢/, /车门/,
+    /户/, /边/, /外/, /台/,
+    /门sổ/, /门边/, /玄关/,
     /沙发/, /茶几/, /餐桌/, /饭桌/, /书桌/, /床边/, /床头/,
     /厨房/, /卧室/, /客厅/, /书房/, /阳台/, /浴室/,
     /楼梯/, /走廊/, /过道/, /庭院/, /花园/,
     /前排/, /后排/, /đang xử lý... /左边/, /右边/, /đang xử lý...
-    /入口/, /出口/, /通道/, /角落/, /đang xử lý...
+    /入sổ/, /出sổ/, /通道/, /角落/, /đang xử lý...
   ];
   
   for (const pattern of locationPatterns) {
@@ -290,7 +290,7 @@ function extractKeywords(name: string): string[] {
   return [...new Set(keywords)]; // 去重
 }
 
-// ==================== 主入口 ====================
+// ==================== 主入sổ ====================
 
 /**
  * 智能匹配场景库đang xử lý...和视角
@@ -396,7 +396,7 @@ export async function matchSceneAndViewpoint(
 }
 
 /**
- * 同步版本（仅quan trọng词匹配，不调用 AI）
+ * 同步版本（仅quan trọng词匹配，不gọi API AI）
  * 用于需要即时响应的场景
  */
 export function matchSceneAndViewpointSync(

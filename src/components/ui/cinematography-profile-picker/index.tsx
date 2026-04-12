@@ -9,7 +9,7 @@
  * 功能：
  * - 左侧：按phân loại显示档案列表（emoji + 名称）
  * - 右侧：悬停/đã chọn时显示详细描述、摄影参数、Tham chiếu影片
- * - 支持 Popover 弹出chế độ和内嵌chế độ
+ * - 支持 Popover popup出chế độ和内嵌chế độ
  */
 
 import React, { useState, useMemo } from "react";
@@ -35,7 +35,7 @@ interface CinematographyProfilePickerProps {
   value: string;
   /** Chọn变化回调 */
   onChange: (profileId: string) => void;
-  /** 是否使用下拉弹出chế độ（默认 true） */
+  /** 是否使用下拉popup出chế độ（默认 true） */
   popover?: boolean;
   /** 自定义触发器（仅 popover chế độ） */
   trigger?: React.ReactNode;

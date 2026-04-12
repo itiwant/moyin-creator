@@ -9,7 +9,7 @@ import {
   VideoSample,
 } from "mediabunny";
 
-// 包装类型，包含渲染好的 canvas 和原始 VideoSample
+// 包装类型，包含渲染好的 canvas 和gốc VideoSample
 interface CachedFrame {
   canvas: HTMLCanvasElement;
   sample: VideoSample;

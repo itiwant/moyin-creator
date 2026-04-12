@@ -188,7 +188,7 @@ export function getFeatureConfig(feature: AIFeature): FeatureConfig | null {
   const currentIndex = featureRoundRobinIndex.get(feature) || 0;
   const config = configs[currentIndex % configs.length];
   
-  // 更新索引（下次调用使用下一）
+  // 更新索引（下次gọi API使用下一）
   featureRoundRobinIndex.set(feature, currentIndex + 1);
   
   console.log(`[FeatureRouter] 多模型轮询: ${feature} -> ${config.provider.name}:${config.model} (${currentIndex % configs.length + 1}/${configs.length})`);
@@ -223,7 +223,7 @@ export function getFeatureNotConfiguredMessage(feature: AIFeature): string {
   return `请先在设置đang xử lý...{featureName}」功能绑定 API 供应商`;
 }
 
-// ==================== 统一 API 调用入口 ====================
+// ==================== 统一 API gọi API入sổ ====================
 
 import { callChatAPI } from '@/lib/script/script-parser';
 
@@ -232,7 +232,7 @@ export interface CallFeatureAPIOptions {
   temperature?: number;
   /** 自定义最大输出 token 数（默认 4096，推理模型建议设置更高） */
   maxTokens?: number;
-  /** 强制覆盖模型（一般不需要，自动从服务映射获取） */
+  /** 强制覆盖模型（一般不需要，自动从ánh xạ dịch vụ获取） */
   modelOverride?: string;
   /** 强制使用指定的配置（用于批量调度时指定具体模型） */
   configOverride?: FeatureConfig;
@@ -241,14 +241,14 @@ export interface CallFeatureAPIOptions {
 }
 
 /**
- * 统一的 AI 调用入口 - 自动从服务映射获取配置
+ * 统一的 AI gọi API入sổ - 自动从ánh xạ dịch vụ获取配置
  * 
  * v2: 支持多模型轮询
  * 
  * 用法：
  *   const result = await callFeatureAPI('script_analysis', systemPrompt, userPrompt);
  * 
- * 不需要手动传 apiKey、baseUrl、model，Tất cả从服务映射自动获取
+ * 不需要手动传 apiKey、baseUrl、model，Tất cả从ánh xạ dịch vụ自动获取
  */
 export async function callFeatureAPI(
   feature: AIFeature,
@@ -263,7 +263,7 @@ export async function callFeatureAPI(
     throw new Error(getFeatureNotConfiguredMessage(feature));
   }
   
-  // 从服务映射获取模型
+  // 从ánh xạ dịch vụ获取模型
   const model = options?.modelOverride || config.model || config.models?.[0];
   const baseUrl = config.baseUrl?.replace(/\/+$/, '');
   if (!baseUrl) {
@@ -278,7 +278,7 @@ export async function callFeatureAPI(
   console.log(`[callFeatureAPI] 模型: ${model}`);
   console.log(`[callFeatureAPI] BaseURL: ${baseUrl}`);
   
-  // 调用底层 API
+  // gọi API底层 API
   // Cấu trúc化 JSON 输出任务默认关闭深度思考，避免 reasoning 耗尽 token
   const disableThinking = options?.disableThinking ?? true;
   return await callChatAPI(systemPrompt, userPrompt, {

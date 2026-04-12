@@ -596,7 +596,7 @@ export const useAPIConfigStore = create<APIConfigStore>()(
         if (!baseUrl) return { success: false, count: 0, error: 'Base URL Chưa cấu hình' };
 
         try {
-          // 用 Set 收集Tất cả key 的Model，Tự động去重
+          // 用 Set 收 tậpTất cả key 的Model，Tự động去重
           const allModelIds = new Set<string>();
           const isMemefast = provider.platform === 'memefast';
           const memefastTypes: Record<string, string> = {};

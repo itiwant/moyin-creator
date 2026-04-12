@@ -17,7 +17,7 @@ import type { ScriptScene, Shot } from '@/types/script';
  */
 export interface SceneViewpoint {
   id: string;           // 视角ID，如 'dining', 'sofa', 'window'
-  name: string;         // Tên tiếng Trung: khu bàn ăn, khu sofa、窗边
+  name: string;         // Tên tiếng Trung: khu bàn ăn, khu sofa、边
   nameEn: string;       // Tên tiếng Anh：Dining Area, Sofa Area, Window
   shotIds: string[];    // 关联的分镜ID列表
   keyProps: string[];   // 该视角需要的道具（中文）
@@ -63,7 +63,7 @@ export type SceneEnvironmentType =
   | 'indoor_work'    // 现代室内办公/商业
   | 'indoor_public'  // 现代室内公共（医院、学校、餐厅等）
   | 'ancient_indoor' // 古代室内（宫殿、府邸、客栈、寺庙等）
-  | 'ancient_outdoor'// 古代户外（官道、集市、城门等）
+  | 'ancient_outdoor'// 古代户外（官道、 tập市、城门等）
   | 'ancient_vehicle'// 古代交通（马车、轿子、船等）
   | 'unknown';       // 未知
 
@@ -92,8 +92,8 @@ const ENVIRONMENT_KEYWORDS: Record<SceneEnvironmentType, string[]> = {
   ancient_outdoor: [
     // 城市
     '城门', '城墙', '城楼', '城外', '城内', '皇城',
-    '集市', '集', '市集', '庙会', '夜市', '东市', '西市',
-    '街', '长街', '巷', '巷子', '巷口',
+    ' tập市', ' tập', '市 tập', '庙会', '夜市', '东市', '西市',
+    '街', '长街', '巷', '巷子', '巷sổ',
     '牌坊', '广场', '点将台', '校场',
     // 道路/旅途
     '官道', '驿站', '驿道', '山路', '山道', '古道', '商道', '街道',
@@ -101,7 +101,7 @@ const ENVIRONMENT_KEYWORDS: Record<SceneEnvironmentType, string[]> = {
     // 自然/庭院
     '庭院', '庭', '院', '前院', '后院', '内院', '外院',
     '花园', '后花园', '御花园', '池塘', '荷塘', '亝子',
-    '山野', '林间', '溓畔', '桥头', '渡口', '码头',
+    '山野', '林间', '溓畔', '桥头', '渡sổ', '码头',
   ],
   ancient_vehicle: [
     '马车', '车', '轿子', '轿', '牛车', '马', '骑马',
@@ -118,7 +118,7 @@ const ENVIRONMENT_KEYWORDS: Record<SceneEnvironmentType, string[]> = {
     '车内', '车上', '车厢',
   ],
   outdoor: [
-    '公路', '马路', '街道', '街头', '路边', '十字路口',
+    '公路', '马路', '街道', '街头', '路边', '十字路sổ',
     '公园', '广场', '操场', '球场',
     '乡村', '田野', '山', '河', '海边', '沙滩', '森林', '树林',
     '院子', '庭院', '花园', '天台', '楼顶', '屋顶',
@@ -165,7 +165,7 @@ export function detectEnvironmentType(location: string): SceneEnvironmentType {
   const cleanedLocation = cleanLocationString(location);
   const normalizedLocation = cleanedLocation.toLowerCase();
   
-  console.log(`[detectEnvironmentType] 原始: "${location}" -> 清理后: "${cleanedLocation}"`);
+  console.log(`[detectEnvironmentType] gốc: "${location}" -> 清理后: "${cleanedLocation}"`);
   
   // 按优先级检测：古代 > 现代交通 > 户外 > 室内公共 > 室内办公 > 室内家居
   const priorities: SceneEnvironmentType[] = [
@@ -259,13 +259,13 @@ const VIEWPOINT_KEYWORDS: Record<string, ViewpointConfig> = {
   '官道': { id: 'ancient_road', name: '官道', nameEn: 'Official Road', propsZh: ['官道', '松柏'], propsEn: ['road', 'pine trees'], environments: ['ancient_outdoor'] },
   '驿站': { id: 'ancient_road', name: '驿站', nameEn: 'Post Station', propsZh: ['驿站', '马棚'], propsEn: ['post station', 'stable'], environments: ['ancient_outdoor'] },
   '赶路': { id: 'ancient_road', name: '道路', nameEn: 'Road', propsZh: ['道路'], propsEn: ['road'], environments: ['ancient_outdoor'] },
-  // 集市/城门
-  '集市': { id: 'ancient_market', name: '集市', nameEn: 'Market', propsZh: ['市集', '摆', '人群'], propsEn: ['market', 'stalls', 'crowd'], environments: ['ancient_outdoor'] },
+  //  tập市/城门
+  ' tập市': { id: 'ancient_market', name: ' tập市', nameEn: 'Market', propsZh: ['市 tập', '摆', '人群'], propsEn: ['market', 'stalls', 'crowd'], environments: ['ancient_outdoor'] },
   '城门': { id: 'ancient_gate', name: '城门', nameEn: 'City Gate', propsZh: ['城门', '城墙', '士兵'], propsEn: ['city gate', 'city wall', 'soldiers'], environments: ['ancient_outdoor'] },
   '城楼': { id: 'ancient_gate', name: '城楼', nameEn: 'City Tower', propsZh: ['城楼', '城墙'], propsEn: ['city tower', 'city wall'], environments: ['ancient_outdoor'] },
-  // 码头/渡口
+  // 码头/渡sổ
   '码头': { id: 'ancient_dock', name: '码头', nameEn: 'Dock', propsZh: ['木栅', '船只', '缆绳'], propsEn: ['wooden pier', 'boats', 'mooring rope'], environments: ['ancient_outdoor'] },
-  '渡口': { id: 'ancient_dock', name: '渡口', nameEn: 'Ferry Crossing', propsZh: ['渡船', '河水'], propsEn: ['ferry boat', 'river'], environments: ['ancient_outdoor'] },
+  '渡sổ': { id: 'ancient_dock', name: '渡sổ', nameEn: 'Ferry Crossing', propsZh: ['渡船', '河水'], propsEn: ['ferry boat', 'river'], environments: ['ancient_outdoor'] },
   
   // ========== 古代交通视角 (ancient_vehicle) ==========
   // 马车/轿子
@@ -274,10 +274,10 @@ const VIEWPOINT_KEYWORDS: Record<string, ViewpointConfig> = {
   '上轿': { id: 'ancient_sedan', name: '轿门', nameEn: 'Entering Sedan', propsZh: ['轿门', '轿帘'], propsEn: ['sedan door', 'curtain'], environments: ['ancient_vehicle'] },
   '下轿': { id: 'ancient_sedan', name: '轿门', nameEn: 'Exiting Sedan', propsZh: ['轿门'], propsEn: ['sedan door'], environments: ['ancient_vehicle'] },
   '马车': { id: 'ancient_carriage', name: '车内', nameEn: 'Carriage', propsZh: ['车篾', '坐垫'], propsEn: ['carriage canopy', 'cushion'], environments: ['ancient_vehicle'] },
-  '车内': { id: 'ancient_carriage', name: '车内', nameEn: 'Inside Carriage', propsZh: ['车篾', '窗帘'], propsEn: ['canopy', 'window curtain'], environments: ['ancient_vehicle'] },
+  '车内': { id: 'ancient_carriage', name: '车内', nameEn: 'Inside Carriage', propsZh: ['车篾', '帘'], propsEn: ['canopy', 'window curtain'], environments: ['ancient_vehicle'] },
   // 船只
-  '船舱': { id: 'ancient_boat', name: '船舱', nameEn: 'Boat Cabin', propsZh: ['船舱', '窗子'], propsEn: ['cabin', 'window'], environments: ['ancient_vehicle'] },
-  '舱内': { id: 'ancient_boat', name: '船舱', nameEn: 'Inside Cabin', propsZh: ['船舱', '窗子', '木方'], propsEn: ['cabin', 'window', 'wooden table'], environments: ['ancient_vehicle'] },
+  '船舱': { id: 'ancient_boat', name: '船舱', nameEn: 'Boat Cabin', propsZh: ['船舱', '子'], propsEn: ['cabin', 'window'], environments: ['ancient_vehicle'] },
+  '舱内': { id: 'ancient_boat', name: '船舱', nameEn: 'Inside Cabin', propsZh: ['船舱', '子', '木方'], propsEn: ['cabin', 'window', 'wooden table'], environments: ['ancient_vehicle'] },
   '甲板': { id: 'ancient_deck', name: '甲板', nameEn: 'Ship Deck', propsZh: ['甲板', '桶杆', '风帆'], propsEn: ['deck', 'mast', 'sail'], environments: ['ancient_vehicle'] },
   '船头': { id: 'ancient_deck', name: '船头', nameEn: 'Bow', propsZh: ['船头', '桶杆'], propsEn: ['bow', 'mast'], environments: ['ancient_vehicle'] },
   '船尾': { id: 'ancient_deck', name: '船尾', nameEn: 'Stern', propsZh: ['船尾', '艰'], propsEn: ['stern', 'rudder'], environments: ['ancient_vehicle'] },
@@ -288,9 +288,9 @@ const VIEWPOINT_KEYWORDS: Record<string, ViewpointConfig> = {
   '驰骋': { id: 'ancient_horse', name: '马背', nameEn: 'Galloping', propsZh: ['马', '缰绳'], propsEn: ['horse', 'reins'], environments: ['ancient_vehicle'] },
   
   // ========== 现代交通工具视角 (vehicle) ==========
-  // 车窗视角
-  '车窗': { id: 'vehicle_window', name: '车窗', nameEn: 'Vehicle Window View', propsZh: ['车窗', '窗外风景'], propsEn: ['vehicle window', 'outside scenery'], environments: ['vehicle'] },
-  '窗外风景': { id: 'vehicle_window', name: '车窗', nameEn: 'Vehicle Window View', propsZh: ['车窗', '风景'], propsEn: ['vehicle window', 'scenery'], environments: ['vehicle'] },
+  // 车视角
+  '车': { id: 'vehicle_window', name: '车', nameEn: 'Vehicle Window View', propsZh: ['车', '外风景'], propsEn: ['vehicle window', 'outside scenery'], environments: ['vehicle'] },
+  '外风景': { id: 'vehicle_window', name: '车', nameEn: 'Vehicle Window View', propsZh: ['车', '风景'], propsEn: ['vehicle window', 'scenery'], environments: ['vehicle'] },
   // 车内座位视角
   '座位': { id: 'vehicle_seat', name: '座位区', nameEn: 'Seat Area', propsZh: ['座位', '扁手'], propsEn: ['seat', 'armrest'], environments: ['vehicle'] },
   '车座': { id: 'vehicle_seat', name: '座位区', nameEn: 'Seat Area', propsZh: ['车座'], propsEn: ['vehicle seat'], environments: ['vehicle'] },
@@ -341,24 +341,24 @@ const VIEWPOINT_KEYWORDS: Record<string, ViewpointConfig> = {
   '倒茶': { id: 'sofa', name: '沙发区', nameEn: 'Sofa Area', propsZh: ['沙发', '茶几', '茶壶'], propsEn: ['sofa', 'coffee table', 'teapot'], environments: ['indoor_home', 'indoor_work'] },
   '喝茶': { id: 'sofa', name: '沙发区', nameEn: 'Sofa Area', propsZh: ['沙发', '茶几', '茶杯'], propsEn: ['sofa', 'coffee table', 'teacup'], environments: ['indoor_home', 'indoor_work'] },
   
-  // 窗边相关 - 室内用
-  '窗': { id: 'window', name: '窗边', nameEn: 'Window View', propsZh: ['窗户', '窗帘'], propsEn: ['window', 'curtains'], environments: ['indoor_home', 'indoor_work', 'indoor_public'] },
-  '窗外': { id: 'window', name: '窗边', nameEn: 'Window View', propsZh: ['窗户', '窗帘', '自然光'], propsEn: ['window', 'curtains', 'natural light'], environments: ['indoor_home', 'indoor_work', 'indoor_public'] },
-  '窗边': { id: 'window', name: '窗边', nameEn: 'Window View', propsZh: ['窗户', '窗帘'], propsEn: ['window', 'curtains'], environments: ['indoor_home', 'indoor_work', 'indoor_public'] },
-  '阳台': { id: 'window', name: '窗边/阳台', nameEn: 'Balcony View', propsZh: ['阳台', '栏杆'], propsEn: ['balcony', 'railing'], environments: ['indoor_home'] },
-  '窗帘': { id: 'window', name: '窗边', nameEn: 'Window View', propsZh: ['窗户', '窗帘'], propsEn: ['window', 'curtains'], environments: ['indoor_home', 'indoor_work'] },
+  // 边相关 - 室内用
+  '': { id: 'window', name: '边', nameEn: 'Window View', propsZh: ['户', '帘'], propsEn: ['window', 'curtains'], environments: ['indoor_home', 'indoor_work', 'indoor_public'] },
+  '外': { id: 'window', name: '边', nameEn: 'Window View', propsZh: ['户', '帘', '自然光'], propsEn: ['window', 'curtains', 'natural light'], environments: ['indoor_home', 'indoor_work', 'indoor_public'] },
+  '边': { id: 'window', name: '边', nameEn: 'Window View', propsZh: ['户', '帘'], propsEn: ['window', 'curtains'], environments: ['indoor_home', 'indoor_work', 'indoor_public'] },
+  '阳台': { id: 'window', name: '边/阳台', nameEn: 'Balcony View', propsZh: ['阳台', '栏杆'], propsEn: ['balcony', 'railing'], environments: ['indoor_home'] },
+  '帘': { id: 'window', name: '边', nameEn: 'Window View', propsZh: ['户', '帘'], propsEn: ['window', 'curtains'], environments: ['indoor_home', 'indoor_work'] },
   
-  // 入口/门相关 - 室内用
-  '门口': { id: 'entrance', name: '入口', nameEn: 'Entrance View', propsZh: ['门', '玄关'], propsEn: ['door', 'entrance'], environments: ['indoor_home', 'indoor_work', 'indoor_public'] },
-  '门': { id: 'entrance', name: '入口', nameEn: 'Entrance View', propsZh: ['门', '玄关'], propsEn: ['door', 'entrance'], environments: ['indoor_home', 'indoor_work', 'indoor_public'] },
-  '进门': { id: 'entrance', name: '入口', nameEn: 'Entrance View', propsZh: ['门', '玄关'], propsEn: ['door', 'entrance'], environments: ['indoor_home', 'indoor_work', 'indoor_public'] },
-  '出门': { id: 'entrance', name: '入口', nameEn: 'Entrance View', propsZh: ['门'], propsEn: ['door'], environments: ['indoor_home', 'indoor_work', 'indoor_public'] },
-  '回家': { id: 'entrance', name: '入口', nameEn: 'Entrance View', propsZh: ['门', '玄关'], propsEn: ['door', 'entrance'], environments: ['indoor_home'] },
-  '进来': { id: 'entrance', name: '入口', nameEn: 'Entrance View', propsZh: ['门'], propsEn: ['door'], environments: ['indoor_home', 'indoor_work', 'indoor_public'] },
-  '走进': { id: 'entrance', name: '入口', nameEn: 'Entrance View', propsZh: ['门'], propsEn: ['door'], environments: ['indoor_home', 'indoor_work', 'indoor_public'] },
-  '离开': { id: 'entrance', name: '入口', nameEn: 'Entrance View', propsZh: ['门'], propsEn: ['door'], environments: ['indoor_home', 'indoor_work', 'indoor_public'] },
-  '玄关': { id: 'entrance', name: '入口', nameEn: 'Entrance View', propsZh: ['门', '玄关', '鞋柜'], propsEn: ['door', 'entrance', 'shoe cabinet'], environments: ['indoor_home'] },
-  '换鞋': { id: 'entrance', name: '入口', nameEn: 'Entrance View', propsZh: ['玄关', '鞋柜'], propsEn: ['entrance', 'shoe cabinet'], environments: ['indoor_home'] },
+  // 入sổ/门相关 - 室内用
+  '门sổ': { id: 'entrance', name: '入sổ', nameEn: 'Entrance View', propsZh: ['门', '玄关'], propsEn: ['door', 'entrance'], environments: ['indoor_home', 'indoor_work', 'indoor_public'] },
+  '门': { id: 'entrance', name: '入sổ', nameEn: 'Entrance View', propsZh: ['门', '玄关'], propsEn: ['door', 'entrance'], environments: ['indoor_home', 'indoor_work', 'indoor_public'] },
+  '进门': { id: 'entrance', name: '入sổ', nameEn: 'Entrance View', propsZh: ['门', '玄关'], propsEn: ['door', 'entrance'], environments: ['indoor_home', 'indoor_work', 'indoor_public'] },
+  '出门': { id: 'entrance', name: '入sổ', nameEn: 'Entrance View', propsZh: ['门'], propsEn: ['door'], environments: ['indoor_home', 'indoor_work', 'indoor_public'] },
+  '回家': { id: 'entrance', name: '入sổ', nameEn: 'Entrance View', propsZh: ['门', '玄关'], propsEn: ['door', 'entrance'], environments: ['indoor_home'] },
+  '进来': { id: 'entrance', name: '入sổ', nameEn: 'Entrance View', propsZh: ['门'], propsEn: ['door'], environments: ['indoor_home', 'indoor_work', 'indoor_public'] },
+  '走进': { id: 'entrance', name: '入sổ', nameEn: 'Entrance View', propsZh: ['门'], propsEn: ['door'], environments: ['indoor_home', 'indoor_work', 'indoor_public'] },
+  '离开': { id: 'entrance', name: '入sổ', nameEn: 'Entrance View', propsZh: ['门'], propsEn: ['door'], environments: ['indoor_home', 'indoor_work', 'indoor_public'] },
+  '玄关': { id: 'entrance', name: '入sổ', nameEn: 'Entrance View', propsZh: ['门', '玄关', '鞋柜'], propsEn: ['door', 'entrance', 'shoe cabinet'], environments: ['indoor_home'] },
+  '换鞋': { id: 'entrance', name: '入sổ', nameEn: 'Entrance View', propsZh: ['玄关', '鞋柜'], propsEn: ['entrance', 'shoe cabinet'], environments: ['indoor_home'] },
   
   // 厨房相关 - 仅室内家居
   '厨房': { id: 'kitchen', name: '厨房', nameEn: 'Kitchen', propsZh: ['灶台', '橱柜'], propsEn: ['stove', 'cabinets'], environments: ['indoor_home'] },
@@ -536,7 +536,7 @@ export function generateContactSheetPrompt(config: ContactSheetConfig): ContactS
   const sceneDescZh = [
     scene.architectureStyle && `建筑风格：${scene.architectureStyle}`,
     scene.colorPalette && `色彩基调：${scene.colorPalette}`,
-    scene.eraDetails && `时代特征：${scene.eraDetails}`,
+    scene.eraDetails && `thời đại特征：${scene.eraDetails}`,
     scene.lightingDesign && `光影设计：${scene.lightingDesign}`,
   ].filter(Boolean).join('，');
   
@@ -744,7 +744,7 @@ function getDefaultViewpointsForEnvironment(
   switch (envType) {
     case 'vehicle':
       return [
-        { id: 'vehicle_window', name: '车窗', nameEn: 'Vehicle Window View', keyProps: ['车窗', '窗外风景'], keyPropsEn: ['vehicle window', 'outside scenery'], description: '车窗视角', descriptionEn: 'Vehicle window view' },
+        { id: 'vehicle_window', name: '车', nameEn: 'Vehicle Window View', keyProps: ['车', '外风景'], keyPropsEn: ['vehicle window', 'outside scenery'], description: '车视角', descriptionEn: 'Vehicle window view' },
         { id: 'vehicle_seat', name: '座位区', nameEn: 'Seat Area', keyProps: ['座位'], keyPropsEn: ['seat'], description: '座位区域', descriptionEn: 'Seating area' },
         { id: 'vehicle_aisle', name: '过道', nameEn: 'Aisle View', keyProps: ['过道', '扶手'], keyPropsEn: ['aisle', 'handrail'], description: '过道视角', descriptionEn: 'Aisle view' },
         { id: 'vehicle_driver', name: '驾驶位', nameEn: 'Driver Area', keyProps: ['方向盘'], keyPropsEn: ['steering wheel'], description: '驾驶区域', descriptionEn: 'Driver area' },
@@ -762,23 +762,23 @@ function getDefaultViewpointsForEnvironment(
     case 'indoor_home':
       return [
         { id: 'sofa', name: '沙发区', nameEn: 'Sofa Area', keyProps: ['沙发', '茶几'], keyPropsEn: ['sofa', 'coffee table'], description: '沙发区域', descriptionEn: 'Sofa area' },
-        { id: 'window', name: '窗边', nameEn: 'Window View', keyProps: ['窗户', '窗帘'], keyPropsEn: ['window', 'curtains'], description: '窗边视角', descriptionEn: 'Window view' },
-        { id: 'entrance', name: '入口', nameEn: 'Entrance View', keyProps: ['门', '玄关'], keyPropsEn: ['door', 'entrance'], description: '入口视角', descriptionEn: 'Entrance view' },
+        { id: 'window', name: '边', nameEn: 'Window View', keyProps: ['户', '帘'], keyPropsEn: ['window', 'curtains'], description: '边视角', descriptionEn: 'Window view' },
+        { id: 'entrance', name: '入sổ', nameEn: 'Entrance View', keyProps: ['门', '玄关'], keyPropsEn: ['door', 'entrance'], description: '入sổ视角', descriptionEn: 'Entrance view' },
         ...commonDefaults,
       ];
       
     case 'indoor_work':
       return [
         { id: 'study', name: '办公区', nameEn: 'Work Area', keyProps: ['书桌', '电脑'], keyPropsEn: ['desk', 'computer'], description: '办公区域', descriptionEn: 'Work area' },
-        { id: 'window', name: '窗边', nameEn: 'Window View', keyProps: ['窗户'], keyPropsEn: ['window'], description: '窗边视角', descriptionEn: 'Window view' },
-        { id: 'entrance', name: '入口', nameEn: 'Entrance View', keyProps: ['门'], keyPropsEn: ['door'], description: '入口视角', descriptionEn: 'Entrance view' },
+        { id: 'window', name: '边', nameEn: 'Window View', keyProps: ['户'], keyPropsEn: ['window'], description: '边视角', descriptionEn: 'Window view' },
+        { id: 'entrance', name: '入sổ', nameEn: 'Entrance View', keyProps: ['门'], keyPropsEn: ['door'], description: '入sổ视角', descriptionEn: 'Entrance view' },
         ...commonDefaults,
       ];
       
     case 'indoor_public':
       return [
         { id: 'seating', name: '坐席区', nameEn: 'Seating Area', keyProps: [], keyPropsEn: [], description: '坐席区域', descriptionEn: 'Seating area' },
-        { id: 'entrance', name: '入口', nameEn: 'Entrance View', keyProps: ['门'], keyPropsEn: ['door'], description: '入口视角', descriptionEn: 'Entrance view' },
+        { id: 'entrance', name: '入sổ', nameEn: 'Entrance View', keyProps: ['门'], keyPropsEn: ['door'], description: '入sổ视角', descriptionEn: 'Entrance view' },
         ...commonDefaults,
       ];
     
@@ -805,7 +805,7 @@ function getDefaultViewpointsForEnvironment(
       return [
         { id: 'ancient_sedan', name: '轿内', nameEn: 'Inside Sedan', keyProps: ['轿帘', '坐垫'], keyPropsEn: ['sedan curtain', 'cushion'], description: '轿内视角', descriptionEn: 'Inside sedan view' },
         { id: 'ancient_carriage', name: '车内', nameEn: 'Inside Carriage', keyProps: ['车篾', '坐垫'], keyPropsEn: ['canopy', 'cushion'], description: '车内视角', descriptionEn: 'Inside carriage view' },
-        { id: 'ancient_boat', name: '船舱', nameEn: 'Boat Cabin', keyProps: ['船舱', '窗子'], keyPropsEn: ['cabin', 'window'], description: '船舱视角', descriptionEn: 'Boat cabin view' },
+        { id: 'ancient_boat', name: '船舱', nameEn: 'Boat Cabin', keyProps: ['船舱', '子'], keyPropsEn: ['cabin', 'window'], description: '船舱视角', descriptionEn: 'Boat cabin view' },
         { id: 'ancient_deck', name: '甲板', nameEn: 'Ship Deck', keyProps: ['甲板', '风帆'], keyPropsEn: ['deck', 'sail'], description: '甲板视角', descriptionEn: 'Deck view' },
         { id: 'ancient_horse', name: '马背', nameEn: 'On Horseback', keyProps: ['马', '马鞍'], keyPropsEn: ['horse', 'saddle'], description: '马背视角', descriptionEn: 'Horseback view' },
         ...commonDefaults,
@@ -827,7 +827,7 @@ function isViewpointCompatibleWithEnvironment(
   if (config.environments.length === 0) {
     return true;
   }
-  // unknown 环境不做过滤，允许Tất cả视角
+  // unknown 环境不做lọc，允许Tất cả视角
   if (envType === 'unknown') {
     return true;
   }
@@ -839,7 +839,7 @@ function isViewpointCompatibleWithEnvironment(
  * 提取视角（不限数量）
  * 返回Tất cả识别到的视角，不再限制为6
  * 
- * 视角是从分镜内容đang xử lý...，不做环境过滤
+ * 视角是从分镜内容đang xử lý...，不做环境lọc
  * 
  * @param shots 分镜列表
  * @param sceneLocation 场景地点（仅用于补充默认视角）
@@ -985,7 +985,7 @@ export function generateMultiPageContactSheetData(
 } {
   const { scene, styleTokens, aspectRatio } = config;
   
-  // 提取Tất cả视角（传入场景地点进行环境过滤）
+  // 提取Tất cả视角（传入场景地点进行环境lọc）
   const sceneLocation = scene.location || scene.name || '';
   const allViewpoints = extractAllViewpointsFromShots(config.shots, sceneLocation);
   
@@ -1022,7 +1022,7 @@ export function generateMultiPageContactSheetData(
   const sceneDescZh = [
     scene.architectureStyle && `建筑风格：${scene.architectureStyle}`,
     scene.colorPalette && `色彩基调：${scene.colorPalette}`,
-    scene.eraDetails && `时代特征：${scene.eraDetails}`,
+    scene.eraDetails && `thời đại特征：${scene.eraDetails}`,
     scene.lightingDesign && `光影设计：${scene.lightingDesign}`,
   ].filter(Boolean).join('，');
   
@@ -1243,7 +1243,7 @@ export function buildContactSheetDataFromViewpoints(
   const sceneDescZh = [
     scene.architectureStyle && `建筑风格：${scene.architectureStyle}`,
     scene.colorPalette && `色彩基调：${scene.colorPalette}`,
-    scene.eraDetails && `时代特征：${scene.eraDetails}`,
+    scene.eraDetails && `thời đại特征：${scene.eraDetails}`,
     scene.lightingDesign && `光影设计：${scene.lightingDesign}`,
   ].filter(Boolean).join('，');
   

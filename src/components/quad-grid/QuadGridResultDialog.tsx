@@ -89,7 +89,7 @@ export function QuadGridResultDialog({
     }
   };
 
-  // 过滤掉当前Phân cảnh
+  // lọc掉当前Phân cảnh
   const otherScenes = availableScenes.filter((s) => s.id !== currentSceneId);
 
   return (

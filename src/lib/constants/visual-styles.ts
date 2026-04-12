@@ -563,7 +563,7 @@ export const VISUAL_STYLE_PRESETS: readonly StylePreset[] = [
 let _customStyleLookup: ((id: string) => StylePreset | undefined) | null = null;
 
 /**
- * 注册自定义风格查找函数（由 custom-style-store 调用）
+ * 注册自定义风格查找函数（由 custom-style-store gọi API）
  * 自定义风格是用户人资产，不包含在内置预设中
  */
 export function registerCustomStyleLookup(fn: (id: string) => StylePreset | undefined) {

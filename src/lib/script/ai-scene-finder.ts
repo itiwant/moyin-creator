@@ -4,10 +4,10 @@
 /**
  * AI Scene Finder
  * 
- * 根据用户自然语言描述，从剧本đang xử lý...景并生成专业场景数据
+ * 根据用户自然Ngôn ngữ描述，从剧本đang xử lý...景并生成专业场景数据
  * 
  * 功能：
- * 1. 解析用户输入（如 "缺第5集的张家客厅"）
+ * 1. 解析用户输入（如 "缺第5 tập的张家客厅"）
  * 2. 搜索剧本đang xử lý...信息
  * 3. AI 生成đầy đủ场景数据（包括视觉提示词）
  */
@@ -24,7 +24,7 @@ export interface SceneSearchResult {
   name: string;
   /** 置信度 0-1 */
   confidence: number;
-  /** 出现的集数 */
+  /** 出现的 tập数 */
   episodeNumbers: number[];
   /** 找到的上下文（场景内容等） */
   contexts: string[];
@@ -34,7 +34,7 @@ export interface SceneSearchResult {
   message: string;
 }
 
-/** @deprecated 不再需要手动传递，自动从服务映射获取 */
+/** @deprecated 不再需要手动传递，自动从ánh xạ dịch vụ获取 */
 export interface SceneFinderOptions {
   apiKey?: string;
   provider?: string;
@@ -44,21 +44,21 @@ export interface SceneFinderOptions {
 // ==================== 核心函数 ====================
 
 /**
- * 解析用户输入，提取场景名和集数信息
+ * 解析用户输入，提取场景名和 tập数信息
  */
 function parseSceneQuery(query: string): { name: string | null; episodeNumber: number | null } {
   let name: string | null = null;
   let episodeNumber: number | null = null;
   
-  // 提取集数：第X集、第X话、EP.X、EpX 等
-  const episodeMatch = query.match(/第\s*(\d+)\s*[集话]|EP\.?\s*(\d+)|episode\s*(\d+)/i);
+  // 提取 tập数：第X tập、第X话、EP.X、EpX 等
+  const episodeMatch = query.match(/第\s*(\d+)\s*[ tập话]|EP\.?\s*(\d+)|episode\s*(\d+)/i);
   if (episodeMatch) {
     episodeNumber = parseInt(episodeMatch[1] || episodeMatch[2] || episodeMatch[3]);
   }
   
-  // 移除集数相关文本
+  // 移除 tập数相关文本
   let cleanQuery = query
-    .replace(/第\s*\d+\s*[集话]/g, '')
+    .replace(/第\s*\d+\s*[ tập话]/g, '')
     .replace(/EP\.?\s*\d+/gi, '')
     .replace(/episode\s*\d+/gi, '')
     .trim();
@@ -138,10 +138,10 @@ function searchSceneInScripts(
         
         matchedScenes.push({ episodeIndex: ep.episodeIndex, scene });
         
-        // 收集上下文
+        // 收 tập上下文
         if (contexts.length < 5) {
           const sceneContext = [
-            `【第${ep.episodeIndex}集 - ${sceneHeader}】`,
+            `【第${ep.episodeIndex} tập - ${sceneHeader}】`,
             scene.characters?.length ? `nhân vật: ${scene.characters.join(', ')}` : '',
             scene.actions?.slice(0, 2).join('\n') || '',
             scene.dialogues?.slice(0, 2).map(d => `${d.character}: ${d.line.slice(0, 30)}...`).join('\n') || '',
@@ -193,14 +193,14 @@ async function generateSceneData(
 }`;
 
   const userPrompt = `【剧本信息】
-剧名：《${background.title}》
+tên phim：《${background.title}》
 类型：${background.genre || '剧情'}
-时代：${background.era || '现代'}
+thời đại：${background.era || '现代'}
 
-【故事大纲】
+【故事đại cương】
 ${background.outline?.slice(0, 800) || '无'}
 
-【世界观/风格设定】
+【Bối cảnh thế giới/风格设定】
 ${background.worldSetting?.slice(0, 500) || '无'}
 
 【要分析的场景】
@@ -218,10 +218,10 @@ ${allCharacters.join(', ')}
 【场景上下文】
 ${contexts.slice(0, 3).join('\n\n')}
 
-请基于以上信息，生成场景「${name}」的đầy đủ数据。如果信息不足，请根据剧本类型和时代背景合理推断。`;
+请基于以上信息，生成场景「${name}」的đầy đủ数据。如果信息不足，请根据剧本类型和thời đại背景合理推断。`;
 
   try {
-    // 统一从服务映射获取配置
+    // 统一从ánh xạ dịch vụ获取配置
     const result = await callFeatureAPI('script_analysis', systemPrompt, userPrompt);
     
     // 解析 JSON
@@ -306,7 +306,7 @@ export async function findSceneByDescription(
       confidence: 0,
       episodeNumbers: [],
       contexts: [],
-      message: '无法识别场景名。请用类似"缺第5集的张家客厅"或"添加医院走廊这场景"的方式描述。',
+      message: '无法识别场景名。请用类似"缺第5 tập的张家客厅"或"添加医院走廊这场景"的方式描述。',
     };
   }
   
@@ -345,7 +345,7 @@ export async function findSceneByDescription(
       episodeNumbers: [],
       contexts: [],
       message: episodeNumber 
-        ? `在第 ${episodeNumber} 集đang xử lý...场景「${name}」。是否仍要创建这场景？`
+        ? `在第 ${episodeNumber}  tậpđang xử lý...场景「${name}」。是否仍要创建这场景？`
         : `在剧本đang xử lý...场景「${name}」。是否仍要创建这场景？`,
     };
   }
@@ -372,13 +372,13 @@ export async function findSceneByDescription(
     confidence,
     episodeNumbers: searchResult.episodeNumbers,
     contexts: searchResult.contexts,
-    message: `找到场景「${scene.name || scene.location}」，出现在第 ${searchResult.episodeNumbers.join(', ')} 集。`,
+    message: `找到场景「${scene.name || scene.location}」，出现在第 ${searchResult.episodeNumbers.join(', ')}  tập。`,
     scene,
   };
 }
 
 /**
- * 仅搜索（不调用AI），用于快速预览
+ * 仅搜索（不gọi APIAI），用于快速预览
  */
 export function quickSearchScene(
   userQuery: string,
@@ -416,7 +416,7 @@ export function quickSearchScene(
     return {
       name,
       found: true,
-      message: `找到「${name}」，出现在第 ${searchResult.episodeNumbers.join(', ')} 集`,
+      message: `找到「${name}」，出现在第 ${searchResult.episodeNumbers.join(', ')}  tập`,
     };
   }
   

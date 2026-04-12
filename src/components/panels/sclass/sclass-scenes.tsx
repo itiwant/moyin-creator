@@ -672,7 +672,7 @@ export function SClassScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
     return buildEmotionDesc(emotionTags);
   }, []);
 
-  // 收集Nhân vậtẢnh tham chiếu - 必须在 handleQuadGridGenerate 之前定义
+  // 收 tậpNhân vậtẢnh tham chiếu - 必须在 handleQuadGridGenerate 之前定义
   const getCharacterReferenceImages = useCallback((
     characterIds: string[],
     variationMap?: Record<string, string>,
@@ -749,7 +749,7 @@ export function SClassScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
       return;
     }
 
-    // Get API key - 使用服务映射配置
+    // Get API key - 使用ánh xạ dịch vụ配置
     const featureConfig = getFeatureConfig('character_generation');
     if (!featureConfig) {
       toast.error('Vui lòng cấu hình API Tạo ảnh trong Cài đặt trước');
@@ -760,7 +760,7 @@ export function SClassScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
     const keyManager = featureConfig.keyManager;
     const apiKey = keyManager.getCurrentKey() || '';
     if (!apiKey) {
-      toast.error('请先在Cài đặtđang xử lý...ạo ảnh服务映射');
+      toast.error('请先在Cài đặtđang xử lý...ạo ảnhánh xạ dịch vụ');
       setQuadGridOpen(false);
       return;
     }
@@ -773,7 +773,7 @@ export function SClassScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
     }
     const imageBaseUrl = featureConfig.baseUrl?.replace(/\/+$/, '');
     if (!imageBaseUrl) {
-      toast.error('请先在Cài đặtđang xử lý...ạo ảnh服务映射');
+      toast.error('请先在Cài đặtđang xử lý...ạo ảnhánh xạ dịch vụ');
       setQuadGridOpen(false);
       return;
     }
@@ -901,7 +901,7 @@ export function SClassScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
         return undefined;
       };
 
-      // 调用 API - 使用智能路由（Tự độngChọn chat completions 或 images/generations）
+      // gọi API API - 使用智能路由（Tự độngChọn chat completions 或 images/generations）
       console.log('[QuadGrid] Calling API, model:', model);
       const apiResult = await submitGridImageRequest({
         model,
@@ -1225,7 +1225,7 @@ export function SClassScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
     const keyManager = featureConfig.keyManager;
     const apiKey = keyManager.getCurrentKey() || '';
     if (!apiKey) {
-      toast.error('请先在Cài đặtđang xử lý...ạo ảnh服务映射');
+      toast.error('请先在Cài đặtđang xử lý...ạo ảnhánh xạ dịch vụ');
       return;
     }
     const provider = featureConfig.platform;
@@ -1429,7 +1429,7 @@ export function SClassScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
       return;
     }
     
-    // 从服务映射获取 platform 和 model
+    // 从ánh xạ dịch vụ获取 platform 和 model
     const platform = featureConfig.platform;
     const model = featureConfig.models?.[0];
     if (!model) {
@@ -1438,7 +1438,7 @@ export function SClassScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
     }
     const videoBaseUrl = featureConfig.baseUrl?.replace(/\/+$/, '');
     if (!videoBaseUrl) {
-      toast.error('请先在Cài đặtđang xử lý...ạo video服务映射');
+      toast.error('请先在Cài đặtđang xử lý...ạo videoánh xạ dịch vụ');
       return;
     }
     
@@ -1506,7 +1506,7 @@ export function SClassScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
       // 如果用户đã xóaKhung hình cuối或Đóng了Khung hình cuối开关，则不使用Khung hình cuối作为Tạo video的Tham chiếu
       let lastFrameUrl: string | null | undefined = null;
       if (scene.needsEndFrame && scene.endFrameImageUrl) {
-        // 优先使用 endFrameHttpUrl（原始 HTTP URL）
+        // 优先使用 endFrameHttpUrl（gốc HTTP URL）
         // 如果没有，尝试使用 endFrameImageUrl（可能需要Tải lênLưu trữ ảnh）
         lastFrameUrl = scene.endFrameHttpUrl || scene.endFrameImageUrl;
         console.log('[SplitScenes] Using end frame for video generation');
@@ -1603,7 +1603,7 @@ export function SClassScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
 
       console.log('[SplitScenes] image_with_roles:', imageWithRoles.length, 'images', imageWithRoles.map(i => i.role));
 
-      // 调用统一Tạo video API（Tự động路由到正确的 MemeFast 端点）
+      // gọi API统一Tạo video API（Tự động路由到正确的 MemeFast 端点）
       const videoUrl = await callVideoGenerationApi(
         apiKey,
         fullPrompt,
@@ -1702,17 +1702,17 @@ export function SClassScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
     const scene = splitScenes.find(s => s.id === sceneId);
     if (!scene) return;
 
-    // 使用服务映射配置 - 不再 fallback 到硬编码
+    // 使用ánh xạ dịch vụ配置 - 不再 fallback 到硬编码
     const featureConfig = getFeatureConfig('character_generation');
     if (!featureConfig) {
-      toast.error('请先在Cài đặtđang xử lý...ạo ảnh服务映射');
+      toast.error('请先在Cài đặtđang xử lý...ạo ảnhánh xạ dịch vụ');
       return;
     }
     
     const keyManager = featureConfig.keyManager;
     const apiKey = keyManager.getCurrentKey() || '';
     if (!apiKey) {
-      toast.error('请先在Cài đặtđang xử lý...ạo ảnh服务映射');
+      toast.error('请先在Cài đặtđang xử lý...ạo ảnhánh xạ dịch vụ');
       return;
     }
     const platform = featureConfig.platform;
@@ -1724,7 +1724,7 @@ export function SClassScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
     
     const imageBaseUrl = featureConfig.baseUrl?.replace(/\/+$/, '');
     if (!imageBaseUrl) {
-      toast.error('请先在Cài đặtđang xử lý...ạo ảnh服务映射');
+      toast.error('请先在Cài đặtđang xử lý...ạo ảnhánh xạ dịch vụ');
       return;
     }
     
@@ -1773,7 +1773,7 @@ export function SClassScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
         referenceImages.push(...storyboardConfig.characterReferenceImages);
       }
       
-      // 3. Thêm原始Phân cảnh图作为Phong cáchTham chiếu
+      // 3. ThêmgốcPhân cảnh图作为Phong cáchTham chiếu
       if (storyboardImage) {
         referenceImages.push(storyboardImage);
       }
@@ -2013,17 +2013,17 @@ export function SClassScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
       return;
     }
 
-    // 获取图像Tạo能力 - 使用服务映射配置
+    // 获取图像Tạo能力 - 使用ánh xạ dịch vụ配置
     const featureConfig = getFeatureConfig('character_generation');
     if (!featureConfig) {
-      toast.error('请先在Cài đặtđang xử lý...ạo ảnh服务映射');
+      toast.error('请先在Cài đặtđang xử lý...ạo ảnhánh xạ dịch vụ');
       return;
     }
     
     const keyManager = featureConfig.keyManager;
     const apiKey = keyManager.getCurrentKey() || '';
     if (!apiKey) {
-      toast.error('请先在Cài đặtđang xử lý...ạo ảnh服务映射');
+      toast.error('请先在Cài đặtđang xử lý...ạo ảnhánh xạ dịch vụ');
       return;
     }
     const platform = featureConfig.platform;
@@ -2034,7 +2034,7 @@ export function SClassScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
     }
     const imageBaseUrl = featureConfig.baseUrl?.replace(/\/+$/, '');
     if (!imageBaseUrl) {
-      toast.error('请先在Cài đặtđang xử lý...ạo ảnh服务映射');
+      toast.error('请先在Cài đặtđang xử lý...ạo ảnhánh xạ dịch vụ');
       return;
     }
     
@@ -2097,11 +2097,11 @@ export function SClassScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
       taskPages.push(tasks.slice(i, i + 9));
     }
 
-    // 建立Ảnh tham chiếu池（按策略收集，从任务 cột表đang xử lý...ảnh）
+    // 建立Ảnh tham chiếu池（按策略收 tập，从任务 cột表đang xử lý...ảnh）
     const collectRefsFromTasks = (pageTasks: GridTask[]): string[] => {
       if (strategy === 'none') return [];
       const refs: string[] = [];
-      const seenScenes = new Set<number>(); // 避免同一Cảnh重复收集
+      const seenScenes = new Set<number>(); // 避免同一Cảnh重复收 tập
       for (const task of pageTasks) {
         if (seenScenes.has(task.scene.id)) continue;
         seenScenes.add(task.scene.id);
@@ -2357,7 +2357,7 @@ export function SClassScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
         return undefined;
       };
       
-      // 调用 API Tạo九宫格ảnh - 使用智能路由（Tự độngChọn chat completions 或 images/generations）
+      // gọi API API Tạo九宫格ảnh - 使用智能路由（Tự độngChọn chat completions 或 images/generations）
       console.log('[MergedGen] Calling API with', processedRefs.length, 'reference images, model:', model);
       const apiResult = await submitGridImageRequest({
         model,
@@ -2440,7 +2440,7 @@ export function SClassScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
       
       console.log('[MergedGen] Grid image URL:', gridImageUrl.substring(0, 80));
       
-      // Lưu原始九宫格大图 URL 到 sclass-store（供Tạo video时复用）
+      // Lưugốc九宫格大图 URL 到 sclass-store（供Tạo video时复用）
       const pageSceneIds = pageTasks.filter(t => t.type === 'first').map(t => t.scene.id);
       if (pageSceneIds.length > 0) {
         setLastGridImage(gridImageUrl, pageSceneIds);
@@ -2568,7 +2568,7 @@ export function SClassScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
 
         console.log(`[MergedGen] Tự độngThử lại第 ${fp.index + 1} 页（${pageInfo}）`);
         try {
-          // 重新收集Ảnh tham chiếu（可能在其他页Thành công后有新的图可用）
+          // 重新收 tậpẢnh tham chiếu（可能在其他页Thành công后有新的图可用）
           const freshRefs = collectRefsFromTasks(fp.pageTasks);
           await generateGridAndSlice(fp.pageTasks, freshRefs);
           succeededCount++;
@@ -2614,10 +2614,10 @@ export function SClassScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
     } else {
       updateSplitSceneImageStatus(sceneId, { imageStatus: 'generating', imageProgress: 0, imageError: null });
     }
-    // 使用服务映射配置
+    // 使用ánh xạ dịch vụ配置
     const featureConfig = getFeatureConfig('character_generation');
     if (!featureConfig) {
-      throw new Error('请先在Cài đặtđang xử lý...ạo ảnh服务映射');
+      throw new Error('请先在Cài đặtđang xử lý...ạo ảnhánh xạ dịch vụ');
     }
     const platform = featureConfig.platform;
     const model = featureConfig.models?.[0];
@@ -2626,11 +2626,11 @@ export function SClassScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
     }
     const apiKeyToUse = apiKey || featureConfig.keyManager.getCurrentKey() || '';
     if (!apiKeyToUse) {
-      throw new Error('请先在Cài đặtđang xử lý...ạo ảnh服务映射');
+      throw new Error('请先在Cài đặtđang xử lý...ạo ảnhánh xạ dịch vụ');
     }
     const imageBaseUrl = featureConfig.baseUrl?.replace(/\/+$/, '');
     if (!imageBaseUrl) {
-      throw new Error('请先在Cài đặtđang xử lý...ạo ảnh服务映射');
+      throw new Error('请先在Cài đặtđang xử lý...ạo ảnhánh xạ dịch vụ');
     }
 
     // Call image generation API with smart routing
@@ -2717,16 +2717,16 @@ export function SClassScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
       return;
     }
 
-    // 使用服务映射配置
+    // 使用ánh xạ dịch vụ配置
     const featureConfig = getFeatureConfig('character_generation');
     if (!featureConfig) {
-      toast.error('请先在Cài đặtđang xử lý...ạo ảnh服务映射');
+      toast.error('请先在Cài đặtđang xử lý...ạo ảnhánh xạ dịch vụ');
       return;
     }
     const keyManager = featureConfig.keyManager;
     const apiKey = keyManager.getCurrentKey() || '';
     if (!apiKey) {
-      toast.error('请先在Cài đặtđang xử lý...ạo ảnh服务映射');
+      toast.error('请先在Cài đặtđang xử lý...ạo ảnhánh xạ dịch vụ');
       return;
     }
     const platform = featureConfig.platform;
@@ -2737,7 +2737,7 @@ export function SClassScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
     }
     const imageBaseUrl = featureConfig.baseUrl?.replace(/\/+$/, '');
     if (!imageBaseUrl) {
-      toast.error('请先在Cài đặtđang xử lý...ạo ảnh服务映射');
+      toast.error('请先在Cài đặtđang xử lý...ạo ảnhánh xạ dịch vụ');
       return;
     }
     
@@ -3212,7 +3212,7 @@ export function SClassScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
                         onClick={() => {
                           // 仅为TrailerPhân cTạo ảnh video
                           toast.info(`Bắt đầuTạo ${trailerScenes.length} Trailervideo...`);
-                          // 循环调用单Tạo
+                          // 循环gọi API单Tạo
                           trailerScenes.forEach(scene => {
                             if (scene.imageDataUrl && scene.videoStatus !== 'completed') {
                               handleGenerateSingleVideo(scene.id);
@@ -3562,7 +3562,7 @@ export function SClassScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
                     generateGroupVideo(g, {
                       confirmBeforeGenerate: () => new Promise((resolve) => {
                         resolve(window.confirm(
-                          'ô图和prompt已准备hoàn tất，可在分组卡片đang xử lý... trước和Tải xuống。\n\n是否Tiếp tục调用 API Tạo video？'
+                          'ô图和prompt已准备hoàn tất，可在分组卡片đang xử lý... trước和Tải xuống。\n\n是否Tiếp tụcgọi API API Tạo video？'
                         ));
                       }),
                     }).finally(() => setIsGenerating(false));
@@ -3683,7 +3683,7 @@ export function SClassScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
                   <Button
                     onClick={() => {
                       if (sclassGenMode === 'group') {
-                        // Hạng S组级Tạo: 调用 Seedance 2.0 API 逐组Tạo
+                        // Hạng S组级Tạo: gọi API Seedance 2.0 API 逐组Tạo
                         setIsGenerating(true);
                         setBatchProgress(null);
                         generateAllGroups((progress) => setBatchProgress(progress))
@@ -3723,7 +3723,7 @@ export function SClassScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
                   {noImages ? (
                     <p>请先为Phân cTạo ảnh ảnh，再Tạo video</p>
                   ) : sclassGenMode === 'group' ? (
-                    <p>{groupsNeedGen} 组待Tạo，每组合并多Ống kính + @tham chiếu 调用 Seedance 2.0，逐组Khung hình cuối传递</p>
+                    <p>{groupsNeedGen} 组待Tạo，每组合并多Ống kính + @tham chiếu gọi API Seedance 2.0，逐组Khung hình cuối传递</p>
                   ) : (
                     <p>{scenesWithImages} Phân cảnh已有ảnh，{scenesNeedVideo} 待Tạo video</p>
                   )}

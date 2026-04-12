@@ -16,14 +16,14 @@ import { registerCustomStyleLookup, type StylePreset } from '@/lib/constants/vis
 export interface CustomStyle {
   id: string;
   name: string;                 // Phong cáchTên（必填）
-  prompt: string;               // 用户原始prompt（可能混合了Phong cách+Mô tả cảnh）
+  prompt: string;               // 用户gốcprompt（可能混合了Phong cách+Mô tả cảnh）
   negativePrompt: string;       // Prompt phủ định
   description: string;          // Mô tả
   referenceImages: string[];    // Ảnh tham chiếu路径 (local-image://styles/...)
   tags: string[];               // Thẻ
   folderId: string | null;      // 所属Thư mục
   // === AI 提取的Cấu trúc化Phong cách词（优先级高于 prompt） ===
-  styleTokens?: string;         // 纯Phong cách thị giácquan trọng词（画风/光线/色彩/材质）→ Nhân vật/Cảnh设定图使用
+  styleTokens?: string;         // 纯Phong cách thị giácquan trọng词（画风/光线/色彩/材质）→ Nhân vật/Cảnhảnh thiết kế使用
   sceneTokens?: string;         // Cảnh/bố cục/Đạo cụMô tả → Đạo diễn台/Phân cảnh使用
   createdAt: number;
   updatedAt: number;
@@ -248,7 +248,7 @@ registerCustomStyleLookup((id: string): StylePreset | undefined => {
   const category = inferCategoryFromPrompt(effectivePrompt);
   const mediaType = inferMediaType(category);
 
-  // 优先使用 AI 提取的 styleTokens（纯Phong cách thị giác），否则回退到原始 prompt
+  // 优先使用 AI 提取的 styleTokens（纯Phong cách thị giác），否则回退到gốc prompt
   const prompt = style.styleTokens
     || effectivePrompt
     || `${style.name} style, professional quality`;

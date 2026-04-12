@@ -460,7 +460,7 @@ export function AngleController({
         )}
       </div>
 
-      {/* 底部信息栏 */}
+      {/* phía dưới信息栏 */}
       <div className="flex items-center gap-2 px-3 py-1.5 bg-[#1a1a1a] rounded-full border border-white/5 shadow-lg">
         <span className="text-[10px] text-[#ccff00] font-mono">
           {getAngleLabel(direction, elevation, shotSize)}

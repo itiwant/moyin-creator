@@ -85,7 +85,7 @@ import { useResolvedImageUrl } from "@/hooks/use-resolved-image-url";
 
 export interface SplitSceneCardProps {
   scene: SplitScene;
-  /** prompt语言Cài đặt（来自Kịch bản面板），决定Chỉnh sửa/Hiện哪语言trường */
+  /** promptNgôn ngữCài đặt（来自Kịch bản面板），决定Chỉnh sửa/Hiện哪Ngôn ngữtrường */
   promptLanguage?: PromptLanguage;
   // 三层prompt更新回调
   onUpdateImagePrompt: (id: number, prompt: string, promptZh?: string) => void;
@@ -183,7 +183,7 @@ export function SplitSceneCard({
   const resolvedImageUrl = useResolvedImageUrl(effectiveImageUrl);
   const resolvedEndFrameUrl = useResolvedImageUrl(effectiveEndFrameUrl);
 
-  // 根据语言Cài đặt获取对应的prompttrường值
+  // 根据Ngôn ngữCài đặt获取对应的prompttrường值
   const getPromptByLanguage = (vi: string | undefined, en: string | undefined): string => {
     if (promptLanguage === 'en') return en || '';
     if (promptLanguage === 'vi') return vi || '';
@@ -191,7 +191,7 @@ export function SplitSceneCard({
     return vi || en || '';
   };
 
-  // Bắt đầuChỉnh sửa某prompt（根据语言Chọn对应trường）
+  // Bắt đầuChỉnh sửa某prompt（根据Ngôn ngữChọn对应trường）
   const startEditing = (type: 'image' | 'video' | 'endFrame') => {
     if (type === 'image') {
       setEditPromptValue(getPromptByLanguage(scene.imagePromptZh, scene.imagePrompt));
@@ -203,7 +203,7 @@ export function SplitSceneCard({
     setEditingPrompt(type);
   };
 
-  // Lưuprompt（根据语言Cài đặt只更新对应trường，不覆盖另一种语言）
+  // Lưuprompt（根据Ngôn ngữCài đặt只更新对应trường，不覆盖另一种Ngôn ngữ）
   const handleSavePrompt = () => {
     const langLabel = promptLanguage === 'en' ? 'tiếng Anh' : 'tiếng Trung';
 

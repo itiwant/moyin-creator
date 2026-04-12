@@ -4,10 +4,10 @@
 /**
  * AI Character Finder
  * 
- * 根据用户自然语言描述，从剧本đang xử lý...色并生成专业角色数据
+ * 根据用户自然Ngôn ngữ描述，从剧本đang xử lý...色并生成专业角色数据
  * 
  * 功能：
- * 1. 解析用户输入（如 "缺第10集的王大哥这角色"）
+ * 1. 解析用户输入（如 "缺第10 tập的王大哥这角色"）
  * 2. 搜索剧本đang xử lý...信息
  * 3. AI 生成đầy đủ角色数据（包括视觉提示词）
  */
@@ -24,7 +24,7 @@ export interface CharacterSearchResult {
   name: string;
   /** 置信度 0-1 */
   confidence: number;
-  /** 出现的集数 */
+  /** 出现的 tập数 */
   episodeNumbers: number[];
   /** 找到的上下文（对白、场景等） */
   contexts: string[];
@@ -34,7 +34,7 @@ export interface CharacterSearchResult {
   message: string;
 }
 
-/** @deprecated 不再需要手动传递，自动从服务映射获取 */
+/** @deprecated 不再需要手动传递，自动从ánh xạ dịch vụ获取 */
 export interface FinderOptions {
   apiKey?: string;
   provider?: string;
@@ -44,14 +44,14 @@ export interface FinderOptions {
 // ==================== 核心函数 ====================
 
 /**
- * 解析用户输入，提取角色名和集数信息
+ * 解析用户输入，提取角色名和 tập数信息
  */
 function parseUserQuery(query: string): { name: string | null; episodeNumber: number | null } {
   let name: string | null = null;
   let episodeNumber: number | null = null;
   
-  // 提取集数：第X集、第X话、EP.X、EpX 等
-  const episodeMatch = query.match(/第\s*(\d+)\s*[集话]|EP\.?\s*(\d+)|episode\s*(\d+)/i);
+  // 提取 tập数：第X tập、第X话、EP.X、EpX 等
+  const episodeMatch = query.match(/第\s*(\d+)\s*[ tập话]|EP\.?\s*(\d+)|episode\s*(\d+)/i);
   if (episodeMatch) {
     episodeNumber = parseInt(episodeMatch[1] || episodeMatch[2] || episodeMatch[3]);
   }
@@ -62,9 +62,9 @@ function parseUserQuery(query: string): { name: string | null; episodeNumber: nu
   // 3. "需要李明" → 李明
   // 4. "角色：刀疤哥" → 刀疤哥
   
-  // 移除集数相关文本
+  // 移除 tập数相关文本
   let cleanQuery = query
-    .replace(/第\s*\d+\s*[集话]/g, '')
+    .replace(/第\s*\d+\s*[ tập话]/g, '')
     .replace(/EP\.?\s*\d+/gi, '')
     .replace(/episode\s*\d+/gi, '')
     .trim();
@@ -152,19 +152,19 @@ function searchCharacterInScripts(
           foundInEpisode = true;
         }
         
-        // 收集场景信息
+        // 收 tập场景信息
         if (sceneSamples.length < 3) {
-          sceneSamples.push(`第${ep.episodeIndex}集 - ${scene.sceneHeader || '场景'}`);
+          sceneSamples.push(`第${ep.episodeIndex} tập - ${scene.sceneHeader || '场景'}`);
         }
         
-      // 收集对白样本
+      // 收 tập对白样本
         for (const d of relevantDialogues.slice(0, 3)) {
           if (dialogueSamples.length < 5) {
             dialogueSamples.push(`${d.character}: ${d.line.slice(0, 50)}${d.line.length > 50 ? '...' : ''}`);
           }
         }
         
-        // 收集上下文
+        // 收 tập上下文
         if (contexts.length < 5) {
           const sceneContext = [
             `【${scene.sceneHeader || '场景'}】`,
@@ -254,7 +254,7 @@ async function generateCharacterData(
     if (storyType === 'ancient') {
       const era = background.era || background.timelineSetting || '古代';
       return `【${era}服装指导】
-请根据剧本设定的历史时代设计服装：
+请根据剧本设定的历史thời đại设计服装：
 - 如果是客梨或武侠：古代汉服、侠客服饰、布衣草鞋
 - 如果是宫廷：宫装、朝服、官服
 - 如果是仙侠/玄幻：仙侠风格的服饰、飘逸长袍
@@ -308,15 +308,15 @@ async function generateCharacterData(
   // 构建年代信息字符串
   const getEraInfo = () => {
     if (storyType === 'ancient') {
-      return `时代背景：${background.era || background.timelineSetting || '古代'}`;
+      return `thời đại背景：${background.era || background.timelineSetting || '古代'}`;
     }
     if (storyType === 'future') {
-      return `时代背景：${background.era || background.timelineSetting || '未来'}`;
+      return `thời đại背景：${background.era || background.timelineSetting || '未来'}`;
     }
     if (background.storyStartYear) {
       return `故事年份：${background.storyStartYear}年${background.storyEndYear && background.storyEndYear !== background.storyStartYear ? ` - ${background.storyEndYear}年` : ''}`;
     }
-    return `时代背景：${background.era || background.timelineSetting || '现代'}`;
+    return `thời đại背景：${background.era || background.timelineSetting || '现代'}`;
   };
   
   const eraInfo = getEraInfo();
@@ -329,14 +329,14 @@ async function generateCharacterData(
 【服装设计要求】
 ${eraFashionGuidance}
 
-服装必须与剧本时代背景一致，不要混淆不同时代的服装风格。
+服装必须与剧本thời đại背景一致，不要混淆不同thời đại的服装风格。
 
 【输出格式】
 请返回JSON格式，包含以下trường：
 {
   "name": "角色名",
   "gender": "男/女",
-  "age": "年龄描述，如 '30岁左右' 或 'đang xử lý...,
+  "age": "年龄描述，如 '30 tuổi左右' 或 'đang xử lý...,
   "personality": "性格特点，2-3词",
   "role": "角色身份/职业/在剧đang xử lý...",
   "appearance": "Đặc điểm ngoại hình描述（服装必须符合年代）",
@@ -347,11 +347,11 @@ ${eraFashionGuidance}
 }`;
 
   const userPrompt = `【剧本信息】
-剧名：《${background.title}》
+tên phim：《${background.title}》
 类型：${background.genre || '剧情'}
 ${eraInfo}
 
-【故事大纲】
+【故事đại cương】
 ${background.outline?.slice(0, 1000) || '无'}
 
 【nhân vật小传】
@@ -368,10 +368,10 @@ ${dialogueSamples.join('\n')}
 
 请基于以上信息，生成角色「${name}」的đầy đủ数据。
 
-【重要】服装必须符合故事时代背景（${eraInfo}）！`;
+【重要】服装必须符合故事thời đại背景（${eraInfo}）！`;
 
   try {
-    // 统一从服务映射获取配置
+    // 统一从ánh xạ dịch vụ获取配置
     const result = await callFeatureAPI('script_analysis', systemPrompt, userPrompt);
     
     // 解析 JSON
@@ -447,7 +447,7 @@ export async function findCharacterByDescription(
       confidence: 0,
       episodeNumbers: [],
       contexts: [],
-      message: '无法识别角色名。请用类似"缺第10集的王大哥"或"添加张小宝这角色"的方式描述。',
+      message: '无法识别角色名。请用类似"缺第10 tập的王大哥"或"添加张小宝这角色"的方式描述。',
     };
   }
   
@@ -482,7 +482,7 @@ export async function findCharacterByDescription(
       episodeNumbers: [],
       contexts: [],
       message: episodeNumber 
-        ? `在第 ${episodeNumber} 集đang xử lý...角色「${name}」。是否仍要创建这角色？`
+        ? `在第 ${episodeNumber}  tậpđang xử lý...角色「${name}」。是否仍要创建这角色？`
         : `在剧本đang xử lý...角色「${name}」。是否仍要创建这角色？`,
     };
   }
@@ -509,13 +509,13 @@ export async function findCharacterByDescription(
     confidence,
     episodeNumbers: searchResult.episodeNumbers,
     contexts: searchResult.contexts,
-    message: `找到角色「${character.name}」，出现在第 ${searchResult.episodeNumbers.join(', ')} 集。`,
+    message: `找到角色「${character.name}」，出现在第 ${searchResult.episodeNumbers.join(', ')}  tập。`,
     character,
   };
 }
 
 /**
- * 仅搜索（不调用AI），用于快速预览
+ * 仅搜索（不gọi APIAI），用于快速预览
  */
 export function quickSearchCharacter(
   userQuery: string,
@@ -549,7 +549,7 @@ export function quickSearchCharacter(
     return {
       name,
       found: true,
-      message: `找到「${name}」，出现在第 ${searchResult.episodeNumbers.join(', ')} 集`,
+      message: `找到「${name}」，出现在第 ${searchResult.episodeNumbers.join(', ')}  tập`,
     };
   }
   

@@ -28,7 +28,7 @@ import type { CharacterVariation } from '@/stores/character-library-store';
 export interface CharacterStageAppearance {
   stageId: string;           // 阶段ID
   stageName: string;         // 阶段名称（如"少年时期"、"成为大亨后"）
-  episodeRange: string;      // 集数范围（如"1-5"、"10-20"）
+  episodeRange: string;      //  tập数范围（如"1-5"、"10-20"）
   description: string;       // 该阶段的角色描述
   visualPromptEn: string;    // 英文视觉提示词
   visualPromptZh: string;    // đang xử lý...提示词
@@ -60,7 +60,7 @@ export interface CharacterDesign {
   sourceProjectId: string;
 }
 
-/** @deprecated 不再需要手动传递，自动从服务映射获取 */
+/** @deprecated 不再需要手动传递，自动从ánh xạ dịch vụ获取 */
 export interface CharacterDesignOptions {
   apiKey?: string;
   provider?: string;
@@ -100,10 +100,10 @@ export async function generateCharacterDesign(
     throw new Error('角色不存在');
   }
   
-  // 收集角色相关的上下文信息
+  // 收 tập角色相关的上下文信息
   const context = buildCharacterContext(project, character);
   
-  // 调用 AI 生成角色设计
+  // gọi API AI 生成角色设计
   const design = await callAIForCharacterDesign(
     character,
     context
@@ -134,7 +134,7 @@ function buildCharacterContext(project: any, character: any): {
   const episodes = project.episodeRawScripts || [];
   const shots = project.shots || [];
   
-  // 收集角色在各集đang xử lý...信息
+  // 收 tập角色在各 tậpđang xử lý...信息
   const characterAppearances: Array<{
     episodeIndex: number;
     episodeTitle: string;
@@ -193,7 +193,7 @@ function buildCharacterContext(project: any, character: any): {
 }
 
 /**
- * 调用 AI 生成角色设计
+ * gọi API AI 生成角色设计
  */
 async function callAIForCharacterDesign(
   character: any,
@@ -203,7 +203,7 @@ async function callAIForCharacterDesign(
   const systemPrompt = `你是好莱坞顶级角色设计大师，曾为漫威、迪士尼、皮克斯设计过无数经典角色。
 
 你的专业能力：
-- **角色视觉设计**：能准确捕捉角色的外在形象、服装风格、肢体语言
+- **角色视觉设计**：能准确捕捉角色的外在形象、服装风格、肢体Ngôn ngữ
 - **角色成长弧线**：理解角色在不同剧情阶段的形象变化（从少年到成年、从普通人到英雄等）
 - **AI图像生成经验**：深谙 Midjourney、DALL-E、Stable Diffusion 等 AI 绘图模型的工作原理，能写出高质量的提示词
 - **一致性保持**：知道如何描述Khuôn mặt特征、体型等không thay đổi元素，确保角色在不同阶段仍可辨认
@@ -211,12 +211,12 @@ async function callAIForCharacterDesign(
 你的任务是根据剧本信息，为角色设计**多阶段视觉形象**。
 
 【剧本信息】
-剧名：《${context.projectTitle}》
+tên phim：《${context.projectTitle}》
 类型：${context.genre || '未知'}
-时代：${context.era || '现代'}
-总集数：${context.totalEpisodes}集
+thời đại：${context.era || '现代'}
+总 tập数：${context.totalEpisodes} tập
 
-【故事大纲】
+【故事đại cương】
 ${context.outline?.slice(0, 800) || '无'}
 
 【角色信息】
@@ -225,7 +225,7 @@ ${context.characterBio}
 【角色出场统计】
 ${context.characterAppearances.length > 0 
   ? context.characterAppearances.map((a: any) => 
-      `第${a.episodeIndex}集「${a.episodeTitle}」: 出场${a.actions.length}次`
+      `第${a.episodeIndex} tập「${a.episodeTitle}」: 出场${a.actions.length}次`
     ).join('\n')
   : '暂无出场数据'
 }
@@ -277,7 +277,7 @@ ${context.characterAppearances.length > 0
 
   const userPrompt = `请为角色「${character.name}」设计多阶段视觉形象。`;
   
-  // 统一从服务映射获取配置
+  // 统一从ánh xạ dịch vụ获取配置
   const result = await callFeatureAPI('script_analysis', systemPrompt, userPrompt);
   
   // 解析结果
@@ -313,10 +313,10 @@ ${context.characterAppearances.length > 0
 }
 
 /**
- * 根据集数获取角色当前阶段的提示词
+ * 根据 tập数获取角色当前阶段的提示词
  * 
  * @param design 角色设计
- * @param episodeIndex 当前集数
+ * @param episodeIndex 当前 tập数
  */
 export function getCharacterPromptForEpisode(
   design: CharacterDesign,

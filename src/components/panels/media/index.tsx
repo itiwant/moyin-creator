@@ -374,7 +374,7 @@ export function MediaView() {
     
     // 切换到Đạo diễn面板
     setActiveTab('director');
-    toast.success('已载入ảnh，请Nhấp“切割Cảnh”Bắt đầuCắt thông minh');
+    toast.success('Đã tải ảnh, vui lòng Nhấp "Cắt cảnh" để Bắt đầu Cắt thông minh');
   };
 
   // AI Đạo diễn功能 - Phân cTạo ảnh（Trực tiếp进入Chỉnh sửaTrạng thái，作为单张Phân cảnh）
@@ -1058,7 +1058,7 @@ export function MediaView() {
           <Input
             value={renameTarget?.name || ''}
             onChange={(e) => setRenameTarget(prev => prev ? { ...prev, name: e.target.value } : null)}
-            placeholder="新Tên"
+            placeholder="Tên mới"
             onKeyDown={(e) => e.key === 'Enter' && handleRename()}
             autoFocus
           />

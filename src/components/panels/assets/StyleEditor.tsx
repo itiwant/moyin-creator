@@ -240,7 +240,7 @@ export function StyleEditor({ styleId, onClose }: StyleEditorProps) {
           {/* Kết quả trích xuất: styleTokens */}
           {form.styleTokens && (
             <div className="space-y-1.5">
-              <Label className="text-xs text-primary">✨ Phong cách thị giác词（Nhân vật/Cảnh设定图使用）</Label>
+              <Label className="text-xs text-primary">✨ Từ khóa phong cách thị giác (dùng cho ảnh thiết kế Nhân vật/Cảnh)</Label>
               <textarea
                 value={form.styleTokens}
                 onChange={(e) => updateField("styleTokens", e.target.value)}
@@ -249,10 +249,10 @@ export function StyleEditor({ styleId, onClose }: StyleEditorProps) {
             </div>
           )}
 
-          {/* 提取结果：sceneTokens */}
+          {/* Kết quả trích xuất: sceneTokens */}
           {form.sceneTokens && (
             <div className="space-y-1.5">
-              <Label className="text-xs text-muted-foreground">🎬 Cảnh/bố cục词（Đạo diễn台/Phân cảnh使用）</Label>
+              <Label className="text-xs text-muted-foreground">🎬 Từ khóa cảnh/bố cục (dùng cho bảng đạo diễn/phân cảnh)</Label>
               <textarea
                 value={form.sceneTokens}
                 onChange={(e) => updateField("sceneTokens", e.target.value)}
@@ -267,7 +267,7 @@ export function StyleEditor({ styleId, onClose }: StyleEditorProps) {
             <textarea
               value={form.negativePrompt}
               onChange={(e) => updateField("negativePrompt", e.target.value)}
-              placeholder="不希望出现的元素，如：blurry, low quality, watermark"
+              placeholder="Các yếu tố không muốn xuất hiện, ví dụ: blurry, low quality, watermark"
               className="w-full min-h-[80px] rounded-md border border-input bg-background px-3 py-2 text-sm placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring resize-y"
             />
           </div>
@@ -278,7 +278,7 @@ export function StyleEditor({ styleId, onClose }: StyleEditorProps) {
             <textarea
               value={form.description}
               onChange={(e) => updateField("description", e.target.value)}
-              placeholder="简单Mô tả这Phong cách的特点，方便以后查找"
+              placeholder="Mô tả ngắn gọn đặc điểm của phong cách này, để dễ tìm kiếm sau"
               className="w-full min-h-[60px] rounded-md border border-input bg-background px-3 py-2 text-sm placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring resize-y"
             />
           </div>

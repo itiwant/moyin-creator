@@ -1614,7 +1614,7 @@ export const useDirectorStore = create<DirectorStore>()(
     console.log('[DirectorStore] Added', newScenes.length, 'scenes from script, total:', splitScenes.length + newScenes.length);
   },
 
-  // Thêm空白Phân cảnh（用户Thủ côngTạo，自 hàngTải lên ảnh/填写prompt/Tạo）
+  // Thêm空白Phân cảnh（用户Thủ côngTạo，tự độngTải lên ảnh/填写prompt/Tạo）
   addBlankSplitScene: () => {
     const { activeProjectId, projects } = get();
     if (!activeProjectId) return;

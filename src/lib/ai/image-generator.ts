@@ -338,7 +338,7 @@ async function submitViaChatCompletions(
     }
     requestBody.aspect_ratio = aspectRatio;
 
-    // 方式 2: 嵌套 generation_config（官方 SDK 格式，部分trung gian站支持）
+    // 方式 2: lồng nhau generation_config（官方 SDK 格式，部分trung gian站支持）
     requestBody.generation_config = {
       response_modalities: ['TEXT', 'IMAGE'],
       image_config: {
@@ -395,11 +395,11 @@ async function submitViaChatCompletions(
 
         // 401 专项提示：引导用户检查 API Key
         if (resp.status === 401) {
-          msg = `API Key 无效或已hết hạn，请前往「设置」检查图片生成服务的 API Key 配置（原始信息：${msg}）`;
+          msg = `API Key 无效或已hết hạn，请前往「设置」检查图片生成服务的 API Key 配置（gốc信息：${msg}）`;
         }
         // 502 专项提示：上游服务临时不可用
         if (resp.status === 502) {
-          msg = `API 上游服务暂时不可用（502），将自动Thử lại（原始信息：${msg}）`;
+          msg = `API 上游服务暂时不可用（502），将自动Thử lại（gốc信息：${msg}）`;
         }
 
         const err = new Error(msg) as Error & { status?: number };
@@ -536,7 +536,7 @@ async function submitImageTask(
   endpointTypes?: string[],
 ): Promise<{ taskId?: string; imageUrl?: string; pollUrl?: string }> {
   if (!baseUrl) {
-    throw new Error('请先在设置đang xử lý...片生成服务映射');
+    throw new Error('请先在设置đang xử lý...片生成ánh xạ dịch vụ');
   }
   // 根据模型决定 size 格式
   let sizeValue: string = aspectRatio;
@@ -610,7 +610,7 @@ async function submitImageTask(
             throw new Error('API Key 无效或已hết hạn');
           } else if (response.status === 529 || response.status === 503) {
             // 上游负载饱和/服务不可用，需要触发Thử lại
-            const err = new Error(errorMessage || `上游服务暂时不可用 (${response.status})`) as Error & { status?: number };
+            const err = new Error(errorMessage || `上游服务暂时不Khả dụng (${response.status})`) as Error & { status?: number };
             err.status = response.status;
             throw err;
           } else if (response.status >= 500) {
@@ -678,7 +678,7 @@ async function submitImageTask(
       throw new Error('No task_id or image URL in response');
     }
 
-    // 返回 pollUrl 供调用方使用自定义轮询路径
+    // 返回 pollUrl 供gọi API方使用自定义轮询路径
     const imagePaths = getImageEndpointPaths(endpointTypes || []);
     const rootBase = getRootBaseUrl(baseUrl);
     const pollUrl = `${rootBase}${imagePaths.poll(taskId)}`;
@@ -688,7 +688,7 @@ async function submitImageTask(
       if (error.name === 'AbortError') throw new Error('API 请求超时');
       throw error;
     }
-    throw new Error('调用图片生成 API 时发生未知错误');
+    throw new Error('gọi API图片生成 API 时发生未知错误');
   }
 }
 

@@ -3,7 +3,7 @@
  * API ID → 用户可读的显示名
  *
  * 数据来源: https://memefast.top/api/pricing_new (2026-02-19)
- * 不在此表đang xử lý...Trực tiếp显示原始 ID
+ * 不在此表đang xử lý...Trực tiếp显示gốc ID
  */
 
 export const MODEL_DISPLAY_NAMES: Record<string, string> = {
@@ -94,7 +94,7 @@ export const MODEL_DISPLAY_NAMES: Record<string, string> = {
   'mj_shorten': 'Midjourney 提示词精简',
   'mj_uploads': 'Midjourney 图片上传',
   'mj_action': 'Midjourney 动作',
-  'mj_modal': 'Midjourney 弹窗提交',
+  'mj_modal': 'Midjourney Popup提交',
   'mj_fetch': 'Midjourney 任务查询',
   'mj_notify': 'Midjourney 回调通知',
 
@@ -249,7 +249,7 @@ export const MODEL_DISPLAY_NAMES: Record<string, string> = {
   'kling-motion-control': 'Kling 动作控制',
   'kling-multi-elements': 'Kling 多元素合成',
   'kling-avatar-image2video': 'Kling Avatar 图生视频',
-  'kling-advanced-lip-sync': 'Kling 高级口型同步',
+  'kling-advanced-lip-sync': 'Kling 高级sổ型同步',
   'kling-effects': 'Kling 特效',
   'kling-audio': 'Kling 音频生成',
   'kling-custom-voices': 'Kling 自定义音色',
@@ -291,7 +291,7 @@ export const MODEL_DISPLAY_NAMES: Record<string, string> = {
   'vidu-video-character-ref': 'Vidu 角色Tham chiếu视频',
   'vidu-video-scene': 'Vidu 场景视频',
   'vidu-video-scene-ref': 'Vidu 场景Tham chiếu视频',
-  'vidu-video-lip-sync': 'Vidu 口型同步',
+  'vidu-video-lip-sync': 'Vidu sổ型同步',
 
   // --- MiniMax / Hailuo ---
   'MiniMax-Hailuo-02': 'Hailuo 02',
@@ -370,7 +370,7 @@ export const MODEL_DISPLAY_NAMES: Record<string, string> = {
 
 /**
  * 获取模型的友好显示名
- * 优先查映射表，查不到返回原始 ID
+ * 优先查映射表，查不到返回gốc ID
  */
 export function getModelDisplayName(modelId: string): string {
   return MODEL_DISPLAY_NAMES[modelId] ?? modelId;

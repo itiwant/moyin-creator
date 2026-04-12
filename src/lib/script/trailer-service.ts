@@ -23,7 +23,7 @@ const DURATION_TO_SHOT_COUNT: Record<TrailerDuration, number> = {
   60: 12,  // 1分钟：10-12分镜
 };
 
-/** @deprecated 不再需要手动传递，自动从服务映射获取 */
+/** @deprecated 不再需要手动传递，自动从ánh xạ dịch vụ获取 */
 export interface TrailerGenerationOptions {
   apiKey?: string;
   provider?: string;
@@ -100,7 +100,7 @@ export async function selectTrailerShots(
 - 优先Chọn有强烈情绪（tense, excited, mysterious）的镜头
 - 优先Chọn有视觉冲击力的画面（动作场面、特写、对峙）
 - 优先Chọn主要角色出场的quan trọng时刻
-- 覆盖不同集数，Hiển thị故事跨度
+- 覆盖不同 tập数，Hiển thị故事跨度
 - 避免剧透quan trọng结局
 
 【输出要求】
@@ -108,8 +108,8 @@ export async function selectTrailerShots(
 格式：{ "selectedIndices": [1, 5, 12, 23, 45, 60] }`;
 
     const userPrompt = `【项目信息】
-${background?.title ? `剧名：《${background.title}》` : ''}
-${background?.outline ? `大纲：${background.outline.slice(0, 500)}` : ''}
+${background?.title ? `tên phim：《${background.title}》` : ''}
+${background?.outline ? `đại cương：${background.outline.slice(0, 500)}` : ''}
 
 【分镜列表】（共 ${shots.length} 分镜）
 ${shotSummaries.map(s => 
@@ -123,7 +123,7 @@ ${shotSummaries.map(s =>
 
 请从以上分镜đang xử lý...${targetCount} 最适合做预告片的镜头，返回 JSON 格式的序号列表。`;
 
-    // 统一从服务映射获取配置
+    // 统一从ánh xạ dịch vụ获取配置
     const result = await callFeatureAPI('script_analysis', systemPrompt, userPrompt);
 
     // 解析 AI 返回的 JSON - 支持多种格式
@@ -232,13 +232,13 @@ function selectTrailerShotsByRules(shots: Shot[], targetCount: number): Shot[] {
     score: scoreShot(shot),
   })).sort((a, b) => b.score - a.score);
 
-  // 从不同集数đang xử lý...选
+  // 从不同 tập数đang xử lý...选
   const episodeIds = shots.map(s => s.episodeId).filter((id): id is string => !!id);
   const episodeSet = new Set(episodeIds);
   const episodeCount = episodeSet.size;
   
   if (episodeCount > 1) {
-    // 多集：每集挑选一部分
+    // 多 tập：每 tập挑选一部分
     const perEpisode = Math.ceil(targetCount / episodeCount);
     const selected: Shot[] = [];
     const episodeSelected = new Map<string, number>();
@@ -253,14 +253,14 @@ function selectTrailerShotsByRules(shots: Shot[], targetCount: number): Shot[] {
       }
     }
     
-    // 按原始顺序排序（预告片按时间线）
+    // 按gốc顺序排序（预告片按时间线）
     return selected.sort((a, b) => {
       const idxA = shots.findIndex(s => s.id === a.id);
       const idxB = shots.findIndex(s => s.id === b.id);
       return idxA - idxB;
     });
   } else {
-    // 单集：Trực tiếp取分数最高的
+    // 单 tập：Trực tiếp取分数最高的
     return scoredShots.slice(0, targetCount).map(s => s.shot);
   }
 }

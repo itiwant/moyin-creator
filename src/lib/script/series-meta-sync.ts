@@ -33,8 +33,8 @@ export function populateSeriesMetaFromImport(
   aiAnalysis?: ScriptStructureAnalysis | null,
   importSettings?: { styleId?: string; promptLanguage?: PromptLanguage }
 ): SeriesMeta {
-  // 验证标题不是集标题（如"第一集 初遇"）
-  const isEpTitle = (t: string) => /^第[一二三四五六七八九十百千\d]+集/.test(t);
+  // 验证标题不是 tập标题（如"第一 tập 初遇"）
+  const isEpTitle = (t: string) => /^第[一二三四五六七八九十百千\d]+ tập/.test(t);
   const rawTitle = background.title || scriptData.title || '';
   const safeTitle = (rawTitle && !isEpTitle(rawTitle)) ? rawTitle : '未命名';
 
@@ -46,7 +46,7 @@ export function populateSeriesMetaFromImport(
     centralConflict: aiAnalysis?.centralConflict || undefined,
     themes: aiAnalysis?.themes || background.themes || undefined,
 
-    // 世界观
+    // Bối cảnh thế giới
     era: background.era || aiAnalysis?.era || undefined,
     genre: background.genre || aiAnalysis?.genre || undefined,
     timelineSetting: background.timelineSetting || undefined,
@@ -54,7 +54,7 @@ export function populateSeriesMetaFromImport(
     keyItems: aiAnalysis?.keyItems?.map(i => ({ name: i.name, desc: i.description })) || undefined,
     worldNotes: background.worldSetting || undefined,
 
-    // 角色体系 — 优先用 scriptData.characters（已过正则解析+校准），AI 的 characters 作为补充
+    // 角色hệ thống — 优先用 scriptData.characters（已过正则解析+校准），AI 的 characters 作为补充
     characters: scriptData.characters || [],
     factions: aiAnalysis?.factions || undefined,
 
@@ -63,7 +63,7 @@ export function populateSeriesMetaFromImport(
     recurringLocations: undefined,
     colorPalette: undefined,
 
-    // 制作设定 — promptLanguage 从用户ChọnTrực tiếp映射
+    // Cài đặt sản xuất — promptLanguage 从用户ChọnTrực tiếp映射
     language: scriptData.language || 'đang xử lý...
     promptLanguage: importSettings?.promptLanguage,
   };
@@ -82,7 +82,7 @@ export function populateSeriesMetaFromImport(
     console.log(`[populateSeriesMeta] AI 角色作为主数据源: ${meta.characters.length} `);
   }
 
-  // 如果 AI 提取了阵营信息但角色没有 faction tag，补充 faction
+  // 如果 AI 提取了phe phái信息但角色没有 faction tag，补充 faction
   if (!meta.factions?.length && aiAnalysis?.characters?.length) {
     const factionMap = new Map<string, string[]>();
     for (const c of aiAnalysis.characters) {
@@ -114,7 +114,7 @@ export function populateSeriesMetaFromImport(
 
 /**
  * 从 SeriesMeta 构建紧凑的 AI 上下文注入摘要
- * 用于注入到Tất cả AI 调用的 system prompt 中
+ * 用于注入到Tất cả AI gọi API的 system prompt 中
  */
 export function buildSeriesContextSummary(meta: SeriesMeta | null): string {
   if (!meta) return '';
@@ -141,7 +141,7 @@ export function buildSeriesContextSummary(meta: SeriesMeta | null): string {
       .slice(0, 15) // 最多 15 避免过长
       .map(c => {
         const info = [c.name];
-        if (c.age) info.push(`${c.age}岁`);
+        if (c.age) info.push(`${c.age} tuổi`);
         if (c.role) info.push(c.role.substring(0, 20));
         return info.join(',');
       })
@@ -149,35 +149,35 @@ export function buildSeriesContextSummary(meta: SeriesMeta | null): string {
     parts.push(`角色：${charSummary}`);
   }
 
-  // 阵营
+  // phe phái
   if (meta.factions?.length) {
     const factionSummary = meta.factions
       .map(f => `${f.name}[${f.members.slice(0, 4).join(',')}]`)
       .join('; ');
-    parts.push(`阵营：${factionSummary}`);
+    parts.push(`phe phái：${factionSummary}`);
   }
 
-  // 力量体系
+  // 力量hệ thống
   if (meta.powerSystem) {
-    parts.push(`力量体系：${meta.powerSystem}`);
+    parts.push(`力量hệ thống：${meta.powerSystem}`);
   }
 
-  // quan trọng物品
+  // Vật phẩm quan trọng
   if (meta.keyItems?.length) {
     const itemsSummary = meta.keyItems
       .slice(0, 5)
       .map(i => `${i.name}(${i.desc.substring(0, 15)})`)
       .join(', ');
-    parts.push(`quan trọng物品：${itemsSummary}`);
+    parts.push(`Vật phẩm quan trọng：${itemsSummary}`);
   }
 
-  // 地理
+  // địa lý
   if (meta.geography?.length) {
     const geoSummary = meta.geography
       .slice(0, 5)
       .map(g => `${g.name}(${g.desc.substring(0, 15)})`)
       .join(', ');
-    parts.push(`地理：${geoSummary}`);
+    parts.push(`địa lý：${geoSummary}`);
   }
 
   return parts.join('\n');
@@ -238,7 +238,7 @@ export function syncToSeriesMeta(
     }
 
     case 'scene': {
-      // 场景校准后：识别常驻场景（≥2集出现），更新地理
+      // 场景校准后：识别常驻场景（≥2 tập出现），更新địa lý
       if (results.scenes?.length) {
         // 常驻场景：episodeNumbers >= 2
         const recurring = results.scenes.filter(s =>
@@ -260,7 +260,7 @@ export function syncToSeriesMeta(
           }
         }
 
-        // 更新地理设定：从场景的 eraDetails đang xử lý...地名
+        // 更新Cài đặt địa lý：从场景的 eraDetails đang xử lý...地名
         const existingGeoNames = new Set(
           (meta.geography || []).map(g => g.name)
         );
@@ -274,14 +274,14 @@ export function syncToSeriesMeta(
         }
         if (newGeo.length > 0) {
           updates.geography = [...(meta.geography || []), ...newGeo];
-          console.log(`[syncToSeriesMeta:scene] 新增 ${newGeo.length} 地理设定`);
+          console.log(`[syncToSeriesMeta:scene] 新增 ${newGeo.length} Cài đặt địa lý`);
         }
       }
       break;
     }
 
     case 'shot': {
-      // 分镜校准后：追加新quan trọng物品（只追加不覆盖）
+      // 分镜校准后：追加新Vật phẩm quan trọng（只追加不覆盖）
       if (results.keyItems?.length) {
         const existingItemNames = new Set(
           (meta.keyItems || []).map(i => i.name)
@@ -291,7 +291,7 @@ export function syncToSeriesMeta(
         );
         if (newItems.length > 0) {
           updates.keyItems = [...(meta.keyItems || []), ...newItems];
-          console.log(`[syncToSeriesMeta:shot] 新增 ${newItems.length} quan trọng物品`);
+          console.log(`[syncToSeriesMeta:shot] 新增 ${newItems.length} Vật phẩm quan trọng`);
         }
       }
       break;

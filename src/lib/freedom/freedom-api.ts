@@ -225,7 +225,7 @@ const FREEDOM_VIDEO_ROUTE_MAP: Record<string, FreedomVideoRoute> = {
   '动作控制': 'kling',
   '多模态视频编辑': 'kling',
   '数字人': 'kling',
-  '对口型': 'kling',
+  '对sổ型': 'kling',
   '视频特效': 'kling',
   'openai': 'unified', // 某些自定义供应商把视频模型标为通用 openai
   '视频统一格式': 'unified',
@@ -341,7 +341,7 @@ async function _generateFreedomImageInner(
   );
   if (!config) {
     const msg = getFeatureNotConfiguredMessage('character_generation');
-    toast.error('自由板块图片生成未配置：请在设置đang xử lý...自由板块-图片」或「图片生成」服务映射');
+    toast.error('自由板块图片生成未配置：请在设置đang xử lý...自由板块-图片」或「图片生成」ánh xạ dịch vụ');
     throw new Error(msg);
   }
   console.log(`[Freedom] Image config source: ${configSource}`);
@@ -349,7 +349,7 @@ async function _generateFreedomImageInner(
   const { baseUrl, model: defaultModel } = config;
   // 每次Thử lại动态取当前 key（利用 keyManager rotate 后的新 key）
   const apiKey = config.keyManager?.getCurrentKey?.() || config.apiKey;
-  // 模型 ID Trực tiếp透传：UI 选的就是供应商原始 ID，无需转换
+  // 模型 ID Trực tiếp透传：UI 选的就是供应商gốc ID，无需转换
   const model = params.model || defaultModel;
   const normalizedBase = baseUrl.replace(/\/+$/, '');
 
@@ -856,7 +856,7 @@ async function _generateFreedomVideoInner(
   );
   if (!config) {
     const msg = getFeatureNotConfiguredMessage('video_generation');
-    toast.error('自由板块视频生成未配置：请在设置đang xử lý...自由板块-视频」或「视频生成」服务映射');
+    toast.error('自由板块视频生成未配置：请在设置đang xử lý...自由板块-视频」或「视频生成」ánh xạ dịch vụ');
     throw new Error(msg);
   }
   console.log(`[Freedom] Video config source: ${configSource}`);
@@ -864,7 +864,7 @@ async function _generateFreedomVideoInner(
   const { baseUrl, model: defaultModel } = config;
   // 每次Thử lại动态取当前 key（利用 keyManager rotate 后的新 key）
   const apiKey = config.keyManager?.getCurrentKey?.() || config.apiKey;
-  // 模型 ID Trực tiếp透传：UI 选的就是供应商原始 ID，无需转换
+  // 模型 ID Trực tiếp透传：UI 选的就是供应商gốc ID，无需转换
   const model = params.model || defaultModel;
 
   const endpointTypes = useAPIConfigStore.getState().modelEndpointTypes[model];

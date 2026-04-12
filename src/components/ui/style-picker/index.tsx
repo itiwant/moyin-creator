@@ -9,7 +9,7 @@
  * 功能：
  * - 左侧：phân loại小图列表，可滚动
  * - 右侧：悬停/đã chọn时显示大图预览 + 描述
- * - 支持下拉弹出chế độ和内嵌chế độ
+ * - 支持下拉popup出chế độ和内嵌chế độ
  */
 
 import React, { useState, useMemo } from "react";
@@ -43,7 +43,7 @@ interface StylePickerProps {
   value: string;
   /** Chọn变化回调 */
   onChange: (styleId: VisualStyleId) => void;
-  /** 是否使用下拉弹出chế độ（默认 true） */
+  /** 是否使用下拉popup出chế độ（默认 true） */
   popover?: boolean;
   /** 自定义触发器（仅 popover chế độ） */
   trigger?: React.ReactNode;
