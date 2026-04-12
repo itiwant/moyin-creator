@@ -6,7 +6,7 @@
  * Hạng S「组级 AI Hiệu chuẩn」核心模块
  *
  * 功能：
- * 1. 读取组内各 SplitScene 数据（只读，不修改 director-store）
+ * 1. 读取trong nhóm各 SplitScene 数据（只读，不修改 director-store）
  * 2. gọi API LLM Tạo组级tự sự弧线、Ống kính过渡、âm thanhThiết kế、优化 prompt
  * 3. 写入 sclass-store 的 ShotGroup Hiệu chuẩntrường
  *
@@ -66,10 +66,10 @@ function summarizeScene(scene: SplitScene, characters: Character[]): string {
 // ==================== 核心函数 ====================
 
 /**
- * Hiệu chuẩn单组
+ * Hiệu chuẩnmỗi nhóm
  *
  * @param group       目标组（只读 sceneIds）
- * @param scenes      组内 SplitScene[]（只读，来自 director-store）
+ * @param scenes      trong nhóm SplitScene[]（只读，来自 director-store）
  * @param characters  Thư viện nhân vật（用于Tên映射）
  * @param sceneLibrary Thư viện cảnh（备用上下文）
  * @returns CalibrationResult
@@ -81,7 +81,7 @@ export async function calibrateGroup(
   _sceneLibrary: Scene[],
 ): Promise<CalibrationResult> {
   if (scenes.length === 0) {
-    throw new Error('组内无Ống kính，无法Hiệu chuẩn');
+    throw new Error('trong nhóm无Ống kính，无法Hiệu chuẩn');
   }
 
   const totalDuration = scenes.reduce((sum, s) => sum + (s.duration || 5), 0);
@@ -97,7 +97,7 @@ export async function calibrateGroup(
 1. 严格基于以下Ống kính数据，不得ThêmKịch bảnđang xử lý...的Nhân vật、Cảnh或Thoại。
 2. 只做tự sự连贯优化和过渡Thiết kế，不改变各Ống kính的核心Nội dung和情绪基调。
 3. 保留每Ống kính的原有运镜和Hành độngThiết kế，只在Ống kính衔接处增加过渡指令。
-4. âm thanhThiết kế必须基于各Ống kính已有的Âm thanh môi trường/Hiệu ứng âm thanh信息，不凭空创造新音源。
+4. âm thanhThiết kế必须基于各Ống kínhhiện có的Âm thanh môi trường/Hiệu ứng âm thanh信息，不凭空创造新音源。
 5. calibratedPrompt 是对Tất cảỐng kính的整合重写，必须包含每Ống kính的核心信息，不遗漏。
 
 请以 JSON 格式Quay lại，Không有任何解释文字。`;

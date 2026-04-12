@@ -300,7 +300,7 @@ async function generateSingleEpisodeTitleAndSynopsis(
   const epRaw = project.episodeRawScripts.find(e => e.episodeIndex === episodeIndex);
   if (!epRaw || !epRaw.rawContent) return;
 
-  // 已有有意义标题和đại cương则跳过
+  // hiện có有意义标题和đại cương则跳过
   const hasTitle = epRaw.title && !/^第[\d一二三四五六七八九十百千]+ tập$/.test(epRaw.title.trim());
   const hasSynopsis = !!(epRaw.synopsis && epRaw.synopsis.trim().length > 0);
   if (hasTitle && hasSynopsis) return;
@@ -369,7 +369,7 @@ ${background?.era ? `thời đại：${background.era}` : ''}
 
 /**
  * 为单 tậpTạo分镜
- * @param episodeIndex  tập索引（1-based）
+ * @param episodeIndex  tậpchỉ mục（1-based）
  * @param projectId 项目ID
  * @param options TạoTùy chọn
  */
@@ -2080,7 +2080,7 @@ ${getMediaTypeGuidance(mt)}
 - 情感Thoại、内心活动: CU/ECU Cận cảnhCực cận cảnh
 - 动作场面、追逐: MS/WS + Tracking跟随
 - 场景建立、过渡: WS/FS Viễn cảnh
-- căng thẳng对峙: 快速切换景别
+- căng thẳng对峙: nhanh切换景别
 - 重要物件/细节: ECUCực cận cảnh
 
 **Quan trọng:đang xử lý...rường必须严格分离！**
@@ -2313,7 +2313,7 @@ export async function generateEpisodeSynopses(
         const system = `你是好莱坞资深剧本医生(Script Doctor)，擅长分析剧本Cấu trúc和tự sự节奏。
 
 你的专业能力：
-- 剧本Cấu trúc分析：能快速提炼每 tập的核心冲突、转折点和情感cao trào
+- 剧本Cấu trúc分析：能nhanh提炼每 tập的核心冲突、转折点和情感cao trào
 - tự sự节奏把控：理解不同类型剧 tập的节奏特点
 - Sự kiện quan trọng提取：能准确识别推动剧情发展的quan trọng场景和动作
 

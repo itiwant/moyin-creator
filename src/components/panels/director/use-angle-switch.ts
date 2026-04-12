@@ -75,7 +75,7 @@ export function useAngleSwitch({
       return;
     }
 
-    // Đặt lạiđã chọn索引（历史从 store đang xử lý...
+    // Đặt lạiđã chọnchỉ mục（历史从 store đang xử lý...
     setSelectedHistoryIndex(-1);
     setAngleSwitchTarget({ sceneId, type });
     setAngleSwitchOpen(true);

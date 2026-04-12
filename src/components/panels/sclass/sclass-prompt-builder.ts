@@ -8,7 +8,7 @@
  * 1. Tự động从 character-library-store 提取Nhân vậtẢnh tham chiếu → @Image
  * 2. Tự động从 scene-store 提取CảnhẢnh tham chiếu → @Image
  * 3. Tự động从 splitScene.dialogue 提取Thoại → 唇形同步指令
- * 4. 合并组内各Ống kính的三层prompt为「Ống kính1→Ống kính2→Ống kính3」Cấu trúc
+ * 4. 合并trong nhóm各Ống kính的三层prompt为「Ống kính1→Ống kính2→Ống kính3」Cấu trúc
  * 5. 收 tập用户Tải lên的 @Video / @Audio tham chiếu
  * 6. 检查 Seedance 2.0 限制（≤9图 + ≤3video + ≤3âm thanh，Tổng≤12，prompt≤5000字符）
  */
@@ -30,9 +30,9 @@ export interface CollectedRefs {
   audios: AssetRef[];
   /** Tổngfile数 */
   totalFiles: number;
-  /** 是否超出限制 */
+  /** 是否vượt quá限制 */
   overLimit: boolean;
-  /** 超限详情 */
+  /** vượt giới hạn详情 */
   limitWarnings: string[];
 }
 
@@ -42,7 +42,7 @@ export interface GroupPromptResult {
   prompt: string;
   /** prompt 字符数 */
   charCount: number;
-  /** 是否超出 5000 字符限制 */
+  /** 是否vượt quá 5000 字符限制 */
   overCharLimit: boolean;
   /** 收 tập到的 @tham chiếu */
   refs: CollectedRefs;
@@ -56,7 +56,7 @@ export interface GroupPromptResult {
 export interface ShotSegment {
   sceneId: number;
   sceneName: string;
-  /** 该Ống kính在组内的索引（1-based） */
+  /** 该Ống kính在trong nhóm的chỉ mục（1-based） */
   shotIndex: number;
   /** Ống kínhMô tả（Hành động + Ống kínhNgôn ngữ） */
   description: string;
@@ -276,7 +276,7 @@ export function collectSceneRefs(
 }
 
 /**
- * 收 tập组内各Ống kính的Khung hình đầuảnh作为 @Image
+ * 收 tậptrong nhóm各Ống kính的Khung hình đầuảnh作为 @Image
  */
 export function collectFirstFrameRefs(scenes: SplitScene[]): AssetRef[] {
   const refs: AssetRef[] = [];
@@ -299,7 +299,7 @@ export function collectFirstFrameRefs(scenes: SplitScene[]): AssetRef[] {
 }
 
 /**
- * 汇TổngTất cả @tham chiếu并执 hàng配额校验
+ * 汇TổngTất cả @tham chiếu并执 hànghạn mức校验
  *
  * 新版优先级（ô图chế độ）：
  *   @Image1 = ô图（1张） > @Image2~9 = Nhân vậtẢnh tham chiếu（≤8张）
@@ -315,7 +315,7 @@ export function collectAllRefs(
   sceneLibrary: Scene[],
   gridImageRef?: AssetRef | null,
 ): CollectedRefs {
-  // 1. 收 tậpNhân vậtẢnh tham chiếu（去重：组内Tất cảỐng kính的 characterIds 合并）
+  // 1. 收 tậpNhân vậtẢnh tham chiếu（去重：trong nhómTất cảỐng kính的 characterIds 合并）
   const allCharIds = Array.from(
     new Set(scenes.flatMap(s => s.characterIds || []))
   );
@@ -353,14 +353,14 @@ export function collectAllRefs(
   const taggedVideos = videoSlice.map((ref, i) => ({ ...ref, tag: `@video${i + 1}` }));
   const taggedAudios = audioSlice.map((ref, i) => ({ ...ref, tag: `@âm thanh${i + 1}` }));
 
-  // 7. 配额校验
+  // 7. hạn mức校验
   const totalFiles = taggedImages.length + taggedVideos.length + taggedAudios.length;
   const warnings: string[] = [];
   if (taggedImages.length >= SEEDANCE_LIMITS.maxImages) {
     warnings.push(`ảnhtham chiếu已达上限 ${SEEDANCE_LIMITS.maxImages}`);
   }
   if (totalFiles > SEEDANCE_LIMITS.maxTotalFiles) {
-    warnings.push(`Tổngfile数 ${totalFiles} 超出限制 ${SEEDANCE_LIMITS.maxTotalFiles}`);
+    warnings.push(`Tổngfile数 ${totalFiles} vượt quá限制 ${SEEDANCE_LIMITS.maxTotalFiles}`);
   }
 
   return {
@@ -376,7 +376,7 @@ export function collectAllRefs(
 // ==================== Dialogue / Lip-Sync ====================
 
 /**
- * 从组内Ống kính提取Thoại，Tạo唇形同步đoạn
+ * 从trong nhómỐng kính提取Thoại，Tạo唇形同步đoạn
  */
 export function extractDialogueSegments(
   scenes: SplitScene[],
@@ -805,7 +805,7 @@ function buildExtendEditPrompt(
     audios: taggedAudios,
     totalFiles,
     overLimit: totalFiles > SEEDANCE_LIMITS.maxTotalFiles,
-    limitWarnings: totalFiles > SEEDANCE_LIMITS.maxTotalFiles ? [`Tổngfile数 ${totalFiles} 超出限制 ${SEEDANCE_LIMITS.maxTotalFiles}`] : [],
+    limitWarnings: totalFiles > SEEDANCE_LIMITS.maxTotalFiles ? [`Tổngfile数 ${totalFiles} vượt quá限制 ${SEEDANCE_LIMITS.maxTotalFiles}`] : [],
   };
 
   // --- 构建 prompt ---
@@ -864,7 +864,7 @@ function buildExtendEditPrompt(
 }
 
 /**
- * 快速预估一组的 @tham chiếu数量（不执 hàngđầy đủ构建）
+ * nhanh预估一组的 @tham chiếu数量（不执 hàngđầy đủ构建）
  */
 export function estimateGroupRefs(
   group: ShotGroup,

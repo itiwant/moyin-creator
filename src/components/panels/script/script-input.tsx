@@ -251,13 +251,13 @@ export function ScriptInput({
               Dán kịch bản đầy đủ(bao gồm đại cương, tiểu sử nhân vật, nội dung từng tập)
             </Label>
             <Textarea
-              placeholder="支持的格式：\n• 第X tập（ tập标记）\n• **1-1日 内 Địa điểm**（Cảnh头）\n• nhân vật：Nhân vậtA、Nhân vậtB\n• Nhân vậttên:（Hành động）Hội thoại\n• △Hành động描写\n• 【字幕】【闪回】等"
+              placeholder="Định dạng hỗ trợ:\n• Tập X (đánh dấu tập)\n• **Ngày 1-1 - Địa điểm** (đầu cảnh)\n• nhân vật: Nhân vật A, Nhân vật B\n• Tên nhân vật: (Hành động）Hội thoại\n• △Hành động描写\n• 【字幕】【闪回】等"
               value={rawScript}
               onChange={(e) => onRawScriptChange(e.target.value)}
               className="min-h-[200px] max-h-[40vh] resize-none text-sm overflow-y-auto"
               disabled={parseStatus === "parsing" || isImporting}
             />
-            {/* Nhập状态Gợi ý */}
+            {/* Gợi ý trạng thái nhập */}
             {importStatus === "ready" && (
               <div className="space-y-1">
                 <p className="text-xs text-green-600">✓ Nhập thành công! Có thể nhấp tên tập ở bên phải để Tạo phân cảnh</p>
@@ -467,22 +467,22 @@ export function ScriptInput({
               </div>
             )}
 
-            {/* Sáng tácchế độ工作流引导 */}
+            {/* Hướng dẫn quy trình chế độ sáng tác */}
             {parseStatus === "ready" && (
               <div className="p-3 rounded-lg bg-primary/5 border border-primary/20 space-y-2">
-                <div className="text-xs font-medium text-primary">✨ 剧本已Tạo，Bước tiếp theo</div>
+                <div className="text-xs font-medium text-primary">✨ Kịch bản đã tạo, Bước tiếp theo</div>
                 <div className="space-y-1.5 text-xs text-muted-foreground">
                   <div className="flex items-center gap-2">
                     <span className="w-4 h-4 rounded-full bg-primary/10 text-primary flex items-center justify-center text-[10px] font-bold">1</span>
-                    <span>在đang xử lý...Cảnh → Cột phải点「去Cảnh库Tạonền」</span>
+                    <span>Trong phần Cảnh → Cột phải nhấp「Đến Thư viện Cảnh Tạo nền」</span>
                   </div>
                   <div className="flex items-center gap-2">
                     <span className="w-4 h-4 rounded-full bg-primary/10 text-primary flex items-center justify-center text-[10px] font-bold">2</span>
-                    <span>ChọnNhân vật → Cột phải点「去Thư viện nhân vậtTạo形象」</span>
+                    <span>Chọn Nhân vật → Cột phải nhấp「Đến Thư viện nhân vật Tạo hình ảnh」</span>
                   </div>
                   <div className="flex items-center gap-2">
                     <span className="w-4 h-4 rounded-full bg-primary/10 text-primary flex items-center justify-center text-[10px] font-bold">3</span>
-                    <span>Chọn phân cảnh → Cột phải点「去AIĐạo diễnTạo video」</span>
+                    <span>Chọn phân cảnh → Cột phải nhấp「Đến AI Đạo diễn Tạo video」</span>
                   </div>
                 </div>
               </div>
@@ -491,7 +491,7 @@ export function ScriptInput({
         </TabsContent>
       </Tabs>
 
-      {/* 设置区域 - 根据chế độ显示不同Tùy chọn */}
+      {/* Vùng cài đặt - hiển thị Tùy chọn khác nhau tùy theo chế độ */}
       <div className="space-y-3 pt-2 border-t">
         {/* Chế độ nhập：显示Ngôn ngữ、Cảnh数量、Phân cảnh数量 */}
         {mode === "import" && (
@@ -533,7 +533,7 @@ export function ScriptInput({
                 </SelectContent>
               </Select>
               <p className="text-[10px] text-muted-foreground">
-                控制AIHiệu chuẩnTạođang xử lý...prompt，默认Chỉ tiếng Trung可减少Tạo压力
+                控制AIHiệu chuẩnTạođang xử lý...prompt，默认Chỉ tiếng Trung可giảmTạo压力
               </p>
             </div>
 
@@ -664,7 +664,7 @@ export function ScriptInput({
                 </SelectContent>
               </Select>
               <p className="text-[10px] text-muted-foreground">
-                控制AITạođang xử lý...prompt，默认Chỉ tiếng Trung可减少Tạo压力
+                控制AITạođang xử lý...prompt，默认Chỉ tiếng Trung可giảmTạo压力
               </p>
             </div>
             <div className="grid grid-cols-3 gap-2">

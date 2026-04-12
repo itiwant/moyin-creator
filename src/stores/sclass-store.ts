@@ -122,7 +122,7 @@ export interface ShotGroup {
   name: string;
   /** tham chiếu director-store đang xử lý...litScene.id  cột表 */
   sceneIds: number[];
-  /** 组内TổngThời lượng限制（≤15s） */
+  /** trong nhómTổngThời lượng限制（≤15s） */
   totalDuration: SClassDuration;
   /** @ảnhtham chiếu */
   imageRefs: AssetRef[];
@@ -144,7 +144,7 @@ export interface ShotGroup {
   videoError: string | null;
   /** Tạo历史 */
   history: GenerationRecord[];
-  /** 排序索引 */
+  /** 排序chỉ mục */
   sortIndex: number;
   /** 合并ô图 dataUrl（Tạo video时构建，用于Xem trước/Tải xuống） */
   gridImageUrl: string | null;
@@ -259,7 +259,7 @@ interface SClassActions {
   setShotGroups: (groups: ShotGroup[]) => void;
   reorderShotGroups: (groupIds: string[]) => void;
 
-  // Ống kính组内CảnhQuản lý
+  // Ống kínhtrong nhómCảnhQuản lý
   addSceneToGroup: (groupId: string, sceneId: number) => void;
   removeSceneFromGroup: (groupId: string, sceneId: number) => void;
   moveSceneBetweenGroups: (fromGroupId: string, toGroupId: string, sceneId: number) => void;
@@ -470,7 +470,7 @@ export const useSClassStore = create<SClassStore>()(
         });
       },
 
-      // ========== Ống kính组内CảnhQuản lý ==========
+      // ========== Ống kínhtrong nhómCảnhQuản lý ==========
 
       addSceneToGroup: (groupId, sceneId) => {
         const { activeProjectId, projects } = get();

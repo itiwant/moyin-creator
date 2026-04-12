@@ -147,7 +147,7 @@ export function GenerationPanel({ selectedCharacter, onCharacterCreated }: Gener
   const hasCalibrationData = !!(identityAnchors || charNegativePrompt || visualPromptEn || visualPromptZh);
 
   // 注意：thanh trái始终用于Tạo mớiNhân vật，不响应đang xử lý...ư viện nhân vật的Chọn
-  // thanh phải用于Xem/Chỉnh sửa已有Nhân vật的详情
+  // thanh phải用于Xem/Chỉnh sửahiện cóNhân vật的详情
 
   // Handle pending data from script panel
   useEffect(() => {
@@ -326,7 +326,7 @@ export function GenerationPanel({ selectedCharacter, onCharacterCreated }: Gener
     setIsManuallyModified(false);
   };
 
-  // Tạo新Nhân vật并Tạo ảnh（始终Tạo mới，不会Ghi đè已有Nhân vật）
+  // Tạo新Nhân vật并Tạo ảnh（始终Tạo mới，不会Ghi đèhiện cóNhân vật）
   const handleCreateAndGenerate = async () => {
     if (!name.trim()) {
       toast.error("NhậpTên nhân vật");
@@ -621,7 +621,7 @@ export function GenerationPanel({ selectedCharacter, onCharacterCreated }: Gener
                 </div>
               </button>
               
-              {/* 折叠区Nội dung */}
+              {/* thu gọn区Nội dung */}
               {calibrationExpanded && (
                 <div className="border-t p-2 space-y-3 bg-muted/20">
                   {/* 6层身份neo */}

@@ -266,7 +266,7 @@ export async function callChatAPI(
   // 输入已超过 context window 的 90% → 抛出错误（不发请求，省钱）
   if (inputTokens > modelLimits.contextWindow * 0.9) {
     const err = new Error(
-      `[TokenBudget] 输入 token (≈${inputTokens}) 超出 ${model} 的 context window ` +
+      `[TokenBudget] 输入 token (≈${inputTokens}) vượt quá ${model} 的 context window ` +
       `(${modelLimits.contextWindow}) 的 90%，请缩减输入或Sử dụng更大上下文的模型`
     );
     (err as any).code = 'TOKEN_BUDGET_EXCEEDED';
@@ -340,7 +340,7 @@ export async function callChatAPI(
         if (discovered) {
           cacheDiscoveredLimits(model, discovered);
           
-          // 如果Phát hiện了 maxOutput 限制且当前请求超出，立即用正确值Thử lại
+          // 如果Phát hiện了 maxOutput 限制且当前请求vượt quá，立即用正确值Thử lại
           if (discovered.maxOutput && effectiveMaxTokens > discovered.maxOutput) {
             const correctedMaxTokens = Math.min(requestedMaxTokens, discovered.maxOutput);
             console.warn(
@@ -872,10 +872,10 @@ nhân vật：角色A、角色B
 8. **thời đại一致性**：đại cươngđang xử lý...确thời đại背景；nhân vật小传đang xử lý...、发型、道具必须严格符合该thời đại（如古代剧不得出现现代服装/电子产品；现代剧不得出现古代服饰）
 9. **Bối cảnh thế giới一致性**：场景地点、Phong cách kiến trúc、xã hội规则必须符合剧本设定的Bối cảnh thế giới，不得出现mâu thuẫn元素`;
 
-// 针对已有分镜Cấu trúc输入的额外指令（如【镜头1】到【镜夷12】）
+// 针对hiện có分镜Cấu trúc输入的额外指令（如【镜头1】到【镜夷12】）
 const STORYBOARD_STRUCTURE_PROMPT = `
 
-**★★★ 检测到已有分镜Cấu trúc，必须遵守以下规则 ★★★**
+**★★★ 检测到hiện có分镜Cấu trúc，必须遵守以下规则 ★★★**
 
 1. 保留原有的每一镜头/场景，一都不能少
 2. 用户输入有12镜头，输出必须有12场景
@@ -949,7 +949,7 @@ export async function generateScriptFromIdea(
   console.log('[generateScriptFromIdea] 镜头匹配:', shotMatches);
   console.log('[generateScriptFromIdea] 场景匹配:', sceneMatches);
   
-  // 如果检测到已有分镜Cấu trúc，强调保留
+  // 如果检测到hiện có分镜Cấu trúc，强调保留
   const preserveStructureNote = originalShotCount > 0 
     ? `\n\n**★★★ 特别注意 ★★★**
 用户输入包含 ${originalShotCount} 镜头/场景，你的输出必须有对应的 ${originalShotCount} 场景（**1-1** 到 **1-${originalShotCount}**）。
@@ -1011,7 +1011,7 @@ function detectInputType(input: string): string {
   const trimmed = input.trim();
   const lineCount = trimmed.split('\n').filter(l => l.trim()).length;
   
-  // 检测已有分镜Cấu trúc：【镜头X】或 **【镜头X】**
+  // 检测hiện có分镜Cấu trúc：【镜头X】或 **【镜头X】**
   if (/[【\[]\s*镜头\s*\d+/i.test(trimmed) || /\*\*.*镜头.*\*\*/i.test(trimmed)) {
     return '详细分镜脚本';
   }

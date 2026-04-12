@@ -300,7 +300,7 @@ export function SClassScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
   }, [splitScenes, hasAutoGrouped, shotGroups, setShotGroups, setHasAutoGrouped]);
 
 
-  // 构建 sceneId -> SplitScene 快速查找表
+  // 构建 sceneId -> SplitScene nhanh查找表
   const sceneMap = useMemo(() => new Map(splitScenes.map(s => [s.id, s])), [splitScenes]);
 
   // Get current style from config
@@ -578,7 +578,7 @@ export function SClassScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
       return;
     }
 
-    // Đặt lạiđã chọn索引（历史从 store đang xử lý...
+    // Đặt lạiđã chọnchỉ mục（历史从 store đang xử lý...
     setSelectedHistoryIndex(-1);
     setAngleSwitchTarget({ sceneId, type });
     setAngleSwitchOpen(true);
@@ -3725,7 +3725,7 @@ export function SClassScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
                   ) : sclassGenMode === 'group' ? (
                     <p>{groupsNeedGen} 组待Tạo，每组合并多Ống kính + @tham chiếu gọi API Seedance 2.0，逐组Khung hình cuối传递</p>
                   ) : (
-                    <p>{scenesWithImages} Phân cảnh已有ảnh，{scenesNeedVideo} 待Tạo video</p>
+                    <p>{scenesWithImages} Phân cảnhhiện cóảnh，{scenesNeedVideo} 待Tạo video</p>
                   )}
                 </TooltipContent>
               </Tooltip>

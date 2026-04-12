@@ -14,7 +14,7 @@
  * 核心原则：
  * - 只插入Cấu trúc标记（《》、đại cương：、nhân vật小传：）+ AI Tạo的đại cương
  * - 不修改、不删除任何gốc内容
- * - 幂等：已有标准格式的文本不受影响
+ * - 幂等：hiện có标准格式的文本不受影响
  */
 
 import { callFeatureAPI } from '@/lib/ai/feature-router';
@@ -39,7 +39,7 @@ export function preprocessLineBreaks(text: string): { text: string; inserted: bo
   const lineCount = text.split('\n').length;
   const avgLineLen = text.length / lineCount;
   
-  // 已有合理换行的文本不处理
+  // hiện có合理换行的文本不处理
   if (lineCount > 5 && avgLineLen < 500) {
     return { text, inserted: false };
   }
@@ -122,7 +122,7 @@ export interface NormalizationResult {
 export function normalizeScriptFormat(text: string): NormalizationResult {
   const changes: string[] = [];
   
-  // 检查已有标准标记
+  // 检查hiện có标准标记
   const hasTitle = /[《「][^》」]+[》」]/.test(text);
   const hasOutline = /(?:\*{0,2}đại cương[：:]\*{0,2}|【đại cương】)/i.test(text);
   const hasCharBios = /(?:\*{0,2}nhân vật小传[：:]\*{0,2}|【nhân vật小传】)/i.test(text);
@@ -227,7 +227,7 @@ export async function analyzeScriptStructureWithAI(text: string): Promise<Script
   "era": "thời đại背景（古代/现代/民国/清末/未来/当代等）",
   "genre": "类型（武侠/商战/爱情/悬疑/科幻/仙侠/军旅/家庭等）",
   "hasOutline": false,
-  "generatedOutline": "如果文本đang xử lý...纲/故事概述区域，基于全文内容Tạo一段简洁đại cương（100-200字）；如果已有đại cương则Để trống字符串",
+  "generatedOutline": "如果文本đang xử lý...纲/故事概述区域，基于全文内容Tạo一段简洁đại cương（100-200字）；如果hiện cóđại cương则Để trống字符串",
   "characterSectionKeyword": "nhân vật/角色Mô tả区域开始处的原文文本（精确复制前30字符），找不到则Để trống",
   "outlineSectionKeyword": "đại cương/故事概述区域开始处的原文文本（精确复制前30字符），找不到则Để trống",
   "logline": "一句话概括整故事（比如：被驱逐的侠客为救百姓重返雁城）",
@@ -453,7 +453,7 @@ function normalizeTitle(text: string, changes: string[]): string {
       continue;
     }
     
-    // 跳过已有冒号的Mô tả行（如 "角色tên:年龄：35"）
+    // 跳过hiện có冒号的Mô tả行（如 "角色tên:年龄：35"）
     if (/[：:].{15,}/.test(trimmed)) continue;
     
     // 跳过括号标记行

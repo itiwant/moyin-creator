@@ -5,7 +5,7 @@
  * use-sclass-generation.ts — Hạng S Seedance 2.0 Tạo video Hook
  *
  * 核心功能：
- * 1. generateGroupVideo(group) — 单组Tạo：收 tập @tham chiếu → 构建多模态请求 → gọi API API → 轮询
+ * 1. generateGroupVideo(group) — mỗi nhómTạo：收 tập @tham chiếu → 构建多模态请求 → gọi API API → 轮询
  * 2. generateAllGroups() — Tạo hàng loạt：逐组串 hàng，各组独立Tạo
  * 3. generateSingleShot(sceneId) — 单镜Tạo（tương thíchchế độ）
  * 4. Tự độngTải lên base64/local ảnh到 HTTP URL
@@ -87,7 +87,7 @@ export function useSClassGeneration() {
 
   // ========== Helpers ==========
 
-  /** 获取组内Danh sách cảnh */
+  /** 获取trong nhómDanh sách cảnh */
   const getGroupScenes = useCallback(
     (group: ShotGroup): SplitScene[] => {
       return group.sceneIds
@@ -127,7 +127,7 @@ export function useSClassGeneration() {
     []
   );
 
-  // ========== 单组Tạo ==========
+  // ========== mỗi nhómTạo ==========
 
   const generateGroupVideo = useCallback(
     async (
@@ -183,14 +183,14 @@ export function useSClassGeneration() {
       const videoResolution = (storyboardConfig?.videoResolution || '720p') as SClassResolution;
       const styleTokens = storyboardConfig?.styleTokens;
 
-      // 2. 获取组内Cảnh
+      // 2. 获取trong nhómCảnh
       const groupScenes = getGroupScenes(group);
       if (groupScenes.length === 0) {
         return {
           groupId: group.id,
           success: false,
           videoUrl: null,
-          error: "组内无Cảnh",
+          error: "trong nhóm无Cảnh",
         };
       }
 
@@ -202,7 +202,7 @@ export function useSClassGeneration() {
       });
 
       try {
-      // 4. 从组内Phân cảnh聚合âm thanh/运镜Cài đặt
+      // 4. 从trong nhómPhân cảnh聚合âm thanh/运镜Cài đặt
         const isExtendOrEdit = group.generationType === 'extend' || group.generationType === 'edit';
         const hasAnyDialogue = groupScenes.some(s => s.audioDialogueEnabled !== false && s.dialogue?.trim());
         const hasAnyAmbient = groupScenes.some(s => s.audioAmbientEnabled !== false);
@@ -231,7 +231,7 @@ export function useSClassGeneration() {
             sceneIds.length === cachedSceneIds.length &&
             sceneIds.every((id, i) => id === cachedSceneIds[i]);
 
-          // 收 tập组内Phân cảnh的Khung hình đầuảnh
+          // 收 tậptrong nhómPhân cảnh的Khung hình đầuảnh
           const firstFrameUrls = groupScenes
             .map(s => s.imageDataUrl || s.imageHttpUrl || '')
             .filter(Boolean);
@@ -276,7 +276,7 @@ export function useSClassGeneration() {
 
         if (promptResult.refs.overLimit) {
           console.warn(
-            "[SClassGen] Phương tiện超限:",
+            "[SClassGen] Phương tiệnvượt giới hạn:",
             promptResult.refs.limitWarnings
           );
         }
@@ -741,7 +741,7 @@ export function useSClassGeneration() {
     toast.info("正在đang xử lý...o...");
   }, []);
 
-  // ========== Thử lại单组 ==========
+  // ========== Thử lạimỗi nhóm ==========
 
   const retryGroup = useCallback(
     async (groupId: string): Promise<GroupGenerationResult | null> => {

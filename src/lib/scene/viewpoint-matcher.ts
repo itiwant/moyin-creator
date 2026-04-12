@@ -5,7 +5,7 @@
  * Viewpoint Matcher Service
  * 
  * 根据分镜动作Mô tảthông minh匹配场景库đang xử lý...变体
- * 策略：先用quan trọng词快速匹配，匹配不到才gọi API AI
+ * 策略：先用quan trọng词nhanh匹配，匹配不到才gọi API AI
  */
 
 import { getFeatureConfig } from '@/lib/ai/feature-router';
@@ -24,7 +24,7 @@ export interface ViewpointMatchResult {
 
 // ==================== quan trọng词映射 ====================
 
-// góc nhìnquan trọng词映射（用于快速匹配）
+// góc nhìnquan trọng词映射（用于nhanh匹配）
 const VIEWPOINT_KEYWORDS: Record<string, string[]> = {
   // 餐桌/用餐相关
   'dining': [
@@ -75,7 +75,7 @@ const VIEWPOINT_KEYWORDS: Record<string, string[]> = {
   ],
 };
 
-// 反向索引：quan trọng词 -> góc nhìnID
+// 反向chỉ mục：quan trọng词 -> góc nhìnID
 const KEYWORD_TO_VIEWPOINT: Record<string, string> = {};
 for (const [viewpointId, keywords] of Object.entries(VIEWPOINT_KEYWORDS)) {
   for (const keyword of keywords) {
@@ -92,7 +92,7 @@ const CACHE_TTL = 1000 * 60 * 30; // 30 phút缓存
 // ==================== 核心函数 ====================
 
 /**
- * Sử dụngquan trọng词快速匹配góc nhìn
+ * Sử dụngquan trọng词nhanh匹配góc nhìn
  */
 function matchByKeyword(actionSummary: string): string | null {
   for (const [keyword, viewpointId] of Object.entries(KEYWORD_TO_VIEWPOINT)) {

@@ -40,7 +40,7 @@ interface CustomStyleState {
   styles: CustomStyle[];
   folders: CustomStyleFolder[];
   selectedStyleId: string | null;
-  editingStyleId: string | null;    // null = 不在Chỉnh sửa, 'new' = Tạo mới, 其他 = Chỉnh sửa已有
+  editingStyleId: string | null;    // null = 不在Chỉnh sửa, 'new' = Tạo mới, 其他 = Chỉnh sửahiện có
 }
 
 interface CustomStyleActions {

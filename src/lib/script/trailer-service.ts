@@ -4,7 +4,7 @@
 /**
  * Trailer Service - AI 预告片分镜chọn服务
  * 
- * 功能：从已有的分镜đang xử lý...选quan trọng分镜，Tạo预告片
+ * 功能：从hiện có的分镜đang xử lý...选quan trọng分镜，Tạo预告片
  * chọn标准：
  * - tự sự功能为"cao trào/转折"的优先
  * - 有强烈情绪标签的优先

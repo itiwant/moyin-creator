@@ -8,7 +8,7 @@
  *
  * 功能：
  * - Tự độnggọi API sclass-prompt-builder 组装多Ống kính prompt
- * - Hiện @tham chiếuThẻ（Nhân vật图/Cảnh图/Khung hình đầu/video/âm thanh）+ 配额
+ * - Hiện @tham chiếuThẻ（Nhân vật图/Cảnh图/Khung hình đầu/video/âm thanh）+ hạn mức
  * - 用户可Chỉnh sửa/Ghi đèTự động prompt
  * - 实时字符计数（5000上限）
  * - Thoại唇形同步Xem trước
@@ -56,7 +56,7 @@ export interface ShotGroupPromptProps {
   styleTokens?: string[];
   aspectRatio?: SClassAspectRatio;
   enableLipSync?: boolean;
-  /** 当用户Chỉnh sửa prompt 时回调 */
+  /** Callback khi người dùng Chỉnh sửa prompt */
   onUpdatePrompt?: (groupId: string, prompt: string) => void;
   /** Chỉ đọc */
   readOnly?: boolean;
@@ -123,9 +123,9 @@ export function ShotGroupPrompt({
 
   return (
     <div className="space-y-2">
-      {/* ========== @tham chiếu配额条 ========== */}
+      {/* ========== Thanh hạn mức @tham chiếu ========== */}
       <div className="flex items-center gap-3 text-xs">
-        {/* ảnh配额 */}
+        {/* Hạn mức ảnh */}
         <TooltipProvider>
           <Tooltip>
             <TooltipTrigger asChild>
@@ -156,7 +156,7 @@ export function ShotGroupPrompt({
           </Tooltip>
         </TooltipProvider>
 
-        {/* video配额 */}
+        {/* Hạn mức video */}
         <TooltipProvider>
           <Tooltip>
             <TooltipTrigger asChild>
@@ -177,13 +177,13 @@ export function ShotGroupPrompt({
             <TooltipContent>
               <p>
                 videotham chiếu ({result.refs.videos.length}/{SEEDANCE_LIMITS.maxVideos})
-                {result.refs.videos.length === 0 && " — 可在Ống kính卡片đang xử lý... lên"}
+                {result.refs.videos.length === 0 && " — Có thể tải lên trong thẻ Ống kính"}
               </p>
             </TooltipContent>
           </Tooltip>
         </TooltipProvider>
 
-        {/* âm thanh配额 */}
+        {/* Hạn mức âm thanh */}
         <TooltipProvider>
           <Tooltip>
             <TooltipTrigger asChild>
@@ -204,13 +204,13 @@ export function ShotGroupPrompt({
             <TooltipContent>
               <p>
                 âm thanhtham chiếu ({result.refs.audios.length}/{SEEDANCE_LIMITS.maxAudios})
-                {result.refs.audios.length === 0 && " — 可在Ống kính卡片đang xử lý... lên"}
+                {result.refs.audios.length === 0 && " — Có thể tải lên trong thẻ Ống kính"}
               </p>
             </TooltipContent>
           </Tooltip>
         </TooltipProvider>
 
-        {/* Thoại数 */}
+        {/* Số Thoại */}
         {result.dialogueSegments.length > 0 && (
           <div className="flex items-center gap-1 px-1.5 py-0.5 rounded bg-amber-500/10 text-amber-600 dark:text-amber-400">
             <MessageCircle className="h-3 w-3" />
@@ -218,11 +218,11 @@ export function ShotGroupPrompt({
           </div>
         )}
 
-        {/* 超限警告 */}
+        {/* vượt giới hạn警告 */}
         {result.refs.overLimit && (
           <div className="flex items-center gap-1 text-red-500">
             <AlertCircle className="h-3 w-3" />
-            <span>Phương tiện超限</span>
+            <span>Phương tiệnvượt giới hạn</span>
           </div>
         )}
 
@@ -305,7 +305,7 @@ export function ShotGroupPrompt({
         )}
       </div>
 
-      {/* ========== 超限警告详情 ========== */}
+      {/* ========== vượt giới hạn警告详情 ========== */}
       {result.refs.limitWarnings.length > 0 && (
         <div className="flex items-start gap-1.5 text-xs text-red-500 bg-red-500/5 rounded p-1.5">
           <AlertCircle className="h-3 w-3 mt-0.5 shrink-0" />

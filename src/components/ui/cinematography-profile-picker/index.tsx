@@ -8,7 +8,7 @@
  *
  * 功能：
  * - 左侧：按phân loại显示档案列表（emoji + 名称）
- * - 右侧：悬停/đã chọn时显示详细Mô tả、摄影参数、Tham chiếu影片
+ * - bên phải：悬停/đã chọn时显示详细Mô tả、摄影参数、Tham chiếu影片
  * - 支持 Popover popup出chế độ和内嵌chế độ
  */
 

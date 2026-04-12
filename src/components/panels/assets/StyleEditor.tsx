@@ -57,7 +57,7 @@ export function StyleEditor({ styleId, onClose }: StyleEditorProps) {
   const [extracting, setExtracting] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  // 加载已有数据
+  // 加载hiện có数据
   useEffect(() => {
     if (existing) {
       setForm({

@@ -8,7 +8,7 @@
  *
  * Hiện一组Ống kính的聚合信息：
  * - Đầu nhóm：Tên nhóm + Ống kính数 + TổngThời lượng预算条
- * - 组级thao tác：Tạo video / Mở rộng折叠
+ * - 组级thao tác：Tạo video / Mở rộngthu gọn
  * - Mở rộng后渲染内部的 SceneCard  cột表
  * - 组级videokết quảHiện
  */
@@ -55,9 +55,9 @@ export interface ShotGroupCardProps {
   group: ShotGroup;
   /** Dữ liệu SplitScene trong nhóm */
   scenes: SplitScene[];
-  /** Tất cả SplitScene (用于Thời lượng计算) */
+  /** Tất cả SplitScene (dùng để tính Thời lượng) */
   allScenes: SplitScene[];
-  /** 组索引 (0-based) */
+  /** Chỉ mục nhóm (0-based) */
   groupIndex: number;
   /** Có đang tạo toàn cục không */
   isGeneratingAny: boolean;
@@ -138,7 +138,7 @@ export function ShotGroupCard({
   const isEditChild = group.generationType === 'edit';
   const isChildGroup = isExtendChild || isEditChild;
 
-  // 组内各Ống kính的Thời lượng段
+  // trong nhóm各Ống kính的Thời lượng段
   const durationSegments = useMemo(() => {
     return scenes.map((s, idx) => ({
       id: s.id,
@@ -185,7 +185,7 @@ export function ShotGroupCard({
           )}
         </div>
 
-        {/* Ống kính数 */}
+        {/* Số ống kính */}
         <span className="text-xs text-muted-foreground shrink-0">
           {group.sceneIds.length} Ống kính
         </span>
@@ -210,10 +210,10 @@ export function ShotGroupCard({
             </TooltipTrigger>
             <TooltipContent>
               {isOverBudget ? (
-                <p>TổngThời lượng超出 15s 限制！请减少Ống kính或缩短单镜Thời lượng。</p>
+                <p>Tổng Thời lượng vượt giới hạn 15 giây! Vui lòng giảm Ống kính hoặc rút ngắn Thời lượng từng ống kính.</p>
               ) : (
                 <p>
-                  组内 {group.sceneIds.length} Ống kính，TổngThời lượng {actualDuration}
+                  Nhóm có {group.sceneIds.length} Ống kính, Tổng Thời lượng {actualDuration}
                   s
                 </p>
               )}
@@ -221,7 +221,7 @@ export function ShotGroupCard({
           </Tooltip>
         </TooltipProvider>
 
-        {/* Trạng thái标记 */}
+        {/* Dấu trạng thái */}
         {isCompleted && (
           <CheckCircle2 className="h-3.5 w-3.5 text-green-500 shrink-0" />
         )}
@@ -229,7 +229,7 @@ export function ShotGroupCard({
           <AlertCircle className="h-3.5 w-3.5 text-red-500 shrink-0" />
         )}
 
-        {/* @tham chiếu数量标记 */}
+        {/* Dấu số lượng @tham chiếu */}
         {((group.videoRefs?.length || 0) + (group.audioRefs?.length || 0)) > 0 && (
           <div className="flex items-center gap-0.5 text-xs text-muted-foreground shrink-0">
             <Paperclip className="h-3 w-3" />
@@ -237,7 +237,7 @@ export function ShotGroupCard({
           </div>
         )}
 
-        {/* 右侧thao tác区 */}
+        {/* Vùng thao tác bên phải */}
         <div className="ml-auto flex items-center gap-1.5" onClick={(e) => e.stopPropagation()}>
           {/* @tham chiếuQuản lýnút */}
           <Button
@@ -274,7 +274,7 @@ export function ShotGroupCard({
               <TooltipContent>
                 {isCalibrated
                   ? <p>Đã hoàn thành AI Hiệu chuẩn，Nhấp重新Hiệu chuẩn</p>
-                  : <p>AI 分析组内Ống kính，Tạotự sự弧线、过渡Thiết kế、优化 prompt</p>
+                  : <p>AI 分析trong nhómỐng kính，Tạotự sự弧线、过渡Thiết kế、优化 prompt</p>
                 }
               </TooltipContent>
             </Tooltip>
@@ -396,7 +396,7 @@ export function ShotGroupCard({
           </span>
           {isOverBudget && (
             <span className="text-[10px] text-red-500 font-medium">
-              超出 {actualDuration - 15}s
+              vượt quá {actualDuration - 15}s
             </span>
           )}
         </div>

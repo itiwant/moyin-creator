@@ -686,7 +686,7 @@ export function SplitScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
       return;
     }
 
-    // Đặt lạiđã chọn索引（历史从 store đang xử lý...
+    // Đặt lạiđã chọnchỉ mục（历史从 store đang xử lý...
     setSelectedHistoryIndex(-1);
     setAngleSwitchTarget({ sceneId, type });
     setAngleSwitchOpen(true);
@@ -751,7 +751,7 @@ export function SplitScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
       };
       addAngleSwitchHistory(angleSwitchTarget.sceneId, angleSwitchTarget.type, newHistoryItem);
 
-      // 从 store 实时读取最新Trạng thái，避免闭包đang xử lý...litScenes 尚未更新导致索引偏差
+      // 从 store 实时读取最新Trạng thái，避免闭包đang xử lý...litScenes 尚未更新导致chỉ mục偏差
       const { activeProjectId, projects } = useDirectorStore.getState();
       const latestScenes = activeProjectId ? (projects[activeProjectId]?.splitScenes || []) : [];
       const updatedScene = latestScenes.find(s => s.id === angleSwitchTarget.sceneId);
@@ -1526,7 +1526,7 @@ export function SplitScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
 
       // Khung hình đầuảnhChọn逻辑：
       // 1. 如果本地持久化ảnh存在且Đã cấu hìnhLưu trữ ảnh，始终优先Sử dụng本地图重新Tải lên到当前Lưu trữ ảnh
-      // 2. 否则仅在 imageSource === 'ai-generated' 且已有Khả dụng HTTP URL 时复用该 URL
+      // 2. 否则仅在 imageSource === 'ai-generated' 且hiện cóKhả dụng HTTP URL 时复用该 URL
       // 3. 其余情况Sử dụng imageDataUrl，并在后续转换为 HTTP URL
       let firstFrameUrl = scene.imageDataUrl || (isHttpImageUrl(scene.imageHttpUrl) ? scene.imageHttpUrl : '');
       const hasValidHttpUrl = isHttpImageUrl(scene.imageHttpUrl);
@@ -1544,7 +1544,7 @@ export function SplitScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
           }
           firstFrameUrl = scene.imageDataUrl;
         } else if (hasValidHttpUrl && scene.imageSource === 'ai-generated') {
-          // 没有可用Lưu trữ ảnh时，才回退到已有的 HTTP URL
+          // 没有可用Lưu trữ ảnh时，才回退到hiện có的 HTTP URL
           console.log('[SplitScenes] Using imageHttpUrl for AI-generated image:', scene.imageHttpUrl!.substring(0, 60));
           firstFrameUrl = scene.imageHttpUrl!;
         } else {
@@ -3979,7 +3979,7 @@ export function SplitScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
                   {noImages ? (
                     <p>请先为Phân cTạo ảnhảnh，再Tạovideo</p>
                   ) : (
-                    <p>{scenesWithImages} Phân cảnh已有ảnh，{scenesNeedVideo} 待Tạovideo</p>
+                    <p>{scenesWithImages} Phân cảnhhiện cóảnh，{scenesNeedVideo} 待Tạovideo</p>
                   )}
                 </TooltipContent>
               </Tooltip>

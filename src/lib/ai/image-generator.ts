@@ -233,7 +233,7 @@ async function generateImage(
 /**
  * 压缩 base64 Tham chiếu图到合理体积
  * trung gian站（new_api/one_api）在做 OpenAI → Gemini 格式转换时，
- * 超大 base64 会导致 JSON Phân tích thất bại或 body size 超限，报 "contents is required"。
+ * 超大 base64 会导致 JSON Phân tích thất bại或 body size vượt giới hạn，报 "contents is required"。
  * 将Tham chiếu图缩小到 maxEdge px 并转为 JPEG 可大幅降低体积（2~4MB → ~60KB）。
  */
 function compressReferenceImage(dataUri: string, maxEdge = 768, quality = 0.8): Promise<string> {

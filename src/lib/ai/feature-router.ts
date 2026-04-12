@@ -32,7 +32,7 @@ export interface FeatureConfig {
   model: string; // Đang chọn的模型
 }
 
-// 多模型轮询调度器：记录每功能的当前索引
+// 多模型轮询调度器：记录每功能的当前chỉ mục
 const featureRoundRobinIndex: Map<AIFeature, number> = new Map();
 
 /**
@@ -188,7 +188,7 @@ export function getFeatureConfig(feature: AIFeature): FeatureConfig | null {
   const currentIndex = featureRoundRobinIndex.get(feature) || 0;
   const config = configs[currentIndex % configs.length];
   
-  // 更新索引（下次gọi APISử dụng下一）
+  // 更新chỉ mục（下次gọi APISử dụng下一）
   featureRoundRobinIndex.set(feature, currentIndex + 1);
   
   console.log(`[FeatureRouter] 多模型轮询: ${feature} -> ${config.provider.name}:${config.model} (${currentIndex % configs.length + 1}/${configs.length})`);
@@ -197,7 +197,7 @@ export function getFeatureConfig(feature: AIFeature): FeatureConfig | null {
 }
 
 /**
- * 重置轮询索引（用于新任务开始时）
+ * 重置轮询chỉ mục（用于新任务开始时）
  */
 export function resetFeatureRoundRobin(feature?: AIFeature): void {
   if (feature) {

@@ -396,7 +396,7 @@ export function DirectorContextPanel() {
     const sceneShots = shotsByScene[scene.id] || [];
     const shotIndexInScene = sceneShots.findIndex(s => s.id === shot.id);
     
-    // Tự động匹配Thư viện cảnhđang xử lý...nh和Góc nhìn（优先Sử dụng已有的Góc nhìn关联）
+    // Tự động匹配Thư viện cảnhđang xử lý...nh和Góc nhìn（优先Sử dụnghiện có的Góc nhìn关联）
     const sceneMatch = findMatchingSceneAndViewpointQuick(shot, scene, shotIndexInScene >= 0 ? shotIndexInScene : undefined);
     
     addScenesAndSyncStyle([{
@@ -534,7 +534,7 @@ export function DirectorContextPanel() {
       // 将Kịch bảnNhân vậtID/Tên映射到Thư viện nhân vậtID
       const characterLibraryIds = mapScriptCharacterIdsToLibraryIds(shot.characterIds || [], shot.characterNames);
       
-      // Tự động匹配Thư viện cảnhđang xử lý...nh和Góc nhìn（优先Sử dụng已有的Góc nhìn关联，保底用序号）
+      // Tự động匹配Thư viện cảnhđang xử lý...nh和Góc nhìn（优先Sử dụnghiện có的Góc nhìn关联，保底用序号）
       const sceneMatch = findMatchingSceneAndViewpointQuick(shot, scene, shotIndexInScene);
       if (sceneMatch) matchedCount++;
       

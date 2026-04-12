@@ -1099,7 +1099,7 @@ export function ScriptView() {
               const stageCharIds: string[] = [];
               for (let stageIdx = 0; stageIdx < analysis.stages.length; stageIdx++) {
                 const stage = analysis.stages[stageIdx];
-                // Sử dụng索引确保 ID 唯一，避免不同Nhân vật的相同giai đoạn名导致重复 key
+                // Sử dụngchỉ mục确保 ID 唯一，避免不同Nhân vật的相同giai đoạn名导致重复 key
                 const stageCharId = `${baseChar.id}_stage_${stageIdx}_${stage.name.replace(/\s+/g, '_')}`;
                 stageCharIds.push(stageCharId);
                 
@@ -1140,7 +1140,7 @@ export function ScriptView() {
                 stageCount++;
               }
               
-              // 更新基础Nhân vật的 stageCharacterIds，并标记为索引Nhân vật（不需要单独Tạo形象）
+              // 更新基础Nhân vật的 stageCharacterIds，并标记为chỉ mụcNhân vật（不需要单独Tạo形象）
               newCharacters[baseCharIndex] = {
                 ...baseChar,
                 stageCharacterIds: stageCharIds,

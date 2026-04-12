@@ -515,7 +515,7 @@ export async function findCharacterByDescription(
 }
 
 /**
- * 仅搜索（不gọi APIAI），用于快速预览
+ * 仅搜索（不gọi APIAI），用于nhanh预览
  */
 export function quickSearchCharacter(
   userQuery: string,
@@ -542,7 +542,7 @@ export function quickSearchCharacter(
     };
   }
   
-  // 快速搜索
+  // nhanh搜索
   const searchResult = searchCharacterInScripts(name, episodeScripts, episodeNumber || undefined);
   
   if (searchResult.found) {

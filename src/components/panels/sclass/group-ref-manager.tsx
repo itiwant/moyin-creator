@@ -9,7 +9,7 @@
  * 功能：
  * - Tự động收 tập：Nhân vậtẢnh tham chiếu、CảnhẢnh tham chiếu、Khung hình đầuảnh → 只读Hiển thị
  * - Thủ côngTải lên：videotham chiếu（运镜/Hành động复刻）、âm thanhtham chiếu（节奏/BGM）
- * - 配额条：≤9 ảnh + ≤3 video + ≤3 âm thanh，Tổng ≤12
+ * - hạn mức条：≤9 ảnh + ≤3 video + ≤3 âm thanh，Tổng ≤12
  * - Xóađã tải lên的video/âm thanhtham chiếu
  *
  * Seedance 2.0 限制:
@@ -184,13 +184,13 @@ export function GroupRefManager({
       for (let i = 0; i < files.length; i++) {
         const file = files[i];
 
-        // 配额检查（单Loại）
+        // hạn mức检查（单Loại）
         if (limits.current + i >= limits.max) {
           toast.error(`Tham chiếu ${type === "video" ? "video" : "âm thanh"} đã đạt giới hạn ${limits.max}`);
           break;
         }
 
-        // 配额检查（Tổngfile数）
+        // hạn mức检查（Tổngfile数）
         if (totalFiles + i >= SEEDANCE_LIMITS.maxTotalFiles) {
           toast.error(`Tổng số file đã đạt giới hạn ${SEEDANCE_LIMITS.maxTotalFiles}`);
           break;
@@ -294,7 +294,7 @@ export function GroupRefManager({
         </div>
       </div>
 
-      {/* ========== Tự động收 tập的ảnhtham chiếu（折叠Hiển thị） ========== */}
+      {/* ========== Ảnh tham chiếu tự động thu thập (Hiển thị thu gọn) ========== */}
       <AutoImageSection
         charRefs={autoImages.charRefs}
         sceneRefs={autoImages.sceneRefs}
@@ -306,10 +306,10 @@ export function GroupRefManager({
       <div className="space-y-1">
         <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
           <Film className="h-3 w-3 text-purple-500" />
-          <span>videotham chiếu — 运镜/Hành động复刻</span>
+          <span>Tham chiếu video — Chuyển động máy/Sao chép hành động</span>
         </div>
 
-        {/* đã tải lên的video */}
+        {/* Video đã tải lên */}
         {videoRefs.length > 0 && (
           <div className="flex flex-wrap gap-1.5">
             {videoRefs.map((ref) => (
@@ -350,10 +350,10 @@ export function GroupRefManager({
       <div className="space-y-1">
         <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
           <Music className="h-3 w-3 text-green-500" />
-          <span>âm thanhtham chiếu — 节奏/BGM</span>
+          <span>Tham chiếu âm thanh — Nhịp điệu/BGM</span>
         </div>
 
-        {/* đã tải lên的âm thanh */}
+        {/* Âm thanh đã tải lên */}
         {audioRefs.length > 0 && (
           <div className="flex flex-wrap gap-1.5">
             {audioRefs.map((ref) => (
@@ -390,11 +390,11 @@ export function GroupRefManager({
         />
       </div>
 
-      {/* ========== 超限警告 ========== */}
+      {/* ========== Cảnh báo vượt giới hạn ========== */}
       {totalFiles > SEEDANCE_LIMITS.maxTotalFiles && (
         <div className="flex items-start gap-1.5 text-xs text-red-500 bg-red-500/5 rounded p-1.5">
           <AlertCircle className="h-3 w-3 mt-0.5 shrink-0" />
-          <span>Tổngfile数 {totalFiles} 超出 Seedance 2.0 限制 ({SEEDANCE_LIMITS.maxTotalFiles})，请xóa部分tham chiếu</span>
+          <span>Tổng file {totalFiles} vượt giới hạn Seedance 2.0 ({SEEDANCE_LIMITS.maxTotalFiles}), vui lòng xóa bớt tham chiếu</span>
         </div>
       )}
     </div>
@@ -420,7 +420,7 @@ function AutoImageSection({
   if (totalCount === 0) {
     return (
       <div className="text-xs text-muted-foreground/60 py-1">
-        Chưa cóTự động收 tập的ảnhtham chiếu（Vui lòng tạo trướcKhung hình đầuảnh、关联Nhân vật或Cảnh）
+        Chưa có ảnh tham chiếu tự động thu thập (Vui lòng tạo trước Ảnh Khung hình đầu, liên kết Nhân vật hoặc Cảnh)
       </div>
     );
   }
@@ -434,7 +434,7 @@ function AutoImageSection({
         <ImageIcon className="h-3 w-3 text-blue-500" />
         <span>
           Tự động收 tập {totalCount} 张ảnh
-          {truncated && <span className="text-amber-500 ml-1">(超出限制已截断至 {SEEDANCE_LIMITS.maxImages})</span>}
+          {truncated && <span className="text-amber-500 ml-1">(vượt quá限制已截断至 {SEEDANCE_LIMITS.maxImages})</span>}
         </span>
         <span className="text-[10px]">{expanded ? "▼" : "▶"}</span>
       </button>

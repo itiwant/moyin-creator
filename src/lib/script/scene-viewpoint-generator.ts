@@ -1169,7 +1169,7 @@ Quan trọng:
 }
 
 /**
- * 从已有的 viewpoints 数据构建联合图数据
+ * 从hiện có的 viewpoints 数据构建联合图数据
  * 用于从剧本panel跳转到场景库时，Trực tiếpSử dụng AI 分析的góc nhìn
  * 
  * @param viewpoints - 来自 ScriptScene.viewpoints 的góc nhìn数据

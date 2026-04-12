@@ -330,7 +330,7 @@ export function WardrobeModal({ character, open, onOpenChange }: WardrobeModalPr
           <DialogHeader>
             <DialogTitle className="flex items-center gap-2">
               <Shirt className="h-5 w-5" />
-              {character.name} 的衣橱
+              {character.name} - Tủ đồ
             </DialogTitle>
             <DialogDescription>
               Quản lý các biến thể trang phục của nhân vật, AI sẽ giữ nguyên đặc điểm khuôn mặt khi tạo
@@ -356,14 +356,14 @@ export function WardrobeModal({ character, open, onOpenChange }: WardrobeModalPr
             <div className="flex-1 min-w-0">
               <div className="flex items-center gap-2">
                 <h4 className="font-medium text-sm">{character.name}</h4>
-                <span className="text-[10px] text-muted-foreground bg-muted px-1.5 py-0.5 rounded">Cơ bản定妆照</span>
+                <span className="text-[10px] text-muted-foreground bg-muted px-1.5 py-0.5 rounded">Ảnh định trang cơ bản</span>
               </div>
               <p className="text-xs text-muted-foreground truncate mt-0.5">
-                {character.visualTraits || character.description || '未Cài đặt视觉Mô tả'}
+                {character.visualTraits || character.description || 'Chưa cài đặt Mô tả thị giác'}
               </p>
               {!characterBaseImage && (
                 <p className="text-xs text-amber-600 dark:text-amber-400 mt-1">
-                  ⚠ Vui lòng tạo trướcNhân vậtCơ bảnảnh，Biến thể tủ đồ需要Cơ bản定妆照作为Tham chiếu
+                  ⚠ Vui lòng tạo trước ảnh Cơ bản của Nhân vật, Biến thể tủ đồ cần ảnh Định trang cơ bản làm Tham chiếu
                 </p>
               )}
             </div>
@@ -372,7 +372,7 @@ export function WardrobeModal({ character, open, onOpenChange }: WardrobeModalPr
           {/* Existing variations */}
           {variations.length > 0 && (
             <div className="space-y-2">
-              <Label className="text-sm font-medium">已有biến thể ({variations.length})</Label>
+              <Label className="text-sm font-medium">Biến thể hiện có ({variations.length})</Label>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 {variations.map((variation) => (
                   <div
@@ -390,7 +390,7 @@ export function WardrobeModal({ character, open, onOpenChange }: WardrobeModalPr
                           variation.referenceImage && "cursor-pointer ring-offset-background hover:ring-2 hover:ring-primary/40 hover:ring-offset-1 transition-shadow"
                         )}
                         onDoubleClick={() => variation.referenceImage && setZoomedImageUrl(variation.referenceImage)}
-                        title={variation.referenceImage ? "双击放大Xem" : undefined}
+                        title={variation.referenceImage ? "Nhấp đôi để phóng to xem" : undefined}
                       >
                         {variation.referenceImage ? (
                           <img 
@@ -467,7 +467,7 @@ export function WardrobeModal({ character, open, onOpenChange }: WardrobeModalPr
 
           {/* Quick add presets */}
           <div className="space-y-2">
-            <Label className="text-sm font-medium">快速Thêm</Label>
+            <Label className="text-sm font-medium">Thêm nhanh</Label>
             <div className="flex flex-wrap gap-2">
               {VARIATION_PRESETS.map((preset) => {
                 const exists = variations.some(v => v.name === preset.name);
@@ -510,7 +510,7 @@ export function WardrobeModal({ character, open, onOpenChange }: WardrobeModalPr
                 <Label className="text-xs text-muted-foreground">biến thểTên *</Label>
                 <Input
                   ref={nameInputRef}
-                  placeholder="如：婚纱、披风装、校服、古风汉服"
+                  placeholder="Ví dụ: Váy cưới, Áo choàng, Đồng phục, Cổ phục"
                   value={newVariationName}
                   onChange={(e) => setNewVariationName(e.target.value)}
                   autoFocus

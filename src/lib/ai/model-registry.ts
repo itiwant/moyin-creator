@@ -267,7 +267,7 @@ export function estimateTokens(text: string): number {
  *
  * @param text gốc文本
  * @param maxLength 最大字符数
- * @param hint 截断时追加的提示后缀（帮助 AI 理解信息不đầy đủ，减少幻觉）
+ * @param hint 截断时追加的提示后缀（帮助 AI 理解信息不đầy đủ，giảm幻觉）
  */
 export function safeTruncate(
   text: string,

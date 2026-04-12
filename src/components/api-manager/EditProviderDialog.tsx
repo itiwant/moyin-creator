@@ -48,7 +48,7 @@ export function EditProviderDialog({
       setName(provider.name);
       setBaseUrl(provider.baseUrl);
       setApiKey(provider.apiKey);
-      // 加载已有Model
+      // 加载hiện cóModel
       setModel(provider.model?.join(', ') || '');
     }
   }, [provider]);

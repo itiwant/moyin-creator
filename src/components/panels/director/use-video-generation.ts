@@ -1451,7 +1451,7 @@ export async function extractLastFrameFromVideo(
       } else {
         // seek 可能Thất bại，尝试播放到目标位置
         console.log('[VideoGen] Seek may have failed, trying play approach...');
-        video.playbackRate = 16; // 快速播放
+        video.playbackRate = 16; // nhanh播放
         video.play().catch(() => {
           // 如果播放Thất bại，Trực tiếp捕获当前帧
           console.warn('[VideoGen] Play failed, capturing current frame');

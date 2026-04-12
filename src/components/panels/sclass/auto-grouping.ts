@@ -18,13 +18,13 @@ import type { ShotGroup, SClassDuration } from '@/stores/sclass-store';
 // ==================== Config ====================
 
 export interface GroupingConfig {
-  /** 单组最大Thời lượng（秒），Mặc định 15 */
+  /** Thời lượng tối đa mỗi nhóm (giây), mặc định 15 */
   maxDuration: number;
-  /** 单组最大Ống kính数，Mặc định 4 */
+  /** Số ống kính tối đa mỗi nhóm, mặc định 4 */
   maxPerGroup: number;
-  /** 单组最小Ống kính数，Mặc định 1（最后一组可能为 1） */
+  /** Số ống kính tối thiểu mỗi nhóm, mặc định 1 (nhóm cuối có thể là 1) */
   minPerGroup: number;
-  /** Mặc định单镜Thời lượng（当 scene.duration 未Cài đặt时），Mặc định 5 */
+  /** Thời lượng ống kính đơn mặc định (khi scene.duration chưa cài đặt), mặc định 5 */
   defaultSceneDuration: number;
 }
 
@@ -37,12 +37,12 @@ const DEFAULT_CONFIG: GroupingConfig = {
 
 // ==================== Helpers ====================
 
-/** 获取phân cảnh đơn的有效Thời lượng */
+/** Lấy thời lượng hiệu lực của phân cảnh đơn */
 function getSceneDuration(scene: SplitScene, defaultDuration: number): number {
   return scene.duration > 0 ? scene.duration : defaultDuration;
 }
 
-/** 计算两Ống kính的Nhân vật重叠度 (0~1) */
+/** Tính độ trùng lặp nhân vật giữa hai ống kính (0~1) */
 function characterOverlap(a: SplitScene, b: SplitScene): number {
   if (!a.characterIds?.length || !b.characterIds?.length) return 0;
   const setA = new Set(a.characterIds);
@@ -51,14 +51,14 @@ function characterOverlap(a: SplitScene, b: SplitScene): number {
   return union.size > 0 ? intersection.length / union.size : 0;
 }
 
-/** 判断两Ống kính是否同Cảnh */
+/** Kiểm tra hai ống kính có cùng cảnh không */
 function isSameScene(a: SplitScene, b: SplitScene): boolean {
   // Sử dụng sceneName 判断，空值视为同Cảnh
   if (!a.sceneName && !b.sceneName) return true;
   return a.sceneName === b.sceneName;
 }
 
-/** Tạo唯一 ID */
+/** Tạo ID duy nhất */
 function genId(): string {
   return `grp_${Date.now().toString(36)}_${Math.random().toString(36).slice(2, 8)}`;
 }
@@ -125,7 +125,7 @@ export function autoGroupScenes(
       // Cảnh切换检测：不同Cảnh优先断开
       const prevScene = scenes[i - 1];
       if (prevScene && !isSameScene(prevScene, scene)) {
-        // 不同Cảnh —— 如果当前组已有 ≥ minPerGroup Ống kính，断开
+        // 不同Cảnh —— 如果当前组hiện có ≥ minPerGroup Ống kính，断开
         if (currentSceneIds.length >= cfg.minPerGroup) {
           // 但若Nhân vật高度重叠，可以容忍（跨Cảnh但同Nhân vật）
           const overlap = characterOverlap(prevScene, scene);
@@ -181,7 +181,7 @@ export function generateGroupName(
   const sceneMap = new Map(scenes.map((s) => [s.id, s]));
   const firstScene = sceneMap.get(group.sceneIds[0]);
 
-  // Sử dụng组内thứ tự编号（而非 scene.id），避免 1-based ID 导致偏移
+  // Sử dụngtrong nhómthứ tự编号（而非 scene.id），避免 1-based ID 导致偏移
   const allIds = scenes.map(s => s.id);
   const firstIdx = allIds.indexOf(group.sceneIds[0]);
   const lastIdx = allIds.indexOf(group.sceneIds[group.sceneIds.length - 1]);

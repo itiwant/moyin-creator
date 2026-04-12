@@ -378,7 +378,7 @@ export async function findSceneByDescription(
 }
 
 /**
- * 仅搜索（不gọi APIAI），用于快速预览
+ * 仅搜索（不gọi APIAI），用于nhanh预览
  */
 export function quickSearchScene(
   userQuery: string,
@@ -409,7 +409,7 @@ export function quickSearchScene(
     };
   }
   
-  // 快速搜索
+  // nhanh搜索
   const searchResult = searchSceneInScripts(name, episodeScripts, episodeNumber || undefined);
   
   if (searchResult.found) {

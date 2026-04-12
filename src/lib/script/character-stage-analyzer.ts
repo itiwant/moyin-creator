@@ -215,7 +215,7 @@ export function getVariationForEpisode(
 }
 
 /**
- * 快速检测đại cương是否包含多阶段线索
+ * nhanh检测đại cương是否包含多阶段线索
  * 用于在Nhập剧本时提示用户
  */
 export function detectMultiStageHints(outline: string, totalEpisodes: number): {

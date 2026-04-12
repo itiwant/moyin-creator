@@ -117,7 +117,7 @@ export async function processBatched<TItem, TResult>(
     onProgress,
   } = opts;
 
-  // 空输入快速返回
+  // 空输入nhanh返回
   if (items.length === 0) {
     return { results: new Map(), failedBatches: 0, totalBatches: 0 };
   }
@@ -240,8 +240,8 @@ export async function processBatched<TItem, TResult>(
  * 约束 1（Input）: 每批 systemPromptTokens + sum(itemTokens) ≤ inputBudget
  * 约束 2（Output）: sum(itemOutputTokens) ≤ outputBudget
  *
- * 贪心策略：依次Thêm item，任一约束即将超出时开始新批次。
- * 单 item 超出预算时仍独立成批（至少每批 1  item）。
+ * 贪心策略：依次Thêm item，任一约束即将vượt quá时开始新批次。
+ * 单 item vượt quá预算时仍独立成批（至少每批 1  item）。
  */
 function createBatches<TItem>(
   items: TItem[],

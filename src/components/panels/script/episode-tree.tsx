@@ -217,7 +217,7 @@ export function EpisodeTree({
   const [expandedEpisodes, setExpandedEpisodes] = useState<Set<string>>(new Set(["default"]));
   const [expandedScenes, setExpandedScenes] = useState<Set<string>>(new Set());
   const [filter, setFilter] = useState<FilterType>("all");
-  // Nhân vật分组折叠状态
+  // Nhân vật分组thu gọn状态
   const [extrasExpanded, setExtrasExpanded] = useState(false);
   // Tab 状态: Cấu trúc tập phim vs Trailer
   const [activeTab, setActiveTab] = useState<"structure" | "trailer">("structure");

@@ -151,7 +151,7 @@ export function SettingsPanel() {
 
   // ====== Memefast 默认绑定Tự độngbổ sung ======
   // Ghi đè场景：
-  //  1. 旧Phiên bản升级后已有 key 但 featureBindings 为空
+  //  1. 旧Phiên bản升级后hiện có key 但 featureBindings 为空
   //  2. 旧Phiên bản留下无效绑定（Model名错、provider ID 变更等）
   //  3. 用户Chỉnh sửa填 key 后页面刷新
   useEffect(() => {

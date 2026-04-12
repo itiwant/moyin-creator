@@ -276,7 +276,7 @@ export function AngleController({
   const controllerPos = sphericalToCartesian(theta, phi, radius);
   const projectedController = project3D(controllerPos.x, controllerPos.y, controllerPos.z);
   
-  // 计算当前方向索引（用于高亮LED灯）
+  // 计算当前方向chỉ mục（用于高亮LED灯）
   const directionIndex = Math.round(((theta % 360) + 360) % 360 / 45) % 8;
 
   // 计算 3D 卡片的尺寸 (适应ảnhTỷ lệ，且不超过最大范围)
@@ -284,7 +284,7 @@ export function AngleController({
   let cardWidth = maxCardSize;
   let cardHeight = maxCardSize / imgAspectRatio;
 
-  // 如果高度超出了，就以高度为基准
+  // 如果高度vượt quá了，就以高度为基准
   if (cardHeight > maxCardSize) {
     cardHeight = maxCardSize;
     cardWidth = maxCardSize * imgAspectRatio;

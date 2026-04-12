@@ -277,7 +277,7 @@ const STYLIZED_PROFILES: CinematographyProfile[] = [
     defaultSpeed: { playbackSpeed: 'normal' },
     defaultAngle: 'low-angle',
     defaultFocalLength: '24mm',
-    promptGuidance: '恐怖片的摄影原则是「隐藏比Hiển thị更可怕」——浅景深让背景模糊成未知的威胁，浓雾遮蔽视野制造不安。底光让Khuôn mặt出现不自然的阴影，Cầm tay极慢移动制造潜 hàng感。quan trọng时刻突然快速甩镜，打破之前的缓慢节奏。',
+    promptGuidance: '恐怖片的摄影原则是「隐藏比Hiển thị更可怕」——浅景深让背景模糊成未知的威胁，浓雾遮蔽视野制造不安。底光让Khuôn mặt出现不自然的阴影，Cầm tay极慢移动制造潜 hàng感。quan trọng时刻突然nhanh甩镜，打破之前的缓慢节奏。',
     referenceFilms: ['闪灵', '遗传厄运', '招魂', '午夜凶铃'],
   },
   {
@@ -295,7 +295,7 @@ const STYLIZED_PROFILES: CinematographyProfile[] = [
     defaultAngle: 'low-angle',
     defaultFocalLength: '35mm',
     defaultTechnique: 'bokeh',
-    promptGuidance: 'MV追求极致视觉冲击——每一帧都要像海报。极浅景深把一切虚化成五彩光斑，霓虹逆光勾勒nhân vật轮廓。快速斯坦尼康环绕拍摄，配合频繁的速度变化（慢放与快进交替）。大量Sử dụng光粒子和镜头光晕增加梦幻感。',
+    promptGuidance: 'MV追求极致视觉冲击——每一帧都要像海报。极浅景深把一切虚化成五彩光斑，霓虹逆光勾勒nhân vật轮廓。nhanh斯坦尼康环绕拍摄，配合频繁的速度变化（慢放与快进交替）。大量Sử dụng光粒子和镜头光晕增加梦幻感。',
     referenceFilms: ['爱乐之城MV段落', 'Beyoncé - Lemonade', 'The Weeknd - Blinding Lights'],
   },
 ];
@@ -325,7 +325,7 @@ const GENRE_PROFILES: CinematographyProfile[] = [
     name: '动作激烈',
     nameEn: 'Intense Action',
     category: 'genre',
-    description: '高调侧光、đang xử lý...、đang xử lý...肩扛快速Theo dõi、尘土飞扬',
+    description: '高调侧光、đang xử lý...、đang xử lý...肩扛nhanhTheo dõi、尘土飞扬',
     emoji: '💥',
     defaultLighting: { style: 'high-key', direction: 'side', colorTemperature: 'neutral' },
     defaultFocus: { depthOfField: 'medium', focusTransition: 'pull-focus' },
@@ -335,7 +335,7 @@ const GENRE_PROFILES: CinematographyProfile[] = [
     defaultAngle: 'eye-level',
     defaultFocalLength: '24mm',
     defaultTechnique: 'high-speed',
-    promptGuidance: '动作戏的摄影追求「动能传递」——肩扛快速Theo dõi让观众感受冲击力，侧光强化肌肉轮廓和动作线条。đang xử lý...证主体清晰但背景有适度虚化。quan trọng动作瞬间（出拳、爆炸）可Sử dụng慢放0.5x突出力量感，随后立刻恢复正常速度。尘土和火花增加物理碰撞的真实感。',
+    promptGuidance: '动作戏的摄影追求「动能传递」——肩扛nhanhTheo dõi让观众感受冲击力，侧光强化肌肉轮廓和动作线条。đang xử lý...证主体清晰但背景有适度虚化。quan trọng动作瞬间（出拳、爆炸）可Sử dụng慢放0.5x突出力量感，随后立刻恢复正常速度。尘土和火花增加物理碰撞的真实感。',
     referenceFilms: ['疯狂的麦克斯', '谍影重重', '突袭', '碟đang xử lý...,
   },
   {

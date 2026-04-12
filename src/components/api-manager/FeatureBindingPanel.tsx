@@ -78,7 +78,7 @@ const FEATURE_CONFIGS: FeatureMeta[] = [
     description: "将ảnh转换为video",
     icon: <Video className="h-4 w-4" />,
     requiredCapability: "video_generation",
-    recommendation: "🧪 测试Đề xuất doubao-seedance-1-0-lite-t2v-250428 — 适合快速验证流程",
+    recommendation: "🧪 测试Đề xuất doubao-seedance-1-0-lite-t2v-250428 — 适合nhanh验证流程",
   },
   {
     key: "image_understanding",
@@ -249,7 +249,7 @@ export function FeatureBindingPanel() {
     getFeatureBindings,
   } = useAPIConfigStore();
   
-  // 跟踪Mở rộng/折叠Trạng thái
+  // 跟踪Mở rộng/thu gọnTrạng thái
   const [expandedFeatures, setExpandedFeatures] = useState<Set<AIFeature>>(new Set());
 
   const configuredProviderIds = useMemo(() => {
@@ -332,7 +332,7 @@ export function FeatureBindingPanel() {
     toggleFeatureBinding(feature.key, optionKey);
   };
   
-  // 切换Mở rộng/折叠
+  // 切换Mở rộng/thu gọn
   const toggleExpanded = (feature: AIFeature) => {
     setExpandedFeatures(prev => {
       const newSet = new Set(prev);

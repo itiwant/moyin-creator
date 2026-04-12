@@ -9,7 +9,7 @@
 export type HorizontalDirection = 
   | 'front'              // chính diện 0°
   | 'front-right-quarter' // 右前 45°
-  | 'right-side'         // 右侧 90°
+  | 'right-side'         // bên phải 90°
   | 'back-right-quarter' // 右后 135°
   | 'back'               // mặt sau 180°
   | 'back-left-quarter'  // 左后 225°
@@ -47,7 +47,7 @@ export const HORIZONTAL_DIRECTIONS: Array<{
 }> = [
   { id: 'front', label: 'chính diện', degrees: 0 },
   { id: 'front-right-quarter', label: '右前', degrees: 45 },
-  { id: 'right-side', label: '右侧', degrees: 90 },
+  { id: 'right-side', label: 'bên phải', degrees: 90 },
   { id: 'back-right-quarter', label: '右后', degrees: 135 },
   { id: 'back', label: 'Mặt sau', degrees: 180 },
   { id: 'back-left-quarter', label: '左后', degrees: 225 },
