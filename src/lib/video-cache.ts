@@ -22,7 +22,7 @@ interface VideoSinkData {
   iterator: AsyncGenerator<VideoSample, void, unknown> | null;
   currentFrame: CachedFrame | null;
   lastTime: number;
-  // 缓存的 canvas 用于重复使用
+  // 缓存的 canvas 用于重复Sử dụng
   canvasPool: HTMLCanvasElement[];
 }
 
@@ -208,7 +208,7 @@ export class VideoCache {
         throw new Error("Video codec not supported for decoding");
       }
 
-      // 使用 VideoSampleSink 以便手动管理 VideoSample 资源
+      // Sử dụng VideoSampleSink 以便手动管理 VideoSample 资源
       const sink = new VideoSampleSink(videoTrack);
 
       this.sinks.set(mediaId, {

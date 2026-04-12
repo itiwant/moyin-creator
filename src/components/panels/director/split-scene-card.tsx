@@ -263,7 +263,7 @@ export function SplitSceneCard({
     reader.onload = (event) => {
       const dataUrl = event.target?.result as string;
       onUpdateEndFrame(scene.id, dataUrl);
-      // Tải lênKhung hình cuối时Tự độngBật needsEndFrame，确保Tạo video时会使用Khung hình cuốiTham chiếu
+      // Tải lênKhung hình cuối时Tự độngBật needsEndFrame，确保Tạo video时会Sử dụngKhung hình cuốiTham chiếu
       if (!scene.needsEndFrame) {
         onUpdateNeedsEndFrame(scene.id, true);
       }

@@ -10,7 +10,7 @@
  * 1. 读取剧本元数据，理解角色成长弧线
  * 2. 根据剧情阶段Tạo不同的角色形象
  * 3. Tạo的阶段可转换为角色库的 CharacterVariation
- * 4. 使用世界级专业人设提升 AI Tạo质量
+ * 4. Sử dụng世界级专业人设提升 AI Tạo质量
  * 
  * 注意：这是一辅助服务，不修改现有角色库的任何功能。
  */
@@ -356,7 +356,7 @@ export function getCharacterPromptForEpisode(
  * 可Trực tiếp用于 addVariation() 方法
  * 
  * @param design 角色Thiết kế
- * @returns 可Trực tiếp添加到角色库的变体数组
+ * @returns 可Trực tiếpThêm到角色库的变体数组
  */
 export function convertDesignToVariations(design: CharacterDesign): Array<Omit<CharacterVariation, 'id'>> {
   return design.stages.map(stage => ({
@@ -378,7 +378,7 @@ export function convertDesignToVariations(design: CharacterDesign): Array<Omit<C
  * 为角色库đang xử lý...Tạo变体（Wardrobe System）
  * 基于角色Thiết kế的不同阶段
  * 
- * @deprecated 使用 convertDesignToVariations 代替
+ * @deprecated Sử dụng convertDesignToVariations 代替
  */
 export function generateVariationsFromDesign(design: CharacterDesign): Array<{
   name: string;

@@ -233,7 +233,7 @@ async function generateImage(
 /**
  * 压缩 base64 Tham chiếu图到合理体积
  * trung gian站（new_api/one_api）在做 OpenAI → Gemini 格式转换时，
- * 超大 base64 会导致 JSON 解析失败或 body size 超限，报 "contents is required"。
+ * 超大 base64 会导致 JSON Phân tích thất bại或 body size 超限，报 "contents is required"。
  * 将Tham chiếu图缩小到 maxEdge px 并转为 JPEG 可大幅降低体积（2~4MB → ~60KB）。
  */
 function compressReferenceImage(dataUri: string, maxEdge = 768, quality = 0.8): Promise<string> {
@@ -678,7 +678,7 @@ async function submitImageTask(
       throw new Error('No task_id or image URL in response');
     }
 
-    // 返回 pollUrl 供gọi API方使用Tùy chỉnh轮询路径
+    // 返回 pollUrl 供gọi API方Sử dụngTùy chỉnh轮询路径
     const imagePaths = getImageEndpointPaths(endpointTypes || []);
     const rootBase = getRootBaseUrl(baseUrl);
     const pollUrl = `${rootBase}${imagePaths.poll(taskId)}`;

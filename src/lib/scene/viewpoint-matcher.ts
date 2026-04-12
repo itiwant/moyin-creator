@@ -92,7 +92,7 @@ const CACHE_TTL = 1000 * 60 * 30; // 30 phút缓存
 // ==================== 核心函数 ====================
 
 /**
- * 使用quan trọng词快速匹配视角
+ * Sử dụngquan trọng词快速匹配视角
  */
 function matchByKeyword(actionSummary: string): string | null {
   for (const [keyword, viewpointId] of Object.entries(KEYWORD_TO_VIEWPOINT)) {
@@ -104,7 +104,7 @@ function matchByKeyword(actionSummary: string): string | null {
 }
 
 /**
- * 使用 AI 匹配视角
+ * Sử dụng AI 匹配视角
  */
 async function matchByAI(
   actionSummary: string,
@@ -214,7 +214,7 @@ function getViewpointVariants(
 }
 
 /**
- * 使用视角名称的quan trọng词模糊匹配动作描述
+ * Sử dụng视角名称的quan trọng词模糊匹配动作描述
  * 用于Tùy chỉnh视角名称（如"大巴车视角"）与动作描述的匹配
  */
 function matchByViewpointNameKeywords(

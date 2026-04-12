@@ -111,7 +111,7 @@ export async function calibrateShotsMultiStage(
   const mt = getMediaType(styleId || 'cinematic');
   const mediaTypeHint = mt !== 'cinematic' ? `\n【媒介类型】${getMediaTypeGuidance(mt)}` : '';
 
-  // thời đại/Bối cảnh thế giới上下文：供 Stage 2/4/5 视觉Tạo使用（避免 AI 产生与thời đại不符的幻觉）
+  // thời đại/Bối cảnh thế giới上下文：供 Stage 2/4/5 视觉TạoSử dụng（避免 AI 产生与thời đại不符的幻觉）
   const eraContextParts = [
     contextLine,
     era ? `⚠️ thời đại背景：${era}——Tất cảnhân vật服装、发型、道具、建筑必须严格符合「${era}」时期，禁止出现其他thời đại的元素（如古装剧禁止西装/T恤/手机等现代vật phẩm）` : '',
@@ -134,7 +134,7 @@ export async function calibrateShotsMultiStage(
     return parsed.shots || parsed || {};
   }
 
-  // 通用 Stage 执行器：使用 processBatched Tự động分批（30+ shots 时Tự động拆分 sub-batch）
+  // 通用 Stage 执行器：Sử dụng processBatched Tự động分批（30+ shots 时Tự động拆分 sub-batch）
   async function runStage(
     stageName: string,
     buildPrompts: (batch: ShotInputData[]) => { system: string; user: string },

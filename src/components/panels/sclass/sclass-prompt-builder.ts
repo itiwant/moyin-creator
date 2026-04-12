@@ -201,7 +201,7 @@ export function collectCharacterRefs(
     const char = characters.find(c => c.id === charId);
     if (!char) continue;
 
-    // 优先使用 base64（持久化），其次使用 URL
+    // 优先Sử dụng base64（持久化），其次Sử dụng URL
     const view = char.views[0];
     const imageUrl = view?.imageBase64 || view?.imageUrl || char.thumbnailUrl;
     if (!imageUrl) continue;
@@ -234,7 +234,7 @@ export function collectSceneRefs(
   const seen = new Set<string>();
 
   for (const splitScene of scenes) {
-    // 方式1: Trực tiếp使用Phân cảnh上已关联的CảnhẢnh tham chiếu
+    // 方式1: Trực tiếpSử dụngPhân cảnh上已关联的CảnhẢnh tham chiếu
     if (splitScene.sceneReferenceImage && !seen.has(splitScene.sceneReferenceImage)) {
       seen.add(splitScene.sceneReferenceImage);
       refs.push({
@@ -306,7 +306,7 @@ export function collectFirstFrameRefs(scenes: SplitScene[]): AssetRef[] {
  * 旧版优先级（tương thích）：
  *   Khung hình đầu图 > Nhân vật图 > Cảnh图，合计≤9张
  *
- * @param gridImageRef 如果提供，则使用ô图chế độ（不再逐张ThêmKhung hình đầu）
+ * @param gridImageRef 如果提供，则Sử dụngô图chế độ（不再逐张ThêmKhung hình đầu）
  */
 export function collectAllRefs(
   group: ShotGroup,
@@ -398,7 +398,7 @@ export function extractDialogueSegments(
       let text: string;
 
       if (speakerMatch) {
-        // 对白自带说话人，Trực tiếp使用
+        // 对白自带说话人，Trực tiếpSử dụng
         characterName = speakerMatch[1].trim();
         text = speakerMatch[2].trim();
       } else {
@@ -527,7 +527,7 @@ export interface BuildGroupPromptOptions {
   aspectRatio?: SClassAspectRatio;
   /** 是否包含对白唇形同步 */
   enableLipSync?: boolean;
-  /** ô图tham chiếu（如果提供，使用ô图chế độ收 tậptham chiếu） */
+  /** ô图tham chiếu（如果提供，Sử dụngô图chế độ收 tậptham chiếu） */
   gridImageRef?: AssetRef | null;
 }
 
@@ -606,7 +606,7 @@ export function buildGroupPrompt(options: BuildGroupPromptOptions): GroupPromptR
   let timeOffset = 0;
   const totalDuration = shotSegments.reduce((sum, s) => sum + s.duration, 0);
 
-  // 4. 如果用户已Thủ côngChỉnh sửa过 mergedPrompt，优先使用
+  // 4. 如果用户已Thủ côngChỉnh sửa过 mergedPrompt，优先Sử dụng
   if (group.mergedPrompt && group.mergedPrompt.trim()) {
     const dialogueSegs = enableLipSync ? extractDialogueSegments(scenes, characters) : [];
     return {
@@ -762,7 +762,7 @@ export function buildGroupPrompt(options: BuildGroupPromptOptions): GroupPromptR
  * 与常规多Ống kínhtự sự不同：
  * - 不建ô图
  * - source video Tự động占据 @video1 位
- * - prompt 使用kéo dài/Chỉnh sửa专用模板
+ * - prompt Sử dụngkéo dài/Chỉnh sửa专用模板
  */
 function buildExtendEditPrompt(
   group: ShotGroup,

@@ -9,7 +9,7 @@
  * 
  * 双层架构：
  * 1. AI 检测（优先）：gọi API LLM 理解内容语义，精准识别Cấu trúc + 补全缺失đại cương
- * 2. 正则兜底（降级）：无 AI 配置或 AI gọi API失败时使用硬编码chế độ匹配
+ * 2. 正则兜底（降级）：无 AI 配置或 AI gọi API失败时Sử dụng硬编码chế độ匹配
  * 
  * 核心原则：
  * - 只插入Cấu trúc标记（《》、đại cương：、nhân vật小传：）+ AI Tạo的đại cương
@@ -116,7 +116,7 @@ export interface NormalizationResult {
 }
 
 /**
- * 正则兜底归一化（无 AI 时使用）
+ * 正则兜底归一化（无 AI 时Sử dụng）
  * 检测非标准格式并插入Cấu trúc标记，原文内容一字不差
  */
 export function normalizeScriptFormat(text: string): NormalizationResult {
@@ -221,7 +221,7 @@ export async function analyzeScriptStructureWithAI(text: string): Promise<Script
     
     const systemPrompt = `你是剧本Cấu trúc分析专家。分析用户提供的剧本/角色规格文本，识别Cấu trúc要素并提取剧级元数据。
 
-严格返回以下 JSON 格式（不要添加任何其他内容）：
+严格返回以下 JSON 格式（不要Thêm任何其他内容）：
 {
   "title": "作品名称",
   "era": "thời đại背景（古代/现代/民国/清末/未来/当代等）",
@@ -305,7 +305,7 @@ export async function analyzeScriptStructureWithAI(text: string): Promise<Script
         analysis = JSON.parse(fixedJson);
         console.log('[scriptNormalizer] 已修复 JS 对象格式为 JSON');
       } catch (e2) {
-        console.warn('[scriptNormalizer] JSON 解析失败:', (e2 as Error).message, '\n原文:', jsonStr.substring(0, 300));
+        console.warn('[scriptNormalizer] JSON Phân tích thất bại:', (e2 as Error).message, '\n原文:', jsonStr.substring(0, 300));
         return null;
       }
     }
@@ -460,7 +460,7 @@ function normalizeTitle(text: string, changes: string[]): string {
     if (/^[【\[]/.test(trimmed)) continue;
     
     // 找到标题候选
-    // 使用精确位置替换，避免替换到后续相同文本
+    // Sử dụng精确位置替换，避免替换到后续相同文本
     const lineStart = lines.slice(0, i).join('\n').length + (i > 0 ? 1 : 0);
     const originalLine = lines[i];
     const trimOffset = originalLine.indexOf(trimmed);

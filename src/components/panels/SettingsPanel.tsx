@@ -1610,9 +1610,9 @@ export function SettingsPanel() {
           } else {
             provider = addProvider(providerData);
           }
-          // 如果添加的是 memefast Nhà cung cấp，Tự động设置默认ánh xạ dịch vụ（仅在对应服务尚Chưa cấu hình时）
+          // 如果Thêm的是 memefast Nhà cung cấp，Tự động设置默认ánh xạ dịch vụ（仅在对应服务尚Chưa cấu hình时）
           if (providerData.platform === 'memefast') {
-            // 使用 provider.id（而非 platform 字符串）避免多Nhà cung cấp时的歧义解析
+            // Sử dụng provider.id（而非 platform 字符串）避免多Nhà cung cấp时的歧义解析
             const pid = provider.id;
             const MEMEFAST_DEFAULT_BINDINGS: Record<string, string> = {
               // NOTE: MemeFast 端点已升级，旧的 deepseek-v3 已不在 cột表đang xử lý... deepseek-v3.2
@@ -1645,7 +1645,7 @@ export function SettingsPanel() {
               }
             }
           }
-          // 添加后Tự độngĐồng bộ model cột表和端点元数据
+          // Thêm后Tự độngĐồng bộ model cột表和端点元数据
           const finalProviderId = existingMemefast ? existingMemefast.id : provider.id;
           if (parseApiKeys(providerData.apiKey).length > 0) {
             setSyncingProvider(finalProviderId);

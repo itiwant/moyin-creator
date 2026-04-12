@@ -422,7 +422,7 @@ export async function generateEpisodeShots(
       const rawScene = episodeScript.scenes[idx];
       return {
         ...scene,
-        // 使用gốc内容Tạo分镜
+        // Sử dụnggốc内容Tạo分镜
         rawContent: rawScene?.content || '',
         dialogues: rawScene?.dialogues || [],
         actions: rawScene?.actions || [],
@@ -439,7 +439,7 @@ export async function generateEpisodeShots(
       onProgress
     );
     
-    // 更新现有分镜（移除该 tập旧分镜，添加新分镜）
+    // 更新现有分镜（移除该 tập旧分镜，Thêm新分镜）
     const existingShots = project.shots.filter(
       (shot) => shot.episodeId !== episode.id
     );
@@ -493,11 +493,11 @@ export async function generateEpisodeShots(
         
         console.log('[generateEpisodeShots] viewpointOptions 已构建, genre:', viewpointOptions.genre || '未知');
         
-        // 获取并发数配置（使用顶部静态Nhập的 store）
-        // 智谱 API 并发限制较严，视角分析最多使用 10 并发
+        // 获取并发数配置（Sử dụng顶部静态Nhập的 store）
+        // 智谱 API 并发限制较严，视角分析最多Sử dụng 10 并发
         const userConcurrency = useAPIConfigStore.getState().concurrency || 1;
         const concurrency = Math.min(userConcurrency, 10);
-        console.log(`[generateEpisodeShots] 使用并发数: ${concurrency} (用户设置: ${userConcurrency}, 上限: 10)`);
+        console.log(`[generateEpisodeShots] Sử dụng并发数: ${concurrency} (用户设置: ${userConcurrency}, 上限: 10)`);
         
         // 为每场景分析视角（支持并发）
         const updatedScenes = [...scriptData.scenes];
@@ -798,7 +798,7 @@ function generateShotsFromSceneContent(
         index: index++,
         episodeId,
         sceneRefId: scene.id,
-        // 保留đầy đủ的gốc动作文本，不要截断，便于AIHiệu chuẩn时使用
+        // 保留đầy đủ的gốc动作文本，不要截断，便于AIHiệu chuẩn时Sử dụng
         actionSummary: actionText,
         visualDescription: `${scene.location}，${actionText}`,
         characterNames: mentionedChars.map(c => c.name),
@@ -893,7 +893,7 @@ function matchCharacterVariationsForEpisode(
           const matchedVariation = getVariationForEpisode(libChar.variations, episodeIndex);
           if (matchedVariation) {
             characterVariations[charId] = matchedVariation.id;
-            console.log(`[VariationMatch] 角色 ${scriptChar.name} 第${episodeIndex} tập -> 使用变体 "${matchedVariation.name}"`);
+            console.log(`[VariationMatch] 角色 ${scriptChar.name} 第${episodeIndex} tập -> Sử dụng变体 "${matchedVariation.name}"`);
           }
         }
         break;
@@ -1078,7 +1078,7 @@ function extractEpisodeSummary(episode: EpisodeRawScript): string {
   // 取前3场景的内容摘要
   const scenesToUse = episode.scenes.slice(0, 3);
   for (const scene of scenesToUse) {
-    // 场景信息（使用 sceneHeader 代替 location）
+    // 场景信息（Sử dụng sceneHeader 代替 location）
     if (scene.sceneHeader) {
       parts.push(`场景：${scene.sceneHeader}`);
     }
@@ -1385,7 +1385,7 @@ export async function calibrateEpisodeShots(
     worldSetting: background?.worldSetting || '',
     themes: background?.themes || [],
     episodeTitle: episode.title,
-    episodeSynopsis: episodeScript?.synopsis || '',  // 使用每 tậpđại cương
+    episodeSynopsis: episodeScript?.synopsis || '',  // Sử dụng每 tậpđại cương
     episodeKeyEvents: episodeScript?.keyEvents || [],  // Sự kiện quan trọng
     episodeRawContent,  // 该 tậpgốc剧本内容（đầy đủ对白、动作描写）
     episodeSeason: episodeScript?.season,  // 本 tập季节
@@ -1483,7 +1483,7 @@ export async function calibrateEpisodeShots(
               }
             );
             completedBatches++;
-            console.log(`[calibrateShots] ✅ 批次 ${batchNum} 完成，进度: ${completedBatches}/${totalBatches}`);
+            console.log(`[calibrateShots] ✅ 批次 ${batchNum} 完成，Tiến độ: ${completedBatches}/${totalBatches}`);
             return { batch, calibrations, success: true as const };
           } catch (err) {
             retryCount++;
@@ -1852,7 +1852,7 @@ async function callAIForShotCalibration(
   // 截取gốc剧本内容（避免过长，取前3000字）
   const rawContentPreview = episodeRawContent ? episodeRawContent.slice(0, 3000) : '';
   
-  // 使用共享的风格描述函数
+  // Sử dụng共享的风格描述函数
   const styleDesc = getStyleDescription(styleId || 'cinematic');
   
   // 摄影风格档案指导文本
@@ -1910,7 +1910,7 @@ ${characterBios ? `
 
 2. **严格基于原文**：每分镜都附带了【gốc剧本文本】，你的Tất cảTạo内容必须完全基于该原文：
    - 视觉描述必须包含原文đang xử lý...Tất cảquan trọng元素（nhân vật、动作、道具、场景）
-   - 不得添加原文đang xử lý...内容
+   - 不得Thêm原文đang xử lý...内容
    - 不得混入其他分镜的内容
    - 不得遗漏原文đang xử lý...信息
 
@@ -2123,7 +2123,7 @@ ${getMediaTypeGuidance(mt)}
       "focalLength": "50mm",
       "photographyTechnique": "",
       "imagePrompt": "Cinematic medium shot, modern Chinese family dining room, warm afternoon sunlight through window with blooming gardenias outside, young man Zhang Ming (25, casual clothes, tense expression) sitting at dining table with his middle-aged parents, father (50s, stern face, holding graduate certificate examining it), mother (50s, worried look) beside them, wooden dining table with home-cooked dishes, warm color tones, realistic film style",
-      "imagePromptZh": "电影感đang xử lý...代đang xử lý...餐厅，午后温暖阳光透过户洒入，外栩子花盛开。青年张明（25 tuổi，休闲装，神情căng thẳng）坐在餐桌旁，đang xử lý...（50多 tuổi，严肃Biểu cảm，Cầm tay985研究生毕业证书反复查看），母亲（50多 tuổi，担忧神情）坐在旁边。木质餐桌上摆着家常菜肴，温暖色调，写实电影风格。",
+      "imagePromptZh": "电影感đang xử lý...代đang xử lý...餐厅，午后温暖阳光透过户洒入，外栩子花盛开。青年张明（25 tuổi，休闲装，神情căng thẳng）坐在餐桌旁，đang xử lý...（50多 tuổi，严肃Biểu cảm，Cầm tay985研究生毕业证书反复Xem），母亲（50多 tuổi，担忧神情）坐在旁边。木质餐桌上摆着家常菜肴，温暖色调，写实电影风格。",
       "videoPrompt": "Father repeatedly examining graduate certificate with focused attention, Zhang Ming eating nervously with chopsticks, occasionally glancing at father, mother sitting beside watching silently with worried expression",
       "videoPromptZh": "父亲专注地反复观看毕业证书，张明用筷子căng thẳng地吃饭，不时偷瞄父亲，母亲坐在旁边默默看着，神情担忧。",
       "needsEndFrame": true,
@@ -2176,7 +2176,7 @@ ${sourceText}
 ⚠️ 重要提醒（必须遵守）：
 1. **场景归属绝对Cố định**：每分镜的【主场景】已经标注，即使原文提到闪回/叠画/回忆，主场景仍không thay đổi
 2. 不要遗漏原文đang xử lý...quan trọng信息（nhân vật、动作、道具、环境）
-3. 不要添加原文đang xử lý...内容
+3. 不要Thêm原文đang xử lý...内容
 4. **đang xử lý...ường必须是纯đang xử lý...：visualDescription, ambientSound, soundEffect, imagePromptZh, videoPromptZh
 5. **英文trường必须是纯英文**：visualPrompt, imagePrompt, videoPrompt, endFramePrompt
 6. 角色列表必须đầy đủ
@@ -2229,7 +2229,7 @@ ${shotDescriptions}`;
           const shotJson = match[2];
           partialResult[shotId] = JSON.parse(shotJson);
         } catch {
-          // 单 shot 解析失败，继续下一
+          // 单 shot Phân tích thất bại，继续下一
         }
       }
       

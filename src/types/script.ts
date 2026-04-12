@@ -10,7 +10,7 @@ export type PromptLanguage = 'zh' | 'en' | 'zh+en';
 // AI角色Mức độ chặt chẽ hiệu chuẩn
 export type CalibrationStrictness = 'strict' | 'normal' | 'loose';
 
-/** 被lọc的角色记录（用于恢复） */
+/** bị lọc的角色记录（用于恢复） */
 export interface FilteredCharacterRecord {
   name: string;
   reason: string;

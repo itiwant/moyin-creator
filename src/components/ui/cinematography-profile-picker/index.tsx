@@ -35,7 +35,7 @@ interface CinematographyProfilePickerProps {
   value: string;
   /** Chọn变化回调 */
   onChange: (profileId: string) => void;
-  /** 是否使用下拉popup出chế độ（默认 true） */
+  /** 是否Sử dụng下拉popup出chế độ（默认 true） */
   popover?: boolean;
   /** Tùy chỉnh触发器（仅 popover chế độ） */
   trigger?: React.ReactNode;

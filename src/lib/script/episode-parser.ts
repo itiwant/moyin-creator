@@ -370,7 +370,7 @@ export function parseScenes(episodeText: string): SceneRawContent[] {
   const sceneMatches = [...episodeText.matchAll(sceneHeaderRegex)];
   
   if (sceneMatches.length === 0) {
-    // 没有找到标准场景头，尝试宽松的 数字-数字 格式
+    // 没有找到标准场景头，尝试Lỏng lẻo的 数字-数字 格式
     // 匹配如：1-1 规则怪谈世界， tập合广场，日  或  1-2 全球同一会议直播间，日
     const looseSceneRegex = /^\*{0,2}(\d+-\d+)\s+([^\*\n]+)\*{0,2}$/gm;
     const looseMatches = [...episodeText.matchAll(looseSceneRegex)];
@@ -413,7 +413,7 @@ export function parseScenes(episodeText: string): SceneRawContent[] {
         // 将đang xử lý...ngăn cách的地点拼接成可读格式
         const location = locationDesc.replace(/[，,]/g, ' ').replace(/\s+/g, ' ').trim() || '未知地点';
         
-        // 构建标准格式的场景头，供下游代码使用
+        // 构建标准格式的场景头，供下游代码Sử dụng
         const sceneHeader = interior 
           ? `${sceneNumber} ${timeOfDay} ${interior} ${location}`
           : `${sceneNumber} ${timeOfDay} ${location}`;
@@ -444,7 +444,7 @@ export function parseScenes(episodeText: string): SceneRawContent[] {
       return scenes;
     }
     
-    // 宽松格式也没匹配到，尝试其他备用格式
+    // Lỏng lẻo格式也没匹配到，尝试其他备用格式
     return parseAlternativeSceneFormat(episodeText);
   }
   
@@ -908,7 +908,7 @@ function isValidCharacterName(name: string): boolean {
 }
 
 /**
- * 处理单角色名字并添加到 tập合
+ * 处理单角色名字并Thêm到 tập合
  */
 function processAndAddCharacter(
   rawName: string,
@@ -975,7 +975,7 @@ function extractCharactersFromScenes(
     }
   }
   
-  // 按出场次数排序，添加新角色
+  // 按出场次数排序，Thêm新角色
   const sortedNames = [...appearanceCount.entries()]
     .filter(([name]) => !existingNames.has(name))
     .sort((a, b) => b[1] - a[1]); // 按出场次数降序
@@ -1027,7 +1027,7 @@ export function convertToScriptData(
       // 解析场景头获取时间和地点
       // 支持两种格式：
       // 标准格式: "1-1 日 内 地点名" (headerParts: [number, time, interior, ...location])
-      // 宽松格式: "1-1 日 地点名" (headerParts: [number, time, ...location])
+      // Lỏng lẻo格式: "1-1 日 地点名" (headerParts: [number, time, ...location])
       const headerParts = scene.sceneHeader.split(/\s+/);
       const timeOfDay = headerParts[1] || '日';
       const hasInterior = headerParts[2] && /^(内|外|内\/外)$/.test(headerParts[2]);

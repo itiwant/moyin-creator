@@ -100,7 +100,7 @@ export interface GenerationRecord {
   videoUrl: string | null;
   status: VideoGenStatus;
   error: string | null;
-  /** 使用的Tài sảntham chiếu快照 */
+  /** Sử dụng的Tài sảntham chiếu快照 */
   assetRefs: AssetRef[];
   /** Tạo参数快照 */
   config: {
@@ -148,7 +148,7 @@ export interface ShotGroup {
   sortIndex: number;
   /** 合并ô图 dataUrl（Tạo video时构建，用于Xem trước/Tải xuống） */
   gridImageUrl: string | null;
-  /** 最近一次Tạo使用的đầy đủ prompt（用于Sao chép核对） */
+  /** 最近一次TạoSử dụng的đầy đủ prompt（用于Sao chép核对） */
   lastPrompt: string | null;
 
   // ---- 组级 AI Hiệu chuẩn ----
@@ -204,7 +204,7 @@ export interface SClassProjectData {
   shotGroups: ShotGroup[];
   /** 单镜Tạo覆盖表 (sceneId -> override) */
   singleShotOverrides: Record<number, SingleShotOverride>;
-  /** 全局 @tham chiếuTài sản（Tự dochế độ下使用） */
+  /** 全局 @tham chiếuTài sản（Tự dochế độ下Sử dụng） */
   globalAssetRefs: AssetRef[];
   /** Tạo配置 */
   config: SClassConfig;

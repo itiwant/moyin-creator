@@ -617,7 +617,7 @@ export function getStyleThumbnail(styleId: string): string {
 
 /** 
  * tương thích旧版：获取风格 tokens（拆分成数组）
- * @deprecated 建议Trực tiếp使用 getStylePrompt
+ * @deprecated 建议Trực tiếpSử dụng getStylePrompt
  */
 export function getStyleTokens(styleId: string): string[] {
   const prompt = getStylePrompt(styleId);

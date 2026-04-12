@@ -162,7 +162,7 @@ export function DirectorContextPanel() {
         const scriptChar = scriptData.characters.find(c => c.id === scriptCharId);
         if (!scriptChar) continue;
         
-        // 优先使用已关联的Thư viện nhân vậtID（需校验该ID在当前可见Thư viện nhân vậtđang xử lý...）
+        // 优先Sử dụng已关联的Thư viện nhân vậtID（需校验该ID在当前可见Thư viện nhân vậtđang xử lý...）
         if (scriptChar.characterLibraryId && !addedIds.has(scriptChar.characterLibraryId)) {
           const linkedLibraryChar = libraryCharacters.find(c => c.id === scriptChar.characterLibraryId);
           if (linkedLibraryChar) {
@@ -209,7 +209,7 @@ export function DirectorContextPanel() {
   };
   
   // 根据Phân cảnh和Thông tin cảnh查找匹配的Thư viện cảnhGóc nhìn
-  // 优先使用AI分析的shotIds关联，保底用Phân cảnh序号对应Góc nhìn序号
+  // 优先Sử dụngAI分析的shotIds关联，保底用Phân cảnh序号对应Góc nhìn序号
   const findMatchingSceneAndViewpointQuick = (shot: Shot, scene: ScriptScene, shotIndexInScene?: number): ViewpointMatchResult | null => {
     const sceneName = scene.name || '';
     
@@ -282,7 +282,7 @@ export function DirectorContextPanel() {
     
     // 方案三：保底 - 按Phân cảnh序号对应Góc nhìnbiến thể序号
     // Phân cảnh1 -> Góc nhìn1，Phân cảnh2 -> Góc nhìn2，...
-    // 如果Phân cảnh数超过Góc nhìn数，循环使用
+    // 如果Phân cảnh数超过Góc nhìn数，循环Sử dụng
     const variantIndex = shotIndexInScene !== undefined 
       ? shotIndexInScene % variants.length 
       : 0;
@@ -380,7 +380,7 @@ export function DirectorContextPanel() {
       narrativeFunction: (shot as any).narrativeFunction,
       shotPurpose: (shot as any).shotPurpose,
     });
-    // 使用详细的视觉Mô tả作为prompt（优先）
+    // Sử dụng详细的视觉Mô tả作为prompt（优先）
     let promptZh = shot.visualDescription || '';
     if (!promptZh) {
       const parts: string[] = [];
@@ -396,7 +396,7 @@ export function DirectorContextPanel() {
     const sceneShots = shotsByScene[scene.id] || [];
     const shotIndexInScene = sceneShots.findIndex(s => s.id === shot.id);
     
-    // Tự động匹配Thư viện cảnhđang xử lý...nh和Góc nhìn（优先使用已有的Góc nhìn关联）
+    // Tự động匹配Thư viện cảnhđang xử lý...nh和Góc nhìn（优先Sử dụng已有的Góc nhìn关联）
     const sceneMatch = findMatchingSceneAndViewpointQuick(shot, scene, shotIndexInScene >= 0 ? shotIndexInScene : undefined);
     
     addScenesAndSyncStyle([{
@@ -414,7 +414,7 @@ export function DirectorContextPanel() {
       endFramePrompt: shot.endFramePrompt || '',
       endFramePromptZh: shot.endFramePromptZh || '',
       needsEndFrame: shot.needsEndFrame || false,
-      // Nhân vật（使用Thư viện nhân vậtID）
+      // Nhân vật（Sử dụngThư viện nhân vậtID）
       characterIds: characterLibraryIds,
       // 情绪Thẻ（AIHiệu chuẩn产出）
       emotionTags: (shot.emotionTags || []) as any,
@@ -522,7 +522,7 @@ export function DirectorContextPanel() {
     
     let matchedCount = 0;
     const scenesToAdd = sceneShots.map((shot, shotIndexInScene) => {
-      // 使用详细的视觉Mô tả作为prompt（优先）
+      // Sử dụng详细的视觉Mô tả作为prompt（优先）
       let promptZh = shot.visualDescription || '';
       if (!promptZh) {
         const parts: string[] = [];
@@ -534,7 +534,7 @@ export function DirectorContextPanel() {
       // 将Kịch bảnNhân vậtID/Tên映射到Thư viện nhân vậtID
       const characterLibraryIds = mapScriptCharacterIdsToLibraryIds(shot.characterIds || [], shot.characterNames);
       
-      // Tự động匹配Thư viện cảnhđang xử lý...nh和Góc nhìn（优先使用已有的Góc nhìn关联，保底用序号）
+      // Tự động匹配Thư viện cảnhđang xử lý...nh和Góc nhìn（优先Sử dụng已有的Góc nhìn关联，保底用序号）
       const sceneMatch = findMatchingSceneAndViewpointQuick(shot, scene, shotIndexInScene);
       if (sceneMatch) matchedCount++;
       
@@ -553,7 +553,7 @@ export function DirectorContextPanel() {
         endFramePrompt: shot.endFramePrompt || '',
         endFramePromptZh: shot.endFramePromptZh || '',
         needsEndFrame: shot.needsEndFrame || false,
-        // Nhân vật（使用Thư viện nhân vậtID）
+        // Nhân vật（Sử dụngThư viện nhân vậtID）
         characterIds: characterLibraryIds,
         // 情绪Thẻ（AIHiệu chuẩn产出）
         emotionTags: (shot.emotionTags || []) as any,

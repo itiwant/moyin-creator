@@ -203,7 +203,7 @@ const DOCUMENTARY_PROFILES: CinematographyProfile[] = [
     defaultSpeed: { playbackSpeed: 'normal' },
     defaultAngle: 'eye-level',
     defaultFocalLength: '35mm',
-    promptGuidance: '纪实风格追求「在场感」——Cầm tay摄影的轻微晃动让观众感觉身临其境。完全使用自然光，不做任何人工修饰。跟焦跟随nhân vật运动，允许偶尔的焦点偏移，这种不完美反而增加真实感。',
+    promptGuidance: '纪实风格追求「在场感」——Cầm tay摄影的轻微晃动让观众感觉身临其境。完全Sử dụng自然光，不做任何人工修饰。跟焦跟随nhân vật运动，允许偶尔的焦点偏移，这种不完美反而增加真实感。',
     referenceFilms: ['人生果实', '海豚湾', '徒手攀岩'],
   },
   {
@@ -295,7 +295,7 @@ const STYLIZED_PROFILES: CinematographyProfile[] = [
     defaultAngle: 'low-angle',
     defaultFocalLength: '35mm',
     defaultTechnique: 'bokeh',
-    promptGuidance: 'MV追求极致视觉冲击——每一帧都要像海报。极浅景深把一切虚化成五彩光斑，霓虹逆光勾勒nhân vật轮廓。快速斯坦尼康环绕拍摄，配合频繁的速度变化（慢放与快进交替）。大量使用光粒子和镜头光晕增加梦幻感。',
+    promptGuidance: 'MV追求极致视觉冲击——每一帧都要像海报。极浅景深把一切虚化成五彩光斑，霓虹逆光勾勒nhân vật轮廓。快速斯坦尼康环绕拍摄，配合频繁的速度变化（慢放与快进交替）。大量Sử dụng光粒子和镜头光晕增加梦幻感。',
     referenceFilms: ['爱乐之城MV段落', 'Beyoncé - Lemonade', 'The Weeknd - Blinding Lights'],
   },
 ];
@@ -335,7 +335,7 @@ const GENRE_PROFILES: CinematographyProfile[] = [
     defaultAngle: 'eye-level',
     defaultFocalLength: '24mm',
     defaultTechnique: 'high-speed',
-    promptGuidance: '动作戏的摄影追求「动能传递」——肩扛快速Theo dõi让观众感受冲击力，侧光强化肌肉轮廓和动作线条。đang xử lý...证主体清晰但背景有适度虚化。quan trọng动作瞬间（出拳、爆炸）可使用慢放0.5x突出力量感，随后立刻恢复正常速度。尘土和火花增加物理碰撞的真实感。',
+    promptGuidance: '动作戏的摄影追求「动能传递」——肩扛快速Theo dõi让观众感受冲击力，侧光强化肌肉轮廓和动作线条。đang xử lý...证主体清晰但背景有适度虚化。quan trọng动作瞬间（出拳、爆炸）可Sử dụng慢放0.5x突出力量感，随后立刻恢复正常速度。尘土和火花增加物理碰撞的真实感。',
     referenceFilms: ['疯狂的麦克斯', '谍影重重', '突袭', '碟đang xử lý...,
   },
   {
@@ -374,7 +374,7 @@ const ERA_PROFILES: CinematographyProfile[] = [
     defaultSpeed: { playbackSpeed: 'normal' },
     defaultAngle: 'eye-level',
     defaultFocalLength: '35mm',
-    promptGuidance: '90年代港片的摄影DNA是「都市霓虹+Cầm tay游走」——混合色温的霓虹灯把城市街道染成红蓝交织的梦境。Cầm tay摄影在人群đang xử lý...偶尔使用抽帧或降格制造王家卫式的虚影效果。薄霾笼罩的街头，每路人都像有故事。侧光勾勒出nhân vật忧郁的轮廓。',
+    promptGuidance: '90年代港片的摄影DNA是「都市霓虹+Cầm tay游走」——混合色温的霓虹灯把城市街道染成红蓝交织的梦境。Cầm tay摄影在人群đang xử lý...偶尔Sử dụng抽帧或降格制造王家卫式的虚影效果。薄霾笼罩的街头，每路人都像有故事。侧光勾勒出nhân vật忧郁的轮廓。',
     referenceFilms: ['重庆森林', '堕落天使', '无间道', '英雄本色'],
   },
   {

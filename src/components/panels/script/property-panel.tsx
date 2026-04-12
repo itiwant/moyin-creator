@@ -1059,7 +1059,7 @@ export function PropertyPanel({
                 onClick={() => onGoToCharacterLibrary?.(character.id)}
               >
                 <ArrowRight className="h-4 w-4 mr-2" />
-                {character.characterLibraryId ? '查看Thư viện nhân vật形象' : '去Thư viện nhân vậtTạo形象'}
+                {character.characterLibraryId ? 'XemThư viện nhân vật形象' : '去Thư viện nhân vậtTạo形象'}
               </Button>
             )}
             
@@ -1156,7 +1156,7 @@ export function PropertyPanel({
               </div>
               <div className="space-y-1">
                 <Label className="text-xs">Thời gian</Label>
-                <Input value={editData.time || ""} onChange={(e) => setEditData({ ...editData, time: e.target.value })} className="h-8" placeholder="如：ban ngày、ban đêm、Hoàng hôn" />
+                <Input value={editData.time || ""} onChange={(e) => setEditData({ ...editData, time: e.target.value })} className="h-8" placeholder="Ví dụ: ban ngày, buổin đêm、Hoàng hôn" />
               </div>
               <div className="space-y-1">
                 <Label className="text-xs">Bầu không khí</Label>
@@ -1249,7 +1249,7 @@ export function PropertyPanel({
               
               {/* 多视角联合图预览 - 仅显示 AI phân tích的视角 */}
               {sceneShots.length > 0 && (() => {
-                // 只使用 AI phân tích的视角
+                // 只Sử dụng AI phân tích的视角
                 if (!scene.viewpoints || scene.viewpoints.length === 0) {
                   return (
                     <>

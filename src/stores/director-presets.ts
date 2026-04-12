@@ -178,37 +178,37 @@ export const ATMOSPHERIC_EFFECT_PRESETS = {
   artistic: [
     { id: 'lens-flare' as const, label: 'Quầng sáng ống kính', emoji: '🌟', promptToken: 'lens flare' },
     { id: 'light-rays' as const, label: 'Hiệu ứng Tyndall', emoji: '🌅', promptToken: 'god rays, light rays through atmosphere' },
-    { id: 'falling-leaves' as const, label: '落叶', emoji: '🍂', promptToken: 'falling leaves' },
-    { id: 'cherry-blossom' as const, label: '樱花', emoji: '🌸', promptToken: 'cherry blossom petals floating' },
-    { id: 'fireflies' as const, label: '萤火虫', emoji: '✨', promptToken: 'fireflies glowing' },
-    { id: 'particles' as const, label: '粒con', emoji: '💫', promptToken: 'floating particles' },
+    { id: 'falling-leaves' as const, label: 'Lá rụng', emoji: '🍂', promptToken: 'falling leaves' },
+    { id: 'cherry-blossom' as const, label: 'Hoa anh đào', emoji: '🌸', promptToken: 'cherry blossom petals floating' },
+    { id: 'fireflies' as const, label: 'Đom đóm', emoji: '✨', promptToken: 'fireflies glowing' },
+    { id: 'particles' as const, label: 'Hạt bụi', emoji: '💫', promptToken: 'floating particles' },
   ],
 } as const;
 
 // 特效强度预设
 export const EFFECT_INTENSITY_PRESETS = [
-  { id: 'subtle' as const, label: '轻微', labelEn: 'Subtle', promptToken: 'subtle' },
+  { id: 'subtle' as const, label: 'Nhẹ', labelEn: 'Subtle', promptToken: 'subtle' },
   { id: 'moderate' as const, label: 'đang xử lý... labelEn: 'Moderate', promptToken: '' },
-  { id: 'heavy' as const, label: '浓烈', labelEn: 'Heavy', promptToken: 'heavy' },
+  { id: 'heavy' as const, label: 'Đậm', labelEn: 'Heavy', promptToken: 'heavy' },
 ] as const;
 
 // 播放Tốc độ预设 (Speed Ramping)
 export const PLAYBACK_SPEED_PRESETS = [
-  { id: 'slow-motion-4x' as const, label: '超慢 0.25x', labelEn: 'Super Slow', emoji: '🐌', promptToken: 'ultra slow motion, 120fps,' },
-  { id: 'slow-motion-2x' as const, label: '慢Hành động 0.5x', labelEn: 'Slow Mo', emoji: '🐢', promptToken: 'slow motion, 60fps,' },
-  { id: 'normal' as const, label: '正常 1x', labelEn: 'Normal', emoji: '▶️', promptToken: '' },
-  { id: 'fast-2x' as const, label: '快进 2x', labelEn: 'Fast', emoji: '⏩', promptToken: 'fast motion, sped up,' },
-  { id: 'timelapse' as const, label: '延时摄影', labelEn: 'Timelapse', emoji: '⏱️', promptToken: 'timelapse, time passing rapidly,' },
+  { id: 'slow-motion-4x' as const, label: 'Siêu chậm 0.25x', labelEn: 'Super Slow', emoji: '🐌', promptToken: 'ultra slow motion, 120fps,' },
+  { id: 'slow-motion-2x' as const, label: 'Slow-mo 0.5x', labelEn: 'Slow Mo', emoji: '🐢', promptToken: 'slow motion, 60fps,' },
+  { id: 'normal' as const, label: 'Bình thường 1x', labelEn: 'Normal', emoji: '▶️', promptToken: '' },
+  { id: 'fast-2x' as const, label: 'Tua nhanh 2x', labelEn: 'Fast', emoji: '⏩', promptToken: 'fast motion, sped up,' },
+  { id: 'timelapse' as const, label: 'Time-lapse', labelEn: 'Timelapse', emoji: '⏱️', promptToken: 'timelapse, time passing rapidly,' },
 ] as const;
 
 // ==================== Ống kính运动预设 (Camera Movement) ====================
 
 export const CAMERA_MOVEMENT_PRESETS = [
-  { id: 'none' as const, label: '无', labelEn: 'None', promptToken: '' },
-  { id: 'static' as const, label: 'Cố định机位', labelEn: 'Static', promptToken: 'static camera, locked off,' },
+  { id: 'none' as const, label: 'Không', labelEn: 'None', promptToken: '' },
+  { id: 'static' as const, label: 'Cố định máy', labelEn: 'Static', promptToken: 'static camera, locked off,' },
   { id: 'tracking' as const, label: 'Theo dõi', labelEn: 'Tracking', promptToken: 'tracking shot, following subject,' },
-  { id: 'orbit' as const, label: '环绕', labelEn: 'Orbit', promptToken: 'orbiting around subject, circular camera movement,' },
-  { id: 'zoom-in' as const, label: 'Zoom拉近', labelEn: 'Zoom In', promptToken: 'zoom in, lens zooming closer,' },
+  { id: 'orbit' as const, label: 'Vòng quanh', labelEn: 'Orbit', promptToken: 'orbiting around subject, circular camera movement,' },
+  { id: 'zoom-in' as const, label: 'Zoom lại gần', labelEn: 'Zoom In', promptToken: 'zoom in, lens zooming closer,' },
   { id: 'zoom-out' as const, label: 'Zoom拉远', labelEn: 'Zoom Out', promptToken: 'zoom out, lens zooming wider,' },
   { id: 'pan-left' as const, label: 'Ống kính左摇', labelEn: 'Pan Left', promptToken: 'pan left, horizontal camera rotation left,' },
   { id: 'pan-right' as const, label: 'Ống kính右摇', labelEn: 'Pan Right', promptToken: 'pan right, horizontal camera rotation right,' },
@@ -229,9 +229,9 @@ export type CameraMovementType = typeof CAMERA_MOVEMENT_PRESETS[number]['id'];
 // ==================== 特殊拍摄手法预设 (Special Technique) ====================
 
 export const SPECIAL_TECHNIQUE_PRESETS = [
-  { id: 'none' as const, label: '无', labelEn: 'None', promptToken: '' },
+  { id: 'none' as const, label: 'Không', labelEn: 'None', promptToken: '' },
   { id: 'hitchcock-zoom' as const, label: '希区柯克Zoom', labelEn: 'Hitchcock Zoom', promptToken: 'dolly zoom, vertigo effect, Hitchcock zoom,' },
-  { id: 'timelapse' as const, label: '延时摄影', labelEn: 'Timelapse', promptToken: 'timelapse, time passing rapidly,' },
+  { id: 'timelapse' as const, label: 'Time-lapse', labelEn: 'Timelapse', promptToken: 'timelapse, time passing rapidly,' },
   { id: 'crash-zoom-in' as const, label: '急推Ống kính', labelEn: 'Crash Zoom In', promptToken: 'crash zoom in, sudden rapid zoom,' },
   { id: 'crash-zoom-out' as const, label: '急拉Ống kính', labelEn: 'Crash Zoom Out', promptToken: 'crash zoom out, sudden rapid pull back,' },
   { id: 'whip-pan' as const, label: '快速甩镜', labelEn: 'Whip Pan', promptToken: 'whip pan, fast swish pan, motion blur transition,' },

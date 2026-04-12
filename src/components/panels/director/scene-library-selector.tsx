@@ -115,7 +115,7 @@ export function SceneLibrarySelector({
   const handleSelectViewpoint = (viewpointId: string) => {
     const viewpoint = visibleScenes.find(s => s.id === viewpointId);
     if (!viewpoint) {
-      // 清空Góc nhìn，使用父Cảnh的Ảnh tham chiếu
+      // 清空Góc nhìn，Sử dụng父Cảnh的Ảnh tham chiếu
       const parentRefImage = selectedScene?.referenceImage || selectedScene?.referenceImageBase64;
       onChange(selectedSceneLibraryId, undefined, parentRefImage, undefined);
       return;
@@ -128,7 +128,7 @@ export function SceneLibrarySelector({
   const handleSelectSubView = (subViewId: string) => {
     const subView = visibleScenes.find(s => s.id === subViewId);
     if (!subView) {
-      // 清空四góc nhìn，使用Góc nhìn的Ảnh tham chiếu
+      // 清空四góc nhìn，Sử dụngGóc nhìn的Ảnh tham chiếu
       const viewpointRefImage = selectedViewpoint?.referenceImage || selectedViewpoint?.referenceImageBase64;
       onChange(selectedSceneLibraryId, selectedViewpointId, viewpointRefImage, undefined);
       return;
@@ -156,7 +156,7 @@ export function SceneLibrarySelector({
   // 是否有đã chọn
   const hasSelection = !!selectedSceneLibraryId;
   
-  // Xem trướcẢnh tham chiếu（提取到组件级别以便使用 hook）
+  // Xem trướcẢnh tham chiếu（提取到组件级别以便Sử dụng hook）
   const previewRefImage = selectedSubView?.referenceImage || selectedSubView?.referenceImageBase64
     || selectedViewpoint?.referenceImage || selectedViewpoint?.referenceImageBase64
     || selectedScene?.referenceImage || (selectedScene as any)?.contactSheetImage || selectedScene?.referenceImageBase64

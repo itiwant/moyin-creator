@@ -390,7 +390,7 @@ export function WardrobeModal({ character, open, onOpenChange }: WardrobeModalPr
                           variation.referenceImage && "cursor-pointer ring-offset-background hover:ring-2 hover:ring-primary/40 hover:ring-offset-1 transition-shadow"
                         )}
                         onDoubleClick={() => variation.referenceImage && setZoomedImageUrl(variation.referenceImage)}
-                        title={variation.referenceImage ? "双击放大查看" : undefined}
+                        title={variation.referenceImage ? "双击放大Xem" : undefined}
                       >
                         {variation.referenceImage ? (
                           <img 

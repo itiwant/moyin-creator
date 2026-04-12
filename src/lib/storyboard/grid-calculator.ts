@@ -196,7 +196,7 @@ function calculatePortraitGrid(sceneCount: number, canvasWidth: number, canvasHe
 
 /**
  * 预定义的最优布局（确保 AI Tạo和切割一致性）
- * quan trọng原则：使用更接近正方形的布局，让每格子的Tỷ lệ更接近目标
+ * quan trọng原则：Sử dụng更接近正方形的布局，让每格子的Tỷ lệ更接近目标
  */
 const OPTIMAL_LAYOUTS: Record<number, { landscape: { cols: number; rows: number }; portrait: { cols: number; rows: number } }> = {
   // 4 场景: 2x2 四宫格
@@ -280,7 +280,7 @@ export function calculateGrid(input: GridCalculatorInput): GridConfig {
     };
   }
   
-  // 其他场景数：使用动态计算
+  // 其他场景数：Sử dụng动态计算
   if (aspectRatio === '16:9') {
     return calculateLandscapeGrid(sceneCount, canvasWidth, canvasHeight);
   } else {

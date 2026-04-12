@@ -190,7 +190,7 @@ export function convertStagesToVariations(
 }
 
 /**
- * 根据 tập数获取角色应使用的变体
+ * 根据 tập数获取角色应Sử dụng的变体
  * 
  * @param variations 角色的变体列表
  * @param episodeIndex 当前 tập数

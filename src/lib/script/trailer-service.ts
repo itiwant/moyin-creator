@@ -184,13 +184,13 @@ ${shotSummaries.map(s =>
   } catch (error) {
     console.error('[TrailerService] AI selection failed:', error);
     
-    // 回退方案：使用规则chọn
+    // 回退方案：Sử dụng规则chọn
     const fallbackShots = selectTrailerShotsByRules(shots, targetCount);
     return {
       success: true,
       selectedShots: fallbackShots,
       shotIds: fallbackShots.map(s => s.id),
-      error: 'AI chọn失败，使用规则chọn',
+      error: 'AI chọn失败，Sử dụng规则chọn',
     };
   }
 }

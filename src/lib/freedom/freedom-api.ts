@@ -108,7 +108,7 @@ function isRetryableError(error: unknown): boolean {
 
 /**
  * Retry an operation with exponential backoff for retryable errors.
- * 支持 keyManager：遇到可Thử lại错误时先触发 key xoay vòng，下次Thử lạiTự động使用新 key。
+ * 支持 keyManager：遇到可Thử lại错误时先触发 key xoay vòng，下次Thử lạiTự độngSử dụng新 key。
  */
 async function freedomRetry<T>(
   operation: () => Promise<T>,
@@ -702,7 +702,7 @@ async function generateViaMidjourneyEndpoint(
 function toIdeogramAspectRatio(model: string, aspectRatio?: string): string | undefined {
   if (!aspectRatio) return undefined;
 
-  // V1/V2 使用 ASPECT_16_9；V3 使用 16x9
+  // V1/V2 Sử dụng ASPECT_16_9；V3 Sử dụng 16x9
   if (/_V_[12](_|$)/i.test(model)) {
     return `ASPECT_${aspectRatio.replace(':', '_')}`;
   }
@@ -1225,7 +1225,7 @@ async function generateVideoViaUnified(
     if (Object.keys(metadata).length > 0) body.metadata = metadata;
   }
 
-  // Trực tiếp使用端点类型对应的 URL（绝对路径，从域名根拼接）
+  // Trực tiếpSử dụng端点类型对应的 URL（绝对路径，从域名根拼接）
   const endpointPaths = getUnifiedEndpointPaths(endpointTypes || []);
   const rootBase = getRootBaseUrl(baseUrl);
   const submitUrl = `${rootBase}${endpointPaths.submit}`;
@@ -1260,7 +1260,7 @@ async function generateVideoViaUnified(
   if (directUrl) return { url: directUrl, taskId: taskId ? String(taskId) : undefined };
   if (!taskId) throw new Error('统一视频giao diện返回空任务 ID');
 
-  // 轮询：Trực tiếp使用端点类型对应的 URL
+  // 轮询：Trực tiếpSử dụng端点类型对应的 URL
   const pollUrl = `${rootBase}${endpointPaths.poll(String(taskId))}`;
 
   for (let i = 0; i < VIDEO_POLL_MAX_ATTEMPTS; i++) {

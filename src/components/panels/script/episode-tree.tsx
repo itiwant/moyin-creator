@@ -259,7 +259,7 @@ export function EpisodeTree({
     scene?: ScriptScene;
   } | null>(null);
 
-  // 被lọcNhân vật查看Popup
+  // bị lọcNhân vậtXemPopup
   const [filteredCharsDialogOpen, setFilteredCharsDialogOpen] = useState(false);
   
   // Hiệu chuẩnXác nhậnPopup的本地chỉnh sửa状态
@@ -316,7 +316,7 @@ export function EpisodeTree({
     onConfirmCalibration?.(localKeptCharacters, localFilteredCharacters);
   }, [localKeptCharacters, localFilteredCharacters, onConfirmCalibration]);
   
-  // Tất cả保留（恢复Tất cả被lọc的Nhân vật并Xác nhận）
+  // Tất cả保留（恢复Tất cảbị lọc的Nhân vật并Xác nhận）
   const handleRestoreAllAndConfirm = useCallback(() => {
     const restored: ScriptCharacter[] = localFilteredCharacters.map((fc, i) => ({
       id: `char_restored_${Date.now()}_${i}`,
@@ -455,7 +455,7 @@ export function EpisodeTree({
     }
   }, [sceneAiQuery, onAIFindScene]);
 
-  // Xác nhận添加 AI 查找到的Cảnh
+  // Xác nhậnThêm AI 查找到的Cảnh
   const handleConfirmAIScene = useCallback(() => {
     if (!sceneAiResult?.scene) return;
     onAddScene?.(sceneAiResult.scene, targetEpisodeId || undefined);
@@ -470,7 +470,7 @@ export function EpisodeTree({
     if (editingItem?.type === "scene") {
       onUpdateScene?.(editingItem.id, { name: formData.name, location: formData.location, time: formData.time, atmosphere: formData.atmosphere });
     } else {
-      // 如果有 AI 结果，使用 AI Tạo的đầy đủCảnh数据
+      // 如果有 AI 结果，Sử dụng AI Tạo的đầy đủCảnh数据
       if (sceneAiResult?.scene) {
         onAddScene?.(sceneAiResult.scene, targetEpisodeId || undefined);
       } else {
@@ -540,7 +540,7 @@ export function EpisodeTree({
     }
   }, [aiQuery, onAIFindCharacter]);
 
-  // Xác nhận添加 AI 查找到的Nhân vật
+  // Xác nhậnThêm AI 查找到的Nhân vật
   const handleConfirmAICharacter = useCallback(() => {
     if (!aiResult?.character) return;
     onAddCharacter?.(aiResult.character);
@@ -554,7 +554,7 @@ export function EpisodeTree({
     if (editingItem?.type === "character") {
       onUpdateCharacter?.(editingItem.id, { name: formData.name, gender: formData.gender, age: formData.age, personality: formData.personality });
     } else {
-      // 如果有 AI 结果，使用 AI Tạo的đầy đủNhân vật数据
+      // 如果有 AI 结果，Sử dụng AI Tạo的đầy đủNhân vật数据
       if (aiResult?.character) {
         onAddCharacter?.(aiResult.character);
       } else {
@@ -1113,7 +1113,7 @@ export function EpisodeTree({
                 return true;
               });
             
-            // 分组：Nhóm nhân vật chính (protagonist, supporting) 和 群演nhân vật phụ组 (minor, extra)
+            // 分组：Nhóm nhân vật chính (protagonist, supporting) 和 Quần chúngnhân vật phụ组 (minor, extra)
             const mainCharacters = allCharacters.filter(c => {
               const tags = c.tags || [];
               return tags.includes('protagonist') || tags.includes('supporting');
@@ -1197,12 +1197,12 @@ export function EpisodeTree({
                                 >
                                   <DropdownMenuRadioItem value="strict" className="text-xs">Chặt chẽ</DropdownMenuRadioItem>
                                   <DropdownMenuRadioItem value="normal" className="text-xs">Tiêu chuẩn</DropdownMenuRadioItem>
-                                  <DropdownMenuRadioItem value="loose" className="text-xs">宽松</DropdownMenuRadioItem>
+                                  <DropdownMenuRadioItem value="loose" className="text-xs">Lỏng lẻo</DropdownMenuRadioItem>
                                 </DropdownMenuRadioGroup>
                               </DropdownMenuSubContent>
                             </DropdownMenuSub>
                             <DropdownMenuItem onClick={() => setFilteredCharsDialogOpen(true)}>
-                              <Filter className="h-3 w-3 mr-2" />查看被lọcNhân vật
+                              <Filter className="h-3 w-3 mr-2" />Xem nhân vật bị lọc
                             </DropdownMenuItem>
                           </DropdownMenuContent>
                         </DropdownMenu>
@@ -1217,7 +1217,7 @@ export function EpisodeTree({
                   </div>
                 </div>
                 
-                {/* 群演nhân vật phụ组 - 可折叠 */}
+                {/* Nhóm quần chúng/nhân vật phụ - có thể thu gọn */}
                 {extraCharacters.length > 0 && (
                   <div className="mt-2 border-t border-dashed pt-2">
                     <button
@@ -1230,7 +1230,7 @@ export function EpisodeTree({
                         ) : (
                           <ChevronRight className="h-3 w-3" />
                         )}
-                        <span>群演nhân vật phụ ({extraCharacters.length})</span>
+                        <span>Quần chúng/nhân vật phụ ({extraCharacters.length})</span>
                       </div>
                     </button>
                     {extrasExpanded && (
@@ -1251,7 +1251,7 @@ export function EpisodeTree({
       <Dialog open={episodeDialogOpen} onOpenChange={setEpisodeDialogOpen}>
         <DialogContent className="sm:max-w-md">
           <DialogHeader>
-            <DialogTitle>{editingItem?.type === "episode" ? "chỉnh sửa tập" : "新建 tập"}</DialogTitle>
+            <DialogTitle>{editingItem?.type === "episode" ? "Chỉnh sửa tập" : "Tạo tập mới"}</DialogTitle>
           </DialogHeader>
           <div className="space-y-4 py-4">
             <div className="space-y-2">
@@ -1259,7 +1259,7 @@ export function EpisodeTree({
               <Input value={formData.title || ""} onChange={(e) => setFormData({ ...formData, title: e.target.value })} />
             </div>
             <div className="space-y-2">
-              <Label>描述</Label>
+              <Label>Mô tả</Label>
               <Input value={formData.description || ""} onChange={(e) => setFormData({ ...formData, description: e.target.value })} />
             </div>
           </div>
@@ -1285,12 +1285,12 @@ export function EpisodeTree({
               {editingItem?.type === "scene" ? (
                 <><Pencil className="h-4 w-4" />chỉnh sửaCảnh</>
               ) : (
-                <><Sparkles className="h-4 w-4 text-primary" />AI thông minh添加Cảnh</>
+                <><Sparkles className="h-4 w-4 text-primary" />AI thông minh Thêm Cảnh</>
               )}
             </DialogTitle>
           </DialogHeader>
           
-          {/* chỉnh sửachế độ：显示普通表单 */}
+          {/* Chế độ chỉnh sửa: hiển thị form thông thường */}
           {editingItem?.type === "scene" ? (
             <div className="space-y-4 py-4">
               <div className="space-y-2">
@@ -1303,7 +1303,7 @@ export function EpisodeTree({
               </div>
               <div className="space-y-2">
                 <Label>Thời gian</Label>
-                <Input value={formData.time || ""} onChange={(e) => setFormData({ ...formData, time: e.target.value })} placeholder="如：ban ngày、ban đêm、Hoàng hôn" />
+                <Input value={formData.time || ""} onChange={(e) => setFormData({ ...formData, time: e.target.value })} placeholder="Ví dụ: ban ngày, buổin đêm、Hoàng hôn" />
               </div>
               <div className="space-y-2">
                 <Label>Bầu không khí</Label>
@@ -1315,16 +1315,16 @@ export function EpisodeTree({
               </DialogFooter>
             </div>
           ) : (
-            /* 新建chế độ：AI Chat界面 */
+            /* Chế độ tạo mới: giao diện AI Chat */
             <div className="space-y-4 py-2">
-              {/* AI 输入区 */}
+              {/* Khu vực nhập AI */}
               <div className="space-y-2">
                 <Label className="text-sm text-muted-foreground">
-                  描述你需要的Cảnh，例如：
+                  Mô tả cảnh bạn cần, ví dụ:
                 </Label>
                 <div className="text-xs text-muted-foreground space-y-1 pl-2">
                   <p>• “缺第5 tập的张家客厅这Cảnh”</p>
-                  <p>• “添加医院走廊这Địa điểm”</p>
+                  <p>• “Thêm医院走廊这Địa điểm”</p>
                   <p>• “需要公司会议室”</p>
                 </div>
                 <div className="flex gap-2">
@@ -1425,7 +1425,7 @@ export function EpisodeTree({
                 {sceneAiResult?.scene ? (
                   <Button onClick={handleConfirmAIScene} className="gap-1">
                     <Check className="h-4 w-4" />
-                    Xác nhận添加
+                    Xác nhậnThêm
                   </Button>
                 ) : sceneAiResult && !sceneAiResult.found ? (
                   <Button onClick={handleSaveScene} variant="secondary" className="gap-1">
@@ -1454,12 +1454,12 @@ export function EpisodeTree({
               {editingItem?.type === "character" ? (
                 <><Pencil className="h-4 w-4" />chỉnh sửaNhân vật</>
               ) : (
-                <><Sparkles className="h-4 w-4 text-primary" />AI thông minh添加Nhân vật</>
+                <><Sparkles className="h-4 w-4 text-primary" />AI thông minhThêmNhân vật</>
               )}
             </DialogTitle>
           </DialogHeader>
           
-          {/* chỉnh sửachế độ：显示普通表单 */}
+          {/* Chế độ chỉnh sửa: hiển thị form thông thường */}
           {editingItem?.type === "character" ? (
             <div className="space-y-4 py-4">
               <div className="space-y-2">
@@ -1484,16 +1484,16 @@ export function EpisodeTree({
               </DialogFooter>
             </div>
           ) : (
-            /* 新建chế độ：AI Chat界面 */
+            /* Chế độ tạo mới: giao diện AI Chat */
             <div className="space-y-4 py-2">
-              {/* AI 输入区 */}
+              {/* Khu vực nhập AI */}
               <div className="space-y-2">
                 <Label className="text-sm text-muted-foreground">
                   描述你需要的Nhân vật，例如：
                 </Label>
                 <div className="text-xs text-muted-foreground space-y-1 pl-2">
                   <p>• “缺第10 tập的王大哥这Nhân vật”</p>
-                  <p>• “添加张小宝这人”</p>
+                  <p>• “Thêm张小宝这人”</p>
                   <p>• “需要刀疑哥”</p>
                 </div>
                 <div className="flex gap-2">
@@ -1593,7 +1593,7 @@ export function EpisodeTree({
                 {aiResult?.character ? (
                   <Button onClick={handleConfirmAICharacter} className="gap-1">
                     <Check className="h-4 w-4" />
-                    Xác nhận添加
+                    Xác nhậnThêm
                   </Button>
                 ) : aiResult && !aiResult.found ? (
                   <Button onClick={handleSaveCharacter} variant="secondary" className="gap-1">
@@ -1642,7 +1642,7 @@ export function EpisodeTree({
               <div className="space-y-1 max-h-48 overflow-y-auto border rounded-md p-2">
                 {localKeptCharacters.map(char => {
                   const importance = char.tags?.find(t => ['protagonist', 'supporting', 'minor', 'extra'].includes(t));
-                  const labels: Record<string, string> = { protagonist: 'nhân vật chính', supporting: 'nhân vật phụ', minor: '次要', extra: '群演' }; // TODO: extract to module constant
+                  const labels: Record<string, string> = { protagonist: 'nhân vật chính', supporting: 'nhân vật phụ', minor: '次要', extra: 'Quần chúng' }; // TODO: extract to module constant
                   return (
                     <div key={char.id} className="flex items-center justify-between px-2 py-1 rounded hover:bg-muted text-xs">
                       <div className="flex items-center gap-2">
@@ -1663,10 +1663,10 @@ export function EpisodeTree({
               </div>
             </div>
             
-            {/* 被lọcDanh sách nhân vật */}
+            {/* bị lọcDanh sách nhân vật */}
             {localFilteredCharacters.length > 0 && (
               <div>
-                <h4 className="text-sm font-medium mb-2">被lọcNhân vật ({localFilteredCharacters.length})</h4>
+                <h4 className="text-sm font-medium mb-2">bị lọcNhân vật ({localFilteredCharacters.length})</h4>
                 <div className="space-y-1 max-h-32 overflow-y-auto border rounded-md p-2">
                   {localFilteredCharacters.map((fc, i) => (
                     <div key={`${fc.name}_${i}`} className="flex items-center justify-between px-2 py-1 rounded hover:bg-muted text-xs">
@@ -1697,11 +1697,11 @@ export function EpisodeTree({
         </DialogContent>
       </Dialog>
 
-      {/* 查看被lọcNhân vậtPopup */}
+      {/* Xembị lọcNhân vậtPopup */}
       <Dialog open={filteredCharsDialogOpen} onOpenChange={setFilteredCharsDialogOpen}>
         <DialogContent className="sm:max-w-md">
           <DialogHeader>
-            <DialogTitle>被lọc的Nhân vật</DialogTitle>
+            <DialogTitle>bị lọc的Nhân vật</DialogTitle>
           </DialogHeader>
           <div className="py-2">
             {(lastFilteredCharacters && lastFilteredCharacters.length > 0) ? (
@@ -1724,7 +1724,7 @@ export function EpisodeTree({
                 ))}
               </div>
             ) : (
-              <p className="text-sm text-muted-foreground text-center py-4">没有被lọc的Nhân vật</p>
+              <p className="text-sm text-muted-foreground text-center py-4">没有bị lọc的Nhân vật</p>
             )}
           </div>
           <DialogFooter>

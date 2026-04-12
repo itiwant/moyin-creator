@@ -4,7 +4,7 @@
 /**
  * AI Character Calibrator
  * 
- * 使用 AI thông minhHiệu chuẩn从剧本đang xử lý...角色列表
+ * Sử dụng AI thông minhHiệu chuẩn从剧本đang xử lý...角色列表
  * 
  * 功能：
  * 1. 统计每角色的出场次数、对白条数、出场 tập数
@@ -26,9 +26,9 @@ import { buildSeriesContextSummary } from './series-meta-sync';
 export interface CharacterCalibrationResult {
   /** Hiệu chuẩn后的角色列表 */
   characters: CalibratedCharacter[];
-  /** 被lọc的词（非角色） */
+  /** bị lọc的词（非角色） */
   filteredWords: string[];
-  /** 被lọc的角色（带原因，用于用户确认/恢复） */
+  /** bị lọc的角色（带原因，用于用户确认/恢复） */
   filteredCharacters: FilteredCharacterRecord[];
   /** 合并记录（哪些被合并到一起） */
   mergeRecords: MergeRecord[];
@@ -75,7 +75,7 @@ export interface CalibratedCharacter {
 }
 
 export interface MergeRecord {
-  /** 最终使用的名字 */
+  /** 最终Sử dụng的名字 */
   finalName: string;
   /** 被合并的变体 */
   variants: string[];
@@ -260,7 +260,7 @@ export function collectCharacterStats(
 // ==================== 核心函数 ====================
 
 /**
- * 使用 AI Hiệu chuẩn角色列表
+ * Sử dụng AI Hiệu chuẩn角色列表
  * 
  * @param rawCharacters gốc提取的角色列表
  * @param background 项目背景（đại cương）
@@ -286,8 +286,8 @@ export async function calibrateCharacters(
     const s = stats.get(c.name);
     const name = c.name;
     
-    // 判断是否是群演（纯职业称呿、数字编号、群体描述）
-    // loose chế độ下不标记群演，Tất cả保留给 AI 判断
+    // 判断是否是Quần chúng（纯职业称呿、数字编号、群体描述）
+    // loose chế độ下不标记Quần chúng，Tất cả保留给 AI 判断
     const isGroupExtra = strictness === 'loose' ? false : [
       '保安', '警察', '员工', '护士', '医生', '记者', 
       '律师', '路人', '众人', '若干', '群众', '大妈',
@@ -316,7 +316,7 @@ export async function calibrateCharacters(
       isGroupExtra,
       hasSpecificName,
       // thông minh优先级：有名字的优先，rồi按出场排序
-      priority: isGroupExtra ? -1000 : // 群演最低
+      priority: isGroupExtra ? -1000 : // Quần chúng最低
                 hasSpecificName ? 1000 + (s?.sceneCount || 0) + (s?.dialogueCount || 0) : // 有名字优先
                 (s?.sceneCount || 0) + (s?.dialogueCount || 0), // 没名字按出场
     };
@@ -350,15 +350,15 @@ export async function calibrateCharacters(
 - 只保留明确的nhân vật chính、重要nhân vật phụ、和有具体名字的次要角色
 - 出场 ≤1 且无对白的角色lọc
 - 纯称呼没有具体名字的角色lọc（如"学习委员"、"戴眼镜的男生"）
-- 群演Tất cảlọc`
+- Quần chúngTất cảlọc`
     : strictness === 'loose'
-    ? `【筛选chế độ：宽松】
+    ? `【筛选chế độ：Lỏng lẻo】
 - 几乎不lọc，保留Tất cả能识别的角色
-- 包括群演、低频角色、只有称呼的角色（如"学习委员"、"戴眼镜的男生"）
+- 包括Quần chúng、低频角色、只有称呼的角色（如"学习委员"、"戴眼镜的男生"）
 - 只lọc纯描述词（如"眼框微湿"、"干练优雅"）和非nhân vật词（如"全体员工"、"核心团队"）`
     : `【筛选chế độ：标准】
 - 有名字或称呼的角色Tất cả保留
-- 只lọc纯群演、群体、非角色词`;
+- 只lọc纯Quần chúng、群体、非角色词`;
   
   // 注入剧级上下文
   const store = useScriptStore.getState();
@@ -389,17 +389,17 @@ ${strictnessInstructions}
    - 对剧情有一定作用
    - **只出场1次但有名字的也要保留！**
 
-**4. 群演/nhân vật phụ (extra)** - ${strictness === 'strict' ? '可以lọc' : strictness === 'loose' ? '必须保留' : '尽量保留'}
+**4. Quần chúng/nhân vật phụ (extra)** - ${strictness === 'strict' ? '可以lọc' : strictness === 'loose' ? '必须保留' : '尽量保留'}
    - 有称呼但出场极少的，标记为 extra
    - 例：李老头、小刘、王大妈
 
-${strictness !== 'strict' ? `【极其重要 - 宽松筛选原则】
+${strictness !== 'strict' ? `【极其重要 - Lỏng lẻo筛选原则】
 - **有名字的Tất cả保留！**（即使只出场1次）
 - **有称呼的Tất cả保留！**（如老X、小X、X哥、X姐、X总、X董）
 - **不确定的保留！**（宁可多保留，不要遗漏）
 ` : ''}【lọc规则】
 
-**必须lọc的（无名字的纯群演）：**
+**必须lọc的（无名字的纯Quần chúng）：**
 - 纯职业词：保安、警察、护士、医生、记者、员工、律师、服务员、司机
 - 数字编号：保安1、警察2、护士3、员工A
 - 群体词：若干人、众人、几名保安、两大妈、一群人
@@ -422,7 +422,7 @@ ${strictness !== 'strict' ? `【极其重要 - 宽松筛选原则】
 - nhân vật phụ：5-30 （有名字的Tất cả保留，不要限制）
 - 总角色数：建议 15-40 ，宁多勿少
 
-【重要】每被lọc的角色请在 filteredCharacters đang xử lý...滤原因。
+【重要】每bị lọc的角色请在 filteredCharacters đang xử lý...滤原因。
 
 请以JSON格式返回分析结果。`;
 
@@ -500,9 +500,9 @@ ${batchDialogues.slice(0, 100).join('\n')}
       "relationships": "关系"
     }
   ],
-  "filteredWords": ["被lọc的非角色词"],
+  "filteredWords": ["bị lọc的非角色词"],
   "filteredCharacters": [
-    { "name": "被lọc的角色名", "reason": "lọc原因" }
+    { "name": "bị lọc的角色名", "reason": "lọc原因" }
   ],
   "mergeRecords": [
     { "finalName": "最终名", "variants": ["变体1", "变体2"], "reason": "原因" }
@@ -511,9 +511,9 @@ ${batchDialogues.slice(0, 100).join('\n')}
 }
 
 【极其重要！请特别注意】
-1. ${strictness === 'strict' ? '严格lọc低频无名角色' : strictness === 'loose' ? '尽可能保留Tất cả角色，包括群演' : '有名字的Tất cả保留！有称呼的Tất cả保留！不确定的保留！'}
-2. 每被lọc的角色必须在 filteredCharacters đang xử lý...因
-3. 不要Tạo群演XX组标签`;
+1. ${strictness === 'strict' ? '严格lọc低频无名角色' : strictness === 'loose' ? '尽可能保留Tất cả角色，包括Quần chúng' : '有名字的Tất cả保留！有称呼的Tất cả保留！不确定的保留！'}
+2. 每bị lọc的角色必须在 filteredCharacters đang xử lý...因
+3. 不要TạoQuần chúngXX组标签`;
         return { system: systemPrompt, user };
       },
       parseResult: (raw) => {
@@ -529,7 +529,7 @@ ${batchDialogues.slice(0, 100).join('\n')}
         try {
           batchParsed = JSON.parse(cleaned);
         } catch (jsonErr) {
-          console.warn('[CharacterCalibrator] 批次JSON解析失败，尝试修复...');
+          console.warn('[CharacterCalibrator] 批次JSONPhân tích thất bại，尝试修复...');
           const lastCompleteChar = cleaned.lastIndexOf('},');
           if (lastCompleteChar > 0) {
             const truncated = cleaned.slice(0, lastCompleteChar + 1);
@@ -584,7 +584,7 @@ ${batchDialogues.slice(0, 100).join('\n')}
     });
     
     if (failedBatches > 0) {
-      console.warn(`[CharacterCalibrator] ${failedBatches} 批次失败，使用部分结果`);
+      console.warn(`[CharacterCalibrator] ${failedBatches} 批次失败，Sử dụng部分结果`);
     }
     
     parsed = {
@@ -621,7 +621,7 @@ ${batchDialogues.slice(0, 100).join('\n')}
     };
   }
     
-  // === 第二步：转换为标准格式并添加ID ===
+  // === 第二步：转换为标准格式并ThêmID ===
   const characters: CalibratedCharacter[] = (parsed.characters || []).map((c: any, i: number) => ({
     id: `char_${i + 1}`,
     name: c.name,
@@ -648,7 +648,7 @@ ${batchDialogues.slice(0, 100).join('\n')}
   } catch (enrichError) {
     const err = enrichError instanceof Error ? enrichError : new Error(String(enrichError));
     console.warn('[CharacterCalibrator] 视觉提示词Tạo失败（不影响角色Hiệu chuẩn结果）:', err.message);
-    // enrichment 失败不影响主要Hiệu chuẩn结果，继续使用 characters
+    // enrichment 失败不影响主要Hiệu chuẩn结果，继续Sử dụng characters
   }
     
   // === 第四步：合并上次Hiệu chuẩn结果，防止角色丢失 ===
@@ -925,7 +925,7 @@ async function enrichCharactersWithVisualPrompts(
 - 老年人：传统休闲，常穿开衫、布鞋`;
       } else if (startYear >= 2000) {
         return `【${startYear}年代服装指导】
-- 年轻人：千禅年时尚，常穿紧身裤、宽松外套、板鞋
+- 年轻人：千禅年时尚，常穿紧身裤、Lỏng lẻo外套、板鞋
 - đang xử lý...正式商务装，常穿西装套装、领带、皮鞋
 - 老年人：đang xử lý...简单开衫、布鞋`;
       } else if (startYear >= 1990) {
@@ -977,7 +977,7 @@ async function enrichCharactersWithVisualPrompts(
     if (/清朝|清代/.test(timeline)) {
       return `【清朝服装指导】
 - 男性：长袍马褂、瓜皮帽、辨子；官员穿补服
-- 女性：旗装（溜肩、立领、宽松）、旗头或两把头
+- 女性：旗装（溜肩、立领、Lỏng lẻo）、旗头或两把头
 - 绝对禁止任何现代服装`;
     }
 

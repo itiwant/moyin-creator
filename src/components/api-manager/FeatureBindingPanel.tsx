@@ -70,7 +70,7 @@ const FEATURE_CONFIGS: FeatureMeta[] = [
     description: "TạoNhân vật和CảnhẢnh tham chiếu",
     icon: <Image className="h-4 w-4" />,
     requiredCapability: "image_generation",
-    recommendation: "💎 Đề xuất使用 Nano Banana Pro (Gemini 3 Pro)— 画质优秀、一致性好",
+    recommendation: "💎 Đề xuấtSử dụng Nano Banana Pro (Gemini 3 Pro)— 画质优秀、一致性好",
   },
   {
     key: "video_generation",
@@ -93,7 +93,7 @@ const FEATURE_CONFIGS: FeatureMeta[] = [
     description: "Tự dopanel独立的Tạo ảnh配置（Chưa cấu hình时回退到「Tạo ảnh」）",
     icon: <Sparkles className="h-4 w-4" />,
     requiredCapability: "image_generation",
-    recommendation: "🎨 可独立配置Tự dopanel使用的Tạo ảnhModel，不影响其他panel",
+    recommendation: "🎨 可独立配置Tự dopanelSử dụng的Tạo ảnhModel，不影响其他panel",
   },
   {
     key: "freedom_video",
@@ -101,7 +101,7 @@ const FEATURE_CONFIGS: FeatureMeta[] = [
     description: "Tự dopanel独立的Tạo video配置（Chưa cấu hình时回退到「Tạo video」）",
     icon: <Clapperboard className="h-4 w-4" />,
     requiredCapability: "video_generation",
-    recommendation: "🎬 可独立配置Tự dopanel使用的Tạo videoModel，不影响其他panel",
+    recommendation: "🎬 可独立配置Tự dopanelSử dụng的Tạo videoModel，不影响其他panel",
   },
 ];
 
@@ -280,7 +280,7 @@ export function FeatureBindingPanel() {
           .filter((m) => m.length > 0);
 
         for (const model of models) {
-          // 使用Nền tảng元数据 (model_type/tags) thực hiện精确phân loại
+          // Sử dụngNền tảng元数据 (model_type/tags) thực hiện精确phân loại
           const mType = modelTypes[model];
           const mTags = modelTags[model];
           if (!modelSupportsCapability(model, provider, feature.requiredCapability, mType, mTags)) continue;
@@ -421,7 +421,7 @@ export function FeatureBindingPanel() {
             setFeatureBindings(feature.key, null);
           };
           
-          // 检查有效/失效绑定（失效=Model被lọc、ngừng hoạt động，或Nền tảngChưa cấu hình）
+          // 检查有效/失效绑定（失效=Modelbị lọc、ngừng hoạt động，或Nền tảngChưa cấu hình）
           const validBindings: string[] = [];
           const invalidBindings: string[] = [];
           for (const binding of currentBindings) {

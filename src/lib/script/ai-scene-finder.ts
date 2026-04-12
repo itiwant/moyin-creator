@@ -69,9 +69,9 @@ function parseSceneQuery(query: string): { name: string | null; episodeNumber: n
     name = nameMatch[1];
   }
   
-  // chế độ2：缺/需要/添加 + 场景名
+  // chế độ2：缺/需要/Thêm + 场景名
   if (!name) {
-    nameMatch = cleanQuery.match(/^[缺需要添加找查想请帮我的]+\s*[「「"']?([^「」""'\s,，。！？这场景地点]{2,15})[」」"']?/);
+    nameMatch = cleanQuery.match(/^[缺需要Thêm找查想请帮我的]+\s*[「「"']?([^「」""'\s,，。！？这场景地点]{2,15})[」」"']?/);
     if (nameMatch) {
       name = nameMatch[1];
     }
@@ -87,7 +87,7 @@ function parseSceneQuery(query: string): { name: string | null; episodeNumber: n
   
   // chế độ4：Trực tiếp就是场景名（2-15字符）
   if (!name) {
-    const pureQuery = cleanQuery.replace(/^[缺需要添加找查想请帮我的]+/g, '').trim();
+    const pureQuery = cleanQuery.replace(/^[缺需要Thêm找查想请帮我的]+/g, '').trim();
     if (pureQuery.length >= 2 && pureQuery.length <= 15 && /^[\u4e00-\u9fa5A-Za-z\s]+$/.test(pureQuery)) {
       name = pureQuery;
     }
@@ -161,7 +161,7 @@ function searchSceneInScripts(
 }
 
 /**
- * 使用 AI Tạođầy đủ场景数据
+ * Sử dụng AI Tạođầy đủ场景数据
  */
 async function generateSceneData(
   name: string,
@@ -306,7 +306,7 @@ export async function findSceneByDescription(
       confidence: 0,
       episodeNumbers: [],
       contexts: [],
-      message: '无法识别场景名。请用类似"缺第5 tập的张家客厅"或"添加医院走廊这场景"的方式描述。',
+      message: '无法识别场景名。请用类似"缺第5 tập的张家客厅"或"Thêm医院走廊这场景"的方式描述。',
     };
   }
   
@@ -350,7 +350,7 @@ export async function findSceneByDescription(
     };
   }
   
-  // 4. 使用 AI Tạođầy đủ场景数据
+  // 4. Sử dụng AI Tạođầy đủ场景数据
   console.log('[findSceneByDescription] 正在Tạo场景数据...');
   
   const scene = await generateSceneData(

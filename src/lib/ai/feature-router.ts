@@ -54,7 +54,7 @@ const FEATURE_PLATFORM_MAP: Partial<Record<AIFeature, string>> = {
  */
 const FEATURE_DEFAULT_MODEL: Partial<Record<AIFeature, Record<string, string>>> = {
   image_understanding: {
-    memefast: 'gemini-3.1-pro-preview', // 魔音API 默认使用 Gemini 3.1 Pro
+    memefast: 'gemini-3.1-pro-preview', // 魔音API 默认Sử dụng Gemini 3.1 Pro
   },
 };
 
@@ -73,7 +73,7 @@ function parseBindingValue(binding: string): { platform: string; model?: string 
 /**
  * Get the platform and model from featureBindings (first binding)
  * featureBindings now stores: string[] (array of platform:model)
- * 这函数仅用于tương thích旧代码，新代码应使用 getProvidersForFeature
+ * 这函数仅用于tương thích旧代码，新代码应Sử dụng getProvidersForFeature
  */
 function getBoundPlatformAndModel(store: ReturnType<typeof useAPIConfigStore.getState>, feature: AIFeature): { platform: string; model?: string } | null {
   const bindings = store.getFeatureBindings(feature);
@@ -145,7 +145,7 @@ export function getFeatureConfig(feature: AIFeature): FeatureConfig | null {
   const configs = getAllFeatureConfigs(feature);
   
   if (configs.length === 0) {
-    // Fallback: 尝试使用默认平台映射
+    // Fallback: 尝试Sử dụng默认平台映射
     const store = useAPIConfigStore.getState();
     const defaultPlatform = FEATURE_PLATFORM_MAP[feature];
     if (defaultPlatform) {
@@ -157,7 +157,7 @@ export function getFeatureConfig(feature: AIFeature): FeatureConfig | null {
           const scopeKey = `${feature}:${fallbackModel || 'default'}`;
           const keyManager = getProviderKeyManager(provider.id, provider.apiKey, scopeKey);
           const featureInfo = AI_FEATURES.find(f => f.key === feature);
-          // 优先使用功能默认模型，否则取供应商第一模型
+          // 优先Sử dụng功能默认模型，否则取供应商第一模型
           const defaultModel = FEATURE_DEFAULT_MODEL[feature]?.[provider.platform];
           const model = defaultModel || provider.model?.[0] || '';
           return {
@@ -188,7 +188,7 @@ export function getFeatureConfig(feature: AIFeature): FeatureConfig | null {
   const currentIndex = featureRoundRobinIndex.get(feature) || 0;
   const config = configs[currentIndex % configs.length];
   
-  // 更新索引（下次gọi API使用下一）
+  // 更新索引（下次gọi APISử dụng下一）
   featureRoundRobinIndex.set(feature, currentIndex + 1);
   
   console.log(`[FeatureRouter] 多模型轮询: ${feature} -> ${config.provider.name}:${config.model} (${currentIndex % configs.length + 1}/${configs.length})`);
@@ -234,7 +234,7 @@ export interface CallFeatureAPIOptions {
   maxTokens?: number;
   /** 强制覆盖模型（一般不需要，Tự động从ánh xạ dịch vụ获取） */
   modelOverride?: string;
-  /** 强制使用指定的配置（用于批量调度时指定具体模型） */
+  /** 强制Sử dụng指定的配置（用于批量调度时指定具体模型） */
   configOverride?: FeatureConfig;
   /** 关闭推理模型深度思考（智谱 GLM-4.7/4.5 等），默认 true */
   disableThinking?: boolean;
@@ -256,7 +256,7 @@ export async function callFeatureAPI(
   userPrompt: string,
   options?: CallFeatureAPIOptions
 ): Promise<string> {
-  // 使用指定配置或轮询获取
+  // Sử dụng指定配置或轮询获取
   const config = options?.configOverride || getFeatureConfig(feature);
   
   if (!config) {

@@ -147,7 +147,7 @@ export function GenerationPanel({ selectedCharacter, onCharacterCreated }: Gener
   const hasCalibrationData = !!(identityAnchors || charNegativePrompt || visualPromptEn || visualPromptZh);
 
   // 注意：thanh trái始终用于Tạo mớiNhân vật，不响应đang xử lý...ư viện nhân vật的Chọn
-  // thanh phải用于查看/Chỉnh sửa已有Nhân vật的详情
+  // thanh phải用于Xem/Chỉnh sửa已有Nhân vật的详情
 
   // Handle pending data from script panel
   useEffect(() => {
@@ -377,7 +377,7 @@ export function GenerationPanel({ selectedCharacter, onCharacterCreated }: Gener
 
     try {
       // 构建prompt：根据Ngôn ngữ偏好Chọnprompt + 6层身份neo + Ảnh tham chiếu优先级逻辑 + 年代信息
-      // 获取实时的Ngôn ngữ偏好（优先使用 pending 传来的，其次从 scriptProject 读取）
+      // 获取实时的Ngôn ngữ偏好（优先Sử dụng pending 传来的，其次从 scriptProject 读取）
       const effectiveLang = promptLanguage || scriptProject?.promptLanguage || 'vi';
       const prompt = buildCharacterSheetPrompt(
         description, 
@@ -1144,8 +1144,8 @@ function fileToBase64(file: File): Promise<string> {
  * @returns 构建的prompt字符串
  * 
  * Ảnh tham chiếu优先级逻辑：
- * - 有Ảnh tham chiếu时：只使用最强neo（uniqueMarks + colorAnchors），其他特征由Ảnh tham chiếu引导
- * - 无Ảnh tham chiếu时：使用đầy đủ的6层特征锁定
+ * - 有Ảnh tham chiếu时：只Sử dụng最强neo（uniqueMarks + colorAnchors），其他特征由Ảnh tham chiếu引导
+ * - 无Ảnh tham chiếu时：Sử dụngđầy đủ的6层特征锁定
  */
 function buildPromptFromAnchors(
   anchors: CharacterIdentityAnchors | undefined,
@@ -1160,7 +1160,7 @@ function buildPromptFromAnchors(
   const parts: string[] = [];
 
   if (hasReferenceImages) {
-    // === 有Ảnh tham chiếu：只使用最强neo ===
+    // === 有Ảnh tham chiếu：只Sử dụng最强neo ===
     if (anchors.uniqueMarks && anchors.uniqueMarks.length > 0) {
       parts.push(isZh ? `辨识标记：${anchors.uniqueMarks.join('、')}` : `distinctive marks: ${anchors.uniqueMarks.join(', ')}`);
     }
@@ -1237,8 +1237,8 @@ function buildPromptFromAnchors(
  * 1. 根据 promptLanguage Chọn主prompt：vi→visualPromptZh, en→visualPromptEn, vi+en→两者合并
  * 2. 有Ảnh tham chiếu + 有neo：简化Mô tả + 最强neo
  * 3. 无Ảnh tham chiếu + 有neo：đầy đủ6层锁定
- * 4. 有Prompt thị giác：使用AI大师Tạo的prompt
- * 5. 只有description：使用Cơ bảnMô tả
+ * 4. 有Prompt thị giác：Sử dụngAI大师Tạo的prompt
+ * 5. 只有description：Sử dụngCơ bảnMô tả
  * 6. 年代信息：加入服装Phong cáchneo
  */
 function buildCharacterSheetPrompt(
@@ -1296,7 +1296,7 @@ function buildCharacterSheetPrompt(
     primaryVisualPrompt = visualPromptEn || visualPromptZh;
   }
   
-  // 构建Mô tả nhân vật：根据有无Ảnh tham chiếu决定使用đầy đủneo还是简化neo
+  // 构建Mô tả nhân vật：根据有无Ảnh tham chiếu决定Sử dụngđầy đủneo还是简化neo
   let characterDescription = '';
   
   // 构建身份neoprompt
@@ -1313,7 +1313,7 @@ function buildCharacterSheetPrompt(
     const baseDesc = primaryVisualPrompt || description;
     characterDescription = `${baseDesc}, ${anchorPrompt}`;
   } else if (primaryVisualPrompt) {
-    // 使用AI大师prompt（已根据Ngôn ngữ偏好Chọn）
+    // Sử dụngAI大师prompt（已根据Ngôn ngữ偏好Chọn）
     characterDescription = primaryVisualPrompt;
   } else {
     // 只有Cơ bảnMô tả
@@ -1335,7 +1335,7 @@ function buildCharacterSheetPrompt(
         ? `专业Nhân vậtThiết kếẢnh tham chiếu，"${name}"，${characterDescription}`
         : `professional character design sheet for "${name}", ${characterDescription}`);
   
-  // 使用 SHEET_ELEMENTS 定义的 prompt，如果是真人Phong cách则转换成写实/摄影表述
+  // Sử dụng SHEET_ELEMENTS 定义的 prompt，如果是真人Phong cách则转换成写实/摄影表述
   const contentParts = selectedElements
     .map(id => {
       const element = SHEET_ELEMENTS.find(e => e.id === id);

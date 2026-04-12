@@ -53,7 +53,7 @@ function characterOverlap(a: SplitScene, b: SplitScene): number {
 
 /** 判断两Ống kính是否同Cảnh */
 function isSameScene(a: SplitScene, b: SplitScene): boolean {
-  // 使用 sceneName 判断，空值视为同Cảnh
+  // Sử dụng sceneName 判断，空值视为同Cảnh
   if (!a.sceneName && !b.sceneName) return true;
   return a.sceneName === b.sceneName;
 }
@@ -177,11 +177,11 @@ export function generateGroupName(
 ): string {
   if (group.sceneIds.length === 0) return `第${groupIndex + 1}组`;
 
-  // 尝试使用Cảnh名
+  // 尝试Sử dụngCảnh名
   const sceneMap = new Map(scenes.map((s) => [s.id, s]));
   const firstScene = sceneMap.get(group.sceneIds[0]);
 
-  // 使用组内顺序编号（而非 scene.id），避免 1-based ID 导致偏移
+  // Sử dụng组内顺序编号（而非 scene.id），避免 1-based ID 导致偏移
   const allIds = scenes.map(s => s.id);
   const firstIdx = allIds.indexOf(group.sceneIds[0]);
   const lastIdx = allIds.indexOf(group.sceneIds[group.sceneIds.length - 1]);

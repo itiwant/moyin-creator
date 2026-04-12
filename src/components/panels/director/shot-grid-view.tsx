@@ -788,7 +788,7 @@ export function ShotGridView({ onGenerateImage, onGenerateVideo }: ShotGridViewP
 
                   {!endKf?.imageUrl && (
                     <p className="text-[9px] text-zinc-600 text-center">
-                      * 未Cài đặtKhung kết thúc，将使用单图chế độ (Image-to-Video)
+                      * 未Cài đặtKhung kết thúc，将Sử dụng单图chế độ (Image-to-Video)
                     </p>
                   )}
                 </div>

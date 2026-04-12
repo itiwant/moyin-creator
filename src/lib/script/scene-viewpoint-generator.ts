@@ -496,18 +496,18 @@ export function extractViewpointsFromShots(
 
 /**
  * Tạo联合图提示词
- * 优先使用 AI 分析的视角，如果没有则回退到quan trọng词提取
+ * 优先Sử dụng AI 分析的视角，如果没有则回退到quan trọng词提取
  */
 export function generateContactSheetPrompt(config: ContactSheetConfig): ContactSheetPromptResult {
   const { scene, shots, styleTokens, aspectRatio, maxViewpoints = 6 } = config;
   
-  // 优先使用 AI 分析的视角（来自 scene.viewpoints）
+  // 优先Sử dụng AI 分析的视角（来自 scene.viewpoints）
   let viewpoints: SceneViewpoint[];
   let isAIAnalyzed = false;
   
   if (scene.viewpoints && scene.viewpoints.length > 0) {
-    // 使用 AI 分析的视角
-    console.log(`[generateContactSheetPrompt] 使用 AI 分析视角: ${scene.viewpoints.length} `);
+    // Sử dụng AI 分析的视角
+    console.log(`[generateContactSheetPrompt] Sử dụng AI 分析视角: ${scene.viewpoints.length} `);
     viewpoints = scene.viewpoints.slice(0, maxViewpoints).map((v: any, idx: number) => ({
       id: v.id || `viewpoint_${idx}`,
       name: v.name || '未命名视角',
@@ -526,7 +526,7 @@ export function generateContactSheetPrompt(config: ContactSheetConfig): ContactS
     viewpoints = extractViewpointsFromShots(shots, maxViewpoints);
   }
   
-  // 确定网格布局 - 强制使用 NxN 布局 (2x2 或 3x3)
+  // 确定网格布局 - 强制Sử dụng NxN 布局 (2x2 或 3x3)
   const vpCount = viewpoints.length;
   const gridLayout = vpCount <= 4 
     ? { rows: 2, cols: 2 }
@@ -566,7 +566,7 @@ export function generateContactSheetPrompt(config: ContactSheetConfig): ContactS
   // 构建增强版提示词 — 对齐导演面板 generateGridAndSlice 的三层风格夹击Cấu trúc
   const promptParts: string[] = [];
   
-  // 1. 核心指令区 (Instruction Block) — 使用与导演面板一致的 storyboard grid 术语
+  // 1. 核心指令区 (Instruction Block) — Sử dụng与导演面板一致的 storyboard grid 术语
   promptParts.push('<instruction>');
   promptParts.push(`Generate a clean ${gridLayout.rows}x${gridLayout.cols} storyboard grid with exactly ${paddedCount} equal-sized panels.`);
   promptParts.push(`Overall Image Aspect Ratio: ${aspectRatio}.`);
@@ -972,8 +972,8 @@ export function groupViewpointsIntoPages(
  * 返回 PendingViewpointData 和 ContactSheetPromptSet 用于传递给场景库
  * 
  * 布局Chọn逻辑：
- * - 视角 ≤ 6：使用 2x3 或 3x2（1 张图）
- * - 视角 7-9：使用 3x3（1 张图）
+ * - 视角 ≤ 6：Sử dụng 2x3 或 3x2（1 张图）
+ * - 视角 7-9：Sử dụng 3x3（1 张图）
  * - 视角 > 9：分多张图
  */
 export function generateMultiPageContactSheetData(
@@ -990,18 +990,18 @@ export function generateMultiPageContactSheetData(
   const allViewpoints = extractAllViewpointsFromShots(config.shots, sceneLocation);
   
   // 根据视角数量和宽高比Tự độngChọn最优布局
-  // 强制使用 NxN 布局 (2x2 或 3x3) 以保证宽高比一致性，与 Director 面板保持一致
+  // 强制Sử dụng NxN 布局 (2x2 或 3x3) 以保证宽高比一致性，与 Director 面板保持一致
   let gridLayout: { rows: number; cols: number };
   let viewpointsPerPage: number;
   
   const vpCount = allViewpoints.length;
   
   if (vpCount <= 4) {
-    // 4 以内：使用 2x2
+    // 4 以内：Sử dụng 2x2
     gridLayout = { rows: 2, cols: 2 };
     viewpointsPerPage = 4;
   } else {
-    // 超过 4 ：使用 3x3 (最多 9 一页)
+    // 超过 4 ：Sử dụng 3x3 (最多 9 一页)
     gridLayout = { rows: 3, cols: 3 };
     viewpointsPerPage = 9;
   }
@@ -1079,7 +1079,7 @@ export function generateMultiPageContactSheetData(
     // 构建增强版提示词 — 对齐导演面板 generateGridAndSlice 的三层风格夹击Cấu trúc
     const promptParts: string[] = [];
     
-    // 1. 核心指令区 (Instruction Block) — 使用与导演面板一致的 storyboard grid 术语
+    // 1. 核心指令区 (Instruction Block) — Sử dụng与导演面板一致的 storyboard grid 术语
     promptParts.push('<instruction>');
     promptParts.push(`Generate a clean ${gridLayout.rows}x${gridLayout.cols} storyboard grid with exactly ${paddedCount} equal-sized panels.`);
     promptParts.push(`Overall Image Aspect Ratio: ${aspectRatio}.`);
@@ -1148,8 +1148,8 @@ ${totalCells} 格子分别Hiển thị：${gridItemsZh}。
 
 重要：
 - 必须精确Tạo ${gridLayout.rows} 行 ${gridLayout.cols} 列，不能多也不能少。
-- 这是一张干净的Tham chiếu图，图片上不要添加任何文字覆盖。
-- 不要添加标签、标题、说明文字、水印或任何类型的文字。
+- 这是一张干净的Tham chiếu图，图片上不要Thêm任何文字覆盖。
+- 不要Thêm标签、标题、说明文字、水印或任何类型的文字。
 
 风格：${styleTokens.length > 0 ? styleTokens.join('、') : '动画风格，柔和色彩，细节丰富'}，Tất cả格子光照一致，格子之间用细白边框ngăn cách，只有背景，没有nhân vật。`;
     
@@ -1170,7 +1170,7 @@ ${totalCells} 格子分别Hiển thị：${gridItemsZh}。
 
 /**
  * 从已有的 viewpoints 数据构建联合图数据
- * 用于从剧本面板跳转到场景库时，Trực tiếp使用 AI 分析的视角
+ * 用于从剧本面板跳转到场景库时，Trực tiếpSử dụng AI 分析的视角
  * 
  * @param viewpoints - 来自 ScriptScene.viewpoints 的视角数据
  * @param scene - 场景信息（用于Tạo提示词）
@@ -1208,11 +1208,11 @@ export function buildContactSheetDataFromViewpoints(
     viewpointsPerPage = 9;
   }
   
-  console.log('[buildContactSheetDataFromViewpoints] 使用 AI 视角构建联合图数据:', {
+  console.log('[buildContactSheetDataFromViewpoints] Sử dụng AI 视角构建联合图数据:', {
     vpCount,
     gridLayout,
     viewpointsPerPage,
-    // 调试：场景美术Thiết kếtrường
+    // gỡ lỗi：场景美术Thiết kếtrường
     sceneFields: {
       name: scene.name,
       location: scene.location,
@@ -1282,7 +1282,7 @@ export function buildContactSheetDataFromViewpoints(
       pendingViewpoints.push({
         id: vp.id,
         name: vp.name,
-        nameEn: vp.nameEn || vp.name, // 如果没有Tên tiếng Anh，使用中文名
+        nameEn: vp.nameEn || vp.name, // 如果没有Tên tiếng Anh，Sử dụng中文名
         shotIds: vp.shotIds,
         shotIndexes,
         keyProps: vp.keyProps,
@@ -1322,7 +1322,7 @@ export function buildContactSheetDataFromViewpoints(
       promptParts.push(`Scene Context: ${sceneDescEn}`);
     }
     
-    // 添加视觉提示词（英文）
+    // Thêm视觉提示词（英文）
     if (visualPromptEn) {
       promptParts.push(`Visual Description: ${visualPromptEn}`);
     }
@@ -1368,8 +1368,8 @@ ${gridItemsZh}
 
 重要：
 - 必须精确Tạo ${gridLayout.rows} 行 ${gridLayout.cols} 列，不能多也不能少。
-- 这是一张干净的Tham chiếu图，图片上不要添加任何文字覆盖。
-- 不要添加标签、标题、说明文字、水印或任何类型的文字。
+- 这是一张干净的Tham chiếu图，图片上不要Thêm任何文字覆盖。
+- 不要Thêm标签、标题、说明文字、水印或任何类型的文字。
 
 风格：${styleTokens.length > 0 ? styleTokens.join('、') : '动画风格，柔和色彩，细节丰富'}，Tất cả格子光照一致，格子之间用细白边框ngăn cách，只有背景，没有nhân vật。`;
     

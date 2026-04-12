@@ -158,7 +158,7 @@ export function AngleController({
       });
     }
 
-    // Quay lại吸附后的视觉坐标(可选：如果想要完全吸附视觉效果，可以使用这Quay lại值)
+    // Quay lại吸附后的视觉坐标(可选：如果想要完全吸附视觉效果，可以Sử dụng这Quay lại值)
     return { theta: snappedTheta, phi: snappedPhi };
   }, [direction, elevation, shotSize, onAngleChange]);
 
@@ -183,7 +183,7 @@ export function AngleController({
     );
   }, [lastMousePos, theta, phi, shotSize, snapToGrid]);
 
-  // 处理滚轮 (Zoom) - 使用 ref 回调来避免 passive event listener 问题
+  // 处理滚轮 (Zoom) - Sử dụng ref 回调来避免 passive event listener 问题
   const handleWheelRef = useRef<(e: WheelEvent) => void>();
   handleWheelRef.current = (e: WheelEvent) => {
     e.stopPropagation();
@@ -204,7 +204,7 @@ export function AngleController({
     }
   };
 
-  // 使用原生事件监听器绑定 wheel 事件（Cài đặt passive: false）
+  // Sử dụng原生事件监听器绑定 wheel 事件（Cài đặt passive: false）
   useEffect(() => {
     const container = containerRef.current;
     if (!container) return;

@@ -557,7 +557,7 @@ export async function splitStoryboardImage(
   let outputWidth: number, outputHeight: number;
   
   if (Math.abs(rawRatio - targetRatio) < 0.01) {
-    // 宽高比已经接近目标，Trực tiếp使用
+    // 宽高比已经接近目标，Trực tiếpSử dụng
     outputWidth = cellWidth;
     outputHeight = cellHeight;
     console.log('[ImageSplitter] Ratio already matches target, no crop needed');

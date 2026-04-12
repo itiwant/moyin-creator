@@ -13,7 +13,7 @@
  * Layer 5: 视觉风格 (Style)
  * Base: 用户提示词
  *
- * 摄影风格档案回退规则：逐镜trường为空时使用项目级摄影档案默认值
+ * 摄影风格档案回退规则：逐镜trường为空时Sử dụng项目级摄影档案默认值
  */
 
 import type { SplitScene, EmotionTag } from '@/stores/director-store';

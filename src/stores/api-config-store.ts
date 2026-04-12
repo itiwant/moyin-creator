@@ -79,7 +79,7 @@ export interface AdvancedGenerationOptions {
   enableResumeGeneration: boolean;
   /** BậtNội dung审核容错：遇到敏感Nội dungTự động跳过，Tiếp tụcTạo其他Phân cảnh */
   enableContentModeration: boolean;
-  /** Bật多ModelTự động切换：首Phân cảnh使用 t2v，后续使用 i2v */
+  /** Bật多ModelTự động切换：首Phân cảnhSử dụng t2v，后续Sử dụng i2v */
   enableAutoModelSwitch: boolean;
 }
 

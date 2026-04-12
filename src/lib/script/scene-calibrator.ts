@@ -4,7 +4,7 @@
 /**
  * AI Scene Calibrator
  * 
- * 使用 AI thông minhHiệu chuẩn从剧本đang xử lý...场景列表
+ * Sử dụng AI thông minhHiệu chuẩn从剧本đang xử lý...场景列表
  * 
  * 功能：
  * 1. 统计每场景的出场次数、出现 tập数
@@ -65,7 +65,7 @@ export interface CalibratedScene {
 }
 
 export interface SceneMergeRecord {
-  /** 最终使用的名称 */
+  /** 最终Sử dụng的名称 */
   finalName: string;
   /** 被合并的变体 */
   variants: string[];
@@ -155,14 +155,14 @@ export function collectSceneStats(
       
       // 收 tập动作描写（用于推断道具和场景布局）
       if (scene.actions && scene.actions.length > 0 && stat.actionSamples.length < 8) {
-        // 使用解析出的动作描写（△开头）
+        // Sử dụng解析出的动作描写（△开头）
         for (const action of scene.actions.slice(0, 3)) {
           if (action && stat.actionSamples.length < 8) {
             stat.actionSamples.push(`第${epIndex} tập: ${action.slice(0, 100)}`);
           }
         }
       } else if (scene.content && stat.actionSamples.length < 8) {
-        // 如果没有△动作，使用场景内容的前200字作为动作样本
+        // 如果没有△动作，Sử dụng场景内容的前200字作为动作样本
         const contentSample = scene.content.slice(0, 200).replace(/\n/g, ' ');
         stat.actionSamples.push(`第${epIndex} tập: ${contentSample}`);
       }
@@ -261,7 +261,7 @@ export async function calibrateScenes(
   _options?: CalibrationOptions // 不再需要，保留以tương thích
 ): Promise<SceneCalibrationResult> {
   
-  // 【轻量级chế độ】Trực tiếp使用 currentScenes，不重新统计
+  // 【轻量级chế độ】Trực tiếpSử dụng currentScenes，不重新统计
   if (!currentScenes || currentScenes.length === 0) {
     console.warn('[calibrateScenes] currentScenes 为空，无法Hiệu chuẩn');
     return {
@@ -406,7 +406,7 @@ ${sceneList}
         try {
           batchParsed = JSON.parse(cleaned);
         } catch (parseErr) {
-          console.warn('[calibrateScenes] 批次JSON解析失败，尝试部分解析...');
+          console.warn('[calibrateScenes] 批次JSONPhân tích thất bại，尝试部分解析...');
           const partialScenes: any[] = [];
           const scenePattern = /\{\s*"sceneId"\s*:\s*"([^"]+)"[^{}]*(?:\{[^{}]*\}[^{}]*)*\}/g;
           let match;
@@ -447,7 +447,7 @@ ${sceneList}
     });
     
     if (failedBatches > 0) {
-      console.warn(`[SceneCalibrator] ${failedBatches} 批次失败，使用部分结果`);
+      console.warn(`[SceneCalibrator] ${failedBatches} 批次失败，Sử dụng部分结果`);
     }
     
     console.log('[calibrateScenes] AI 返回', sceneResults.size, '场景结果');

@@ -59,7 +59,7 @@ export function ShotList({ projectId, shots, styleId }: ShotListProps) {
   const [isGenerating, setIsGenerating] = useState(false);
   const [generatingShotId, setGeneratingShotId] = useState<string | null>(null);
 
-  // Get style tokens based on styleId (统一使用 visual-styles 风格库)
+  // Get style tokens based on styleId (统一Sử dụng visual-styles 风格库)
   const getStyleTokensLocal = (): string[] => {
     return getStyleTokensFromLib(styleId);
   };

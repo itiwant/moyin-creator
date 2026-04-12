@@ -229,8 +229,8 @@ function getUnifiedEndpointPaths(endpointTypes: string[]): { submit: string; pol
 }
 
 /**
- * 根据Model的 supported_endpoint_types 元数据检测应使用的video API 格式
- * 优先使用 MemeFast /api/pricing_new 同步的元数据，fallback 到Model名推断
+ * 根据Model的 supported_endpoint_types 元数据检测应Sử dụng的video API 格式
+ * 优先Sử dụng MemeFast /api/pricing_new 同步的元数据，fallback 到Model名推断
  */
 function detectVideoApiFormat(model: string): 'openai_official' | 'unified' | 'volc' | 'wan' | 'kling' | 'replicate' {
   // 1. 查询 store đang xử lý...ndpoint types 元数据
@@ -602,7 +602,7 @@ async function callUnifiedVideoApi(
   const submitUrl = `${rootBase}${endpointPaths.submit}`;
   console.log(`[VideoGen] Unified format → POST ${endpointPaths.submit}`, { model, metadata, hasImage: !!firstFrame?.url });
 
-  // Gửi：Trực tiếp使用端点Loại对应的 URL
+  // Gửi：Trực tiếpSử dụng端点Loại对应的 URL
   const resp = await fetch(submitUrl, {
     method: 'POST',
     headers: {
@@ -643,7 +643,7 @@ async function callUnifiedVideoApi(
     throw new Error(`Quay lại空的任务 ID（响应格式未识别，请检查控制台日志）`);
   }
 
-  // 轮询：Trực tiếp使用端点Loại对应的 URL
+  // 轮询：Trực tiếpSử dụng端点Loại对应的 URL
   const pollUrl = `${rootBase}${endpointPaths.poll(taskId)}`;
   const pollInterval = 5000;
   const maxAttempts = 180;
@@ -1320,7 +1320,7 @@ export async function extractLastFrameFromVideo(
   videoUrl: string,
   seekOffset: number = 0.1
 ): Promise<string | null> {
-  // local-image:// 是 Electron 注册的Tùy chỉnh协议，可以Trực tiếp使用
+  // local-image:// 是 Electron 注册的Tùy chỉnh协议，可以Trực tiếpSử dụng
   // 不需要转换为 file://
   const resolvedUrl = videoUrl;
   console.log('[VideoGen] Loading video for frame extraction:', resolvedUrl);
@@ -1428,7 +1428,7 @@ export async function extractLastFrameFromVideo(
       video.currentTime = targetTime;
     };
     
-    // 方法：使用 timeupdate 监听播放进度，当接近目标Thời gian时捕获
+    // 方法：Sử dụng timeupdate 监听播放进度，当接近目标Thời gian时捕获
     video.ontimeupdate = () => {
       if (hasResolved || targetTime < 0) return; // 未Bắt đầu seek 时忽略
       

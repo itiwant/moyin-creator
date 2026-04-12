@@ -25,7 +25,7 @@ import type { ScriptStructureAnalysis } from './script-normalizer';
 
 /**
  * 从Nhập结果构建 SeriesMeta
- * 优先使用 AI 分析结果，不足时从 background + scriptData 补全
+ * 优先Sử dụng AI 分析结果，不足时从 background + scriptData 补全
  */
 export function populateSeriesMetaFromImport(
   background: ProjectBackground,
@@ -58,7 +58,7 @@ export function populateSeriesMetaFromImport(
     characters: scriptData.characters || [],
     factions: aiAnalysis?.factions || undefined,
 
-    // 视觉系统 — Trực tiếp使用用户在Nhập面板Chọn的风格
+    // 视觉系统 — Trực tiếpSử dụng用户在Nhập面板Chọn的风格
     styleId: importSettings?.styleId,
     recurringLocations: undefined,
     colorPalette: undefined,
@@ -68,7 +68,7 @@ export function populateSeriesMetaFromImport(
     promptLanguage: importSettings?.promptLanguage,
   };
 
-  // 如果 AI 分析提取了角色但 scriptData 没有（紧凑格式解析失败的情况），用 AI 的
+  // 如果 AI 分析提取了角色但 scriptData 没有（紧凑格式Phân tích thất bại的情况），用 AI 的
   if (meta.characters.length === 0 && aiAnalysis?.characters?.length) {
     meta.characters = aiAnalysis.characters.map((c, i) => ({
       id: `char_${i + 1}`,

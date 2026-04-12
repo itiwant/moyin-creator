@@ -75,10 +75,10 @@ function parseUserQuery(query: string): { name: string | null; episodeNumber: nu
     name = nameMatch[1];
   }
   
-  // chế độ2：缺/需要/添加 + 角色名
+  // chế độ2：缺/需要/Thêm + 角色名
   if (!name) {
     // 先移除前缀动词，rồi取剩余部分作为角色名
-    nameMatch = cleanQuery.match(/^[缺需要添加找查想请帮我的]+\s*[「「"']?([^「」""'\s,，。！？这角色人]{2,8})[」」"']?/);
+    nameMatch = cleanQuery.match(/^[缺需要Thêm找查想请帮我的]+\s*[「「"']?([^「」""'\s,，。！？这角色人]{2,8})[」」"']?/);
     if (nameMatch) {
       name = nameMatch[1];
     }
@@ -95,7 +95,7 @@ function parseUserQuery(query: string): { name: string | null; episodeNumber: nu
   // chế độ4：Trực tiếp就是角色名（2-8字符）
   if (!name) {
     // 去掉常见动词和助词
-    const pureQuery = cleanQuery.replace(/^[缺需要添加找查想请帮我的]+/g, '').trim();
+    const pureQuery = cleanQuery.replace(/^[缺需要Thêm找查想请帮我的]+/g, '').trim();
     if (pureQuery.length >= 2 && pureQuery.length <= 8 && /^[\u4e00-\u9fa5A-Za-z]+$/.test(pureQuery)) {
       name = pureQuery;
     }
@@ -187,7 +187,7 @@ function searchCharacterInScripts(
 }
 
 /**
- * 使用 AI Tạođầy đủ角色数据
+ * Sử dụng AI Tạođầy đủ角色数据
  */
 async function generateCharacterData(
   name: string,
@@ -286,7 +286,7 @@ async function generateCharacterData(
 - 老年人：传统休闲，常穿开衫、布鞋`;
       } else if (startYear >= 2000) {
         return `【${startYear}年代服装指导】
-- 年轻人：千禧年时尚，常穿紧身裤、宽松外套、板鞋
+- 年轻人：千禧年时尚，常穿紧身裤、Lỏng lẻo外套、板鞋
 - đang xử lý...正式商务装，常穿西装套装、领带、皮鞋
 - 老年人：đang xử lý...简单开衫、布鞋`;
       } else if (startYear >= 1990) {
@@ -447,7 +447,7 @@ export async function findCharacterByDescription(
       confidence: 0,
       episodeNumbers: [],
       contexts: [],
-      message: '无法识别角色名。请用类似"缺第10 tập的王大哥"或"添加张小宝这角色"的方式描述。',
+      message: '无法识别角色名。请用类似"缺第10 tập的王大哥"或"Thêm张小宝这角色"的方式描述。',
     };
   }
   
@@ -487,7 +487,7 @@ export async function findCharacterByDescription(
     };
   }
   
-  // 4. 使用 AI Tạođầy đủ角色数据
+  // 4. Sử dụng AI Tạođầy đủ角色数据
   console.log('[findCharacterByDescription] 正在Tạo角色数据...');
   
   const character = await generateCharacterData(

@@ -81,7 +81,7 @@ const ANIMATION_TABLE: MediaTranslationTable = {
   },
   // lightingStyle / lightingDirection / colorTemperature / movementSpeed / playbackSpeed
   // → 概念相通，不做翻译，沿用gốc token
-  // cameraAngle / focalLength / photographyTechnique → 虚拟摄像机可Trực tiếp使用
+  // cameraAngle / focalLength / photographyTechnique → 虚拟摄像机可Trực tiếpSử dụng
 };
 
 // ---------- stop-motion ----------

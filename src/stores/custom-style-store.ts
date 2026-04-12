@@ -4,7 +4,7 @@
 /**
  * Custom Style Store
  * 用户Tùy chỉnhPhong cáchTài sảnQuản lý，独立于内置预设
- * 使用 localStorage 持久化（全局Tài sản，不按项目分割）
+ * Sử dụng localStorage 持久化（全局Tài sản，不按项目分割）
  */
 
 import { create } from 'zustand';
@@ -23,8 +23,8 @@ export interface CustomStyle {
   tags: string[];               // Thẻ
   folderId: string | null;      // 所属Thư mục
   // === AI 提取的Cấu trúc化Phong cách词（优先级高于 prompt） ===
-  styleTokens?: string;         // 纯Phong cách thị giácquan trọng词（画风/光线/色彩/材质）→ Nhân vật/Cảnhảnh thiết kế使用
-  sceneTokens?: string;         // Cảnh/bố cục/Đạo cụMô tả → Đạo diễn台/Phân cảnh使用
+  styleTokens?: string;         // 纯Phong cách thị giácquan trọng词（画风/光线/色彩/材质）→ Nhân vật/Cảnhảnh thiết kếSử dụng
+  sceneTokens?: string;         // Cảnh/bố cục/Đạo cụMô tả → Đạo diễn台/Phân cảnhSử dụng
   createdAt: number;
   updatedAt: number;
 }
@@ -248,7 +248,7 @@ registerCustomStyleLookup((id: string): StylePreset | undefined => {
   const category = inferCategoryFromPrompt(effectivePrompt);
   const mediaType = inferMediaType(category);
 
-  // 优先使用 AI 提取的 styleTokens（纯Phong cách thị giác），否则回退到gốc prompt
+  // 优先Sử dụng AI 提取的 styleTokens（纯Phong cách thị giác），否则回退到gốc prompt
   const prompt = style.styleTokens
     || effectivePrompt
     || `${style.name} style, professional quality`;

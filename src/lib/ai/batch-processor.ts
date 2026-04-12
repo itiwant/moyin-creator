@@ -60,7 +60,7 @@ export interface ProcessBatchedOptions<TItem, TResult> {
 
   /**
    * 估算单 item 的 input token 开销
-   * 如果不提供，使用 estimateTokens(JSON.stringify(item))
+   * 如果不提供，Sử dụng estimateTokens(JSON.stringify(item))
    */
   estimateItemTokens?: (item: TItem) => number;
 
@@ -240,7 +240,7 @@ export async function processBatched<TItem, TResult>(
  * 约束 1（Input）: 每批 systemPromptTokens + sum(itemTokens) ≤ inputBudget
  * 约束 2（Output）: sum(itemOutputTokens) ≤ outputBudget
  *
- * 贪心策略：依次添加 item，任一约束即将超出时开始新批次。
+ * 贪心策略：依次Thêm item，任一约束即将超出时开始新批次。
  * 单 item 超出预算时仍独立成批（至少每批 1  item）。
  */
 function createBatches<TItem>(

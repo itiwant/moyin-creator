@@ -108,7 +108,7 @@ interface SplitScenesProps {
   onGenerateVideos?: () => void;
 }
 
-// SceneCard 使用 Hạng S专属Phiên bản SClassSceneCard
+// SceneCard Sử dụng Hạng S专属Phiên bản SClassSceneCard
 const SceneCard = SClassSceneCard;
 
 export function SClassScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
@@ -304,7 +304,7 @@ export function SClassScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
   const sceneMap = useMemo(() => new Map(splitScenes.map(s => [s.id, s])), [splitScenes]);
 
   // Get current style from config
-  // 优先使用Trực tiếp存储的 visualStyleId，回退到 styleTokens 反推（tương thích旧项目）
+  // 优先Sử dụngTrực tiếp存储的 visualStyleId，回退到 styleTokens 反推（tương thích旧项目）
   const currentStyleId = useMemo(() => {
     if (storyboardConfig.visualStyleId) {
       return storyboardConfig.visualStyleId;
@@ -318,7 +318,7 @@ export function SClassScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
     return DEFAULT_STYLE_ID;
   }, [storyboardConfig.visualStyleId, storyboardConfig.styleTokens]);
 
-  // 读取当前Phong cách quay phim档案（未Cài đặt时使用Mặc địnhCổ điển电影Phong cách quay phim）
+  // 读取当前Phong cách quay phim档案（未Cài đặt时Sử dụngMặc địnhCổ điển电影Phong cách quay phim）
   const currentCinProfileId = projectData?.cinematographyProfileId || DEFAULT_CINEMATOGRAPHY_PROFILE_ID;
 
   // 切换Phong cách quay phim档案
@@ -667,7 +667,7 @@ export function SClassScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
     }
   }, [angleSwitchTarget, splitScenes, getProviderByPlatform, addAngleSwitchHistory]);
 
-  // 根据情绪ThẻTạoBầu không khíMô tả - 使用统一 prompt-builder 模块
+  // 根据情绪ThẻTạoBầu không khíMô tả - Sử dụng统一 prompt-builder 模块
   const buildEmotionDescription = useCallback((emotionTags: EmotionTag[]): string => {
     return buildEmotionDesc(emotionTags);
   }, []);
@@ -749,7 +749,7 @@ export function SClassScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
       return;
     }
 
-    // Get API key - 使用ánh xạ dịch vụ配置
+    // Get API key - Sử dụngánh xạ dịch vụ配置
     const featureConfig = getFeatureConfig('character_generation');
     if (!featureConfig) {
       toast.error('Vui lòng cấu hình API Tạo ảnh trong Cài đặt trước');
@@ -811,7 +811,7 @@ export function SClassScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
         // 方案A (Mặc định): 信任Ảnh gốc，xóa干扰
         charCountPhrase = 'Keep the EXACT same number of characters and their positions as the reference image. Do NOT add or remove characters. Maintain the original character composition.';
       } else {
-        // 方案B (勾选): 使用Thư viện nhân vậtTham chiếu，保留硬性人数限制
+        // 方案B (勾选): Sử dụngThư viện nhân vậtTham chiếu，保留硬性人数限制
         charCountPhrase = charCount === 0 
           ? 'NO human figures in any panel, empty scene or environment only.' 
           : charCount === 1 
@@ -901,7 +901,7 @@ export function SClassScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
         return undefined;
       };
 
-      // gọi API API - 使用thông minh路由（Tự độngChọn chat completions 或 images/generations）
+      // gọi API API - Sử dụngthông minh路由（Tự độngChọn chat completions 或 images/generations）
       console.log('[QuadGrid] Calling API, model:', model);
       const apiResult = await submitGridImageRequest({
         model,
@@ -1209,9 +1209,9 @@ export function SClassScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
     }
   }, [storyboardImage, splitScenes, storyboardConfig, getApiKey, updateSplitSceneImagePrompt, updateSplitSceneVideoPrompt, updateSplitSceneEndFramePrompt, updateSplitSceneNeedsEndFrame]);
 
-  /** @deprecated 使用 Hạng S generateAllGroups 或 handleGenerateSingleVideo 替代 */
+  /** @deprecated Sử dụng Hạng S generateAllGroups 或 handleGenerateSingleVideo 替代 */
   const handleGenerateVideos = useCallback(async () => {
-    console.warn('[DEPRECATED] handleGenerateVideos 已废弃，请使用 Hạng STạo hàng loạt');
+    console.warn('[DEPRECATED] handleGenerateVideos 已废弃，请Sử dụng Hạng STạo hàng loạt');
     if (splitScenes.length === 0) {
       toast.error("Không có phân cảnh nào để Tạo");
       return;
@@ -1233,7 +1233,7 @@ export function SClassScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
     // Check if all scenes have prompts
     const scenesWithoutPrompts = splitScenes.filter(s => !s.videoPrompt.trim());
     if (scenesWithoutPrompts.length > 0) {
-      toast.warning(`还有 ${scenesWithoutPrompts.length} Phân cảnh没有prompt，将使用Mặc địnhprompt`);
+      toast.warning(`还有 ${scenesWithoutPrompts.length} Phân cảnh没有prompt，将Sử dụngMặc địnhprompt`);
     }
 
     // Filter scenes that need generation (idle or failed)
@@ -1291,7 +1291,7 @@ export function SClassScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
           });
 
           // Submit video generation
-          // 使用统一 prompt-builder 构建prompt（与 handleGenerateSingleVideo 保持一致）
+          // Sử dụng统一 prompt-builder 构建prompt（与 handleGenerateSingleVideo 保持一致）
           const cinProfile = projectData?.cinematographyProfileId
             ? getCinematographyProfile(projectData.cinematographyProfileId)
             : undefined;
@@ -1467,9 +1467,9 @@ export function SClassScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
       });
 
       // Khung hình đầuảnhChọn逻辑：
-      // 1. 优先使用 imageDataUrl（用户最新Chọn/Tải lên的ảnh）
-      // 2. 只有当 imageSource === 'ai-generated' 且 imageHttpUrl 是有效 URL 时才使用 imageHttpUrl
-      // 3. 否则使用 imageDataUrl 并通过Lưu trữ ảnhTải lên转换为 HTTP URL
+      // 1. 优先Sử dụng imageDataUrl（用户最新Chọn/Tải lên的ảnh）
+      // 2. 只有当 imageSource === 'ai-generated' 且 imageHttpUrl 是有效 URL 时才Sử dụng imageHttpUrl
+      // 3. 否则Sử dụng imageDataUrl 并通过Lưu trữ ảnhTải lên转换为 HTTP URL
       // quan trọng：合并Tạo的ảnh没有 imageHttpUrl（被清除为 null），必须重新Tải lên
       let firstFrameUrl = scene.imageDataUrl;
       
@@ -1482,12 +1482,12 @@ export function SClassScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
       if (firstFrameUrl && !firstFrameUrl.startsWith('http://') && !firstFrameUrl.startsWith('https://')) {
         // imageDataUrl 是本地格式（base64 或 local-image://）
         if (hasValidHttpUrl && scene.imageSource === 'ai-generated') {
-          // 只有当 imageSource 明确标记为 'ai-generated' 且有有效的 HTTP URL 时才使用
+          // 只有当 imageSource 明确标记为 'ai-generated' 且有有效的 HTTP URL 时才Sử dụng
           // 这意味着这是单张 AI Tạo的ảnh，不是合并Tạo切割的ảnh
           console.log('[SplitScenes] Using imageHttpUrl for AI-generated image:', scene.imageHttpUrl!.substring(0, 60));
           firstFrameUrl = scene.imageHttpUrl!;
         } else {
-          // 否则使用 imageDataUrl（合并Tạo切割的ảnh、Thư viện phương tiệnChọn的ảnh等）
+          // 否则Sử dụng imageDataUrl（合并Tạo切割的ảnh、Thư viện phương tiệnChọn的ảnh等）
           // 将通过Lưu trữ ảnhTải lên转换为 HTTP URL
           console.log('[SplitScenes] Using imageDataUrl (will upload to image host):', 
             hasValidHttpUrl ? 'has old httpUrl but imageSource=' + scene.imageSource : 'no valid httpUrl');
@@ -1502,12 +1502,12 @@ export function SClassScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
       }
       console.log('[SplitScenes] First frame source:', firstFrameUrl.startsWith('http') ? 'HTTP URL' : 'local/base64');
       
-      // 仅当 needsEndFrame 为 true 时才使用Khung hình cuối
-      // 如果用户đã xóaKhung hình cuối或Đóng了Khung hình cuối开关，则不使用Khung hình cuối作为Tạo video的Tham chiếu
+      // 仅当 needsEndFrame 为 true 时才Sử dụngKhung hình cuối
+      // 如果用户đã xóaKhung hình cuối或Đóng了Khung hình cuối开关，则不Sử dụngKhung hình cuối作为Tạo video的Tham chiếu
       let lastFrameUrl: string | null | undefined = null;
       if (scene.needsEndFrame && scene.endFrameImageUrl) {
-        // 优先使用 endFrameHttpUrl（gốc HTTP URL）
-        // 如果没有，尝试使用 endFrameImageUrl（可能需要Tải lênLưu trữ ảnh）
+        // 优先Sử dụng endFrameHttpUrl（gốc HTTP URL）
+        // 如果没有，尝试Sử dụng endFrameImageUrl（可能需要Tải lênLưu trữ ảnh）
         lastFrameUrl = scene.endFrameHttpUrl || scene.endFrameImageUrl;
         console.log('[SplitScenes] Using end frame for video generation');
       } else {
@@ -1524,7 +1524,7 @@ export function SClassScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
         videoProgress: 20,
       });
 
-      // ========== 构建videoprompt（使用统一 prompt-builder 模块） ==========
+      // ========== 构建videoprompt（Sử dụng统一 prompt-builder 模块） ==========
       const cinProfile = projectData?.cinematographyProfileId
         ? getCinematographyProfile(projectData.cinematographyProfileId)
         : undefined;
@@ -1535,7 +1535,7 @@ export function SClassScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
         mediaType: getMediaType(currentStyleId),
       });
       
-      // 使用用户Cài đặt的Thời lượng，Mặc định 5 秒
+      // Sử dụng用户Cài đặt的Thời lượng，Mặc định 5 秒
       // Seedance 1.5 Pro 要求 4-12 秒，强制限制范围
       const rawDuration = scene.duration || 5;
       const videoDuration = Math.max(4, Math.min(12, rawDuration));
@@ -1702,7 +1702,7 @@ export function SClassScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
     const scene = splitScenes.find(s => s.id === sceneId);
     if (!scene) return;
 
-    // 使用ánh xạ dịch vụ配置 - 不再 fallback 到硬编码
+    // Sử dụngánh xạ dịch vụ配置 - 不再 fallback 到硬编码
     const featureConfig = getFeatureConfig('character_generation');
     if (!featureConfig) {
       toast.error('Vui lòng cấu hình ánh xạ dịch vụ Tạo ảnh trong Cài đặt');
@@ -2013,7 +2013,7 @@ export function SClassScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
       return;
     }
 
-    // 获取图像Tạo能力 - 使用ánh xạ dịch vụ配置
+    // 获取图像Tạo能力 - Sử dụngánh xạ dịch vụ配置
     const featureConfig = getFeatureConfig('character_generation');
     if (!featureConfig) {
       toast.error('Vui lòng cấu hình ánh xạ dịch vụ Tạo ảnh trong Cài đặt');
@@ -2046,7 +2046,7 @@ export function SClassScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
 
     const aspect = storyboardConfig.aspectRatio || '9:16';
     const styleTokens = storyboardConfig.styleTokens || [];
-    // 始终使用 getStylePrompt 获取đầy đủPhong cáchprompt（保证有Mặc định值，即使 styleTokens 为空）
+    // 始终Sử dụng getStylePrompt 获取đầy đủPhong cáchprompt（保证有Mặc định值，即使 styleTokens 为空）
     const fullStylePrompt = getStylePrompt(currentStyleId);
     const fullStyleNegative = getStyleNegativePrompt(currentStyleId);
     const dedup = (arr: string[]) => Array.from(new Set(arr.filter(Boolean)));
@@ -2116,7 +2116,7 @@ export function SClassScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
 
     // 根据Phân cảnh数量计算最优网格布局（强制 N x N 以保证Tỷ lệ一致性）
     const calculateGridLayout = (sceneCount: number): { cols: number; rows: number; paddedCount: number } => {
-      // 策略：为了保证每ô大小绝对均匀，强制使用 N x N 布局
+      // 策略：为了保证每ô大小绝对均匀，强制Sử dụng N x N 布局
       // 这样整张大图的Tỷ lệ khung hình = 单ô的Tỷ lệ khung hình
       // 例如：3x3 布局，每ô 16:9，整图也是 16:9
       
@@ -2159,7 +2159,7 @@ export function SClassScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
           let cropX = 0, cropY = 0, cropW = rawTileW, cropH = rawTileH;
           
           if (Math.abs(rawRatio - targetRatio) < 0.01) {
-            // Tỷ lệ khung hình已经接近目标，Trực tiếp使用
+            // Tỷ lệ khung hình已经接近目标，Trực tiếpSử dụng
             outputW = rawTileW;
             outputH = rawTileH;
           } else if (rawRatio > targetRatio) {
@@ -2225,7 +2225,7 @@ export function SClassScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
       refs: string[]
     ): Promise<string[]> => {
       const actualCount = pageTasks.length;
-      // 使用新的布局计算函数 (强制 N x N)
+      // Sử dụng新的布局计算函数 (强制 N x N)
       const { cols, rows, paddedCount } = calculateGridLayout(actualCount);
       const emptySlots = paddedCount - actualCount;
       
@@ -2302,7 +2302,7 @@ export function SClassScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
       const styleNeg = fullStyleNegative ? `, ${fullStyleNegative}` : '';
       gridPromptParts.push(`Negative constraints: ${baseNegative}${styleNeg}`);
       
-      const gridPrompt = gridPromptParts.join('\n'); // 使用换 hàng符ngăn cách更清晰
+      const gridPrompt = gridPromptParts.join('\n'); // Sử dụng换 hàng符ngăn cách更清晰
       console.log('[MergedGen] Grid prompt:', gridPrompt.substring(0, 200) + '...');
       
       // 标记Tất cả任务对应的Phân cảnh为Đang tạo
@@ -2322,7 +2322,7 @@ export function SClassScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
       const processedRefs: string[] = [];
       for (const url of finalRefs) {
         if (!url) continue;
-        // HTTP/HTTPS URL - Trực tiếp使用
+        // HTTP/HTTPS URL - Trực tiếpSử dụng
         if (url.startsWith('http://') || url.startsWith('https://')) {
           processedRefs.push(url);
         }
@@ -2343,7 +2343,7 @@ export function SClassScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
         }
       }
       console.log('[MergedGen] Processed refs:', processedRefs.length, 'valid from', finalRefs.length, 'total');
-      // 调试：打印Ảnh tham chiếu格式
+      // gỡ lỗi：打印Ảnh tham chiếu格式
       processedRefs.forEach((ref, i) => {
         const prefix = ref.substring(0, 50);
         console.log(`[MergedGen] Ref[${i}] format:`, prefix + '...');
@@ -2357,7 +2357,7 @@ export function SClassScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
         return undefined;
       };
       
-      // gọi API API Tạo九宫格ảnh - 使用thông minh路由（Tự độngChọn chat completions 或 images/generations）
+      // gọi API API Tạo九宫格ảnh - Sử dụngthông minh路由（Tự độngChọn chat completions 或 images/generations）
       console.log('[MergedGen] Calling API with', processedRefs.length, 'reference images, model:', model);
       const apiResult = await submitGridImageRequest({
         model,
@@ -2485,7 +2485,7 @@ export function SClassScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
               projectId: mediaProjectId,
             });
           } else {
-            // 传递 httpUrl，这样Tạo video时可以Trực tiếp使用，不用再Tải lên
+            // 传递 httpUrl，这样Tạo video时可以Trực tiếpSử dụng，不用再Tải lên
             updateSplitSceneImage(s.id, localPath, s.width, s.height, httpUrl);
             // Tự độngLưuKhung hình đầu到Thư viện phương tiện
             addMediaFromUrl({
@@ -2599,7 +2599,7 @@ export function SClassScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
   }, [splitScenes, storyboardConfig, getApiKey, updateSplitSceneImage, updateSplitSceneImageStatus, updateSplitSceneEndFrame, updateSplitSceneEndFrameStatus]);
 
   // 复用单图Tạo的 API 路径，封装为通用函数（Hỗ trợKhung hình đầu/Khung hình cuối）
-  // 合并Tạo专用：使用ước tính算Tham chiếu cột表；不降级到单图通道
+  // 合并Tạo专用：Sử dụngước tính算Tham chiếu cột表；不降级到单图通道
   const generateImageForSceneMerged = async (
     sceneId: number,
     prompt: string,
@@ -2614,7 +2614,7 @@ export function SClassScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
     } else {
       updateSplitSceneImageStatus(sceneId, { imageStatus: 'generating', imageProgress: 0, imageError: null });
     }
-    // 使用ánh xạ dịch vụ配置
+    // Sử dụngánh xạ dịch vụ配置
     const featureConfig = getFeatureConfig('character_generation');
     if (!featureConfig) {
       throw new Error('Vui lòng cấu hình ánh xạ dịch vụ Tạo ảnh trong Cài đặt');
@@ -2717,7 +2717,7 @@ export function SClassScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
       return;
     }
 
-    // 使用ánh xạ dịch vụ配置
+    // Sử dụngánh xạ dịch vụ配置
     const featureConfig = getFeatureConfig('character_generation');
     if (!featureConfig) {
       toast.error('Vui lòng cấu hình ánh xạ dịch vụ Tạo ảnh trong Cài đặt');
@@ -3692,7 +3692,7 @@ export function SClassScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
                             setBatchProgress(null);
                           });
                       } else {
-                        // 单镜chế độ: 使用Đạo diễn面板原有逻辑
+                        // 单镜chế độ: Sử dụngĐạo diễn面板原有逻辑
                         handleGenerateVideos();
                       }
                     }}

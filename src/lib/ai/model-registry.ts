@@ -45,7 +45,7 @@ export interface DiscoveredModelLimits {
  *   - Gemini: https://ai.google.dev/gemini-api/docs/models + OCI docs (2.5 = 1M ctx / 65K output)
  *   - 其他: 保守值，标注"保守"
  *
- * ⚠️ memefast 上的同名模型使用相同限制。新增模型应查阅官方文档后添加，不可靠猜测。
+ * ⚠️ memefast 上的同名模型Sử dụng相同限制。新增模型应查阅官方文档后Thêm，不可靠猜测。
  */
 const STATIC_REGISTRY: Record<string, ModelLimits> = {
   // ==================== DeepSeek 系列 ====================
@@ -251,7 +251,7 @@ export function cacheDiscoveredLimits(
 /**
  * Token 估算（保守算法）
  *
- * 使用 字符数/1.5 作为保守上限：
+ * Sử dụng 字符数/1.5 作为保守上限：
  *   - đang xử lý...1 token ≈ 0.6~1.0 汉字，/1.5 相当于放大估算（偏安全）
  *   - 英文/标点/JSON: 1 token ≈ 3~4 字符，/1.5 也偏安全
  *   - 宁可高估 token 数（多分批），也不低估（撞限制）

@@ -30,7 +30,7 @@ import {
 } from "@/lib/constants/visual-styles";
 import { useCustomStyleStore } from "@/stores/custom-style-store";
 
-// 风格phân loại对应的背景色（ảnh已xóa，使用色块Placeholder）
+// 风格phân loại对应的背景色（ảnh已xóa，Sử dụng色块Placeholder）
 const CATEGORY_COLORS: Record<string, string> = {
   '3d': 'bg-blue-500/20 text-blue-600',
   '2d': 'bg-green-500/20 text-green-600',
@@ -43,7 +43,7 @@ interface StylePickerProps {
   value: string;
   /** Chọn变化回调 */
   onChange: (styleId: VisualStyleId) => void;
-  /** 是否使用下拉popup出chế độ（默认 true） */
+  /** 是否Sử dụng下拉popup出chế độ（默认 true） */
   popover?: boolean;
   /** Tùy chỉnh触发器（仅 popover chế độ） */
   trigger?: React.ReactNode;

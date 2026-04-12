@@ -4,7 +4,7 @@
 /**
  * AI Viewpoint Analyzer
  * 
- * 使用 AI 分析场景和分镜内容，thông minhTạo合适的视角列表
+ * Sử dụng AI 分析场景和分镜内容，thông minhTạo合适的视角列表
  * 替代原有的硬编码quan trọng词匹配
  */
 
@@ -59,11 +59,11 @@ export async function analyzeSceneViewpoints(
         { id: 'overview', name: '全景', nameEn: 'Overview', description: '整体空间', descriptionEn: 'Overall space', keyProps: [], keyPropsEn: [], shotIndexes: [] },
         { id: 'detail', name: '细节', nameEn: 'Detail', description: '细节Cực cận cảnh', descriptionEn: 'Detail close-up', keyProps: [], keyPropsEn: [], shotIndexes: [] },
       ],
-      analysisNote: '无分镜，使用默认视角',
+      analysisNote: '无分镜，Sử dụng默认视角',
     };
   }
   
-  // 构建分镜内容摘要（使用更多详细trường）
+  // 构建分镜内容摘要（Sử dụng更多详细trường）
   const shotSummaries = shots.map((shot, idx) => {
     const parts = [
       `【分镜${idx + 1}】`,
@@ -199,7 +199,7 @@ ${shotSummaries}
         { id: 'medium', name: 'đang xử lý... nameEn: 'Medium Shot', description: 'đang xử lý...', descriptionEn: 'Medium view', keyProps: [], keyPropsEn: [], shotIndexes: [] },
         { id: 'detail', name: '细节', nameEn: 'Detail', description: '细节Cực cận cảnh', descriptionEn: 'Detail close-up', keyProps: [], keyPropsEn: [], shotIndexes: [] },
       ],
-      analysisNote: 'AI 分析失败，使用默认视角',
+      analysisNote: 'AI 分析失败，Sử dụng默认视角',
     };
   }
 }
