@@ -233,7 +233,7 @@ const STYLIZED_PROFILES: CinematographyProfile[] = [
     name: '赛博朋克',
     nameEn: 'Cyberpunk Neon',
     category: 'stylized',
-    description: '霓虹灯光、轮廓光、混合色温、浅景深、稳定器滑动、薄霾弥漫',
+    description: 'đèn neon光、轮廓光、混合色温、浅景深、稳定器滑动、薄霾弥漫',
     emoji: '🌃',
     defaultLighting: { style: 'neon', direction: 'rim', colorTemperature: 'mixed' },
     defaultFocus: { depthOfField: 'shallow', focusTransition: 'rack-to-bg' },
@@ -243,7 +243,7 @@ const STYLIZED_PROFILES: CinematographyProfile[] = [
     defaultAngle: 'low-angle',
     defaultFocalLength: '35mm',
     defaultTechnique: 'reflection',
-    promptGuidance: '赛博朋克的Thị giácNgôn ngữ是「冷暖冲突」——霓虹紫红与冰蓝同框，轮廓光把nhân vật从暗色背景đang xử lý...浅景深让霓虹灯化为迷幻光斑，薄霾为光线增加体积感。镜头慢速滑动穿过雨夜街道，营造未来都市的疏离感。',
+    promptGuidance: '赛博朋克的Thị giácNgôn ngữ是「冷暖冲突」——霓虹紫红与冰蓝同框，轮廓光把nhân vật从暗色背景đang xử lý...浅景深让đèn neon化为迷幻光斑，薄霾为光线增加体积感。镜头慢速滑动穿过雨夜街道，营造未来都市的疏离感。',
     referenceFilms: ['银翼杀手2049', '攻壳机动队', '黑客帝国', '创战纪'],
   },
   {
@@ -374,7 +374,7 @@ const ERA_PROFILES: CinematographyProfile[] = [
     defaultSpeed: { playbackSpeed: 'normal' },
     defaultAngle: 'eye-level',
     defaultFocalLength: '35mm',
-    promptGuidance: '90thập niên港片的摄影DNA是「都市霓虹+Cầm tay游走」——混合色温的霓虹灯把城市街道染成红蓝交织的梦境。Cầm tay摄影在人群đang xử lý...偶尔Sử dụng抽帧hoặc降格制造王家卫式的虚影效果。薄霾笼罩的街头，每路人都像有故事。侧光勾勒出nhân vật忧郁的轮廓。',
+    promptGuidance: '90thập niên港片的摄影DNA是「都市霓虹+Cầm tay游走」——混合色温的đèn neon把城市街道染成红蓝交织的梦境。Cầm tay摄影在人群đang xử lý...偶尔Sử dụng抽帧hoặc降格制造王家卫式的虚影效果。薄霾笼罩的街头，每路人都像有故事。侧光勾勒出nhân vật忧郁的轮廓。',
     referenceFilms: ['重庆森林', '堕落天使', '无间道', '英雄本色'],
   },
   {

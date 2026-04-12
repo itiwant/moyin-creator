@@ -160,7 +160,7 @@ const SHOT_GENERATION_SYSTEM_PROMPT = `你是一chuyên nghiệp的分镜师/摄
 ]
 
 分镜原则：
-1. 【重要】每场景最多6-8镜头，TránhJSONcắt ngắn
+1. 【重要】每场景tối đa6-8镜头，TránhJSONcắt ngắn
 2. 【Kích thước cảnh缩写】WS=Viễn cảnh, MS=đang xử lý...CU=Cận cảnh, ECU=Cực cận cảnh, FS=全景
 3. 【镜头运动】Sử dụngchuyên nghiệp术语：
    - Static(Cố định), Dolly In(推进), Dolly Out(拉远), Pan Left/Right(摇), Tilt Up/Down(仰/俯)
@@ -975,7 +975,7 @@ ${styleId ? `- Thị giác风格：${styleId}` : ''}
 请Tạo符合Tiêu chuẩnđịnh dạng的đầy đủ剧本，chứa：
 1. 剧本标题
 2. đại cương（简述Chủ đề/故事）
-3. nhân vật小传（每角色的基本thông tin）
+3. nhân vật小传（每角色的cơ bảnthông tin）
 4. đầy đủ的场景和Thoại${preserveStructureNote}`;
 
   console.log('[generateScriptFromIdea] 输入类型:', inputType);

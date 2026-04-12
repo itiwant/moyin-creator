@@ -53,7 +53,7 @@ export interface CalibratedCharacter {
   gender?: string;
   /** 与其他角色的关系 */
   relationships?: string;
-  /** gốc提取的名字变体 */
+  /** gốcđã trích xuất名字变体 */
   nameVariants: string[];
   // === chuyên nghiệp角色Thiết kếtrường ===
   /** 英文Thị giác提示词（用于AI图像Tạo） */
@@ -262,7 +262,7 @@ export function collectCharacterStats(
 /**
  * Sử dụng AI Hiệu chuẩn角色列表
  * 
- * @param rawCharacters gốc提取的角色列表
+ * @param rawCharacters gốcđã trích xuất角色列表
  * @param background 项目背景（đại cương）
  * @param episodeScripts tập剧本（提供上下文）
  * @param options API 配置
@@ -728,7 +728,7 @@ function collectCharacterContexts(
   
   // 遍历剧本，thu thập角色出现的场景和Thoại
   for (const ep of episodeScripts.slice(0, 5)) { // 只取前5 tập作为样本
-    for (const scene of ep.scenes.slice(0, 10)) { // 每 tập最多10场景
+    for (const scene of ep.scenes.slice(0, 10)) { // 每 tậptối đa10场景
       // kiểm tra场景đang xử lý...我们关注的角色
       const relevantChars = scene.characters.filter(c => 
         characterNames.has(c) || characters.some(char => c.includes(char.name))

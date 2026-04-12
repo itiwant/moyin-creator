@@ -10,7 +10,7 @@
  *   - 双重约束分批（input token + output token）
  *   - 60K token Hard Cap（防止超长上下文模型 TTFT 过高 / Lost in the middle）
  *   - 容错隔离（单批次thất bại不影响其他批次，部分成功也返回kết quả）
- *   - 单批次Thử lại（指数退避，最多 2 次）
+ *   - 单批次Thử lại（指数退避，tối đa 2 次）
  *   - 并发 tập成（复用 runStaggered + người dùng concurrency 设置）
  *   - Tiến độ回调
  */
@@ -23,7 +23,7 @@ import { runStaggered } from '@/lib/utils/concurrency';
 
 // ==================== Constants ====================
 
-/** 无论模型支持多大上下文，每批 input 最多 60K token */
+/** 无论模型支持多大上下文，每批 input tối đa 60K token */
 const HARD_CAP_TOKENS = 60000;
 
 /** 单批次最大Thử lại次数 */
@@ -287,7 +287,7 @@ function createBatches<TItem>(
 // ==================== Batch Execution ====================
 
 /**
- * 执行单批次，带Thử lại（指数退避，最多 MAX_BATCH_RETRIES 次）
+ * 执行单批次，带Thử lại（指数退避，tối đa MAX_BATCH_RETRIES 次）
  */
 async function executeBatchWithRetry<TItem, TResult>(
   batch: TItem[],

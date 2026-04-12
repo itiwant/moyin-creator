@@ -991,7 +991,7 @@ export function GenerationPanel({ selectedCharacter, onCharacterCreated }: Gener
                 // 构建Nhân vậtdữ liệu文本
                 const lines: string[] = [];
                 
-                // 基本thông tin
+                // cơ bảnthông tin
                 lines.push(`Tên nhân vật: ${name || '(chưa điền)'}`);
                 const genderLabel = GENDER_PRESETS.find(g => g.id === gender)?.label;
                 if (genderLabel) lines.push(`Giới tính: ${genderLabel}`);

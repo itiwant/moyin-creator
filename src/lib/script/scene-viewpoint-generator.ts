@@ -118,7 +118,7 @@ const ENVIRONMENT_KEYWORDS: Record<SceneEnvironmentType, string[]> = {
     '车内', '车上', '车厢',
   ],
   outdoor: [
-    '公路', '马路', '街道', '街头', '路边', '十字路sổ',
+    '公路', '马路', '街道', '街头', '路边', 'ngã tưsổ',
     '公园', '广场', '操场', '球场',
     '乡村', '田野', '山', '河', '海边', '沙滩', '森林', '树林',
     '院子', '庭院', '花园', '天台', '楼顶', '屋顶',
@@ -729,7 +729,7 @@ function getShotSearchableText(shot: Shot): string {
 
 /**
  * 根据环境类型获取默认góc nhìn列表
- * 用于在提取的góc nhìn不足时补充
+ * 用于在đã trích xuấtgóc nhìn不足时补充
  */
 function getDefaultViewpointsForEnvironment(
   envType: SceneEnvironmentType
@@ -949,7 +949,7 @@ export function extractAllViewpointsFromShots(
 
 /**
  * 将góc nhìnnhóm为ảnh ghép页
- * 每页最多 6 góc nhìn
+ * 每页tối đa 6 góc nhìn
  */
 export function groupViewpointsIntoPages(
   viewpoints: SceneViewpoint[],
@@ -1001,7 +1001,7 @@ export function generateMultiPageContactSheetData(
     gridLayout = { rows: 2, cols: 2 };
     viewpointsPerPage = 4;
   } else {
-    // 超过 4 ：Sử dụng 3x3 (最多 9 一页)
+    // 超过 4 ：Sử dụng 3x3 (tối đa 9 一页)
     gridLayout = { rows: 3, cols: 3 };
     viewpointsPerPage = 9;
   }
@@ -1141,7 +1141,7 @@ export function generateMultiPageContactSheetData(
       `[${i + 1}] ${vp.name}：${vp.description}`
     ).join('\n');
     
-    const promptZh = `一张精确的 ${gridLayout.rows}行${gridLayout.cols}列 lưới图（共 ${totalCells} 格子），Hiển thị同一「${scene.name || scene.location}」场景的不同góc nhìn。
+    const promptZh = `一张chính xác ${gridLayout.rows}行${gridLayout.cols}列 lưới图（共 ${totalCells} 格子），Hiển thị同一「${scene.name || scene.location}」场景的不同góc nhìn。
 ${sceneDescZh}
 
 ${totalCells} 格子分别Hiển thị：${gridItemsZh}。
@@ -1360,7 +1360,7 @@ export function buildContactSheetDataFromViewpoints(
       return `[${i + 1}] ${vp.name}：${content}`;
     }).join('\n');
     
-    const promptZh = `一张精确的 ${gridLayout.rows}行${gridLayout.cols}列 lưới图（共 ${totalCells} 格子），Hiển thị同一「${scene.name || scene.location}」场景的不同góc nhìn。
+    const promptZh = `一张chính xác ${gridLayout.rows}行${gridLayout.cols}列 lưới图（共 ${totalCells} 格子），Hiển thị同一「${scene.name || scene.location}」场景的不同góc nhìn。
 ${sceneDescZh}${visualPromptZh ? `\n场景氛围：${visualPromptZh}` : ''}
 
 ${totalCells} 格子分别Hiển thị：

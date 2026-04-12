@@ -296,7 +296,7 @@ function extractThemes(outline: string, characterBios: string): string[] {
     }
   }
   
-  return themes.slice(0, 5); // 最多返回5Chủ đề
+  return themes.slice(0, 5); // tối đa返回5Chủ đề
 }
 
 /**

@@ -6,7 +6,7 @@
  *
  * 行为：
  * - 每新nhiệm vụ在前一nhiệm vụ启动后至少等待 staggerMs 才启动
- * - 同时最多运行 maxConcurrent nhiệm vụ
+ * - 同时tối đa运行 maxConcurrent nhiệm vụ
  * - 当đang hoạt độngnhiệm vụ数达到上限时，等待有nhiệm vụhoàn thành后才启动下一（仍giữ staggerMs 间隔）
  *
  * 例如 maxConcurrent=3, staggerMs=5000, 每nhiệm vụ耗时20秒：

@@ -183,7 +183,7 @@ export interface ScriptStructureAnalysis {
   centralConflict?: string;
   /** Chủ đềquan trọng词 */
   themes?: string[];
-  /** 提取的角色列表 */
+  /** đã trích xuất角色列表 */
   characters?: Array<{
     name: string;
     age?: string;
@@ -254,7 +254,7 @@ export async function analyzeScriptStructureWithAI(text: string): Promise<Script
 10. geography：从场景头和角色Mô tảđang xử lý...要地名
 11. 只分析Cấu trúc，不修改任何原文内容`;
 
-    // 最多Thử lại 2 次（共 3 次尝试），Tránh临时网络lỗi导致降级
+    // tối đaThử lại 2 次（共 3 次尝试），Tránh临时网络lỗi导致降级
     const MAX_RETRIES = 2;
     let result: string | null = null;
     let lastError: Error | null = null;

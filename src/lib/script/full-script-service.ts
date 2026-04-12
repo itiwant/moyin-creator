@@ -494,7 +494,7 @@ export async function generateEpisodeShots(
         console.log('[generateEpisodeShots] viewpointOptions 已构建, genre:', viewpointOptions.genre || '未知');
         
         // 获取并发数配置（Sử dụng顶部静态Nhập的 store）
-        // 智谱 API 并发限制较严，góc nhìn分析最多Sử dụng 10 并发
+        // 智谱 API 并发限制较严，góc nhìn分析tối đaSử dụng 10 并发
         const userConcurrency = useAPIConfigStore.getState().concurrency || 1;
         const concurrency = Math.min(userConcurrency, 10);
         console.log(`[generateEpisodeShots] Sử dụng并发数: ${concurrency} (người dùng设置: ${userConcurrency}, 上限: 10)`);
@@ -529,7 +529,7 @@ export async function generateEpisodeShots(
           return { scene, sceneShots, result };
         };
         
-        // 错开启动的并发điều khiển：每5秒启动一新nhiệm vụ，同时最多 concurrency 
+        // 错开启动的并发điều khiển：每5秒启动一新nhiệm vụ，同时tối đa concurrency 
         const settledResults = await runStaggered(
           sceneAnalysisTasks.map((_, taskIndex) => async () => {
             console.log(`[generateEpisodeShots] 🚀 启动场景 ${taskIndex + 1}/${sceneAnalysisTasks.length}`);
@@ -1459,7 +1459,7 @@ export async function calibrateEpisodeShots(
     const totalBatches = allBatches.length;
     console.log(`🚀 [calibrateShots] 待处理: ${totalShots} 分镜，${totalBatches} 批，并发数: ${concurrency}`);
     
-    // 错开启动的并发điều khiển：每5秒启动一新批次，同时最多 concurrency 
+    // 错开启动的并发điều khiển：每5秒启动一新批次，同时tối đa concurrency 
     let completedBatches = 0;
     const settledBatchResults = await runStaggered(
       allBatches.map(({ batch, batchNum, batchData }) => async () => {
@@ -2446,8 +2446,8 @@ export function exportProjectMetadata(projectId: string): string {
   sections.push(`# 《${title}》`);
   sections.push('');
   
-  // 基本thông tin
-  sections.push('## 基本thông tin');
+  // cơ bảnthông tin
+  sections.push('## cơ bảnthông tin');
   const genre = meta?.genre || background?.genre;
   const era = meta?.era || background?.era;
   if (genre) sections.push(`- **类型**：${genre}`);

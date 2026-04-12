@@ -462,7 +462,7 @@ const STYLES_REAL: StylePreset[] = [
     mediaType: 'cinematic',
     prompt: '(best quality, masterpiece, 8k, high detailed:1.2), (90s Hong Kong movie style:1.3), (Wong Kar-wai aesthetic:1.2), (neon lights, high contrast:1.1), (motion blur, film grain:1.1), dreamy, moody',
     negativePrompt: '(worst quality, low quality:1.4), (modern digital look), (clean, sharp, sterile), (3D, anime), (bright daylight), ugly',
-    description: '港风复古，王家卫风格，霓虹灯，90thập niên电影',
+    description: '港风复古，王家卫风格，đèn neon，90thập niên电影',
     thumbnail: 'real_hk_retro.png',
   },
   {

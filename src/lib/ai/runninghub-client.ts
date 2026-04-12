@@ -186,7 +186,7 @@ export async function pollTaskUntilComplete(
   baseUrl: string,
   onProgress?: (progress: number, status: string) => void
 ): Promise<string> {
-  const maxAttempts = 120; // 最多2 phút
+  const maxAttempts = 120; // tối đa2 phút
   const pollInterval = 2000; // 2秒
 
   for (let attempt = 0; attempt < maxAttempts; attempt++) {

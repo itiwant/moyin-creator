@@ -240,7 +240,7 @@ export function PropertyPanel({
     lines.push(`# Ảnh thiết kế nhân vật: ${character.name}`);
     lines.push('');
     
-    // 基本thông tin（优先显示）
+    // cơ bảnthông tin（优先显示）
     if (character.gender || character.age) {
       lines.push(`## Thông tin cơ bản`);
       const basicInfo: string[] = [];

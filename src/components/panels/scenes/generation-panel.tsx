@@ -836,7 +836,7 @@ Phong cách: ${stylePreset?.name || 'Phong cách hoạt hình'}, ánh sáng các
     }
     
     navigator.clipboard.writeText(fullPrompt);
-    toast.success(isEnglish ? "Đã sao chép Prompt tiếng Anh (bao gồm phong cách và tỷ lệ khung hình)" : "Đã sao chép prompt tiếng TrungSao chép（含Phong cách和Tỷ lệ khung hình）");
+    toast.success(isEnglish ? "Đã sao chép Prompt tiếng Anh (bao gồm phong cách và tỷ lệ khung hình)" : "Đã sao chép prompt tiếng Trung (bao gồm Phong cách và Tỷ lệ khung hình)");
   };
 
   /**
@@ -1781,7 +1781,7 @@ Phong cách: ${stylePreset?.name || 'Phong cách hoạt hình'}, ánh sáng các
           }
         }
 
-        console.log('[AutoContactSheet] Giai đoạn 3: chuẩn bị Lưu Cảnh con, viewpointsToSave:', viewpointsToSave.length, /* ...*/intImagesMap条目:', Object.keys(viewpointImagesMap).length);
+        console.log('[AutoContactSheet] Giai đoạn 3: chuẩn bị Lưu Cảnh con, viewpointsToSave:', viewpointsToSave.length, 'viewpointImagesMap mục:', Object.keys(viewpointImagesMap).length);
 
         for (const vp of viewpointsToSave) {
           const imgData = viewpointImagesMap[vp.id];
@@ -2160,21 +2160,21 @@ A side profile shot of ${anchor} from the right. The background is the opposite 
 Unified by flat, neutral cinematic lighting to ensure texture visibility. No characters, empty environment.`;
 
     // prompt tiếng Trung
-    const promptZh = `chuyên nghiệptrực giaoảnh khái niệm，精确的 2x2 lưới排 cột，Hiển thị「${sceneName}」的4基本Góc nhìn，giữ完美的空间连续性。${stylePreset?.name || 'Phong cách hoạt hình'}，详细的môi trường概念艺术。
+    const promptZh = `Ảnh khái niệm trực giao chuyên nghiệp, lưới 2x2 chính xác, Hiển thị 4 Góc nhìn cơ bản của「${sceneName}」, giữ tính liên tục không gian hoàn hảo. ${stylePreset?.name || 'Phong cách hoạt hình'},
 
 **左上（chính diệngóc nhìn）：**
-${anchor} 的chính diện直视Ống kính。清晰Hiển thịchính diện细节。背景是其后方的墙壁，chứa ${walls.south}。
+Ống kính trực diện nhìn thẳng vào ${anchor}. Hiển thị rõ chi tiết mặt trước. Nền là tường phía sau, chứa ${walls.south}.
 
 **右上（mặt saugóc nhìn）：**
-${anchor} 的mặt sau直视Ống kính。Hiển thị后部Cấu trúc。背景是物体面向的墙壁，chứa ${walls.north}。
+Ống kính trực tiếp nhìn vào mặt sau của ${anchor}. Hiển thị Cấu trúc phía sau. Nền là tường mặt đối diện, chứa ${walls.north}.
 
 **左下（Bên tráigóc nhìn）：**
-从Bên trái拍摄的 ${anchor} bên cạnhỐng kính。背景是对面的墙壁，严格chứa ${walls.east}。
+Ống kính bên cạnh ${anchor} chụp từ bên trái. Nền là tường đối diện, nghiêm ngặt chứa ${walls.east}.
 
 **右下（bên phảigóc nhìn）：**
-从bên phải拍摄的 ${anchor} bên cạnhỐng kính。背景是对面的墙壁，严格chứa ${walls.west}。
+Ống kính bên cạnh ${anchor} chụp từ bên phải. Nền là tường đối diện, nghiêm ngặt chứa ${walls.west}.
 
-Sử dụngphẳng、đang xử lý...影ánh sáng以确保kết cấucó thể nhìn thấy。无Nhân vật，Cảnh trống。`;
+Sử dụng ánh sáng phẳng, đồng đều để đảm bảo kết cấu hiển thị rõ. Không có Nhân vật, Cảnh trống.`;
 
     setOrthographicPrompt(promptEn);
     setOrthographicPromptZh(promptZh);
@@ -2309,7 +2309,7 @@ Sử dụngphẳng、đang xử lý...影ánh sáng以确保kết cấucó thể
     try {
       // 2x2 cắt，Hỗ trợ 16:9 hoặc 9:16
       const splitResults = await splitStoryboardImage(orthographicImage, {
-        aspectRatio: orthographicAspectRatio, // Sử dụngngười dùngChọn的Tỷ lệ khung hình
+        aspectRatio: orthographicAspectRatio, // Sử dụng Tỷ lệ khung hình người dùng Chọn
         resolution: '2K',
         sceneCount: 4,
         options: {
@@ -2578,7 +2578,7 @@ Sử dụngphẳng、đang xử lý...影ánh sáng以确保kết cấucó thể
                     ))}
                   </div>
                   <p className="text-[10px] text-muted-foreground">
-                    💡 Sử dụng「Toàn cảnh」conCảnh作为主Tham chiếu，确保4góc nhìnPhong cáchgiống
+                    💡 Sử dụng Cảnh con「Toàn cảnh」làm Tham chiếu chính, đảm bảo Phong cách 4 góc nhìn nhất quán
                   </p>
                 </div>
               );
@@ -2629,7 +2629,7 @@ Sử dụngphẳng、đang xử lý...影ánh sáng以确保kết cấucó thể
             <details className="group" open>
               <summary className="flex items-center gap-1 text-xs text-muted-foreground cursor-pointer hover:text-foreground">
                 <span className="group-open:rotate-90 transition-transform">▶</span>
-                4góc nhìnprompt（可Chỉnh sửa，修改后Trực tiếp用于Tạo）
+                Prompt 4 góc nhìn (có thể Chỉnh sửa, sau khi sửa dùng Trực tiếp để Tạo)
               </summary>
               <div className="mt-2 space-y-2">
                 {(() => {
@@ -2695,7 +2695,7 @@ Sử dụngphẳng、đang xử lý...影ánh sáng以确保kết cấucó thể
                   ) : (
                     <>
                       <Scissors className="h-4 w-4 mr-2" />
-                      cắt为 4 Góc nhìn
+                      Cắt thành 4 Góc nhìn
                     </>
                   )}
                 </Button>
@@ -2735,7 +2735,7 @@ Sử dụngphẳng、đang xử lý...影ánh sáng以确保kết cấucó thể
                 </div>
                 <Button onClick={handleSaveOrthographicViews} className="w-full">
                   <Check className="h-4 w-4 mr-2" />
-                  LưuGóc nhìnảnh到Cảnh
+                  Lưu ảnh Góc nhìn vào Cảnh
                 </Button>
               </div>
             )}
@@ -2744,7 +2744,7 @@ Sử dụngphẳng、đang xử lý...影ánh sáng以确保kết cấucó thể
 
         <div className="p-3 border-t">
           <p className="text-xs text-muted-foreground text-center">
-            💡 4góc nhìn可保证Cảnh在不同vị trí camera下的空间giống性
+            💡 4 góc nhìn có thể đảm bảo tính nhất quán không gian của Cảnh ở các vị trí camera khác nhau
           </p>
         </div>
       </div>
@@ -2917,7 +2917,7 @@ Sử dụngphẳng、đang xử lý...影ánh sáng以确保kết cấucó thể
                   ) : (
                     <>
                       <Grid3X3 className="h-4 w-4 mr-2" />
-                      Tạoảnh ghép（Tự độngcắt并Lưu）
+                      Tạo ảnh ghép (Tự động cắt và Lưu)
                     </>
                   )}
                 </Button>
@@ -2946,7 +2946,7 @@ Sử dụngphẳng、đang xử lý...影ánh sáng以确保kết cấucó thể
             <details className="group" open>
               <summary className="flex items-center gap-1 text-xs text-muted-foreground cursor-pointer hover:text-foreground">
                 <span className="group-open:rotate-90 transition-transform">▶</span>
-                ảnh ghépprompt（可Chỉnh sửa，修改后Trực tiếp用于Tạo）
+                Prompt ảnh ghép (có thể Chỉnh sửa, sau khi sửa dùng Trực tiếp để Tạo)
               </summary>
               <div className="mt-2 space-y-2">
                 {(() => {
@@ -3012,7 +3012,7 @@ Sử dụngphẳng、đang xử lý...影ánh sáng以确保kết cấucó thể
                   ) : (
                     <>
                       <Scissors className="h-4 w-4 mr-2" />
-                      cắt为 {(() => {
+                      Cắt thành {(() => {
                         const currentPageVps = pendingViewpoints.filter(v => v.pageIndex === currentPageIndex);
                         return currentPageVps.length > 0 ? currentPageVps.length : extractedViewpoints.length || 6;
                       })()} Góc nhìn
@@ -3063,7 +3063,7 @@ Sử dụngphẳng、đang xử lý...影ánh sáng以确保kết cấucó thể
                   </div>
                   <Button onClick={handleSaveViewpointImages} className="w-full">
                     <Check className="h-4 w-4 mr-2" />
-                    LưuGóc nhìnảnh到Cảnh
+                    Lưu ảnh Góc nhìn vào Cảnh
                   </Button>
                 </div>
               );
@@ -3073,7 +3073,7 @@ Sử dụngphẳng、đang xử lý...影ánh sáng以确保kết cấucó thể
 
         <div className="p-3 border-t">
           <p className="text-xs text-muted-foreground text-center">
-            💡 Nhấp「Tạoảnh ghép」后Tự độnghoàn thànhcắt和Lưu，可liên tục khởi động多nhiệm vụ
+            💡 Nhấp「Tạo ảnh ghép」để Tự động hoàn thành cắt và Lưu, có thể liên tục khởi động nhiều nhiệm vụ
           </p>
         </div>
       </div>
@@ -3148,7 +3148,7 @@ Sử dụngphẳng、đang xử lý...影ánh sáng以确保kết cấucó thể
             <Input
               value={name}
               onChange={(e) => setName(e.target.value)}
-              placeholder="例如：城市街道、森林小屋"
+              placeholder="Ví dụ: đường phố thành phố, túp lều rừng"
               disabled={isGenerating}
             />
           </div>
@@ -3159,7 +3159,7 @@ Sử dụngphẳng、đang xử lý...影ánh sáng以确保kết cấucó thể
             <Textarea
               value={location}
               onChange={(e) => setLocation(e.target.value)}
-              placeholder="详细Mô tảCảnh的môi trường，例如：繁华的Đông京涩谷十字路sổ，霓虹灯闪烁..."
+              placeholder="Mô tả chi tiết môi trường Cảnh, ví dụ: ngã tư Shibuya sôi động ở Tokyo, đèn neon nhấp nháy..."
               className="min-h-[100px] text-sm resize-none"
               disabled={isGenerating}
             />
@@ -3249,7 +3249,7 @@ Sử dụngphẳng、đang xử lý...影ánh sáng以确保kết cấucó thể
               )}
             </div>
             <p className="text-[10px] text-muted-foreground">
-              AI 将Tham chiếu这些Tạo ảnhCảnhảnh khái niệm
+              AI sẽ Tham chiếu những ảnh này để Tạo ảnh khái niệm Cảnh
             </p>
           </div>
         </div>
@@ -3257,12 +3257,12 @@ Sử dụngphẳng、đang xử lý...影ánh sáng以确保kết cấucó thể
 
       {/* Action buttons */}
       <div className="p-3 border-t space-y-2">
-        {/* hàng loạt4góc nhìnnút（在Lưuảnh ghépGóc nhìn后Hiện） */}
+        {/* Nút 4 góc nhìn hàng loạt (hiện sau khi Lưu ảnh ghép Góc nhìn) */}
         {savedChildSceneIds.length > 0 && (
           <div className="p-3 rounded-lg border-2 border-dashed border-primary/50 bg-primary/5 space-y-2">
             <div className="text-xs text-center">
               <span className="font-medium">đã lưu {savedChildSceneIds.length} conCảnh</span>
-              <p className="text-muted-foreground">可为每conCTạo ảnh4góc nhìn（共 {savedChildSceneIds.length * 4} 张）</p>
+              <p className="text-muted-foreground">Có thể Tạo ảnh 4 góc nhìn cho mỗi Cảnh con (tổng {savedChildSceneIds.length * 4} ảnh)</p>
             </div>
             <div className="flex gap-2">
               <Button 
@@ -3312,10 +3312,10 @@ Sử dụngphẳng、đang xử lý...影ánh sáng以确保kết cấucó thể
           )
         )}
         
-        {/* ảnh ghépchế độ - 无论是否đã chọnCảnh都HiệnTải lênTùy chọn */}
+        {/* Chế độ ảnh ghép - dù Cảnh có được chọn hay không đều hiện Tùy chọn Tải lên */}
         {generationMode === 'contact-sheet' && (
           <div className="space-y-2">
-            {/* bố cụcChọn器 */}
+            {/* Bộ chọn bố cục */}
             <div className="flex items-center gap-2">
               <Label className="text-xs shrink-0">lướibố cục</Label>
               <Select value={contactSheetLayout} onValueChange={(v) => setContactSheetLayout(v as ContactSheetLayout)} disabled={isGenerating}>
@@ -3335,7 +3335,7 @@ Sử dụngphẳng、đang xử lý...影ánh sáng以确保kết cấucó thể
                 disabled={isGenerating}
               >
                 <Grid3X3 className="h-4 w-4 mr-2" />
-                Tạo多Góc nhìnảnh ghép
+                Tạo ảnh ghép đa Góc nhìn
               </Button>
             ) : (
               <Button onClick={handleCreateScene} className="w-full" disabled={!name.trim() || !location.trim()}>
@@ -3384,9 +3384,9 @@ Sử dụngphẳng、đang xử lý...影ánh sáng以确保kết cấucó thể
           )
         )}
         <p className="text-xs text-muted-foreground text-center">
-          {generationMode === 'single' && '💡 Đơn ảnhchế độ：Tạo单一Góc nhìn的Cảnhảnh khái niệm'}
-          {generationMode === 'contact-sheet' && '💡 ảnh ghépchế độ：Tạo 2x3 多Góc nhìnCảnhlưới'}
-          {generationMode === 'orthographic' && '💡 4góc nhìnchế độ：Tạo前/后/左/右trực giaoGóc nhìn'}
+          {generationMode === 'single' && '💡 Chế độ Đơn ảnh: Tạo ảnh khái niệm Cảnh từ một Góc nhìn'}
+          {generationMode === 'contact-sheet' && '💡 Chế độ ảnh ghép: Tạo lưới 2x3 đa Góc nhìn cho Cảnh'}
+          {generationMode === 'orthographic' && '💡 Chế độ 4 góc nhìn: Tạo Góc nhìn trực giao trước/sau/trái/phải'}
         </p>
       </div>
     </div>
@@ -3415,7 +3415,7 @@ function buildScenePrompt(
     const extractedProps = extractPropsFromActions(allActions);
     if (extractedProps.length > 0) {
       propsPrompt = `, with ${extractedProps.join(', ')}`;
-      console.log('[buildScenePrompt] 提取的Đạo cụ:', extractedProps);
+      console.log('[buildScenePrompt] Đạo cụ đã trích xuất:', extractedProps);
     }
   }
 
@@ -3431,48 +3431,48 @@ function extractPropsFromActions(actions: string): string[] {
   // 常见Đạo cụquan trọng词ánh xạ（đang xử lý...> 英文）
   const propMappings: Record<string, string> = {
     // 家具/用具
-    '饭桌': 'dining table',
-    '餐桌': 'dining table',
-    '碗筷': 'bowls and chopsticks',
-    '菜肴': 'dishes of food',
-    '吃饭': 'dining table with food',
-    '沙发': 'sofa',
-    '茶几': 'coffee table',
-    '电视': 'television',
-    '电视柜': 'TV cabinet',
-    '书桌': 'desk',
-    '书柜': 'bookshelf',
-    '床': 'bed',
-    '衣柜': 'wardrobe',
-    '户': 'window',
+    'bàn ăn': 'dining table',
+    'bàn ăn dài': 'dining table',
+    'bát đũa': 'bowls and chopsticks',
+    'món ăn': 'dishes of food',
+    'ăn cơm': 'dining table with food',
+    'ghế sofa': 'sofa',
+    'bàn trà': 'coffee table',
+    'tivi': 'television',
+    'tủ tivi': 'TV cabinet',
+    'bàn học': 'desk',
+    'giá sách': 'bookshelf',
+    'giường': 'bed',
+    'tủ quần áo': 'wardrobe',
+    'cửa sổ': 'window',
     '': 'window',
-    '门': 'door',
+    'cửa': 'door',
     // vật phẩm
-    '毕业证': 'graduation certificate',
-    '证书': 'certificate',
-    '照片': 'photo frame',
-    '全家福': 'family photo',
-    '手机': 'smartphone',
-    '电脑': 'computer',
+    'bằng tốt nghiệp': 'graduation certificate',
+    'chứng chỉ': 'certificate',
+    'ảnh chụp': 'photo frame',
+    'ảnh gia đình': 'family photo',
+    'điện thoại': 'smartphone',
+    'máy tính': 'computer',
     'file': 'documents',
-    '信': 'letter',
+    'thư': 'letter',
     // 植物
-    '栀con花': 'gardenia flowers',
-    '花': 'flowers',
-    '盆栽': 'potted plant',
-    '绿植': 'green plants',
+    'hoa dành dành': 'gardenia flowers',
+    'hoa': 'flowers',
+    'cây cảnh': 'potted plant',
+    'cây xanh': 'green plants',
     // 食物
-    '酒': 'wine/alcohol',
-    '酒杯': 'wine glasses',
-    '咖啡': 'coffee',
-    '茶': 'tea',
+    'rượu': 'wine/alcohol',
+    'ly rượu': 'wine glasses',
+    'cà phê': 'coffee',
+    'trà': 'tea',
     // Cảnh元素
-    '阳台': 'balcony',
-    '外': 'view outside window',
-    '灯': 'lamp',
-    '台灯': 'table lamp',
-    '吹风機': 'electric fan',
-    '空调': 'air conditioner',
+    'ban công': 'balcony',
+    'bên ngoài': 'view outside window',
+    'đèn': 'lamp',
+    'đèn bàn': 'table lamp',
+    'quạt điện': 'electric fan',
+    'điều hòa': 'air conditioner',
   };
   
   // kiểm tra每quan trọng词是否出现在Hành động描写中
@@ -3482,7 +3482,7 @@ function extractPropsFromActions(actions: string): string[] {
     }
   }
   
-  return props.slice(0, 8); // 最多Quay lại 8 Đạo cụ
+  return props.slice(0, 8); // tối đaQuay lại 8 Đạo cụ
 }
 
 function fileToBase64(file: File): Promise<string> {

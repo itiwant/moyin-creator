@@ -121,7 +121,7 @@ export function buildSeriesContextSummary(meta: SeriesMeta | null): string {
 
   const parts: string[] = [];
 
-  // 基本thông tin行
+  // cơ bảnthông tin行
   const infoLine = [
     `作品《${meta.title}》`,
     meta.era || '',
@@ -138,7 +138,7 @@ export function buildSeriesContextSummary(meta: SeriesMeta | null): string {
   // 角色列表（紧凑định dạng）
   if (meta.characters.length > 0) {
     const charSummary = meta.characters
-      .slice(0, 15) // 最多 15 Tránh过长
+      .slice(0, 15) // tối đa 15 Tránh过长
       .map(c => {
         const info = [c.name];
         if (c.age) info.push(`${c.age} tuổi`);

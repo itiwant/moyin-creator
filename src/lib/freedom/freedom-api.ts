@@ -994,7 +994,7 @@ function validateVeoVideoUploads(
       throw new Error(`模型 ${model} 仅上传khung cuối无效，请先上传khung đầu`);
     }
     if (total > capability.maxFiles) {
-      throw new Error(`模型 ${model} 最多支持 2 张图片（khung đầu/khung cuối）`);
+      throw new Error(`模型 ${model} tối đa支持 2 张图片（khung đầu/khung cuối）`);
     }
     return grouped;
   }
@@ -1007,7 +1007,7 @@ function validateVeoVideoUploads(
       throw new Error(`模型 ${model} 至少需要上传 1 张Tham chiếu图`);
     }
     if (grouped.references.length > capability.maxFiles) {
-      throw new Error(`模型 ${model} 最多支持 ${capability.maxFiles} 张Tham chiếu图`);
+      throw new Error(`模型 ${model} tối đa支持 ${capability.maxFiles} 张Tham chiếu图`);
     }
     return grouped;
   }
