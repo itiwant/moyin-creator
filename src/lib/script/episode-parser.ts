@@ -2,8 +2,8 @@
 // Licensed under AGPL-3.0-or-later. See LICENSE for details.
 // Commercial licensing available. See COMMERCIAL_LICENSE.md.
 /**
- * Episode Parser - đang xử lý...规则解析器
- * 解析标准đang xử lý...格式，提取 tập、场景、Thoại、动作等Cấu trúc化信息
+ * Episode Parser - đang xử lý...规则Phân tích器
+ * Phân tích标准đang xử lý...格式，提取 tập、场景、Thoại、动作等Cấu trúc化信息
  * 
  * 支持的格式：
  * -  tập标记：第X tập
@@ -44,7 +44,7 @@ function cleanLocationString(location: string): string {
 }
 
 /**
- * 解析đầy đủ剧本文本，提取背景信息和各 tập内容
+ * Phân tíchđầy đủ剧本文本，提取背景信息和各 tập内容
  */
 export function parseFullScript(fullText: string): {
   background: ProjectBackground;
@@ -80,7 +80,7 @@ export function parseFullScript(fullText: string): {
   // 7. 提取Chủ đềquan trọng词
   const themes = extractThemes(outline, characterBios);
   
-  // 8. 解析各 tập内容
+  // 8. Phân tích各 tập内容
   const episodes = parseEpisodes(fullText);
   
   return {
@@ -272,7 +272,7 @@ function extractThemes(outline: string, characterBios: string): string[] {
   const fullText = `${outline}\n${characterBios}`;
   const themes: string[] = [];
   
-  // Chủ đềquan trọng词库（通用，覆盖各类剧本）
+  // Chủ đềquan trọng词库（通用，Ghi đè各类剧本）
   const themePatterns: Array<{ keywords: RegExp; theme: string }> = [
     { keywords: /奋斗|拼搏|逆袭|成长/, theme: '奋斗' },
     { keywords: /复仇|报仇|雪恨/, theme: '复仇' },
@@ -300,7 +300,7 @@ function extractThemes(outline: string, characterBios: string): string[] {
 }
 
 /**
- * 解析各 tập剧本
+ * Phân tích各 tập剧本
  */
 export function parseEpisodes(text: string): EpisodeRawScript[] {
   const episodes: EpisodeRawScript[] = [];
@@ -337,7 +337,7 @@ export function parseEpisodes(text: string): EpisodeRawScript[] {
     const endIndex = i < matches.length - 1 ? matches[i + 1].index! : text.length;
     const rawContent = text.slice(startIndex, endIndex).trim();
     
-    // 解析场景
+    // Phân tích场景
     const scenes = parseScenes(rawContent);
     
     // 从字幕đang xử lý...节
@@ -357,7 +357,7 @@ export function parseEpisodes(text: string): EpisodeRawScript[] {
 }
 
 /**
- * 解析单 tập内的场景
+ * Phân tích单 tập内的场景
  */
 export function parseScenes(episodeText: string): SceneRawContent[] {
   const scenes: SceneRawContent[] = [];
@@ -423,7 +423,7 @@ export function parseScenes(episodeText: string): SceneRawContent[] {
         const endIndex = i < looseMatches.length - 1 ? looseMatches[i + 1].index! : episodeText.length;
         const content = episodeText.slice(startIndex, endIndex).trim();
         
-        // 解析nhân vật
+        // Phân tíchnhân vật
         const characters = parseCharacters(content);
         const dialogues = parseDialogues(content);
         const actions = parseActions(content);
@@ -461,16 +461,16 @@ export function parseScenes(episodeText: string): SceneRawContent[] {
     const endIndex = i < sceneMatches.length - 1 ? sceneMatches[i + 1].index! : episodeText.length;
     const content = episodeText.slice(startIndex, endIndex).trim();
     
-    // 解析nhân vật
+    // Phân tíchnhân vật
     const characters = parseCharacters(content);
     
-    // 解析Thoại
+    // Phân tíchThoại
     const dialogues = parseDialogues(content);
     
-    // 解析动作
+    // Phân tích动作
     const actions = parseActions(content);
     
-    // 解析字幕
+    // Phân tích字幕
     const subtitles = parseSubtitles(content);
     
     // 检测天气
@@ -492,7 +492,7 @@ export function parseScenes(episodeText: string): SceneRawContent[] {
 }
 
 /**
- * 解析备用场景格式（当标准格式不匹配时）
+ * Phân tích备用场景格式（当标准格式不匹配时）
  */
 function parseAlternativeSceneFormat(text: string): SceneRawContent[] {
   const scenes: SceneRawContent[] = [];
@@ -580,7 +580,7 @@ function extractSeasonFromScenes(scenes: SceneRawContent[]): string | undefined 
 }
 
 /**
- * 解析场景đang xử lý...ân vật
+ * Phân tích场景đang xử lý...ân vật
  */
 function parseCharacters(text: string): string[] {
   const characters: Set<string> = new Set();
@@ -610,7 +610,7 @@ function parseCharacters(text: string): string[] {
 }
 
 /**
- * 解析Thoại
+ * Phân tíchThoại
  */
 function parseDialogues(text: string): DialogueLine[] {
   const dialogues: DialogueLine[] = [];
@@ -640,7 +640,7 @@ function parseDialogues(text: string): DialogueLine[] {
 }
 
 /**
- * 解析动作描写（△开头的行）
+ * Phân tích动作描写（△开头的行）
  */
 function parseActions(text: string): string[] {
   const actions: string[] = [];
@@ -658,7 +658,7 @@ function parseActions(text: string): string[] {
 }
 
 /**
- * 解析字幕（【字幕：...】或【VO：...】等）
+ * Phân tích字幕（【字幕：...】或【VO：...】等）
  */
 function parseSubtitles(text: string): string[] {
   const subtitles: string[] = [];
@@ -734,7 +734,7 @@ export function parseCharacterBios(bios: string): ScriptCharacter[] {
 }
 
 /**
- * 紧凑格式解析：角色tên:年龄：XX身份：...quan trọng行为：...
+ * 紧凑格式Phân tích：角色tên:年龄：XX身份：...quan trọng行为：...
  * Tự động剥离段落标记（一、核心nhân vật chính 等）提取真实角色名
  */
 function parseCompactBioFormat(bios: string, matches: RegExpMatchArray[]): ScriptCharacter[] {
@@ -789,7 +789,7 @@ function stripSectionKeywords(name: string): string {
 }
 
 /**
- * 标准格式解析（原逻辑）：角色tên:Mô tả 或 角色名（年龄）：Mô tả
+ * 标准格式Phân tích（原逻辑）：角色tên:Mô tả 或 角色名（年龄）：Mô tả
  */
 function parseStandardBioFormat(bios: string): ScriptCharacter[] {
   const characters: ScriptCharacter[] = [];
@@ -805,7 +805,7 @@ function parseStandardBioFormat(bios: string): ScriptCharacter[] {
     
     // 跳过非角色内容
     if (name.length > 10 || name.match(/^[第一二三四五六七八九十\d]/)) continue;
-    // 跳过属性标签和补充说明
+    // 跳过thuộc tính标签和补充说明
     if (/^(?:年龄|身份|性格|补充|注|备注|Đặc trưng cốt lõi|quan trọng行为)$/.test(name)) continue;
     
     characters.push({
@@ -994,7 +994,7 @@ function extractCharactersFromScenes(
 }
 
 /**
- * 将解析后的剧本转换为 ScriptData 格式（用于系统显示）
+ * 将Phân tích后的剧本转换为 ScriptData 格式（用于系统显示）
  */
 export function convertToScriptData(
   background: ProjectBackground,
@@ -1024,7 +1024,7 @@ export function convertToScriptData(
       const sceneId = `scene_${sceneIndex}`;
       sceneIds.push(sceneId);
       
-      // 解析场景头获取时间和地点
+      // Phân tích场景头获取时间和地点
       // 支持两种格式：
       // 标准格式: "1-1 日 内 地点名" (headerParts: [number, time, interior, ...location])
       // Lỏng lẻo格式: "1-1 日 地点名" (headerParts: [number, time, ...location])

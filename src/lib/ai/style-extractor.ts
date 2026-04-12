@@ -203,7 +203,7 @@ export async function extractStyleTokens(
     parsed = JSON.parse(cleanContent);
   } catch {
     console.error('[StyleExtractor] Failed to parse JSON:', content);
-    throw new Error('AI 返回的格式无法解析');
+    throw new Error('AI 返回的格式无法Phân tích');
   }
 
   const result: StyleExtractionResult = {

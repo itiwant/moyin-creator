@@ -170,7 +170,7 @@ export interface SceneRawContent {
   sceneHeader: string;        // 场景头：如 "1-1日 内 沪上 张家"
   characters: string[];       // 出场nhân vật
   content: string;            // đầy đủ场景Nội dung（Thoại+动作+字幕等）
-  dialogues: DialogueLine[];  // 解析后的Thoại列表
+  dialogues: DialogueLine[];  // Phân tích后的Thoại列表
   actions: string[];          // 动作描写列表（△开头的）
   subtitles: string[];        // 字幕【】
   weather?: string;           // 天气（晴/雨/雪/雾/阴等，从场景Nội dung检测）
@@ -191,7 +191,7 @@ export interface EpisodeRawScript {
   synopsis?: string;          //  tậpđại cương/摘要（AITạo或手动chỉnh sửa）
   keyEvents?: string[];       // Tập nàySự kiện quan trọng
   rawContent: string;         // gốcđầy đủNội dung
-  scenes: SceneRawContent[];  // 解析后的场景列表
+  scenes: SceneRawContent[];  // Phân tích后的场景列表
   shotGenerationStatus: 'idle' | 'generating' | 'completed' | 'error';  // 分镜Trạng thái tạo
   lastGeneratedAt?: number;   // 上次Tạo时间
   synopsisGeneratedAt?: number; // đại cươngTạo时间
@@ -504,7 +504,7 @@ export interface Shot {
   storyAlignment?: string;      // 与Bối cảnh thế giới/故事核心的一致性：aligned/minor-deviation/needs-review
   visualFocus?: string;         // 视觉焦点：观众应该看什么（按thứ tự）
   cameraPosition?: string;      // 机位Mô tả：摄影机相对于nhân vật的位置
-  characterBlocking?: string;   // nhân vật布局：nhân vật在hình ảnhđang xử lý...关系
+  characterBlocking?: string;   // nhân vậtbố cục：nhân vật在hình ảnhđang xử lý...关系
   rhythm?: string;              // 节奏Mô tả：这镜头的节奏感
 
   // === 灯光师 (Gaffer) ===

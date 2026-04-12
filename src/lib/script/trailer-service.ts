@@ -100,7 +100,7 @@ export async function selectTrailerShots(
 - 优先Chọn有强烈情绪（tense, excited, mysterious）的镜头
 - 优先Chọn有视觉冲击力的画面（动作场面、Cực cận cảnh、对峙）
 - 优先Chọn主要角色出场的quan trọng时刻
-- 覆盖不同 tập数，Hiển thị故事跨度
+- Ghi đè不同 tập数，Hiển thị故事跨度
 - 避免剧透quan trọng结局
 
 【输出要求】
@@ -126,7 +126,7 @@ ${shotSummaries.map(s =>
     // 统一从ánh xạ dịch vụ获取配置
     const result = await callFeatureAPI('script_analysis', systemPrompt, userPrompt);
 
-    // 解析 AI 返回的 JSON - 支持多种格式
+    // Phân tích AI 返回的 JSON - 支持多种格式
     let selectedIndices: number[] = [];
     
     console.log('[TrailerService] AI raw response (first 1000 chars):', result.slice(0, 1000));
@@ -166,7 +166,7 @@ ${shotSummaries.map(s =>
     }
     
     if (selectedIndices.length === 0) {
-      throw new Error('AI 返回格式错误，无法解析序号');
+      throw new Error('AI 返回格式错误，无法Phân tích序号');
     }
     
     console.log('[TrailerService] Parsed selectedIndices:', selectedIndices);

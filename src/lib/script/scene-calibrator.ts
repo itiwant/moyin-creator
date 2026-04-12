@@ -86,7 +86,7 @@ export interface SceneStats {
   characters: string[];
   /** 时间设定 */
   times: string[];
-  /** 动作描写样本（用于推断场景道具/布局） */
+  /** 动作描写样本（用于推断场景道具/bố cục） */
   actionSamples: string[];
   /** Thoại样本（用于理解场景用途） */
   dialogueSamples: string[];
@@ -122,7 +122,7 @@ export function collectSceneStats(
     for (const scene of ep.scenes) {
       if (!scene || !scene.sceneHeader) continue;
       
-      // 解析场景头获取地点
+      // Phân tích场景头获取地点
       const location = extractLocationFromHeader(scene.sceneHeader);
       const key = normalizeLocation(location);
       
@@ -153,9 +153,9 @@ export function collectSceneStats(
         stat.contentSamples.push(`第${epIndex} tập: ${sample}`);
       }
       
-      // 收 tập动作描写（用于推断道具和场景布局）
+      // 收 tập动作描写（用于推断道具和场景bố cục）
       if (scene.actions && scene.actions.length > 0 && stat.actionSamples.length < 8) {
-        // Sử dụng解析出的动作描写（△开头）
+        // Sử dụngPhân tích出的动作描写（△开头）
         for (const action of scene.actions.slice(0, 3)) {
           if (action && stat.actionSamples.length < 8) {
             stat.actionSamples.push(`第${epIndex} tập: ${action.slice(0, 100)}`);
@@ -248,7 +248,7 @@ function cleanLocationString(location: string): string {
 /**
  * AI Hiệu chuẩnTất cả场景（nhẹchế độ）
  * 
- * 【重要】此函数只补充现有场景的美术Thiết kế信息，不改变：
+ * 【重要】此函数只补充hiện có场景的美术Thiết kế信息，不改变：
  * - 场景列表（不新增、不删除、不合并）
  * - 场景thứ tự
  * - viewpoints（多góc nhìn联合图数据）
@@ -271,7 +271,7 @@ export async function calibrateScenes(
     };
   }
   
-  console.log('[calibrateScenes] nhẹchế độ：为', currentScenes.length, '现有场景补充美术Thiết kế');
+  console.log('[calibrateScenes] nhẹchế độ：为', currentScenes.length, 'hiện có场景补充美术Thiết kế');
   
   // 1. 收 tập场景的动作描写样本（用于推断道具）
   const stats = collectSceneStats(episodeScripts);
@@ -307,7 +307,7 @@ export async function calibrateScenes(
   const seriesCtxBlock = seriesCtx ? `\n\n${seriesCtx}\n` : '';
 
   // 3. 构建共享的 system prompt
-  const systemPrompt = `你是专业的影视美术指导和场景Thiết kế师，擅长为现有场景补充专业的视觉Thiết kế方案。${seriesCtxBlock}
+  const systemPrompt = `你是专业的影视美术指导和场景Thiết kế师，擅长为hiện có场景补充专业的视觉Thiết kế方案。${seriesCtxBlock}
 
 【核心任务】
 为以下场景补充美术Thiết kế信息，用于Tạo场景概念图。
@@ -363,7 +363,7 @@ ${background.worldSetting ? `Bối cảnh thế giới：${safeTruncate(backgrou
 【故事đại cương】
 ${outlineContext || '无'}
 
-【现有场景列表 - 请为每场景补充美术Thiết kế】（共${batch.length}）
+【hiện có场景列表 - 请为每场景补充美术Thiết kế】（共${batch.length}）
 ${sceneList}
 
 【输出规则】
@@ -394,7 +394,7 @@ ${sceneList}
         return { system: systemPrompt, user };
       },
       parseResult: (raw) => {
-        // 增强容错的 JSON 解析
+        // 增强容错的 JSON Phân tích
         let cleaned = raw.replace(/```json\n?/g, '').replace(/```\n?/g, '').trim();
         const jsonStart = cleaned.indexOf('{');
         const jsonEnd = cleaned.lastIndexOf('}');
@@ -406,7 +406,7 @@ ${sceneList}
         try {
           batchParsed = JSON.parse(cleaned);
         } catch (parseErr) {
-          console.warn('[calibrateScenes] 批次JSONPhân tích thất bại，尝试部分解析...');
+          console.warn('[calibrateScenes] 批次JSONPhân tích thất bại，尝试部分Phân tích...');
           const partialScenes: any[] = [];
           const scenePattern = /\{\s*"sceneId"\s*:\s*"([^"]+)"[^{}]*(?:\{[^{}]*\}[^{}]*)*\}/g;
           let match;
@@ -417,7 +417,7 @@ ${sceneList}
             } catch { /* skip */ }
           }
           if (partialScenes.length > 0) {
-            batchParsed = { scenes: partialScenes, mergeRecords: [], analysisNotes: '部分解析' };
+            batchParsed = { scenes: partialScenes, mergeRecords: [], analysisNotes: '部分Phân tích' };
           } else {
             throw parseErr;
           }
@@ -606,7 +606,7 @@ ${promptLanguage !== 'zh' ? '- 英文视觉提示词（50-80词，适合AI图像
     // 统一从ánh xạ dịch vụ获取配置
     const result = await callFeatureAPI('script_analysis', systemPrompt, '请为以上场景Tạo专业视觉提示词');
     
-    // 解析kết quả
+    // Phân tíchkết quả
     let cleaned = result.replace(/```json\n?/g, '').replace(/```\n?/g, '').trim();
     const jsonStart = cleaned.indexOf('{');
     const jsonEnd = cleaned.lastIndexOf('}');

@@ -468,7 +468,7 @@ async function submitViaChatCompletions(
     }
 
     if (!lastChunk) {
-      throw new Error(`无法解析图片 API 响应: ${responseText.substring(0, 120)}`);
+      throw new Error(`无法Phân tích图片 API 响应: ${responseText.substring(0, 120)}`);
     }
 
     // Reconstruct standard response format from accumulated deltas
@@ -633,7 +633,7 @@ async function submitImageTask(
           if (sseMatch) {
             return JSON.parse(sseMatch[1]);
           }
-          throw new Error(`无法解析图片 API 响应: ${text.substring(0, 100)}`);
+          throw new Error(`无法Phân tích图片 API 响应: ${text.substring(0, 100)}`);
         }
       } finally {
         clearTimeout(timeoutId);

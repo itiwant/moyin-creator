@@ -293,7 +293,7 @@ export const CAMERA_ANGLE_PRESETS = [
   { id: 'over-shoulder' as const, label: 'Qua vai', labelEn: 'Over the Shoulder', emoji: '🫂', promptToken: 'over the shoulder shot, OTS,' },
   { id: 'side-angle' as const, label: 'Góc bên', labelEn: 'Side Angle', emoji: '↔️', promptToken: 'side angle, profile view,' },
   { id: 'dutch-angle' as const, label: 'Góc Hà Lan (Dutch)', labelEn: 'Dutch Angle', emoji: '📐', promptToken: 'dutch angle, tilted frame, canted angle,' },
-  { id: 'third-person' as const, label: '第三人称', labelEn: 'Third Person', emoji: '🎮', promptToken: 'third person perspective, slightly behind and above subject,' },
+  { id: 'third-person' as const, label: 'Góc nhìn thứ ba', labelEn: 'Third Person', emoji: '🎮', promptToken: 'third person perspective, slightly behind and above subject,' },
 ] as const;
 
 export type CameraAngleType = typeof CAMERA_ANGLE_PRESETS[number]['id'];
@@ -301,15 +301,15 @@ export type CameraAngleType = typeof CAMERA_ANGLE_PRESETS[number]['id'];
 // ==================== Ống kínhTiêu cự预设 (Focal Length) ====================
 
 export const FOCAL_LENGTH_PRESETS = [
-  { id: '8mm' as const, label: '8mm 鱼眼', labelEn: '8mm Fisheye', emoji: '🐟', promptToken: '8mm fisheye lens, extreme barrel distortion, ultra wide field of view,' },
-  { id: '14mm' as const, label: '14mm 超广角', labelEn: '14mm Ultra Wide', emoji: '🌐', promptToken: '14mm ultra wide angle lens, dramatic perspective distortion,' },
-  { id: '24mm' as const, label: '24mm 广角', labelEn: '24mm Wide', emoji: '🏔️', promptToken: '24mm wide angle lens, environmental context, slight perspective exaggeration,' },
-  { id: '35mm' as const, label: '35mm 标准广角', labelEn: '35mm Standard Wide', emoji: '📷', promptToken: '35mm lens, natural wide perspective, street photography feel,' },
-  { id: '50mm' as const, label: '50mm 标准', labelEn: '50mm Standard', emoji: '👁️', promptToken: '50mm standard lens, natural human eye perspective,' },
+  { id: '8mm' as const, label: '8mm mắt cá', labelEn: '8mm Fisheye', emoji: '🐟', promptToken: '8mm fisheye lens, extreme barrel distortion, ultra wide field of view,' },
+  { id: '14mm' as const, label: '14mm siêu góc rộng', labelEn: '14mm Ultra Wide', emoji: '🌐', promptToken: '14mm ultra wide angle lens, dramatic perspective distortion,' },
+  { id: '24mm' as const, label: '24mm góc rộng', labelEn: '24mm Wide', emoji: '🏔️', promptToken: '24mm wide angle lens, environmental context, slight perspective exaggeration,' },
+  { id: '35mm' as const, label: '35mm góc rộng chuẩn', labelEn: '35mm Standard Wide', emoji: '📷', promptToken: '35mm lens, natural wide perspective, street photography feel,' },
+  { id: '50mm' as const, label: '50mm tiêu chuẩn', labelEn: '50mm Standard', emoji: '👁️', promptToken: '50mm standard lens, natural human eye perspective,' },
   { id: '85mm' as const, label: '85mm Chân dung', labelEn: '85mm Portrait', emoji: '🧑', promptToken: '85mm portrait lens, flattering facial proportions, smooth background compression,' },
   { id: '105mm' as const, label: '105mm đang xử lý... labelEn: '105mm Medium Tele', emoji: '🔭', promptToken: '105mm medium telephoto, gentle background compression,' },
-  { id: '135mm' as const, label: '135mm 长焦', labelEn: '135mm Telephoto', emoji: '📡', promptToken: '135mm telephoto lens, strong background compression, subject isolation,' },
-  { id: '200mm' as const, label: '200mm 远摄', labelEn: '200mm Long Tele', emoji: '🔬', promptToken: '200mm telephoto, extreme background compression, flattened perspective,' },
+  { id: '135mm' as const, label: '135mm tiêu cự dài', labelEn: '135mm Telephoto', emoji: '📡', promptToken: '135mm telephoto lens, strong background compression, subject isolation,' },
+  { id: '200mm' as const, label: '200mm viễn ảnh', labelEn: '200mm Long Tele', emoji: '🔬', promptToken: '200mm telephoto, extreme background compression, flattened perspective,' },
   { id: '400mm' as const, label: '400mm 超长焦', labelEn: '400mm Super Tele', emoji: '🛰️', promptToken: '400mm super telephoto, extreme compression, distant subject isolation,' },
 ] as const;
 

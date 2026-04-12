@@ -398,7 +398,7 @@ export function MediaView() {
       storyPrompt: item.name,
     });
     
-    // Tạophân cảnh đơn（包含Tất cả必需属性）
+    // Tạophân cảnh đơn（包含Tất cả必需thuộc tính）
     setSplitScenes([{
       id: 0,
       // Thông tin cảnh

@@ -5,10 +5,10 @@
 
 /**
  * Script View
- * 剧本panel - 三栏布局
+ * 剧本panel - 三栏bố cục
  * Cột trái: nhập kịch bản (nhập/sáng tác)
  * Cột giữa: cấu trúc phân cấp (tập→cảnh→phân cảnh)
- * 右栏：属性panel和跳转thao tác
+ * Cột phải：thuộc tínhpanel和跳转thao tác
  */
 
 import { useState, useCallback, useEffect, useRef } from "react";
@@ -196,7 +196,7 @@ export function ScriptView() {
   // phân cảnh đơnHiệu chuẩn状态
   const singleShotCalibrationStatus = calibrationState?.singleShotCalibrationStatus || {};
   
-  // 单 tậpCấu trúc补全状态
+  // 单 tậpCấu trúcbổ sung状态
   const structureCompletionStatus = calibrationState?.structureCompletionStatus || 'idle';
   const [structureOverwriteConfirmOpen, setStructureOverwriteConfirmOpen] = useState(false);
   const prevEpisodeRef = useRef<{ index: number | null; rawLen: number }>({ index: null, rawLen: 0 });
@@ -312,7 +312,7 @@ export function ScriptView() {
     ? episodeRawScripts.find(ep => ep.episodeIndex === activeEpisodeIndex)?.rawContent ?? ""
     : rawScript;
   
-  // === 单 tậpCấu trúc补全: rawContent 从空→非空 Tự động触发 ===
+  // === 单 tậpCấu trúcbổ sung: rawContent 从空→非空 Tự động触发 ===
   const handleStructureCompletion = useCallback(async () => {
     if (activeEpisodeIndex == null || !scriptData) return;
     setStructureCompletionStatus('processing');
@@ -381,7 +381,7 @@ export function ScriptView() {
       setSelectedItemId(id);
       setSelectedItemType(type);
 
-      // đã chọn tập时进入 tập作用域（设置 activeEpisodeIndex，激活 P4C Tự độngCấu trúc补全）
+      // đã chọn tập时进入 tập作用域（设置 activeEpisodeIndex，激活 P4C Tự độngCấu trúcbổ sung）
       if (type === "episode" && id.startsWith("episode_")) {
         const epIndex = parseInt(id.replace("episode_", ""), 10);
         if (!Number.isNaN(epIndex)) {
@@ -497,7 +497,7 @@ export function ScriptView() {
     setImportError(undefined);
 
     try {
-      // 1. 规则解析Nhập（把用户选的风格和Ngôn ngữ一起传进去）
+      // 1. 规则Phân tíchNhập（把用户选的风格和Ngôn ngữ一起传进去）
       const result = await importFullScript(text, projectId, { styleId, promptLanguage });
       
       if (!result.success) {
@@ -610,7 +610,7 @@ export function ScriptView() {
           );
           const newCharacters = resolvedCharacters.characters;
           
-          // 从 store 获取最新的 scriptData（避免覆盖Phân cảnhTạo的 AI góc nhìn数据）
+          // 从 store 获取最新的 scriptData（避免Ghi đèPhân cảnhTạo的 AI góc nhìn数据）
           if (currentScriptData) {
             setScriptData(projectId, {
               ...currentScriptData,  // Sử dụng dữ liệu mới nhất, giữ scenes.viewpoints
@@ -1379,7 +1379,7 @@ export function ScriptView() {
     }
   }, [projectId, language, targetDuration, sceneCount, shotCount, styleId, setRawScript, setParseStatus, handleImportFullScript]);
 
-  // Parse screenplay (AI解析)
+  // Parse screenplay (AIPhân tích)
   const handleParse = useCallback(async () => {
     if (!rawScript.trim()) {
       toast.error("Vui lòng nhập nội dung kịch bản");
@@ -2348,11 +2348,11 @@ export function ScriptView() {
         <div className="flex items-center justify-between">
           <h2 className="font-semibold text-sm flex items-center gap-2">
             <FileText className="h-4 w-4" />
-            剧本chỉnh sửa
+            Chỉnh sửa kịch bản
           </h2>
           <span className="text-xs text-muted-foreground">
             {parseStatus === "parsing"
-              ? "解析đang xử lý..."
+              ? "Đang phân tích..."
               : scriptProject?.shotStatus === "generating"
               ? "Phân cảnhĐang tạo..."
               : parseStatus === "ready" && scriptData
@@ -2362,9 +2362,9 @@ export function ScriptView() {
         </div>
       </div>
 
-      {/* 三栏布局 */}
+      {/* Bố cục ba cột */}
       <ResizablePanelGroup direction="horizontal" className="flex-1">
-        {/* 左栏：剧本输入 */}
+        {/* Cột trái: nhập kịch bản */}
         <ResizablePanel defaultSize={30} minSize={20}>
           <ScriptInput
             rawScript={effectiveRawScript}
@@ -2406,7 +2406,7 @@ export function ScriptView() {
 
         <ResizableHandle />
 
-        {/* đang xử lý...层级Cấu trúc */}
+        {/* Cấu trúc phân cấp */}
         <ResizablePanel defaultSize={40} minSize={25}>
           <EpisodeTree
             scriptData={scriptData}
@@ -2466,7 +2466,7 @@ export function ScriptView() {
 
         <ResizableHandle />
 
-        {/* 右栏：属性panel */}
+        {/* Cột phải: panel thuộc tính */}
         <ResizablePanel defaultSize={30} minSize={20}>
           <PropertyPanel
             selectedItemId={selectedItemId}
@@ -2498,19 +2498,19 @@ export function ScriptView() {
         </ResizablePanel>
       </ResizablePanelGroup>
 
-      {/* Cấu trúc补全覆盖Xác nhậnPopup */}
+      {/* Popup Xác nhận ghi đè bổ sung cấu trúc */}
       <AlertDialog open={structureOverwriteConfirmOpen} onOpenChange={setStructureOverwriteConfirmOpen}>
         <AlertDialogContent>
           <AlertDialogHeader>
-            <AlertDialogTitle>覆盖现有CảnhCấu trúc？</AlertDialogTitle>
+            <AlertDialogTitle>Ghi đè Cấu trúc Cảnh hiện có?</AlertDialogTitle>
             <AlertDialogDescription>
-              该 tập已有Cảnh数据，重新解析将替换现有Cảnh并清理对应Phân cảnh。Xác nhận继续？
+              该 tập已有Cảnh数据，重新Phân tích将替换hiện cóCảnh并清理对应Phân cảnh。Xác nhận继续？
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
             <AlertDialogCancel>Hủy</AlertDialogCancel>
             <AlertDialogAction onClick={() => handleStructureCompletion()}>
-              Xác nhận覆盖
+              Xác nhậnGhi đè
             </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>

@@ -459,7 +459,7 @@ export async function callVideoGenerationApi(
     }))
   );
 
-  // 根据元数据/Model名检测 API 格式并路由，包裹Thử lại（覆盖 429/503/529 等）
+  // 根据元数据/Model名检测 API 格式并路由，包裹Thử lại（Ghi đè 429/503/529 等）
   const format = detectVideoApiFormat(model);
   console.log('[VideoGen] Detected API format:', { model, format, platform: resolvedPlatform });
 
@@ -620,7 +620,7 @@ async function callUnifiedVideoApi(
 
   console.log('[VideoGen] Unified submit response:', submitData);
 
-  // 提取任务 ID（覆盖各Nền tảng的lồng nhau响应格式）
+  // 提取任务 ID（Ghi đè各Nền tảng的lồng nhau响应格式）
   const taskId = (
     submitData.task_id ||
     submitData.id ||
@@ -1546,7 +1546,7 @@ export async function callJuxinVideoGenerationApi(
   
   console.log('[VideoGen] Grok request:', requestBody);
 
-  // Submit video generation request（带Thử lại，覆盖 429/503/529，每次Thử lại动态取 key）
+  // Submit video generation request（带Thử lại，Ghi đè 429/503/529，每次Thử lại动态取 key）
   const submitData = await retryOperation(async () => {
     // 每次Thử lại动态取当前 key，利用 keyManager rotate 后的新 key
     const currentApiKey = keyManager?.getCurrentKey?.() || apiKey;

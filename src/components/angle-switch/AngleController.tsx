@@ -452,7 +452,7 @@ export function AngleController({
           </div>
         </div>
         
-        {/* Đang tải覆盖层 */}
+        {/* Đang tảiGhi đè层 */}
         {isLoading && (
           <div className="absolute inset-0 flex items-center justify-center bg-black/60 z-50">
             <div className="w-8 h-8 border-2 border-[#ccff00] border-t-transparent rounded-full animate-spin" />

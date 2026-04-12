@@ -149,8 +149,8 @@ export function SettingsPanel() {
     [imageHostProviders],
   );
 
-  // ====== Memefast 默认绑定Tự động补全 ======
-  // 覆盖场景：
+  // ====== Memefast 默认绑定Tự độngbổ sung ======
+  // Ghi đè场景：
   //  1. 旧Phiên bản升级后已有 key 但 featureBindings 为空
   //  2. 旧Phiên bản留下无效绑定（Model名错、provider ID 变更等）
   //  3. 用户Chỉnh sửa填 key 后页面刷新
@@ -503,7 +503,7 @@ export function SettingsPanel() {
     if (!confirm("Nhập dữ liệu sẽ ghi đè dữ liệu hiện tại, bạn có muốn tiếp tục?")) return;
     const result = await window.storageManager.importData(dir);
     if (result.success) {
-      // 清除 localStorage đang xử lý...，防止旧数据覆盖Nhập的数据
+      // 清除 localStorage đang xử lý...，防止旧数据Ghi đèNhập的数据
       const keysToRemove = Object.keys(localStorage).filter(key => 
         key.startsWith('moyin-') || key.includes('store')
       );
@@ -1612,7 +1612,7 @@ export function SettingsPanel() {
           }
           // 如果Thêm的是 memefast Nhà cung cấp，Tự động设置默认ánh xạ dịch vụ（仅在对应服务尚Chưa cấu hình时）
           if (providerData.platform === 'memefast') {
-            // Sử dụng provider.id（而非 platform 字符串）避免多Nhà cung cấp时的歧义解析
+            // Sử dụng provider.id（而非 platform 字符串）避免多Nhà cung cấp时的歧义Phân tích
             const pid = provider.id;
             const MEMEFAST_DEFAULT_BINDINGS: Record<string, string> = {
               // NOTE: MemeFast 端点已升级，旧的 deepseek-v3 已不在 cột表đang xử lý... deepseek-v3.2
@@ -1623,7 +1623,7 @@ export function SettingsPanel() {
             };
             for (const [feature, binding] of Object.entries(MEMEFAST_DEFAULT_BINDINGS)) {
               const current = getFeatureBindings(feature as AIFeature);
-              // 仅在Chưa cấu hình时设置默认值，避免覆盖用户手动Chọn
+              // 仅在Chưa cấu hình时设置默认值，避免Ghi đè用户手动Chọn
               if (!current || current.length === 0) {
                 setFeatureBindings(feature as AIFeature, [binding]);
                 continue;

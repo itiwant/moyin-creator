@@ -120,7 +120,7 @@ ${sceneSummaries}
 }
 
 transitions 数组长度必须为 ${scenes.length - 1}（每两相邻Ống kính之间一条）。
-calibratedPrompt 必须覆盖Tất cả ${scenes.length} Ống kính，保持Ống kính编号和Thời gian轴。`;
+calibratedPrompt 必须Ghi đèTất cả ${scenes.length} Ống kính，保持Ống kính编号和Thời gian轴。`;
 
   // ---- gọi API LLM ----
   const raw = await callFeatureAPI('script_analysis', systemPrompt, userPrompt, {
@@ -128,7 +128,7 @@ calibratedPrompt 必须覆盖Tất cả ${scenes.length} Ống kính，保持Ố
     maxTokens: 4096,
   });
 
-  // ---- 解析 JSON ----
+  // ---- Phân tích JSON ----
   let cleaned = raw.replace(/```json\n?/g, '').replace(/```\n?/g, '').trim();
   const jsonStart = cleaned.indexOf('{');
   const jsonEnd = cleaned.lastIndexOf('}');
@@ -140,7 +140,7 @@ calibratedPrompt 必须覆盖Tất cả ${scenes.length} Ống kính，保持Ố
   try {
     parsed = JSON.parse(cleaned);
   } catch {
-    throw new Error('AI Quay lại的 JSON 解析Thất bại，请Thử lại');
+    throw new Error('AI Quay lại的 JSON Phân tíchThất bại，请Thử lại');
   }
 
   // ---- 校验 & 容错 ----

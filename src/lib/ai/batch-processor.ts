@@ -48,13 +48,13 @@ export interface ProcessBatchedOptions<TItem, TResult> {
   buildPrompts: (batch: TItem[]) => { system: string; user: string };
 
   /**
-   * 解析 AI 返回的gốc文本为Cấu trúc化kết quả
+   * Phân tích AI 返回的gốc文本为Cấu trúc化kết quả
    * 返回 Map<itemKey, result>，key 用于跨批次合并
    */
   parseResult: (raw: string, batch: TItem[]) => Map<string, TResult>;
 
   /**
-   * 可选：Tùy chỉnh合并逻辑。默认简单合并（后者覆盖前者）
+   * 可选：Tùy chỉnh合并逻辑。默认简单合并（后者Ghi đè前者）
    */
   mergeResults?: (all: Map<string, TResult>[]) => Map<string, TResult>;
 

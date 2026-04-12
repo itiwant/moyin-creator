@@ -338,7 +338,7 @@ export function ShotGroupCard({
                       Chỉnh sửa
                     </Button>
                   </TooltipTrigger>
-                  <TooltipContent>对当前videothực hiệncốt truyệnChỉnh sửa、Thay thế nhân vật、属性修改等</TooltipContent>
+                  <TooltipContent>对当前videothực hiệncốt truyệnChỉnh sửa、Thay thế nhân vật、thuộc tính修改等</TooltipContent>
                 </Tooltip>
               </TooltipProvider>
             </>

@@ -7,7 +7,7 @@
  * 根据用户自然Ngôn ngữMô tả，从剧本đang xử lý...景并Tạo专业场景数据
  * 
  * 功能：
- * 1. 解析用户输入（如 "缺第5 tập的张家客厅"）
+ * 1. Phân tích用户输入（如 "缺第5 tập的张家客厅"）
  * 2. 搜索剧本đang xử lý...信息
  * 3. AI Tạođầy đủ场景数据（包括视觉提示词）
  */
@@ -44,7 +44,7 @@ export interface SceneFinderOptions {
 // ==================== 核心函数 ====================
 
 /**
- * 解析用户输入，提取场景名和 tập数信息
+ * Phân tích用户输入，提取场景名和 tập数信息
  */
 function parseSceneQuery(query: string): { name: string | null; episodeNumber: number | null } {
   let name: string | null = null;
@@ -224,7 +224,7 @@ ${contexts.slice(0, 3).join('\n\n')}
     // 统一从ánh xạ dịch vụ获取配置
     const result = await callFeatureAPI('script_analysis', systemPrompt, userPrompt);
     
-    // 解析 JSON
+    // Phân tích JSON
     let cleaned = result.replace(/```json\n?/g, '').replace(/```\n?/g, '').trim();
     const jsonStart = cleaned.indexOf('{');
     const jsonEnd = cleaned.lastIndexOf('}');
@@ -296,7 +296,7 @@ export async function findSceneByDescription(
 ): Promise<SceneSearchResult> {
   console.log('[findSceneByDescription] 用户查询:', userQuery);
   
-  // 1. 解析用户输入
+  // 1. Phân tích用户输入
   const { name, episodeNumber } = parseSceneQuery(userQuery);
   
   if (!name) {
@@ -310,7 +310,7 @@ export async function findSceneByDescription(
     };
   }
   
-  console.log('[findSceneByDescription] 解析kết quả:', { name, episodeNumber });
+  console.log('[findSceneByDescription] Phân tíchkết quả:', { name, episodeNumber });
   
   // 2. 检查是否已存在
   const existing = existingScenes.find(s => 

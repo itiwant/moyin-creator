@@ -582,7 +582,7 @@ export function PropertyPanel({
         lines.push(`机位Mô tả: ${(shot as any).cameraPosition}`);
       }
       if ((shot as any).characterBlocking) {
-        lines.push(`nhân vật布局: ${(shot as any).characterBlocking}`);
+        lines.push(`nhân vậtbố cục: ${(shot as any).characterBlocking}`);
       }
       if ((shot as any).rhythm) {
         lines.push(`节奏: ${(shot as any).rhythm}`);
@@ -892,7 +892,7 @@ export function PropertyPanel({
 
           <Separator />
 
-          {/* 属性 */}
+          {/* thuộc tính */}
           {isEditing ? (
             <div className="space-y-3">
               <div className="space-y-1">
@@ -1147,7 +1147,7 @@ export function PropertyPanel({
 
           <Separator />
 
-          {/* 属性 */}
+          {/* thuộc tính */}
           {isEditing ? (
             <div className="space-y-3">
               <div className="space-y-1">
@@ -1441,7 +1441,7 @@ export function PropertyPanel({
 
           <Separator />
 
-          {/* 属性 */}
+          {/* thuộc tính */}
           {isEditing ? (
             <div className="space-y-3">
               <div className="grid grid-cols-2 gap-2">

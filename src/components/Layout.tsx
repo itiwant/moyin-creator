@@ -43,7 +43,7 @@ export function Layout() {
   }
 
   // Full-screen views (no resizable panels)
-  // 这些panel有自己的多栏布局，不需要全局的Xem trước和属性panel
+  // 这些panel有自己的多栏bố cục，不需要全局的Xem trước和thuộc tínhpanel
   const fullScreenTabs = ["export", "settings", "overview", "script", "characters", "scenes", "freedom", "assets"];
   if (fullScreenTabs.includes(activeTab)) {
     return (

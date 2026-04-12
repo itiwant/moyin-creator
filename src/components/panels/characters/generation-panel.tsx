@@ -326,7 +326,7 @@ export function GenerationPanel({ selectedCharacter, onCharacterCreated }: Gener
     setIsManuallyModified(false);
   };
 
-  // Tạo新Nhân vật并Tạo ảnh（始终Tạo mới，不会覆盖已有Nhân vật）
+  // Tạo新Nhân vật并Tạo ảnh（始终Tạo mới，不会Ghi đè已有Nhân vật）
   const handleCreateAndGenerate = async () => {
     if (!name.trim()) {
       toast.error("NhậpTên nhân vật");

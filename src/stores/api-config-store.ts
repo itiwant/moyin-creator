@@ -1388,7 +1388,7 @@ export const useAPIConfigStore = create<APIConfigStore>()(
 
         // v12 → v13: Clear stale API metadata caches to force fresh sync on startup
         // This fixes the issue where cached modelEndpointTypes / modelEnableGroups / modelTypes / modelTags
-        // from an old version cause incorrect API routing after an in-place upgrade (覆盖安装)
+        // from an old version cause incorrect API routing after an in-place upgrade (Ghi đè安装)
         if (version <= 12) {
           console.log(`[APIConfig] v12→v13: Clearing stale API metadata caches (modelEndpointTypes, modelTypes, modelTags, modelEnableGroups, discoveredModelLimits)`);
           result.modelEndpointTypes = {};

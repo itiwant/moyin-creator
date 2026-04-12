@@ -5,10 +5,10 @@
  * Script Format Normalizer - 剧本格式归一化器
  * 
  * 在 parseFullScript 之前Tự động检测非标准格式并插入Cấu trúc标记，
- * 使解析器能正确提取标题、đại cương、nhân vật小传、 tập数等信息。
+ * 使Phân tích器能正确提取标题、đại cương、nhân vật小传、 tập数等信息。
  * 
  * 双层架构：
- * 1. AI 检测（优先）：gọi API LLM 理解内容语义，精准识别Cấu trúc + 补全缺失đại cương
+ * 1. AI 检测（优先）：gọi API LLM 理解内容语义，精准识别Cấu trúc + bổ sung缺失đại cương
  * 2. 正则兜底（降级）：无 AI 配置或 AI gọi APIthất bại时Sử dụng硬编码chế độ匹配
  * 
  * 核心原则：
@@ -70,8 +70,8 @@ export function preprocessLineBreaks(text: string): { text: string; inserted: bo
     '\n'
   );
   
-  // 5. Thoại前换行：2-8字đang xử lý...+ 全角冒号/括号（避免切断 "年龄：" 等属性）
-  // 仅当前面不是换行且不在属性Mô tảđang xử lý...有đang xử lý...号）
+  // 5. Thoại前换行：2-8字đang xử lý...+ 全角冒号/括号（避免切断 "年龄：" 等thuộc tính）
+  // 仅当前面不是换行且不在thuộc tínhMô tảđang xử lý...有đang xử lý...号）
   result = result.replace(
     /(?<!\n)(?<![\u4e00-\u9fa5：])(?=[\u4e00-\u9fa5]{2,8}[（(][^）)]{0,10}[）)][：:])/g,
     '\n'
@@ -111,7 +111,7 @@ export interface NormalizationResult {
   normalized: string;
   /** 变更日志（用于 console.log 追踪） */
   changes: string[];
-  /** AI 分析kết quả（用于覆盖解析器的 era/genre） */
+  /** AI 分析kết quả（用于Ghi đèPhân tích器的 era/genre） */
   aiAnalysis?: ScriptStructureAnalysis;
 }
 
@@ -201,7 +201,7 @@ export interface ScriptStructureAnalysis {
 }
 
 /**
- * AI Cấu trúc检测：gọi API LLM 分析剧本Cấu trúc，识别标题/đại cương/nhân vật/年代，并补全缺失đại cương
+ * AI Cấu trúc检测：gọi API LLM 分析剧本Cấu trúc，识别标题/đại cương/nhân vật/年代，并bổ sung缺失đại cương
  * @returns 分析kết quả，AI 不可用或gọi APIthất bại时返回 null
  */
 export async function analyzeScriptStructureWithAI(text: string): Promise<ScriptStructureAnalysis | null> {
@@ -294,7 +294,7 @@ export async function analyzeScriptStructureWithAI(text: string): Promise<Script
       return null;
     }
     jsonStr = jsonMatch[0];
-    // 3. 尝试Trực tiếp解析，thất bại则修复 JS 对象字面量（无引号 key）为 JSON
+    // 3. 尝试Trực tiếpPhân tích，thất bại则修复 JS 对象字面量（无引号 key）为 JSON
     let analysis: ScriptStructureAnalysis;
     try {
       analysis = JSON.parse(jsonStr);

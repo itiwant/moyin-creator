@@ -474,15 +474,15 @@ export function ScriptInput({
                 <div className="space-y-1.5 text-xs text-muted-foreground">
                   <div className="flex items-center gap-2">
                     <span className="w-4 h-4 rounded-full bg-primary/10 text-primary flex items-center justify-center text-[10px] font-bold">1</span>
-                    <span>在đang xử lý...Cảnh → 右栏点「去Cảnh库Tạonền」</span>
+                    <span>在đang xử lý...Cảnh → Cột phải点「去Cảnh库Tạonền」</span>
                   </div>
                   <div className="flex items-center gap-2">
                     <span className="w-4 h-4 rounded-full bg-primary/10 text-primary flex items-center justify-center text-[10px] font-bold">2</span>
-                    <span>ChọnNhân vật → 右栏点「去Thư viện nhân vậtTạo形象」</span>
+                    <span>ChọnNhân vật → Cột phải点「去Thư viện nhân vậtTạo形象」</span>
                   </div>
                   <div className="flex items-center gap-2">
                     <span className="w-4 h-4 rounded-full bg-primary/10 text-primary flex items-center justify-center text-[10px] font-bold">3</span>
-                    <span>Chọn phân cảnh → 右栏点「去AIĐạo diễnTạo video」</span>
+                    <span>Chọn phân cảnh → Cột phải点「去AIĐạo diễnTạo video」</span>
                   </div>
                 </div>
               </div>
@@ -816,9 +816,9 @@ export function ScriptInput({
           </div>
         )}
 
-        {/* Nhập/解析nút */}
+        {/* Nhập/Phân tíchnút */}
         <div className="space-y-2">
-          {/* đầy đủ剧本Nhậpnút（不需要AI，用规则解析） */}
+          {/* đầy đủ剧本Nhậpnút（不需要AI，用规则Phân tích） */}
           {mode === "import" && onImportFullScript && (
             <Button
               onClick={handleImportFullScript}
@@ -887,7 +887,7 @@ export function ScriptInput({
             </Button>
           )}
           
-          {/* AI解析nút - 仅在Chế độ nhập显示 */}
+          {/* AIPhân tíchnút - 仅在Chế độ nhập显示 */}
           {mode === "import" && (
             <Button
               onClick={onParse}
@@ -898,7 +898,7 @@ export function ScriptInput({
               {parseStatus === "parsing" ? (
                 <>
                   <Loader2 className="h-4 w-4 mr-2 animate-spin" />
-                  解析đang xử lý...
+                  Phân tíchđang xử lý...
                 </>
               ) : (
                 <>
@@ -910,7 +910,7 @@ export function ScriptInput({
           )}
         </div>
 
-        {/* 解析错误 */}
+        {/* Phân tích错误 */}
         {parseStatus === "error" && parseError && (
           <div className="flex items-start gap-2 p-2 rounded-md bg-destructive/10 border border-destructive/20">
             <AlertCircle className="h-4 w-4 text-destructive mt-0.5 shrink-0" />

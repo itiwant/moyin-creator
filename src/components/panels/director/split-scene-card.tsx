@@ -203,7 +203,7 @@ export function SplitSceneCard({
     setEditingPrompt(type);
   };
 
-  // Lưuprompt（根据Ngôn ngữCài đặt只更新对应trường，不覆盖另一种Ngôn ngữ）
+  // Lưuprompt（根据Ngôn ngữCài đặt只更新对应trường，不Ghi đè另一种Ngôn ngữ）
   const handleSavePrompt = () => {
     const langLabel = promptLanguage === 'en' ? 'tiếng Anh' : 'tiếng Trung';
 

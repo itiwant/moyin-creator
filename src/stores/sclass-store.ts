@@ -183,7 +183,7 @@ export interface ShotGroup {
  */
 export interface SingleShotOverride {
   sceneId: number;
-  /** 单Ống kính独立prompt（覆盖Phân cảnhgốcprompt） */
+  /** 单Ống kính独立prompt（Ghi đèPhân cảnhgốcprompt） */
   prompt: string;
   /** @tham chiếuTài sản */
   assetRefs: AssetRef[];
@@ -202,7 +202,7 @@ export interface SingleShotOverride {
 export interface SClassProjectData {
   /** Ống kính组 cột表 */
   shotGroups: ShotGroup[];
-  /** 单镜Tạo覆盖表 (sceneId -> override) */
+  /** 单镜TạoGhi đè表 (sceneId -> override) */
   singleShotOverrides: Record<number, SingleShotOverride>;
   /** 全局 @tham chiếuTài sản（Tự dochế độ下Sử dụng） */
   globalAssetRefs: AssetRef[];

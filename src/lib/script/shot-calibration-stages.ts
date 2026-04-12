@@ -122,7 +122,7 @@ export async function calibrateShotsMultiStage(
     ? `\n\n【⚠️ 剧本背景 — 视觉Tạo必须严格遵循】\n${eraContextParts.join('\n')}`
     : '';
 
-  // JSON 解析辅助
+  // JSON Phân tích辅助
   function parseStageJSON(raw: string): Record<string, any> {
     let cleaned = raw.replace(/^```json\s*/i, '').replace(/^```\s*/i, '').replace(/\s*```$/i, '').trim();
     const jsonStart = cleaned.indexOf('{');
@@ -202,7 +202,7 @@ ${contextLine}${narrativeAnchorBlock}${episodeSynopsis ? `\n\n【本 tậpđại
 - storyAlignment: 与Bối cảnh thế giới/故事核心的一致性（aligned/minor-deviation/needs-review）
 - visualFocus: 视觉焦点thứ tự（用→表示）
 - cameraPosition: 机位Mô tả（中文）
-- characterBlocking: nhân vật布局（中文）
+- characterBlocking: nhân vậtbố cục（中文）
 - rhythm: 节奏感（中文）
 
 格式：{"shots":{"shot_id":{...}}}`;
@@ -247,7 +247,7 @@ ${s2VisualPromptRule}
       const userShots = batch.map(s => {
         const prev = merged[s.shotId] || {};
         const hasFlashback = /闪回|叠画|回忆|穿插/.test(s.sourceText || '');
-        return `ID: ${s.shotId}\n【主场景（不可thay đổi）】: ${s.sceneLocation}${hasFlashback ? ' ⚠️含闪回，主场景không thay đổi！' : ''}\n原文: ${s.sourceText || s.actionSummary}${s.dialogue ? `\nThoại: 「${s.dialogue}」` : ''}\n角色: ${s.characterNames?.join('、') || '无'}\ntự sự: 景别=${prev.shotSize || '?'} | 功能=${prev.narrativeFunction || '?'} | 目的=${prev.shotPurpose || '?'}\n焦点: ${prev.visualFocus || '?'} | 布局: ${prev.characterBlocking || '?'}`;
+        return `ID: ${s.shotId}\n【主场景（不可thay đổi）】: ${s.sceneLocation}${hasFlashback ? ' ⚠️含闪回，主场景không thay đổi！' : ''}\n原文: ${s.sourceText || s.actionSummary}${s.dialogue ? `\nThoại: 「${s.dialogue}」` : ''}\n角色: ${s.characterNames?.join('、') || '无'}\ntự sự: 景别=${prev.shotSize || '?'} | 功能=${prev.narrativeFunction || '?'} | 目的=${prev.shotPurpose || '?'}\n焦点: ${prev.visualFocus || '?'} | bố cục: ${prev.characterBlocking || '?'}`;
       }).join('\n\n---\n\n');
       return { system: s2System, user: `请TạoMô tả thị giác：\n\n${userShots}` };
     }, 200, 4096);

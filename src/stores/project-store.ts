@@ -208,7 +208,7 @@ async function discoverProjectsFromDisk(): Promise<void> {
             // 有Kịch bảnNội dung，说明确实是有效项目
             const screenplay = state.projects[pid].screenplay;
             if (!name.includes('Dự án khôi phục')) {
-              // 已经有Tên了，不覆盖
+              // 已经有Tên了，不Ghi đè
             } else if (screenplay) {
               // 用Kịch bản前几字做临时Tên
               const preview = screenplay.substring(0, 20).replace(/\n/g, ' ').trim();

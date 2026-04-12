@@ -90,7 +90,7 @@ export const SEEDANCE_LIMITS = {
 // ==================== Grid Image Merge ====================
 
 /**
- * 计算网格布局（N×N 策略）
+ * 计算网格bố cục（N×N 策略）
  */
 function calculateGridLayout(count: number): { cols: number; rows: number; paddedCount: number } {
   if (count <= 4) return { cols: 2, rows: 2, paddedCount: 4 };
@@ -100,7 +100,7 @@ function calculateGridLayout(count: number): { cols: number; rows: number; padde
 /**
  * 将多张Khung hình đầuảnh合并为一张ô图（Canvas 拼接）
  *
- * 布局规则（N×N 策略，与 handleMergedGenerate 一致）：
+ * bố cục规则（N×N 策略，与 handleMergedGenerate 一致）：
  * - 1-4 张 → 2×2，不足的ôĐể trống
  * - 5-9 张 → 3×3，不足的ôĐể trống
  * Tỷ lệ khung hình：N×N 网格下，整图Tỷ lệ khung hình = 单格Tỷ lệ khung hình = 目标画幅比
@@ -121,7 +121,7 @@ export async function mergeToGridImage(
 
   const { cols, rows } = calculateGridLayout(imageUrls.length);
 
-  // 解析Tỷ lệ khung hình
+  // Phân tíchTỷ lệ khung hình
   const [aw, ah] = aspectRatio.split(':').map(Number);
   const cellAspect = (aw || 16) / (ah || 9);
 

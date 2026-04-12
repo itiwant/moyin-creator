@@ -146,7 +146,7 @@ ${promptLanguage !== 'en' ? '          "visualPromptZh": "35-40 tuổiđang xử
     // 统一从ánh xạ dịch vụ获取配置
     const result = await callFeatureAPI('script_analysis', systemPrompt, userPrompt);
     
-    // 解析JSONkết quả
+    // Phân tíchJSONkết quả
     let cleaned = result.replace(/```json\n?/g, '').replace(/```\n?/g, '').trim();
     const jsonStart = cleaned.indexOf('{');
     const jsonEnd = cleaned.lastIndexOf('}');

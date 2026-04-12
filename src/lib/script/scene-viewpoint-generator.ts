@@ -205,7 +205,7 @@ interface ViewpointConfig {
 /**
  * 动作quan trọng词 -> góc nhìn映射
  * 从分镜动作描写đang xử lý...要的góc nhìn
- * 扩展quan trọng词以覆盖更多场景
+ * 扩展quan trọng词以Ghi đè更多场景
  * 
  * 【重要】environments trường控制该góc nhìn适用于哪些环境类型
  * - 空数组 [] 表示通用góc nhìn，适用于Tất cả环境
@@ -526,7 +526,7 @@ export function generateContactSheetPrompt(config: ContactSheetConfig): ContactS
     viewpoints = extractViewpointsFromShots(shots, maxViewpoints);
   }
   
-  // 确定网格布局 - 强制Sử dụng NxN 布局 (2x2 或 3x3)
+  // 确定网格bố cục - 强制Sử dụng NxN bố cục (2x2 或 3x3)
   const vpCount = viewpoints.length;
   const gridLayout = vpCount <= 4 
     ? { rows: 2, cols: 2 }
@@ -582,7 +582,7 @@ export function generateContactSheetPrompt(config: ContactSheetConfig): ContactS
   promptParts.push('Subject: Interior design and architectural details only, NO people.');
   promptParts.push('</instruction>');
   
-  // 2. 布局Mô tả
+  // 2. bố cụcMô tả
   promptParts.push(`Layout: ${gridLayout.rows} rows, ${gridLayout.cols} columns, reading order left-to-right, top-to-bottom.`);
   
   // 3. 场景信息
@@ -626,7 +626,7 @@ export function generateContactSheetPrompt(config: ContactSheetConfig): ContactS
   const promptZh = `一张${gridLayout.rows}x${gridLayout.cols}网格联合图，Hiển thị同一「${scene.name || scene.location}」场景的${viewpoints.length}不同机位góc nhìn${viewpointSource}。
 ${sceneDescZh}
 
-网格布局（从左到右，从上到下）：
+网格bố cục（从左到右，从上到下）：
 ${gridItemsZh}
 
 风格：${styleTokens.length > 0 ? styleTokens.join('、') : '动画风格，柔和色彩，细节丰富'}，${viewpoints.length}格子保持一致的透视和光照。每格子用细白线ngăn cách。只有背景，没有nhân vật。`;
@@ -971,7 +971,7 @@ export function groupViewpointsIntoPages(
  * Tạo联合图的提示词
  * 返回 PendingViewpointData 和 ContactSheetPromptSet 用于传递给场景库
  * 
- * 布局Chọn逻辑：
+ * bố cụcChọn逻辑：
  * - góc nhìn ≤ 6：Sử dụng 2x3 或 3x2（1 张图）
  * - góc nhìn 7-9：Sử dụng 3x3（1 张图）
  * - góc nhìn > 9：分多张图
@@ -989,8 +989,8 @@ export function generateMultiPageContactSheetData(
   const sceneLocation = scene.location || scene.name || '';
   const allViewpoints = extractAllViewpointsFromShots(config.shots, sceneLocation);
   
-  // 根据góc nhìn数量和宽高比Tự độngChọn最优布局
-  // 强制Sử dụng NxN 布局 (2x2 或 3x3) 以保证宽高比一致性，与 Director panel保持一致
+  // 根据góc nhìn数量和宽高比Tự độngChọn最优bố cục
+  // 强制Sử dụng NxN bố cục (2x2 或 3x3) 以保证宽高比一致性，与 Director panel保持一致
   let gridLayout: { rows: number; cols: number };
   let viewpointsPerPage: number;
   
@@ -1006,7 +1006,7 @@ export function generateMultiPageContactSheetData(
     viewpointsPerPage = 9;
   }
   
-  console.log('[ContactSheet] 布局Chọn:', { vpCount, aspectRatio, gridLayout, viewpointsPerPage });
+  console.log('[ContactSheet] bố cụcChọn:', { vpCount, aspectRatio, gridLayout, viewpointsPerPage });
   
   // 分页
   const pages = groupViewpointsIntoPages(allViewpoints, viewpointsPerPage);
@@ -1098,7 +1098,7 @@ export function generateMultiPageContactSheetData(
     promptParts.push('Subject: Interior design and architectural details only, NO people.');
     promptParts.push('</instruction>');
     
-    // 2. 布局Mô tả
+    // 2. bố cụcMô tả
     promptParts.push(`Layout: ${gridLayout.rows} rows, ${gridLayout.cols} columns, reading order left-to-right, top-to-bottom.`);
     
     // 3. 场景信息
@@ -1148,7 +1148,7 @@ ${totalCells} 格子分别Hiển thị：${gridItemsZh}。
 
 重要：
 - 必须精确Tạo ${gridLayout.rows} 行 ${gridLayout.cols} 列，不能多也不能少。
-- 这是一张干净的Tham chiếu图，图片上不要Thêm任何文字覆盖。
+- 这是一张干净的Tham chiếu图，图片上不要Thêm任何文字Ghi đè。
 - 不要Thêm标签、标题、说明文字、水印或任何类型的文字。
 
 风格：${styleTokens.length > 0 ? styleTokens.join('、') : '动画风格，柔和色彩，细节丰富'}，Tất cả格子光照一致，格子之间用细白边框ngăn cách，只有背景，没有nhân vật。`;
@@ -1195,7 +1195,7 @@ export function buildContactSheetDataFromViewpoints(
   viewpoints: PendingViewpointData[];
   contactSheetPrompts: ContactSheetPromptSet[];
 } {
-  // 根据góc nhìn数量Chọn布局
+  // 根据góc nhìn数量Chọnbố cục
   const vpCount = viewpoints.length;
   let gridLayout: { rows: number; cols: number };
   let viewpointsPerPage: number;
@@ -1368,7 +1368,7 @@ ${gridItemsZh}
 
 重要：
 - 必须精确Tạo ${gridLayout.rows} 行 ${gridLayout.cols} 列，不能多也不能少。
-- 这是一张干净的Tham chiếu图，图片上不要Thêm任何文字覆盖。
+- 这是一张干净的Tham chiếu图，图片上不要Thêm任何文字Ghi đè。
 - 不要Thêm标签、标题、说明文字、水印或任何类型的文字。
 
 风格：${styleTokens.length > 0 ? styleTokens.join('、') : '动画风格，柔和色彩，细节丰富'}，Tất cả格子光照一致，格子之间用细白边框ngăn cách，只有背景，没有nhân vật。`;

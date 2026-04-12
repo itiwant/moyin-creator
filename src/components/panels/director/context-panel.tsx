@@ -5,7 +5,7 @@
 
 /**
  * Director Context Panel Component
- * 全局右栏 - AIĐạo diễnchế độ：HiệnKịch bản层级树，让用户Chọn要Tạo的Nội dung
+ * 全局Cột phải - AIĐạo diễnchế độ：HiệnKịch bảnphân cấp树，让用户Chọn要Tạo的Nội dung
  */
 
 import { useState, useMemo, useCallback } from "react";

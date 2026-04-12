@@ -60,7 +60,7 @@ const FEATURE_DEFAULT_MODEL: Partial<Record<AIFeature, Record<string, string>>> 
 
 
 /**
- * 解析 platform:model 格式
+ * Phân tích platform:model 格式
  */
 function parseBindingValue(binding: string): { platform: string; model?: string } | null {
   if (binding.includes(':')) {
@@ -232,7 +232,7 @@ export interface CallFeatureAPIOptions {
   temperature?: number;
   /** Tùy chỉnh最大输出 token 数（默认 4096，推理模型gợi ý设置更高） */
   maxTokens?: number;
-  /** 强制覆盖模型（一般不需要，Tự động从ánh xạ dịch vụ获取） */
+  /** 强制Ghi đè模型（一般不需要，Tự động从ánh xạ dịch vụ获取） */
   modelOverride?: string;
   /** 强制Sử dụng指定的配置（用于批量调度时指定具体模型） */
   configOverride?: FeatureConfig;

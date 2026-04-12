@@ -72,7 +72,7 @@ export async function analyzeSceneViewpoints(
       shot.visualFocus && `视觉焦点: ${shot.visualFocus}`,
       shot.dialogue && `Thoại: ${shot.dialogue.slice(0, 80)}`,
       shot.ambientSound && `环境声: ${shot.ambientSound}`,
-      shot.characterBlocking && `nhân vật布局: ${shot.characterBlocking}`,
+      shot.characterBlocking && `nhân vậtbố cục: ${shot.characterBlocking}`,
       shot.shotSize && `景别: ${shot.shotSize}`,
       shot.cameraMovement && `镜头运动: ${shot.cameraMovement}`,
     ].filter(Boolean);
@@ -156,7 +156,7 @@ ${shotSummaries}
     console.log('[analyzeSceneViewpoints] ✅ AI API gọi API成功，返回内容长度:', result.length);
     console.log('[analyzeSceneViewpoints] gốc响应前 200 字符:', result.slice(0, 200));
     
-    // 解析 JSON
+    // Phân tích JSON
     let cleaned = result.replace(/```json\n?/g, '').replace(/```\n?/g, '').trim();
     const jsonStart = cleaned.indexOf('{');
     const jsonEnd = cleaned.lastIndexOf('}');
@@ -166,7 +166,7 @@ ${shotSummaries}
     
     const parsed = JSON.parse(cleaned);
     
-    console.log('[analyzeSceneViewpoints] 🎯 JSON 解析成功，góc nhìn数量:', parsed.viewpoints?.length || 0);
+    console.log('[analyzeSceneViewpoints] 🎯 JSON Phân tích成功，góc nhìn数量:', parsed.viewpoints?.length || 0);
     
     const viewpoints = (parsed.viewpoints || []).map((v: any, idx: number) => ({
       id: v.id || `viewpoint_${idx}`,

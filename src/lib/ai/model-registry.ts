@@ -13,7 +13,7 @@
  * Thiết kế原则：
  *   - 按模型名查表，不按 URL — memefast 代理的模型和直连一样
  *   - prefix 匹配按长度降序 — 避免短前缀误匹配更具体的模型
- *   - 仅覆盖 text/chat 模型 — 图像/视频/音频不走 callChatAPI
+ *   - 仅Ghi đè text/chat 模型 — 图像/视频/音频不走 callChatAPI
  *   - 保守默认值 — 未知模型宁可多分批也不撞限制
  */
 
@@ -166,20 +166,20 @@ function lookupStatic(modelNameLower: string): ModelLimits {
 /**
  * 从 API 400 错误消息đang xử lý...型限制
  *
- * 覆盖主流 API 的错误格式：
+ * Ghi đè主流 API 的错误格式：
  *   - DeepSeek: "Invalid max_tokens value, the valid range of max_tokens is [1, 8192]"
  *   - OpenAI:   "maximum context length is 128000 tokens ... you requested 150000 tokens"
  *   - 智谱:     "max_tokens must be less than or equal to 8192"
  *   - 通用:     "max_tokens ... 8192" 等各种变体
  *
- * @returns 解析出的限制（可能只有 maxOutput 或 contextWindow 或两者都有），
+ * @returns Phân tích出的限制（可能只有 maxOutput 或 contextWindow 或两者都有），
  *          如果正则未匹配到任何数值则返回 null（优雅降级，不会死循环）
  */
 export function parseModelLimitsFromError(errorText: string): Partial<DiscoveredModelLimits> | null {
   const result: Partial<DiscoveredModelLimits> = {};
   let found = false;
 
-  // --- 解析 max_tokens / maxOutput ---
+  // --- Phân tích max_tokens / maxOutput ---
   // Pattern 1: "valid range of max_tokens is [1, 8192]"
   const rangeMatch = errorText.match(/valid\s+range.*?\[\s*\d+\s*,\s*(\d+)\s*\]/i);
   if (rangeMatch) {
@@ -205,7 +205,7 @@ export function parseModelLimitsFromError(errorText: string): Partial<Discovered
     }
   }
 
-  // --- 解析 context window ---
+  // --- Phân tích context window ---
   // Pattern: "context length is 128000" / "maximum context length is 128000 tokens"
   const ctxMatch = errorText.match(/context.*?length.*?(\d{4,7})/i);
   if (ctxMatch) {

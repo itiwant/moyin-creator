@@ -3,9 +3,9 @@
 /**
  * OverviewPanel — mục目Tổng quan（SeriesMeta Hiển thị + 内联Chỉnh sửa）
  *
- * 两栏布局：
- *   左栏：Cốt lõi câu chuyện + Bối cảnh thế giới + Cài đặt sản xuất
- *   右栏：Danh sách nhân vật + phe phái + Vật phẩm quan trọng/địa lý
+ * 两栏bố cục：
+ *   Cột trái：Cốt lõi câu chuyện + Bối cảnh thế giới + Cài đặt sản xuất
+ *   Cột phải：Danh sách nhân vật + phe phái + Vật phẩm quan trọng/địa lý
  */
 
 import { useState, useCallback } from "react";

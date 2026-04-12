@@ -7,7 +7,7 @@
  * 根据用户自然Ngôn ngữMô tả，从剧本đang xử lý...色并Tạo专业角色数据
  * 
  * 功能：
- * 1. 解析用户输入（如 "缺第10 tập的王大哥这角色"）
+ * 1. Phân tích用户输入（如 "缺第10 tập的王大哥这角色"）
  * 2. 搜索剧本đang xử lý...信息
  * 3. AI Tạođầy đủ角色数据（包括视觉提示词）
  */
@@ -44,7 +44,7 @@ export interface FinderOptions {
 // ==================== 核心函数 ====================
 
 /**
- * 解析用户输入，提取角色名和 tập数信息
+ * Phân tích用户输入，提取角色名和 tập数信息
  */
 function parseUserQuery(query: string): { name: string | null; episodeNumber: number | null } {
   let name: string | null = null;
@@ -374,7 +374,7 @@ ${dialogueSamples.join('\n')}
     // 统一从ánh xạ dịch vụ获取配置
     const result = await callFeatureAPI('script_analysis', systemPrompt, userPrompt);
     
-    // 解析 JSON
+    // Phân tích JSON
     let cleaned = result.replace(/```json\n?/g, '').replace(/```\n?/g, '').trim();
     const jsonStart = cleaned.indexOf('{');
     const jsonEnd = cleaned.lastIndexOf('}');
@@ -437,7 +437,7 @@ export async function findCharacterByDescription(
 ): Promise<CharacterSearchResult> {
   console.log('[findCharacterByDescription] 用户查询:', userQuery);
   
-  // 1. 解析用户输入
+  // 1. Phân tích用户输入
   const { name, episodeNumber } = parseUserQuery(userQuery);
   
   if (!name) {
@@ -451,7 +451,7 @@ export async function findCharacterByDescription(
     };
   }
   
-  console.log('[findCharacterByDescription] 解析kết quả:', { name, episodeNumber });
+  console.log('[findCharacterByDescription] Phân tíchkết quả:', { name, episodeNumber });
   
   // 2. 检查是否已存在
   const existing = existingCharacters.find(c => 

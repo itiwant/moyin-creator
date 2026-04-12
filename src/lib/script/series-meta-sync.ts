@@ -4,7 +4,7 @@
 /**
  * Series Meta Sync — 剧级元数据工具模块
  *
- * 1. populateSeriesMetaFromImport: 首次Nhập时从解析kết quả + AI 分析构建 SeriesMeta
+ * 1. populateSeriesMetaFromImport: 首次Nhập时从Phân tíchkết quả + AI 分析构建 SeriesMeta
  * 2. buildSeriesContextSummary: 从 SeriesMeta 构建紧凑的 AI 注入上下文摘要
  * 3. syncToSeriesMeta: Hiệu chuẩn完成后回写丰富数据到 SeriesMeta
  */
@@ -25,7 +25,7 @@ import type { ScriptStructureAnalysis } from './script-normalizer';
 
 /**
  * 从Nhậpkết quả构建 SeriesMeta
- * 优先Sử dụng AI 分析kết quả，不足时从 background + scriptData 补全
+ * 优先Sử dụng AI 分析kết quả，不足时从 background + scriptData bổ sung
  */
 export function populateSeriesMetaFromImport(
   background: ProjectBackground,
@@ -54,7 +54,7 @@ export function populateSeriesMetaFromImport(
     keyItems: aiAnalysis?.keyItems?.map(i => ({ name: i.name, desc: i.description })) || undefined,
     worldNotes: background.worldSetting || undefined,
 
-    // 角色hệ thống — 优先用 scriptData.characters（已过正则解析+Hiệu chuẩn），AI 的 characters 作为补充
+    // 角色hệ thống — 优先用 scriptData.characters（已过正则Phân tích+Hiệu chuẩn），AI 的 characters 作为补充
     characters: scriptData.characters || [],
     factions: aiAnalysis?.factions || undefined,
 
@@ -217,7 +217,7 @@ export function syncToSeriesMeta(
           );
           if (!calibrated) return existing;
 
-          // 只回写 AI Hiệu chuẩn产出的trường，不覆盖用户手动chỉnh sửa的
+          // 只回写 AI Hiệu chuẩn产出的trường，不Ghi đè用户手动chỉnh sửa的
           return {
             ...existing,
             identityAnchors: calibrated.identityAnchors || existing.identityAnchors,
@@ -281,7 +281,7 @@ export function syncToSeriesMeta(
     }
 
     case 'shot': {
-      // 分镜Hiệu chuẩn后：追加新Vật phẩm quan trọng（只追加不覆盖）
+      // 分镜Hiệu chuẩn后：追加新Vật phẩm quan trọng（只追加不Ghi đè）
       if (results.keyItems?.length) {
         const existingItemNames = new Set(
           (meta.keyItems || []).map(i => i.name)

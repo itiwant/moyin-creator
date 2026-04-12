@@ -200,7 +200,7 @@ export function SceneGallery({ onSceneSelect, selectedSceneId }: SceneGalleryPro
     setExpandedScenes(newExpanded);
   };
   
-  // 递归构建Cảnh树 cột表（平铺但带缩进层级）
+  // 递归构建Cảnh树 cột表（平铺但带缩进phân cấp）
   const buildSceneTree = (parentScenes: Scene[], depth: number = 0): Array<{ scene: Scene; depth: number }> => {
     const result: Array<{ scene: Scene; depth: number }> = [];
     for (const scene of parentScenes) {
@@ -216,7 +216,7 @@ export function SceneGallery({ onSceneSelect, selectedSceneId }: SceneGalleryPro
     return result;
   };
   
-  // 最终Hiện的Danh sách cảnh（带层级）
+  // 最终Hiện的Danh sách cảnh（带phân cấp）
   const currentScenes = useMemo(() => {
     return buildSceneTree(rootScenes);
   }, [rootScenes, childScenesMap, expandedScenes]);
@@ -581,7 +581,7 @@ function SceneCard({
   const displayImage = scene.referenceImage || (scene as any).contactSheetImage || undefined;
   const resolvedImage = useResolvedImageUrl(displayImage);
   
-  // 根据层级计算缩进
+  // 根据phân cấp计算缩进
   const indentStyle = { marginLeft: `${depth * 20}px` };
 
   if (viewMode === "grid") {

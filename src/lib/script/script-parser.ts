@@ -564,7 +564,7 @@ Ngôn ngữ：${options.language || 'đang xử lý...${sceneCountHint}`;
     return scriptData;
   } catch (e) {
     console.error('[parseScript] Failed to parse JSON:', cleaned);
-    throw new Error('无法解析AI返回的剧本数据');
+    throw new Error('无法Phân tíchAI返回的剧本数据');
   }
 }
 

@@ -4,7 +4,7 @@
 /**
  * 风格切换重新Hiệu chuẩn服务
  * 
- * 当用户在Đạo diễn/S级panel切换视觉风格时，将现有 SplitScene[] 重新送入
+ * 当用户在Đạo diễn/S级panel切换视觉风格时，将hiện có SplitScene[] 重新送入
  * 5阶段Hiệu chuẩn流程（calibrateShotsMultiStage），用新风格重写提示词和拍摄参数，
  * 同时保留已Tạo的图片/视频 URL không thay đổi。
  */

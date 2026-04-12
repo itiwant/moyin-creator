@@ -2380,7 +2380,7 @@ export function SplitScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
       return dedup(refs).slice(0, strategy === 'minimal' ? 2 : 14);
     };
 
-    // 根据Phân cảnh数量计算最优网格布局（强制 N x N 以保证Tỷ lệ一致性）
+    // 根据Phân cảnh数量计算最优网格bố cục（强制 N x N 以保证Tỷ lệ一致性）
     const collectOptimizedRefsFromTasks = (pageTasks: GridTask[]): string[] => {
       if (strategy === 'none') return [];
 
@@ -2424,9 +2424,9 @@ export function SplitScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
     };
 
     const calculateGridLayout = (sceneCount: number): { cols: number; rows: number; paddedCount: number } => {
-      // 策略：为了保证每ô大小绝对均匀，强制Sử dụng N x N 布局
+      // 策略：为了保证每ô大小绝对均匀，强制Sử dụng N x N bố cục
       // 这样整张大图的Tỷ lệ khung hình = 单ô的Tỷ lệ khung hình
-      // 例如：3x3 布局，每ô 16:9，整图也是 16:9
+      // 例如：3x3 bố cục，每ô 16:9，整图也是 16:9
       
       if (sceneCount <= 4) {
         return { cols: 2, rows: 2, paddedCount: 4 }; // 1-4 张 -> Lưới 4 ô
@@ -2435,12 +2435,12 @@ export function SplitScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
     };
     
     // 计算整张大图应该请求的Tỷ lệ khung hình
-    // 在 N x N 布局下，整图Tỷ lệ khung hìnhTrực tiếp等于目标Tỷ lệ khung hình
+    // 在 N x N bố cục下，整图Tỷ lệ khung hìnhTrực tiếp等于目标Tỷ lệ khung hình
     const calculateGridAspectRatio = (targetAspect: '16:9' | '9:16'): string => {
       return targetAspect;
     };
 
-    // 切割大图为 N 小图（根据布局的 hàng数和 cột数）
+    // 切割大图为 N 小图（根据bố cục的 hàng数和 cột数）
     // quan trọng改进：切割时裁剪每ô到目标Tỷ lệ khung hình，防止因大图Tỷ lệ khung hình不精确导致的变形
     const sliceGridImage = async (
       gridImageUrl: string, 
@@ -2533,11 +2533,11 @@ export function SplitScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
       refs: string[]
     ): Promise<string[]> => {
       const actualCount = pageTasks.length;
-      // Sử dụng新的布局计算函数 (强制 N x N)
+      // Sử dụng新的bố cục计算函数 (强制 N x N)
       const { cols, rows, paddedCount } = calculateGridLayout(actualCount);
       const emptySlots = paddedCount - actualCount;
       
-      // 在 N x N 布局下，整图Tỷ lệ khung hìnhTrực tiếp等于目标Tỷ lệ khung hình
+      // 在 N x N bố cục下，整图Tỷ lệ khung hìnhTrực tiếp等于目标Tỷ lệ khung hình
       const gridAspect = aspect;
       
       console.log(`[MergedGen] Grid: ${actualCount} scenes → ${paddedCount} cells (${rows}×${cols}), ${emptySlots} empty slots, grid aspect: ${gridAspect}`);
@@ -2571,7 +2571,7 @@ export function SplitScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
       gridPromptParts.push('Consistency: Maintain consistent character appearance, lighting, color grading, and visual style across ALL panels.');
       gridPromptParts.push('</instruction>');
       
-      // 2. 布局Mô tả (Layout)
+      // 2. bố cụcMô tả (Layout)
       gridPromptParts.push(`Layout: ${rows} rows, ${cols} columns, reading order left-to-right, top-to-bottom.`);
       
       // 3. 每ô的Nội dungMô tả（根据任务LoạiChọnKhung hình đầu或Khung hình cuốiprompt）
@@ -2675,7 +2675,7 @@ export function SplitScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
         console.log(`[MergedGen] Ref[${i}] format:`, prefix + '...');
       });
       
-      // 解析kết quả辅助函数（用于轮询阶段）
+      // Phân tíchkết quả辅助函数（用于轮询阶段）
       const normalizeUrl = (url: any): string | undefined => {
         if (!url) return undefined;
         if (Array.isArray(url)) return url[0] || undefined;
@@ -2768,7 +2768,7 @@ export function SplitScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
       
       console.log('[MergedGen] Grid image URL:', gridImageUrl.substring(0, 80));
       
-      // 切割九宫格ảnh（传入布局参数和目标Tỷ lệ khung hình）
+      // 切割九宫格ảnh（传入bố cục参数和目标Tỷ lệ khung hình）
       const slicedImages = await sliceGridImage(gridImageUrl, actualCount, cols, rows, aspect);
       console.log('[MergedGen] Sliced into', slicedImages.length, 'images (from', paddedCount, 'grid cells, target aspect:', aspect, ')');
       

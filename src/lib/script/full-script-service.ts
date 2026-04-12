@@ -86,7 +86,7 @@ export async function importFullScript(
     const aiAnalysis = await analyzeScriptStructureWithAI(processedText);
     
     if (aiAnalysis) {
-      // AI 检测成功：基于 AI kết quả插入标记 + 补全đại cương
+      // AI 检测成功：基于 AI kết quả插入标记 + bổ sungđại cương
       normalizeResult = applyAIAnalysis(processedText, aiAnalysis);
       console.log('[importFullScript] AI Cấu trúc检测完成:', normalizeResult.changes);
     } else {
@@ -97,7 +97,7 @@ export async function importFullScript(
       }
     }
     
-    // 1. 解析归一化后的文本
+    // 1. Phân tích归一化后的文本
     const { background, episodes } = parseFullScript(normalizeResult.normalized);
     
     if (episodes.length === 0) {
@@ -106,11 +106,11 @@ export async function importFullScript(
         background: null,
         episodes: [],
         scriptData: null,
-        error: "未能解析出任何 tập数，请检查剧本格式",
+        error: "未能Phân tích出任何 tập数，请检查剧本格式",
       };
     }
     
-    // 1.5 用 AI 的 era/genre 覆盖正则检测值（AI 更准确）
+    // 1.5 用 AI 的 era/genre Ghi đè正则检测值（AI 更准确）
     if (normalizeResult.aiAnalysis) {
       if (normalizeResult.aiAnalysis.era) {
         background.era = normalizeResult.aiAnalysis.era;
@@ -123,7 +123,7 @@ export async function importFullScript(
     // 2. 转换为 ScriptData 格式
     const scriptData = convertToScriptData(background, episodes);
     
-    // 3. 保存到 store（原文保存，归一化文本仅用于解析）
+    // 3. 保存到 store（原文保存，归一化文本仅用于Phân tích）
     const store = useScriptStore.getState();
     store.setProjectBackground(projectId, background);
     store.setEpisodeRawScripts(projectId, episodes);
@@ -160,7 +160,7 @@ export async function importFullScript(
   }
 }
 
-// ==================== 单 tậpCấu trúc补全 ====================
+// ==================== 单 tậpCấu trúcbổ sung ====================
 
 export interface SingleEpisodeImportResult {
   success: boolean;
@@ -169,7 +169,7 @@ export interface SingleEpisodeImportResult {
 }
 
 /**
- * 单 tậpCấu trúc补全 — 解析用户粘贴的单 tập剧本内容为场景Cấu trúc
+ * 单 tậpCấu trúcbổ sung — Phân tích用户粘贴的单 tập剧本内容为场景Cấu trúc
  *
  * 流程：
  * 1. preprocessLineBreaks → parseScenes → 转换为 ScriptScene[]
@@ -197,10 +197,10 @@ export async function importSingleEpisodeContent(
       return { success: false, sceneCount: 0, error: `找不到第 ${episodeIndex}  tập` };
     }
 
-    // === 1. 预处理 + 场景解析 ===
+    // === 1. 预处理 + 场景Phân tích ===
     const preprocessed = preprocessLineBreaks(rawContent);
     const rawScenes = parseScenes(preprocessed.text);
-    console.log(`${TAG} 解析出 ${rawScenes.length} 场景`);
+    console.log(`${TAG} Phân tích出 ${rawScenes.length} 场景`);
 
     if (rawScenes.length === 0) {
       // 没有场景头也更新 rawContent
@@ -268,11 +268,11 @@ export async function importSingleEpisodeContent(
       console.log(`${TAG} 清理旧 shot: ${project.shots.length - remainingShots.length} `);
     }
 
-    console.log(`${TAG} Cấu trúc补全完成: ${newScenes.length} 场景`);
+    console.log(`${TAG} Cấu trúcbổ sung完成: ${newScenes.length} 场景`);
 
     // === 4. 轻量 AI 标题+đại cương（后台不阻塞） ===
     generateSingleEpisodeTitleAndSynopsis(projectId, episodeIndex).catch(e => {
-      console.warn(`${TAG} 标题/đại cươngTạothất bại（不影响Cấu trúc补全）:`, e);
+      console.warn(`${TAG} 标题/đại cươngTạothất bại（不影响Cấu trúcbổ sung）:`, e);
     });
 
     return { success: true, sceneCount: newScenes.length };
@@ -281,13 +281,13 @@ export async function importSingleEpisodeContent(
     return {
       success: false,
       sceneCount: 0,
-      error: error instanceof Error ? error.message : 'Cấu trúc补全thất bại',
+      error: error instanceof Error ? error.message : 'Cấu trúcbổ sungthất bại',
     };
   }
 }
 
 /**
- * 轻量 AI 为单 tậpTạo标题+đại cương（后台任务，不阻塞Cấu trúc补全）
+ * 轻量 AI 为单 tậpTạo标题+đại cương（后台任务，不阻塞Cấu trúcbổ sung）
  */
 async function generateSingleEpisodeTitleAndSynopsis(
   projectId: string,
@@ -439,7 +439,7 @@ export async function generateEpisodeShots(
       onProgress
     );
     
-    // 更新现有分镜（移除该 tập旧分镜，Thêm新分镜）
+    // 更新hiện có分镜（移除该 tập旧分镜，Thêm新分镜）
     const existingShots = project.shots.filter(
       (shot) => shot.episodeId !== episode.id
     );
@@ -746,7 +746,7 @@ function generateShotsFromSceneContent(
   const shots: Shot[] = [];
   let index = startIndex;
   
-  // 解析场景内容，按thứ tựTạo分镜
+  // Phân tích场景内容，按thứ tựTạo分镜
   const lines = scene.rawContent.split('\n').filter(line => line.trim());
   
   for (const line of lines) {
@@ -1394,7 +1394,7 @@ export async function calibrateEpisodeShots(
     seriesContextSummary,  // 剧级上下文
   };
   
-  // 构建gốc场景天气映射（从gốc解析的场景đang xử lý...weather）
+  // 构建gốc场景天气映射（从gốcPhân tích的场景đang xử lý...weather）
   const rawSceneWeatherMap = new Map<string, string>();
   if (episodeScript?.scenes) {
     for (const rawScene of episodeScript.scenes) {
@@ -1821,7 +1821,7 @@ async function callAIForShotCalibration(
   storyAlignment?: string;    // 与整体tự sự的一致性
   visualFocus: string;        // 视觉焦点：观众应该看什么
   cameraPosition: string;     // 机位Mô tả
-  characterBlocking: string;  // nhân vật布局
+  characterBlocking: string;  // nhân vậtbố cục
   rhythm: string;             // 节奏Mô tả
   // === 拍摄控制trường ===
   lightingStyle?: string;
@@ -1953,7 +1953,7 @@ ${characterBios ? `
 11. 镜头目的 (shotPurpose): 为什么用这镜头？一句话说明
 12. 视觉焦点 (visualFocus): 观众应该按什么thứ tự看？用箭头表示
 13. 机位Mô tả (cameraPosition): 摄影机相对于nhân vật的位置
-14. nhân vật布局 (characterBlocking): nhân vật在画面đang xử lý...关系
+14. nhân vậtbố cục (characterBlocking): nhân vật在画面đang xử lý...关系
 15. 节奏Mô tả (rhythm): 这镜头的节奏感
 
 **拍摄控制trường（Cinematography Controls）：**
@@ -2160,7 +2160,7 @@ ${getMediaTypeGuidance(mt)}
 【⭐ 主场景（绝对不可thay đổi）】: ${shot.sceneLocation}${flashbackNote}${artDesignSection}
 【gốc剧本文本】
 ${sourceText}
-【已解析信息】
+【已Phân tích信息】
 动作: ${shot.actionSummary}
 Thoại: ${shot.dialogue || '无'}
 当前角色: ${chars}
@@ -2186,14 +2186,14 @@ Thoại: ${shot.dialogue || '无'}
 - 根据「本 tậpđại cương」判断每镜头在整 tập故事đang xử lý...功能
 - 镜头Thiết kế必须服务于故事的情绪节奏和tự sự弧线
 - 景别Chọn要配合tự sự功能（铺垫用全景、cao trào用Cực cận cảnh等）
-- 考虑nhân vật布局和机位对故事sức căng的影响
+- 考虑nhân vậtbố cục和机位对故事sức căng的影响
 
 ${shotDescriptions}`;
   
   // 统一从ánh xạ dịch vụ获取配置（单分镜Hiệu chuẩn用更大 token 预算）
   const result = await callFeatureAPI('script_analysis', systemPrompt, userPrompt, { maxTokens: 16384 });
   
-  // 解析 JSON kết quả（增强版）
+  // Phân tích JSON kết quả（增强版）
   try {
     let cleaned = result;
     
@@ -2217,7 +2217,7 @@ ${shotDescriptions}`;
     console.error('[calibrateShots] Failed to parse AI response:', result);
     console.error('[calibrateShots] Parse error:', e);
     
-    // 尝试部分解析：提取已完成的分镜
+    // 尝试部分Phân tích：提取已完成的分镜
     try {
       const partialResult: Record<string, any> = {};
       // 匹配每 shot 的đầy đủ JSON 对象
@@ -2234,14 +2234,14 @@ ${shotDescriptions}`;
       }
       
       if (Object.keys(partialResult).length > 0) {
-        console.log(`[calibrateShots] 部分解析成功，恢复了 ${Object.keys(partialResult).length} 分镜`);
+        console.log(`[calibrateShots] 部分Phân tích成功，恢复了 ${Object.keys(partialResult).length} 分镜`);
         return partialResult;
       }
     } catch {
-      // 部分解析也thất bại
+      // 部分Phân tích也thất bại
     }
     
-    throw new Error('解析 AI 响应thất bại');
+    throw new Error('Phân tích AI 响应thất bại');
   }
 }
 

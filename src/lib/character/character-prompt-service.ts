@@ -4,7 +4,7 @@
 /**
  * Character Prompt Generation Service
  * 
- * 专业角色Thiết kế服务，与现有角色库(character-library-store)对齐。
+ * 专业角色Thiết kế服务，与hiện có角色库(character-library-store)对齐。
  * 
  * 功能：
  * 1. 读取剧本元数据，理解角色成长弧线
@@ -12,7 +12,7 @@
  * 3. Tạo的阶段可转换为角色库的 CharacterVariation
  * 4. Sử dụng世界级专业人设提升 AI Tạo质量
  * 
- * 注意：这是一辅助服务，不修改现有角色库的任何功能。
+ * 注意：这是一辅助服务，不修改hiện có角色库的任何功能。
  */
 
 import { useScriptStore } from '@/stores/script-store';
@@ -280,7 +280,7 @@ ${context.characterAppearances.length > 0
   // 统一从ánh xạ dịch vụ获取配置
   const result = await callFeatureAPI('script_analysis', systemPrompt, userPrompt);
   
-  // 解析kết quả
+  // Phân tíchkết quả
   try {
     let cleaned = result.replace(/```json\n?/g, '').replace(/```\n?/g, '').trim();
     const jsonStart = cleaned.indexOf('{');
@@ -308,7 +308,7 @@ ${context.characterAppearances.length > 0
     };
   } catch (e) {
     console.error('[CharacterDesign] Failed to parse AI response:', result);
-    throw new Error('解析角色Thiết kếthất bại');
+    throw new Error('Phân tích角色Thiết kếthất bại');
   }
 }
 
