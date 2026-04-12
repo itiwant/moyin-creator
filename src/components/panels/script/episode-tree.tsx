@@ -221,7 +221,7 @@ export function EpisodeTree({
   const [extrasExpanded, setExtrasExpanded] = useState(false);
   // Tab 状态: Cấu trúc tập phim vs Trailer
   const [activeTab, setActiveTab] = useState<"structure" | "trailer">("structure");
-  // Trailer时长Chọn
+  // Trailerthời lượngChọn
   const [selectedTrailerDuration, setSelectedTrailerDuration] = useState<TrailerDuration>(30);
   // TrailerTrạng thái tạo
   const [trailerGenerating, setTrailerGenerating] = useState(false);

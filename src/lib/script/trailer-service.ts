@@ -16,7 +16,7 @@ import type { Shot, ProjectBackground } from '@/types/script';
 import type { SplitScene, TrailerDuration } from '@/stores/director-store';
 import { callFeatureAPI } from '@/lib/ai/feature-router';
 
-// 时长对应的分镜数量
+// thời lượng对应的分镜数量
 const DURATION_TO_SHOT_COUNT: Record<TrailerDuration, number> = {
   10: 2,   // 10秒：2-3分镜
   30: 6,   // 30秒：5-6分镜
@@ -42,7 +42,7 @@ export interface TrailerGenerationResult {
  * 
  * @param shots Tất cả可用的分镜
  * @param background 项目背景信息
- * @param duration 预告片时长
+ * @param duration 预告片thời lượng
  * @param options API 配置
  */
 export async function selectTrailerShots(
@@ -131,7 +131,7 @@ ${shotSummaries.map(s =>
     
     console.log('[TrailerService] AI raw response (first 1000 chars):', result.slice(0, 1000));
     
-    // 尝试匹配 { "selectedIndices": [...] } 格式
+    // 尝试Khớp { "selectedIndices": [...] } 格式
     const jsonMatch = result.match(/\{[\s\S]*?"selectedIndices"\s*:\s*\[[\d,\s]*\][\s\S]*?\}/);
     if (jsonMatch) {
       try {
@@ -142,7 +142,7 @@ ${shotSummaries.map(s =>
       }
     }
     
-    // 如果上面thất bại，尝试Trực tiếp匹配数字数组 [1, 2, 3, ...]
+    // 如果上面thất bại，尝试Trực tiếpKhớp数字数组 [1, 2, 3, ...]
     if (selectedIndices.length === 0) {
       const arrayMatch = result.match(/\[\s*\d+(?:\s*,\s*\d+)*\s*\]/);
       if (arrayMatch) {
@@ -166,7 +166,7 @@ ${shotSummaries.map(s =>
     }
     
     if (selectedIndices.length === 0) {
-      throw new Error('AI 返回格式错误，无法Phân tích序号');
+      throw new Error('AI 返回格式lỗi，无法Phân tích序号');
     }
     
     console.log('[TrailerService] Parsed selectedIndices:', selectedIndices);

@@ -587,7 +587,7 @@ export const useAPIConfigStore = create<APIConfigStore>()(
 
       syncProviderModels: async (providerId) => {
         const provider = get().providers.find(p => p.id === providerId);
-        if (!provider) return { success: false, count: 0, error: 'Nhà cung cấp不存在' };
+        if (!provider) return { success: false, count: 0, error: 'Nhà cung cấpkhông tồn tại' };
 
         const keys = parseApiKeys(provider.apiKey);
         if (keys.length === 0) return { success: false, count: 0, error: 'Vui lòng cấu hình API Key trước' };
@@ -809,7 +809,7 @@ export const useAPIConfigStore = create<APIConfigStore>()(
         }
         
         if (exists || legacyMatch) {
-          // Xóa：同时xóa精确匹配和 legacy 格式
+          // Xóa：同时xóa精确Khớp和 legacy 格式
           const newBindings = current.filter(b => b !== binding && b !== legacyMatch);
           set((state) => ({
             featureBindings: { ...state.featureBindings, [feature]: newBindings.length > 0 ? newBindings : null },
@@ -844,9 +844,9 @@ export const useAPIConfigStore = create<APIConfigStore>()(
           if (idx <= 0) continue;
           const platformOrId = binding.slice(0, idx);
           const model = binding.slice(idx + 1);
-          // 1. 优先按 provider.id 精确匹配（始终安全）
+          // 1. 优先按 provider.id 精确Khớp（始终安全）
           let provider = get().providers.find(p => p.id === platformOrId);
-          // 2. Fallback: 按 platform 匹配，但仅当该 platform 下只有一Nhà cung cấp时
+          // 2. Fallback: 按 platform Khớp，但仅当该 platform 下只有一Nhà cung cấp时
           //    （防止多 custom Nhà cung cấp时误选第一）
           if (!provider) {
             const platformMatches = get().providers.filter(p => p.platform === platformOrId);

@@ -576,7 +576,7 @@ export function WardrobeModal({ character, open, onOpenChange }: WardrobeModalPr
               <div className="space-y-1">
                 <Label className="text-xs text-muted-foreground">Mô tả thị giác (tùy chọn)</Label>
                 <Textarea
-                  placeholder="Mô tả chi tiết trang phục hoặc tổng thể tạo hình, ví dụ:\n- 白色蕾丝婚纱，长拖尾，头戴花冠\n- elegant white lace wedding dress, long train, floral headpiece"
+                  placeholder="Mô tả chi tiết trang phục hoặc tổng thể tạo hình, ví dụ:\n- Váy cưới ren trắng, tà dài, đội vương miện hoa\n- elegant white lace wedding dress, long train, floral headpiece"
                   value={newVariationPrompt}
                   onChange={(e) => setNewVariationPrompt(e.target.value)}
                   className="min-h-[72px]"
@@ -781,7 +781,7 @@ async function generateVariationImage(params: {
     return await pollForVariationImage(result.taskId, apiKey, baseUrl);
   }
 
-  throw new Error('无效的 API 响应');
+  throw new Error('Phản hồi API không hợp lệ');
 }
 
 /**
@@ -853,7 +853,7 @@ async function pollForVariationImage(
         }
         imageUrl = imageUrl || data.output_url || data.result_url || data.url;
         if (imageUrl) return imageUrl;
-        throw new Error('任务完成但无ảnh URL');
+        throw new Error('Nhiệm vụ hoàn thành nhưng không có ảnh URL');
       }
 
       if (status === 'failed' || status === 'error') {
@@ -861,7 +861,7 @@ async function pollForVariationImage(
       }
     } catch (error) {
       if (error instanceof Error &&
-          (error.message.includes('Thất bại') || error.message.includes('不存在') || error.message.includes('无ảnh'))) {
+          (error.message.includes('Thất bại') || error.message.includes('không tồn tại') || error.message.includes('không có ảnh'))) {
         throw error;
       }
       // Transient error, continue polling

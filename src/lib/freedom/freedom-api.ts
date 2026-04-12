@@ -108,7 +108,7 @@ function isRetryableError(error: unknown): boolean {
 
 /**
  * Retry an operation with exponential backoff for retryable errors.
- * 支持 keyManager：遇到可Thử lại错误时先触发 key xoay vòng，下次Thử lạiTự độngSử dụng新 key。
+ * 支持 keyManager：遇到可Thử lạilỗi时先触发 key xoay vòng，下次Thử lạiTự độngSử dụng新 key。
  */
 async function freedomRetry<T>(
   operation: () => Promise<T>,
@@ -164,8 +164,8 @@ function pickFeatureConfig(feature: AIFeature, requestedModel?: string): Feature
     const exact = all.find((c) => c.model === requestedModel);
     if (exact) return exact;
     // UI 展开的变体模型（如 gemini-3.1-pro 从绑定的 gemini-3-pro 展开而来）不会
-    // 精确匹配到任何 config.model，此时回退到轮询配置而非返回 null，
-    // 避免用户选了可用变体却报"未配置"错误
+    // 精确Khớp到任何 config.model，此时回退到轮询配置而非返回 null，
+    // 避免用户选了可用变体却报"未配置"lỗi
   }
   return getFeatureConfig(feature) ?? all[0];
 }
@@ -664,7 +664,7 @@ async function generateViaMidjourneyEndpoint(
   }
 
   const submitData = await submitResp.json();
-  // MJ API 成功时 code === 1；其他值表示 API 层错误（即使 HTTP 200）
+  // MJ API 成功时 code === 1；其他值表示 API 层lỗi（即使 HTTP 200）
   if (submitData.code !== undefined && submitData.code !== 1) {
     throw new Error(submitData.description || submitData.error || `Midjourney 提交thất bại (code=${submitData.code})`);
   }

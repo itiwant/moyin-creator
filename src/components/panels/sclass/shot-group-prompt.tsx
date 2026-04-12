@@ -328,7 +328,7 @@ export function ShotGroupPrompt({
 function highlightRefs(text: string): React.ReactNode {
   if (!text) return <span className="text-muted-foreground">Nhấp Chỉnh sửa Prompt cấp nhóm...</span>;
 
-  // 匹配 @Image1, @Video2, @Audio3 等
+  // Khớp @Image1, @Video2, @Audio3 等
   const regex = /(@(?:Image|Video|Audio)\d+)/g;
   const parts = text.split(regex);
 

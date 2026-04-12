@@ -86,18 +86,18 @@ export async function generateCharacterDesign(
   const project = store.projects[projectId];
   
   if (!project) {
-    throw new Error('项目不存在');
+    throw new Error('项目không tồn tại');
   }
   
   const scriptData = project.scriptData;
   if (!scriptData) {
-    throw new Error('剧本数据不存在');
+    throw new Error('剧本数据không tồn tại');
   }
   
   // 找到目标角色
   const character = scriptData.characters.find(c => c.id === characterId);
   if (!character) {
-    throw new Error('角色不存在');
+    throw new Error('角色không tồn tại');
   }
   
   // 收 tập角色相关的上下文信息

@@ -420,7 +420,7 @@ export function SplitScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
     if (storyboardConfig.visualStyleId) {
       return storyboardConfig.visualStyleId;
     }
-    // về sautương thích：将 styleTokens 合并后匹配 prompt 前缀
+    // về sautương thích：将 styleTokens 合并后Khớp prompt 前缀
     if (storyboardConfig.styleTokens && storyboardConfig.styleTokens.length > 0) {
       const joinedTokens = storyboardConfig.styleTokens.join(', ');
       const found = VISUAL_STYLE_PRESETS.find(s => s.prompt.startsWith(joinedTokens));
@@ -1827,11 +1827,11 @@ export function SplitScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
 
       console.error(`[SplitScenes] Scene ${sceneId} video generation failed:`, err);
 
-      // 检测是否为Nội dung审核错误
+      // 检测是否为Nội dung审核lỗi
       const isModerationError = isContentModerationError(err);
       
       if (isModerationError) {
-        // Nội dung审核错误，用 MODERATION_SKIPPED: 前缀标记
+        // Nội dung审核lỗi，用 MODERATION_SKIPPED: 前缀标记
         updateSplitSceneVideo(sceneId, {
           videoStatus: 'failed',
           videoProgress: 0,
@@ -1840,7 +1840,7 @@ export function SplitScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
         toast.warning(`Phân cảnh ${sceneId + 1} bị bỏ qua do kiểm duyệt nội dung`);
         console.log(`[SplitScenes] Scene ${sceneId} skipped due to content moderation`);
       } else {
-        // 普通错误
+        // 普通lỗi
         updateSplitSceneVideo(sceneId, {
           videoStatus: 'failed',
           videoProgress: 0,
@@ -1855,7 +1855,7 @@ export function SplitScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
   }, [splitScenes, storyboardConfig, getApiKey, updateSplitSceneVideo, autoSaveVideoToLibrary, buildEmotionDescription, getCharacterReferenceImages]);
 
   // Handle generate videos - serial processing based on concurrency
-  // 复用 handleGenerateSingleVideo 的统一 API gọi API逻辑，避免Sử dụng不存在的 /api/ai/video 端点
+  // 复用 handleGenerateSingleVideo 的统一 API gọi API逻辑，避免Sử dụngkhông tồn tại的 /api/ai/video 端点
   const handleGenerateVideos = useCallback(async () => {
     if (splitScenes.length === 0) {
       toast.error("Không có phân cảnh nào để Tạo");
@@ -1902,7 +1902,7 @@ export function SplitScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
           await handleGenerateSingleVideo(scene.id);
           successCount++;
         } catch (error) {
-          // handleGenerateSingleVideo 内部已处理错误和 toast，这里仅做计数
+          // handleGenerateSingleVideo 内部已处理lỗi和 toast，这里仅做计数
           console.error(`[SplitScenes] Batch: Scene ${scene.id} video generation failed:`, error);
         }
       }));

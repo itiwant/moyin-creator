@@ -295,7 +295,7 @@ async function submitViaChatCompletions(
     ? ` Output the image at ${targetDims.width}x${targetDims.height} pixels resolution.`
     : '';
 
-  // 压缩Tham chiếu图以避免超大 base64 导致trung gian站 "contents is required" 错误
+  // 压缩Tham chiếu图以避免超大 base64 导致trung gian站 "contents is required" lỗi
   let compressedRefs: string[] | undefined;
   if (referenceImages && referenceImages.length > 0) {
     compressedRefs = await Promise.all(referenceImages.map(img => compressReferenceImage(img)));
@@ -385,7 +385,7 @@ async function submitViaChatCompletions(
         const errorText = await resp.text();
         console.error('[ImageGenerator] Chat completions error:', resp.status, errorText);
 
-        // 通知 keyManager 处理错误（触发 rotate）
+        // 通知 keyManager 处理lỗi（触发 rotate）
         if (keyManager?.handleError) {
           keyManager.handleError(resp.status, errorText);
         }
@@ -409,7 +409,7 @@ async function submitViaChatCompletions(
 
       return resp;
     } catch (fetchErr: any) {
-      // 将 DOMException abort 转换为可读错误信息
+      // 将 DOMException abort 转换为可读lỗi信息
       if (fetchErr instanceof DOMException && fetchErr.name === 'AbortError') {
         const reason = controller.signal.reason;
         const readableMsg = reason instanceof Error
@@ -593,7 +593,7 @@ async function submitImageTask(
           const errorText = await response.text();
           console.error('[ImageGenerator] API error:', response.status, errorText);
 
-          // 通知 keyManager 处理错误（触发 rotate）
+          // 通知 keyManager 处理lỗi（触发 rotate）
           if (keyManager?.handleError) {
             keyManager.handleError(response.status, errorText);
           }
@@ -688,7 +688,7 @@ async function submitImageTask(
       if (error.name === 'AbortError') throw new Error('API 请求超时');
       throw error;
     }
-    throw new Error('gọi API图片Tạo API 时发生未知错误');
+    throw new Error('gọi API图片Tạo API 时发生未知lỗi');
   }
 }
 
@@ -843,7 +843,7 @@ export async function submitGridImageRequest(params: {
 
     if (!response.ok) {
       const errorText = await response.text();
-      // 通知 keyManager 处理错误（触发 rotate）
+      // 通知 keyManager 处理lỗi（触发 rotate）
       if (keyManager?.handleError) {
         keyManager.handleError(response.status, errorText);
       }

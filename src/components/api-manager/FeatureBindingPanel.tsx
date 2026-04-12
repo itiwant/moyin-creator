@@ -668,7 +668,7 @@ export function FeatureBindingPanel() {
                             <div className="space-y-1 max-h-[280px] overflow-y-auto">
                               {filteredOptions.length === 0 ? (
                                 <p className="text-xs text-muted-foreground py-2 text-center">
-                                  无匹配Model
+                                  无KhớpModel
                                 </p>
                               ) : (
                                 filteredOptions.map((option) => {

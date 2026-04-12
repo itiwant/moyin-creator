@@ -6,13 +6,13 @@
  *
  * 职责：根据模型名称查询 contextWindow 和 maxOutput 限制。
  * 三层查找（优先级递减）：
- *   1. 持久化缓存（从 API 错误đang xử lý...到的真实限制）
+ *   1. 持久化缓存（从 API lỗiđang xử lý...到的真实限制）
  *   2. 静态注册表（官方文档验证过的已知模型）
  *   3. _default 保守默认值
  *
  * Thiết kế原则：
  *   - 按模型名查表，不按 URL — memefast 代理的模型和直连一样
- *   - prefix 匹配按长度降序 — 避免短前缀误匹配更具体的模型
+ *   - prefix Khớp按长度降序 — 避免短前缀误Khớp更具体的模型
  *   - 仅Ghi đè text/chat 模型 — 图像/视频/音频不走 callChatAPI
  *   - 保守默认值 — 未知模型宁可多分批也不撞限制
  */
@@ -26,7 +26,7 @@ export interface ModelLimits {
   maxOutput: number;
 }
 
-/** 从 API 400 错误đang xử lý...模型限制（持久化到 localStorage） */
+/** 从 API 400 lỗiđang xử lý...模型限制（持久化到 localStorage） */
 export interface DiscoveredModelLimits {
   maxOutput?: number;
   contextWindow?: number;
@@ -76,7 +76,7 @@ const STATIC_REGISTRY: Record<string, ModelLimits> = {
   'minimax-m2.1':           { contextWindow: 128000,   maxOutput: 8192   },
 
   // ==================== 通用 prefix 规则 ====================
-  // 注意：prefix 匹配按长度降序执行，长 key 优先
+  // 注意：prefix Khớp按长度降序执行，长 key 优先
   'deepseek-':              { contextWindow: 128000,   maxOutput: 8192   },
   'gemini-':                { contextWindow: 1048576,  maxOutput: 65536  },
   'glm-':                   { contextWindow: 128000,   maxOutput: 8192   },
@@ -119,13 +119,13 @@ export function injectDiscoveryCache(
  *
  * 三层查找：
  *   1. 持久化缓存（Error-driven Discovery 学到的真实限制）
- *   2. 静态注册表（精确匹配 → prefix 匹配，prefix 按长度降序）
+ *   2. 静态注册表（精确Khớp → prefix Khớp，prefix 按长度降序）
  *   3. _default
  */
 export function getModelLimits(modelName: string): ModelLimits {
   const m = modelName.toLowerCase();
 
-  // Layer 1: 持久化缓存（最准确，从 API 错误đang xử lý...真实值）
+  // Layer 1: 持久化缓存（最准确，从 API lỗiđang xử lý...真实值）
   if (_getDiscoveredLimits) {
     const discovered = _getDiscoveredLimits(m);
     if (discovered) {
@@ -145,12 +145,12 @@ export function getModelLimits(modelName: string): ModelLimits {
  * 仅从静态注册表查找（不查缓存）
  */
 function lookupStatic(modelNameLower: string): ModelLimits {
-  // 精确匹配
+  // 精确Khớp
   if (STATIC_REGISTRY[modelNameLower]) {
     return STATIC_REGISTRY[modelNameLower];
   }
 
-  // prefix 匹配（长度降序保证最具体的先命中）
+  // prefix Khớp（长度降序保证最具体的先命中）
   for (const key of SORTED_KEYS) {
     if (modelNameLower.startsWith(key)) {
       return STATIC_REGISTRY[key];
@@ -164,16 +164,16 @@ function lookupStatic(modelNameLower: string): ModelLimits {
 // ==================== Error-driven Discovery ====================
 
 /**
- * 从 API 400 错误消息đang xử lý...型限制
+ * 从 API 400 lỗi消息đang xử lý...型限制
  *
- * Ghi đè主流 API 的错误格式：
+ * Ghi đè主流 API 的lỗi格式：
  *   - DeepSeek: "Invalid max_tokens value, the valid range of max_tokens is [1, 8192]"
  *   - OpenAI:   "maximum context length is 128000 tokens ... you requested 150000 tokens"
  *   - 智谱:     "max_tokens must be less than or equal to 8192"
  *   - 通用:     "max_tokens ... 8192" 等各种变体
  *
  * @returns Phân tích出的限制（可能只有 maxOutput 或 contextWindow 或两者都有），
- *          如果正则未匹配到任何数值则返回 null（优雅降级，不会死循环）
+ *          如果正则未Khớp到任何数值则返回 null（优雅降级，不会死循环）
  */
 export function parseModelLimitsFromError(errorText: string): Partial<DiscoveredModelLimits> | null {
   const result: Partial<DiscoveredModelLimits> = {};

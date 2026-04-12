@@ -309,7 +309,7 @@ export function SClassScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
     if (storyboardConfig.visualStyleId) {
       return storyboardConfig.visualStyleId;
     }
-    // về sautương thích：将 styleTokens 合并后匹配 prompt 前缀
+    // về sautương thích：将 styleTokens 合并后Khớp prompt 前缀
     if (storyboardConfig.styleTokens && storyboardConfig.styleTokens.length > 0) {
       const joinedTokens = storyboardConfig.styleTokens.join(', ');
       const found = VISUAL_STYLE_PRESETS.find(s => s.prompt.startsWith(joinedTokens));
@@ -1670,11 +1670,11 @@ export function SClassScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
       const err = error as Error;
       console.error(`[SplitScenes] Scene ${sceneId} video generation failed:`, err);
       
-      // 检测是否为Nội dung审核错误
+      // 检测是否为Nội dung审核lỗi
       const isModerationError = isContentModerationError(err);
       
       if (isModerationError) {
-        // Nội dung审核错误，用 MODERATION_SKIPPED: 前缀标记
+        // Nội dung审核lỗi，用 MODERATION_SKIPPED: 前缀标记
         updateSplitSceneVideo(sceneId, {
           videoStatus: 'failed',
           videoProgress: 0,
@@ -1683,7 +1683,7 @@ export function SClassScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
         toast.warning(`Phân cảnh ${sceneId + 1} 因Nội dung审核跳过`);
         console.log(`[SplitScenes] Scene ${sceneId} skipped due to content moderation`);
       } else {
-        // 普通错误
+        // 普通lỗi
         updateSplitSceneVideo(sceneId, {
           videoStatus: 'failed',
           videoProgress: 0,

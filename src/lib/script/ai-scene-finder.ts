@@ -124,11 +124,11 @@ function searchSceneInScripts(
     for (const scene of ep.scenes) {
       if (!scene) continue;
       
-      // 检查场景头是否匹配（场景头通常包含地点信息）
+      // 检查场景头是否Khớp（场景头通常包含地点信息）
       const sceneHeader = scene.sceneHeader || '';
       const isMatch = 
         sceneHeader.includes(name) || 
-        name.includes(sceneHeader.split(/\s+/).slice(-1)[0] || '') || // 匹配最后一词（通常是地点）
+        name.includes(sceneHeader.split(/\s+/).slice(-1)[0] || '') || // Khớp最后一词（通常是地点）
         sceneHeader.split(/\s+/).some(word => word.includes(name) || name.includes(word));
       
       if (isMatch) {
@@ -170,7 +170,7 @@ async function generateSceneData(
   matchedScenes: { episodeIndex: number; scene: SceneRawContent }[]
 ): Promise<ScriptScene> {
   
-  // 从匹配的场景đang xử lý...息
+  // 从Khớp的场景đang xử lý...息
   const sceneHeaders = matchedScenes.map(s => s.scene.sceneHeader).filter(Boolean);
   const allActions = matchedScenes.flatMap(s => s.scene.actions || []).slice(0, 5);
   const allCharacters = [...new Set(matchedScenes.flatMap(s => s.scene.characters || []))];

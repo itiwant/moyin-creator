@@ -434,15 +434,15 @@ export function ShotGroupCard({
         </div>
       )}
 
-      {/* ========== Tạokết quả区（ô图 + Prompt + video） ========== */}
+      {/* ========== Khu vực Kết quả Tạo (ảnh lưới + Prompt + video) ========== */}
       {(group.gridImageUrl || group.lastPrompt || group.videoUrl) && (
         <div className="px-3 py-2 border-t bg-muted/5 space-y-2">
-          {/* ô图Xem trước + Tải xuống */}
+          {/* Xem trước ảnh lưới + Tải xuống */}
           {group.gridImageUrl && (
             <div>
               <div className="flex items-center gap-2 mb-1">
                 <ImageIcon className="h-3.5 w-3.5 text-blue-500" />
-                <span className="text-xs text-blue-600 dark:text-blue-400">ô图</span>
+                <span className="text-xs text-blue-600 dark:text-blue-400">Ảnh lưới</span>
                 <div className="ml-auto flex items-center gap-1">
                   <Button variant="ghost" size="sm" className="h-6 w-6 p-0" onClick={() => setGridPreviewOpen(!gridPreviewOpen)}>
                     <ZoomIn className="h-3 w-3" />
@@ -452,7 +452,7 @@ export function ShotGroupCard({
                   </Button>
                 </div>
               </div>
-              {/* 缩略图（始终Hiện） */}
+              {/* Ảnh thu nhỏ (luôn hiển thị) */}
               <img
                 src={group.gridImageUrl}
                 alt="Grid preview"
@@ -500,7 +500,7 @@ export function ShotGroupCard({
         </div>
       )}
 
-      {/* 错误信息 */}
+      {/* Thông tin lỗi */}
       {isFailed && group.videoError && (
         <div className="px-3 py-1.5 border-t bg-red-500/5">
           <div className="flex items-start gap-1.5">
@@ -521,7 +521,7 @@ export function ShotGroupCard({
         />
       )}
 
-      {/* ========== Mở rộng的Ống kính卡片 cột表 ========== */}
+      {/* ========== Danh sách thẻ Ống kính mở rộng ========== */}
       {expanded && (
         <div className="border-t">
           <div className="flex flex-col gap-2 p-2">

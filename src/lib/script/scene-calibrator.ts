@@ -219,7 +219,7 @@ function extractTimeFromHeader(header: string): string {
 }
 
 /**
- * 标准化地点名称用于匹配
+ * 标准化地点名称用于Khớp
  */
 function normalizeLocation(location: string): string {
   return cleanLocationString(location)
@@ -459,7 +459,7 @@ ${sceneList}
       if (!aiData) aiData = sceneResults.get('loc:' + normalizeLocation(orig.name || ''));
       
       const matched = !!aiData;
-      console.log(`[calibrateScenes] 场景 #${i + 1} "${orig.name || orig.location}" (${orig.id}) -> AI 匹配: ${matched ? '✓' : '✗'}`);
+      console.log(`[calibrateScenes] 场景 #${i + 1} "${orig.name || orig.location}" (${orig.id}) -> AI Khớp: ${matched ? '✓' : '✗'}`);
       
       return {
         id: orig.id,

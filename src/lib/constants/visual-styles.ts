@@ -609,7 +609,7 @@ export function getStyleName(styleId: string): string {
   return style?.name || styleId;
 }
 
-/** 获取风格缩略图路径 */
+/** 获取风格ảnh thu nhỏ路径 */
 export function getStyleThumbnail(styleId: string): string {
   const style = _findStyle(styleId);
   return style?.thumbnail || VISUAL_STYLE_PRESETS[0].thumbnail;
@@ -660,7 +660,7 @@ export function getStyleDescription(styleId: string): string {
 
 /**
  * 根据风格 ID 获取媒介类型
- * @returns 匹配的 MediaType，未找到时默认返回 'cinematic'（直通，最安全默认值）
+ * @returns Khớp的 MediaType，未找到时默认返回 'cinematic'（直通，最安全默认值）
  */
 export function getMediaType(styleId: string | null | undefined): MediaType {
   if (!styleId) return 'cinematic';

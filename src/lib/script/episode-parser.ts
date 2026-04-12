@@ -58,13 +58,13 @@ export function parseFullScript(fullText: string): {
   
   // 2. 提取đại cương（从"đại cương："到"nhân vật小传："之间的内容）
   // 支持 Markdown 格式：**đại cương：** 或 đại cương： 或 【đại cương】
-  // 末尾 |$ 兜底：无nhân vật小传/无 tập标记时匹配到文本末尾
+  // 末尾 |$ 兜底：无nhân vật小传/无 tập标记时Khớp到文本末尾
   const outlineMatch = fullText.match(/(?:\*{0,2}đại cương[：:]​?\*{0,2}|【đại cương】)([\s\S]*?)(?=(?:\*{0,2}nhân vật小传[：:]|【nhân vật|第[一二三四五六七八九十\d]+ tập|$))/i);
   const outline = outlineMatch ? outlineMatch[1].trim() : '';
   
   // 3. 提取nhân vật小传（从"nhân vật小传："到第一 tập之前的内容）
   // 支持 Markdown 格式：**nhân vật小传：** 或 nhân vật小传： 或 【nhân vật小传】
-  // 末尾 |$ 兜底：无 tập标记时匹配到文本末尾
+  // 末尾 |$ 兜底：无 tập标记时Khớp到文本末尾
   const characterBiosMatch = fullText.match(/(?:\*{0,2}nhân vật小传[：:]\*{0,2}|【nhân vật小传】)([\s\S]*?)(?=\*{0,2}第[一二三四五六七八九十\d]+ tập|$)/i);
   const characterBios = characterBiosMatch ? characterBiosMatch[1].trim() : '';
   
@@ -125,14 +125,14 @@ function extractTimelineInfo(outline: string, characterBios: string): {
   let storyEndYear: number | undefined;
   let timelineSetting: string | undefined;
   
-  // 尝试匹配年份范围
+  // 尝试Khớp年份范围
   const rangeMatch = fullText.match(/(\d{4})\s*[-至到~]\s*(\d{4})\s*年?/);
   if (rangeMatch) {
     storyStartYear = parseInt(rangeMatch[1]);
     storyEndYear = parseInt(rangeMatch[2]);
     timelineSetting = `${storyStartYear}年 - ${storyEndYear}年`;
   } else {
-    // 尝试匹配单独年份
+    // 尝试Khớp单独年份
     const singleYearMatch = fullText.match(/(\d{4})年([\u4e00-\u9fa5]{0,6})/);
     if (singleYearMatch) {
       storyStartYear = parseInt(singleYearMatch[1]);
@@ -204,7 +204,7 @@ function extractTimelineInfo(outline: string, characterBios: string): {
 
 /**
  * 从đại cương和nhân vật小传đang xử lý...本类型（genre）
- * 通用检测，不硬编码具体类型名，而是通过quan trọng词chế độ匹配
+ * 通用检测，不硬编码具体类型名，而是通过quan trọng词chế độKhớp
  */
 function detectGenre(outline: string, characterBios: string): string {
   const fullText = `${outline}\n${characterBios}`;
@@ -248,7 +248,7 @@ function detectGenre(outline: string, characterBios: string): string {
 function extractWorldSetting(outline: string, characterBios: string): string {
   const fullText = `${outline}\n${characterBios}`;
   
-  // 匹配常见Bối cảnh thế giớiMô tảchế độ
+  // Khớp常见Bối cảnh thế giớiMô tảchế độ
   const patterns = [
     /(?:Bối cảnh thế giới|世界设定|背景设定)[：:] *([^\n]{10,200})/,
     /(?:故事发生在|故事背景[：:是]) *([^\n]{10,200})/,
@@ -305,7 +305,7 @@ function extractThemes(outline: string, characterBios: string): string[] {
 export function parseEpisodes(text: string): EpisodeRawScript[] {
   const episodes: EpisodeRawScript[] = [];
   
-  // 匹配 tập标记：第X tập 或 第X tập：标题
+  // Khớp tập标记：第X tập 或 第X tập：标题
   // 支持 **第X tập** 或 **第X tập：标题** 格式
   const episodeRegex = /\*{0,2}第([\u4e00\u4e8c\u4e09\u56db\u4e94\u516d\u4e03\u516b\u4e5d\u5341\u767e\u5343\d]+) tập[\uff1a:]?\s*([^\n\*]*?)\*{0,2}(?=\n|$)/g;
   const matches = [...text.matchAll(episodeRegex)];
@@ -362,7 +362,7 @@ export function parseEpisodes(text: string): EpisodeRawScript[] {
 export function parseScenes(episodeText: string): SceneRawContent[] {
   const scenes: SceneRawContent[] = [];
   
-  // 场景头格式匹配：
+  // 场景头格式Khớp：
   // **1-1日 内 沪上 张家** 或
   // 1-1 日 内 沪上 张家 或
   // **2-3 夜 外 码头**
@@ -371,7 +371,7 @@ export function parseScenes(episodeText: string): SceneRawContent[] {
   
   if (sceneMatches.length === 0) {
     // 没有找到标准场景头，尝试Lỏng lẻo的 数字-数字 格式
-    // 匹配如：1-1 规则怪谈世界， tập合广场，日  或  1-2 全球同一会议直播间，日
+    // Khớp如：1-1 规则怪谈世界， tập合广场，日  或  1-2 全球同一会议直播间，日
     const looseSceneRegex = /^\*{0,2}(\d+-\d+)\s+([^\*\n]+)\*{0,2}$/gm;
     const looseMatches = [...episodeText.matchAll(looseSceneRegex)];
     
@@ -444,7 +444,7 @@ export function parseScenes(episodeText: string): SceneRawContent[] {
       return scenes;
     }
     
-    // Lỏng lẻo格式也没匹配到，尝试其他备用格式
+    // Lỏng lẻo格式也没Khớp到，尝试其他备用格式
     return parseAlternativeSceneFormat(episodeText);
   }
   
@@ -492,12 +492,12 @@ export function parseScenes(episodeText: string): SceneRawContent[] {
 }
 
 /**
- * Phân tích备用场景格式（当标准格式不匹配时）
+ * Phân tích备用场景格式（当标准格式不Khớp时）
  */
 function parseAlternativeSceneFormat(text: string): SceneRawContent[] {
   const scenes: SceneRawContent[] = [];
   
-  // 尝试匹配其他常见格式
+  // 尝试Khớp其他常见格式
   // 格式1: 场景X 或 场景 X
   // 格式2: [场景Mô tả]
   // 格式3: Trực tiếp按段落分
@@ -565,7 +565,7 @@ function detectWeather(content: string, actions: string[]): string | undefined {
 function extractSeasonFromScenes(scenes: SceneRawContent[]): string | undefined {
   for (const scene of scenes) {
     for (const subtitle of scene.subtitles) {
-      // 匹配字幕đang xử lý...信息，如【字幕：2002年夏】
+      // Khớp字幕đang xử lý...信息，如【字幕：2002年夏】
       const seasonMatch = subtitle.match(/(春天?|夏天?|秋天?|冬天?|初春|仲夏|深秋|隆冬|盛夏|暖春|寒冬)/);
       if (seasonMatch) {
         const s = seasonMatch[1];

@@ -6,7 +6,7 @@
  * 
  * 将 30+ trường拆分为 5 独立 AI gọi API，避免推理模型 token 耗尽
  * 
- * Stage 1: tự sự骨架 (9 fields) — 景别/运动/时长 + tự sự分析
+ * Stage 1: tự sự骨架 (9 fields) — 景别/运动/thời lượng + tự sự分析
  * Stage 2: Mô tả thị giác (6 fields) — đang xử lý...述 + 角色 + 音频
  * Stage 3: 拍摄控制 (15 fields) — 灯光/景深/器材/角度/焦距等
  * Stage 4: 首帧提示词 (3 fields) — imagePrompt + needsEndFrame
@@ -400,7 +400,7 @@ ${s5LangWarning}
     await runStage('Stage 5/5: 动态+尾帧', (batch) => {
       const userShots = batch.map(s => {
         const prev = merged[s.shotId] || {};
-        return `ID: ${s.shotId}\n时长: ${prev.duration || '?'}秒 | 运动: ${prev.cameraMovement || '?'}\nneedsEndFrame: ${prev.needsEndFrame ?? true}\n动作: ${s.actionSummary || '?'}${s.dialogue ? `\nThoại: 「${s.dialogue}」` : ''}\n首帧(EN): ${prev.imagePrompt || '?'}\n首帧(ZH): ${prev.imagePromptZh || '?'}`;
+        return `ID: ${s.shotId}\nthời lượng: ${prev.duration || '?'}秒 | 运动: ${prev.cameraMovement || '?'}\nneedsEndFrame: ${prev.needsEndFrame ?? true}\n动作: ${s.actionSummary || '?'}${s.dialogue ? `\nThoại: 「${s.dialogue}」` : ''}\n首帧(EN): ${prev.imagePrompt || '?'}\n首帧(ZH): ${prev.imagePromptZh || '?'}`;
       }).join('\n\n---\n\n');
       return { system: s5System, user: `请Tạo视频和尾帧提示词：\n\n${userShots}` };
     }, 400, 8192);

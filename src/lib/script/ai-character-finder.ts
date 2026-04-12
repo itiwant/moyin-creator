@@ -218,7 +218,7 @@ async function generateCharacterData(
       return 'modern';
     }
     
-    // 如果 storyStartYear 不存在，尝试从 outline/era/timeline đang xử lý...份
+    // 如果 storyStartYear không tồn tại，尝试从 outline/era/timeline đang xử lý...份
     const textForYearExtraction = `${era} ${timeline} ${outline}`;
     const yearMatch = textForYearExtraction.match(/(19\d{2}|20\d{2})\s*年/);
     if (yearMatch) {

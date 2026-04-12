@@ -113,7 +113,7 @@ export async function mergeToGridImage(
   imageUrls: string[],
   aspectRatio: string = '16:9',
 ): Promise<string> {
-  if (imageUrls.length === 0) throw new Error('mergeToGridImage: 无ảnh可合并');
+  if (imageUrls.length === 0) throw new Error('mergeToGridImage: không có ảnh可合并');
   if (imageUrls.length === 1) {
     // 单张Trực tiếpQuay lại，无需合并
     return imageUrls[0];
@@ -540,7 +540,7 @@ const PURPOSE_PROMPT_MAP: Record<AssetPurpose, string> = {
   camera_replicate: '精准复刻Ống kính运动轨迹和Tốc độ',
   action_replicate: '复刻Hành động节奏和幅度',
   effect_replicate: '复刻视觉特效和转场效果',
-  beat_sync: '作为背景Nhạc，video节奏严格匹配Nhạc节拍',
+  beat_sync: '作为背景Nhạc，video节奏严格KhớpNhạc节拍',
   bgm: '作为背景NhạcTham chiếu',
   voice_ref: '作为语音Tham chiếu',
   prev_video: '接续前段video，保持Nhân vật和Cảnh一致',

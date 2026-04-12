@@ -5,7 +5,7 @@
  * AI Viewpoint Analyzer
  * 
  * Sử dụng AI 分析场景和分镜内容，thông minhTạo合适的góc nhìn列表
- * 替代原有的硬编码quan trọng词匹配
+ * 替代原有的硬编码quan trọng词Khớp
  */
 
 import type { Shot, ScriptScene } from '@/types/script';
@@ -107,7 +107,7 @@ ${globalContextSection}【任务】
 根据本 tậpđại cương、场景信息和分镜内容，分析该场景需要哪些不同的góc nhìn/机位来Tạo场景背景图。
 
 【重要原则】
-1. góc nhìn必须与场景类型匹配：
+1. góc nhìn必须与场景类型Khớp：
    - 大巴车/xe hơi场景：车、座位区、过道、驾驶位等
    - 室内家居：客厅、卧室、厨房、边等
    - 户外场景：全景、Cận cảnh、特定地标等

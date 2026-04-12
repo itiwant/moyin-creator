@@ -532,7 +532,7 @@ export function PropertyPanel({
       lines.push(`特殊拍摄: ${specialTechniqueLabel(shot.specialTechnique)}`);
     }
     if (shot.duration) {
-      lines.push(`时长: ${shot.duration}秒`);
+      lines.push(`thời lượng: ${shot.duration}秒`);
     }
     if (shot.characterNames && shot.characterNames.length > 0) {
       lines.push(`出CảnhNhân vật: ${shot.characterNames.join('、')}`);
@@ -1483,7 +1483,7 @@ export function PropertyPanel({
             </div>
           ) : (
             <div className="space-y-3">
-              {/* Phân cảnh信息：景别 + 运动 + 时长 */}
+              {/* Phân cảnh信息：景别 + 运动 + thời lượng */}
               <div className="flex items-center gap-2 flex-wrap">
                 {shot.shotSize && (
                   <span className="px-2 py-0.5 bg-primary/10 text-primary rounded text-xs font-medium">

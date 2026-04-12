@@ -140,7 +140,7 @@ export interface ShotGroup {
   videoStatus: VideoGenStatus;
   /** Tạo进度 0-100 */
   videoProgress: number;
-  /** 错误信息 */
+  /** lỗi信息 */
   videoError: string | null;
   /** Tạo历史 */
   history: GenerationRecord[];
@@ -162,7 +162,7 @@ export interface ShotGroup {
   calibratedPrompt?: string;
   /** Hiệu chuẩnTrạng thái */
   calibrationStatus?: 'idle' | 'calibrating' | 'done' | 'failed';
-  /** Hiệu chuẩn错误信息 */
+  /** Hiệu chuẩnlỗi信息 */
   calibrationError?: string | null;
 
   // ---- videokéo dài & videoChỉnh sửa ----

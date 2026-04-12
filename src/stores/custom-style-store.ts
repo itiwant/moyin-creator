@@ -198,7 +198,7 @@ export const useCustomStyleStore = create<CustomStyleStore>()(
 
 /**
  * 从promptđang xử lý...hong cáchphân loại（Hỗ trợTrung-Anhquan trọng词）
- * quan trọng词匹配：
+ * quan trọng词Khớp：
  *   real → realistic/photorealistic/photography/写实/真人/实景/电影级/实拍/胶片
  *   3d   → 3d/render/unreal/c4d/三维/渲染/虚幻引擎
  *   stop_motion → stop motion/claymation/定格/黏土

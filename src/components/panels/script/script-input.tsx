@@ -642,7 +642,7 @@ export function ScriptInput({
           </div>
         )}
 
-        {/* Sáng tácchế độ：显示Ngôn ngữ、时长、风格、Cảnh数量、Phân cảnh数量 */}
+        {/* Chế độ sáng tác: hiển thị Ngôn ngữ, thời lượng, phong cách, số Cảnh, số Phân cảnh */}
         {mode === "create" && (
           <div className="space-y-3">
             <div className="space-y-1">
@@ -664,7 +664,7 @@ export function ScriptInput({
                 </SelectContent>
               </Select>
               <p className="text-[10px] text-muted-foreground">
-                控制AITạođang xử lý...prompt，默认Chỉ tiếng Trung可giảmTạoáp lực
+                Kiểm soát AI khi Tạo prompt, mặc định Chỉ tiếng Trung có thể giảm áp lực Tạo
               </p>
             </div>
             <div className="grid grid-cols-3 gap-2">
@@ -687,7 +687,7 @@ export function ScriptInput({
               </div>
 
               <div className="space-y-1">
-                <Label className="text-xs">时长</Label>
+                <Label className="text-xs">Thời lượng</Label>
                 <Select
                   value={targetDuration}
                   onValueChange={onDurationChange}
@@ -707,7 +707,7 @@ export function ScriptInput({
               </div>
 
               <div className="space-y-1">
-                <Label className="text-xs">风格</Label>
+                <Label className="text-xs">Phong cách</Label>
                 <StylePicker
                   value={styleId}
                   onChange={(id) => onStyleChange(id)}
@@ -805,20 +805,20 @@ export function ScriptInput({
           </div>
         )}
 
-        {/* API 警告 */}
+        {/* Cảnh báo API */}
         {!chatConfigured && (
           <div className="flex items-start gap-2 p-2 rounded-md bg-yellow-500/10 border border-yellow-500/20">
             <AlertCircle className="h-4 w-4 text-yellow-500 mt-0.5 shrink-0" />
             <div className="text-xs text-yellow-600 dark:text-yellow-400">
               <p className="font-medium">API Chưa cấu hình</p>
-              <p className="opacity-80">请在设置đang xử lý...PI密钥</p>
+              <p className="opacity-80">Vui lòng cài đặt khóa API trong Cài đặt</p>
             </div>
           </div>
         )}
 
         {/* Nhập/Phân tíchnút */}
         <div className="space-y-2">
-          {/* đầy đủ剧本Nhậpnút（不需要AI，用规则Phân tích） */}
+          {/* Nút Nhập kịch bản đầy đủ (không cần AI, dùng quy tắc Phân tích) */}
           {mode === "import" && onImportFullScript && (
             <Button
               onClick={handleImportFullScript}
@@ -910,7 +910,7 @@ export function ScriptInput({
           )}
         </div>
 
-        {/* Phân tích错误 */}
+        {/* Phân tíchlỗi */}
         {parseStatus === "error" && parseError && (
           <div className="flex items-start gap-2 p-2 rounded-md bg-destructive/10 border border-destructive/20">
             <AlertCircle className="h-4 w-4 text-destructive mt-0.5 shrink-0" />

@@ -107,7 +107,7 @@ const SHOT_SIZE_PROMPTS: Record<ShotSize, string> = {
 
 /**
  * Tạo单góc nhìn的提示词
- * 精确匹配96种标准提示词格式
+ * 精确Khớp96种标准提示词格式
  */
 export function generateAnglePrompt(
   direction: HorizontalDirection,

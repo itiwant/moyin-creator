@@ -210,7 +210,7 @@ export function collectCharacterStats(
       const sceneChars = scene.characters || [];
       for (const charName of sceneChars) {
         if (!charName) continue;
-        // 精确匹配或包含匹配
+        // 精确Khớp或包含Khớp
         for (const name of characterNames) {
           if (!name) continue;
           if (charName === name || charName.includes(name) || name.includes(charName)) {
@@ -599,7 +599,7 @@ ${batchDialogues.slice(0, 100).join('\n')}
   } catch (error) {
     const err = error instanceof Error ? error : new Error(String(error));
     console.error('[CharacterCalibrator] AI角色分析thất bại:', err.message);
-    console.error('[CharacterCalibrator] 错误堆栈:', err.stack);
+    console.error('[CharacterCalibrator] lỗi堆栈:', err.stack);
     // 返回gốc数据作为降级方案，但带上统计信息
     return {
       characters: rawCharacters.map((c, i) => {

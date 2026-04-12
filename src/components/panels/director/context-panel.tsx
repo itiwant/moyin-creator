@@ -155,7 +155,7 @@ export function DirectorContextPanel() {
     const libraryIds: string[] = [];
     const addedIds = new Set<string>(); // tránh trùng lặp
     
-    // 1. 先通过 characterIds 匹配
+    // 1. 先通过 characterIds Khớp
     if (scriptCharIds && scriptCharIds.length > 0 && scriptData) {
       for (const scriptCharId of scriptCharIds) {
         // 查找Kịch bảnNhân vật
@@ -173,7 +173,7 @@ export function DirectorContextPanel() {
           console.warn(`[ContextPanel] Invalid characterLibraryId "${scriptChar.characterLibraryId}" for script character "${scriptChar.name}", fallback to name matching`);
         }
         
-        // 否则通过名字匹配Thư viện nhân vậtđang xử lý...ân vật
+        // 否则通过名字KhớpThư viện nhân vậtđang xử lý...ân vật
         const libraryChar = libraryCharacters.find(c => c.name === scriptChar.name);
         if (libraryChar && !addedIds.has(libraryChar.id)) {
           libraryIds.push(libraryChar.id);
@@ -182,15 +182,15 @@ export function DirectorContextPanel() {
       }
     }
     
-    // 2. 再通过 characterNames 补充匹配（AIHiệu chuẩn的Phân cảnh可能只有Tên）
+    // 2. 再通过 characterNames 补充Khớp（AIHiệu chuẩn的Phân cảnh可能只有Tên）
     if (characterNames && characterNames.length > 0) {
       for (const charName of characterNames) {
         if (!charName) continue;
         
-        // 精确匹配
+        // 精确Khớp
         let libraryChar = libraryCharacters.find(c => c.name === charName);
         
-        // 模糊匹配：Thư viện nhân vậtTên包含Phân cảnhNhân vật名，或Phân cảnhNhân vật名包含Thư viện nhân vậtTên
+        // 模糊Khớp：Thư viện nhân vậtTên包含Phân cảnhNhân vật名，或Phân cảnhNhân vật名包含Thư viện nhân vậtTên
         if (!libraryChar) {
           libraryChar = libraryCharacters.find(c => 
             c.name.includes(charName) || charName.includes(c.name)
@@ -208,7 +208,7 @@ export function DirectorContextPanel() {
     return libraryIds;
   };
   
-  // 根据Phân cảnh和Thông tin cảnh查找匹配的Thư viện cảnhGóc nhìn
+  // 根据Phân cảnh和Thông tin cảnh查找Khớp的Thư viện cảnhGóc nhìn
   // 优先Sử dụngAI分析的shotIds关联，保底用Phân cảnh序号对应Góc nhìn序号
   const findMatchingSceneAndViewpointQuick = (shot: Shot, scene: ScriptScene, shotIndexInScene?: number): ViewpointMatchResult | null => {
     const sceneName = scene.name || '';
@@ -220,7 +220,7 @@ export function DirectorContextPanel() {
     );
     
     if (!parentScene) {
-      console.log(`[findMatchingSceneAndViewpointQuick] 未找到匹配的父Cảnh: "${sceneName}"`);
+      console.log(`[findMatchingSceneAndViewpointQuick] 未找到Khớp的父Cảnh: "${sceneName}"`);
       return null;
     }
     
@@ -246,7 +246,7 @@ export function DirectorContextPanel() {
     // 方案一：优先检查Thư viện cảnhGóc nhìnbiến thể的shotIds（切割时Lưu的）
     const variantWithShot = variants.find(v => v.shotIds?.includes(shot.id));
     if (variantWithShot) {
-      console.log(`[findMatchingSceneAndViewpointQuick] 通过Thư viện cảnhshotIds匹配: Phân cảnh${shot.id} -> Góc nhìn "${variantWithShot.viewpointName || variantWithShot.name}"`);
+      console.log(`[findMatchingSceneAndViewpointQuick] 通过Thư viện cảnhshotIdsKhớp: Phân cảnh${shot.id} -> Góc nhìn "${variantWithShot.viewpointName || variantWithShot.name}"`);
       return {
         sceneLibraryId: variantWithShot.id,
         viewpointId: variantWithShot.viewpointId,
@@ -267,7 +267,7 @@ export function DirectorContextPanel() {
           return variantName.includes(matchedViewpoint.name) || matchedViewpoint.name.includes(variantName);
         });
         if (matchedVariant) {
-          console.log(`[findMatchingSceneAndViewpointQuick] 通过Kịch bảnshotIds匹配: Phân cảnh${shot.id} -> Góc nhìn "${matchedVariant.viewpointName || matchedVariant.name}"`);
+          console.log(`[findMatchingSceneAndViewpointQuick] 通过Kịch bảnshotIdsKhớp: Phân cảnh${shot.id} -> Góc nhìn "${matchedVariant.viewpointName || matchedVariant.name}"`);
           return {
             sceneLibraryId: matchedVariant.id,
             viewpointId: matchedVariant.viewpointId,
@@ -289,7 +289,7 @@ export function DirectorContextPanel() {
     
     const matchedVariant = variants[variantIndex];
     
-    console.log(`[findMatchingSceneAndViewpointQuick] 通过序号匹配: Phân cảnh序号 ${(shotIndexInScene ?? 0) + 1} -> Góc nhìnbiến thể ${variantIndex + 1}: "${matchedVariant.viewpointName || matchedVariant.name}"`);
+    console.log(`[findMatchingSceneAndViewpointQuick] 通过序号Khớp: Phân cảnh序号 ${(shotIndexInScene ?? 0) + 1} -> Góc nhìnbiến thể ${variantIndex + 1}: "${matchedVariant.viewpointName || matchedVariant.name}"`);
     
     return {
       sceneLibraryId: matchedVariant.id,
@@ -306,13 +306,13 @@ export function DirectorContextPanel() {
     console.log(`[findViewpointInLibrary] 查找Cảnh: "${sceneName}", Góc nhìn: "${viewpointName}"`);
     console.log(`[findViewpointInLibrary] Thư viện cảnhTổng数: ${sceneLibraryScenes.length}`);
     
-    // 找到匹配的父Cảnh
+    // 找到Khớp的父Cảnh
     const parentScenes = sceneLibraryScenes.filter(s => 
       !s.parentSceneId && !s.isViewpointVariant &&
       (s.name.includes(sceneName) || sceneName.includes(s.name))
     );
     
-    console.log(`[findViewpointInLibrary] 匹配的父Cảnh数: ${parentScenes.length}`, parentScenes.map(s => s.name));
+    console.log(`[findViewpointInLibrary] Khớp的父Cảnh数: ${parentScenes.length}`, parentScenes.map(s => s.name));
     
     if (parentScenes.length === 0) return null;
     
@@ -322,7 +322,7 @@ export function DirectorContextPanel() {
       console.log(`[findViewpointInLibrary] Số biến thể Góc nhìn của Cảnh cha "${parent.name}": ${variants.length}`, 
         variants.map(v => ({ name: v.name, viewpointName: v.viewpointName, id: v.id })));
       
-      // 模糊匹配Góc nhìnTên
+      // 模糊KhớpGóc nhìnTên
       const matchedVariant = variants.find(v => {
         const variantName = v.viewpointName || v.name || '';
         const isMatch = variantName.includes(viewpointName) || viewpointName.includes(variantName);
@@ -331,7 +331,7 @@ export function DirectorContextPanel() {
       });
       
       if (matchedVariant) {
-        console.log(`[findViewpointInLibrary] ✅ 匹配Thành công: ${matchedVariant.viewpointName || matchedVariant.name}`);
+        console.log(`[findViewpointInLibrary] ✅ KhớpThành công: ${matchedVariant.viewpointName || matchedVariant.name}`);
         console.log(`[findViewpointInLibrary] ảnhtrường:`, {
           id: matchedVariant.id,
           referenceImage: matchedVariant.referenceImage ? `有(${matchedVariant.referenceImage.substring(0, 50)}...)` : '无',
@@ -361,7 +361,7 @@ export function DirectorContextPanel() {
     };
   };
   
-  // 异步Phiên bản：quan trọng词 + AI 匹配（用于批量Thêm）
+  // 异步Phiên bản：quan trọng词 + AI Khớp（用于批量Thêm）
   const findMatchingSceneAndViewpointWithAI = async (sceneName: string, actionSummary: string): Promise<ViewpointMatchResult | null> => {
     return matchSceneAndViewpoint(sceneName, actionSummary, sceneLibraryScenes, true);
   };
@@ -396,7 +396,7 @@ export function DirectorContextPanel() {
     const sceneShots = shotsByScene[scene.id] || [];
     const shotIndexInScene = sceneShots.findIndex(s => s.id === shot.id);
     
-    // Tự động匹配Thư viện cảnhđang xử lý...nh和Góc nhìn（优先Sử dụnghiện có的Góc nhìn关联）
+    // Tự độngKhớpThư viện cảnhđang xử lý...nh和Góc nhìn（优先Sử dụnghiện có的Góc nhìn关联）
     const sceneMatch = findMatchingSceneAndViewpointQuick(shot, scene, shotIndexInScene >= 0 ? shotIndexInScene : undefined);
     
     addScenesAndSyncStyle([{
@@ -434,7 +434,7 @@ export function DirectorContextPanel() {
       cameraMovement: shot.cameraMovement || '',
       // 特殊拍摄手法
       specialTechnique: shot.specialTechnique || '',
-      // Thư viện cảnh关联（Tự động匹配）
+      // Thư viện cảnh关联（Tự độngKhớp）
       sceneLibraryId: sceneMatch?.sceneLibraryId,
       viewpointId: sceneMatch?.viewpointId,
       sceneReferenceImage: sceneMatch?.sceneReferenceImage,
@@ -534,7 +534,7 @@ export function DirectorContextPanel() {
       // 将Kịch bảnNhân vậtID/Tên映射到Thư viện nhân vậtID
       const characterLibraryIds = mapScriptCharacterIdsToLibraryIds(shot.characterIds || [], shot.characterNames);
       
-      // Tự động匹配Thư viện cảnhđang xử lý...nh和Góc nhìn（优先Sử dụnghiện có的Góc nhìn关联，保底用序号）
+      // Tự độngKhớpThư viện cảnhđang xử lý...nh和Góc nhìn（优先Sử dụnghiện có的Góc nhìn关联，保底用序号）
       const sceneMatch = findMatchingSceneAndViewpointQuick(shot, scene, shotIndexInScene);
       if (sceneMatch) matchedCount++;
       
@@ -573,7 +573,7 @@ export function DirectorContextPanel() {
         cameraMovement: shot.cameraMovement || '',
         // 特殊拍摄手法
         specialTechnique: shot.specialTechnique || '',
-        // Thư viện cảnh关联（Tự động匹配）
+        // Thư viện cảnh关联（Tự độngKhớp）
         sceneLibraryId: sceneMatch?.sceneLibraryId,
         viewpointId: sceneMatch?.viewpointId,
         sceneReferenceImage: sceneMatch?.sceneReferenceImage,

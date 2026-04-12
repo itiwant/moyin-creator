@@ -470,7 +470,7 @@ export interface Shot {
   cameraMovement?: string;   // 鎡头运动（Dolly In, Pan Right, Static, Tracking等）
   specialTechnique?: string; // 特殊拍摄手法（希区柯克Zoom、conpopup时间、FPV穿梭等）
   shotSize?: string;         // 景别（Wide Shot, Medium Shot, Close-up, ECU等）
-  duration?: number;         // 预估时长（秒）
+  duration?: number;         // 预估thời lượng（秒）
   
   // === 视觉Tạo ===
   visualPrompt?: string;     // 英文Mô tả thị giác（用于ảnhTạo，tương thích旧版）

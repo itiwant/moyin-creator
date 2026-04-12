@@ -177,13 +177,13 @@ export function detectEnvironmentType(location: string): SceneEnvironmentType {
     const keywords = ENVIRONMENT_KEYWORDS[envType];
     for (const keyword of keywords) {
       if (normalizedLocation.includes(keyword)) {
-        console.log(`[detectEnvironmentType] 匹配到quan trọng词 "${keyword}" -> 环境类型: ${envType}`);
+        console.log(`[detectEnvironmentType] Khớp到quan trọng词 "${keyword}" -> 环境类型: ${envType}`);
         return envType;
       }
     }
   }
   
-  console.log(`[detectEnvironmentType] 未匹配到任何quan trọng词 -> unknown`);
+  console.log(`[detectEnvironmentType] 未Khớp到任何quan trọng词 -> unknown`);
   return 'unknown';
 }
 
@@ -209,7 +209,7 @@ interface ViewpointConfig {
  * 
  * 【重要】environments trường控制该góc nhìn适用于哪些环境类型
  * - 空数组 [] 表示通用góc nhìn，适用于Tất cả环境
- * - 指定环境类型列表表示仅在这些环境中匹配
+ * - 指定环境类型列表表示仅在这些环境中Khớp
  */
 const VIEWPOINT_KEYWORDS: Record<string, ViewpointConfig> = {
   // ========== 古代室内góc nhìn (ancient_indoor) ==========
@@ -661,7 +661,7 @@ export function assignViewpointImages(
     const row = Math.floor(gridIndex / gridLayout.cols);
     const col = gridIndex % gridLayout.cols;
     
-    // 查找匹配的切割kết quả
+    // 查找Khớp的切割kết quả
     const splitResult = splitResults.find(sr => sr.row === row && sr.col === col);
     
     if (splitResult) {
@@ -676,7 +676,7 @@ export function assignViewpointImages(
 }
 
 /**
- * 根据分镜动作Tự động匹配最佳góc nhìn
+ * 根据分镜动作Tự độngKhớp最佳góc nhìn
  */
 export function matchShotToViewpoint(
   shot: Shot,
@@ -691,7 +691,7 @@ export function matchShotToViewpoint(
     }
   }
   
-  // 尝试根据动作quan trọng词匹配
+  // 尝试根据动作quan trọng词Khớp
   for (const [keyword, config] of Object.entries(VIEWPOINT_KEYWORDS)) {
     if (actionText.includes(keyword)) {
       const matchedVp = viewpoints.find(vp => vp.id === config.id);
@@ -851,7 +851,7 @@ export function extractAllViewpointsFromShots(
   const viewpointMap = new Map<string, SceneViewpoint>();
   const matchedShotIds = new Set<string>();
   
-  // 第一遍：根据quan trọng词匹配分镜到góc nhìn
+  // 第一遍：根据quan trọng词Khớp分镜到góc nhìn
   for (const shot of shots) {
     const searchText = getShotSearchableText(shot);
     let shotMatched = false;
@@ -896,7 +896,7 @@ export function extractAllViewpointsFromShots(
     }
   }
   
-  // 第二遍：将未匹配的分镜归入「全景」góc nhìn
+  // 第二遍：将未Khớp的分镜归入「全景」góc nhìn
   const unmatchedShots = shots.filter(s => !matchedShotIds.has(s.id));
   if (unmatchedShots.length > 0) {
     if (!viewpointMap.has('overview')) {

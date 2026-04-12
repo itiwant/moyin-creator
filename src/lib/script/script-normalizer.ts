@@ -9,7 +9,7 @@
  * 
  * 双层架构：
  * 1. AI 检测（优先）：gọi API LLM 理解内容语义，精准识别Cấu trúc + bổ sung缺失đại cương
- * 2. 正则兜底（降级）：无 AI 配置或 AI gọi APIthất bại时Sử dụng硬编码chế độ匹配
+ * 2. 正则兜底（降级）：无 AI 配置或 AI gọi APIthất bại时Sử dụng硬编码chế độKhớp
  * 
  * 核心原则：
  * - 只插入Cấu trúc标记（《》、đại cương：、nhân vật小传：）+ AI Tạo的đại cương
@@ -24,7 +24,7 @@ import { getFeatureConfig } from '@/lib/ai/feature-router';
  * 预处理：为缺少换行的文本Tự động在Cấu trúc标记前插入换行
  * 
  * 用户从 Word/微信/网页复制的剧本经常丢失换行，变成一整段文字。
- * 本函数在quan trọngCấu trúc标记前插入 \n，使后续的行首正则能正常匹配。
+ * 本函数在quan trọngCấu trúc标记前插入 \n，使后续的行首正则能正常Khớp。
  * 
  * 检测条件：文本无换行 或 平均行长 > 500 字
  * 插入位置（按优先级）：
@@ -254,7 +254,7 @@ export async function analyzeScriptStructureWithAI(text: string): Promise<Script
 10. geography：从场景头和角色Mô tảđang xử lý...要地名
 11. 只分析Cấu trúc，不修改任何原文内容`;
 
-    // 最多Thử lại 2 次（共 3 次尝试），避免临时网络错误导致降级
+    // 最多Thử lại 2 次（共 3 次尝试），避免临时网络lỗi导致降级
     const MAX_RETRIES = 2;
     let result: string | null = null;
     let lastError: Error | null = null;
@@ -388,7 +388,7 @@ export function applyAIAnalysis(text: string, analysis: ScriptStructureAnalysis)
         ? analysis.generatedOutline
         : '';
       
-      // 清理đại cươngđang xử lý...记，防止 parseEpisodes 误匹配
+      // 清理đại cươngđang xử lý...记，防止 parseEpisodes 误Khớp
       // "第1 tập 初遇：..." → "第1话 初遇：..."
       if (outlineContent) {
         outlineContent = outlineContent.replace(

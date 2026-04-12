@@ -188,7 +188,7 @@ export async function importSingleEpisodeContent(
     const store = useScriptStore.getState();
     const project = store.projects[projectId];
     if (!project?.scriptData) {
-      return { success: false, sceneCount: 0, error: '项目或剧本数据不存在' };
+      return { success: false, sceneCount: 0, error: '项目或剧本数据không tồn tại' };
     }
 
     const scriptData = project.scriptData;
@@ -383,7 +383,7 @@ export async function generateEpisodeShots(
   const project = store.projects[projectId];
   
   if (!project) {
-    throw new Error("项目不存在");
+    throw new Error("项目không tồn tại");
   }
   
   const episodeScript = project.episodeRawScripts.find(
@@ -405,7 +405,7 @@ export async function generateEpisodeShots(
     // 获取该 tập对应的场景
     const scriptData = project.scriptData;
     if (!scriptData) {
-      throw new Error("剧本数据不存在");
+      throw new Error("剧本数据không tồn tại");
     }
     
     const episode = scriptData.episodes.find((ep) => ep.index === episodeIndex);
@@ -563,7 +563,7 @@ export async function generateEpisodeShots(
               if (unassignedShots.length > 0) {
                 console.log(`[generateEpisodeShots] ⚠️ Phát hiện ${unassignedShots.length} 未分配的分镜:`, unassignedShots.map((s: any) => s.id));
                 
-                // 策略：根据分镜内容thông minh分配到最匹配的góc nhìn
+                // 策略：根据分镜内容thông minh分配到最Khớp的góc nhìn
                 for (const shot of unassignedShots) {
                   const shotText = [
                     shot.actionSummary,
@@ -572,7 +572,7 @@ export async function generateEpisodeShots(
                     shot.dialogue,
                   ].filter(Boolean).join(' ').toLowerCase();
                   
-                  // 查找最匹配的góc nhìn
+                  // 查找最Khớp的góc nhìn
                   let bestViewpointIdx = 0;
                   let bestScore = 0;
                   
@@ -662,7 +662,7 @@ export async function generateEpisodeShots(
         console.error('[generateEpisodeShots] Error stack:', err.stack);
         console.error('============================================\n');
         viewpointSkippedReason = `AI 分析thất bại: ${err.message}`;
-        // 不影响主流程，但记录详细错误
+        // 不影响主流程，但记录详细lỗi
       }
     }
     
@@ -889,7 +889,7 @@ function matchCharacterVariationsForEpisode(
       if (scriptChar?.characterLibraryId) {
         const libChar = charLibStore.getCharacterById(scriptChar.characterLibraryId);
         if (libChar && libChar.variations.length > 0) {
-          // 查找匹配当前 tập数的阶段变体
+          // 查找Khớp当前 tập数的阶段变体
           const matchedVariation = getVariationForEpisode(libChar.variations, episodeIndex);
           if (matchedVariation) {
             characterVariations[charId] = matchedVariation.id;
@@ -1049,7 +1049,7 @@ export interface CalibrationResult {
  */
 function isMissingTitle(title: string): boolean {
   if (!title || title.trim() === '') return true;
-  // 匹配 "第X tập" 或 "第XX tập" 但没有后续标题
+  // Khớp "第X tập" 或 "第XX tập" 但没有后续标题
   const onlyEpisodeNum = /^第[\d一二三四五六七八九十百千]+ tập$/;
   return onlyEpisodeNum.test(title.trim());
 }
@@ -1118,7 +1118,7 @@ export async function calibrateEpisodeTitles(
   const project = store.projects[projectId];
   
   if (!project) {
-    return { success: false, calibratedCount: 0, totalMissing: 0, error: '项目不存在' };
+    return { success: false, calibratedCount: 0, totalMissing: 0, error: '项目không tồn tại' };
   }
   
   // 找出缺失标题的 tập数
@@ -1339,13 +1339,13 @@ export async function calibrateEpisodeShots(
   const project = store.projects[projectId];
   
   if (!project) {
-    return { success: false, calibratedCount: 0, totalShots: 0, error: '项目不存在' };
+    return { success: false, calibratedCount: 0, totalShots: 0, error: '项目không tồn tại' };
   }
   
   // 找到该 tập的分镜
   const scriptData = project.scriptData;
   if (!scriptData) {
-    return { success: false, calibratedCount: 0, totalShots: 0, error: '剧本数据不存在' };
+    return { success: false, calibratedCount: 0, totalShots: 0, error: '剧本数据không tồn tại' };
   }
   
   const episode = scriptData.episodes.find(ep => ep.index === episodeIndex);
@@ -1599,12 +1599,12 @@ export async function calibrateSingleShot(
   const project = store.projects[projectId];
   
   if (!project) {
-    return { success: false, calibratedCount: 0, totalShots: 1, error: '项目不存在' };
+    return { success: false, calibratedCount: 0, totalShots: 1, error: '项目không tồn tại' };
   }
   
   const scriptData = project.scriptData;
   if (!scriptData) {
-    return { success: false, calibratedCount: 0, totalShots: 1, error: '剧本数据不存在' };
+    return { success: false, calibratedCount: 0, totalShots: 1, error: '剧本数据không tồn tại' };
   }
   
   // 找到目标分镜
@@ -1809,7 +1809,7 @@ async function callAIForShotCalibration(
   needsEndFrame: boolean;   // 是否需要尾帧
   shotSize: string;
   cameraMovement: string;
-  duration: number;         // 时长（秒）
+  duration: number;         // thời lượng（秒）
   emotionTags: string[];    // 情绪标签
   characterNames: string[]; // đầy đủ角色列表
   ambientSound: string;     // 环境音
@@ -1872,7 +1872,7 @@ async function callAIForShotCalibration(
   
   const systemPrompt = `你是世界级顶尖电影摄影大师，精通丹尼艾尔·阿里洪《电影Ngôn ngữ的语法》的Tất cả理论，拥有奥斯卡最佳摄影奖经验。
 
-你的核心理念：**镜头不是孤立的画面，而是tự sự链条đang xử lý...。每镜头的景别、运动、时长都必须服务于tự sự。**
+你的核心理念：**镜头不是孤立的画面，而是tự sự链条đang xử lý...。每镜头的景别、运动、thời lượng都必须服务于tự sự。**
 
 你的专业能力：
 - 精通镜头Ngôn ngữ：能准确判断每镜头的景别、运动方式、光线Thiết kế
@@ -1923,7 +1923,7 @@ ${characterBios ? `
    - **英文trường**（visualPrompt, imagePrompt, videoPrompt, endFramePrompt）：必须是100%纯英文，绝对禁止夹杂任何đang xử lý...
    - 如果不确定某词怎么翻译，用英文Mô tả或近义词代替，但绝不能留中文
 
-4. **时长估算**：根据动作复杂度和Thoại长度估算合理的分镜时长（秒）
+4. **thời lượng估算**：根据动作复杂度和Thoại长度估算合理的分镜thời lượng（秒）
    - 纯动作无Thoại：3-5秒
    - 简短Thoại：4-6秒
    - 较长Thoại：6-10秒
@@ -1942,7 +1942,7 @@ ${characterBios ? `
 3. 景别 (shotSize): ECU/CU/MCU/MS/MLS/LS/WS/FS
 4. 镜头运动 (cameraMovement): none/static/tracking/orbit/zoom-in/zoom-out/pan-left/pan-right/tilt-up/tilt-down/dolly-in/dolly-out/truck-left/truck-right/crane-up/crane-down/drone-aerial/360-roll
 4b. 特殊拍摄手法 (specialTechnique): none/hitchcock-zoom/timelapse/crash-zoom-in/crash-zoom-out/whip-pan/bullet-time/fpv-shuttle/macro-closeup/first-person/slow-motion/probe-lens/spinning-tilt
-5. 时长 (duration): 秒数，整数
+5. thời lượng (duration): 秒数，整数
 6. 情绪标签 (emotionTags): 1-3情绪标签ID
 7. 出场角色 (characterNames): đầy đủ角色列表，来自原文
 8. 环境音 (ambientSound): **đang xử lý...，根据场景推断
@@ -2220,7 +2220,7 @@ ${shotDescriptions}`;
     // 尝试部分Phân tích：提取已完成的分镜
     try {
       const partialResult: Record<string, any> = {};
-      // 匹配每 shot 的đầy đủ JSON 对象
+      // Khớp每 shot 的đầy đủ JSON 对象
       const shotPattern = /"(shot_[^"]+)"\s*:\s*(\{[^{}]*(?:\{[^{}]*\}[^{}]*)*\})/g;
       let match;
       while ((match = shotPattern.exec(result)) !== null) {
@@ -2267,7 +2267,7 @@ export async function generateEpisodeSynopses(
   const project = store.projects[projectId];
   
   if (!project) {
-    return { success: false, generatedCount: 0, totalEpisodes: 0, error: '项目不存在' };
+    return { success: false, generatedCount: 0, totalEpisodes: 0, error: '项目không tồn tại' };
   }
   
   const episodes = project.episodeRawScripts;
@@ -2431,7 +2431,7 @@ export function exportProjectMetadata(projectId: string): string {
   const project = store.projects[projectId];
   
   if (!project) {
-    return '# 错误\n\n项目不存在';
+    return '# lỗi\n\n项目không tồn tại';
   }
   
   const background = project.projectBackground;

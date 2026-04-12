@@ -194,7 +194,7 @@ export function convertStagesToVariations(
  * 
  * @param variations 角色的变体列表
  * @param episodeIndex 当前 tập数
- * @returns 匹配的变体，如果没有阶段变体则返回 undefined
+ * @returns Khớp的变体，如果没有阶段变体则返回 undefined
  */
 export function getVariationForEpisode(
   variations: CharacterVariation[],
@@ -207,7 +207,7 @@ export function getVariationForEpisode(
     return undefined;
   }
   
-  // 找到匹配 tập数范围的变体
+  // 找到Khớp tập数范围的变体
   return stageVariations.find(v => {
     const [start, end] = v.episodeRange!;
     return episodeIndex >= start && episodeIndex <= end;

@@ -81,7 +81,7 @@ export function classifyModelByName(modelName: string): ModelCapability[] {
     'cogvideo', 'hunyuan-video', 'minimax-video', 'hailuo', 'pika',
     'gen-3', 'gen3', 'mochi', 'ltx',
   ];
-  // 精确匹配：grok-video 类
+  // 精确Khớp：grok-video 类
   if (/grok[- ]?video/.test(name)) return ['video_generation'];
   if (videoPatterns.some(p => name.includes(p))) return ['video_generation'];
 
@@ -271,7 +271,7 @@ function isModelIncompatibleError(errorText?: string): boolean {
 
 /**
  * 检测 HTTP 500 响应体đang xử lý...含上游负载饱和相关quan trọng词。
- * MemeFast 有时用 500 而非 503/529 返回负载饱和错误。
+ * MemeFast 有时用 500 而非 503/529 返回负载饱和lỗi。
  */
 function isUpstreamOverloadError(errorText?: string): boolean {
   if (!errorText) return false;
@@ -378,7 +378,7 @@ export class ApiKeyManager {
       this.markCurrentKeyFailed('auth');
       return true;
     }
-    // Tất cả 5xx 服务端错误均触发 key 轮转（memefast 等trung gian站 500 多为临时性故障）
+    // Tất cả 5xx 服务端lỗi均触发 key 轮转（memefast 等trung gian站 500 多为临时性故障）
     if (statusCode >= 500) {
       this.markCurrentKeyFailed('service_unavailable');
       return true;

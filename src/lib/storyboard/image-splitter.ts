@@ -552,7 +552,7 @@ export async function splitStoryboardImage(
   // 计算Ảnh gốc每格子的实际Tỷ lệ
   const rawRatio = cellWidth / cellHeight;
   
-  // 计算裁剪参数（如果Tỷ lệ不匹配，进行居đang xử lý...正）
+  // 计算裁剪参数（如果Tỷ lệ不Khớp，进行居đang xử lý...正）
   let cropX = 0, cropY = 0, cropW = cellWidth, cropH = cellHeight;
   let outputWidth: number, outputHeight: number;
   

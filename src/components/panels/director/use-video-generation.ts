@@ -272,7 +272,7 @@ function detectVideoApiFormat(model: string): 'openai_official' | 'unified' | 'v
         return 'unified';
       }
     }
-    // 有元数据但没匹配到已知格式
+    // 有元数据但没Khớp到已知格式
     console.warn(`[VideoGen] Unknown endpoint types for ${model}:`, endpointTypes, '→ fallback to name-based');
   }
 
@@ -286,7 +286,7 @@ function detectVideoApiFormat(model: string): 'openai_official' | 'unified' | 'v
   return 'unified';
 }
 
-// ==================== 通用错误处理 ====================
+// ==================== 通用lỗi处理 ====================
 
 function handleVideoSubmitError(
   status: number,
@@ -309,7 +309,7 @@ function handleVideoSubmitError(
     err.status = 429;
     throw err;
   }
-  // Tất cả 500/502/503/529 均视为可Thử lại的临时服务错误，携带 status 供Thử lại机制识别
+  // Tất cả 500/502/503/529 均视为可Thử lại的临时服务lỗi，携带 status 供Thử lại机制识别
   if (status >= 500) {
     const err = new Error(errorMessage || `上游服务暂时不Khả dụng (${status})`) as Error & { status?: number };
     err.status = status;
@@ -326,7 +326,7 @@ function handleVideoSubmitError(
  * Tạo video API 通常要求输入ảnh满足最小尺寸（如 Seedance 要求宽度 ≥ 300px）。
  * 当lưới 9 ô切割后的ảnh尺寸过小时，Tự động放大到满足最低要求后重新Tải lên。
  * @param imageUrl  HTTP URL ảnh地址
- * @param minDimension  宽高的最小像素值（Mặc định 300，匹配 Seedance 等Model要求）
+ * @param minDimension  宽高的最小像素值（Mặc định 300，Khớp Seedance 等Model要求）
  * @returns gốc URL（尺寸达标）或放大后重新Tải lên的新 URL
  */
 async function ensureMinImageSize(
@@ -781,12 +781,12 @@ async function callVolcVideoApi(
   const submitData = await submitResponse.json();
   console.log('[VideoGen] Volc submit response:', JSON.stringify(submitData).substring(0, 500));
 
-  // 检测代理包装的业务级错误（HTTP 200 但 body.status 为 failed/error）
-  // 典型Cảnh：MemeFast trung gian将上游 451（Nội dung审核）等错误包装为 {status: "failed", message: "..."}
+  // 检测代理包装的业务级lỗi（HTTP 200 但 body.status 为 failed/error）
+  // 典型Cảnh：MemeFast trung gian将上游 451（Nội dung审核）等lỗi包装为 {status: "failed", message: "..."}
   if (submitData.status === 'failed' || submitData.status === 'error') {
-    const proxyMsg = submitData.message || submitData.error?.message || 'videoGửiThất bại（代理Quay lại业务错误）';
+    const proxyMsg = submitData.message || submitData.error?.message || 'videoGửiThất bại（代理Quay lại业务lỗi）';
     console.error('[VideoGen] Volc: proxy-wrapped business error:', proxyMsg);
-    // 尝试从错误信息đang xử lý...始 HTTP Trạng thái码
+    // 尝试从lỗi信息đang xử lý...始 HTTP Trạng thái码
     const statusMatch = proxyMsg.match(/status\s+(\d+)/);
     const inferredStatus = statusMatch ? parseInt(statusMatch[1]) : 400;
     handleVideoSubmitError(inferredStatus, JSON.stringify(submitData), keyManager);
@@ -811,7 +811,7 @@ async function callVolcVideoApi(
 
   if (!taskId) {
     console.error('[VideoGen] Volc: cannot extract taskId. Full response:', JSON.stringify(submitData));
-    // 兜底：将代理Quay lại的错误信息（如有）附加到异常đang xử lý...信息丢失
+    // 兜底：将代理Quay lại的lỗi信息（如有）附加到异常đang xử lý...信息丢失
     const detail = submitData.message || submitData.error?.message || '';
     throw new Error(detail || `doubao-seedance Quay lại空的任务 ID（响应格式未识别，请检查console日志）`);
   }
