@@ -69,7 +69,7 @@ export function AddImageHostDialog({
       : "API Keys";
   const apiKeyRequiredMessage = platform === "imgurl" ? "NhậpTải lên Token" : "Nhập API Key";
   const apiKeyPlaceholder = platform === "imgurl"
-    ? "输入Giá trị Token Tải lên / Authorization (mỗi dòng một; nếu cần Bearer, vui lòng điền thủ công giá trị đầy đủ)"
+    ? "Nhập Giá trị Token Tải lên / Authorization (mỗi dòng một; nếu cần Bearer, vui lòng điền thủ công giá trị đầy đủ)"
     : platform === "scdn"
       ? "Để trống, SCDN hỗ trợ tải lên trực tiếp"
     : platform === "catbox"
@@ -234,7 +234,7 @@ export function AddImageHostDialog({
           </div>
 
           <div className="space-y-2">
-            <Label className="text-sm text-muted-foreground">Nâng cao配置(tùy chọn)</Label>
+            <Label className="text-sm text-muted-foreground">Cấu hình nâng cao (tùy chọn)</Label>
             <div className="grid grid-cols-2 gap-3">
               <div className="space-y-1">
                 <Label className="text-xs">Tham số Query API Key</Label>

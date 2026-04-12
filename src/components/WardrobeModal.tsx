@@ -118,10 +118,10 @@ export function WardrobeModal({
             <div className="w-8 h-8 rounded-full bg-indigo-500/20 flex items-center justify-center">
               <Shirt className="w-4 h-4 text-indigo-400" />
             </div>
-            {character.name} - 造型Quản lý
+            {character.name} - Quản lý trang phục
           </DialogTitle>
           <DialogDescription className="text-zinc-500">
-            为Nhân vậtTạo不同的服装、Trạng thái或造型biến thể，用于不同Cảnh的Ống kínhTạo。
+            Tạo các trang phục, trạng thái hoặc biến thể tạo hình khác nhau cho Nhân vật, dùng cho các cảnh quay khác nhau.
           </DialogDescription>
         </DialogHeader>
 
@@ -159,7 +159,7 @@ export function WardrobeModal({
             <div className="space-y-3">
               <div className="flex items-center justify-between">
                 <h5 className="text-sm font-medium text-zinc-300">
-                  造型biến thể ({variations.length})
+                  Biến thể tạo hình ({variations.length})
                 </h5>
                 <Button
                   size="sm"
@@ -178,14 +178,14 @@ export function WardrobeModal({
                   <div className="space-y-2">
                     <Label className="text-xs text-zinc-400">biến thểTên</Label>
                     <Input
-                      placeholder="如: Trang phục hàng ngày、Trang phục chiến đấu、晚礼服..."
+                      placeholder="Ví dụ: Trang phục hàng ngày, Trang phục chiến đấu, Trang phục dạ hội..."
                       value={newVariationName}
                       onChange={(e) => setNewVariationName(e.target.value)}
                       className="bg-zinc-900 border-zinc-700"
                     />
                   </div>
                   <div className="space-y-2">
-                    <Label className="text-xs text-zinc-400">视觉Mô tả (英文)</Label>
+                    <Label className="text-xs text-zinc-400">Mô tả thị giác (tiếng Anh)</Label>
                     <Textarea
                       placeholder="Detailed visual description for AI image generation..."
                       value={newVariationPrompt}
@@ -235,9 +235,9 @@ export function WardrobeModal({
               {variations.length === 0 && !showAddForm && (
                 <div className="py-8 text-center">
                   <Shirt className="w-12 h-12 text-zinc-700 mx-auto mb-3" />
-                  <p className="text-sm text-zinc-500">Chưa có造型biến thể</p>
+                  <p className="text-sm text-zinc-500">Chưa có biến thể tạo hình</p>
                   <p className="text-xs text-zinc-600 mt-1">
-                    Thêm不同服装或Trạng thái的biến thể
+                    Thêm biến thể trang phục hoặc trạng thái khác nhau
                   </p>
                 </div>
               )}
@@ -285,7 +285,7 @@ function VariationCard({
         ) : (
           <div className="w-full h-full flex flex-col items-center justify-center text-zinc-700">
             <ImageIcon className="w-8 h-8 mb-1" />
-            <span className="text-[10px]">未Tạo</span>
+            <span className="text-[10px]">Chưa tạo</span>
           </div>
         )}
 

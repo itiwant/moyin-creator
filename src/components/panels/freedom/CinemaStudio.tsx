@@ -84,7 +84,7 @@ export function CinemaStudio() {
         type: 'image',
       });
 
-      toast.success('电影级Tạo ảnh thành công! Đã lưu vào Thư viện phương tiện');
+      toast.success('Tạo ảnh điện ảnh thành công! Đã lưu vào Thư viện phương tiện');
     } catch (err: any) {
       toast.error(`Tạo thất bại: ${err.message}`);
     } finally {

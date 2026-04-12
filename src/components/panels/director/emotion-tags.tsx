@@ -93,7 +93,7 @@ export function EmotionTags({ value, onChange, disabled }: EmotionTagsProps) {
 
   return (
     <div className="space-y-2">
-      {/* Đã chọnThẻ（有序Hiện） */}
+      {/* Thẻ đã chọn (hiển thị có thứ tự) */}
       {value.length > 0 && (
         <div className="flex flex-wrap gap-1.5 items-center">
           {value.map((tagId, index) => {
@@ -147,7 +147,7 @@ export function EmotionTags({ value, onChange, disabled }: EmotionTagsProps) {
         </PopoverContent>
       </Popover>
 
-      {/* Gợi ý文字 */}
+      {/* Văn bản gợi ý */}
       {value.length === 0 && (
         <p className="text-xs text-muted-foreground">
           Thêm thẻ cảm xúc để kiểm soát không khí và giọng điệu video

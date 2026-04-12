@@ -3039,7 +3039,7 @@ export function SClassScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
                   </span>
                 </div>
                 <div className="flex items-center gap-2">
-                  {/* 一键清空TrailerPhân cảnh */}
+                  {/* 一键Xóa tất cảTrailerPhân cảnh */}
                   <AlertDialog>
                     <AlertDialogTrigger asChild>
                       <Button
@@ -3049,12 +3049,12 @@ export function SClassScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
                         disabled={isGenerating}
                       >
                         <Trash2 className="h-3 w-3 mr-1" />
-                        清空Phân cảnh
+                        Xóa tất cảPhân cảnh
                       </Button>
                     </AlertDialogTrigger>
                     <AlertDialogContent>
                       <AlertDialogHeader>
-                        <AlertDialogTitle>Xác nhận清空TrailerPhân cảnh</AlertDialogTitle>
+                        <AlertDialogTitle>Xác nhậnXóa tất cảTrailerPhân cảnh</AlertDialogTitle>
                         <AlertDialogDescription>
                           这将XóaTất cả {trailerScenes.length} TrailerPhân cảnh（包括đã tạo的ảnh和video）。Hành động này không thể hoàn tác。
                         </AlertDialogDescription>
@@ -3067,13 +3067,13 @@ export function SClassScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
                             trailerScenes.forEach(scene => {
                               deleteSplitScene(scene.id);
                             });
-                            // 清空Trailer配置
+                            // Xóa tất cảTrailer配置
                             clearTrailer();
-                            toast.success(`已清空 ${trailerScenes.length} TrailerPhân cảnh`);
+                            toast.success(`已Xóa tất cả ${trailerScenes.length} TrailerPhân cảnh`);
                           }}
                           className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
                         >
-                          Xác nhận清空
+                          Xác nhậnXóa tất cả
                         </AlertDialogAction>
                       </AlertDialogFooter>
                     </AlertDialogContent>

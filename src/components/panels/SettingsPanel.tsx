@@ -707,7 +707,7 @@ export function SettingsPanel() {
             </div>
           </div>
 
-          {/* MemeFast 购买引导 */}
+          {/* Hướng dẫn mua MemeFast */}
           <a
             href="https://memefast.top"
             target="_blank"
@@ -719,7 +719,7 @@ export function SettingsPanel() {
             </div>
             <div className="flex-1 min-w-0">
               <h3 className="font-medium text-foreground text-sm flex items-center gap-2">
-                魔因API
+                MemeFast API
                 <span className="text-[10px] px-1.5 py-0.5 bg-orange-500/10 text-orange-600 dark:text-orange-400 rounded">
                   Đề xuất
                 </span>
@@ -947,7 +947,7 @@ export function SettingsPanel() {
                           </div>
                         </CollapsibleTrigger>
 
-                        {/* MemeFast 购买引导 */}
+                        {/* Hướng dẫn mua MemeFast */}
                         {provider.platform === 'memefast' && !configured && (
                           <div className="px-4 pb-2">
                             <a
@@ -1596,7 +1596,7 @@ export function SettingsPanel() {
         open={addDialogOpen}
         onOpenChange={setAddDialogOpen}
         onSubmit={(providerData) => {
-          // 魔因API：已存在时合并 Key，不重复tạo
+          // MemeFast API：已存在时合并 Key，不重复tạo
           const existingMemefast = providerData.platform === 'memefast'
             ? providers.find((p) => p.platform === 'memefast')
             : null;

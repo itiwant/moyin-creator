@@ -546,7 +546,7 @@ export function ModelSelector({ type, value, onChange, className }: ModelSelecto
                   <Settings className="h-5 w-5 mx-auto mb-1 opacity-50" />
                   <p>Chưa có Model khả dụng</p>
                   <p className="text-xs">
-                    请先在Cài đặt → ánh xạ dịch vụ → {type === 'image' ? 'Tự dopanel-ảnh' : 'Tự dopanel-video'} đang xử lý...odel
+                    Vui lòng vào Cài đặt → ánh xạ dịch vụ → {type === 'image' ? 'panel ảnh tự do' : 'panel video tự do'} để cài đặt Model
                   </p>
                 </div>
               )}

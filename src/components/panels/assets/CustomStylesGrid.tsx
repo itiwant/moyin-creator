@@ -57,13 +57,13 @@ export function CustomStylesGrid() {
         </Button>
       </div>
 
-      {/* Nội dung区域 */}
+      {/* Vùng nội dung */}
       <ScrollArea className="flex-1">
         <div className="p-4">
           {styles.length === 0 ? (
             <div className="flex flex-col items-center justify-center py-16 text-muted-foreground">
-              <div className="text-sm mb-2">还没有Tùy chỉnhPhong cách</div>
-              <div className="text-xs mb-4">Nhấp「Tạo mớiPhong cách」Tạo你的第一Phong cách</div>
+              <div className="text-sm mb-2">Chưa có Phong cách tùy chỉnh</div>
+              <div className="text-xs mb-4">Nhấp「Tạo mới Phong cách」để tạo Phong cách đầu tiên</div>
               <Button
                 variant="outline"
                 size="sm"

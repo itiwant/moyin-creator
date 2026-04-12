@@ -481,11 +481,11 @@ export interface APIConfigStatus {
 
 /**
  * Nhà cung cấp信息映射
- * 1. memefast - 魔因API，全功能 AI trung gian（Đề xuất）
+ * 1. memefast - MemeFast API，全功能 AI trung gian（Đề xuất）
  * 2. runninghub - RunningHub，Chuyển góc nhìn/đa góc độTạo
  */
 const PROVIDER_INFO: Record<ProviderId, { name: string; services: ServiceType[] }> = {
-  memefast: { name: '魔因API', services: ['chat', 'image', 'video', 'vision'] },
+  memefast: { name: 'MemeFast API', services: ['chat', 'image', 'video', 'vision'] },
   runninghub: { name: 'RunningHub', services: ['image', 'vision'] },
   openai: { name: 'OpenAI', services: [] },
   custom: { name: 'Custom', services: [] },

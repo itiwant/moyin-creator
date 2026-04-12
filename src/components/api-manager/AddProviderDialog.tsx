@@ -32,7 +32,7 @@ import type { IProvider } from "@/lib/api-key-manager";
 
 /**
  * Nền tảng预设配置
- * 1. 魔因API (memefast) - 全功能trung gian（Đề xuất）
+ * 1. MemeFast API (memefast) - 全功能trung gian（Đề xuất）
  * 2. RunningHub - Chuyển góc nhìn/đa góc độTạo
  * 3. Tùy chỉnh - OpenAI tương thích API
  */
@@ -49,7 +49,7 @@ const PLATFORM_PRESETS: Array<{
     platform: "memefast",
     name: "Moyin API",
     baseUrl: "https://memefast.top",
-    description: "543+ Modeltrung gian，Hỗ trợ GPT/Claude/Gemini/DeepSeek/Veo/Sora 等",
+    description: "543+ Model trung gian, Hỗ trợ GPT/Claude/Gemini/DeepSeek/Veo/Sora...",
     services: ["Chat", "Tạo ảnh", "Tạo video", "Phân tích ảnh"],
     models: [
       "deepseek-v3.2",
@@ -244,7 +244,7 @@ export function AddProviderDialog({
 
           {/* Model - optional input */}
           <div className="space-y-2">
-            <Label>Model (可选)</Label>
+            <Label>Model (tùy chọn)</Label>
             <Input
               value={model}
               onChange={(e) => setModel(e.target.value)}

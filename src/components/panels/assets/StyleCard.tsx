@@ -23,14 +23,14 @@ const CATEGORY_COLORS: Record<string, string> = {
 const CATEGORY_LABELS: Record<string, string> = {
   '3d': '3D',
   '2d': '2D',
-  'real': '真人',
-  'stop_motion': '定格',
+  'real': 'Người thật',
+  'stop_motion': 'Stop motion',
 };
 
 interface StyleCardProps {
   name: string;
   description?: string;
-  category?: StyleCategory;     // 内置Phong cáchphân loại（用于色块Hiện）
+  category?: StyleCategory;     // phân loại Phong cách tích hợp (dùng cho màu sắc hiển thị)
   referenceImages?: string[];   // Tùy chỉnhPhong cáchẢnh tham chiếu
   isCustom?: boolean;
   isSelected?: boolean;
@@ -62,7 +62,7 @@ export function StyleCard({
       onClick={onClick}
       onDoubleClick={onDoubleClick}
     >
-      {/* 缩略图区域 */}
+      {/* Vùng ảnh thu nhỏ */}
       <div className="relative aspect-[4/3] bg-muted overflow-hidden">
         {customImage ? (
           <LocalImage
@@ -71,7 +71,7 @@ export function StyleCard({
             className="w-full h-full object-cover"
           />
         ) : category ? (
-          /* 内置Phong cách：色块Placeholder + phân loạiThẻ */
+          /* Phong cách tích hợp: Màu sắc Placeholder + Thẻ phân loại */
           <div className={cn(
             "w-full h-full flex flex-col items-center justify-center",
             CATEGORY_COLORS[category] || 'bg-muted/30'
@@ -80,10 +80,10 @@ export function StyleCard({
           </div>
         ) : (
           <div className="w-full h-full flex items-center justify-center text-muted-foreground text-xs">
-            无Ảnh tham chiếu
+            Không có Ảnh tham chiếu
           </div>
         )}
-        {/* Tùy chỉnh标记 */}
+        {/* Dấu tùy chỉnh */}
         {isCustom && (
           <div className="absolute top-1.5 right-1.5 px-1.5 py-0.5 rounded text-[10px] bg-primary/80 text-primary-foreground">
             Tùy chỉnh
@@ -91,7 +91,7 @@ export function StyleCard({
         )}
       </div>
 
-      {/* 信息区域 */}
+      {/* Vùng thông tin */}
       <div className="p-2 space-y-0.5">
         <div className="text-sm font-medium truncate">{name}</div>
         {description && (

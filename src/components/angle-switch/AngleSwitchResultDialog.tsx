@@ -126,7 +126,7 @@ export function AngleSwitchResultDialog({
           {/* Lịch sử */}
           {history.length > 0 && (
             <div>
-              <div className="text-xs text-muted-foreground mb-2">Lịch sử ({history.length}张)</div>
+              <div className="text-xs text-muted-foreground mb-2">Lịch sử ({history.length} ảnh)</div>
               <div className="flex gap-2 overflow-x-auto pb-2">
                 {history.map((item, index) => (
                   <button

@@ -179,7 +179,7 @@ export function CharacterGallery({ onCharacterSelect, selectedCharacterId }: Cha
   };
 
   const handleDeleteFolder = (id: string) => {
-    if (confirm("Bạn có chắc muốn xóa此Thư mục?Thư mục内的Nhân vật将Di chuyển đếnthư mục cha。")) {
+    if (confirm("Bạn có chắc muốn xóa thư mục này? Nhân vật trong thư mục sẽ được Di chuyển đến thư mục cha.")) {
       deleteFolder(id);
       toast.success("Thư mụcđã xóa");
     }

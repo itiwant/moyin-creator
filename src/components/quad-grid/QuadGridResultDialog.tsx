@@ -106,7 +106,7 @@ export function QuadGridResultDialog({
         </DialogHeader>
 
         <div className="space-y-4">
-          {/* Ảnh gốc + Lưới 4 ô对比 */}
+          {/* So sánh ảnh gốc + Lưới 4 ô */}
           <div className="flex gap-4">
             {/* Ảnh gốc */}
             <div className="w-1/4">

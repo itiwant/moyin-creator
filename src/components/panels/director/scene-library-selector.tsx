@@ -106,7 +106,7 @@ export function SceneLibrarySelector({
       onChange(undefined, undefined, undefined, undefined);
       return;
     }
-    // đã chọnCảnh，清空Góc nhìn和四góc nhìn
+    // đã chọnCảnh，Xóa tất cảGóc nhìn和四góc nhìn
     const refImage = scene.referenceImage || scene.referenceImageBase64;
     onChange(sceneLibId, undefined, refImage, undefined);
   };
@@ -115,7 +115,7 @@ export function SceneLibrarySelector({
   const handleSelectViewpoint = (viewpointId: string) => {
     const viewpoint = visibleScenes.find(s => s.id === viewpointId);
     if (!viewpoint) {
-      // 清空Góc nhìn，Sử dụng父Cảnh的Ảnh tham chiếu
+      // Xóa tất cảGóc nhìn，Sử dụng父Cảnh的Ảnh tham chiếu
       const parentRefImage = selectedScene?.referenceImage || selectedScene?.referenceImageBase64;
       onChange(selectedSceneLibraryId, undefined, parentRefImage, undefined);
       return;
@@ -128,7 +128,7 @@ export function SceneLibrarySelector({
   const handleSelectSubView = (subViewId: string) => {
     const subView = visibleScenes.find(s => s.id === subViewId);
     if (!subView) {
-      // 清空四góc nhìn，Sử dụngGóc nhìn的Ảnh tham chiếu
+      // Xóa tất cả四góc nhìn，Sử dụngGóc nhìn的Ảnh tham chiếu
       const viewpointRefImage = selectedViewpoint?.referenceImage || selectedViewpoint?.referenceImageBase64;
       onChange(selectedSceneLibraryId, selectedViewpointId, viewpointRefImage, undefined);
       return;
@@ -137,7 +137,7 @@ export function SceneLibrarySelector({
     onChange(selectedSceneLibraryId, selectedViewpointId, refImage, subViewId);
   };
   
-  // 清空Chọn
+  // Xóa tất cảChọn
   const handleClear = () => {
     onChange(undefined, undefined, undefined, undefined);
     setIsOpen(false);

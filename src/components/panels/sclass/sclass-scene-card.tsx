@@ -1323,7 +1323,7 @@ export function SClassSceneCard({
               type="text"
               value={scene.backgroundMusic || ''}
               onChange={(e) => onUpdateField?.(scene.id, 'backgroundMusic', e.target.value)}
-              placeholder="Mặc định禁止背景Nhạc，如需要请开启并填写..."
+              placeholder="Mặc định tắt nhạc nền, nếu cần hãy bật và điền vào..."
               disabled={isGeneratingAny || scene.audioBgmEnabled !== true}
               className="flex-1 h-6 px-1.5 text-[10px] rounded border bg-transparent disabled:opacity-40 placeholder:text-muted-foreground/30"
             />

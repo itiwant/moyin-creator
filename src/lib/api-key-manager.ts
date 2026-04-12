@@ -34,13 +34,13 @@ export interface IProvider {
  * 默认供应商模板
  * 
  * 核心供应商：
- * 1. 魔因API (memefast) - 全功能 AI trung gian（推荐），支持文本/ảnh/video/识图
+ * 1. MemeFast API (memefast) - 全功能 AI trung gian（推荐），支持文本/ảnh/video/识图
  * 2. RunningHub - góc nhìn切换/đa góc độTạo
  */
 export const DEFAULT_PROVIDERS: Omit<IProvider, 'id' | 'apiKey'>[] = [
   {
     platform: 'memefast',
-    name: '魔因API',
+    name: 'MemeFast API',
     baseUrl: 'https://memefast.top',
     model: [
       'deepseek-v3.2',

@@ -494,7 +494,7 @@ export function VideoStudio() {
                 <Label className="text-sm font-medium">Tải lênPhương tiện（Veo）</Label>
                 {veoCapability.mode === 'none' ? (
                   <p className="text-xs text-muted-foreground rounded-md border px-2 py-2">
-                    当前Model仅Tạo video từ văn bản，不需要Tải lên ảnh。
+                    Model hiện tại chỉ tạo video từ văn bản, không cần Tải lên ảnh.
                   </p>
                 ) : (
                   <div className="space-y-2">
@@ -512,14 +512,14 @@ export function VideoStudio() {
                     {veoCapability.mode === 'first_last' && (
                       <div className="grid grid-cols-2 gap-2">
                         {renderUploadSlot(
-                          'Khung hình đầu图',
+                          'Ảnh Khung hình đầu',
                           firstFrameUpload,
                           () => firstInputRef.current?.click(),
                           () => setFirstFrameUpload(null),
                           veoCapability.minFiles > 0,
                         )}
                         {renderUploadSlot(
-                          'Khung hình cuối图',
+                          'Ảnh Khung hình cuối',
                           lastFrameUpload,
                           () => lastInputRef.current?.click(),
                           () => setLastFrameUpload(null),
@@ -559,7 +559,7 @@ export function VideoStudio() {
                           )}
                         </div>
                         <p className="text-xs text-muted-foreground">
-                          đã tải lên {referenceUploads.length}/{veoCapability.maxFiles} 张Ảnh tham chiếu
+                          đã tải lên {referenceUploads.length}/{veoCapability.maxFiles} Ảnh tham chiếu
                         </p>
                       </div>
                     )}
@@ -572,7 +572,7 @@ export function VideoStudio() {
             <div className="space-y-2">
               <Label className="text-sm font-medium">Mô tả văn bản</Label>
               <Textarea
-                placeholder="Mô tả你想Tạo的video..."
+                placeholder="Mô tả video bạn muốn Tạo..."
                 value={videoPrompt}
                 onChange={(e) => setVideoPrompt(e.target.value)}
                 className="min-h-[120px] resize-none"
@@ -629,7 +629,7 @@ export function VideoStudio() {
         {videoGenerating ? (
           <div className="flex flex-col items-center gap-4">
             <Loader2 className="h-12 w-12 animate-spin text-primary" />
-            <p className="text-sm text-muted-foreground">videoĐang tạo，请稍候（可能需要 1-4  phút）...</p>
+            <p className="text-sm text-muted-foreground">Video đang tạo, vui lòng chờ (có thể mất 1-4 phút)...</p>
           </div>
         ) : videoResult ? (
           <div className="max-w-full max-h-full relative group">
@@ -652,7 +652,7 @@ export function VideoStudio() {
           <div className="flex flex-col items-center gap-3 text-muted-foreground">
             <VideoIcon className="h-16 w-16 opacity-20" />
             <p className="text-lg font-medium">Studio video</p>
-            <p className="text-sm">ChọnModel，输入Mô tả，Tạo你想要的video</p>
+            <p className="text-sm">Chọn Model, nhập Mô tả, Tạo video bạn muốn</p>
           </div>
         )}
       </div>

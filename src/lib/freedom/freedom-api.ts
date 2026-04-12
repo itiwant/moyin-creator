@@ -224,7 +224,7 @@ const FREEDOM_VIDEO_ROUTE_MAP: Record<string, FreedomVideoRoute> = {
   'omni-video': 'kling',
   '动作控制': 'kling',
   '多模态视频chỉnh sửa': 'kling',
-  '数字人': 'kling',
+  'Người ảo': 'kling',
   '对sổ型': 'kling',
   '视频特效': 'kling',
   'openai': 'unified', // 某些Tùy chỉnh供应商把视频模型标为通用 openai

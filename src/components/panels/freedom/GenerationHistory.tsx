@@ -27,7 +27,7 @@ export function GenerationHistory({ type, onSelect, className }: GenerationHisto
     return (
       <div className={cn('flex flex-col items-center justify-center h-full text-muted-foreground', className)}>
         <Clock className="h-8 w-8 mb-2 opacity-40" />
-        <p className="text-sm">Chưa cóTạo记录</p>
+        <p className="text-sm">Chưa có lịch sử tạo</p>
       </div>
     );
   }
@@ -42,7 +42,7 @@ export function GenerationHistory({ type, onSelect, className }: GenerationHisto
           className="h-7 text-xs text-muted-foreground hover:text-destructive"
           onClick={() => clearHistory(type)}
         >
-          清空
+          Xóa tất cả
         </Button>
       </div>
       <ScrollArea className="flex-1">

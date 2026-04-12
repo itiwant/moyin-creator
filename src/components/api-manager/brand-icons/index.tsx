@@ -15,7 +15,7 @@ import { iconsLarge } from "./icons-large";
 
 export type BrandIconFn = (size: number) => ReactNode;
 
-/** 合并Tất cả图标 */
+/** Hợp nhất tất cả icon */
 const ALL_ICONS: Record<string, BrandIconFn> = {
   ...iconsSmall,
   ...iconsMedium,

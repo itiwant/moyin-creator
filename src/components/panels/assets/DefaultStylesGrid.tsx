@@ -35,7 +35,7 @@ export function DefaultStylesGrid() {
         <div className="flex items-center justify-between">
           <h2 className="text-sm font-semibold text-foreground">Mặc địnhPhong cách</h2>
           <span className="text-xs text-muted-foreground">
-            {STYLE_CATEGORIES.reduce((n, c) => n + c.styles.length, 0)} 预设
+            {STYLE_CATEGORIES.reduce((n, c) => n + c.styles.length, 0)} preset
           </span>
         </div>
 
@@ -55,7 +55,7 @@ export function DefaultStylesGrid() {
               <span className="text-muted-foreground/60 ml-1">({category.styles.length})</span>
             </button>
 
-            {/* Phong cách网格 */}
+            {/* Lưới phong cách */}
             {expandedCategories.has(category.id) && (
               <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 mt-2">
                 {category.styles.map((style: StylePreset) => (

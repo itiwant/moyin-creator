@@ -56,7 +56,7 @@ export function SClassView() {
       <div>
         <h3 className="font-medium text-sm mb-1">Hạng S · Seedance 2.0 Sáng tạo đa phương thức</h3>
         <p className="text-xs text-muted-foreground max-w-[280px]">
-          Vui lòng nhấp <span className="text-green-500 font-medium">+</span> Thêm phân cảnh vào panel này, hệ thống sẽ tự động phân nhómân nhómân nhómkính合并tự sựTạo video。
+          Vui lòng nhấp <span className="text-green-500 font-medium">+</span> Thêm phân cảnh vào panel này, hệ thống sẽ tự động phân nhómân nhómân nhómân nhómkính合并tự sựTạo video。
         </p>
         <p className="text-xs text-muted-foreground/60 mt-2 max-w-[280px]">
           Nếu chưa thấy cấu trúc kịch bản ở bên phải, vui lòng nhập và phân tích kịch bản trong panel "Kịch bản" trước.

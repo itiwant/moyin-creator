@@ -24,7 +24,7 @@ const zh = {
     export: "导出",
     import: "Nhập",
     search: "搜索",
-    clear: "清空",
+    clear: "Xóa tất cả",
     reset: "重置",
     copy: "复制",
     duplicate: "复制",

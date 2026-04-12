@@ -171,9 +171,9 @@ const VIDEO_FORMAT_MAP: Record<string, 'openai_official' | 'unified' | 'volc' | 
   'Tạo video từ ảnh': 'kling',
   'videokéo dài': 'kling',
   'omni-video': 'kling',
-  'Hành động控制': 'kling',
+  'Điều khiển hành động': 'kling',
   '多模态videoChỉnh sửa': 'kling',
-  '数字人': 'kling',
+  'Người ảo': 'kling',
   '对sổ型': 'kling',
   'video特效': 'kling',
   // 统一格式: /v1/video/generations

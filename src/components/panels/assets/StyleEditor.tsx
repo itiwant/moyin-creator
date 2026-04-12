@@ -233,7 +233,7 @@ export function StyleEditor({ styleId, onClose }: StyleEditorProps) {
               )}
             </Button>
             <p className="text-[10px] text-muted-foreground mt-1">
-              从上方Mô tả + Ảnh tham chiếuđang xử lý...离"Phong cách thị giác"和"CảnhNội dung"，Sử dụng「Phân tích ảnh」服务
+              Tách "Phong cách thị giác" và "Nội dung cảnh" từ Mô tả + Ảnh tham chiếu ở trên, Sử dụng dịch vụ「Phân tích ảnh」
             </p>
           </div>
 

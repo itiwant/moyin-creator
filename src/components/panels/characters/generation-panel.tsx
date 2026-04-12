@@ -1145,7 +1145,7 @@ function fileToBase64(file: File): Promise<string> {
  * 
  * Ảnh tham chiếu优先级逻辑：
  * - 有Ảnh tham chiếu时：只Sử dụng最强neo（uniqueMarks + colorAnchors），其他特征由Ảnh tham chiếu引导
- * - 无Ảnh tham chiếu时：Sử dụngđầy đủ的6层特征锁定
+ * - Không có Ảnh tham chiếu时：Sử dụngđầy đủ的6层特征锁定
  */
 function buildPromptFromAnchors(
   anchors: CharacterIdentityAnchors | undefined,
@@ -1175,7 +1175,7 @@ function buildPromptFromAnchors(
       }
     }
   } else {
-    // === 无Ảnh tham chiếu：đầy đủ6层特征锁定 ===
+    // === Không có Ảnh tham chiếu：đầy đủ6层特征锁定 ===
 
     // ① 骨相层
     const boneFeatures: string[] = [];
@@ -1236,7 +1236,7 @@ function buildPromptFromAnchors(
  * 优先级：
  * 1. 根据 promptLanguage Chọn主prompt：vi→visualPromptZh, en→visualPromptEn, vi+en→两者合并
  * 2. 有Ảnh tham chiếu + 有neo：简化Mô tả + 最强neo
- * 3. 无Ảnh tham chiếu + 有neo：đầy đủ6层锁定
+ * 3. Không có Ảnh tham chiếu + 有neo：đầy đủ6层锁定
  * 4. 有Prompt thị giác：Sử dụngAI大师Tạo的prompt
  * 5. 只有description：Sử dụngCơ bảnMô tả
  * 6. 年代信息：加入服装Phong cáchneo
@@ -1296,7 +1296,7 @@ function buildCharacterSheetPrompt(
     primaryVisualPrompt = visualPromptEn || visualPromptZh;
   }
   
-  // 构建Mô tả nhân vật：根据有无Ảnh tham chiếu决定Sử dụngđầy đủneo还是简化neo
+  // 构建Mô tả nhân vật：根据有Không có Ảnh tham chiếu决定Sử dụngđầy đủneo还是简化neo
   let characterDescription = '';
   
   // 构建身份neoprompt
@@ -1309,7 +1309,7 @@ function buildCharacterSheetPrompt(
       ? `${basicDesc}, ${anchorPrompt}` 
       : basicDesc;
   } else if (anchorPrompt) {
-    // 无Ảnh tham chiếu + 有neo：đầy đủ6层锁定
+    // Không có Ảnh tham chiếu + 有neo：đầy đủ6层锁定
     const baseDesc = primaryVisualPrompt || description;
     characterDescription = `${baseDesc}, ${anchorPrompt}`;
   } else if (primaryVisualPrompt) {
