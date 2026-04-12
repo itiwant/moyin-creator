@@ -310,7 +310,7 @@ export const FOCAL_LENGTH_PRESETS = [
   { id: '105mm' as const, label: '105mm đang xử lý... labelEn: '105mm Medium Tele', emoji: '🔭', promptToken: '105mm medium telephoto, gentle background compression,' },
   { id: '135mm' as const, label: '135mm tiêu cự dài', labelEn: '135mm Telephoto', emoji: '📡', promptToken: '135mm telephoto lens, strong background compression, subject isolation,' },
   { id: '200mm' as const, label: '200mm viễn ảnh', labelEn: '200mm Long Tele', emoji: '🔬', promptToken: '200mm telephoto, extreme background compression, flattened perspective,' },
-  { id: '400mm' as const, label: '400mm 超长焦', labelEn: '400mm Super Tele', emoji: '🛰️', promptToken: '400mm super telephoto, extreme compression, distant subject isolation,' },
+  { id: '400mm' as const, label: '400mm siêu tiêu cự dài', labelEn: '400mm Super Tele', emoji: '🛰️', promptToken: '400mm super telephoto, extreme compression, distant subject isolation,' },
 ] as const;
 
 export type FocalLengthType = typeof FOCAL_LENGTH_PRESETS[number]['id'];
@@ -318,13 +318,13 @@ export type FocalLengthType = typeof FOCAL_LENGTH_PRESETS[number]['id'];
 // ==================== 摄影技法预设 (Photography Technique) ====================
 
 export const PHOTOGRAPHY_TECHNIQUE_PRESETS = [
-  { id: 'long-exposure' as const, label: '长曝光', labelEn: 'Long Exposure', emoji: '🌊', promptToken: 'long exposure, motion blur, light trails, smooth water,' },
-  { id: 'double-exposure' as const, label: '多重曝光', labelEn: 'Double Exposure', emoji: '👥', promptToken: 'double exposure, overlapping images, ghostly transparency effect,' },
-  { id: 'macro' as const, label: '微距摄影', labelEn: 'Macro', emoji: '🔍', promptToken: 'macro photography, extreme close-up, intricate details visible,' },
-  { id: 'tilt-shift' as const, label: '移轴摄影', labelEn: 'Tilt-Shift', emoji: '🏘️', promptToken: 'tilt-shift photography, miniature effect, selective focus plane,' },
-  { id: 'high-speed' as const, label: '高速快门定格', labelEn: 'High Speed Freeze', emoji: '⚡', promptToken: 'high speed photography, frozen motion, sharp action freeze frame,' },
-  { id: 'bokeh' as const, label: '浅Độ sâu trường ảnh虚化', labelEn: 'Bokeh', emoji: '💫', promptToken: 'beautiful bokeh, creamy out-of-focus highlights, dreamy background blur,' },
-  { id: 'reflection' as const, label: '反射/镜面拍摄', labelEn: 'Reflection', emoji: '🪞', promptToken: 'reflection photography, mirror surface, symmetrical composition,' },
+  { id: 'long-exposure' as const, label: 'Phơi sáng dài', labelEn: 'Long Exposure', emoji: '🌊', promptToken: 'long exposure, motion blur, light trails, smooth water,' },
+  { id: 'double-exposure' as const, label: 'Phơi sáng đa', labelEn: 'Double Exposure', emoji: '👥', promptToken: 'double exposure, overlapping images, ghostly transparency effect,' },
+  { id: 'macro' as const, label: 'Nhiếp ảnh macro', labelEn: 'Macro', emoji: '🔍', promptToken: 'macro photography, extreme close-up, intricate details visible,' },
+  { id: 'tilt-shift' as const, label: 'Nhiếp ảnh nghiêng trục', labelEn: 'Tilt-Shift', emoji: '🏘️', promptToken: 'tilt-shift photography, miniature effect, selective focus plane,' },
+  { id: 'high-speed' as const, label: 'Chụp nhanh đông cứng', labelEn: 'High Speed Freeze', emoji: '⚡', promptToken: 'high speed photography, frozen motion, sharp action freeze frame,' },
+  { id: 'bokeh' as const, label: 'Bokeh (nông DOF)', labelEn: 'Bokeh', emoji: '💫', promptToken: 'beautiful bokeh, creamy out-of-focus highlights, dreamy background blur,' },
+  { id: 'reflection' as const, label: 'Phản chiếu/Gương', labelEn: 'Reflection', emoji: '🪞', promptToken: 'reflection photography, mirror surface, symmetrical composition,' },
   { id: 'silhouette-technique' as const, label: '剪影拍摄', labelEn: 'Silhouette', emoji: '🌅', promptToken: 'silhouette photography, dark figure against bright background, rim light outline,' },
 ] as const;
 

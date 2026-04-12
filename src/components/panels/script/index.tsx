@@ -2504,7 +2504,7 @@ export function ScriptView() {
           <AlertDialogHeader>
             <AlertDialogTitle>Ghi đè Cấu trúc Cảnh hiện có?</AlertDialogTitle>
             <AlertDialogDescription>
-              该 tập已有Cảnh数据，重新Phân tích将替换hiện cóCảnh并清理对应Phân cảnh。Xác nhận继续？
+              Tập này đã có dữ liệu Cảnh, Phân tích lại sẽ thay thế Cảnh hiện có và xóa Phân cảnh tương ứng. Xác nhận tiếp tục?
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>

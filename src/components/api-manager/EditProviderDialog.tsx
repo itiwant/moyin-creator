@@ -130,7 +130,7 @@ export function EditProviderDialog({
               className="font-mono text-sm min-h-[100px]"
             />
             <p className="text-xs text-muted-foreground">
-              💡 Hỗ trợ xoay vòng nhiều Key，Thất bại时Tự động切换到下一
+              💡 Hỗ trợ xoay vòng nhiều Key, khi Thất bại tự động chuyển sang key tiếp theo
             </p>
           </div>
 

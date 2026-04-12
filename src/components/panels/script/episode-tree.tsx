@@ -720,11 +720,11 @@ export function EpisodeTree({
                 className="h-6 text-xs px-2"
                 onClick={onRegenerateAllShots}
               >
-                <RefreshCw className="h-3 w-3 mr-1" />更新Tất cả
+                <RefreshCw className="h-3 w-3 mr-1" />Cập nhật tất cả
               </Button>
             )}
             <Button size="sm" variant="outline" className="h-6 text-xs px-2" onClick={handleAddEpisode}>
-              <Plus className="h-3 w-3 mr-1" />新建 tập
+              <Plus className="h-3 w-3 mr-1" />Tạo tập mới
             </Button>
           </div>
         </div>
@@ -958,7 +958,7 @@ export function EpisodeTree({
                         </DropdownMenuItem>
                       )}
                       <DropdownMenuItem onClick={() => handleAddScene(episode.id)}>
-                        <Plus className="h-3 w-3 mr-2" />新建Cảnh
+                        <Plus className="h-3 w-3 mr-2" />Tạo cảnh mới
                       </DropdownMenuItem>
                       <DropdownMenuItem onClick={() => handleEditEpisode(episode)}>
                         <Pencil className="h-3 w-3 mr-2" />chỉnh sửa
@@ -1323,9 +1323,9 @@ export function EpisodeTree({
                   Mô tả cảnh bạn cần, ví dụ:
                 </Label>
                 <div className="text-xs text-muted-foreground space-y-1 pl-2">
-                  <p>• “缺第5 tập的张家客厅这Cảnh”</p>
-                  <p>• “Thêm医院走廊这Địa điểm”</p>
-                  <p>• “需要公司会议室”</p>
+                  <p>• "Thiếu cảnh phòng khách nhà Zhang trong tập 5"</p>
+                  <p>• "Thêm địa điểm hành lang bệnh viện"</p>
+                  <p>• "Cần phòng họp công ty"</p>
                 </div>
                 <div className="flex gap-2">
                   <Input
@@ -1492,9 +1492,9 @@ export function EpisodeTree({
                   Mô tả nhân vật bạn cần, ví dụ:
                 </Label>
                 <div className="text-xs text-muted-foreground space-y-1 pl-2">
-                  <p>• “缺第10 tập的王大哥这Nhân vật”</p>
-                  <p>• “Thêm张小宝这人”</p>
-                  <p>• “需要刀疑哥”</p>
+                  <p>• "Thiếu nhân vật anh Wang trong tập 10"</p>
+                  <p>• "Thêm nhân vật Zhang Xiaobao"</p>
+                  <p>• "Cần nhân vật Đao Nghi"</p>
                 </div>
                 <div className="flex gap-2">
                   <Input
@@ -1563,14 +1563,14 @@ export function EpisodeTree({
                         )}
                         {aiResult.character.personality && (
                           <div>
-                            <span className="text-muted-foreground">性格：</span>
+                            <span className="text-muted-foreground">Tính cách:</span>
                             <span>{aiResult.character.personality}</span>
                           </div>
                         )}
                       </div>
                       {aiResult.character.role && (
                         <div className="text-sm">
-                          <span className="text-muted-foreground">Nhân vật简介：</span>
+                          <span className="text-muted-foreground">Giới thiệu nhân vật:</span>
                           <p className="text-xs mt-1 text-muted-foreground">{aiResult.character.role}</p>
                         </div>
                       )}
@@ -1613,9 +1613,9 @@ export function EpisodeTree({
           <AlertDialogHeader>
             <AlertDialogTitle>Xác nhậnXóa</AlertDialogTitle>
             <AlertDialogDescription>
-              Xác nhận要Xóa「{deleteItem?.name}」?此thao tác不可撤销。
-              {deleteItem?.type === "episode" && "\nXóa tập将同时Xóa其下Tất cảCảnh和Phân cảnh。"}
-              {deleteItem?.type === "scene" && "\nXóaCảnh将同时Xóa其下Tất cảPhân cảnh。"}
+              Xác nhận muốn Xóa「{deleteItem?.name}」? Thao tác này không thể hoàn tác.
+              {deleteItem?.type === "episode" && "\nXóa tập sẽ đồng thời Xóa tất cả Cảnh và Phân cảnh bên trong."}
+              {deleteItem?.type === "scene" && "\nXóa Cảnh sẽ đồng thời Xóa tất cả Phân cảnh bên trong."}
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
@@ -1636,14 +1636,13 @@ export function EpisodeTree({
           </DialogHeader>
           
           <div className="space-y-4 py-2">
-            {/* 保留Danh sách nhân vật */}
+            {/* Danh sách nhân vật được giữ lại */}
             <div>
-              <h4 className="text-sm font-medium mb-2">保留Nhân vật ({localKeptCharacters.length})</h4>
+              <h4 className="text-sm font-medium mb-2">Nhân vật được giữ lại ({localKeptCharacters.length})</h4>
               <div className="space-y-1 max-h-48 overflow-y-auto border rounded-md p-2">
                 {localKeptCharacters.map(char => {
                   const importance = char.tags?.find(t => ['protagonist', 'supporting', 'minor', 'extra'].includes(t));
-                  const labels: Record<string, string> = { protagonist: 'nhân vật chính', supporting: 'nhân vật phụ', minor: '次要', extra: 'Quần chúng' }; // TODO: extract to module constant
-                  return (
+                  const labels: Record<string, string> = { protagonist: 'nhân vật chính', supporting: 'nhân vật phụ', minor: 'thứ yếu', extra: 'Quần chúng'                  return (
                     <div key={char.id} className="flex items-center justify-between px-2 py-1 rounded hover:bg-muted text-xs">
                       <div className="flex items-center gap-2">
                         <span>{char.name}</span>
@@ -1690,7 +1689,7 @@ export function EpisodeTree({
           <DialogFooter className="gap-2">
             <Button variant="outline" onClick={onCancelCalibration}>Hủy</Button>
             {localFilteredCharacters.length > 0 && (
-              <Button variant="secondary" onClick={handleRestoreAllAndConfirm}>Tất cả保留</Button>
+              <Button variant="secondary" onClick={handleRestoreAllAndConfirm}>Giữ tất cả</Button>
             )}
             <Button onClick={handleConfirmCalibrationLocal}>Xác nhận</Button>
           </DialogFooter>
@@ -1701,7 +1700,7 @@ export function EpisodeTree({
       <Dialog open={filteredCharsDialogOpen} onOpenChange={setFilteredCharsDialogOpen}>
         <DialogContent className="sm:max-w-md">
           <DialogHeader>
-            <DialogTitle>bị lọc的Nhân vật</DialogTitle>
+            <DialogTitle>Nhân vật bị lọc</DialogTitle>
           </DialogHeader>
           <div className="py-2">
             {(lastFilteredCharacters && lastFilteredCharacters.length > 0) ? (
@@ -1718,17 +1717,17 @@ export function EpisodeTree({
                         onRestoreFilteredCharacter?.(fc.name);
                       }}
                     >
-                      恢复
+                      Khôi phục
                     </Button>
                   </div>
                 ))}
               </div>
             ) : (
-              <p className="text-sm text-muted-foreground text-center py-4">没有bị lọc的Nhân vật</p>
+              <p className="text-sm text-muted-foreground text-center py-4">Không có nhân vật bị lọc</p>
             )}
           </div>
           <DialogFooter>
-            <Button variant="outline" onClick={() => setFilteredCharsDialogOpen(false)}>关闭</Button>
+            <Button variant="outline" onClick={() => setFilteredCharsDialogOpen(false)}>Đóng</Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>
