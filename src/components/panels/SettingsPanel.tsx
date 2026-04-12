@@ -151,9 +151,9 @@ export function SettingsPanel() {
 
   // ====== Memefast 默认绑定自动补全 ======
   // 覆盖场景：
-  //  1. 旧版本升级后已有 key 但 featureBindings 为空
-  //  2. 旧版本留下无效绑定（模型名错、provider ID 变更等）
-  //  3. 用户编辑填 key 后页面刷新
+  //  1. 旧Phiên bản升级后已有 key 但 featureBindings 为空
+  //  2. 旧Phiên bản留下无效绑定（Model名错、provider ID 变更等）
+  //  3. 用户Chỉnh sửa填 key 后页面刷新
   useEffect(() => {
     const mf = providers.find(p => p.platform === 'memefast');
     if (!mf || parseApiKeys(mf.apiKey).length === 0) return;
@@ -175,7 +175,7 @@ export function SettingsPanel() {
       const model = b.slice(idx + 1);
       const p = providers.find(pv => pv.id === ref || pv.platform === ref);
       if (!p || parseApiKeys(p.apiKey).length === 0) return false;
-      // 模型列表为空时（尚未同步）暂时信任绑定
+      // Model列表为空时（尚未同步）暂时信任绑定
       if (p.model.length === 0) return true;
       return p.model.includes(model);
     };
@@ -1610,9 +1610,9 @@ export function SettingsPanel() {
           } else {
             provider = addProvider(providerData);
           }
-          // 如果添加的是 memefast 供应商，自动设置默认服务映射（仅在对应服务尚未配置时）
+          // 如果添加的是 memefast Nhà cung cấp，自动设置默认服务映射（仅在对应服务尚Chưa cấu hình时）
           if (providerData.platform === 'memefast') {
-            // 使用 provider.id（而非 platform 字符串）避免多供应商时的歧义解析
+            // 使用 provider.id（而非 platform 字符串）避免多Nhà cung cấp时的歧义解析
             const pid = provider.id;
             const MEMEFAST_DEFAULT_BINDINGS: Record<string, string> = {
               // NOTE: MemeFast 端点已升级，旧的 deepseek-v3 已不在列表中，改用 deepseek-v3.2
@@ -1623,7 +1623,7 @@ export function SettingsPanel() {
             };
             for (const [feature, binding] of Object.entries(MEMEFAST_DEFAULT_BINDINGS)) {
               const current = getFeatureBindings(feature as AIFeature);
-              // 仅在未配置时设置默认值，避免覆盖用户手动选择
+              // 仅在Chưa cấu hình时设置默认值，避免覆盖用户手动选择
               if (!current || current.length === 0) {
                 setFeatureBindings(feature as AIFeature, [binding]);
                 continue;
@@ -1645,7 +1645,7 @@ export function SettingsPanel() {
               }
             }
           }
-          // 添加后自动同步模型列表和端点元数据
+          // 添加后自动Đồng bộ model列表和端点元数据
           const finalProviderId = existingMemefast ? existingMemefast.id : provider.id;
           if (parseApiKeys(providerData.apiKey).length > 0) {
             setSyncingProvider(finalProviderId);
@@ -1669,8 +1669,8 @@ export function SettingsPanel() {
         onSave={(provider) => {
           updateProvider(provider);
 
-          // 编辑 memefast 时也自动设置默认服务映射：初始状态会预置一个空 key 的 memefast，
-          // 用户通常是“编辑填 key”，如果不在这里补默认映射，会导致服务映射一直是 0/6。
+          // Chỉnh sửa memefast 时也自动设置默认服务映射：初始状态会预置一个空 key 的 memefast，
+          // 用户通常是“Chỉnh sửa填 key”，如果不在这里补默认映射，会导致服务映射一直是 0/6。
           if (provider.platform === 'memefast' && parseApiKeys(provider.apiKey).length > 0) {
             const pid = provider.id;
             const MEMEFAST_DEFAULT_BINDINGS: Record<string, string> = {
@@ -1703,7 +1703,7 @@ export function SettingsPanel() {
               }
             }
           }
-          // 编辑保存后自动同步模型列表和端点元数据
+          // Chỉnh sửaLưu后自动Đồng bộ model列表和端点元数据
           if (parseApiKeys(provider.apiKey).length > 0) {
             setSyncingProvider(provider.id);
             syncProviderModels(provider.id).then(result => {
