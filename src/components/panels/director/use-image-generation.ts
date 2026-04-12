@@ -316,7 +316,7 @@ export async function sliceGridImage(gridImageUrl: string, count: number): Promi
       }
       resolve(results);
     };
-    img.onerror = () => reject(new Error('加载九宫格ảnhThất bại'));
+    img.onerror = () => reject(new Error('Tải ảnh lưới 9 ô thất bại'));
     img.src = gridImageUrl;
   });
 }

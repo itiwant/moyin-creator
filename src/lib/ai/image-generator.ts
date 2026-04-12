@@ -774,7 +774,7 @@ async function pollTaskStatus(
 /**
  * Submit a grid/quad image generation request with smart API routing.
  * Handles both chat completions (Gemini) and images/generations (standard) endpoints.
- * Used by merged generation (九宫格) and quad grid (四宫格) in director and sclass panels.
+ * Used by merged generation (lưới 9 ô) and quad grid (四宫格) in director and sclass panels.
  */
 export async function submitGridImageRequest(params: {
   model: string;

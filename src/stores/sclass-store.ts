@@ -212,7 +212,7 @@ export interface SClassProjectData {
   mode: SClassMode;
   /** 是否已从 director 数据Tự động分组过 */
   hasAutoGrouped: boolean;
-  /** 最近一次九宫格Tạo的gốc大图 URL（用于Tạo video时复用，避免重新合并） */
+  /** 最近一次lưới 9 ôTạo的gốc大图 URL（用于Tạo video时复用，避免重新合并） */
   lastGridImageUrl: string | null;
   /** lastGridImageUrl 对应的Phân cảnh ID  cột表（用于判断是否可复用） */
   lastGridSceneIds: number[] | null;
@@ -281,7 +281,7 @@ interface SClassActions {
   updateConfig: (config: Partial<SClassConfig>) => void;
   setEditorPrefs: (prefs: Partial<SClassEditorPrefs>) => void;
 
-  // 九宫格缓存
+  // lưới 9 ô缓存
   setLastGridImage: (url: string | null, sceneIds: number[] | null) => void;
 
   // UI
@@ -774,7 +774,7 @@ export const useSClassStore = create<SClassStore>()(
         });
       },
 
-      // ========== 九宫格缓存 ==========
+      // ========== lưới 9 ô缓存 ==========
 
       setLastGridImage: (url, sceneIds) => {
         const { activeProjectId, projects } = get();

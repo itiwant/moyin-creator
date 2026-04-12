@@ -39,19 +39,19 @@ const CATEGORY_COLORS: Record<string, string> = {
 };
 
 interface StylePickerProps {
-  /** Đang chọn的风格 ID */
+  /** ID phong cách đang chọn */
   value: string;
-  /** Chọn变化回调 */
+  /** Callback khi chọn thay đổi */
   onChange: (styleId: VisualStyleId) => void;
-  /** 是否Sử dụng下拉popup出chế độ（默认 true） */
+  /** Có dùng chế độ popup thả xuống (mặc định true) */
   popover?: boolean;
-  /** Tùy chỉnh触发器（仅 popover chế độ） */
+  /** Trigger tùy chỉnh (chỉ chế độ popover) */
   trigger?: React.ReactNode;
-  /** Tùy chỉnh类名 */
+  /** Tên class tùy chỉnh */
   className?: string;
-  /** 禁用状态 */
+  /** Trạng thái vô hiệu */
   disabled?: boolean;
-  /** 未Chọn时的Placeholder文字 */
+  /** Văn bản Placeholder khi chưa chọn */
   placeholder?: string;
 }
 
@@ -65,7 +65,7 @@ export function StylePicker({
   trigger,
   className,
   disabled = false,
-  placeholder = "Chọn风格",
+  placeholder = "Chọn phong cách",
 }: StylePickerProps) {
   const [hoveredStyle, setHoveredStyle] = useState<StylePreset | null>(null);
   const [isOpen, setIsOpen] = useState(false);
@@ -103,12 +103,12 @@ export function StylePicker({
   // Nội dungpanel
   const pickerContent = (
     <div className={cn("flex", popover ? "w-[520px] h-[400px]" : "w-full h-full", className)}>
-      {/* 左侧：风格列表 */}
+      {/* Bên trái: danh sách phong cách */}
       <ScrollArea className="w-[240px] border-r border-border">
         <div className="p-2">
           {STYLE_CATEGORIES.map((category) => (
             <div key={category.id} className="mb-4">
-              {/* phân loại标题 */}
+              {/* Tiêu đề phân loại */}
               <div className="px-2 py-1.5 text-xs font-medium text-muted-foreground border-b border-border/50 mb-2">
                 {category.name}
               </div>

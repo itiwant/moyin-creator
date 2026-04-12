@@ -31,21 +31,21 @@ import { getMediaType, MEDIA_TYPE_LABELS, type MediaType } from "@/lib/constants
 import { isFieldSkipped } from "@/lib/generation/media-type-tokens";
 
 interface CinematographyProfilePickerProps {
-  /** Đang chọn的档案 ID */
+  /** ID hồ sơ đang chọn */
   value: string;
-  /** Chọn变化回调 */
+  /** Callback khi chọn thay đổi */
   onChange: (profileId: string) => void;
-  /** 是否Sử dụng下拉popup出chế độ（默认 true） */
+  /** Có dùng chế độ popup thả xuống (mặc định true) */
   popover?: boolean;
-  /** Tùy chỉnh触发器（仅 popover chế độ） */
+  /** Trigger tùy chỉnh (chỉ chế độ popover) */
   trigger?: React.ReactNode;
-  /** Tùy chỉnh类名 */
+  /** Tên class tùy chỉnh */
   className?: string;
-  /** 禁用状态 */
+  /** Trạng thái vô hiệu */
   disabled?: boolean;
-  /** 未Chọn时的Placeholder文字 */
+  /** Văn bản Placeholder khi chưa chọn */
   placeholder?: string;
-  /** 当前视觉风格 ID（用于显示媒介适配提示） */
+  /** ID phong cách thị giác hiện tại (để hiển thị gợi ý thích nghi phương tiện) */
   styleId?: string;
 }
 
@@ -59,7 +59,7 @@ export function CinematographyProfilePicker({
   trigger,
   className,
   disabled = false,
-  placeholder = "Chọn摄影风格",
+  placeholder = "Chọn phong cách nhiếp ảnh",
   styleId,
 }: CinematographyProfilePickerProps) {
   const [hoveredProfile, setHoveredProfile] = useState<CinematographyProfile | null>(null);
@@ -86,12 +86,12 @@ export function CinematographyProfilePicker({
   // Nội dungpanel
   const pickerContent = (
     <div className={cn("flex", popover ? "w-[560px] h-[420px]" : "w-full h-full", className)}>
-      {/* 左侧：档案列表 */}
+      {/* Bên trái: danh sách hồ sơ */}
       <ScrollArea className="w-[220px] border-r border-border">
         <div className="p-2">
           {CINEMATOGRAPHY_PROFILE_CATEGORIES.map((category) => (
             <div key={category.id} className="mb-4">
-              {/* phân loại标题 */}
+              {/* Tiêu đề phân loại */}
               <div className="px-2 py-1.5 text-xs font-medium text-muted-foreground border-b border-border/50 mb-2">
                 {category.emoji} {category.name}
               </div>

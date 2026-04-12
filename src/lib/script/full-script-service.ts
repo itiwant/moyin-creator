@@ -2083,7 +2083,7 @@ ${getMediaTypeGuidance(mt)}
 - căng thẳng对峙: 快速切换景别
 - 重要物件/细节: ECUCực cận cảnh
 
-**重要：đang xử lý...rường必须严格分离！**
+**Quan trọng:đang xử lý...rường必须严格分离！**
 - visualDescription, ambientSound, soundEffect, imagePromptZh, videoPromptZh, endFramePromptZh → **必须是纯đang xử lý...
 - visualPrompt, imagePrompt, videoPrompt, endFramePrompt → **必须是纯英文**
 

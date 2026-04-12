@@ -324,7 +324,7 @@ function handleVideoSubmitError(
 
 /**
  * Tạo video API 通常要求输入ảnh满足最小尺寸（如 Seedance 要求宽度 ≥ 300px）。
- * 当九宫格切割后的ảnh尺寸过小时，Tự động放大到满足最低要求后重新Tải lên。
+ * 当lưới 9 ô切割后的ảnh尺寸过小时，Tự động放大到满足最低要求后重新Tải lên。
  * @param imageUrl  HTTP URL ảnh地址
  * @param minDimension  宽高的最小像素值（Mặc định 300，匹配 Seedance 等Model要求）
  * @returns gốc URL（尺寸达标）或放大后重新Tải lên的新 URL
@@ -679,7 +679,7 @@ async function callUnifiedVideoApi(
       throw new Error(typeof errorMsg === 'string' ? errorMsg : JSON.stringify(errorMsg));
     }
   }
-  throw new Error('Tạo video超时');
+  throw new Error('Tạo video quá thời gian chờ');
 }
 
 // ==================== Volcengine 豆包/Seedance 格式 ====================
@@ -873,7 +873,7 @@ async function callVolcVideoApi(
     // queued / running → Tiếp tục轮询
     await sleepOrAbort(pollInterval, signal);
   }
-  throw new Error('Tạo video超时');
+  throw new Error('Tạo video quá thời gian chờ');
 }
 
 // ==================== 通义万象 wan 格式 ====================
@@ -978,7 +978,7 @@ async function callWanVideoApi(
 
     await sleepOrAbort(pollInterval, signal);
   }
-  throw new Error('Tạo video超时');
+  throw new Error('Tạo video quá thời gian chờ');
 }
 
 // ==================== Kling 可灵全系 cột格式 ====================
@@ -1112,7 +1112,7 @@ async function callKlingVideoApi(
       throw new Error(statusData.data?.task_status_msg || statusData.message || 'Tạo video thất bại');
     }
   }
-  throw new Error('Tạo video超时');
+  throw new Error('Tạo video quá thời gian chờ');
 }
 
 // ==================== OpenAI 官方video格式 (sora-2) ====================
@@ -1661,5 +1661,5 @@ export async function callJuxinVideoGenerationApi(
     await sleepOrAbort(pollInterval, signal);
   }
   
-  throw new Error('Tạo video超时');
+  throw new Error('Tạo video quá thời gian chờ');
 }

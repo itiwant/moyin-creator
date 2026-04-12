@@ -398,7 +398,7 @@ export function SClassSceneCard({
         )}
       </div>
 
-      {/* 第一排：Khung hình đầuảnh + Khung hình cuốiảnh + Thư viện nhân vậtChọn */}
+      {/* Hàng 1: Ảnh khung đầu + Ảnh khung cuối + Chọn Thư viện nhân vật */}
       <div className="p-2 space-y-2">
         <div className="flex gap-2">
           {/* Khung hình đầuảnh */}
@@ -549,7 +549,7 @@ export function SClassSceneCard({
                       : "bg-muted text-muted-foreground/60 hover:bg-muted/80"
                   )}
                 >
-                  {scene.needsEndFrame ? '需要' : '可选'}
+                  {scene.needsEndFrame ? 'Bắt buộc' : 'Tùy chọn'}
                 </button>
               </div>
               <div className="flex items-center gap-1">
@@ -676,7 +676,7 @@ export function SClassSceneCard({
               ) : scene.needsEndFrame ? (
                 <div className="w-full h-full flex flex-col items-center justify-center gap-1 bg-orange-500/5">
                   <span className="text-orange-500 text-lg">◉</span>
-                  <span className="text-[10px] text-orange-500/70">需要Khung hình cuối</span>
+                  <span className="text-[10px] text-orange-500/70">Bắt buộc Khung hình cuối</span>
                 </div>
               ) : (
                 <div className="w-full h-full flex flex-col items-center justify-center gap-1 bg-blue-500/5">
@@ -718,7 +718,7 @@ export function SClassSceneCard({
                 disabled={isGeneratingAny}
               />
             )}
-            {/* CảnhTham chiếuChọn器 - 根据đã chọn的帧目标切换 */}
+            {/* Bộ chọn Cảnh Tham chiếu - chuyển theo khung mục tiêu đã chọn */}
             {selectedFrameTarget === 'start' ? (
               // Khung hình đầuCảnhTham chiếu已在上方渲染
               null
@@ -738,7 +738,7 @@ export function SClassSceneCard({
                 />
               )
             )}
-            {/* Thư viện phương tiệnChọn器 - 根据đã chọn的帧目标Áp dụng */}
+            {/* Bộ chọn Thư viện phương tiện - Áp dụng theo khung mục tiêu đã chọn */}
             {onUploadImage && (
               <MediaLibrarySelector
                 sceneId={scene.id}
@@ -756,7 +756,7 @@ export function SClassSceneCard({
           </div>
         </div>
 
-        {/* 第二排：Tạo ảnh/videonút + videoXem trước/Trạng thái */}
+        {/* Hàng 2: Nút Tạo ảnh/video + Xem trước/Trạng thái video */}
         <div className="flex items-center gap-2">
           {!hasImage ? (
             <div className="flex items-center gap-1">
@@ -829,10 +829,10 @@ export function SClassSceneCard({
                   <Play className="h-4 w-4 text-white" />
                 </div>
                 {canDragVideo && (
-                  <span className="absolute bottom-0.5 right-0.5 text-[8px] bg-green-600 text-white px-1 rounded">拖到Thời gian线</span>
+                  <span className="absolute bottom-0.5 right-0.5 text-[8px] bg-green-600 text-white px-1 rounded">Kéo vào dòng thời gian</span>
                 )}
               </div>
-              {/* 提取Khung hình cuốinút */}
+              {/* Nút trích xuất Khung hình cuối */}
               <TooltipProvider>
                 <Tooltip>
                   <TooltipTrigger asChild>
@@ -852,7 +852,7 @@ export function SClassSceneCard({
                     </button>
                   </TooltipTrigger>
                   <TooltipContent side="top">
-                    <p className="text-xs">提取最后一帧到下一Phân cảnhKhung hình đầu</p>
+                    <p className="text-xs">Trích xuất khung cuối sang Khung hình đầu của Phân cảnh tiếp theo</p>
                   </TooltipContent>
                 </Tooltip>
               </TooltipProvider>

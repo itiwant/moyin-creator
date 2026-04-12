@@ -48,7 +48,7 @@ export const BRAND_REGISTRY: Record<string, BrandInfo> = {
 
 /**
  * 模型名前缀 → thương hiệu映射规则
- * thứ tự重要：更具体的chế độ应放在前面
+ * thứ tựQuan trọng:更具体的chế độ应放在前面
  */
 const BRAND_PATTERNS: Array<{ pattern: RegExp; brand: string }> = [
   // OpenAI 系列

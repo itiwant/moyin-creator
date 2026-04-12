@@ -2221,7 +2221,7 @@ export function ScriptView() {
       
       if (result.success) {
         // 计算新Phân cảnh的bắt đầu ID
-        // 重要：必须Sử dụng directorProject 的最新快照，而不是 useCallback 缓存的值
+        // Quan trọng:必须Sử dụng directorProject 的最新快照，而不是 useCallback 缓存的值
         const latestSplitScenes = directorProject?.splitScenes || [];
         const startId = latestSplitScenes.length > 0 
           ? Math.max(...latestSplitScenes.map(s => s.id)) + 1 

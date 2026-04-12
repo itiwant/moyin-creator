@@ -954,7 +954,7 @@ export async function generateScriptFromIdea(
     ? `\n\n**★★★ 特别注意 ★★★**
 用户输入包含 ${originalShotCount} 镜头/场景，你的输出必须有对应的 ${originalShotCount} 场景（**1-1** 到 **1-${originalShotCount}**）。
 
-重要：每场景内只能有一 △ 动作行！将该镜头的Tất cả画面、Thoại、音效压缩成一句话。
+Quan trọng:每场景内只能有一 △ 动作行！将该镜头的Tất cả画面、Thoại、音效压缩成一句话。
 禁止分别列出多行Thoại或音效，否则会Tạo多分镜！`
     : '';
   

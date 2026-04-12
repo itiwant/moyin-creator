@@ -283,7 +283,7 @@ const buildSceneCharacterCastLine = (contexts: SceneCharacterContext[]): string 
 };
 
 export function SplitScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
-  // ========== 合并Tạo（九宫格）本地 UI Trạng thái ==========
+  // ========== 合并Tạo（lưới 9 ô）本地 UI Trạng thái ==========
   const [imageGenMode, setImageGenMode] = useState<'single' | 'merged'>('merged');
   const [frameMode, setFrameMode] = useState<'first' | 'last' | 'both'>('first');
   const [isMergedRunning, setIsMergedRunning] = useState(false);
@@ -1035,7 +1035,7 @@ export function SplitScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
             : `EXACTLY ${charCount} distinct people in each panel, no more no less, each person appears only ONCE.`;
       }
 
-      // === Dọcbố cục约束（与九宫格一致） ===
+      // === Dọcbố cục约束（与lưới 9 ô一致） ===
       const verticalConstraint = aspect === '9:16' ? 'vertical composition, tighter framing, avoid letterboxing, ' : '';
 
       // === Hành độngMô tả（对时刻biến thể重要） ===
@@ -2183,7 +2183,7 @@ export function SplitScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
     processReferenceImagesForApi,
   ]);
 
-  // ===== Utilities for 合并Tạo（九宫格） =====
+  // ===== Utilities for 合并Tạo（lưới 9 ô） =====
   type Angle = 'Back View' | 'Over-the-Shoulder (OTS)' | 'POV' | 'Low Angle (Heroic)' | 'High Angle (Vulnerable)' | 'Dutch Angle (Tilted)';
 
   const allowedShotFromSize = (shot?: ShotSizeType | null): string => {
@@ -2308,7 +2308,7 @@ export function SplitScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
 
     setIsMergedRunning(true);
     mergedAbortRef.current = false; // Đặt lại cờ Dừng
-    console.log('[MergedGen] Bắt đầu九宫格合并Tạo, mode:', mode, 'strategy:', strategy, 'exemplar:', exemplar);
+    console.log('[MergedGen] Bắt đầu Tạo gộp lưới 9 ô, chế độ:', mode, 'strategy:', strategy, 'exemplar:', exemplar);
 
     const aspect = storyboardConfig.aspectRatio || '9:16';
     const styleTokens = storyboardConfig.styleTokens || [];
@@ -2317,11 +2317,11 @@ export function SplitScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
     const fullStyleNegative = getStyleNegativePrompt(currentStyleId);
     const dedup = (arr: string[]) => Array.from(new Set(arr.filter(Boolean)));
 
-    // === 统一任务 cột表方案：Hỗ trợ混合九宫格 ===
+    // === 统一任务 cột表方案：Hỗ trợ混合lưới 9 ô ===
     // 任务Loại定义
     type GridTask = { scene: SplitScene; type: 'first' | 'end' };
     
-    // 重要：videođã tạo的Phân cảnh视为完成，不需要再TạoKhung hình đầu或Khung hình cuối
+    // Quan trọng:videođã tạo的Phân cảnh视为完成，不需要再TạoKhung hình đầu或Khung hình cuối
     const isSceneCompleted = (s: SplitScene) => s.videoUrl || s.videoStatus === 'completed';
 
     // 构建任务 cột表（根据用户Chọn的 mode）
@@ -2342,7 +2342,7 @@ export function SplitScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
 
     // 检查是否有需要Tạo的
     if (tasks.length === 0) {
-      toast.info('Tất cảPhân cảnhĐã tạoHoàn thành，无需重复Tạo');
+      toast.info('Tất cả phân cảnh đã tạo hoàn tất, không cần tạo lại');
       setIsMergedRunning(false);
       return;
     }
@@ -2355,7 +2355,7 @@ export function SplitScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
     if (endCount > 0) parts.push(`${endCount}Khung hình cuối`);
     const completedCount = splitScenes.filter(isSceneCompleted).length;
     const skipInfo = completedCount > 0 ? `(bỏ qua ${completedCount} video đã hoàn thành)` : '';
-    toast.info(`Bắt đầu九宫格合并Tạo：${parts.join('、')}${skipInfo}`);
+    toast.info(`Bắt đầu Tạo gộp lưới 9 ô: ${parts.join(', ')}${skipInfo}`);
 
     // 任务分页（每9任务一页，混合Khung hình đầu和Khung hình cuối）
     const taskPages: GridTask[][] = [];
@@ -2429,9 +2429,9 @@ export function SplitScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
       // 例如：3x3 bố cục，每ô 16:9，整图也是 16:9
       
       if (sceneCount <= 4) {
-        return { cols: 2, rows: 2, paddedCount: 4 }; // 1-4 张 -> Lưới 4 ô
+        return { cols: 2, rows: 2, paddedCount: 4 }; // 1-4 ảnh -> Lưới 4 ô
       }
-      return { cols: 3, rows: 3, paddedCount: 9 }; // 5-9 张 -> 九宫格
+      return { cols: 3, rows: 3, paddedCount: 9 }; // 5-9 ảnh -> Lưới 9 ô
     };
     
     // 计算整张大图应该请求的Tỷ lệ khung hình
@@ -2473,13 +2473,13 @@ export function SplitScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
           } else if (rawRatio > targetRatio) {
             // Ảnh gốcô太宽，需要裁剪宽度
             cropW = Math.floor(rawTileH * targetRatio);
-            cropX = Math.floor((rawTileW - cropW) / 2); // 居中裁剪
+            cropX = Math.floor((rawTileW - cropW) / 2); // Cắt giữa
             outputW = cropW;
             outputH = rawTileH;
           } else {
             // Ảnh gốcô太高，需要裁剪高度
             cropH = Math.floor(rawTileW / targetRatio);
-            cropY = Math.floor((rawTileH - cropH) / 2); // 居中裁剪
+            cropY = Math.floor((rawTileH - cropH) / 2); // Cắt giữa
             outputW = rawTileW;
             outputH = cropH;
           }
@@ -2522,12 +2522,12 @@ export function SplitScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
           }
           resolve(results);
         };
-        img.onerror = (e) => reject(new Error('加载九宫格ảnhThất bại'));
+        img.onerror = (e) => reject(new Error('Tải ảnh lưới 9 ô thất bại'));
         img.src = gridImageUrl;
       });
     };
 
-    // Tạo九宫格ảnh并切割（Hỗ trợ混合Khung hình đầu+Khung hình cuối任务）
+    // Tạolưới 9 ôảnh并切割（Hỗ trợ混合Khung hình đầu+Khung hình cuối任务）
     const generateGridAndSlice = async (
       pageTasks: GridTask[],
       refs: string[]
@@ -2627,7 +2627,7 @@ export function SplitScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
       const styleNeg = fullStyleNegative ? `, ${fullStyleNegative}` : '';
       gridPromptParts.push(`Negative constraints: ${baseNegative}${styleNeg}`);
       
-      const gridPrompt = gridPromptParts.join('\n'); // Sử dụng换 hàng符ngăn cách更清晰
+      const gridPrompt = gridPromptParts.join('\n'); // Dùng ký tự xuống dòng để ngăn cách rõ hơn
       console.log('[MergedGen] Grid prompt:', gridPrompt.substring(0, 200) + '...');
       
       // 标记Tất cả任务对应的Phân cảnh为Đang tạo
@@ -2683,7 +2683,7 @@ export function SplitScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
         return undefined;
       };
       
-      // gọi API API Tạo九宫格ảnh - Sử dụngthông minh路由（Tự độngChọn chat completions 或 images/generations）
+      // gọi API API Tạolưới 9 ôảnh - Sử dụngthông minh路由（Tự độngChọn chat completions 或 images/generations）
       console.log('[MergedGen] Calling API with', apiReferenceImages.length, 'reference images, model:', model);
       const apiResult = await submitGridImageRequest({
         model,
@@ -2759,16 +2759,16 @@ export function SplitScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
       }
       
       if (!gridImageUrl) {
-        console.error('[MergedGen] 无法获取ảnh URL, apiResult:', apiResult);
+        console.error('[MergedGen] Không lấy được ảnh URL, apiResult:', apiResult);
         if (taskId) {
-          throw new Error(`九宫格Tạo超时（任务 ${taskId} 在 3 phút内未Hoàn thành），API 服务可能繁忙，请稍后Thử lại`);
+          throw new Error(`lưới 9 ôTạo超时（任务 ${taskId} 在 3 phút内未Hoàn thành），API 服务可能繁忙，请稍后Thử lại`);
         }
-        throw new Error('未获取到九宫格ảnh URL，请检查 API 响应');
+        throw new Error('未获取到lưới 9 ôảnh URL，请检查 API 响应');
       }
       
       console.log('[MergedGen] Grid image URL:', gridImageUrl.substring(0, 80));
       
-      // 切割九宫格ảnh（传入bố cục参数和目标Tỷ lệ khung hình）
+      // 切割lưới 9 ôảnh（传入bố cục参数和目标Tỷ lệ khung hình）
       const slicedImages = await sliceGridImage(gridImageUrl, actualCount, cols, rows, aspect);
       console.log('[MergedGen] Sliced into', slicedImages.length, 'images (from', paddedCount, 'grid cells, target aspect:', aspect, ')');
       
@@ -2908,7 +2908,7 @@ export function SplitScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
     const totalPages = taskPages.length;
     if (!mergedAbortRef.current) {
       if (succeededCount === totalPages) {
-        toast.success('九宫格合并TạoTất cảHoàn thành！');
+        toast.success('lưới 9 ô合并TạoTất cảHoàn thành！');
       } else if (succeededCount > 0) {
         toast.warning(`合并Tạo部分Hoàn thành：${succeededCount}/${totalPages} 页Thành công，${totalPages - succeededCount} 页Thất bại`);
       } else {

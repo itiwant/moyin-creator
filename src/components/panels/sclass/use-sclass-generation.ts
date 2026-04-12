@@ -223,7 +223,7 @@ export function useSClassGeneration() {
         if (!isExtendOrEdit) {
           const sceneIds = group.sceneIds;
 
-          // 检查是否可复用缓存的九宫格图
+          // 检查是否可复用缓存的lưới 9 ô图
           const cachedGridUrl = sclassProjectData.lastGridImageUrl;
           const cachedSceneIds = sclassProjectData.lastGridSceneIds;
           const canReuseGrid = cachedGridUrl &&
@@ -239,9 +239,9 @@ export function useSClassGeneration() {
           if (firstFrameUrls.length > 0) {
             let gridDataUrl: string;
             if (canReuseGrid) {
-              // 复用步骤③Lưu的gốc九宫格图
+              // 复用步骤③Lưu的gốclưới 9 ô图
               gridDataUrl = cachedGridUrl!;
-              console.log('[SClassGen] 复用缓存九宫格图:', gridDataUrl.substring(0, 60));
+              console.log('[SClassGen] 复用缓存lưới 9 ô图:', gridDataUrl.substring(0, 60));
             } else {
               // 重新合并Khung hình đầu为ô图
               gridDataUrl = await mergeToGridImage(firstFrameUrls, aspectRatio);
@@ -520,7 +520,7 @@ export function useSClassGeneration() {
       );
 
       if (groupsToGenerate.length === 0) {
-        toast.info("Tất cảỐng kính组đã tạo或正在Đang tạo");
+        toast.info("Tất cảỐng kính组đã tạo或đang tạo");
         return [];
       }
 

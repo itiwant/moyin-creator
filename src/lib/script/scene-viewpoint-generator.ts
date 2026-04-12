@@ -1146,7 +1146,7 @@ ${sceneDescZh}
 
 ${totalCells} 格子分别Hiển thị：${gridItemsZh}。
 
-重要：
+Quan trọng:
 - 必须精确Tạo ${gridLayout.rows} 行 ${gridLayout.cols} 列，不能多也不能少。
 - 这是一张干净的Tham chiếu图，图片上不要Thêm任何文字Ghi đè。
 - 不要Thêm标签、标题、说明文字、水印或任何类型的文字。
@@ -1366,7 +1366,7 @@ ${sceneDescZh}${visualPromptZh ? `\n场景氛围：${visualPromptZh}` : ''}
 ${totalCells} 格子分别Hiển thị：
 ${gridItemsZh}
 
-重要：
+Quan trọng:
 - 必须精确Tạo ${gridLayout.rows} 行 ${gridLayout.cols} 列，不能多也不能少。
 - 这是一张干净的Tham chiếu图，图片上不要Thêm任何文字Ghi đè。
 - 不要Thêm标签、标题、说明文字、水印或任何类型的文字。
