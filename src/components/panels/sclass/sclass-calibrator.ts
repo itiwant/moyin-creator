@@ -8,11 +8,11 @@
  * 功能：
  * 1. 读取组内各 SplitScene 数据（只读，不修改 director-store）
  * 2. 调用 LLM Tạo组级叙事弧线、Ống kính过渡、âm thanh设计、优化 prompt
- * 3. 写入 sclass-store 的 ShotGroup 校准字段
+ * 3. 写入 sclass-store 的 ShotGroup 校准trường
  *
  * 数据安全：
  * - 只读 director-store，零污染原始Kịch bản数据
- * - 产物只写 sclass-store.ShotGroup 的校准字段
+ * - 产物只写 sclass-store.ShotGroup 的校准trường
  */
 
 import type { SplitScene } from '@/stores/director-store';
@@ -39,7 +39,7 @@ export interface CalibrationResult {
 // ==================== 内部工具 ====================
 
 /**
- * 从 SplitScene 提取摘要信息（用于构建 AI 输入，不泄漏多余字段）
+ * 从 SplitScene 提取摘要信息（用于构建 AI 输入，不泄漏多余trường）
  */
 function summarizeScene(scene: SplitScene, characters: Character[]): string {
   const charNames = (scene.characterIds || [])
@@ -66,11 +66,11 @@ function summarizeScene(scene: SplitScene, characters: Character[]): string {
 // ==================== 核心函数 ====================
 
 /**
- * 校准单个组
+ * 校准单组
  *
  * @param group       目标组（只读 sceneIds）
  * @param scenes      组内 SplitScene[]（只读，来自 director-store）
- * @param characters  Nhân vật库（用于Tên映射）
+ * @param characters  Thư viện nhân vật（用于Tên映射）
  * @param sceneLibrary Thư viện cảnh（备用上下文）
  * @returns CalibrationResult
  */
@@ -94,11 +94,11 @@ export async function calibrateGroup(
   const systemPrompt = `你是一位资深电影Đạo diễn兼剪辑师，擅长多Ống kính叙事video的节奏把控和叙事连贯性优化。
 
 【核心约束 — 严格执 hàng】
-1. 严格基于以下Ống kính数据，不得ThêmKịch bản中不存在的Nhân vật、Cảnh或对白。
+1. 严格基于以下Ống kính数据，不得ThêmKịch bảnđang xử lý...的Nhân vật、Cảnh或对白。
 2. 只做叙事连贯优化和过渡设计，不改变各Ống kính的核心Nội dung和情绪基调。
-3. 保留每个Ống kính的原有运镜和Hành động设计，只在Ống kính衔接处增加过渡指令。
+3. 保留每Ống kính的原有运镜和Hành động设计，只在Ống kính衔接处增加过渡指令。
 4. âm thanh设计必须基于各Ống kính已有的môi trường音/音效信息，不凭空创造新音源。
-5. calibratedPrompt 是对所有Ống kính的整合重写，必须包含每个Ống kính的核心信息，不遗漏。
+5. calibratedPrompt 是对Tất cảỐng kính的整合重写，必须包含每Ống kính的核心信息，不遗漏。
 
 请以 JSON 格式Quay lại，Không有任何解释文字。`;
 
@@ -116,11 +116,11 @@ ${sceneSummaries}
     "Ống kính1→Ống kính2 的过渡指令（如：hình ảnh溶解、硬切、声桥过渡等）"
   ],
   "groupAudioDesign": "整段 ${totalDuration}s 的âm thanh设计规划（môi trường音层次、音效时机、情绪曲线）",
-  "calibratedPrompt": "整合优化后的完整组级prompt，中文，用于 Seedance 2.0 多Ống kính叙事videoTạo"
+  "calibratedPrompt": "整合优化后的đầy đủ组级prompt，đang xử lý...于 Seedance 2.0 多Ống kính叙事Tạo video"
 }
 
-transitions 数组长度必须为 ${scenes.length - 1}（每两个相邻Ống kính之间一条）。
-calibratedPrompt 必须覆盖全部 ${scenes.length} 个Ống kính，保持Ống kính编号和Thời gian轴。`;
+transitions 数组长度必须为 ${scenes.length - 1}（每两相邻Ống kính之间一条）。
+calibratedPrompt 必须覆盖Tất cả ${scenes.length} Ống kính，保持Ống kính编号和Thời gian轴。`;
 
   // ---- 调用 LLM ----
   const raw = await callFeatureAPI('script_analysis', systemPrompt, userPrompt, {
@@ -140,7 +140,7 @@ calibratedPrompt 必须覆盖全部 ${scenes.length} 个Ống kính，保持Ốn
   try {
     parsed = JSON.parse(cleaned);
   } catch {
-    throw new Error('AI Quay lại的 JSON 解析Thất bại，请重试');
+    throw new Error('AI Quay lại的 JSON 解析Thất bại，请Thử lại');
   }
 
   // ---- 校验 & 容错 ----
@@ -225,7 +225,7 @@ export async function runCalibration(
 }
 
 /**
- * 批量校准所有未校准的组
+ * 批量校准Tất cả未校准的组
  *
  * @returns Thành công数 / Tổng数
  */

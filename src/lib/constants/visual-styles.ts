@@ -4,7 +4,7 @@
 /**
  * Visual Style Presets - 视觉风格预设
  * 
- * 统一的视觉风格定义，所有板块（剧本、角色、场景、AI导演）共用
+ * 统一的视觉风格定义，Tất cả板块（剧本、角色、场景、AI导演）共用
  * 来源：纳米漫剧流水线 - 风格库
  */
 
@@ -13,7 +13,7 @@ export type StyleCategory = '3d' | '2d' | 'real' | 'stop_motion';
 
 /**
  * 媒介类型 — 决定 prompt-builder 如何翻译摄影参数
- * - cinematic: 完整物理摄影词汇（真人/写实3D）
+ * - cinematic: đầy đủ物理摄影词汇（真人/写实3D）
  * - animation: 动画运镜适配（2D动画/风格化3D）
  * - stop-motion: 微缩实拍约束（定格动画）
  * - graphic: 仅色彩/情绪/节奏（像素/水彩/简笔画等高度抽象风格）
@@ -28,9 +28,9 @@ export interface StylePreset {
   mediaType: MediaType;
   /** 英文prompt */
   prompt: string;
-  /** 负面prompt */
+  /** Prompt phủ định */
   negativePrompt: string;
-  /** 中文描述 */
+  /** đang xử lý... */
   description: string;
   /** 缩略图文件名 */
   thumbnail: string;
@@ -48,7 +48,7 @@ const STYLES_3D: StylePreset[] = [
     mediaType: 'cinematic',
     prompt: '(best quality, masterpiece, 8k, high detailed:1.2), (stunning stylized 3D Chinese animation character render:1.3), (Unreal Engine 5 style:1.2), (cinematic lighting, soft volumetric fog:1.1), (smooth porcelain skin texture:1.1), (intricate traditional Chinese fabric details, fine embroidery, flowing robes:1.1), ethereal atmosphere, glowing spiritual energy, beautiful facial features, (delicate body proportions), sharp focus, detailed background',
     negativePrompt: '(worst quality, low quality, bad quality:1.4), (blurry, fuzzy, distorted, out of focus:1.3), (2D, flat, drawing, painting, sketch, anime, cartoon:1.2), (realistic, photo, real life, photography:1.1), (western style, modern clothing), (extra limbs, missing limbs, mutated hands, distorted body), ugly, watermark, signature, text, easynegative, bad-hands-5',
-    description: '中国风玄幻，仙侠，虚幻引擎渲染，光效华丽',
+    description: 'đang xử lý...幻，仙侠，虚幻引擎渲染，光效华丽',
     thumbnail: '3d_xuanhuan.png',
   },
   {
@@ -225,7 +225,7 @@ const STYLES_2D: StylePreset[] = [
     mediaType: 'animation',
     prompt: '(best quality, masterpiece, 8k, high detailed:1.2), (Shonen anime style:1.3), (dynamic high-impact pose:1.2), (intense action lines, speed lines:1.1), (high contrast shading:1.1), powerful, energetic',
     negativePrompt: '(worst quality, low quality:1.4), (calm, static), (shoujo style, soft), (3D, realistic), (pastel colors), boring',
-    description: '热血少年漫，动态姿势，速度线，高对比度',
+    description: '热血少年漫，动态Tư thế，速度线，高对比度',
     thumbnail: '2d_shonen.png',
   },
   {
@@ -255,7 +255,7 @@ const STYLES_2D: StylePreset[] = [
     mediaType: 'animation',
     prompt: '(best quality, masterpiece, 8k:1.2), (Tatsuki Fujimoto style:1.3), (sketchy loose lines:1.2), (cinematic movie composition:1.1), (raw emotion:1.1), chainsaw man manga style, unique',
     negativePrompt: '(worst quality, low quality:1.4), (polished digital art), (standard anime), (3D, realistic), (moe, kawaii), boring',
-    description: '藤本树/电锯人风格，线条潦草，电影感构图',
+    description: '藤本树/电锯人风格，线条潦草，电影感bố cục',
     thumbnail: '2d_fujimoto.png',
   },
   {
@@ -295,7 +295,7 @@ const STYLES_2D: StylePreset[] = [
     mediaType: 'animation',
     prompt: '(best quality, masterpiece, 8k, high detailed:1.2), (Slam Dunk style:1.3), (Takehiko Inoue:1.2), (realistic body proportions:1.1), (detailed muscle and sweat:1.1), intense sports atmosphere, 90s anime',
     negativePrompt: '(worst quality, low quality:1.4), (chibi, moe), (fantasy), (3D), (distorted anatomy), weak',
-    description: '灌篮高手/井上雄彦风格，写实比例',
+    description: '灌篮高手/井上雄彦风格，写实Tỷ lệ',
     thumbnail: '2d_slamdunk.png',
   },
   {
@@ -365,7 +365,7 @@ const STYLES_2D: StylePreset[] = [
     mediaType: 'graphic',
     prompt: '(best quality, masterpiece, 8k, high detailed:1.2), (Chinese Gongbi painting style:1.3), (meticulous brushwork:1.2), (elegant traditional art:1.1), (ink wash painting background:1.1), delicate, cultural',
     negativePrompt: '(worst quality, low quality:1.4), (western art style), (oil painting), (sketchy), (3D, realistic), (vibrant neon colors)',
-    description: '中国工笔画风格，细腻笔触',
+    description: 'đang xử lý...画风格，细腻笔触',
     thumbnail: '2d_gongbi.png',
   },
   {
@@ -548,7 +548,7 @@ const STYLES_STOP_MOTION: StylePreset[] = [
 // 导出
 // ============================================================
 
-/** 所有风格预设 */
+/** Tất cả风格预设 */
 export const VISUAL_STYLE_PRESETS: readonly StylePreset[] = [
   ...STYLES_3D,
   ...STYLES_2D,
@@ -558,13 +558,13 @@ export const VISUAL_STYLE_PRESETS: readonly StylePreset[] = [
 
 // ============================================================
 // 自定义风格查找回调（用户数据，存储在 localStorage）
-// 通过回调避免常量文件直接依赖 zustand store
+// 通过回调避免常量文件Trực tiếp依赖 zustand store
 // ============================================================
 let _customStyleLookup: ((id: string) => StylePreset | undefined) | null = null;
 
 /**
  * 注册自定义风格查找函数（由 custom-style-store 调用）
- * 自定义风格是用户个人资产，不包含在内置预设中
+ * 自定义风格是用户人资产，不包含在内置预设中
  */
 export function registerCustomStyleLookup(fn: (id: string) => StylePreset | undefined) {
   _customStyleLookup = fn;
@@ -596,7 +596,7 @@ export function getStylePrompt(styleId: string | null | undefined): string {
   return style?.prompt || '';
 }
 
-/** 获取风格的负面prompt */
+/** 获取风格的Prompt phủ định */
 export function getStyleNegativePrompt(styleId: string | null | undefined): string {
   if (!styleId) return '';
   const style = _findStyle(styleId);
@@ -616,12 +616,12 @@ export function getStyleThumbnail(styleId: string): string {
 }
 
 /** 
- * 兼容旧版：获取风格 tokens（拆分成数组）
- * @deprecated 建议直接使用 getStylePrompt
+ * tương thích旧版：获取风格 tokens（拆分成数组）
+ * @deprecated 建议Trực tiếp使用 getStylePrompt
  */
 export function getStyleTokens(styleId: string): string[] {
   const prompt = getStylePrompt(styleId);
-  // 简单拆分主要关键词（去除权重标记）
+  // 简单拆分主要quan trọng词（去除权重标记）
   return prompt
     .replace(/\([^)]*:[0-9.]+\)/g, (match) => match.replace(/:[0-9.]+\)/, ')'))
     .split(',')
@@ -635,7 +635,7 @@ export function getStyleTokens(styleId: string): string[] {
  * @param categoryId 分类 ID（支持旧版 'animation'/'realistic' 和新版）
  */
 export function getStylesByCategory(categoryId: string): StylePreset[] {
-  // 兼容旧版分类名称
+  // tương thích旧版分类名称
   const categoryMap: Record<string, StyleCategory[]> = {
     'animation': ['3d', '2d', 'stop_motion'],
     'realistic': ['real'],
@@ -668,7 +668,7 @@ export function getMediaType(styleId: string | null | undefined): MediaType {
   return style?.mediaType ?? 'cinematic';
 }
 
-/** 媒介类型中文标签 */
+/** 媒介类型đang xử lý... */
 export const MEDIA_TYPE_LABELS: Record<MediaType, string> = {
   'cinematic': '电影摄影',
   'animation': '动画运镜',

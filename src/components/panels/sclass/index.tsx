@@ -7,11 +7,11 @@
  * Hạng S面板 — Seedance 2.0 多模态创作panel
  * 
  * 复用 director-store 的Phân cảnh数据（SplitScene[]），
- * 以「分组」为核心thực hiện多Ống kính合并叙事videoTạo。
+ * 以「分组」为核心thực hiện多Ống kính合并叙事Tạo video。
  * 
- * 两种模式：
- * - Phân cảnh模式：从Kịch bản流水线Nhập的Phân cảnh，按组Tạo video
- * - Tự do模式：纯Phương tiệnTải lên + prompt（后续实现）
+ * 两种chế độ：
+ * - Phân cảnhchế độ：从Kịch bản流水线Nhập的Phân cảnh，按组Tạo video
+ * - Tự dochế độ：纯Phương tiệnTải lên + prompt（后续实现）
  */
 
 import { useEffect } from "react";
@@ -56,7 +56,7 @@ export function SClassView() {
       <div>
         <h3 className="font-medium text-sm mb-1">Hạng S · Seedance 2.0 Sáng tạo đa phương thức</h3>
         <p className="text-xs text-muted-foreground max-w-[280px]">
-          Vui lòng nhấp <span className="text-green-500 font-medium">+</span> Thêm phân cảnh vào panel này, hệ thống sẽ tự động phân nhómkính合并叙事videoTạo。
+          Vui lòng nhấp <span className="text-green-500 font-medium">+</span> Thêm phân cảnh vào panel này, hệ thống sẽ tự động phân nhómkính合并叙事Tạo video。
         </p>
         <p className="text-xs text-muted-foreground/60 mt-2 max-w-[280px]">
           Nếu chưa thấy cấu trúc kịch bản ở bên phải, vui lòng nhập và phân tích kịch bản trong panel "Kịch bản" trước.

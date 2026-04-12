@@ -61,7 +61,7 @@ export function EditProviderDialog({
       return;
     }
 
-    // 解析Model cột表（Hỗ trợ逗号或换 hàng分隔）
+    // 解析Model cột表（Hỗ trợ逗号或换 hàngngăn cách）
     const models = model
       .split(/[,\n]/)
       .map(m => m.trim())
@@ -76,7 +76,7 @@ export function EditProviderDialog({
     });
 
     onOpenChange(false);
-    toast.success("đã lưu更改");
+    toast.success("Đã lưu thay đổi");
   };
 
   const keyCount = getApiKeyCount(apiKey);
@@ -120,17 +120,17 @@ export function EditProviderDialog({
             <div className="flex items-center justify-between">
               <Label>API Keys</Label>
               <span className="text-xs text-muted-foreground">
-                {keyCount} 个 Key
+                {keyCount} Key
               </span>
             </div>
             <Textarea
               value={apiKey}
               onChange={(e) => setApiKey(e.target.value)}
-              placeholder="输入 API Keys（每 hàng一个，或用逗号分隔）"
+              placeholder="Nhập API Keys (mỗi dòng một, hoặc ngăn cách bằng dấu phẩy)"
               className="font-mono text-sm min-h-[100px]"
             />
             <p className="text-xs text-muted-foreground">
-              💡 Hỗ trợ多个 Key 轮换使用，Thất bại时Tự động切换到下一个
+              💡 Hỗ trợ xoay vòng nhiều Key，Thất bại时Tự động切换到下一
             </p>
           </div>
 
@@ -140,10 +140,10 @@ export function EditProviderDialog({
             <Input
               value={model}
               onChange={(e) => setModel(e.target.value)}
-              placeholder="输入ModelTên，如 deepseek-v3"
+              placeholder="Nhập tên Model, ví dụ deepseek-v3"
             />
             <p className="text-xs text-muted-foreground">
-              多个Model用逗号分隔，第一个为Mặc địnhModel
+              Nhiều Model ngăn cách bằng dấu phẩy, cái đầu tiên là Model mặc định
             </p>
           </div>
         </div>

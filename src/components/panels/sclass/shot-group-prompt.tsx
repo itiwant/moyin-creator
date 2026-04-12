@@ -177,7 +177,7 @@ export function ShotGroupPrompt({
             <TooltipContent>
               <p>
                 videotham chiếu ({result.refs.videos.length}/{SEEDANCE_LIMITS.maxVideos})
-                {result.refs.videos.length === 0 && " — 可在Ống kính卡片中Tải lên"}
+                {result.refs.videos.length === 0 && " — 可在Ống kính卡片đang xử lý... lên"}
               </p>
             </TooltipContent>
           </Tooltip>
@@ -204,7 +204,7 @@ export function ShotGroupPrompt({
             <TooltipContent>
               <p>
                 âm thanhtham chiếu ({result.refs.audios.length}/{SEEDANCE_LIMITS.maxAudios})
-                {result.refs.audios.length === 0 && " — 可在Ống kính卡片中Tải lên"}
+                {result.refs.audios.length === 0 && " — 可在Ống kính卡片đang xử lý... lên"}
               </p>
             </TooltipContent>
           </Tooltip>
@@ -323,7 +323,7 @@ export function ShotGroupPrompt({
 // ==================== Helpers ====================
 
 /**
- * 在 prompt 文本中高亮 @Image/@Video/@Audio Thẻ
+ * 在 prompt 文本đang xử lý...@Image/@Video/@Audio Thẻ
  */
 function highlightRefs(text: string): React.ReactNode {
   if (!text) return <span className="text-muted-foreground">NhấpChỉnh sửa组级prompt...</span>;

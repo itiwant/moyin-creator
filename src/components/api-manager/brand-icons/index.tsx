@@ -4,7 +4,7 @@
 
 /**
  * 品牌 SVG 图标（源自 MemeFast pricing 页面 lobe-icons）
- * 拆分为多个file避免单file过大
+ * 拆分为多file避免单file过大
  */
 
 import type { ReactNode } from "react";
@@ -15,7 +15,7 @@ import { iconsLarge } from "./icons-large";
 
 export type BrandIconFn = (size: number) => ReactNode;
 
-/** 合并所有图标 */
+/** 合并Tất cả图标 */
 const ALL_ICONS: Record<string, BrandIconFn> = {
   ...iconsSmall,
   ...iconsMedium,

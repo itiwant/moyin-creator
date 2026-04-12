@@ -97,20 +97,20 @@ export async function callImageGenerationApi(
 ): Promise<{ imageUrl: string; httpUrl: string }> {
   const featureConfig = getImageApiConfig();
   if (!featureConfig) {
-    throw new Error('请先在Cài đặt中配置ảnhTạo服务映射');
+    throw new Error('请先在Cài đặtđang xử lý...ạo ảnh服务映射');
   }
   const platform = featureConfig.platform;
   const model = featureConfig.models?.[0];
   if (!model) {
-    throw new Error('请先在Cài đặt中配置ảnhTạoModel');
+    throw new Error('请先在Cài đặtđang xử lý...ạo ảnhModel');
   }
   const apiKeyToUse = apiKey || featureConfig.keyManager?.getCurrentKey?.() || '';
   if (!apiKeyToUse) {
-    throw new Error('请先在Cài đặt中配置ảnhTạo服务映射');
+    throw new Error('请先在Cài đặtđang xử lý...ạo ảnh服务映射');
   }
   const imageBaseUrl = featureConfig.baseUrl?.replace(/\/+$/, '');
   if (!imageBaseUrl) {
-    throw new Error('请先在Cài đặt中配置ảnhTạo服务映射');
+    throw new Error('请先在Cài đặtđang xử lý...ạo ảnh服务映射');
   }
   // Call image generation API with smart routing (auto-selects chat/completions or images/generations)
   const imageKeyManager = featureConfig.keyManager;
@@ -142,7 +142,7 @@ export async function callImageGenerationApi(
     const maxAttempts = 60;
 
     for (let attempt = 0; attempt < maxAttempts; attempt++) {
-      // 检查外部中止信号
+      // 检查外部đang xử lý...
       if (signal?.aborted) throw new Error('用户已Hủy');
 
       const progress = Math.min(Math.floor((attempt / maxAttempts) * 100), 99);
@@ -190,7 +190,7 @@ export async function callImageGenerationApi(
       }
 
       if (status === 'failed' || status === 'error') {
-        const errorMsg = statusData.error || statusData.message || statusData.data?.error || 'ảnhTạo thất bại';
+        const errorMsg = statusData.error || statusData.message || statusData.data?.error || 'Tạo ảnh thất bại';
         throw new Error(typeof errorMsg === 'string' ? errorMsg : JSON.stringify(errorMsg));
       }
 
@@ -199,7 +199,7 @@ export async function callImageGenerationApi(
         signal?.addEventListener('abort', () => { clearTimeout(tid); reject(new Error('用户已Hủy')); }, { once: true });
       });
     }
-    throw new Error('ảnhTạo超时');
+    throw new Error('Tạo ảnh超时');
   }
 
   throw new Error('Invalid API response: no image URL or task ID');

@@ -160,7 +160,7 @@ export function SceneGallery({ onSceneSelect, selectedSceneId }: SceneGalleryPro
     return { rootScenes: roots, childScenesMap: childMap };
   }, [visibleScenes, currentFolderId, searchQuery]);
   
-  // 计算每个Cảnh的Số cảnh con（递归计算所有后代）
+  // 计算每Cảnh的Số cảnh con（递归计算Tất cả后代）
   const getDescendantCount = (sceneId: string): number => {
     const children = childScenesMap.get(sceneId) || [];
     let count = children.length;
@@ -646,13 +646,13 @@ function SceneCard({
               )}
             </div>
           )}
-          {/* conCảnh标识 */}
+          {/* Nhãn cảnh con */}
           {depth > 0 && (
             <div className="absolute top-1 left-1 bg-blue-500 text-white text-[8px] px-1 py-0.5 rounded">
               {scene.viewpointName || 'Góc nhìn'}
             </div>
           )}
-          {/* HiệnSố cảnh con + Mở rộng/Thu gọn指示 */}
+          {/* HiệnSố cảnh con + Mở rộng/Thu gọnchỉ thị */}
           {hasChildren && (
             <div
               className={cn(
@@ -670,14 +670,14 @@ function SceneCard({
               ) : (
                 <ChevronRight className="h-2.5 w-2.5" />
               )}
-              {childCount} 个
+              {childCount} 
             </div>
           )}
-          {/* 父CảnhXem trướcnút（有conCảnh时双击Mở rộng，Xem trước通过此nút） */}
+          {/* Nút xem trước cảnh cha (khi có cảnh con nhấp đúp để Mở rộng, Xem trước qua nút này) */}
           {hasChildren && resolvedImage && (
             <div
               className="absolute bottom-1 right-1 bg-black/60 hover:bg-black/80 text-white rounded p-0.5 cursor-pointer transition-colors"
-              title="Xem trước大图"
+              title="Xem trước ảnh lớn"
               onClick={(e) => {
                 e.stopPropagation();
                 onImagePreview?.(resolvedImage);
@@ -732,14 +732,14 @@ function SceneCard({
         }
       }}
     >
-      {/* Mở rộng/Thu gọn指示器 */}
+      {/* Chỉ thị Mở rộng/Thu gọn */}
       {hasChildren ? (
         <ChevronRight className={cn(
           "h-4 w-4 transition-transform text-muted-foreground flex-shrink-0",
           isExpanded && "rotate-90"
         )} />
       ) : (
-        <div className="w-4" /> // 占位
+        <div className="w-4" /> // Placeholder
       )}
       
       <div className="w-16 h-10 rounded bg-muted flex items-center justify-center overflow-hidden flex-shrink-0 relative">
@@ -752,7 +752,7 @@ function SceneCard({
         ) : (
           <MapPin className="h-4 w-4 text-muted-foreground" />
         )}
-        {/*  cột dạng bảngĐang tạo遮罩 */}
+        {/* Lớp phủ đang tạo dạng bảng */}
         {generatingTask && generatingTask.status !== 'done' && generatingTask.status !== 'error' && (
           <div className="absolute inset-0 bg-black/60 flex items-center justify-center">
             <Loader2 className="h-4 w-4 text-white animate-spin" />
@@ -784,7 +784,7 @@ function SceneCard({
           <>
             <span className="bg-muted px-1 py-0.5 rounded">{timeLabel}</span>
             {hasChildren && (
-              <span className="bg-green-100 text-green-700 px-1 py-0.5 rounded">{childCount} 个</span>
+              <span className="bg-green-100 text-green-700 px-1 py-0.5 rounded">{childCount} </span>
             )}
           </>
         ) : (

@@ -70,7 +70,7 @@ export class VideoCache {
     
     const ctx = canvas.getContext("2d", { willReadFrequently: true });
     if (ctx) {
-      // VideoSample 可以直接绘制到 canvas
+      // VideoSample 可以Trực tiếp绘制到 canvas
       sample.draw(ctx, 0, 0);
     }
     

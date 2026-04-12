@@ -63,18 +63,18 @@ export function AddImageHostDialog({
   const apiKeyLabel = platform === "imgurl"
     ? "Tải lên Tokens"
     : platform === "scdn"
-      ? "API Key（无需填写）"
+      ? "API Key (không cần điền)"
     : platform === "catbox"
-      ? "Userhash（可选）"
+      ? "Userhash(tùy chọn)"
       : "API Keys";
   const apiKeyRequiredMessage = platform === "imgurl" ? "NhậpTải lên Token" : "Nhập API Key";
   const apiKeyPlaceholder = platform === "imgurl"
-    ? "输入Tải lên Token / Authorization 值（每 hàng一个；如需 Bearer，请Thủ công填写完整值）"
+    ? "输入Giá trị Token Tải lên / Authorization (mỗi dòng một; nếu cần Bearer, vui lòng điền thủ công giá trị đầy đủ)"
     : platform === "scdn"
-      ? "留空即可，SCDN Hỗ trợ直接Tải lên"
+      ? "Để trống, SCDN hỗ trợ tải lên trực tiếp"
     : platform === "catbox"
-      ? "可留空匿名Tải lên；如需绑定到 Catbox 账号，请填写 userhash"
-    : "输入 API Keys（每 hàng一个，或用逗号分隔）";
+      ? "Có thể để trống để tải lên ẩn danh; nếu muốn liên kết với tài khoản Catbox, hãy điền userhash"
+    : "Nhập API Keys (mỗi dòng một, hoặc ngăn cách bằng dấu phẩy)";
 
   useEffect(() => {
     if (open) {
@@ -125,7 +125,7 @@ export function AddImageHostDialog({
       return;
     }
     if (!baseUrl.trim() && !uploadPath.trim()) {
-      toast.error("请配置 Base URL 或 Upload Path");
+      toast.error("Vui lòng cấu hình Base URL hoặc Upload Path");
       return;
     }
     if (!apiKey.trim() && !apiKeyOptional) {
@@ -154,7 +154,7 @@ export function AddImageHostDialog({
     });
 
     onOpenChange(false);
-    toast.success(`đã thêm ${name}`);
+    toast.success(`Đã thêm ${name}`);
   };
 
   return (
@@ -169,7 +169,7 @@ export function AddImageHostDialog({
             <Label>Nền tảng</Label>
             <Select value={platform} onValueChange={(v) => setPlatform(v as ImageHostPlatform)}>
               <SelectTrigger>
-                <SelectValue placeholder="选择Nền tảng" />
+                <SelectValue placeholder="Chọn nền tảng" />
               </SelectTrigger>
               <SelectContent>
                 {IMAGE_HOST_PRESETS.map((preset) => (
@@ -193,7 +193,7 @@ export function AddImageHostDialog({
 
           <div className="space-y-2">
             <Label>Upload Path / URL</Label>
-            <Input value={uploadPath} onChange={(e) => setUploadPath(e.target.value)} placeholder="/upload 或完整 URL" />
+            <Input value={uploadPath} onChange={(e) => setUploadPath(e.target.value)} placeholder="/upload hoặc URL đầy đủ" />
           </div>
 
           <div className="space-y-2">
@@ -208,22 +208,22 @@ export function AddImageHostDialog({
             />
             {platform === "imgbb" && (
               <p className="text-xs text-red-500">
-                ImgBB 当前可用性存在问题，Mặc định保持Đóng；建议优先使用 Catbox。
+                ImgBB hiện có vấn đề về tính khả dụng, mặc định giữ đóng; khuyến nghị ưu tiên dùng Catbox.
               </p>
             )}
             {platform === "imgurl" && (
               <p className="text-xs text-muted-foreground">
-                使用 ImgURL / Zpic 开放接口里的Tải lên Token（V3），Hỗ trợ多 Token 轮换。
+                Sử dụng Token Tải lên (V3) trong giao diện mở của ImgURL/Zpic, hỗ trợ xoay vòng nhiều Token.
               </p>
             )}
             {platform === "scdn" && (
               <p className="text-xs text-muted-foreground">
-                SCDN Lưu trữ ảnhHỗ trợ直接Tải lên，当前更适合作为Mặc địnhLưu trữ ảnh使用。
+                Dịch vụ lưu trữ ảnh SCDN hỗ trợ tải lên trực tiếp, hiện phù hợp hơn để dùng làm dịch vụ lưu trữ ảnh mặc định.
               </p>
             )}
             {platform === "catbox" && (
               <p className="text-xs text-muted-foreground">
-                Catbox 为海外Lưu trữ ảnh；如果当前网络连不上，建议改用 SCDN Lưu trữ ảnh或Tùy chỉnhLưu trữ ảnh。
+                Catbox là dịch vụ lưu trữ ảnh nước ngoài; nếu mạng hiện tại không kết nối được, nên chuyển sang dùng SCDN hoặc Lưu trữ ảnh tùy chỉnh.
               </p>
             )}
           </div>
@@ -234,10 +234,10 @@ export function AddImageHostDialog({
           </div>
 
           <div className="space-y-2">
-            <Label className="text-sm text-muted-foreground">Nâng cao配置（可选）</Label>
+            <Label className="text-sm text-muted-foreground">Nâng cao配置(tùy chọn)</Label>
             <div className="grid grid-cols-2 gap-3">
               <div className="space-y-1">
-                <Label className="text-xs">API Key Query 参数</Label>
+                <Label className="text-xs">Tham số Query API Key</Label>
                 <Input value={apiKeyParam} onChange={(e) => setApiKeyParam(e.target.value)} placeholder="key" />
               </div>
               <div className="space-y-1">
@@ -245,23 +245,23 @@ export function AddImageHostDialog({
                 <Input value={apiKeyHeader} onChange={(e) => setApiKeyHeader(e.target.value)} placeholder="Authorization" />
               </div>
               <div className="space-y-1">
-                <Label className="text-xs">过期参数</Label>
+                <Label className="text-xs">Tham số hết hạn</Label>
                 <Input value={expirationParam} onChange={(e) => setExpirationParam(e.target.value)} placeholder="expiration" />
               </div>
               <div className="space-y-1">
-                <Label className="text-xs">ảnh字段名</Label>
+                <Label className="text-xs">Tên trường ảnh</Label>
                 <Input value={imageField} onChange={(e) => setImageField(e.target.value)} placeholder="image" />
               </div>
               <div className="space-y-1">
-                <Label className="text-xs">Tên字段名</Label>
+                <Label className="text-xs">Tên trường tên</Label>
                 <Input value={nameField} onChange={(e) => setNameField(e.target.value)} placeholder="name" />
               </div>
               <div className="space-y-1">
-                <Label className="text-xs">Quay lại URL 字段</Label>
+                <Label className="text-xs">Trường URL quay về</Label>
                 <Input value={responseUrlField} onChange={(e) => setResponseUrlField(e.target.value)} placeholder="data.url" />
               </div>
               <div className="space-y-1">
-                <Label className="text-xs">Xóa URL 字段</Label>
+                <Label className="text-xs">Trường URL xóa</Label>
                 <Input value={responseDeleteUrlField} onChange={(e) => setResponseDeleteUrlField(e.target.value)} placeholder="data.delete_url" />
               </div>
             </div>

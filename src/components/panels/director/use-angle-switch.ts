@@ -75,7 +75,7 @@ export function useAngleSwitch({
       return;
     }
 
-    // Đặt lại选中索引（历史从 store 中读取）
+    // Đặt lạiđã chọn索引（历史从 store đang xử lý...
     setSelectedHistoryIndex(-1);
     setAngleSwitchTarget({ sceneId, type });
     setAngleSwitchOpen(true);
@@ -138,12 +138,12 @@ export function useAngleSwitch({
       };
       addAngleSwitchHistory(angleSwitchTarget.sceneId, angleSwitchTarget.type, newHistoryItem);
 
-      // 获取更新后的历史（从 scene 中读取）
+      // 获取更新后的历史（从 scene đang xử lý...
       const updatedScene = splitScenes.find(s => s.id === angleSwitchTarget.sceneId);
       const history = angleSwitchTarget.type === "start" 
         ? (updatedScene?.startFrameAngleSwitchHistory || [])
         : (updatedScene?.endFrameAngleSwitchHistory || []);
-      setSelectedHistoryIndex(history.length - 1); // 选中最新的
+      setSelectedHistoryIndex(history.length - 1); // đã chọn最新的
 
       setAngleSwitchResult({
         originalImage,
@@ -166,7 +166,7 @@ export function useAngleSwitch({
   const handleApplyAngleSwitch = useCallback(() => {
     if (!angleSwitchResult || !angleSwitchTarget) return;
 
-    // 从 store 中读取历史
+    // 从 store đang xử lý...史
     const scene = splitScenes.find(s => s.id === angleSwitchTarget.sceneId);
     const history = angleSwitchTarget.type === "start"
       ? (scene?.startFrameAngleSwitchHistory || [])

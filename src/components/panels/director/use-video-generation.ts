@@ -107,7 +107,7 @@ export async function convertToHttpUrl(
   
   // For base64/local data URLs, upload to image host
   if (!isImageHostConfigured()) {
-    throw new Error('Lưu trữ ảnhChưa cấu hình，请在Cài đặt中配置Lưu trữ ảnh API Key');
+    throw new Error('Lưu trữ ảnhChưa cấu hình，请在Cài đặtđang xử lý...ưu trữ ảnh API Key');
   }
 
   let imageData = url;
@@ -181,39 +181,39 @@ const VIDEO_FORMAT_MAP: Record<string, 'openai_official' | 'unified' | 'volc' | 
   'video统一格式': 'unified',
   'grokvideo': 'unified',
   'openai-response': 'unified',
-  '海螺videoTạo': 'unified',
-  'lumavideoTạo': 'unified',
+  '海螺Tạo video': 'unified',
+  'lumaTạo video': 'unified',
   'lumavideo扩展': 'unified',
   'runwayTạo video từ ảnh': 'unified',
   'aigc-video': 'unified',
-  'wanvideoTạo': 'unified',
+  'wanTạo video': 'unified',
   // Vidu (all route to unified /v1/video/generations)
   'viduTạo video từ văn bản': 'unified',
   'viduTạo video từ ảnh': 'unified',
-  'vidu参考生video': 'unified',
+  'viduTham chiếu生video': 'unified',
   'vidu首Khung hình cuối': 'unified',
   'lumavideokéo dài': 'unified',
 };
 
 /**
  * 统一格式端点路径映射（端点Loại → Gửi/轮询 URL 路径）
- * 每种端点Loại直接对应Xác nhận的 URL，不再靠 fallback 猜测
+ * 每种端点LoạiTrực tiếp对应Xác nhận的 URL，不再靠 fallback 猜测
  */
 const UNIFIED_ENDPOINT_PATHS: Record<string, { submit: string; poll: (id: string) => string }> = {
   // 路径均为域名根起的绝对路径（不依赖 /v1/ 前缀拼接）
   'grokvideo':     { submit: '/v1/video/create',      poll: (id) => `/v1/video/query?id=${id}` },
   'video统一格式': { submit: '/v1/video/create',      poll: (id) => `/v1/video/query?id=${id}` },
-  '海螺videoTạo': { submit: '/minimax/v1/video_generation', poll: (id) => `/minimax/v1/query/video_generation?task_id=${id}` },
-  'lumavideoTạo': { submit: '/luma/generations',            poll: (id) => `/luma/generations/${id}` },
+  '海螺Tạo video': { submit: '/minimax/v1/video_generation', poll: (id) => `/minimax/v1/query/video_generation?task_id=${id}` },
+  'lumaTạo video': { submit: '/luma/generations',            poll: (id) => `/luma/generations/${id}` },
   'lumavideo扩展': { submit: '/luma/generations',            poll: (id) => `/luma/generations/${id}` },
   'lumavideokéo dài': { submit: '/luma/generations',            poll: (id) => `/luma/generations/${id}` },
   'runwayTạo video từ ảnh': { submit: '/runwayml/v1/image_to_video', poll: (id) => `/runwayml/v1/tasks/${id}` },
-  'wanvideoTạo':    { submit: '/alibailian/api/v1/services/aigc/video-generation/video-synthesis', poll: (id) => `/alibailian/api/v1/tasks/${id}` },
+  'wanTạo video':    { submit: '/alibailian/api/v1/services/aigc/video-generation/video-synthesis', poll: (id) => `/alibailian/api/v1/tasks/${id}` },
   'aigc-video':    { submit: '/tencent-vod/v1/aigc-video', poll: (id) => `/tencent-vod/v1/aigc-video/${id}` },
   // Vidu 企业版端点 (/ent/v2/)
   'viduTạo video từ văn bản':   { submit: '/ent/v2/text2video',       poll: (id) => `/ent/v2/task?task_id=${id}` },
   'viduTạo video từ ảnh':   { submit: '/ent/v2/img2video',        poll: (id) => `/ent/v2/task?task_id=${id}` },
-  'vidu参考生video': { submit: '/ent/v2/reference2video',  poll: (id) => `/ent/v2/task?task_id=${id}` },
+  'viduTham chiếu生video': { submit: '/ent/v2/reference2video',  poll: (id) => `/ent/v2/task?task_id=${id}` },
   'vidu首Khung hình cuối':     { submit: '/ent/v2/start-end2video',  poll: (id) => `/ent/v2/task?task_id=${id}` },
 };
 const DEFAULT_UNIFIED_ENDPOINT = { submit: '/v1/video/generations', poll: (id: string) => `/v1/video/generations/${id}` };
@@ -233,7 +233,7 @@ function getUnifiedEndpointPaths(endpointTypes: string[]): { submit: string; pol
  * 优先使用 MemeFast /api/pricing_new 同步的元数据，fallback 到Model名推断
  */
 function detectVideoApiFormat(model: string): 'openai_official' | 'unified' | 'volc' | 'wan' | 'kling' | 'replicate' {
-  // 1. 查询 store 中的 endpoint types 元数据
+  // 1. 查询 store đang xử lý...ndpoint types 元数据
   const endpointTypes = useAPIConfigStore.getState().modelEndpointTypes[model];
   if (endpointTypes && endpointTypes.length > 0) {
     // 优先级：openai_official → kling → volc → wan → replicate → unified
@@ -303,13 +303,13 @@ function handleVideoSubmitError(
     const errorJson = JSON.parse(errorText);
     errorMessage = errorJson.error?.message || errorJson.message || errorMessage;
   } catch { /* ignore */ }
-  if (status === 401 || status === 403) throw new Error('API Key 无效或已过期');
+  if (status === 401 || status === 403) throw new Error('API Key 无效或已hết hạn');
   if (status === 429) {
-    const err = new Error('API 请求过于频繁，请稍后重试') as Error & { status?: number };
+    const err = new Error('API 请求过于频繁，请稍后Thử lại') as Error & { status?: number };
     err.status = 429;
     throw err;
   }
-  // 所有 500/502/503/529 均视为可重试的临时服务错误，携带 status 供重试机制识别
+  // Tất cả 500/502/503/529 均视为可Thử lại的临时服务错误，携带 status 供Thử lại机制识别
   if (status >= 500) {
     const err = new Error(errorMessage || `上游服务暂时不可用 (${status})`) as Error & { status?: number };
     err.status = status;
@@ -323,7 +323,7 @@ function handleVideoSubmitError(
 // ==================== ảnh最小尺寸保障 ====================
 
 /**
- * videoTạo API 通常要求输入ảnh满足最小尺寸（如 Seedance 要求宽度 ≥ 300px）。
+ * Tạo video API 通常要求输入ảnh满足最小尺寸（如 Seedance 要求宽度 ≥ 300px）。
  * 当九宫格切割后的ảnh尺寸过小时，Tự động放大到满足最低要求后重新Tải lên。
  * @param imageUrl  HTTP URL ảnh地址
  * @param minDimension  宽高的最小像素值（Mặc định 300，匹配 Seedance 等Model要求）
@@ -404,7 +404,7 @@ async function ensureMinImageSize(
   }
 }
 
-// ==================== videoTạo主入口 ====================
+// ==================== Tạo video主入口 ====================
 
 /** AbortSignal 感知的 sleep：若信号触发则立即以 '用户已Hủy' 拒绝 */
 function sleepOrAbort(ms: number, signal?: AbortSignal): Promise<void> {
@@ -434,24 +434,24 @@ export async function callVideoGenerationApi(
   enableAudio?: boolean,
   /** Seedance 2.0: 是否锁定运镜（Mặc định false） */
   cameraFixed?: boolean,
-  /** 外部中止信号，用于Dừng tạo时真正Hủy网络请求 */
+  /** 外部đang xử lý...，用于Dừng tạo时真正Hủy网络请求 */
   signal?: AbortSignal,
 ): Promise<string> {
   const featureConfig = getFeatureConfig('video_generation');
   const resolvedPlatform = platform || featureConfig?.platform;
   if (!resolvedPlatform) {
-    throw new Error('请先在Cài đặt中配置videoTạo服务映射');
+    throw new Error('请先在Cài đặtđang xử lý...ạo video服务映射');
   }
   const model = featureConfig?.models?.[0];
   if (!model) {
-    throw new Error('请先在Cài đặt中配置videoTạoModel');
+    throw new Error('请先在Cài đặtđang xử lý...ạo videoModel');
   }
   const videoBaseUrl = featureConfig?.baseUrl?.replace(/\/+$/, '');
   if (!videoBaseUrl) {
-    throw new Error('请先在Cài đặt中配置videoTạo服务映射');
+    throw new Error('请先在Cài đặtđang xử lý...ạo video服务映射');
   }
 
-  // 确保所有输入ảnh满足video API 的最小尺寸要求（如 Seedance ≥ 300px）
+  // 确保Tất cả输入ảnh满足video API 的最小尺寸要求（如 Seedance ≥ 300px）
   const processedImages = await Promise.all(
     imageWithRoles.map(async (img) => ({
       ...img,
@@ -459,13 +459,13 @@ export async function callVideoGenerationApi(
     }))
   );
 
-  // 根据元数据/Model名检测 API 格式并路由，包裹重试（覆盖 429/503/529 等）
+  // 根据元数据/Model名检测 API 格式并路由，包裹Thử lại（覆盖 429/503/529 等）
   const format = detectVideoApiFormat(model);
   console.log('[VideoGen] Detected API format:', { model, format, platform: resolvedPlatform });
 
   return retryOperation(() => {
     if (signal?.aborted) return Promise.reject(new Error('用户已Hủy'));
-    // 每次重试动态取当前 key（keyManager.handleError 已 rotate，需要用新 key）
+    // 每次Thử lại动态取当前 key（keyManager.handleError 已 rotate，需要用新 key）
     const currentApiKey = keyManager?.getCurrentKey?.() || apiKey;
     const keyHint = currentApiKey ? `${currentApiKey.substring(0, 8)}…` : '(none)';
     console.log(`[VideoGen] Using key: ${keyHint}, format: ${format}`);
@@ -495,7 +495,7 @@ export async function callVideoGenerationApi(
   });
 }
 
-// ==================== video统一格式 (grok/veo/luma/runway/海螺/即梦/doubao-seedance/wan2.6/vidu 等) ====================
+// ==================== video统一格式 (grok/veo/luma/runway/海螺/即梦/doubao-seedance/wan2.6/vidu , v.v.) ====================
 // MemeFast 文档: POST /v1/video/generations (primary) + /v1/video/create (fallback)
 //             GET  /v1/video/generations/{id} (primary) + /v1/video/query?id= (fallback)
 
@@ -602,7 +602,7 @@ async function callUnifiedVideoApi(
   const submitUrl = `${rootBase}${endpointPaths.submit}`;
   console.log(`[VideoGen] Unified format → POST ${endpointPaths.submit}`, { model, metadata, hasImage: !!firstFrame?.url });
 
-  // Gửi：直接使用端点Loại对应的 URL
+  // Gửi：Trực tiếp使用端点Loại对应的 URL
   const resp = await fetch(submitUrl, {
     method: 'POST',
     headers: {
@@ -635,7 +635,7 @@ async function callUnifiedVideoApi(
     submitData.output?.id
   )?.toString();
 
-  // 某些Model直接Quay lại结果
+  // 某些ModelTrực tiếpQuay lại结果
   const directUrl = extractVideoUrl(submitData);
   if (directUrl) return directUrl;
   if (!taskId) {
@@ -643,7 +643,7 @@ async function callUnifiedVideoApi(
     throw new Error(`Quay lại空的任务 ID（响应格式未识别，请检查控制台日志）`);
   }
 
-  // 轮询：直接使用端点Loại对应的 URL
+  // 轮询：Trực tiếp使用端点Loại对应的 URL
   const pollUrl = `${rootBase}${endpointPaths.poll(taskId)}`;
   const pollInterval = 5000;
   const maxAttempts = 180;
@@ -675,11 +675,11 @@ async function callUnifiedVideoApi(
     }
 
     if (status === 'failed' || status === 'error' || status === 'cancelled') {
-      const errorMsg = statusData.error?.message || statusData.error || statusData.message || 'videoTạo thất bại';
+      const errorMsg = statusData.error?.message || statusData.error || statusData.message || 'Tạo video thất bại';
       throw new Error(typeof errorMsg === 'string' ? errorMsg : JSON.stringify(errorMsg));
     }
   }
-  throw new Error('videoTạo超时');
+  throw new Error('Tạo video超时');
 }
 
 // ==================== Volcengine 豆包/Seedance 格式 ====================
@@ -782,19 +782,19 @@ async function callVolcVideoApi(
   console.log('[VideoGen] Volc submit response:', JSON.stringify(submitData).substring(0, 500));
 
   // 检测代理包装的业务级错误（HTTP 200 但 body.status 为 failed/error）
-  // 典型Cảnh：MemeFast 中转将上游 451（Nội dung审核）等错误包装为 {status: "failed", message: "..."}
+  // 典型Cảnh：MemeFast trung gian将上游 451（Nội dung审核）等错误包装为 {status: "failed", message: "..."}
   if (submitData.status === 'failed' || submitData.status === 'error') {
     const proxyMsg = submitData.message || submitData.error?.message || 'videoGửiThất bại（代理Quay lại业务错误）';
     console.error('[VideoGen] Volc: proxy-wrapped business error:', proxyMsg);
-    // 尝试从错误信息中提取原始 HTTP Trạng thái码
+    // 尝试从错误信息đang xử lý...始 HTTP Trạng thái码
     const statusMatch = proxyMsg.match(/status\s+(\d+)/);
     const inferredStatus = statusMatch ? parseInt(statusMatch[1]) : 400;
     handleVideoSubmitError(inferredStatus, JSON.stringify(submitData), keyManager);
   }
 
-  // 提取任务 ID（兼容多种响应格式）
-  // MemeFast 中转: { id: "cgt-..." }  /  原生火山方舟: { id: "01973..." }
-  // 也兼容 response.* / result.* 嵌套格式
+  // 提取任务 ID（tương thích多种响应格式）
+  // MemeFast trung gian: { id: "cgt-..." }  /  原生火山方舟: { id: "01973..." }
+  // 也tương thích response.* / result.* 嵌套格式
   const taskId = (
     submitData.id ||
     submitData.task_id ||
@@ -811,7 +811,7 @@ async function callVolcVideoApi(
 
   if (!taskId) {
     console.error('[VideoGen] Volc: cannot extract taskId. Full response:', JSON.stringify(submitData));
-    // 兜底：将代理Quay lại的错误信息（如有）附加到异常中，避免信息丢失
+    // 兜底：将代理Quay lại的错误信息（如有）附加到异常đang xử lý...信息丢失
     const detail = submitData.message || submitData.error?.message || '';
     throw new Error(detail || `doubao-seedance Quay lại空的任务 ID（响应格式未识别，请检查控制台日志）`);
   }
@@ -850,9 +850,9 @@ async function callVolcVideoApi(
     const status = (statusData.status ?? 'unknown').toString().toLowerCase();
 
     if (status === 'succeeded') {
-      // 兼容多种响应格式提取video URL
+      // tương thích多种响应格式提取video URL
       const videoUrl =
-        normalizeUrl(statusData.content?.video_url) ||      // MemeFast 中转格式
+        normalizeUrl(statusData.content?.video_url) ||      // MemeFast trung gian格式
         normalizeUrl(statusData.output?.video_url) ||       // 原生火山方舟格式
         normalizeUrl(statusData.output?.url) ||
         normalizeUrl(statusData.video_url) ||
@@ -866,14 +866,14 @@ async function callVolcVideoApi(
     }
 
     if (status === 'failed' || status === 'expired' || status === 'cancelled') {
-      const errorMsg = statusData.error?.message || statusData.error?.code || 'videoTạo thất bại';
+      const errorMsg = statusData.error?.message || statusData.error?.code || 'Tạo video thất bại';
       throw new Error(typeof errorMsg === 'string' ? errorMsg : JSON.stringify(errorMsg));
     }
 
     // queued / running → Tiếp tục轮询
     await sleepOrAbort(pollInterval, signal);
   }
-  throw new Error('videoTạo超时');
+  throw new Error('Tạo video超时');
 }
 
 // ==================== 通义万象 wan 格式 ====================
@@ -973,12 +973,12 @@ async function callWanVideoApi(
     }
 
     if (taskStatus === 'FAILED') {
-      throw new Error(statusData.output?.message || statusData.output?.error || 'videoTạo thất bại');
+      throw new Error(statusData.output?.message || statusData.output?.error || 'Tạo video thất bại');
     }
 
     await sleepOrAbort(pollInterval, signal);
   }
-  throw new Error('videoTạo超时');
+  throw new Error('Tạo video超时');
 }
 
 // ==================== Kling 可灵全系 cột格式 ====================
@@ -1109,10 +1109,10 @@ async function callKlingVideoApi(
     }
 
     if (taskStatus === 'failed' || taskStatus === 'error') {
-      throw new Error(statusData.data?.task_status_msg || statusData.message || 'videoTạo thất bại');
+      throw new Error(statusData.data?.task_status_msg || statusData.message || 'Tạo video thất bại');
     }
   }
-  throw new Error('videoTạo超时');
+  throw new Error('Tạo video超时');
 }
 
 // ==================== OpenAI 官方video格式 (sora-2) ====================
@@ -1290,10 +1290,10 @@ async function callReplicateVideoApi(
     }
 
     if (status === 'failed' || status === 'canceled') {
-      throw new Error(statusData.error || 'Replicate videoTạo thất bại');
+      throw new Error(statusData.error || 'Replicate Tạo video thất bại');
     }
   }
-  throw new Error('Replicate videoTạo超时');
+  throw new Error('Replicate Tạo video超时');
 }
 
 // Save video to local and return the local URL
@@ -1320,7 +1320,7 @@ export async function extractLastFrameFromVideo(
   videoUrl: string,
   seekOffset: number = 0.1
 ): Promise<string | null> {
-  // local-image:// 是 Electron 注册的Tùy chỉnh协议，可以直接使用
+  // local-image:// 是 Electron 注册的Tùy chỉnh协议，可以Trực tiếp使用
   // 不需要转换为 file://
   const resolvedUrl = videoUrl;
   console.log('[VideoGen] Loading video for frame extraction:', resolvedUrl);
@@ -1453,7 +1453,7 @@ export async function extractLastFrameFromVideo(
         console.log('[VideoGen] Seek may have failed, trying play approach...');
         video.playbackRate = 16; // 快速播放
         video.play().catch(() => {
-          // 如果播放Thất bại，直接捕获当前帧
+          // 如果播放Thất bại，Trực tiếp捕获当前帧
           console.warn('[VideoGen] Play failed, capturing current frame');
           captureFrame();
         });
@@ -1522,10 +1522,10 @@ export async function callJuxinVideoGenerationApi(
 ): Promise<string> {
   const apiBaseUrl = baseUrl?.replace(/\/+$/, '');
   if (!apiBaseUrl) {
-    throw new Error('请先在Cài đặt中配置videoTạo服务映射');
+    throw new Error('请先在Cài đặtđang xử lý...ạo video服务映射');
   }
   if (!model) {
-    throw new Error('请先在Cài đặt中配置videoTạoModel');
+    throw new Error('请先在Cài đặtđang xử lý...ạo videoModel');
   }
   console.log('[VideoGen] Using JuxinAPI (Grok) for video generation');
   
@@ -1546,9 +1546,9 @@ export async function callJuxinVideoGenerationApi(
   
   console.log('[VideoGen] Grok request:', requestBody);
 
-  // Submit video generation request（带重试，覆盖 429/503/529，每次重试动态取 key）
+  // Submit video generation request（带Thử lại，覆盖 429/503/529，每次Thử lại动态取 key）
   const submitData = await retryOperation(async () => {
-    // 每次重试动态取当前 key，利用 keyManager rotate 后的新 key
+    // 每次Thử lại动态取当前 key，利用 keyManager rotate 后的新 key
     const currentApiKey = keyManager?.getCurrentKey?.() || apiKey;
     const submitResponse = await fetch(`${apiBaseUrl}/v1/video/create`, {
       method: 'POST',
@@ -1578,7 +1578,7 @@ export async function callJuxinVideoGenerationApi(
       }
 
       if (submitResponse.status === 401 || submitResponse.status === 403) {
-        throw new Error('API Key 无效或已过期');
+        throw new Error('API Key 无效或已hết hạn');
       }
       const err = new Error(errorMessage) as Error & { status?: number };
       err.status = submitResponse.status;
@@ -1653,7 +1653,7 @@ export async function callJuxinVideoGenerationApi(
     }
 
     if (status === 'failed' || status === 'error') {
-      const errorMsg = statusData.error || statusData.error_message || 'videoTạo thất bại';
+      const errorMsg = statusData.error || statusData.error_message || 'Tạo video thất bại';
       throw new Error(typeof errorMsg === 'string' ? errorMsg : JSON.stringify(errorMsg));
     }
 
@@ -1661,5 +1661,5 @@ export async function callJuxinVideoGenerationApi(
     await sleepOrAbort(pollInterval, signal);
   }
   
-  throw new Error('videoTạo超时');
+  throw new Error('Tạo video超时');
 }

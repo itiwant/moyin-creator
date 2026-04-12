@@ -4,8 +4,8 @@
 "use client";
 
 /**
- * Quad Grid Result Dialog - Kết quả lưới 4 ô对话框
- * 展示2x2切图结果，Hỗ trợ选择/Áp dụng/Sao chép到其他Phân cảnh/Lưu到Thư viện phương tiện
+ * Quad Grid Result Dialog - Kết quả lưới 4 ôChat框
+ * Hiển thị2x2切图结果，Hỗ trợChọn/Áp dụng/Sao chép sang Phân cảnh khác/Lưu到Thư viện phương tiện
  */
 
 import { useState } from "react";
@@ -101,20 +101,20 @@ export function QuadGridResultDialog({
             Kết quả lưới 4 ô - {frameType === "start" ? "Khung hình đầu" : "Khung hình cuối"}
           </DialogTitle>
           <DialogDescription className="text-xs text-zinc-400">
-            Nhấp选择ảnh，可Áp dụng到当前Phân cảnh或Sao chép到其他Phân cảnh
+            Nhấp chọn ảnh, có thể Áp dụng vào Phân cảnh hiện tại hoặc Sao chép sang Phân cảnh khác
           </DialogDescription>
         </DialogHeader>
 
         <div className="space-y-4">
-          {/* 原图 + Lưới 4 ô对比 */}
+          {/* Ảnh gốc + Lưới 4 ô对比 */}
           <div className="flex gap-4">
-            {/* 原图 */}
+            {/* Ảnh gốc */}
             <div className="w-1/4">
-              <div className="text-[10px] text-zinc-500 mb-1">锚点原图</div>
+              <div className="text-[10px] text-zinc-500 mb-1">neoẢnh gốc</div>
               <div className="aspect-video rounded overflow-hidden border border-zinc-700">
                 <img
                   src={result.originalImage}
-                  alt="原图"
+                  alt="Ảnh gốc"
                   className="w-full h-full object-cover"
                 />
               </div>
@@ -147,10 +147,10 @@ export function QuadGridResultDialog({
                     </span>
                     {selectedIndex === index && (
                       <span className="absolute top-1 right-1 text-[9px] bg-cyan-500 text-black px-1 py-0.5 rounded">
-                        已选中
+                        Đã chọn
                       </span>
                     )}
-                    {/* 悬停thao tác - Tải xuống */}
+                    {/* Thao tác khi di chuột - Tải xuống */}
                     <div className="absolute top-1 left-1 flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
                       <button
                         onClick={(e) => {
@@ -169,15 +169,15 @@ export function QuadGridResultDialog({
             </div>
           </div>
 
-          {/* Sao chép到其他Phân cảnh */}
+          {/* Sao chép sang Phân cảnh khác */}
           {otherScenes.length > 0 && (
             <div className="flex items-center gap-2 p-3 rounded bg-zinc-800/50 border border-zinc-700">
               <span className="text-xs text-zinc-400 whitespace-nowrap">
-                Sao chép到:
+                Sao chép đến:
               </span>
               <Select value={copyTargetScene} onValueChange={setCopyTargetScene}>
                 <SelectTrigger className="w-[140px] h-7 text-xs bg-zinc-800 border-zinc-700">
-                  <SelectValue placeholder="选择Phân cảnh" />
+                  <SelectValue placeholder="Chọn phân cảnh" />
                 </SelectTrigger>
                 <SelectContent>
                   {otherScenes.map((scene) => (
@@ -226,7 +226,7 @@ export function QuadGridResultDialog({
             className="h-8 text-xs bg-cyan-500 hover:bg-cyan-600 text-black"
           >
             <Check className="h-3 w-3 mr-1" />
-            Áp dụng到{frameType === "start" ? "Khung hình đầu" : "Khung hình cuối"}
+            Áp dụng vào {frameType === "start" ? "Khung hình đầu" : "Khung hình cuối"}
           </Button>
         </DialogFooter>
       </DialogContent>

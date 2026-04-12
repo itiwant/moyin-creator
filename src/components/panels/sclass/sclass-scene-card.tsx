@@ -5,8 +5,8 @@
 
 /**
  * Phân cảnh卡片组件 (Split Scene Card Component)
- * Hiện单个Phân cảnh的所有信息，包括Khung hình đầu/Khung hình cuốiảnh、videoXem trước、promptChỉnh sửa等
- * 用于 SplitScene Loại（与 scene-card.tsx 中的 AIScene Loại不同）
+ * Hiện单Phân cảnh的Tất cả信息，包括Khung hình đầu/Khung hình cuốiảnh、videoXem trước、promptChỉnh sửa等
+ * 用于 SplitScene Loại（与 scene-card.tsx đang xử lý...IScene Loại不同）
  */
 
 import React, { useState, useRef } from "react";
@@ -106,7 +106,7 @@ export interface SplitSceneCardProps {
   onGenerateEndFrame?: (sceneId: number) => void;
   onRemoveImage?: (sceneId: number) => void;
   onUploadImage?: (sceneId: number, imageDataUrl: string) => void;
-  // 通用字段更新回调（用于双击Chỉnh sửa）
+  // 通用trường更新回调（用于双击Chỉnh sửa）
   onUpdateField?: (sceneId: number, field: keyof SplitScene, value: any) => void;
   // 角度切换回调
   onAngleSwitch?: (sceneId: number, type: "start" | "end") => void;
@@ -163,7 +163,7 @@ export function SClassSceneCard({
   const [editingPrompt, setEditingPrompt] = useState<'none' | 'image' | 'video' | 'endFrame'>('none');
   const [editPromptValue, setEditPromptValue] = useState('');
   const [showPromptDetails, setShowPromptDetails] = useState(false);
-  // 当前选中的帧目标：'start' | 'end'，用于Thư viện phương tiện选择
+  // Đang chọn的帧目标：'start' | 'end'，用于Thư viện phương tiệnChọn
   const [selectedFrameTarget, setSelectedFrameTarget] = useState<'start' | 'end'>('start');
   const endFrameInputRef = useRef<HTMLInputElement>(null);
   const firstFrameInputRef = useRef<HTMLInputElement>(null);
@@ -178,7 +178,7 @@ export function SClassSceneCard({
   const resolvedImageUrl = useResolvedImageUrl(effectiveImageUrl);
   const resolvedEndFrameUrl = useResolvedImageUrl(effectiveEndFrameUrl);
 
-  // Bắt đầuChỉnh sửa某个prompt
+  // Bắt đầuChỉnh sửa某prompt
   const startEditing = (type: 'image' | 'video' | 'endFrame') => {
     if (type === 'image') {
       setEditPromptValue(scene.imagePromptZh || scene.imagePrompt || '');
@@ -398,7 +398,7 @@ export function SClassSceneCard({
         )}
       </div>
 
-      {/* 第一排：Khung hình đầuảnh + Khung hình cuốiảnh + Nhân vật库选择 */}
+      {/* 第一排：Khung hình đầuảnh + Khung hình cuốiảnh + Thư viện nhân vậtChọn */}
       <div className="p-2 space-y-2">
         <div className="flex gap-2">
           {/* Khung hình đầuảnh */}
@@ -688,7 +688,7 @@ export function SClassSceneCard({
             {endFrameInput}
           </div>
 
-          {/* Nhân vật库 + Cảnh参考选择 */}
+          {/* Thư viện nhân vật + CảnhTham chiếuChọn */}
           <div className="flex flex-col gap-1 justify-end">
             <CharacterSelector
               selectedIds={scene.characterIds || []}
@@ -718,12 +718,12 @@ export function SClassSceneCard({
                 disabled={isGeneratingAny}
               />
             )}
-            {/* Cảnh参考选择器 - 根据选中的帧目标切换 */}
+            {/* CảnhTham chiếuChọn器 - 根据đã chọn的帧目标切换 */}
             {selectedFrameTarget === 'start' ? (
-              // Khung hình đầuCảnh参考已在上方渲染
+              // Khung hình đầuCảnhTham chiếu已在上方渲染
               null
             ) : (
-              // Khung hình cuốiThư viện cảnh选择器
+              // Khung hình cuốiThư viện cảnhChọn器
               onUpdateEndFrameSceneReference && (
                 <SceneLibrarySelector
                   sceneId={scene.id}
@@ -738,7 +738,7 @@ export function SClassSceneCard({
                 />
               )
             )}
-            {/* Thư viện phương tiện选择器 - 根据选中的帧目标Áp dụng */}
+            {/* Thư viện phương tiệnChọn器 - 根据đã chọn的帧目标Áp dụng */}
             {onUploadImage && (
               <MediaLibrarySelector
                 sceneId={scene.id}
@@ -983,7 +983,7 @@ export function SClassSceneCard({
               <div className="border-l-[3px] border-orange-500 pl-3 py-1 space-y-1">
                 <Label className="text-[10px] text-orange-600 dark:text-orange-400 flex items-center gap-1 font-medium">
                   <span>◉</span>
-                  Khung hình cuốiprompt{scene.needsEndFrame ? '' : '（可选）'}
+                  Khung hình cuốiprompt{scene.needsEndFrame ? '' : '(tùy chọn)'}
                 </Label>
                 {editingPrompt === 'endFrame' ? (
                   <>
@@ -1017,7 +1017,7 @@ export function SClassSceneCard({
                       "text-[11px] flex-1 line-clamp-2 min-h-[1.5em]",
                       "text-orange-600 dark:text-orange-400"
                     )}>
-                      {scene.endFramePromptZh || scene.endFramePrompt || (scene.needsEndFrame ? "NhấpThêmKhung hình cuốiMô tả..." : "NhấpThêmKhung hình cuốiMô tả...（可选）")}
+                      {scene.endFramePromptZh || scene.endFramePrompt || (scene.needsEndFrame ? "NhấpThêmKhung hình cuốiMô tả..." : "NhấpThêmKhung hình cuốiMô tả...(tùy chọn)")}
                     </p>
                     {!isGeneratingAny && <Edit3 className="h-2.5 w-2.5 text-orange-500/50 shrink-0 mt-0.5" />}
                   </div>
@@ -1037,7 +1037,7 @@ export function SClassSceneCard({
                       value={editPromptValue}
                       onChange={(e) => setEditPromptValue(e.target.value)}
                       className="min-h-[50px] text-xs resize-none border-green-500/30 focus-visible:ring-green-500/30"
-                      placeholder="Mô tảvideo中的Hành động、运动、变化..."
+                      placeholder="Mô tảvideođang xử lý...nh động、运动、变化..."
                       autoFocus
                     />
                     <div className="flex gap-1 justify-end mt-1">
@@ -1063,7 +1063,7 @@ export function SClassSceneCard({
               </div>
             </div>
           ) : (
-            /* 折叠摘要视图：彩色图标Thẻ + Nội dungXem trước */
+            /* 折叠摘要góc nhìn：彩色图标Thẻ + Nội dungXem trước */
             <div 
               className="space-y-1 p-2 rounded-md bg-muted/20 cursor-pointer hover:bg-muted/40 transition-colors border border-transparent hover:border-muted"
               onClick={() => setShowPromptDetails(true)}

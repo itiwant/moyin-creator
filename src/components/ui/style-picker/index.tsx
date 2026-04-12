@@ -4,12 +4,12 @@
 "use client";
 
 /**
- * StylePicker - 统一的视觉风格选择器
+ * StylePicker - 统一的视觉风格Chọn器
  * 
  * 功能：
  * - 左侧：phân loại小图列表，可滚动
- * - 右侧：悬停/选中时显示大图预览 + 描述
- * - 支持下拉弹出模式和内嵌模式
+ * - 右侧：悬停/đã chọn时显示大图预览 + 描述
+ * - 支持下拉弹出chế độ和内嵌chế độ
  */
 
 import React, { useState, useMemo } from "react";
@@ -30,7 +30,7 @@ import {
 } from "@/lib/constants/visual-styles";
 import { useCustomStyleStore } from "@/stores/custom-style-store";
 
-// 风格phân loại对应的背景色（ảnh已xóa，使用色块占位）
+// 风格phân loại对应的背景色（ảnh已xóa，使用色块Placeholder）
 const CATEGORY_COLORS: Record<string, string> = {
   '3d': 'bg-blue-500/20 text-blue-600',
   '2d': 'bg-green-500/20 text-green-600',
@@ -39,24 +39,24 @@ const CATEGORY_COLORS: Record<string, string> = {
 };
 
 interface StylePickerProps {
-  /** 当前选中的风格 ID */
+  /** Đang chọn的风格 ID */
   value: string;
-  /** 选择变化回调 */
+  /** Chọn变化回调 */
   onChange: (styleId: VisualStyleId) => void;
-  /** 是否使用下拉弹出模式（默认 true） */
+  /** 是否使用下拉弹出chế độ（默认 true） */
   popover?: boolean;
-  /** 自定义触发器（仅 popover 模式） */
+  /** 自定义触发器（仅 popover chế độ） */
   trigger?: React.ReactNode;
   /** 自定义类名 */
   className?: string;
   /** 禁用状态 */
   disabled?: boolean;
-  /** 未选择时的占位文字 */
+  /** 未Chọn时的Placeholder文字 */
   placeholder?: string;
 }
 
 /**
- * 风格选择器组件
+ * 风格Chọn器组件
  */
 export function StylePicker({
   value,
@@ -65,7 +65,7 @@ export function StylePicker({
   trigger,
   className,
   disabled = false,
-  placeholder = "选择风格",
+  placeholder = "Chọn风格",
 }: StylePickerProps) {
   const [hoveredStyle, setHoveredStyle] = useState<StylePreset | null>(null);
   const [isOpen, setIsOpen] = useState(false);
@@ -86,13 +86,13 @@ export function StylePicker({
     [customStyles]
   );
 
-  // 获取当前选中的风格（内置 + 自定义）
+  // 获取Đang chọn的风格（内置 + 自定义）
   const selectedStyle = useMemo(() => getStyleById(value), [value]);
 
-  // 预览的风格（悬停优先，否则显示选中的）
+  // 预览的风格（悬停优先，否则显示đã chọn的）
   const previewStyle = hoveredStyle || selectedStyle || VISUAL_STYLE_PRESETS[0];
 
-  // 处理选择
+  // 处理Chọn
   const handleSelect = (style: StylePreset) => {
     onChange(style.id as VisualStyleId);
     if (popover) {
@@ -128,7 +128,7 @@ export function StylePicker({
             </div>
           ))}
 
-          {/* 用户自定义风格（用户个人资产） */}
+          {/* 用户自定义风格（用户人资产） */}
           {customAsPresets.length > 0 && (
             <div className="mb-4">
               <div className="px-2 py-1.5 text-xs font-medium text-primary border-b border-primary/30 mb-2">
@@ -154,7 +154,7 @@ export function StylePicker({
 
       {/* 右侧：预览信息 */}
       <div className="flex-1 p-4 flex flex-col">
-        {/* 色块占位 + 风格名称 */}
+        {/* 色块Placeholder + 风格名称 */}
         <div className={cn(
           "flex-1 flex flex-col items-center justify-center rounded-lg mb-3",
           CATEGORY_COLORS[previewStyle.category] || 'bg-muted/30'
@@ -173,7 +173,7 @@ export function StylePicker({
     </div>
   );
 
-  // 下拉模式
+  // 下拉chế độ
   if (popover) {
     return (
       <Popover open={isOpen} onOpenChange={setIsOpen}>
@@ -226,12 +226,12 @@ export function StylePicker({
     );
   }
 
-  // 内嵌模式
+  // 内嵌chế độ
   return pickerContent;
 }
 
 /**
- * 单个风格项
+ * 单风格项
  */
 interface StyleItemProps {
   style: StylePreset;
@@ -254,7 +254,7 @@ function StyleItem({ style, isSelected, isCustom, onSelect, onHover, onLeave }: 
       onMouseEnter={onHover}
       onMouseLeave={onLeave}
     >
-      {/* 色块占位 */}
+      {/* 色块Placeholder */}
       <span className={cn(
         "w-10 h-10 rounded flex items-center justify-center text-[10px] font-bold flex-shrink-0",
         isCustom ? 'bg-primary/20 text-primary' : CATEGORY_COLORS[style.category] || 'bg-muted'
@@ -263,7 +263,7 @@ function StyleItem({ style, isSelected, isCustom, onSelect, onHover, onLeave }: 
       </span>
       {/* 名称 */}
       <span className="flex-1 text-left text-sm truncate">{style.name}</span>
-      {/* 选中标记 */}
+      {/* đã chọn标记 */}
       {isSelected && (
         <Check className="w-4 h-4 text-primary flex-shrink-0" />
       )}

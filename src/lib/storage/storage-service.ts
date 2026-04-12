@@ -351,7 +351,7 @@ class StorageService {
 
   // Utility methods
   async clearAllData(): Promise<void> {
-    // 先获取所有项目 ID，逐个清理关联的媒体和时间线数据
+    // 先获取Tất cả项目 ID，逐清理关联的媒体和时间线数据
     try {
       const projectIds = await this.projectsAdapter.list();
       await Promise.all(

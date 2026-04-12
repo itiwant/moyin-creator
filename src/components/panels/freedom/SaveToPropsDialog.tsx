@@ -4,7 +4,7 @@
 
 /**
  * SaveToPropsDialog - Lưuảnh到Thư viện đạo cụ弹窗
- * 在Studio ảnhTạo ảnh后，用户可以选择thư mục并Lưu
+ * 在Studio Tạo ảnh ảnh后，用户可以Chọn thư mục并Lưu
  */
 
 import { useState } from 'react';
@@ -75,7 +75,7 @@ export function SaveToPropsDialog({
         prompt,
         folderId: selectedFolderId,
       });
-      // 同步Thư viện đạo cụ侧边栏选中Trạng thái（跳转到目标thư mục）
+      // 同步Thư viện đạo cụ侧边栏đã chọnTrạng thái（跳转到目标thư mục）
       setSelectedFolderId(selectedFolderId ?? 'all');
       toast.success(`「${name}」đã lưu vào Thư viện đạo cụ`);
       onOpenChange(false);
@@ -136,7 +136,7 @@ export function SaveToPropsDialog({
             />
           </div>
 
-          {/* 选择thư mục */}
+          {/* Chọn thư mục */}
           <div className="space-y-1.5">
             <Label className="text-xs">Lưu vào thư mục</Label>
             <ScrollArea className="max-h-40 rounded-md border border-border">

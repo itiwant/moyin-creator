@@ -71,7 +71,7 @@ export function StyleCard({
             className="w-full h-full object-cover"
           />
         ) : category ? (
-          /* 内置Phong cách：色块占位 + phân loạiThẻ */
+          /* 内置Phong cách：色块Placeholder + phân loạiThẻ */
           <div className={cn(
             "w-full h-full flex flex-col items-center justify-center",
             CATEGORY_COLORS[category] || 'bg-muted/30'

@@ -4,8 +4,8 @@
 "use client";
 
 /**
- * Thư viện cảnh选择器组件 (Scene Library Selector)
- * Hỗ trợ三层选择：父Cảnh → Góc nhìnbiến thể → 四视图conCảnh
+ * Thư viện cảnhChọn器组件 (Scene Library Selector)
+ * Hỗ trợ三层Chọn：父Cảnh → Góc nhìnbiến thể → 四góc nhìnconCảnh
  */
 
 import React, { useState, useMemo } from "react";
@@ -37,7 +37,7 @@ interface SceneLibrarySelectorProps {
   disabled?: boolean;
 }
 
-/** 解析 local-image:// 缩略图 */
+/** Phân tích thumbnail local-image:// */
 function ResolvedImg({ src, alt, className }: { src: string; alt: string; className?: string }) {
   const resolved = useResolvedImageUrl(src);
   return <img src={resolved || ''} alt={alt} className={className} />;
@@ -65,25 +65,25 @@ export function SceneLibrarySelector({
     return libraryScenes.filter((s) => s.projectId === activeProjectId);
   }, [libraryScenes, resourceSharing.shareScenes, activeProjectId]);
   
-  // 获取所有父Cảnh（非Góc nhìnbiến thể）
+  // 获取Tất cả父Cảnh（非Góc nhìnbiến thể）
   const parentScenes = useMemo(() => 
     visibleScenes.filter(s => !s.isViewpointVariant && !s.parentSceneId),
     [visibleScenes]
   );
   
-  // 根据选中的Cảnh获取Góc nhìnbiến thể（第一层conCảnh）
+  // 根据đã chọn的Cảnh获取Góc nhìnbiến thể（第一层conCảnh）
   const viewpointScenes = useMemo(() => {
     if (!selectedSceneLibraryId) return [];
     return visibleScenes.filter(s => s.parentSceneId === selectedSceneLibraryId);
   }, [visibleScenes, selectedSceneLibraryId]);
   
-  // 根据选中的Góc nhìn获取四视图conCảnh（第二层conCảnh）
+  // 根据đã chọn的Góc nhìn获取四góc nhìnconCảnh（第二层conCảnh）
   const subViewScenes = useMemo(() => {
     if (!selectedViewpointId) return [];
     return visibleScenes.filter(s => s.parentSceneId === selectedViewpointId);
   }, [visibleScenes, selectedViewpointId]);
   
-  // 获取当前选中的Cảnh信息
+  // 获取Đang chọn的Thông tin cảnh
   const selectedScene = useMemo(() => {
     if (!selectedSceneLibraryId) return null;
     return visibleScenes.find(s => s.id === selectedSceneLibraryId) || null;
@@ -99,19 +99,19 @@ export function SceneLibrarySelector({
     return visibleScenes.find(s => s.id === selectedSubViewId) || null;
   }, [visibleScenes, selectedSubViewId]);
   
-  // 选择Cảnh
+  // ChọnCảnh
   const handleSelectScene = (sceneLibId: string) => {
     const scene = visibleScenes.find(s => s.id === sceneLibId);
     if (!scene) {
       onChange(undefined, undefined, undefined, undefined);
       return;
     }
-    // 选中Cảnh，清空Góc nhìn和四视图
+    // đã chọnCảnh，清空Góc nhìn和四góc nhìn
     const refImage = scene.referenceImage || scene.referenceImageBase64;
     onChange(sceneLibId, undefined, refImage, undefined);
   };
   
-  // 选择Góc nhìn
+  // ChọnGóc nhìn
   const handleSelectViewpoint = (viewpointId: string) => {
     const viewpoint = visibleScenes.find(s => s.id === viewpointId);
     if (!viewpoint) {
@@ -124,11 +124,11 @@ export function SceneLibrarySelector({
     onChange(selectedSceneLibraryId, viewpointId, refImage, undefined);
   };
   
-  // 选择四视图conCảnh
+  // Chọn四góc nhìnconCảnh
   const handleSelectSubView = (subViewId: string) => {
     const subView = visibleScenes.find(s => s.id === subViewId);
     if (!subView) {
-      // 清空四视图，使用Góc nhìn的Ảnh tham chiếu
+      // 清空四góc nhìn，使用Góc nhìn的Ảnh tham chiếu
       const viewpointRefImage = selectedViewpoint?.referenceImage || selectedViewpoint?.referenceImageBase64;
       onChange(selectedSceneLibraryId, selectedViewpointId, viewpointRefImage, undefined);
       return;
@@ -137,7 +137,7 @@ export function SceneLibrarySelector({
     onChange(selectedSceneLibraryId, selectedViewpointId, refImage, subViewId);
   };
   
-  // 清空选择
+  // 清空Chọn
   const handleClear = () => {
     onChange(undefined, undefined, undefined, undefined);
     setIsOpen(false);
@@ -153,7 +153,7 @@ export function SceneLibrarySelector({
     return selectedScene.name;
   }, [selectedScene, selectedViewpoint, selectedSubView, isEndFrame]);
   
-  // 是否有选中
+  // 是否有đã chọn
   const hasSelection = !!selectedSceneLibraryId;
   
   // Xem trướcẢnh tham chiếu（提取到组件级别以便使用 hook）

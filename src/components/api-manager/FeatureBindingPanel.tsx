@@ -37,7 +37,7 @@ import { getBrandIcon } from "./brand-icons";
 import { getModelDisplayName } from "@/lib/freedom/model-display-names";
 
 /**
- * Nhà cung cấp选项 - 每个功能可选的Nền tảng + Model
+ * Nhà cung cấpTùy chọn - 每功能可选的Nền tảng + Model
  */
 interface ProviderOption {
   providerId: string;
@@ -59,14 +59,14 @@ interface FeatureMeta {
 const FEATURE_CONFIGS: FeatureMeta[] = [
   {
     key: "script_analysis",
-    name: "Kịch bản分析 / 对话",
-    description: "将故事文本分解为结构化Kịch bản",
+    name: "Kịch bản分析 / Chat",
+    description: "将故事文本分解为Cấu trúc化Kịch bản",
     icon: <FileText className="h-4 w-4" />,
     requiredCapability: "text",
   },
   {
     key: "character_generation",
-    name: "ảnhTạo",
+    name: "Tạo ảnh",
     description: "TạoNhân vật和CảnhẢnh tham chiếu",
     icon: <Image className="h-4 w-4" />,
     requiredCapability: "image_generation",
@@ -74,7 +74,7 @@ const FEATURE_CONFIGS: FeatureMeta[] = [
   },
   {
     key: "video_generation",
-    name: "videoTạo",
+    name: "Tạo video",
     description: "将ảnh转换为video",
     icon: <Video className="h-4 w-4" />,
     requiredCapability: "video_generation",
@@ -82,7 +82,7 @@ const FEATURE_CONFIGS: FeatureMeta[] = [
   },
   {
     key: "image_understanding",
-    name: "ảnh理解",
+    name: "Phân tích ảnh",
     description: "分析ảnhNội dungTạoMô tả",
     icon: <ScanEye className="h-4 w-4" />,
     requiredCapability: "vision",
@@ -90,18 +90,18 @@ const FEATURE_CONFIGS: FeatureMeta[] = [
   {
     key: "freedom_image",
     name: "Tự dopanel-ảnh",
-    description: "Tự dopanel独立的ảnhTạo配置（Chưa cấu hình时回退到「ảnhTạo」）",
+    description: "Tự dopanel独立的Tạo ảnh配置（Chưa cấu hình时回退到「Tạo ảnh」）",
     icon: <Sparkles className="h-4 w-4" />,
     requiredCapability: "image_generation",
-    recommendation: "🎨 可独立配置Tự dopanel使用的ảnhTạoModel，不影响其他panel",
+    recommendation: "🎨 可独立配置Tự dopanel使用的Tạo ảnhModel，不影响其他panel",
   },
   {
     key: "freedom_video",
     name: "Tự dopanel-video",
-    description: "Tự dopanel独立的videoTạo配置（Chưa cấu hình时回退到「videoTạo」）",
+    description: "Tự dopanel独立的Tạo video配置（Chưa cấu hình时回退到「Tạo video」）",
     icon: <Clapperboard className="h-4 w-4" />,
     requiredCapability: "video_generation",
-    recommendation: "🎬 可独立配置Tự dopanel使用的videoTạoModel，不影响其他panel",
+    recommendation: "🎬 可独立配置Tự dopanel使用的Tạo videoModel，不影响其他panel",
   },
 ];
 
@@ -126,11 +126,11 @@ const DEFAULT_PLATFORM_CAPABILITIES: Record<string, ModelCapability[]> = {
 
 /**
  * Model级别能力映射
- * 精确控制每个Model在服务映射中的可选范围
+ * 精确控制每Model在服务映射đang xử lý...范围
  * 未 cột出的Model将 fallback 到Nền tảng级别能力
  */
 const MODEL_CAPABILITIES: Record<string, ModelCapability[]> = {
-  // ---- 对话/文本Model ----
+  // ---- Chat/文本Model ----
   'glm-4.7': ['text', 'function_calling'],
   'glm-4.6v': ['text', 'vision'],
   'deepseek-v3': ['text'],
@@ -145,13 +145,13 @@ const MODEL_CAPABILITIES: Record<string, ModelCapability[]> = {
   'gemini-3-pro-preview': ['text'],
   'claude-haiku-4-5-20251001': ['text', 'vision'],
 
-  // ---- ảnhTạoModel ----
+  // ---- Tạo ảnhModel ----
   'cogview-3-plus': ['image_generation'],
   'gemini-imagen': ['image_generation'],
   'gemini-3-pro-image-preview': ['image_generation'],
   'gpt-image-1.5': ['image_generation'],
 
-  // ---- videoTạoModel ----
+  // ---- Tạo videoModel ----
   'cogvideox': ['video_generation'],
   'gemini-veo': ['video_generation'],
   'doubao-seedance-1-5-pro': ['video_generation'],
@@ -164,7 +164,7 @@ const MODEL_CAPABILITIES: Record<string, ModelCapability[]> = {
   'grok-video-3-10s': ['video_generation'],
   'grok-video-3-15s': ['video_generation'],
 
-  // ---- ảnh理解/视觉Model ----
+  // ---- Phân tích ảnh/视觉Model ----
   'doubao-vision': ['vision'],
 
   // ---- RunningHub 特殊Model ----
@@ -198,7 +198,7 @@ function modelSupportsCapability(
   provider: { platform: string; capabilities?: ModelCapability[] },
   required?: ModelCapability,
   modelType?: string,     // "文本" | "图像" | "音video" | "检索"
-  modelTagsList?: string[] // ["对话","识图","工具"]
+  modelTagsList?: string[] // ["Chat","识图","工具"]
 ): boolean {
   if (!required) return true;
 
@@ -216,7 +216,7 @@ function modelSupportsCapability(
       case 'image_generation':
         return modelType === '图像';
       case 'video_generation':
-        // 音video类中只筛选带“video”Thẻ的（排除纯âm thanh/TTS/音乐）
+        // 音video类đang xử lý...带“video”Thẻ的（排除纯âm thanh/TTS/音乐）
         return modelType === '音video' && (modelTagsList?.some(t => t.includes('video')) ?? false);
       case 'vision':
         // 识图能力跨 model_type，只看 tags 是否含“识图”或“多模态”
@@ -228,7 +228,7 @@ function modelSupportsCapability(
     }
   }
 
-  // 3. ModelTên模式推断（非 MemeFast 的其他Nhà cung cấp）
+  // 3. ModelTênchế độ推断（非 MemeFast 的其他Nhà cung cấp）
   const inferred = classifyModelByName(modelName);
   if (inferred.length > 0) {
     return inferred.includes(required);
@@ -257,7 +257,7 @@ export function FeatureBindingPanel() {
     for (const p of providers) {
       if (parseApiKeys(p.apiKey).length > 0) {
         set.add(p.id);
-        // 也把 platform 加进去，以兼容旧数据检查
+        // 也把 platform 加进去，以tương thích旧数据检查
         set.add(p.platform);
       }
     }
@@ -308,13 +308,13 @@ export function FeatureBindingPanel() {
     return map;
   }, [providers, configuredProviderIds, modelTypes, modelTags]);
 
-  // 计算Đã cấu hình的功能数（至少有一个有效绑定）
+  // 计算Đã cấu hình的功能数（至少有一有效绑定）
   const configuredCount = useMemo(() => {
     return FEATURE_CONFIGS.filter((feature) => {
       const bindings = getFeatureBindings(feature.key);
       if (bindings.length === 0) return false;
       
-      // 检查是否至少有一个有效的绑定
+      // 检查是否至少有一有效的绑定
       const options = optionsByFeature[feature.key] || [];
       return bindings.some(binding => {
         const parsed = parseOptionKey(binding);
@@ -325,7 +325,7 @@ export function FeatureBindingPanel() {
     }).length;
   }, [optionsByFeature, configuredProviderIds, getFeatureBindings]);
 
-  // 切换单个Model的选中Trạng thái
+  // 切换单Model的đã chọnTrạng thái
   const handleToggleBinding = (feature: FeatureMeta, optionKey: string) => {
     const parsed = parseOptionKey(optionKey);
     if (!parsed) return;
@@ -370,9 +370,9 @@ export function FeatureBindingPanel() {
     return result;
   }, [optionsByFeature]);
 
-  // 每个 feature 选中的品牌过滤器
+  // 每 feature đã chọn的品牌过滤器
   const [selectedBrand, setSelectedBrand] = useState<Record<string, string | null>>({});
-  // 每个 feature 的Tìm kiếm关键词
+  // 每 feature 的Tìm kiếmquan trọng词
   const [searchQuery, setSearchQuery] = useState<Record<string, string>>({});
 
   // MemeFast Nhà cung cấp ID 集合（用于分组Gợi ý）
@@ -478,7 +478,7 @@ export function FeatureBindingPanel() {
                       )}
                       {validBindings.length > 0 && (
                         <span className="text-xs bg-primary/20 text-primary px-1.5 py-0.5 rounded">
-                          {validBindings.length} 个Model
+                          {validBindings.length} Model
                         </span>
                       )}
                       {isFreedomFeature && (
@@ -568,7 +568,7 @@ export function FeatureBindingPanel() {
                         </p>
                       )}
 
-                      {/* Tự dopanel一键Chọn tất cả（勾选=Chọn tất cả；Hủy=全部不选） */}
+                      {/* Tự dopanel一键Chọn tất cả（勾选=Chọn tất cả；Hủy=Tất cả不选） */}
                       {isFreedomFeature && (
                         <div className="flex items-center justify-between rounded-md border border-border/60 bg-muted/30 px-3 py-2">
                           <label className="flex items-center gap-2 text-xs font-medium text-foreground">
@@ -577,7 +577,7 @@ export function FeatureBindingPanel() {
                               onCheckedChange={handleToggleSelectAll}
                               disabled={selectableOptionKeys.length === 0}
                             />
-                            Chọn tất cảModel（Hủy即全部不选）
+                            Chọn tất cảModel（Hủy即Tất cả不选）
                           </label>
                           <span className="text-[11px] text-muted-foreground">
                             {selectedSelectableCount}/{selectableOptionKeys.length}
@@ -613,7 +613,7 @@ export function FeatureBindingPanel() {
                         return (
                           <>
                             <div className="flex flex-wrap gap-1.5">
-                              {/* 全部品牌 */}
+                              {/* Tất cả品牌 */}
                               <button
                                 type="button"
                                 onClick={() => setSelectedBrand(prev => ({ ...prev, [feature.key]: null }))}
@@ -624,7 +624,7 @@ export function FeatureBindingPanel() {
                                     : "bg-muted/30 border-border hover:bg-accent/50 text-muted-foreground"
                                 )}
                               >
-                                全部品牌
+                                Tất cả品牌
                                 <span className={cn(
                                   "text-[10px] px-1 py-0.5 rounded-full min-w-[18px] text-center",
                                   !activeBrand ? "bg-primary/20" : "bg-muted"
@@ -727,7 +727,7 @@ export function FeatureBindingPanel() {
               部分服务Chưa cấu hình
             </p>
             <p className="text-muted-foreground mt-1">
-              请在上方为每个功能选择「Nhà cung cấp/Model」，并确保对应Nhà cung cấp已填写 API Key。
+              请在上方为每功能Chọn「Nhà cung cấp/Model」，并确保对应Nhà cung cấp已填写 API Key。
             </p>
           </div>
         </div>
@@ -737,11 +737,11 @@ export function FeatureBindingPanel() {
       <div className="text-xs text-muted-foreground bg-muted/50 p-3 rounded-lg space-y-2">
         <p>
           <strong>💡 多Model轮询：</strong>
-          每个功能可选择多个Model，请求将按顺序分配到各Model（每次间隔 3 秒），避免单一 API 限流。
+          每功能可Chọn多Model，请求将按顺序分配到各Model（每次间隔 3 秒），避免单一 API 限流。
         </p>
         <p>
           <strong>📌 说明：</strong>
-          可选项来自「API 服务商」里配置的Model cột表，NhấpMở rộng后可多选。
+          可Tùy chọn来自「API 服务商」里配置的Model cột表，NhấpMở rộng后可多选。
         </p>
       </div>
     </div>

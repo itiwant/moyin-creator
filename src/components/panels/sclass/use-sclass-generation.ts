@@ -2,12 +2,12 @@
 // Licensed under AGPL-3.0-or-later. See LICENSE for details.
 // Commercial licensing available. See COMMERCIAL_LICENSE.md.
 /**
- * use-sclass-generation.ts — Hạng S Seedance 2.0 videoTạo Hook
+ * use-sclass-generation.ts — Hạng S Seedance 2.0 Tạo video Hook
  *
  * 核心功能：
  * 1. generateGroupVideo(group) — 单组Tạo：收集 @tham chiếu → 构建多模态请求 → 调用 API → 轮询
  * 2. generateAllGroups() — Tạo hàng loạt：逐组串 hàng，各组独立Tạo
- * 3. generateSingleShot(sceneId) — 单镜Tạo（兼容模式）
+ * 3. generateSingleShot(sceneId) — 单镜Tạo（tương thíchchế độ）
  * 4. Tự độngTải lên base64/local ảnh到 HTTP URL
  * 5. TạoTrạng thái实时同步到 sclass-store
  */
@@ -97,7 +97,7 @@ export function useSClassGeneration() {
     [splitScenes]
   );
 
-  /** 将 @tham chiếu中的ảnh URL 转为 HTTP URL */
+  /** 将 @tham chiếuđang xử lý...h URL 转为 HTTP URL */
   const prepareImageUrls = useCallback(
     async (
       refs: AssetRef[]
@@ -135,9 +135,9 @@ export function useSClassGeneration() {
       options?: {
         /** 进度回调 */
         onProgress?: (progress: number) => void;
-        /** 构建完ô图+prompt 后，询问用户是否Tiếp tụcTạo video；Quay lại false 则中止 */
+        /** 构建完ô图+prompt 后，询问用户是否Tiếp tụcTạo video；Quay lại false 则đang xử lý.../
         confirmBeforeGenerate?: () => Promise<boolean>;
-        /** 前组video URL（链式重试时传入，用于衔接前后组video） */
+        /** 前组video URL（链式Thử lại时传入，用于衔接前后组video） */
         prevVideoUrl?: string;
       }
     ): Promise<GroupGenerationResult> => {
@@ -169,7 +169,7 @@ export function useSClassGeneration() {
           groupId: group.id,
           success: false,
           videoUrl: null,
-          error: "请先在Cài đặt中配置videoTạo API Key",
+          error: "Vui lòng cấu hình API Tạo video trong Cài đặt trước Key",
         };
       }
       const sclassProjectData = getProjectData(projectId);
@@ -210,14 +210,14 @@ export function useSClassGeneration() {
         const enableAudio = hasAnyDialogue || hasAnyAmbient || hasAnySfx;
         const enableLipSync = hasAnyDialogue;
 
-        // camerafixed: 全部Phân cảnh运镜为 Static 或为空 → 锁定运镜
+        // camerafixed: Tất cảPhân cảnh运镜为 Static 或为空 → 锁定运镜
         const allStaticCamera = groupScenes.every(s => {
           const cm = (s.cameraMovement || '').toLowerCase().trim();
           return !cm || cm === 'static' || cm === '固定' || cm === '静止';
         });
 
         // 4b. 构建ô图（合并Khung hình đầu 或 复用缓存）
-        // kéo dài/Chỉnh sửa组跳过ô图 — 它们的Khung hình đầu参考来自 sourceVideoUrl
+        // kéo dài/Chỉnh sửa组跳过ô图 — 它们的Khung hình đầuTham chiếu来自 sourceVideoUrl
         let gridImageRef: AssetRef | null = null;
 
         if (!isExtendOrEdit) {
@@ -311,7 +311,7 @@ export function useSClassGeneration() {
 
         // 5b. 收集video/âm thanhtham chiếu → 转 HTTP URL（Seedance 2.0 多模态输入）
         const videoRefUrls: string[] = [];
-        // 前组video衔接（链式重试时传入）— kéo dài/Chỉnh sửa组已在 refs.videos 中携带 sourceVideoUrl，跳过
+        // 前组video衔接（链式Thử lại时传入）— kéo dài/Chỉnh sửa组已在 refs.videos đang xử lý...sourceVideoUrl，跳过
         if (!isExtendOrEdit && options?.prevVideoUrl) {
           const prevHttpUrl = await convertToHttpUrl(options.prevVideoUrl).catch(() => "");
           if (prevHttpUrl) videoRefUrls.push(prevHttpUrl);
@@ -328,7 +328,7 @@ export function useSClassGeneration() {
 
         updateGroupVideoStatus(group.id, { videoProgress: 10 });
 
-        // 6. 调用videoTạo API
+        // 6. 调用Tạo video API
         const prompt =
           promptResult.prompt || `Multi-shot video: ${group.name}`;
         const duration = Math.max(
@@ -399,7 +399,7 @@ export function useSClassGeneration() {
             const rotated = alreadyRotatedByInner
               ? true
               : (typeof statusForHandle === "number" ? keyManager.handleError(statusForHandle, message) : false);
-            const retryableByMessage = /429|500|502|503|529|too many requests|rate|quota|service unavailable|overloaded|internal server error|server error|上游负载|上游服务|饱和|暂时不可用|服务暂时不可用|api key|无效|过期|model|Model|不Hỗ trợ|权限|未开通/.test(message.toLowerCase());
+            const retryableByMessage = /429|500|502|503|529|too many requests|rate|quota|service unavailable|overloaded|internal server error|server error|上游负载|上游服务|饱和|暂时不可用|服务暂时不可用|api key|无效|hết hạn|model|Model|不Hỗ trợ|权限|未开通/.test(message.toLowerCase());
             const canRetry = attempt < maxVideoAttempts - 1 && (rotated || retryableByMessage);
 
             if (canRetry) {
@@ -415,7 +415,7 @@ export function useSClassGeneration() {
         }
 
         if (!videoUrl) {
-          throw lastVideoError || new Error("videoTạo thất bại：没有可用 API Key");
+          throw lastVideoError || new Error("Tạo video thất bại：没有可用 API Key");
         }
 
         // 7. Lưuvideo到本地
@@ -461,7 +461,7 @@ export function useSClassGeneration() {
         };
       } catch (error) {
         const err = error as Error;
-        const errorMsg = err.message || "videoTạo thất bại";
+        const errorMsg = err.message || "Tạo video thất bại";
         const isModeration = isContentModerationError(err);
 
         console.error("[SClassGen] Group generation failed:", err);
@@ -520,7 +520,7 @@ export function useSClassGeneration() {
       );
 
       if (groupsToGenerate.length === 0) {
-        toast.info("所有Ống kính组đã tạo或正在Đang tạo");
+        toast.info("Tất cảỐng kính组đã tạo或正在Đang tạo");
         return [];
       }
 
@@ -528,12 +528,12 @@ export function useSClassGeneration() {
       const results: GroupGenerationResult[] = [];
 
       toast.info(
-        `Bắt đầu逐组Tạo ${groupsToGenerate.length} 个Ống kính组video...`
+        `Bắt đầu逐组Tạo ${groupsToGenerate.length} Ống kính组video...`
       );
 
       for (let i = 0; i < groupsToGenerate.length; i++) {
         if (abortRef.current) {
-          toast.warning("已中止Tạo hàng loạt");
+          toast.warning("已đang xử lý...o hàng loạt");
           break;
         }
 
@@ -580,10 +580,10 @@ export function useSClassGeneration() {
       const successCount = results.filter((r) => r.success).length;
       const failCount = results.filter((r) => !r.success).length;
       if (failCount === 0) {
-        toast.success(`全部 ${successCount} 个Ống kính组Tạo完成 🎬`);
+        toast.success(`Tất cả ${successCount} Ống kính组Tạo完成 🎬`);
       } else {
         toast.warning(
-          `Tạo完毕：${successCount} Thành công，${failCount} Thất bại`
+          `Tạohoàn tất：${successCount} Thành công，${failCount} Thất bại`
         );
       }
 
@@ -592,7 +592,7 @@ export function useSClassGeneration() {
     [activeProjectId, getProjectData, generateGroupVideo]
   );
 
-  // ========== 单镜Tạo（兼容模式） ==========
+  // ========== 单镜Tạo（tương thíchchế độ） ==========
 
   const generateSingleShot = useCallback(
     async (sceneId: number): Promise<boolean> => {
@@ -610,7 +610,7 @@ export function useSClassGeneration() {
 
       const keyManager = featureConfig.keyManager;
       if (!keyManager.getCurrentKey()) {
-        toast.error("请先在Cài đặt中配置videoTạo API Key");
+        toast.error("Vui lòng cấu hình API Tạo video trong Cài đặt trước Key");
         return false;
       }
       const projectId = activeProjectId;
@@ -685,7 +685,7 @@ export function useSClassGeneration() {
             const rotated = alreadyRotatedByInner
               ? true
               : (typeof statusForHandle === "number" ? keyManager.handleError(statusForHandle, message) : false);
-            const retryableByMessage = /429|500|502|503|529|too many requests|rate|quota|service unavailable|overloaded|internal server error|server error|上游负载|上游服务|饱和|暂时不可用|服务暂时不可用|api key|无效|过期|model|Model|不Hỗ trợ|权限|未开通/.test(message.toLowerCase());
+            const retryableByMessage = /429|500|502|503|529|too many requests|rate|quota|service unavailable|overloaded|internal server error|server error|上游负载|上游服务|饱和|暂时不可用|服务暂时不可用|api key|无效|hết hạn|model|Model|不Hỗ trợ|权限|未开通/.test(message.toLowerCase());
             const canRetry = attempt < maxVideoAttempts - 1 && (rotated || retryableByMessage);
 
             if (canRetry) {
@@ -701,7 +701,7 @@ export function useSClassGeneration() {
         }
 
         if (!videoUrl) {
-          throw lastVideoError || new Error("videoTạo thất bại：没有可用 API Key");
+          throw lastVideoError || new Error("Tạo video thất bại：没有可用 API Key");
         }
 
         const localUrl = await saveVideoLocally(videoUrl, sceneId);
@@ -734,14 +734,14 @@ export function useSClassGeneration() {
     ]
   );
 
-  // ========== 中止 ==========
+  // ========== đang xử lý...=========
 
   const abortGeneration = useCallback(() => {
     abortRef.current = true;
-    toast.info("正在中止Tạo...");
+    toast.info("正在đang xử lý...o...");
   }, []);
 
-  // ========== 重试单组 ==========
+  // ========== Thử lại单组 ==========
 
   const retryGroup = useCallback(
     async (groupId: string): Promise<GroupGenerationResult | null> => {
@@ -780,7 +780,7 @@ export function useSClassGeneration() {
    * @param sourceGroupId 来源组 ID（必须Đã hoàn thành且有 videoUrl）
    * @param extendDuration kéo dàiThời lượng (4-15s)
    * @param direction Hướng kéo dài
-   * @param description 用户补充Mô tả（可选）
+   * @param description 用户Mô tả bổ sung(tùy chọn)
    */
   const generateChainExtension = useCallback(
     async (

@@ -4,7 +4,7 @@
 // 完成状态
 export type CompletionStatus = 'pending' | 'in_progress' | 'completed';
 
-// 提示词语言选项
+// 提示词语言Tùy chọn
 export type PromptLanguage = 'zh' | 'en' | 'zh+en';
 
 // AI角色校准严格度
@@ -18,11 +18,11 @@ export interface FilteredCharacterRecord {
 
 /**
  * 角色阶段信息
- * 用于标识角色在特定集数范围内的形象版本
+ * 用于nhãn角色在特定集数范围内的形象版本
  */
 export interface CharacterStageInfo {
-  stageName: string;              // 阶段名称："青年版"、"Phiên bản trung niên"、"创业初期"
-  episodeRange: [number, number]; // 适用集数范围：[起始集, 结束集]
+  stageName: string;              // 阶段名称："青年版"、"Phiên bản trung niên"、"Khởi nghiệp ban đầu"
+  episodeRange: [number, number]; // 适用集数范围：[bắt đầu集, kết thúc集]
   ageDescription?: string;        // 该阶段年龄描述："25岁"、"50岁"
 }
 
@@ -31,17 +31,17 @@ export interface CharacterStageInfo {
  * 用于保持同一角色不同阶段的可识别性
  */
 export interface CharacterConsistencyElements {
-  facialFeatures?: string;  // 面部特征（不变）：眼睛形状、五官比例
+  facialFeatures?: string;  // Khuôn mặt特征（không thay đổi）：眼睛形状、五官Tỷ lệ
   bodyType?: string;        // 体型特征：身高、体格
   uniqueMarks?: string;     // 独特标记：胎记、疤痕、标志性特征
 }
 
 /**
- * 角色身份锚点 - 6层特征锁定系统
- * 用于确保AI生图中同一角色在不同场景保持一致
+ * 角色Neo danh tính - khóa 6 lớp đặc trưng系统
+ * 用于确保AI生图đang xử lý...色在不同场景保持一致
  */
 export interface CharacterIdentityAnchors {
-  // ① 骨相层 - 面部骨骼结构
+  // ① 骨相层 - Khuôn mặt骨骼Cấu trúc
   faceShape?: string;       // 脸型：oval/square/heart/round/diamond/oblong
   jawline?: string;         // 下颌线：sharp angular/soft rounded/prominent
   cheekbones?: string;      // 颧骨：high prominent/subtle/wide set
@@ -52,10 +52,10 @@ export interface CharacterIdentityAnchors {
   noseShape?: string;       // 鼻型：straight bridge, rounded tip, medium width
   lipShape?: string;        // 唇型：full lips, defined cupid's bow
   
-  // ③ 辨识标记层 - 最强锚点
+  // ③ 辨识标记层 - 最强neo
   uniqueMarks: string[];    // 必填！胎记/疤痕/痣的精确位置："small mole 2cm below left eye"
   
-  // ④ 色彩锚点层 - Hex色值
+  // ④ 色彩neo层 - Hex色值
   colorAnchors?: {
     iris?: string;          // 虹膜色：#3D2314 (dark brown)
     hair?: string;          // màu tóc：#1A1A1A (jet black)
@@ -66,7 +66,7 @@ export interface CharacterIdentityAnchors {
   // ⑤ 皮肤纹理层
   skinTexture?: string;     // visible pores on nose, light smile lines
   
-  // ⑥ 发型锚点层
+  // ⑥ 发型neo层
   hairStyle?: string;       // 发型：shoulder-length, layered, side-parted
   hairlineDetails?: string; // 发际线：natural hairline, slight widow's peak
 }
@@ -86,27 +86,27 @@ export interface ScriptCharacter {
   gender?: string;
   age?: string;
   personality?: string; // 性格特点（详细描述）
-  role?: string; // 身份/背景（详细描述）
-  traits?: string; // 核心特质（详细描述）
-  skills?: string; // 技能/能力（如武功、魔法等）
-  keyActions?: string; // 关键行为/事迹
+  role?: string; // Thân phận/bối cảnh（详细描述）
+  traits?: string; // Đặc trưng cốt lõi（详细描述）
+  skills?: string; // Kỹ năng/năng lực（如武功、魔法等）
+  keyActions?: string; // quan trọng行为/事迹
   appearance?: string; // 外貌描述
   relationships?: string; // 主要关系
   tags?: string[]; // 角色标签，如: #武侠 #男主 #剑客
-  notes?: string; // 角色备注（cốt truyện说明）
+  notes?: string; // 角色备注（ghi chú cốt truyện）
   status?: CompletionStatus; // 角色形象生成状态
   characterLibraryId?: string; // 关联的角色库ID
   
   // === 多阶段角色支持 ===
   baseCharacterId?: string;        // 原始角色ID（阶段角色指向基础角色，如"张明青年版"指向"张明"）
-  stageInfo?: CharacterStageInfo;  // 阶段信息（仅阶段角色有此字段）
-  stageCharacterIds?: string[];    // 派生的阶段角色ID列表（仅基础角色有此字段）
+  stageInfo?: CharacterStageInfo;  // 阶段信息（仅阶段角色有此trường）
+  stageCharacterIds?: string[];    // 派生的阶段角色ID列表（仅基础角色有此trường）
   consistencyElements?: CharacterConsistencyElements; // 一致性元素（基础角色定义，阶段角色继承）
   visualPromptEn?: string;         // 英文视觉提示词（用于AITạo ảnh）
-  visualPromptZh?: string;         // 中文视觉提示词
+  visualPromptZh?: string;         // đang xử lý...提示词
   
-  // === 6层身份锚点（AI校准时填充）===
-  identityAnchors?: CharacterIdentityAnchors;  // 身份锚点（用于角色一致性）
+  // === 6层身份neo（AI校准时填充）===
+  identityAnchors?: CharacterIdentityAnchors;  // 身份neo（用于角色一致性）
   negativePrompt?: CharacterNegativePrompt;    // 负面提示词（排除不符合的特征）
 }
 
@@ -116,19 +116,19 @@ export interface ScriptScene {
   location: string;
   time: string;
   atmosphere: string;
-  visualPrompt?: string; // 中文场景视觉描述（用于场景概念图生成）
+  visualPrompt?: string; // đang xử lý...视觉描述（用于场景概念图生成）
   tags?: string[]; // 场景标签，如: #木柱 #窗棂 #古建筑
-  notes?: string; // 地点备注（cốt truyện说明）
+  notes?: string; // 地点备注（ghi chú cốt truyện）
   status?: CompletionStatus; // 场景生成状态
   sceneLibraryId?: string; // 关联的场景库ID
   
-  // === 专业场景设计字段（AI校准时填充）===
+  // === 专业场景设计trường（AI校准时填充）===
   visualPromptEn?: string;      // 英文视觉提示词（用于AITạo ảnh）
-  architectureStyle?: string;   // 建筑风格（现代简约/中式古典/工业风/欧式等）
+  architectureStyle?: string;   // 建筑风格（现代简约/đang xử lý.../工业风/欧式等）
   lightingDesign?: string;      // 光影设计（自然光/灯光/昏暗/明亮等）
-  colorPalette?: string;        // 色彩基调（暖色调/冷色调/中性色等）
-  keyProps?: string[];          // 关键道具列表
-  spatialLayout?: string;       // 空间布局描述
+  colorPalette?: string;        // 色彩基调（暖色调/冷色调/đang xử lý...）
+  keyProps?: string[];          // quan trọng道具列表
+  spatialLayout?: string;       // Bố cục không gian描述
   eraDetails?: string;          // 时代特征（如2000年代的装修风格）
   
   // === 出场统计（AI校准时填充）===
@@ -137,13 +137,13 @@ export interface ScriptScene {
   importance?: 'main' | 'secondary' | 'transition';  // 场景重要性
   
   // === 多视角联合图（场景背景一致性）===
-  contactSheetImage?: string;   // 联合图原图（base64 或 URL）
+  contactSheetImage?: string;   // 联合图Ảnh gốc（base64 或 URL）
   contactSheetImageUrl?: string; // 联合图 HTTP URL
   viewpoints?: SceneViewpointData[]; // 视角列表
   viewpointImages?: Record<string, {
     imageUrl: string;           // 切割后的ảnh（base64 或 URL）
     imageBase64?: string;       // 持久化用 base64
-    gridIndex: number;          // 在联合图中的位置 (0-5)
+    gridIndex: number;          // 在联合图đang xử lý... (0-5)
   }>;
 }
 
@@ -152,11 +152,11 @@ export interface ScriptScene {
  */
 export interface SceneViewpointData {
   id: string;           // 视角ID，如 'dining', 'sofa', 'window'
-  name: string;         // 中文名：餐桌区、沙发区、窗边
-  nameEn: string;       // 英文名
+  name: string;         // Tên tiếng Trung: khu bàn ăn, khu sofa、窗边
+  nameEn: string;       // Tên tiếng Anh
   shotIds: string[];    // 关联的分镜ID列表
   keyProps: string[];   // 该视角需要的道具
-  gridIndex: number;    // 在联合图中的位置 (0-5)
+  gridIndex: number;    // 在联合图đang xử lý... (0-5)
 }
 
 export interface ScriptParagraph {
@@ -165,11 +165,11 @@ export interface ScriptParagraph {
   sceneRefId: string;
 }
 
-// 场景原始Nội dung（保留完整对白和动作）
+// 场景原始Nội dung（保留đầy đủ对白和动作）
 export interface SceneRawContent {
   sceneHeader: string;        // 场景头：如 "1-1日 内 沪上 张家"
-  characters: string[];       // 出场人物
-  content: string;            // 完整场景Nội dung（对白+动作+字幕等）
+  characters: string[];       // 出场nhân vật
+  content: string;            // đầy đủ场景Nội dung（对白+动作+字幕等）
   dialogues: DialogueLine[];  // 解析后的对白列表
   actions: string[];          // 动作描写列表（△开头的）
   subtitles: string[];        // 字幕【】
@@ -189,8 +189,8 @@ export interface EpisodeRawScript {
   episodeIndex: number;       // 第几集
   title: string;              // 集标题
   synopsis?: string;          // 集大纲/摘要（AI生成或手动编辑）
-  keyEvents?: string[];       // Tập này关键事件
-  rawContent: string;         // 原始完整Nội dung
+  keyEvents?: string[];       // Tập nàyquan trọng事件
+  rawContent: string;         // 原始đầy đủNội dung
   scenes: SceneRawContent[];  // 解析后的场景列表
   shotGenerationStatus: 'idle' | 'generating' | 'completed' | 'error';  // 分镜生成状态
   lastGeneratedAt?: number;   // 上次生成时间
@@ -205,12 +205,12 @@ export interface ProjectBackground {
   era?: string;               // 时代背景（民国/现代/古代等）
   timelineSetting?: string;   // 精确时间线设定（如"2022年夏天"、"1990-2020年"）
   storyStartYear?: number;    // 故事开始年份（用于推算角色年龄）
-  storyEndYear?: number;      // 故事结束年份
+  storyEndYear?: number;      // 故事kết thúc年份
   totalEpisodes?: number;     // Tổng集数
   outline: string;            // 故事大纲
-  characterBios: string;      // 人物小传
+  characterBios: string;      // nhân vật小传
   worldSetting?: string;      // 世界观/风格设定
-  themes?: string[];          // 主题关键词
+  themes?: string[];          // 主题quan trọng词
 }
 
 // ==================== 剧级数据（SeriesMeta）— 跨集共享 ====================
@@ -235,14 +235,14 @@ export interface CharacterRelationship {
 }
 
 /**
- * 剧级元数据 — mục目主页展示，所有集共享
+ * 剧级元数据 — mục目主页Hiển thị，Tất cả集共享
  * 首次导入时由 AI + 正则自动填充，校准后回写丰富
  */
 export interface SeriesMeta {
   // === 故事核心 ===
   title: string;
   logline?: string;                   // 一句话概括
-  outline?: string;                   // 100-500字完整故事线
+  outline?: string;                   // 100-500字đầy đủ故事线
   centralConflict?: string;           // 主线矛盾
   themes?: string[];                  // [复仇, 权谋, 友情]
 
@@ -253,7 +253,7 @@ export interface SeriesMeta {
   geography?: NamedEntity[];          // 地理设定
   socialSystem?: string;              // 社会体系
   powerSystem?: string;               // 力量体系
-  keyItems?: NamedEntity[];           // 关键物品
+  keyItems?: NamedEntity[];           // quan trọng物品
   worldNotes?: string;                // 世界观补充（自由文本）
 
   // === 角色体系 ===
@@ -309,7 +309,7 @@ export type LightingStyle =
   | 'moonlight';    // 月光：冷蓝柔和
 
 export type LightingDirection = 
-  | 'front'         // 正面光：平坦、无阴影
+  | 'front'         // chính diện光：平坦、无阴影
   | 'side'          // 侧光：强调轮廓和纹理
   | 'back'          // 逆光：轮廓光/剪影
   | 'top'           // 顶光：审讯感/戏剧性
@@ -319,7 +319,7 @@ export type LightingDirection =
 
 export type ColorTemperature = 
   | 'warm'          // 暖色 3200K：烛光/钨丝灯
-  | 'neutral'       // 中性 5500K：日光
+  | 'neutral'       // đang xử lý...500K：日光
   | 'cool'          // 冷色 7000K：阴天/月光
   | 'golden-hour'   // 黄金时段：日出日落
   | 'blue-hour'     // 蓝调时分：日落后
@@ -328,26 +328,26 @@ export type ColorTemperature =
 // 跟焦员 (Focus Puller / 1st AC)
 export type DepthOfField = 
   | 'ultra-shallow' // f/1.4 极浅：只有眼睛清晰，强烈虚化
-  | 'shallow'       // f/2.8 浅：人物清晰，背景虚化
-  | 'medium'        // f/5.6 中等：前景到中景清晰
+  | 'shallow'       // f/2.8 浅：nhân vật清晰，背景虚化
+  | 'medium'        // f/5.6 đang xử lý...景到đang xử lý...
   | 'deep'          // f/11 深：全hình ảnh清晰
   | 'split-diopter';// 分屈光镜：前后都清晰但中间虚
 
 export type FocusTransition = 
   | 'rack-to-fg'    // 转焦到前景
   | 'rack-to-bg'    // 转焦到背景
-  | 'rack-between'  // 人物间转焦
+  | 'rack-between'  // nhân vật间转焦
   | 'pull-focus'    // 跟焦（跟随运动主体）
   | 'none';         // 固定焦点
 
 // 器材组 (Camera Rig)
 export type CameraRig = 
   | 'tripod'        // 三脚架：绝对稳定
-  | 'handheld'      // 手持：呼吸感/纪实/紧张
+  | 'handheld'      // 手持：呼吸感/纪实/căng thẳng
   | 'steadicam'     // 斯坦尼康：丝滑跟随
   | 'dolly'         // 轨道车：匀速直线推拉
   | 'crane'         // 摇臂：垂直升降/大幅弧线
-  | 'drone'         // 航拍：俯瞰/大范围运动
+  | 'drone'         // 航拍：nhìn từ trên/大范围运动
   | 'shoulder'      // 肩扛：轻微晃动/新闻纪实
   | 'slider';       // 滑轨：短距离平滑移动
 
@@ -370,7 +370,7 @@ export type EffectIntensity = 'subtle' | 'moderate' | 'heavy';
 // Tốc độ控制 (Speed Ramping)
 export type PlaybackSpeed = 
   | 'slow-motion-4x'  // 0.25x 超慢：con弹时间
-  | 'slow-motion-2x'  // 0.5x 慢动作：动作高潮
+  | 'slow-motion-2x'  // 0.5x 慢动作：动作cao trào
   | 'normal'           // 1x
   | 'fast-2x'          // 2x 快进：时间流逝
   | 'timelapse';       // 延时摄影
@@ -382,8 +382,8 @@ export type CameraAngle =
   | 'low-angle'      // 仰拍：英雄感
   | 'birds-eye'      // 鸟瞰：俄视俄视
   | 'worms-eye'      // 虫视：极端低角
-  | 'over-shoulder'  // 过肩：对话场景
-  | 'side-angle'     // 侧拍：侧面视角
+  | 'over-shoulder'  // 过肩：Chat场景
+  | 'side-angle'     // 侧拍：bên cạnh视角
   | 'dutch-angle'    // 荷兰角：倾斜不安感
   | 'third-person';  // 第三人称：游戏视角
 
@@ -394,8 +394,8 @@ export type FocalLength =
   | '24mm'   // 广角：môi trường上下文
   | '35mm'   // 标准广角：街拍/纪实感
   | '50mm'   // 标准：接近人眼视角
-  | '85mm'   // Chân dung：脸部比例舒适
-  | '105mm'  // 中焦：柔和背景压缩
+  | '85mm'   // Chân dung：脸部Tỷ lệ舒适
+  | '105mm'  // đang xử lý...和背景压缩
   | '135mm'  // 长焦：强背景压缩
   | '200mm'  // 远摄：极端压缩
   | '400mm'; // 超长焦：最强压缩
@@ -463,7 +463,7 @@ export interface Shot {
   
   // === 分镜核心信息 ===
   actionSummary: string;     // 动作描述（用户语言）
-  visualDescription?: string; // 详细的hình ảnh描述（用户语言，如：“法坛全景，黑暗中微弱光芒笼罩...”）
+  visualDescription?: string; // 详细的hình ảnh描述（用户语言，如：“法坛全景，黑暗đang xử lý...芒笼罩...”）
   completionStatus?: CompletionStatus;
   
   // === 镜头语言 ===
@@ -473,7 +473,7 @@ export interface Shot {
   duration?: number;         // 预估时长（秒）
   
   // === 视觉生成 ===
-  visualPrompt?: string;     // 英文视觉描述（用于ảnh生成，兼容旧版）
+  visualPrompt?: string;     // 英文视觉描述（用于ảnh生成，tương thích旧版）
   
   // === 三层提示词系统 (Seedance 1.5 Pro) ===
   imagePrompt?: string;      // 首帧提示词（英文，静态描述）
@@ -497,15 +497,15 @@ export interface Shot {
   // === 情绪标签 ===
   emotionTags?: string[];  // 情绪标签 ID 数组，如 ['sad', 'tense', 'serious']
   
-  // === 叙事驱动字段（基于《电影语言的语法》） ===
-  narrativeFunction?: string;   // 叙事功能：铺垫/升级/高潮/转折/过渡/尾声
+  // === 叙事驱动trường（基于《电影语言的语法》） ===
+  narrativeFunction?: string;   // 叙事功能：铺垫/升级/cao trào/转折/过渡/尾声
   conflictStage?: string;       // 冲突阶段：引入/激化/对抗/转折/解决/余波/辅助
   shotPurpose?: string;         // 镜头目的：此镜头如何服务于故事核心
   storyAlignment?: string;      // 与世界观/故事核心的一致性：aligned/minor-deviation/needs-review
   visualFocus?: string;         // 视觉焦点：观众应该看什么（按顺序）
-  cameraPosition?: string;      // 机位描述：摄影机相对于人物的位置
-  characterBlocking?: string;   // 人物布局：人物在hình ảnh中的位置关系
-  rhythm?: string;              // 节奏描述：这个镜头的节奏感
+  cameraPosition?: string;      // 机位描述：摄影机相对于nhân vật的位置
+  characterBlocking?: string;   // nhân vật布局：nhân vật在hình ảnhđang xử lý...关系
+  rhythm?: string;              // 节奏描述：这镜头的节奏感
 
   // === 灯光师 (Gaffer) ===
   lightingStyle?: LightingStyle;           // 灯光风格预设
@@ -515,7 +515,7 @@ export interface Shot {
 
   // === 跟焦员 (Focus Puller) ===
   depthOfField?: DepthOfField;             // 景深
-  focusTarget?: string;                    // 焦点目标: "人物面部" / "桌上的信封"
+  focusTarget?: string;                    // 焦点目标: "nhân vậtKhuôn mặt" / "桌上的信封"
   focusTransition?: FocusTransition;       // 转焦动作
 
   // === 器材组 (Camera Rig) ===
@@ -535,7 +535,7 @@ export interface Shot {
   photographyTechnique?: PhotographyTechnique; // 摄影技法
 
   // === 场记/连戏 (Continuity) ===
-  continuityRef?: ContinuityRef;           // 连戏参考
+  continuityRef?: ContinuityRef;           // 连戏Tham chiếu
 
   // Keyframes for start/end frame generation (CineGen-AI pattern)
   keyframes?: Keyframe[];

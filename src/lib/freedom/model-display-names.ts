@@ -3,7 +3,7 @@
  * API ID → 用户可读的显示名
  *
  * 数据来源: https://memefast.top/api/pricing_new (2026-02-19)
- * 不在此表中的模型直接显示原始 ID
+ * 不在此表đang xử lý...Trực tiếp显示原始 ID
  */
 
 export const MODEL_DISPLAY_NAMES: Record<string, string> = {
@@ -89,7 +89,7 @@ export const MODEL_DISPLAY_NAMES: Record<string, string> = {
   'mj-variation': 'Midjourney 变体',
   'mj-zoom': 'Midjourney 缩放',
   'mj_imagine': 'Midjourney 绘图',
-  'mj_blend': 'Midjourney 混合模式',
+  'mj_blend': 'Midjourney 混合chế độ',
   'mj_describe': 'Midjourney 图片描述',
   'mj_shorten': 'Midjourney 提示词精简',
   'mj_uploads': 'Midjourney 图片上传',
@@ -133,7 +133,7 @@ export const MODEL_DISPLAY_NAMES: Record<string, string> = {
   'doubao-seedream-4-0-250828': 'Seedream 4.0',
   'doubao-seedream-4-5-251128': 'Seedream 4.5',
   'doubao-seedream-3-0-t2i-250415': 'Seedream 3.0',
-  'doubao-seededit-3-0-i2i-250628': 'SeedEdit 3.0 (图生图)',
+  'doubao-seededit-3-0-i2i-250628': 'SeedEdit 3.0 (Ảnh từ ảnh)',
 
   // --- Kling / 可灵 ---
   'kling-image': 'Kling 图片生成',
@@ -286,11 +286,11 @@ export const MODEL_DISPLAY_NAMES: Record<string, string> = {
   'viduq3-pro': 'Vidu Q3 Pro',
   'aigc-video-vidu': 'Vidu（AIGC 聚合）',
   'vidu-video': 'Vidu 视频生成',
-  'vidu-video-ref': 'Vidu 参考视频',
+  'vidu-video-ref': 'Vidu Tham chiếu视频',
   'vidu-video-character': 'Vidu 角色视频',
-  'vidu-video-character-ref': 'Vidu 角色参考视频',
+  'vidu-video-character-ref': 'Vidu 角色Tham chiếu视频',
   'vidu-video-scene': 'Vidu 场景视频',
-  'vidu-video-scene-ref': 'Vidu 场景参考视频',
+  'vidu-video-scene-ref': 'Vidu 场景Tham chiếu视频',
   'vidu-video-lip-sync': 'Vidu 口型同步',
 
   // --- MiniMax / Hailuo ---

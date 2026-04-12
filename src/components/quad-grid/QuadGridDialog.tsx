@@ -4,8 +4,8 @@
 "use client";
 
 /**
- * Quad Grid Dialog - Lưới 4 ôTạo对话框
- * 基于锚点图Tạo2x2一致性biến thể
+ * Quad Grid Dialog - Lưới 4 ôTạoChat框
+ * 基于Ảnh neoTạo2x2一致性biến thể
  */
 
 import { useState } from "react";
@@ -42,20 +42,20 @@ const VARIATION_OPTIONS: {
   {
     type: "angle",
     label: "Góc nhìnbiến thể",
-    description: "同一Cảnh的4个不同Góc nhìn",
-    variations: ["正面偏左", "正面偏右", "侧面Cận cảnh", "Toàn cảnh俯瞰"],
+    description: "4 góc nhìn khác nhau của cùng một cảnh",
+    variations: ["Chính diện lệch trái", "Chính diện lệch phải", "Cận cảnh bên", "Toàn cảnh từ trên"],
   },
   {
     type: "composition",
-    label: "构图biến thể",
-    description: "同一Cảnh的4种不同构图",
-    variations: ["全身Toàn cảnh xa", "半身Cảnh trung", "面部Cận cảnh", "môi trường交代"],
+    label: "Biến thể bố cục",
+    description: "4 bố cục khác nhau của cùng một cảnh",
+    variations: ["Toàn thân xa", "Nửa thân trung cảnh", "Cận cảnh khuôn mặt", "Giới thiệu môi trường"],
   },
   {
     type: "moment",
-    label: "时刻biến thể",
-    description: "Hành động的4个Thời gian节点",
-    variations: ["Hành động起始", "Hành động过程", "Hành động高潮", "Hành động结束"],
+    label: "Biến thể khoảnh khắc",
+    description: "4 mốc thời gian của hành động",
+    variations: ["Bắt đầu hành động", "Quá trình hành động", "Cao trào hành động", "Kết thúc hành động"],
   },
 ];
 
@@ -76,9 +76,9 @@ export function QuadGridDialog({
     onGenerate(selectedType, useCharacterRef);
   };
 
-  // Tạo期间禁止Đóng对话框
+  // Tạo期间禁止ĐóngChat框
   const handleOpenChange = (newOpen: boolean) => {
-    if (isGenerating && !newOpen) return; // Đang tạo不允许Đóng
+    if (isGenerating && !newOpen) return; // Đang tạo, không được đóng
     onOpenChange(newOpen);
   };
 
@@ -95,30 +95,30 @@ export function QuadGridDialog({
             Lưới 4 ôTạo - {frameType === "start" ? "Khung hình đầu" : "Khung hình cuối"}
           </DialogTitle>
           <DialogDescription className="text-xs text-zinc-400">
-            基于当前ảnhTạo4张一致性biến thể，继承人物/Cảnh/光色
+            Tạo 4 biến thể nhất quán từ ảnh hiện tại, kế thừa nhân vật/cảnh/ánh sáng
           </DialogDescription>
         </DialogHeader>
 
         <div className="space-y-4">
-          {/* Xem trước图 */}
+          {/* Xem trước ảnh */}
           {previewUrl && (
             <div className="flex justify-center">
               <div className="relative w-40 aspect-video rounded overflow-hidden border border-zinc-700">
                 <img
                   src={previewUrl}
-                  alt="锚点图"
+                  alt="Ảnh neo"
                   className="w-full h-full object-cover"
                 />
                 <span className="absolute bottom-1 left-1 text-[10px] bg-cyan-500/80 text-white px-1.5 py-0.5 rounded">
-                  锚点图
+                  Ảnh neo
                 </span>
               </div>
             </div>
           )}
 
-          {/* biến thểLoại选择 */}
+          {/* Chọn loại biến thể */}
           <div className="space-y-2">
-            <Label className="text-xs text-zinc-400">选择biến thểLoại</Label>
+            <Label className="text-xs text-zinc-400">Chọn loại biến thể</Label>
             <div className="grid grid-cols-3 gap-2">
               {VARIATION_OPTIONS.map((option) => (
                 <button
@@ -143,11 +143,11 @@ export function QuadGridDialog({
             </div>
           </div>
 
-          {/* Xem trước4格Nội dung */}
+          {/* Xem trước nội dung 4 ô */}
           {selectedOption && (
             <div className="p-3 rounded bg-zinc-800/50 border border-zinc-700">
               <div className="text-[10px] text-zinc-500 mb-2">
-                将Tạo 2×2 Lưới 4 ô：
+                Sẽ tạo lưới 2×2:
               </div>
               <div className="grid grid-cols-2 gap-1.5">
                 {selectedOption.variations.map((v, i) => (
@@ -162,7 +162,7 @@ export function QuadGridDialog({
             </div>
           )}
 
-          {/* 选项 */}
+          {/* Tùy chọn */}
           <div className="flex items-center space-x-2 px-1">
             <Checkbox 
               id="use-char-ref" 
@@ -174,7 +174,7 @@ export function QuadGridDialog({
               htmlFor="use-char-ref" 
               className="text-xs text-zinc-400 font-normal cursor-pointer select-none leading-none"
             >
-              参考Nhân vật库形象（若hình ảnh人物混乱请Đóng此项）
+              Tham chiếu hình ảnh thư viện nhân vật (tắt nếu nhân vật trong ảnh bị rối)
             </Label>
           </div>
 
@@ -183,7 +183,7 @@ export function QuadGridDialog({
             {isGenerating ? (
               <div className="flex-1 flex items-center justify-center gap-2 h-8 bg-cyan-500/20 rounded border border-cyan-500/50">
                 <Loader2 className="h-4 w-4 text-cyan-400 animate-spin" />
-                <span className="text-sm text-cyan-400">Đang tạoLưới 4 ô，请稍候...</span>
+                <span className="text-sm text-cyan-400">Đang tạo lưới 4 ô, vui lòng đợi...</span>
               </div>
             ) : (
               <>

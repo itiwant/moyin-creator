@@ -7,11 +7,11 @@
  */
 
 export type HorizontalDirection = 
-  | 'front'              // 正面 0°
+  | 'front'              // chính diện 0°
   | 'front-right-quarter' // 右前 45°
   | 'right-side'         // 右侧 90°
   | 'back-right-quarter' // 右后 135°
-  | 'back'               // 背面 180°
+  | 'back'               // mặt sau 180°
   | 'back-left-quarter'  // 左后 225°
   | 'left-side'          // 左侧 270°
   | 'front-left-quarter'; // 左前 315°
@@ -45,11 +45,11 @@ export const HORIZONTAL_DIRECTIONS: Array<{
   label: string;
   degrees: number;
 }> = [
-  { id: 'front', label: '正面', degrees: 0 },
+  { id: 'front', label: 'chính diện', degrees: 0 },
   { id: 'front-right-quarter', label: '右前', degrees: 45 },
   { id: 'right-side', label: '右侧', degrees: 90 },
   { id: 'back-right-quarter', label: '右后', degrees: 135 },
-  { id: 'back', label: '背面', degrees: 180 },
+  { id: 'back', label: 'Mặt sau', degrees: 180 },
   { id: 'back-left-quarter', label: '左后', degrees: 225 },
   { id: 'left-side', label: '左侧', degrees: 270 },
   { id: 'front-left-quarter', label: '左前', degrees: 315 },
@@ -74,7 +74,7 @@ export const SHOT_SIZES: Array<{
   description: string;
 }> = [
   { id: 'close-up', label: '特写', description: 'Close-up' },
-  { id: 'medium-shot', label: '中景', description: 'Medium Shot' },
+  { id: 'medium-shot', label: 'đang xử lý... description: 'Medium Shot' },
   { id: 'wide-shot', label: '远景', description: 'Wide Shot' },
 ];
 
@@ -106,7 +106,7 @@ const SHOT_SIZE_PROMPTS: Record<ShotSize, string> = {
 };
 
 /**
- * 生成单个视角的提示词
+ * 生成单视角的提示词
  * 精确匹配96种标准提示词格式
  */
 export function generateAnglePrompt(
@@ -122,7 +122,7 @@ export function generateAnglePrompt(
 }
 
 /**
- * 生成所有96种视角预设
+ * 生成Tất cả96种视角预设
  */
 export function generateAllAnglePresets(): AnglePreset[] {
   const presets: AnglePreset[] = [];
@@ -157,7 +157,7 @@ export function generateAllAnglePresets(): AnglePreset[] {
 }
 
 /**
- * 获取中文标签
+ * 获取đang xử lý...
  */
 export function getAngleLabel(
   direction: HorizontalDirection,
@@ -179,19 +179,19 @@ export const COMMON_ANGLES: Array<{
   preset: Pick<AnglePreset, 'direction' | 'elevation' | 'shotSize'>;
 }> = [
   {
-    name: '正面平视中景',
+    name: 'chính diện平视đang xử lý...
     preset: { direction: 'front', elevation: 'eye-level', shotSize: 'medium-shot' },
   },
   {
-    name: '右前平视中景',
+    name: '右前平视đang xử lý...
     preset: { direction: 'front-right-quarter', elevation: 'eye-level', shotSize: 'medium-shot' },
   },
   {
-    name: '侧面平视中景',
+    name: 'bên cạnh平视đang xử lý...
     preset: { direction: 'right-side', elevation: 'eye-level', shotSize: 'medium-shot' },
   },
   {
-    name: '背面平视中景',
+    name: 'mặt sau平视đang xử lý...
     preset: { direction: 'back', elevation: 'eye-level', shotSize: 'medium-shot' },
   },
 ];

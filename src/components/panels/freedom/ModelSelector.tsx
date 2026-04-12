@@ -24,7 +24,7 @@ interface ModelSelectorProps {
 }
 
 interface SelectorModel {
-  id: string;       // Nhà cung cấp原始Model ID（直接用于 API 调用）
+  id: string;       // Nhà cung cấp原始Model ID（Trực tiếp用于 API 调用）
   name: string;     // Hiện名
   brandId: string;  // 品牌 ID
 }
@@ -356,7 +356,7 @@ function expandBoundModel(type: 'image' | 'video', model: string): string[] {
 
 function shouldHideModel(type: 'image' | 'video', model: string): boolean {
   if (type === 'video') {
-    // 类目入口不展示
+    // 类目入口不Hiển thị
     if (model === 'kling-video') return true;
     if (model === 'sora-2-characters') return true;
 
@@ -393,7 +393,7 @@ function isModelAllowedByPanelType(
 
   // 再按 endpoint type 细过滤，排除纯âm thanh类Model
   if (endpointTypes.length > 0) {
-    return endpointTypes.some((t) => /video|video|Tạo video từ văn bản|Tạo video từ ảnh|首Khung hình cuối|参考生video|kéo dài|Hành động控制|数字人|omni-video/i.test(t));
+    return endpointTypes.some((t) => /video|video|Tạo video từ văn bản|Tạo video từ ảnh|首Khung hình cuối|Tham chiếu生video|kéo dài|Hành động控制|数字人|omni-video/i.test(t));
   }
 
   // endpoint 缺失时用Model名兜底判定（避免Tùy chỉnhMở rộng型号被误过滤）
@@ -408,7 +408,7 @@ export function ModelSelector({ type, value, onChange, className }: ModelSelecto
   const modelTypes = useAPIConfigStore((s) => s.modelTypes);
   const modelEndpointTypes = useAPIConfigStore((s) => s.modelEndpointTypes);
 
-  // 直接从 featureBindings 读取已绑定的Model cột表
+  // Trực tiếp从 featureBindings 读取已绑定的Model cột表
   // 格式: ["memefast:gemini-3-pro-image-preview", "memefast:flux-dev", ...]
   const models = useMemo((): SelectorModel[] => {
     const feature = type === 'image' ? 'freedom_image' : 'freedom_video';
@@ -486,7 +486,7 @@ export function ModelSelector({ type, value, onChange, className }: ModelSelecto
             className={cn('w-full justify-between h-10', className)}
           >
             <span className="truncate">
-              {selectedModel ? selectedModel.name : value ? getModelDisplayName(value) : '选择Model...'}
+              {selectedModel ? selectedModel.name : value ? getModelDisplayName(value) : 'ChọnModel...'}
             </span>
             <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
           </Button>
@@ -546,7 +546,7 @@ export function ModelSelector({ type, value, onChange, className }: ModelSelecto
                   <Settings className="h-5 w-5 mx-auto mb-1 opacity-50" />
                   <p>Chưa có可用Model</p>
                   <p className="text-xs">
-                    请先在Cài đặt → 服务映射 → {type === 'image' ? 'Tự dopanel-ảnh' : 'Tự dopanel-video'} 中勾选Model
+                    请先在Cài đặt → 服务映射 → {type === 'image' ? 'Tự dopanel-ảnh' : 'Tự dopanel-video'} đang xử lý...odel
                   </p>
                 </div>
               )}
@@ -558,7 +558,7 @@ export function ModelSelector({ type, value, onChange, className }: ModelSelecto
         <div className="flex items-start gap-1.5 rounded-md border border-amber-500/40 bg-amber-500/10 px-2 py-1.5 text-xs text-amber-700 dark:text-amber-300">
           <AlertTriangle className="mt-0.5 h-3.5 w-3.5 shrink-0" />
           <span>
-            当前已选Model不可用（可能已下线或被当前面板过滤），请重新选择可用Model。
+            当前已选Model不可用（可能已下线或被当前面板过滤），请重新Chọn可用Model。
           </span>
         </div>
       )}

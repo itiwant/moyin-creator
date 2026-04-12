@@ -4,8 +4,8 @@
 "use client";
 
 /**
- * Thời lượng选择器组件 (Duration Selector)
- * 用于选择videoTạoThời lượng：4-12秒（Seedance 1.5 Pro Hỗ trợ范围）
+ * Thời lượngChọn器组件 (Duration Selector)
+ * 用于ChọnTạo videoThời lượng：4-12秒（Seedance 1.5 Pro Hỗ trợ范围）
  */
 
 import {

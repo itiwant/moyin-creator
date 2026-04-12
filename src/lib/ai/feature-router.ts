@@ -10,7 +10,7 @@
  * Usage:
  *   const config = getFeatureConfig('character_generation');
  *   if (!config) {
- *     toast.error('请先在设置中配置角色生成的 API 供应商');
+ *     toast.error('请先在设置đang xử lý...色生成的 API 供应商');
  *     return;
  *   }
  *   // Use config.apiKey and config.provider in API call
@@ -29,10 +29,10 @@ export interface FeatureConfig {
   platform: string;
   baseUrl: string;
   models: string[];
-  model: string; // 当前选中的模型
+  model: string; // Đang chọn的模型
 }
 
-// 多模型轮询调度器：记录每个功能的当前索引
+// 多模型轮询调度器：记录每功能的当前索引
 const featureRoundRobinIndex: Map<AIFeature, number> = new Map();
 
 /**
@@ -50,7 +50,7 @@ const FEATURE_PLATFORM_MAP: Partial<Record<AIFeature, string>> = {
 
 /**
  * 默认模型映射：当供应商未显式绑定模型时，为特定功能提供默认模型
- * 仅在 fallback 路径中使用（用户显式绑定优先）
+ * 仅在 fallback 路径đang xử lý...用户显式绑定优先）
  */
 const FEATURE_DEFAULT_MODEL: Partial<Record<AIFeature, Record<string, string>>> = {
   image_understanding: {
@@ -73,13 +73,13 @@ function parseBindingValue(binding: string): { platform: string; model?: string 
 /**
  * Get the platform and model from featureBindings (first binding)
  * featureBindings now stores: string[] (array of platform:model)
- * 这个函数仅用于兼容旧代码，新代码应使用 getProvidersForFeature
+ * 这函数仅用于tương thích旧代码，新代码应使用 getProvidersForFeature
  */
 function getBoundPlatformAndModel(store: ReturnType<typeof useAPIConfigStore.getState>, feature: AIFeature): { platform: string; model?: string } | null {
   const bindings = store.getFeatureBindings(feature);
   if (!bindings || bindings.length === 0) return null;
   
-  // 取第一个绑定
+  // 取第一绑定
   const binding = bindings[0];
   if (!binding) return null;
   
@@ -89,11 +89,11 @@ function getBoundPlatformAndModel(store: ReturnType<typeof useAPIConfigStore.get
     return parsed;
   }
   
-  // 兼容旧格式: provider ID
+  // tương thích旧格式: provider ID
   const provider = store.providers.find(p => p.id === binding);
   if (provider) return { platform: provider.platform };
   
-  // 兼容旧格式: platform name
+  // tương thích旧格式: platform name
   const providerByPlatform = store.providers.find(p => p.platform === binding);
   if (providerByPlatform) return { platform: providerByPlatform.platform };
   
@@ -102,7 +102,7 @@ function getBoundPlatformAndModel(store: ReturnType<typeof useAPIConfigStore.get
 }
 
 /**
- * 获取功能的所有可用配置（多模型）
+ * 获取功能的Tất cả可用配置（多模型）
  */
 export function getAllFeatureConfigs(feature: AIFeature): FeatureConfig[] {
   const store = useAPIConfigStore.getState();
@@ -157,7 +157,7 @@ export function getFeatureConfig(feature: AIFeature): FeatureConfig | null {
           const scopeKey = `${feature}:${fallbackModel || 'default'}`;
           const keyManager = getProviderKeyManager(provider.id, provider.apiKey, scopeKey);
           const featureInfo = AI_FEATURES.find(f => f.key === feature);
-          // 优先使用功能默认模型，否则取供应商第一个模型
+          // 优先使用功能默认模型，否则取供应商第一模型
           const defaultModel = FEATURE_DEFAULT_MODEL[feature]?.[provider.platform];
           const model = defaultModel || provider.model?.[0] || '';
           return {
@@ -179,7 +179,7 @@ export function getFeatureConfig(feature: AIFeature): FeatureConfig | null {
     return null;
   }
   
-  // 单模型直接返回
+  // 单模型Trực tiếp返回
   if (configs.length === 1) {
     return configs[0];
   }
@@ -188,7 +188,7 @@ export function getFeatureConfig(feature: AIFeature): FeatureConfig | null {
   const currentIndex = featureRoundRobinIndex.get(feature) || 0;
   const config = configs[currentIndex % configs.length];
   
-  // 更新索引（下次调用使用下一个）
+  // 更新索引（下次调用使用下一）
   featureRoundRobinIndex.set(feature, currentIndex + 1);
   
   console.log(`[FeatureRouter] 多模型轮询: ${feature} -> ${config.provider.name}:${config.model} (${currentIndex % configs.length + 1}/${configs.length})`);
@@ -220,7 +220,7 @@ export function isFeatureReady(feature: AIFeature): boolean {
 export function getFeatureNotConfiguredMessage(feature: AIFeature): string {
   const featureInfo = AI_FEATURES.find(f => f.key === feature);
   const featureName = featureInfo?.name || feature;
-  return `请先在设置中为「${featureName}」功能绑定 API 供应商`;
+  return `请先在设置đang xử lý...{featureName}」功能绑定 API 供应商`;
 }
 
 // ==================== 统一 API 调用入口 ====================
@@ -248,7 +248,7 @@ export interface CallFeatureAPIOptions {
  * 用法：
  *   const result = await callFeatureAPI('script_analysis', systemPrompt, userPrompt);
  * 
- * 不需要手动传 apiKey、baseUrl、model，全部从服务映射自动获取
+ * 不需要手动传 apiKey、baseUrl、model，Tất cả从服务映射自动获取
  */
 export async function callFeatureAPI(
   feature: AIFeature,
@@ -267,10 +267,10 @@ export async function callFeatureAPI(
   const model = options?.modelOverride || config.model || config.models?.[0];
   const baseUrl = config.baseUrl?.replace(/\/+$/, '');
   if (!baseUrl) {
-    throw new Error('请先在设置中配置 Base URL');
+    throw new Error('请先在设置đang xử lý...Base URL');
   }
   if (!model) {
-    throw new Error('请先在设置中配置模型');
+    throw new Error('请先在设置đang xử lý...型');
   }
   
   console.log(`[callFeatureAPI] 功能: ${feature}`);
@@ -279,7 +279,7 @@ export async function callFeatureAPI(
   console.log(`[callFeatureAPI] BaseURL: ${baseUrl}`);
   
   // 调用底层 API
-  // 结构化 JSON 输出任务默认关闭深度思考，避免 reasoning 耗尽 token
+  // Cấu trúc化 JSON 输出任务默认关闭深度思考，避免 reasoning 耗尽 token
   const disableThinking = options?.disableThinking ?? true;
   return await callChatAPI(systemPrompt, userPrompt, {
     apiKey: config.allApiKeys.join(','),

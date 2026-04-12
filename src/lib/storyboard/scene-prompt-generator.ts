@@ -375,13 +375,13 @@ Return a RAW JSON array (no markdown code block). BILINGUAL output required.
   {
     "id": 1,
     "imagePrompt": "English static first frame description...",
-    "imagePromptZh": "中文首帧静态描述...",
+    "imagePromptZh": "đang xử lý...静态描述...",
     "needsEndFrame": true,
     "endFramePrompt": "English static end frame description...",
-    "endFramePromptZh": "中文尾帧静态描述...",
+    "endFramePromptZh": "đang xử lý...静态描述...",
     "endFrameReason": "Character walks into room - position change",
     "videoPrompt": "English action/motion description...",
-    "videoPromptZh": "中文动作/运动描述..."
+    "videoPromptZh": "đang xử lý.../运动描述..."
   },
   {
     "id": 2,
@@ -407,11 +407,11 @@ Return a RAW JSON array (no markdown code block). BILINGUAL output required.
         id: s.id,
         // First frame (static)
         imagePrompt: `(Mock) A character in scene ${s.id}, composition based on "${storyPrompt}".`,
-        imagePromptZh: `(测试) 场景 ${s.id} 的角色，基于“${storyPrompt}”的构图。`,
+        imagePromptZh: `(测试) 场景 ${s.id} 的角色，基于“${storyPrompt}”的bố cục。`,
         // End frame (static, only if needed)
         needsEndFrame,
         endFramePrompt: needsEndFrame ? `(Mock) Same character after action, new position in scene ${s.id}.` : '',
-        endFramePromptZh: needsEndFrame ? `(测试) 动作后的同一角色，场景 ${s.id} 中的新位置。` : '',
+        endFramePromptZh: needsEndFrame ? `(测试) 动作后的同一角色，场景 ${s.id} đang xử lý...置。` : '',
         endFrameReason: needsEndFrame ? 'Mock: position change' : undefined,
         // Video action (dynamic)
         videoPrompt: `(Mock) Slow zoom in. Scene ${s.id} action based on "${storyPrompt}".`,
@@ -468,7 +468,7 @@ Return a RAW JSON array (no markdown code block). BILINGUAL output required.
       }
       
       if (response.status === 401 || response.status === 403) {
-        throw new Error('API Key 无效或已过期');
+        throw new Error('API Key 无效或已hết hạn');
       }
       throw new Error(errorMessage);
     }

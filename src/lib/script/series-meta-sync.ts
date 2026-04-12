@@ -58,13 +58,13 @@ export function populateSeriesMetaFromImport(
     characters: scriptData.characters || [],
     factions: aiAnalysis?.factions || undefined,
 
-    // 视觉系统 — 直接使用用户在导入面板选择的风格
+    // 视觉系统 — Trực tiếp使用用户在导入面板Chọn的风格
     styleId: importSettings?.styleId,
     recurringLocations: undefined,
     colorPalette: undefined,
 
-    // 制作设定 — promptLanguage 从用户选择直接映射
-    language: scriptData.language || '中文',
+    // 制作设定 — promptLanguage 从用户ChọnTrực tiếp映射
+    language: scriptData.language || 'đang xử lý...
     promptLanguage: importSettings?.promptLanguage,
   };
 
@@ -79,7 +79,7 @@ export function populateSeriesMetaFromImport(
       keyActions: c.keyActions,
       tags: c.faction ? [c.faction] : undefined,
     }));
-    console.log(`[populateSeriesMeta] AI 角色作为主数据源: ${meta.characters.length} 个`);
+    console.log(`[populateSeriesMeta] AI 角色作为主数据源: ${meta.characters.length} `);
   }
 
   // 如果 AI 提取了阵营信息但角色没有 faction tag，补充 faction
@@ -114,7 +114,7 @@ export function populateSeriesMetaFromImport(
 
 /**
  * 从 SeriesMeta 构建紧凑的 AI 上下文注入摘要
- * 用于注入到所有 AI 调用的 system prompt 中
+ * 用于注入到Tất cả AI 调用的 system prompt 中
  */
 export function buildSeriesContextSummary(meta: SeriesMeta | null): string {
   if (!meta) return '';
@@ -138,7 +138,7 @@ export function buildSeriesContextSummary(meta: SeriesMeta | null): string {
   // 角色列表（紧凑格式）
   if (meta.characters.length > 0) {
     const charSummary = meta.characters
-      .slice(0, 15) // 最多 15 个避免过长
+      .slice(0, 15) // 最多 15 避免过长
       .map(c => {
         const info = [c.name];
         if (c.age) info.push(`${c.age}岁`);
@@ -162,13 +162,13 @@ export function buildSeriesContextSummary(meta: SeriesMeta | null): string {
     parts.push(`力量体系：${meta.powerSystem}`);
   }
 
-  // 关键物品
+  // quan trọng物品
   if (meta.keyItems?.length) {
     const itemsSummary = meta.keyItems
       .slice(0, 5)
       .map(i => `${i.name}(${i.desc.substring(0, 15)})`)
       .join(', ');
-    parts.push(`关键物品：${itemsSummary}`);
+    parts.push(`quan trọng物品：${itemsSummary}`);
   }
 
   // 地理
@@ -217,7 +217,7 @@ export function syncToSeriesMeta(
           );
           if (!calibrated) return existing;
 
-          // 只回写 AI 校准产出的字段，不覆盖用户手动编辑的
+          // 只回写 AI 校准产出的trường，不覆盖用户手动编辑的
           return {
             ...existing,
             identityAnchors: calibrated.identityAnchors || existing.identityAnchors,
@@ -225,14 +225,14 @@ export function syncToSeriesMeta(
             visualPromptZh: calibrated.visualPromptZh || existing.visualPromptZh,
             negativePrompt: calibrated.negativePrompt || existing.negativePrompt,
             consistencyElements: calibrated.consistencyElements || existing.consistencyElements,
-            // 补充基础字段（如果之前为空）
+            // 补充基础trường（如果之前为空）
             appearance: existing.appearance || calibrated.appearance,
             gender: existing.gender || calibrated.gender,
             age: existing.age || calibrated.age,
           };
         });
         updates.characters = updatedChars;
-        console.log(`[syncToSeriesMeta:character] 回写 ${results.characters.length} 个角色校准结果`);
+        console.log(`[syncToSeriesMeta:character] 回写 ${results.characters.length} 角色校准结果`);
       }
       break;
     }
@@ -256,11 +256,11 @@ export function syncToSeriesMeta(
               ...(meta.recurringLocations || []),
               ...newRecurring,
             ];
-            console.log(`[syncToSeriesMeta:scene] 新增 ${newRecurring.length} 个常驻场景`);
+            console.log(`[syncToSeriesMeta:scene] 新增 ${newRecurring.length} 常驻场景`);
           }
         }
 
-        // 更新地理设定：从场景的 eraDetails 中提取新地名
+        // 更新地理设定：从场景的 eraDetails đang xử lý...地名
         const existingGeoNames = new Set(
           (meta.geography || []).map(g => g.name)
         );
@@ -274,14 +274,14 @@ export function syncToSeriesMeta(
         }
         if (newGeo.length > 0) {
           updates.geography = [...(meta.geography || []), ...newGeo];
-          console.log(`[syncToSeriesMeta:scene] 新增 ${newGeo.length} 个地理设定`);
+          console.log(`[syncToSeriesMeta:scene] 新增 ${newGeo.length} 地理设定`);
         }
       }
       break;
     }
 
     case 'shot': {
-      // 分镜校准后：追加新关键物品（只追加不覆盖）
+      // 分镜校准后：追加新quan trọng物品（只追加不覆盖）
       if (results.keyItems?.length) {
         const existingItemNames = new Set(
           (meta.keyItems || []).map(i => i.name)
@@ -291,7 +291,7 @@ export function syncToSeriesMeta(
         );
         if (newItems.length > 0) {
           updates.keyItems = [...(meta.keyItems || []), ...newItems];
-          console.log(`[syncToSeriesMeta:shot] 新增 ${newItems.length} 个关键物品`);
+          console.log(`[syncToSeriesMeta:shot] 新增 ${newItems.length} quan trọng物品`);
         }
       }
       break;

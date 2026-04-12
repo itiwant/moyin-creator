@@ -45,16 +45,16 @@ export interface CharacterVariation {
   id: string;
   name: string;           // "Trang phục hàng ngày", "Trang phục chiến đấu", "青年版", "Phiên bản trung niên" etc.
   visualPrompt: string;   // Prompt describing this variation
-  visualPromptZh?: string; // 中文prompt
+  visualPromptZh?: string; // prompt tiếng Trung
   referenceImage?: string; // Generated reference image for this variation
   clothingReferenceImages?: string[]; // User-uploaded clothing/outfit reference images (base64)
   generatedAt?: number;
   
-  // === 阶段biến thể特有字段 ===
-  isStageVariation?: boolean;      // 是否为阶段biến thể（年龄/时期变化）
-  episodeRange?: [number, number]; // 适用Số tập范围：[起始集, 结束集]
-  ageDescription?: string;         // 该阶段年龄："25 tuổi"、"50 tuổi"
-  stageDescription?: string;       // 阶段Mô tả："创业初期"、"Đỉnh sự nghiệp"
+  // === 阶段biến thể特有trường ===
+  isStageVariation?: boolean;      // Có phải biến thể theo giai đoạn (thay đổi tuổi/thời kỳ) không
+  episodeRange?: [number, number]; // 适用Số tập范围：[bắt đầu集, kết thúc集]
+  ageDescription?: string;         // Tuổi giai đoạn này: "25 tuổi"、"50 tuổi"
+  stageDescription?: string;       // Mô tả giai đoạn: "Khởi nghiệp ban đầu"、"Đỉnh sự nghiệp"
 }
 
 export interface Character {
@@ -64,14 +64,14 @@ export interface Character {
   visualTraits: string; // English visual traits for consistency
   projectId?: string;   // Associated project (optional)
   // Extended attributes (CineGen-AI inspired)
-  gender?: string;      // 性别
-  age?: string;         // 年龄/年龄段
-  personality?: string; // 性格特征
-  role?: string;        // 身份/背景
-  traits?: string;      // 核心特质
-  skills?: string;      // 技能/能力
-  keyActions?: string;  // 关键事迹
-  appearance?: string;  // 外貌特征
+  gender?: string;      // Giới tính
+  age?: string;         // Tuổi/độ tuổi
+  personality?: string; // Đặc điểm tính cách
+  role?: string;        // Thân phận/bối cảnh
+  traits?: string;      // Đặc trưng cốt lõi
+  skills?: string;      // Kỹ năng/năng lực
+  keyActions?: string;  // Sự kiện quan trọng
+  appearance?: string;  // Đặc điểm ngoại hình
   relationships?: string; // mối quan hệ nhân vật
   referenceImages?: string[]; // User uploaded reference images (base64)
   styleId?: string; // Visual style preset ID
@@ -81,14 +81,14 @@ export interface Character {
   variations: CharacterVariation[];
   thumbnailUrl?: string; // Main preview image (Base Look)
   // Enhanced fields (AniKuku inspired)
-  tags?: string[];        // Nhân vậtThẻ 如 #武侠 #男主 #剑客
-  notes?: string;         // Nhân vậtGhi chú (cốt truyện说明)
-  status?: 'draft' | 'linked'; // Trạng thái: draft=Bản nháp, linked=已关联Kịch bản
-  linkedEpisodeId?: string;    // 关联的剧集ID
+  tags?: string[];        // Thẻ nhân vật 如 #武侠 #男主 #剑客
+  notes?: string;         // Ghi chú nhân vật (ghi chú cốt truyện)
+  status?: 'draft' | 'linked'; // Trạng thái: draft=Bản nháp, linked=Đã liên kết kịch bản
+  linkedEpisodeId?: string;    // ID tập đã liên kết
   
-  // === 6层身份锚点（Nhân vật一致性）===
-  identityAnchors?: CharacterIdentityAnchors;  // 身份锚点 - 6层特征锁定
-  negativePrompt?: CharacterNegativePrompt;    // 负面prompt
+  // === 6层身份neo（Nhân vật一致性）===
+  identityAnchors?: CharacterIdentityAnchors;  // Neo danh tính - khóa 6 lớp đặc trưng
+  negativePrompt?: CharacterNegativePrompt;    // Prompt phủ định
   
   createdAt: number;
   updatedAt: number;

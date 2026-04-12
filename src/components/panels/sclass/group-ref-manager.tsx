@@ -7,7 +7,7 @@
  * GroupRefManager — Hạng S组级 @tham chiếuQuản lý器
  *
  * 功能：
- * - Tự động收集：Nhân vậtẢnh tham chiếu、CảnhẢnh tham chiếu、Khung hình đầuảnh → 只读展示
+ * - Tự động收集：Nhân vậtẢnh tham chiếu、CảnhẢnh tham chiếu、Khung hình đầuảnh → 只读Hiển thị
  * - Thủ côngTải lên：videotham chiếu（运镜/Hành động复刻）、âm thanhtham chiếu（节奏/BGM）
  * - 配额条：≤9 ảnh + ≤3 video + ≤3 âm thanh，Tổng ≤12
  * - Xóađã tải lên的video/âm thanhtham chiếu
@@ -294,7 +294,7 @@ export function GroupRefManager({
         </div>
       </div>
 
-      {/* ========== Tự động收集的ảnhtham chiếu（折叠展示） ========== */}
+      {/* ========== Tự động收集的ảnhtham chiếu（折叠Hiển thị） ========== */}
       <AutoImageSection
         charRefs={autoImages.charRefs}
         sceneRefs={autoImages.sceneRefs}
@@ -471,7 +471,7 @@ function AutoImageSection({
   );
 }
 
-/** tham chiếu分组展示 */
+/** tham chiếu分组Hiển thị */
 function RefGroup({
   label,
   icon,

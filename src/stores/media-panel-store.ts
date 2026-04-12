@@ -106,23 +106,23 @@ export interface PendingCharacterData {
   keyActions?: string;
   appearance?: string;
   relationships?: string;
-  tags?: string[];    // Nhân vậtThẻ
-  notes?: string;     // Nhân vậtGhi chú
+  tags?: string[];    // Thẻ nhân vật
+  notes?: string;     // Ghi chú nhân vật
   styleId?: string;
   // 集作用域透传
   sourceEpisodeIndex?: number;
   sourceEpisodeId?: string;
   // === 年代信息（从Kịch bản元数据传递）===
-  storyYear?: number;  // 故事年份，如 2002
-  era?: string;        // 时代背景Mô tả
+  storyYear?: number;  // Năm câu chuyện, ví dụ 2002
+  era?: string;        // Mô tả bối cảnh thời đại
   // === prompt语言偏好（从Kịch bản面板透传）===
   promptLanguage?: import('@/types/script').PromptLanguage;  // 'vi' | 'en' | 'vi+en'
-  // === 专业Nhân vật设计字段（世界级大师Tạo） ===
-  visualPromptEn?: string;  // 英文视觉prompt
-  visualPromptZh?: string;  // 中文视觉prompt
-  // === 6层身份锚点（Nhân vật一致性） ===
-  identityAnchors?: CharacterIdentityAnchors;  // 身份锚点 - 6层特征锁定
-  negativePrompt?: CharacterNegativePrompt;    // 负面prompt
+  // === 专业Nhân vật设计trường（世界级大师Tạo） ===
+  visualPromptEn?: string;  // 英文Prompt thị giác
+  visualPromptZh?: string;  // đang xử lý...ompt thị giác
+  // === 6层身份neo（Nhân vật一致性） ===
+  identityAnchors?: CharacterIdentityAnchors;  // Neo danh tính - khóa 6 lớp đặc trưng
+  negativePrompt?: CharacterNegativePrompt;    // Prompt phủ định
   // === 多阶段Nhân vậtHỗ trợ ===
   stageInfo?: {
     stageName: string;
@@ -152,31 +152,31 @@ export interface PendingSceneData {
   // prompt语言偏好
   promptLanguage?: import('@/types/script').PromptLanguage;
   
-  // === 专业Cảnh设计（完整传递）===
-  visualPrompt?: string;       // 中文视觉Mô tả
-  visualPromptEn?: string;     // 英文视觉Mô tả
+  // === 专业Cảnh设计（đầy đủ传递）===
+  visualPrompt?: string;       // Mô tả thị giác tiếng Trung
+  visualPromptEn?: string;     // Mô tả thị giác tiếng Anh
   architectureStyle?: string;  // Phong cách kiến trúc
   lightingDesign?: string;     // Thiết kế ánh sáng
   colorPalette?: string;       // Bảng màu sắc
   eraDetails?: string;         // Đặc trưng thời đại
-  keyProps?: string[];         // 关键Đạo cụ
-  spatialLayout?: string;      // 空间布局
+  keyProps?: string[];         // Đạo cụ quan trọng
+  spatialLayout?: string;      // Bố cục không gian
   
   // === 多Góc nhìn联合图数据 ===
-  viewpoints?: PendingViewpointData[];           // Góc nhìn cột表
-  contactSheetPrompts?: ContactSheetPromptSet[]; // 联合图prompt（可能多张）
+  viewpoints?: PendingViewpointData[];           // Danh sách góc nhìn
+  contactSheetPrompts?: ContactSheetPromptSet[]; // Prompt ảnh tổng hợp (có thể nhiều tờ)
 }
 
 // 待Tạo的Góc nhìn数据
 export interface PendingViewpointData {
   id: string;           // Góc nhìnID
-  name: string;         // 中文名：餐桌区、沙发区
-  nameEn: string;       // 英文名
-  shotIds: string[];    // 关联的Phân cảnhID
-  shotIndexes: number[]; // 关联的Phân cảnh序号（用于展示）
-  keyProps: string[];   // Đạo cụ（中文）
+  name: string;         // Tên tiếng Trung: khu bàn ăn, khu sofa
+  nameEn: string;       // Tên tiếng Anh
+  shotIds: string[];    // ID phân cảnh liên kết
+  shotIndexes: number[]; // Số thứ tự phân cảnh liên kết (dùng để hiển thị)
+  keyProps: string[];   // Đạo cụ (tiếng Trung)
   keyPropsEn: string[]; // Đạo cụ（英文）
-  gridIndex: number;    // 在联合图中的位置
+  gridIndex: number;    // 在联合图đang xử lý...
   pageIndex: number;    // 属于第几张联合图（从0Bắt đầu）
 }
 
@@ -184,7 +184,7 @@ export interface PendingViewpointData {
 export interface ContactSheetPromptSet {
   pageIndex: number;          // 第几张联合图（从0Bắt đầu）
   prompt: string;             // 英文prompt
-  promptZh: string;           // 中文prompt
+  promptZh: string;           // prompt tiếng Trung
   viewpointIds: string[];     // 包含哪些Góc nhìnID
   gridLayout: { rows: number; cols: number };
 }
@@ -196,7 +196,7 @@ interface MediaPanelStore {
   setActiveTab: (tab: Tab) => void;
   setActiveStage: (stage: Stage) => void;
   setInProject: (inProject: boolean) => void;
-  // Episode scope (con项目作用域)
+  // Episode scope (Mục con目作用域)
   activeEpisodeIndex: number | null;
   activeEpisodeScopeKey: string | null; // `${projectId}::ep-${episodeIndex}`
   enterEpisode: (index: number, projectId?: string) => void;

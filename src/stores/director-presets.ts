@@ -4,7 +4,7 @@
 /**
  * Director Presets — Đạo diễn面板预设常量
  *
- * 从 director-store.ts 中抽离的所有预设常量和派生Loại。
+ * 从 director-store.ts đang xử lý...Tất cả预设常量和派生Loại。
  * 供 split-scenes.tsx、split-scene-card.tsx、prompt-builder.ts 等模块Nhập。
  */
 
@@ -13,12 +13,12 @@
 export const SHOT_SIZE_PRESETS = [
   { id: 'ws', label: 'Toàn cảnh xa', labelEn: 'Wide Shot', abbr: 'WS', promptToken: 'wide shot, establishing shot, distant view' },
   { id: 'ls', label: 'Toàn cảnh', labelEn: 'Long Shot', abbr: 'LS', promptToken: 'long shot, full body shot' },
-  { id: 'mls', label: '中Toàn cảnh xa', labelEn: 'Medium Long Shot', abbr: 'MLS', promptToken: 'medium long shot, knee shot' },
+  { id: 'mls', label: 'Toàn cảnh trung', labelEn: 'Medium Long Shot', abbr: 'MLS', promptToken: 'medium long shot, knee shot' },
   { id: 'ms', label: 'Cảnh trung', labelEn: 'Medium Shot', abbr: 'MS', promptToken: 'medium shot, waist shot' },
-  { id: 'mcu', label: '中Cảnh gần', labelEn: 'Medium Close-Up', abbr: 'MCU', promptToken: 'medium close-up, chest shot' },
+  { id: 'mcu', label: 'Cảnh gần trung', labelEn: 'Medium Close-Up', abbr: 'MCU', promptToken: 'medium close-up, chest shot' },
   { id: 'cu', label: 'Cảnh gần', labelEn: 'Close-Up', abbr: 'CU', promptToken: 'close-up, face shot' },
   { id: 'ecu', label: 'Cận cảnh', labelEn: 'Extreme Close-Up', abbr: 'ECU', promptToken: 'extreme close-up, detail shot' },
-  { id: 'pov', label: '主观Ống kính', labelEn: 'POV Shot', abbr: 'POV', promptToken: 'point of view shot, first person perspective' },
+  { id: 'pov', label: 'Ống kính chủ quan', labelEn: 'POV Shot', abbr: 'POV', promptToken: 'point of view shot, first person perspective' },
 ] as const;
 
 export type ShotSizeType = typeof SHOT_SIZE_PRESETS[number]['id'];
@@ -26,15 +26,15 @@ export type ShotSizeType = typeof SHOT_SIZE_PRESETS[number]['id'];
 // ==================== Thời lượng预设 (Duration) ====================
 
 export const DURATION_PRESETS = [
-  { id: 4, label: '4秒', value: 4 },
-  { id: 5, label: '5秒', value: 5 },
-  { id: 6, label: '6秒', value: 6 },
-  { id: 7, label: '7秒', value: 7 },
-  { id: 8, label: '8秒', value: 8 },
-  { id: 9, label: '9秒', value: 9 },
-  { id: 10, label: '10秒', value: 10 },
-  { id: 11, label: '11秒', value: 11 },
-  { id: 12, label: '12秒', value: 12 },
+  { id: 4, label: '4 giây', value: 4 },
+  { id: 5, label: '5 giây', value: 5 },
+  { id: 6, label: '6 giây', value: 6 },
+  { id: 7, label: '7 giây', value: 7 },
+  { id: 8, label: '8 giây', value: 8 },
+  { id: 9, label: '9 giây', value: 9 },
+  { id: 10, label: '10 giây', value: 10 },
+  { id: 11, label: '11 giây', value: 11 },
+  { id: 12, label: '12 giây', value: 12 },
 ] as const;
 
 // Thời lượngLoại: 4-12 秒
@@ -45,35 +45,35 @@ export type DurationType = number;
 export const SOUND_EFFECT_PRESETS = {
   // 自然môi trường
   nature: [
-    { id: 'wind', label: '风声', promptToken: 'wind blowing sound' },
-    { id: 'rain', label: '雨声', promptToken: 'rain falling sound' },
-    { id: 'thunder', label: '雷声', promptToken: 'thunder rumbling' },
-    { id: 'birds', label: '鸟鸣', promptToken: 'birds chirping' },
-    { id: 'water', label: '流水', promptToken: 'water flowing sound' },
-    { id: 'waves', label: '海浪', promptToken: 'ocean waves crashing' },
+    { id: 'wind', label: 'Tiếng gió', promptToken: 'wind blowing sound' },
+    { id: 'rain', label: 'Tiếng mưa', promptToken: 'rain falling sound' },
+    { id: 'thunder', label: 'Tiếng sấm', promptToken: 'thunder rumbling' },
+    { id: 'birds', label: 'Tiếng chim', promptToken: 'birds chirping' },
+    { id: 'water', label: 'Tiếng nước chảy', promptToken: 'water flowing sound' },
+    { id: 'waves', label: 'Tiếng sóng biển', promptToken: 'ocean waves crashing' },
   ],
-  // 人物Hành động
+  // nhân vậtHành động
   action: [
-    { id: 'footsteps', label: '脚步声', promptToken: 'footsteps sound' },
-    { id: 'breathing', label: '呼吸声', promptToken: 'heavy breathing' },
-    { id: 'heartbeat', label: '心跳声', promptToken: 'heartbeat pounding' },
-    { id: 'fighting', label: '打斗声', promptToken: 'fighting impact sounds' },
-    { id: 'running', label: '奔跑声', promptToken: 'running footsteps' },
+    { id: 'footsteps', label: 'Tiếng bước chân', promptToken: 'footsteps sound' },
+    { id: 'breathing', label: 'Tiếng thở', promptToken: 'heavy breathing' },
+    { id: 'heartbeat', label: 'Tiếng tim đập', promptToken: 'heartbeat pounding' },
+    { id: 'fighting', label: 'Tiếng đánh nhau', promptToken: 'fighting impact sounds' },
+    { id: 'running', label: 'Tiếng chạy', promptToken: 'running footsteps' },
   ],
   // Bầu không khí效果
   atmosphere: [
-    { id: 'suspense', label: '悬疑', promptToken: 'suspenseful ambient sound' },
-    { id: 'dramatic', label: '戏剧性', promptToken: 'dramatic sound effect' },
-    { id: 'peaceful', label: '平静', promptToken: 'peaceful ambient sound' },
-    { id: 'tense', label: '紧张', promptToken: 'tense atmosphere sound' },
-    { id: 'epic', label: '史诗', promptToken: 'epic cinematic sound' },
+    { id: 'suspense', label: 'Hồi hộp', promptToken: 'suspenseful ambient sound' },
+    { id: 'dramatic', label: 'Kịch tính', promptToken: 'dramatic sound effect' },
+    { id: 'peaceful', label: 'Bình yên', promptToken: 'peaceful ambient sound' },
+    { id: 'tense', label: 'Căng thẳng', promptToken: 'tense atmosphere sound' },
+    { id: 'epic', label: 'Hùng tráng', promptToken: 'epic cinematic sound' },
   ],
   // 城市môi trường
   urban: [
-    { id: 'traffic', label: '车流', promptToken: 'traffic noise' },
-    { id: 'crowd', label: '人群', promptToken: 'crowd murmuring' },
-    { id: 'siren', label: '警笛', promptToken: 'siren wailing' },
-    { id: 'horn', label: '喇叭', promptToken: 'car horn honking' },
+    { id: 'traffic', label: 'Tiếng giao thông', promptToken: 'traffic noise' },
+    { id: 'crowd', label: 'Tiếng đám đông', promptToken: 'crowd murmuring' },
+    { id: 'siren', label: 'Tiếng còi', promptToken: 'siren wailing' },
+    { id: 'horn', label: 'Tiếng còi xe', promptToken: 'car horn honking' },
   ],
 } as const;
 
@@ -83,13 +83,13 @@ export type SoundEffectTag =
   | typeof SOUND_EFFECT_PRESETS.atmosphere[number]['id']
   | typeof SOUND_EFFECT_PRESETS.urban[number]['id'];
 
-// ==================== 拍摄控制预设（每个Phân cảnh独立） ====================
+// ==================== 拍摄控制预设（每Phân cảnh独立） ====================
 
 // 灯光Phong cách预设 (Gaffer)
 export const LIGHTING_STYLE_PRESETS = [
-  { id: 'high-key' as const, label: '高调明亮', labelEn: 'High-Key', emoji: '☀️', promptToken: 'high-key lighting, bright and even,' },
-  { id: 'low-key' as const, label: '低调暗沉', labelEn: 'Low-Key', emoji: '🌑', promptToken: 'low-key lighting, dramatic shadows, film noir,' },
-  { id: 'silhouette' as const, label: '剪影', labelEn: 'Silhouette', emoji: '🌅', promptToken: 'silhouette, backlit figure against bright background,' },
+  { id: 'high-key' as const, label: 'Sáng rõ', labelEn: 'High-Key', emoji: '☀️', promptToken: 'high-key lighting, bright and even,' },
+  { id: 'low-key' as const, label: 'Tối trầm', labelEn: 'Low-Key', emoji: '🌑', promptToken: 'low-key lighting, dramatic shadows, film noir,' },
+  { id: 'silhouette' as const, label: 'Bóng đổ', labelEn: 'Silhouette', emoji: '🌅', promptToken: 'silhouette, backlit figure against bright background,' },
   { id: 'chiaroscuro' as const, label: '明暗法', labelEn: 'Chiaroscuro', emoji: '🎨', promptToken: 'chiaroscuro lighting, Rembrandt style, strong contrast,' },
   { id: 'natural' as const, label: '自然光', labelEn: 'Natural', emoji: '🌤️', promptToken: 'natural lighting,' },
   { id: 'neon' as const, label: '霓虹', labelEn: 'Neon', emoji: '💜', promptToken: 'neon lighting, vibrant colored lights,' },
@@ -99,7 +99,7 @@ export const LIGHTING_STYLE_PRESETS = [
 
 // 灯光方向预设
 export const LIGHTING_DIRECTION_PRESETS = [
-  { id: 'front' as const, label: '正面光', labelEn: 'Front', emoji: '⬆️', promptToken: 'front lighting,' },
+  { id: 'front' as const, label: 'chính diện光', labelEn: 'Front', emoji: '⬆️', promptToken: 'front lighting,' },
   { id: 'side' as const, label: '侧光', labelEn: 'Side', emoji: '➡️', promptToken: 'dramatic side lighting,' },
   { id: 'back' as const, label: '逆光', labelEn: 'Back', emoji: '⬇️', promptToken: 'backlit,' },
   { id: 'top' as const, label: '顶光', labelEn: 'Top', emoji: '🔽', promptToken: 'overhead top lighting,' },
@@ -111,7 +111,7 @@ export const LIGHTING_DIRECTION_PRESETS = [
 // 色温预设
 export const COLOR_TEMPERATURE_PRESETS = [
   { id: 'warm' as const, label: '暖色 3200K', labelEn: 'Warm', emoji: '🟠', promptToken: 'warm color temperature 3200K,' },
-  { id: 'neutral' as const, label: '中性 5500K', labelEn: 'Neutral', emoji: '⚪', promptToken: 'neutral daylight 5500K,' },
+  { id: 'neutral' as const, label: 'đang xử lý...500K', labelEn: 'Neutral', emoji: '⚪', promptToken: 'neutral daylight 5500K,' },
   { id: 'cool' as const, label: '冷色 7000K', labelEn: 'Cool', emoji: '🔵', promptToken: 'cool blue color temperature,' },
   { id: 'golden-hour' as const, label: '黄金时段', labelEn: 'Golden Hour', emoji: '🌇', promptToken: 'golden hour warm sunlight,' },
   { id: 'blue-hour' as const, label: '蓝调时分', labelEn: 'Blue Hour', emoji: '🌆', promptToken: 'blue hour twilight tones,' },
@@ -122,7 +122,7 @@ export const COLOR_TEMPERATURE_PRESETS = [
 export const DEPTH_OF_FIELD_PRESETS = [
   { id: 'ultra-shallow' as const, label: '极浅 f/1.4', labelEn: 'Ultra Shallow', emoji: '🔍', promptToken: 'extremely shallow depth of field, f/1.4, dreamy bokeh,' },
   { id: 'shallow' as const, label: '浅Độ sâu trường ảnh f/2.8', labelEn: 'Shallow', emoji: '👤', promptToken: 'shallow depth of field, soft background bokeh,' },
-  { id: 'medium' as const, label: '中等 f/5.6', labelEn: 'Medium', emoji: '👥', promptToken: 'medium depth of field,' },
+  { id: 'medium' as const, label: 'đang xử lý.../5.6', labelEn: 'Medium', emoji: '👥', promptToken: 'medium depth of field,' },
   { id: 'deep' as const, label: '深Độ sâu trường ảnh f/11', labelEn: 'Deep', emoji: '🏔️', promptToken: 'deep focus, everything sharp,' },
   { id: 'split-diopter' as const, label: '分屈光镜', labelEn: 'Split Diopter', emoji: '🪞', promptToken: 'split diopter lens, foreground and background both in focus,' },
 ] as const;
@@ -132,7 +132,7 @@ export const FOCUS_TRANSITION_PRESETS = [
   { id: 'none' as const, label: '固定焦点', labelEn: 'None', promptToken: '' },
   { id: 'rack-to-fg' as const, label: '转焦到前景', labelEn: 'Rack to FG', promptToken: 'rack focus to foreground,' },
   { id: 'rack-to-bg' as const, label: '转焦到背景', labelEn: 'Rack to BG', promptToken: 'rack focus to background,' },
-  { id: 'rack-between' as const, label: '人物间转焦', labelEn: 'Rack Between', promptToken: 'rack focus between characters,' },
+  { id: 'rack-between' as const, label: 'nhân vật间转焦', labelEn: 'Rack Between', promptToken: 'rack focus between characters,' },
   { id: 'pull-focus' as const, label: '跟焦', labelEn: 'Pull Focus', promptToken: 'pull focus following subject movement,' },
 ] as const;
 
@@ -188,7 +188,7 @@ export const ATMOSPHERIC_EFFECT_PRESETS = {
 // 特效强度预设
 export const EFFECT_INTENSITY_PRESETS = [
   { id: 'subtle' as const, label: '轻微', labelEn: 'Subtle', promptToken: 'subtle' },
-  { id: 'moderate' as const, label: '中等', labelEn: 'Moderate', promptToken: '' },
+  { id: 'moderate' as const, label: 'đang xử lý... labelEn: 'Moderate', promptToken: '' },
   { id: 'heavy' as const, label: '浓烈', labelEn: 'Heavy', promptToken: 'heavy' },
 ] as const;
 
@@ -260,9 +260,9 @@ export const EMOTION_PRESETS = {
   ],
   // Bầu không khí情绪
   atmosphere: [
-    { id: 'tense', label: '紧张', emoji: '😰' },
+    { id: 'tense', label: 'Căng thẳng', emoji: '😰' },
     { id: 'excited', label: '兴奋', emoji: '🤩' },
-    { id: 'mysterious', label: '神秘', emoji: '🤔' },
+    { id: 'mysterious', label: 'bí ẩn', emoji: '🤔' },
     { id: 'romantic', label: '浪漫', emoji: '🥰' },
     { id: 'funny', label: '搞笑', emoji: '😂' },
     { id: 'touching', label: '感动', emoji: '🥹' },
@@ -307,7 +307,7 @@ export const FOCAL_LENGTH_PRESETS = [
   { id: '35mm' as const, label: '35mm 标准广角', labelEn: '35mm Standard Wide', emoji: '📷', promptToken: '35mm lens, natural wide perspective, street photography feel,' },
   { id: '50mm' as const, label: '50mm 标准', labelEn: '50mm Standard', emoji: '👁️', promptToken: '50mm standard lens, natural human eye perspective,' },
   { id: '85mm' as const, label: '85mm Chân dung', labelEn: '85mm Portrait', emoji: '🧑', promptToken: '85mm portrait lens, flattering facial proportions, smooth background compression,' },
-  { id: '105mm' as const, label: '105mm 中焦', labelEn: '105mm Medium Tele', emoji: '🔭', promptToken: '105mm medium telephoto, gentle background compression,' },
+  { id: '105mm' as const, label: '105mm đang xử lý... labelEn: '105mm Medium Tele', emoji: '🔭', promptToken: '105mm medium telephoto, gentle background compression,' },
   { id: '135mm' as const, label: '135mm 长焦', labelEn: '135mm Telephoto', emoji: '📡', promptToken: '135mm telephoto lens, strong background compression, subject isolation,' },
   { id: '200mm' as const, label: '200mm 远摄', labelEn: '200mm Long Tele', emoji: '🔬', promptToken: '200mm telephoto, extreme background compression, flattened perspective,' },
   { id: '400mm' as const, label: '400mm 超长焦', labelEn: '400mm Super Tele', emoji: '🛰️', promptToken: '400mm super telephoto, extreme compression, distant subject isolation,' },

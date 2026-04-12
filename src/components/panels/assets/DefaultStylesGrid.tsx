@@ -5,7 +5,7 @@
 
 /**
  * DefaultStylesGrid - 内置Phong cách网格浏览（只读）
- * 按phân loại分组展示 48 个预设Phong cách
+ * 按phân loại分组Hiển thị 48 预设Phong cách
  */
 
 import { useState } from "react";
@@ -35,7 +35,7 @@ export function DefaultStylesGrid() {
         <div className="flex items-center justify-between">
           <h2 className="text-sm font-semibold text-foreground">Mặc địnhPhong cách</h2>
           <span className="text-xs text-muted-foreground">
-            {STYLE_CATEGORIES.reduce((n, c) => n + c.styles.length, 0)} 个预设
+            {STYLE_CATEGORIES.reduce((n, c) => n + c.styles.length, 0)} 预设
           </span>
         </div>
 

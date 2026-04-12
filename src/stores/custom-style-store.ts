@@ -17,14 +17,14 @@ export interface CustomStyle {
   id: string;
   name: string;                 // Phong cáchTên（必填）
   prompt: string;               // 用户原始prompt（可能混合了Phong cách+Mô tả cảnh）
-  negativePrompt: string;       // 负面prompt
+  negativePrompt: string;       // Prompt phủ định
   description: string;          // Mô tả
   referenceImages: string[];    // Ảnh tham chiếu路径 (local-image://styles/...)
   tags: string[];               // Thẻ
   folderId: string | null;      // 所属Thư mục
-  // === AI 提取的结构化Phong cách词（优先级高于 prompt） ===
-  styleTokens?: string;         // 纯Phong cách thị giác关键词（画风/光线/色彩/材质）→ Nhân vật/Cảnh设定图使用
-  sceneTokens?: string;         // Cảnh/构图/Đạo cụMô tả → Đạo diễn台/Phân cảnh使用
+  // === AI 提取的Cấu trúc化Phong cách词（优先级高于 prompt） ===
+  styleTokens?: string;         // 纯Phong cách thị giácquan trọng词（画风/光线/色彩/材质）→ Nhân vật/Cảnh设定图使用
+  sceneTokens?: string;         // Cảnh/bố cục/Đạo cụMô tả → Đạo diễn台/Phân cảnh使用
   createdAt: number;
   updatedAt: number;
 }
@@ -197,8 +197,8 @@ export const useCustomStyleStore = create<CustomStyleStore>()(
 // 能查找到用户Tùy chỉnhPhong cách（存储在 localStorage 的用户数据）
 
 /**
- * 从prompt中推断Phong cáchphân loại（Hỗ trợTrung-Anh关键词）
- * 关键词匹配：
+ * 从promptđang xử lý...hong cáchphân loại（Hỗ trợTrung-Anhquan trọng词）
+ * quan trọng词匹配：
  *   real → realistic/photorealistic/photography/写实/真人/实景/电影级/实拍/胶片
  *   3d   → 3d/render/unreal/c4d/三维/渲染/虚幻引擎
  *   stop_motion → stop motion/claymation/定格/黏土
@@ -206,19 +206,19 @@ export const useCustomStyleStore = create<CustomStyleStore>()(
  */
 function inferCategoryFromPrompt(prompt: string): import('@/lib/constants/visual-styles').StyleCategory {
   const lower = prompt.toLowerCase();
-  // 英文关键词
+  // 英文quan trọng词
   if (/\b(realistic|photorealistic|real\s?person|photography|real\s?life|cinematic\s?lighting.*skin)/.test(lower)) {
     return 'real';
   }
-  // 中文关键词：写实/真人/实景/电影级写实/实拍/胶片/剧照
+  // đang xử lý...an trọng词：写实/真人/实景/电影级写实/实拍/胶片/剧照
   if (/(写实|真人|实景|电影级|实拍|胶片|剧照|无\s?CGI|皮肤纹理|毛孔)/.test(prompt)) {
     return 'real';
   }
-  // 英文 3D 关键词
+  // 英文 3D quan trọng词
   if (/\b(3d|render|unreal\s?engine|c4d|blender|voxel|low\s?poly)/.test(lower)) {
     return '3d';
   }
-  // 中文 3D 关键词
+  // đang xử lý...D quan trọng词
   if (/(三维|3D|渲染|虚幻引擎|建模)/.test(prompt)) {
     return '3d';
   }
@@ -243,7 +243,7 @@ registerCustomStyleLookup((id: string): StylePreset | undefined => {
   const style = useCustomStyleStore.getState().styles.find(s => s.id === id);
   if (!style) return undefined;
 
-  // 智能推断 category/mediaType（用户Chỉnh sửa器目前无这两个字段）
+  // 智能推断 category/mediaType（用户Chỉnh sửa器目前无这两trường）
   const effectivePrompt = style.prompt || '';
   const category = inferCategoryFromPrompt(effectivePrompt);
   const mediaType = inferMediaType(category);

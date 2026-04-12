@@ -35,7 +35,7 @@ export function GenerationHistory({ type, onSelect, className }: GenerationHisto
   return (
     <div className={cn('flex flex-col h-full', className)}>
       <div className="flex items-center justify-between px-3 py-2 border-b">
-        <span className="text-sm font-medium">历史记录 ({history.length})</span>
+        <span className="text-sm font-medium">Lịch sử ({history.length})</span>
         <Button
           variant="ghost"
           size="sm"

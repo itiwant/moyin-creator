@@ -173,7 +173,7 @@ async function handleGenerateScreenplay(command: GenerateScreenplayCommand): Pro
     
     // Only require API key if not in mock mode
     if (!apiKey && !mockMode) {
-      throw new Error('未配置 API Key，请在设置中添加或启用 Mock 模式');
+      throw new Error('未配置 API Key，请在设置đang xử lý...启用 Mock chế độ');
     }
     
     // Call the backend API with correct schema
@@ -347,7 +347,7 @@ async function pollTaskCompletion(
       throw new Error('Cancelled');
     }
     
-    // API Key 通过 Header 传递，避免明文出现在 URL 中（安全风险：URL 会被日志/历史记录）
+    // API Key 通过 Header 传递，避免明文出现在 URL đang xử lý...风险：URL 会被日志/Lịch sử）
     const statusResponse = await fetch(
       buildApiUrl(`/api/ai/task/${taskId}?provider=${provider}&type=${type}`),
       {
@@ -685,7 +685,7 @@ async function handleExecuteScreenplayImages(command: { type: string; payload: {
         completedCount: 0,
         failedCount: screenplay.scenes.length,
         totalCount: screenplay.scenes.length,
-        error: '未配置ảnh生成 API Key，请在服务映射中配置',
+        error: '未配置ảnh生成 API Key，请在服务映射đang xử lý...,
       },
     });
     // Also report failure for each scene

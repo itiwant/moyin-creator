@@ -36,7 +36,7 @@ const LOCALES: Locales = {
 
 export const LANGUAGE_LABELS: Record<Language, string> = {
   vi: "Tiếng Việt",
-  zh: "中文",
+  zh: "đang xử lý...
 };
 
 // ─── Language Zustand store (persisted) ──────────────────────────────────────

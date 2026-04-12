@@ -2,11 +2,11 @@
 // Licensed under AGPL-3.0-or-later. See LICENSE for details.
 // Commercial licensing available. See COMMERCIAL_LICENSE.md.
 /**
- * Model Capability Registry — AI 调度中心核心组件 1
+ * Model Capability Registry — AI 调度đang xử lý...组件 1
  *
  * 职责：根据模型名称查询 contextWindow 和 maxOutput 限制。
  * 三层查找（优先级递减）：
- *   1. 持久化缓存（从 API 错误中自动学到的真实限制）
+ *   1. 持久化缓存（从 API 错误đang xử lý...到的真实限制）
  *   2. 静态注册表（官方文档验证过的已知模型）
  *   3. _default 保守默认值
  *
@@ -26,7 +26,7 @@ export interface ModelLimits {
   maxOutput: number;
 }
 
-/** 从 API 400 错误中发现的模型限制（持久化到 localStorage） */
+/** 从 API 400 错误đang xử lý...模型限制（持久化到 localStorage） */
 export interface DiscoveredModelLimits {
   maxOutput?: number;
   contextWindow?: number;
@@ -102,7 +102,7 @@ let _setDiscoveredLimits: ((model: string, limits: Partial<DiscoveredModelLimits
 
 /**
  * 注入持久化缓存的读写函数（由 api-config-store 在初始化时调用）
- * 这种模式避免了 model-registry ↔ api-config-store 的循环依赖
+ * 这种chế độ避免了 model-registry ↔ api-config-store 的循环依赖
  */
 export function injectDiscoveryCache(
   getter: (model: string) => DiscoveredModelLimits | undefined,
@@ -125,7 +125,7 @@ export function injectDiscoveryCache(
 export function getModelLimits(modelName: string): ModelLimits {
   const m = modelName.toLowerCase();
 
-  // Layer 1: 持久化缓存（最准确，从 API 错误中学到的真实值）
+  // Layer 1: 持久化缓存（最准确，从 API 错误đang xử lý...真实值）
   if (_getDiscoveredLimits) {
     const discovered = _getDiscoveredLimits(m);
     if (discovered) {
@@ -164,7 +164,7 @@ function lookupStatic(modelNameLower: string): ModelLimits {
 // ==================== Error-driven Discovery ====================
 
 /**
- * 从 API 400 错误消息中解析模型限制
+ * 从 API 400 错误消息đang xử lý...型限制
  *
  * 覆盖主流 API 的错误格式：
  *   - DeepSeek: "Invalid max_tokens value, the valid range of max_tokens is [1, 8192]"
@@ -252,22 +252,22 @@ export function cacheDiscoveredLimits(
  * Token 估算（保守算法）
  *
  * 使用 字符数/1.5 作为保守上限：
- *   - 中文: 1 token ≈ 0.6~1.0 汉字，/1.5 相当于放大估算（偏安全）
+ *   - đang xử lý...1 token ≈ 0.6~1.0 汉字，/1.5 相当于放大估算（偏安全）
  *   - 英文/标点/JSON: 1 token ≈ 3~4 字符，/1.5 也偏安全
  *   - 宁可高估 token 数（多分批），也不低估（撞限制）
- *   - 不引入 tiktoken 等重型库，避免前端 WASM 兼容性和体积问题
+ *   - 不引入 tiktoken 等重型库，避免前端 WASM tương thích性和体积问题
  */
 export function estimateTokens(text: string): number {
   return Math.ceil(text.length / 1.5);
 }
 
 /**
- * 智能截断文本，不在句子或段落中间切断
- * 避免截断导致 JSON 结构损坏或 AI 理解混乱
+ * 智能截断文本，不在句子或段落đang xử lý...
+ * 避免截断导致 JSON Cấu trúc损坏或 AI 理解混乱
  *
  * @param text 原始文本
  * @param maxLength 最大字符数
- * @param hint 截断时追加的提示后缀（帮助 AI 理解信息不完整，减少幻觉）
+ * @param hint 截断时追加的提示后缀（帮助 AI 理解信息不đầy đủ，减少幻觉）
  */
 export function safeTruncate(
   text: string,
@@ -276,19 +276,19 @@ export function safeTruncate(
 ): string {
   if (text.length <= maxLength) return text;
 
-  // 为 hint 预留空间
+  // 为 hint 预Để trống间
   const budget = maxLength - hint.length;
   if (budget <= 0) return text.slice(0, maxLength);
 
   const sliced = text.slice(0, budget);
 
-  // 优先在换行处截断（保留完整段落）
+  // 优先在换行处截断（保留đầy đủ段落）
   const lastNewline = sliced.lastIndexOf('\n');
   if (lastNewline > budget * 0.8) {
     return sliced.slice(0, lastNewline) + hint;
   }
 
-  // 其次在中文/英文句末截断（保留完整句子）
+  // 其次在đang xử lý...文句末截断（保留đầy đủ句子）
   const lastSentenceEnd = Math.max(
     sliced.lastIndexOf('。'),
     sliced.lastIndexOf('！'),

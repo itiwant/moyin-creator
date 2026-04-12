@@ -57,7 +57,7 @@ Return RAW JSON (no markdown):
   "styleTokens": "token1, token2, ...",
   "sceneTokens": "token1, token2, ...",
   "category": "real",
-  "summaryZh": "中文简述"
+  "summaryZh": "đang xử lý..."
 }`;
 
 function buildEndpoint(baseUrl: string, path: string): string {
@@ -84,7 +84,7 @@ function extractErrorMessage(status: number, errorText: string): string {
   }
 
   if (status === 401 || status === 403) {
-    return 'API Key 无效或已过期，请检查“图片理解”服务的 Key 配置';
+    return 'API Key 无效或已hết hạn，请检查“图片理解”服务的 Key 配置';
   }
 
   if (status >= 500) {
@@ -117,7 +117,7 @@ export async function extractStyleTokens(
 ): Promise<StyleExtractionResult> {
   const config = getFeatureConfig('image_understanding');
   if (!config) {
-    throw new Error('请先在设置中为“图片理解”功能绑定 API 提供商');
+    throw new Error('请先在设置đang xử lý...片理解”功能绑定 API 提供商');
   }
 
   const baseUrl = config.baseUrl?.replace(/\/+$/, '');

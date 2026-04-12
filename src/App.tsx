@@ -38,7 +38,7 @@ function App() {
     })();
   }, []);
 
-  // 启动时自动同步所有已配置 API Key 的供应商模型元数据
+  // 启动时自动同步Tất cả已配置 API Key 的供应商模型元数据
   useEffect(() => {
     if (isMigrating) return;
     let cancelled = false;
@@ -118,7 +118,7 @@ function App() {
     };
   }, [isMigrating, updateSettings.autoCheckEnabled, updateSettings.ignoredVersion]);
 
-  // 迁移中显示加载界面
+  // 迁移đang xử lý...载界面
   if (isMigrating) {
     return (
       <div className="h-screen w-screen flex items-center justify-center bg-background">

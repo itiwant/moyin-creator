@@ -32,9 +32,9 @@ import type { IProvider } from "@/lib/api-key-manager";
 
 /**
  * Nền tảng预设配置
- * 1. 魔因API (memefast) - 全功能中转（Đề xuất）
- * 2. RunningHub - Chuyển góc nhìn/多角度Tạo
- * 3. Tùy chỉnh - OpenAI 兼容 API
+ * 1. 魔因API (memefast) - 全功能trung gian（Đề xuất）
+ * 2. RunningHub - Chuyển góc nhìn/đa góc độTạo
+ * 3. Tùy chỉnh - OpenAI tương thích API
  */
 const PLATFORM_PRESETS: Array<{
   platform: string;
@@ -47,10 +47,10 @@ const PLATFORM_PRESETS: Array<{
 }> = [
   {
     platform: "memefast",
-    name: "魔因API",
+    name: "Moyin API",
     baseUrl: "https://memefast.top",
-    description: "543+ Model中转，Hỗ trợ GPT/Claude/Gemini/DeepSeek/Veo/Sora 等",
-    services: ["对话", "ảnhTạo", "videoTạo", "ảnh理解"],
+    description: "543+ Modeltrung gian，Hỗ trợ GPT/Claude/Gemini/DeepSeek/Veo/Sora 等",
+    services: ["Chat", "Tạo ảnh", "Tạo video", "Phân tích ảnh"],
     models: [
       "deepseek-v3.2",
       "glm-4.7",
@@ -70,15 +70,15 @@ const PLATFORM_PRESETS: Array<{
     platform: "runninghub",
     name: "RunningHub",
     baseUrl: "https://www.runninghub.cn/openapi/v2",
-    description: "Qwen Chuyển góc nhìn / 多角度Tạo",
-    services: ["Chuyển góc nhìn", "图生图"],
+    description: "Qwen Chuyển góc nhìn / Tạo đa góc độ",
+    services: ["Chuyển góc nhìn", "Ảnh từ ảnh"],
     models: ["2009613632530812930"],
   },
   {
     platform: "custom",
     name: "Tùy chỉnh",
     baseUrl: "",
-    description: "Tùy chỉnh OpenAI 兼容 Nhà cung cấp API",
+    description: "Nhà cung cấp API tương thích OpenAI tùy chỉnh",
     services: [],
     models: [],
   },
@@ -140,7 +140,7 @@ export function AddProviderDialog({
       return;
     }
     if (isCustom && !baseUrl.trim()) {
-      toast.error("Tùy chỉnhNền tảng需要输入 Base URL");
+      toast.error("Nền tảng tùy chỉnh cần nhập Base URL");
       return;
     }
     if (!apiKey.trim()) {
@@ -148,7 +148,7 @@ export function AddProviderDialog({
       return;
     }
 
-    // Lưu该Nền tảng的所有预设Model，确保 provider.model 不为空
+    // Lưu该Nền tảng的Tất cả预设Model，确保 provider.model 不为空
     const presetModels = selectedPreset?.models || [];
     const modelArray = presetModels.length > 0 
       ? presetModels 
@@ -163,7 +163,7 @@ export function AddProviderDialog({
     });
 
     onOpenChange(false);
-    toast.success(isMemefastAppend ? `已追加 Key 到 ${name}` : `đã thêm ${name}`);
+    toast.success(isMemefastAppend ? `Đã thêm Key vào ${name}` : `Đã thêm ${name}`);
   };
 
   // Filter out already existing platforms (except custom and memefast which allow repeat add)
@@ -177,7 +177,7 @@ export function AddProviderDialog({
       <DialogContent className="max-w-md">
         <DialogHeader>
           <DialogTitle>Thêm Nhà cung cấp API</DialogTitle>
-          <DialogDescription className="hidden">Thêm一个新的 Nhà cung cấp API</DialogDescription>
+          <DialogDescription className="hidden">Thêm một nhà cung cấp API mới</DialogDescription>
         </DialogHeader>
 
         <div className="flex flex-col gap-4 py-4">
@@ -186,7 +186,7 @@ export function AddProviderDialog({
             <Label>Nền tảng</Label>
             <Select value={platform} onValueChange={setPlatform}>
               <SelectTrigger>
-                <SelectValue placeholder="选择Nền tảng" />
+                <SelectValue placeholder="Chọn nền tảng" />
               </SelectTrigger>
               <SelectContent>
               {availablePlatforms.map((preset) => (
@@ -218,7 +218,7 @@ export function AddProviderDialog({
           {/* Base URL (only for custom or editable) */}
           {(isCustom || platform) && (
             <div className="space-y-2">
-              <Label>Base URL {!isCustom && "(可选修改)"}</Label>
+              <Label>Base URL {!isCustom && "((tùy chọn sửa đổi))"}</Label>
               <Input
                 value={baseUrl}
                 onChange={(e) => setBaseUrl(e.target.value)}
@@ -234,11 +234,11 @@ export function AddProviderDialog({
               type="password"
               value={apiKey}
               onChange={(e) => setApiKey(e.target.value)}
-              placeholder="输入 API Key"
+              placeholder="Nhập API Key"
               className="font-mono"
             />
             <p className="text-xs text-muted-foreground">
-              Hỗ trợ多个 Key，用逗号分隔
+              Hỗ trợ nhiều Key, ngăn cách bằng dấu phẩy
             </p>
           </div>
 
@@ -248,7 +248,7 @@ export function AddProviderDialog({
             <Input
               value={model}
               onChange={(e) => setModel(e.target.value)}
-              placeholder="输入ModelTên，如 gpt-4o"
+              placeholder="Nhập tên Model, ví dụ gpt-4o"
             />
           </div>
         </div>
@@ -257,7 +257,7 @@ export function AddProviderDialog({
           <Button variant="outline" onClick={() => onOpenChange(false)}>
             Hủy
           </Button>
-          <Button onClick={handleSubmit}>{isMemefastAppend ? "追加 Key" : "Thêm"}</Button>
+          <Button onClick={handleSubmit}>{isMemefastAppend ? "Thêm Key" : "Thêm"}</Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>

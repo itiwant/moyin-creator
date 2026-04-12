@@ -218,7 +218,7 @@ export function CharacterGallery({ onCharacterSelect, selectedCharacterId }: Cha
             onClick={() => setCurrentFolder(null)}
           >
             <Home className="h-3.5 w-3.5" />
-            Nhân vật库
+            Thư viện nhân vật
           </Button>
           {breadcrumbPath.map((folder) => (
             <div key={folder.id} className="flex items-center">
@@ -398,7 +398,7 @@ export function CharacterGallery({ onCharacterSelect, selectedCharacterId }: Cha
                         <div className="text-center">
                           <p className="text-sm font-medium truncate">{char.name}</p>
                           <p className="text-xs text-muted-foreground">
-                            {char.views.length > 0 ? `${char.views.length} 视图` : "未Tạo"}
+                            {char.views.length > 0 ? `${char.views.length} góc nhìn` : "Chưa tạo"}
                           </p>
                         </div>
                       </>
@@ -440,10 +440,10 @@ export function CharacterGallery({ onCharacterSelect, selectedCharacterId }: Cha
                 <User className="h-6 w-6 text-muted-foreground" />
               </div>
               <p className="text-sm text-muted-foreground">
-                {searchQuery ? "Không tìm thấy匹配的Nhân vật" : "还没有Nhân vật"}
+                {searchQuery ? "Không tìm thấy nhân vật phù hợp" : "Chưa có nhân vật"}
               </p>
               <p className="text-xs text-muted-foreground mt-1">
-                使用左侧控制台TạoNhân vật
+                Dùng bảng điều khiển bên trái để Tạo nhân vật
               </p>
             </div>
           )

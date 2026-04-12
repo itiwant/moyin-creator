@@ -13,7 +13,7 @@ import { generateAnglePrompt } from './runninghub-angles';
 const normalizeBaseUrl = (baseUrl: string) => baseUrl.replace(/\/+$/, '');
 
 export interface RunningHubSubmitParams {
-  referenceImage: string;  // 原图URL或base64
+  referenceImage: string;  // Ảnh gốcURL或base64
   anglePrompt: string;     // 视角提示词
   apiKey: string;
   baseUrl: string;
@@ -92,7 +92,7 @@ export async function submitAngleSwitchTask(
 
         const error = new Error(
           response.status === 401 || response.status === 403
-            ? 'API Key 无效或已过期'
+            ? 'API Key 无效或已hết hạn'
             : response.status >= 500
               ? 'RunningHub 服务暂时不可用'
               : errorMessage
@@ -221,7 +221,7 @@ export async function pollTaskUntilComplete(
     }
   }
 
-  throw new Error('视角切换超时，请重试');
+  throw new Error('视角切换超时，请Thử lại');
 }
 
 /**

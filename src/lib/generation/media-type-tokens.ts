@@ -8,7 +8,7 @@
  * 该媒介能驾驭的等效表达。
  *
  * 翻译策略：
- * - cinematic  → 直通，保留全部物理摄影词汇
+ * - cinematic  → 直通，保留Tất cả物理摄影词汇
  * - animation  → 虚拟摄像机语义适配（轨道→视差平移、景深→层次模糊）
  * - stop-motion → 微缩实拍约束（轨道→微型滑轨、景深→微距镜头）
  * - graphic    → 跳过物理参数，灯光→色彩/情绪/节奏描述
@@ -16,7 +16,7 @@
 
 import type { MediaType } from '@/lib/constants/visual-styles';
 
-// ==================== 字段类型 ====================
+// ==================== trường类型 ====================
 
 export type CinematographyField =
   | 'cameraRig'
@@ -37,16 +37,16 @@ export type CinematographyField =
 // ==================== 翻译表 ====================
 
 /**
- * 每种非-cinematic 媒介的字段级翻译表。
+ * 每种非-cinematic 媒介的trường级翻译表。
  * - key = preset id
  * - value = 替换后的 promptToken（空字符串 = 静默跳过）
  *
- * 不在表中的 preset id → 沿用原始 token（兼容未来新增预设）
+ * 不在表đang xử lý...reset id → 沿用原始 token（tương thích未来新增预设）
  */
 type FieldOverrides = Record<string, string>;
 
 /**
- * 'skip' 表示该字段在该媒介下整体跳过（返回空字符串）
+ * 'skip' 表示该trường在该媒介下整体跳过（返回空字符串）
  */
 type FieldStrategy = FieldOverrides | 'skip';
 
@@ -81,7 +81,7 @@ const ANIMATION_TABLE: MediaTranslationTable = {
   },
   // lightingStyle / lightingDirection / colorTemperature / movementSpeed / playbackSpeed
   // → 概念相通，不做翻译，沿用原始 token
-  // cameraAngle / focalLength / photographyTechnique → 虚拟摄像机可直接使用
+  // cameraAngle / focalLength / photographyTechnique → 虚拟摄像机可Trực tiếp使用
 };
 
 // ---------- stop-motion ----------
@@ -123,7 +123,7 @@ const STOP_MOTION_TABLE: MediaTranslationTable = {
 // ---------- graphic ----------
 
 const GRAPHIC_TABLE: MediaTranslationTable = {
-  // 物理摄影参数 → 全部跳过
+  // 物理摄影参数 → Tất cả跳过
   cameraRig:       'skip',
   movementSpeed:   'skip',
   depthOfField:    'skip',
@@ -196,7 +196,7 @@ export function translateToken(
 
   const strategy = table[field];
 
-  // 该字段无特殊处理 → 沿用原始 token
+  // 该trường无特殊处理 → 沿用原始 token
   if (strategy === undefined) return originalToken;
 
   // 整体跳过
@@ -208,7 +208,7 @@ export function translateToken(
 }
 
 /**
- * 判断某个字段在当前媒介下是否被跳过（UI 可用此决定是否显示灰色）
+ * 判断某trường在当前媒介下是否被跳过（UI 可用此决定是否显示灰色）
  */
 export function isFieldSkipped(mediaType: MediaType, field: CinematographyField): boolean {
   if (mediaType === 'cinematic') return false;

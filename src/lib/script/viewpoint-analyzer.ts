@@ -5,7 +5,7 @@
  * AI Viewpoint Analyzer
  * 
  * 使用 AI 分析场景和分镜内容，智能生成合适的视角列表
- * 替代原有的硬编码关键词匹配
+ * 替代原有的硬编码quan trọng词匹配
  */
 
 import type { Shot, ScriptScene } from '@/types/script';
@@ -30,7 +30,7 @@ export interface ViewpointAnalysisResult {
 export interface ViewpointAnalysisOptions {
   /** 本集大纲/剧情摘要 */
   episodeSynopsis?: string;
-  /** 本集关键事件 */
+  /** 本集quan trọng事件 */
   keyEvents?: string[];
   /** 剧名 */
   title?: string;
@@ -63,7 +63,7 @@ export async function analyzeSceneViewpoints(
     };
   }
   
-  // 构建分镜内容摘要（使用更多详细字段）
+  // 构建分镜内容摘要（使用更多详细trường）
   const shotSummaries = shots.map((shot, idx) => {
     const parts = [
       `【分镜${idx + 1}】`,
@@ -72,7 +72,7 @@ export async function analyzeSceneViewpoints(
       shot.visualFocus && `视觉焦点: ${shot.visualFocus}`,
       shot.dialogue && `对白: ${shot.dialogue.slice(0, 80)}`,
       shot.ambientSound && `环境声: ${shot.ambientSound}`,
-      shot.characterBlocking && `人物布局: ${shot.characterBlocking}`,
+      shot.characterBlocking && `nhân vật布局: ${shot.characterBlocking}`,
       shot.shotSize && `景别: ${shot.shotSize}`,
       shot.cameraMovement && `镜头运动: ${shot.cameraMovement}`,
     ].filter(Boolean);
@@ -87,7 +87,7 @@ export async function analyzeSceneViewpoints(
     ? `【本集大纲】\n${opts.episodeSynopsis}\n`
     : '';
   const keyEventsPart = opts.keyEvents && opts.keyEvents.length > 0
-    ? `【本集关键事件】\n${opts.keyEvents.map((e, i) => `${i + 1}. ${e}`).join('\n')}\n`
+    ? `【本集quan trọng事件】\n${opts.keyEvents.map((e, i) => `${i + 1}. ${e}`).join('\n')}\n`
     : '';
 
   // 构建全局故事上下文
@@ -108,14 +108,14 @@ ${globalContextSection}【任务】
 
 【重要原则】
 1. 视角必须与场景类型匹配：
-   - 大巴车/汽车场景：车窗、座位区、过道、驾驶位等
+   - 大巴车/xe hơi场景：车窗、座位区、过道、驾驶位等
    - 室内家居：客厅、卧室、厨房、窗边等
    - 户外场景：全景、近景、特定地标等
    - 古代场景：堂屋、庭院、案几等
-2. 从分镜动作和画面描述中提取实际需要的视角
+2. 从分镜动作和画面描述đang xử lý...际需要的视角
 3. 结合本集大纲理解场景的叙事功能，确定哪些视角是核心的
-4. 每个视角要有关键道具（从分镜的视觉焦点和环境声中提取）
-5. 输出4-6个视角
+4. 每视角要有quan trọng道具（从分镜的视觉焦点和环境声đang xử lý...
+5. 输出4-6视角
 
 【输出格式】
 返回 JSON:
@@ -123,13 +123,13 @@ ${globalContextSection}【任务】
   "viewpoints": [
     {
       "id": "唯一ID如window/seat/overview",
-      "name": "中文名称",
+      "name": "đang xử lý...",
       "nameEn": "English Name",
-      "description": "中文描述（20字内）",
+      "description": "đang xử lý...（20字内）",
       "descriptionEn": "English description",
       "keyProps": ["道具1", "道具2"],
       "keyPropsEn": ["prop1", "prop2"],
-      "shotIndexes": [1, 2]  // 哪些分镜需要这个视角
+      "shotIndexes": [1, 2]  // 哪些分镜需要这视角
     }
   ],
   "analysisNote": "分析说明"
@@ -140,7 +140,7 @@ ${globalContextSection}【任务】
 时间: ${scene.time || '日'}
 氛围: ${scene.atmosphere || '平静'}
 
-【分镜内容（共 ${shots.length} 个分镜）】
+【分镜内容（共 ${shots.length} 分镜）】
 ${shotSummaries}
 
 请根据以上本集大纲和分镜内容，分析该场景需要的视角，返回 JSON。`;
@@ -195,8 +195,8 @@ ${shotSummaries}
     // 降级：返回基础视角
     return {
       viewpoints: [
-        { id: 'overview', name: '全景', nameEn: 'Overview', description: '整体空间布局', descriptionEn: 'Overall spatial layout', keyProps: [], keyPropsEn: [], shotIndexes: [] },
-        { id: 'medium', name: '中景', nameEn: 'Medium Shot', description: '中景视角', descriptionEn: 'Medium view', keyProps: [], keyPropsEn: [], shotIndexes: [] },
+        { id: 'overview', name: '全景', nameEn: 'Overview', description: '整体Bố cục không gian', descriptionEn: 'Overall spatial layout', keyProps: [], keyPropsEn: [], shotIndexes: [] },
+        { id: 'medium', name: 'đang xử lý... nameEn: 'Medium Shot', description: 'đang xử lý...', descriptionEn: 'Medium view', keyProps: [], keyPropsEn: [], shotIndexes: [] },
         { id: 'detail', name: '细节', nameEn: 'Detail', description: '细节特写', descriptionEn: 'Detail close-up', keyProps: [], keyPropsEn: [], shotIndexes: [] },
       ],
       analysisNote: 'AI 分析失败，使用默认视角',
@@ -205,7 +205,7 @@ ${shotSummaries}
 }
 
 /**
- * 批量分析多个场景的视角
+ * 批量分析多场景的视角
  */
 export async function analyzeMultipleScenesViewpoints(
   scenesWithShots: Array<{ scene: ScriptScene; shots: Shot[] }>,

@@ -4,12 +4,12 @@
 /**
  * auto-grouping.ts — Hạng S智能分组算法
  *
- * 将 director-store 中的 SplitScene[] Tự động分为 ShotGroup[]。
+ * 将 director-store đang xử lý...plitScene[] Tự động分为 ShotGroup[]。
  * 策略：
  *   1. 按顺序贪心填装，每组TổngThời lượng ≤ maxDuration（Mặc định15s）
  *   2. Cảnh切换优先断开（不同 sceneName 的Ống kính优先不在同一组）
  *   3. Nhân vật重叠度高的Ống kính优先同组（characterIds 交集）
- *   4. 每组 2~maxPerGroup 个Ống kính
+ *   4. 每组 2~maxPerGroup Ống kính
  */
 
 import type { SplitScene } from '@/stores/director-store';
@@ -37,12 +37,12 @@ const DEFAULT_CONFIG: GroupingConfig = {
 
 // ==================== Helpers ====================
 
-/** 获取单个Phân cảnh的有效Thời lượng */
+/** 获取单Phân cảnh的有效Thời lượng */
 function getSceneDuration(scene: SplitScene, defaultDuration: number): number {
   return scene.duration > 0 ? scene.duration : defaultDuration;
 }
 
-/** 计算两个Ống kính的Nhân vật重叠度 (0~1) */
+/** 计算两Ống kính的Nhân vật重叠度 (0~1) */
 function characterOverlap(a: SplitScene, b: SplitScene): number {
   if (!a.characterIds?.length || !b.characterIds?.length) return 0;
   const setA = new Set(a.characterIds);
@@ -51,7 +51,7 @@ function characterOverlap(a: SplitScene, b: SplitScene): number {
   return union.size > 0 ? intersection.length / union.size : 0;
 }
 
-/** 判断两个Ống kính是否同Cảnh */
+/** 判断两Ống kính是否同Cảnh */
 function isSameScene(a: SplitScene, b: SplitScene): boolean {
   // 使用 sceneName 判断，空值视为同Cảnh
   if (!a.sceneName && !b.sceneName) return true;
@@ -125,7 +125,7 @@ export function autoGroupScenes(
       // Cảnh切换检测：不同Cảnh优先断开
       const prevScene = scenes[i - 1];
       if (prevScene && !isSameScene(prevScene, scene)) {
-        // 不同Cảnh —— 如果当前组已有 ≥ minPerGroup 个Ống kính，断开
+        // 不同Cảnh —— 如果当前组已有 ≥ minPerGroup Ống kính，断开
         if (currentSceneIds.length >= cfg.minPerGroup) {
           // 但若Nhân vật高度重叠，可以容忍（跨Cảnh但同Nhân vật）
           const overlap = characterOverlap(prevScene, scene);

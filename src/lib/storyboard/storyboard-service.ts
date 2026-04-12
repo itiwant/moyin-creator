@@ -127,7 +127,7 @@ async function submitImageGenTask(
 
         const error = new Error(
           response.status === 401 || response.status === 403
-            ? 'API Key 无效或已过期，请检查配置'
+            ? 'API Key 无效或已hết hạn，请检查配置'
             : response.status >= 500
               ? '图片生成服务暂时不可用，请稍后再试'
               : errorMessage
@@ -591,7 +591,7 @@ async function submitVideoGenTask(
       }
 
       if (response.status === 401 || response.status === 403) {
-        throw new Error('API Key 无效或已过期，请检查配置');
+        throw new Error('API Key 无效或已hết hạn，请检查配置');
       }
 
       const error = new Error(errorMessage) as Error & { status?: number };

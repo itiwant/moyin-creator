@@ -4,7 +4,7 @@
 /**
  * Scene Viewpoint Generator
  * 
- * 从场景校准数据和分镜动作描写中提取视角需求，
+ * 从场景校准数据和分镜动作描写đang xử lý...角需求，
  * 生成多视角联合图提示词，用于生成 6 格联合图。
  */
 
@@ -17,14 +17,14 @@ import type { ScriptScene, Shot } from '@/types/script';
  */
 export interface SceneViewpoint {
   id: string;           // 视角ID，如 'dining', 'sofa', 'window'
-  name: string;         // 中文名：餐桌区、沙发区、窗边
-  nameEn: string;       // 英文名：Dining Area, Sofa Area, Window
+  name: string;         // Tên tiếng Trung: khu bàn ăn, khu sofa、窗边
+  nameEn: string;       // Tên tiếng Anh：Dining Area, Sofa Area, Window
   shotIds: string[];    // 关联的分镜ID列表
   keyProps: string[];   // 该视角需要的道具（中文）
   keyPropsEn: string[]; // 该视角需要的道具（英文）
   description: string;  // 视角描述（中文）
   descriptionEn: string; // 视角描述（英文）
-  gridIndex: number;    // 在联合图中的位置 (0-5)
+  gridIndex: number;    // 在联合图đang xử lý... (0-5)
 }
 
 /**
@@ -43,7 +43,7 @@ export interface ContactSheetConfig {
  */
 export interface ContactSheetPromptResult {
   prompt: string;           // 英文提示词
-  promptZh: string;         // 中文提示词
+  promptZh: string;         // đang xử lý...词
   viewpoints: SceneViewpoint[];
   gridLayout: {
     rows: number;
@@ -57,7 +57,7 @@ export interface ContactSheetPromptResult {
  * 场景环境类型
  */
 export type SceneEnvironmentType = 
-  | 'vehicle'        // 现代交通工具（大巴、汽车、火车、飞机等）
+  | 'vehicle'        // 现代交通工具（大巴、xe hơi、火车、飞机等）
   | 'outdoor'        // 现代户外（公路、街道、公园等）
   | 'indoor_home'    // 现代室内家居
   | 'indoor_work'    // 现代室内办公/商业
@@ -68,7 +68,7 @@ export type SceneEnvironmentType =
   | 'unknown';       // 未知
 
 /**
- * 环境类型关键词检测
+ * 环境类型quan trọng词检测
  * 用于从场景地点推断环境类型
  */
 const ENVIRONMENT_KEYWORDS: Record<SceneEnvironmentType, string[]> = {
@@ -111,7 +111,7 @@ const ENVIRONMENT_KEYWORDS: Record<SceneEnvironmentType, string[]> = {
   
   // === 现代场景 ===
   vehicle: [
-    '大巴', '巴士', '公交', '汽车', '轿车', '出租车', '的士', 'uber',
+    '大巴', '巴士', '公交', 'xe hơi', '轿车', '出租车', '的士', 'uber',
     '火车', '高铁', '动车', '地铁', '列车',
     '飞机', '航班', '机舱',
     '游艇', '渡轮', '轮船', '游轮',
@@ -144,11 +144,11 @@ const ENVIRONMENT_KEYWORDS: Record<SceneEnvironmentType, string[]> = {
 };
 
 /**
- * 清理场景地点字符串，移除人物信息等无关内容
+ * 清理场景地点字符串，移除nhân vật信息等无关内容
  */
 function cleanLocationString(location: string): string {
-  // 移除 "人物：XXX" 部分
-  let cleaned = location.replace(/\s*人物[：:].*/g, '');
+  // 移除 "nhân vật：XXX" 部分
+  let cleaned = location.replace(/\s*nhân vật[：:].*/g, '');
   // 移除 "角色：XXX" 部分
   cleaned = cleaned.replace(/\s*角色[：:].*/g, '');
   // 移除 "时间：XXX" 部分
@@ -177,20 +177,20 @@ export function detectEnvironmentType(location: string): SceneEnvironmentType {
     const keywords = ENVIRONMENT_KEYWORDS[envType];
     for (const keyword of keywords) {
       if (normalizedLocation.includes(keyword)) {
-        console.log(`[detectEnvironmentType] 匹配到关键词 "${keyword}" -> 环境类型: ${envType}`);
+        console.log(`[detectEnvironmentType] 匹配到quan trọng词 "${keyword}" -> 环境类型: ${envType}`);
         return envType;
       }
     }
   }
   
-  console.log(`[detectEnvironmentType] 未匹配到任何关键词 -> unknown`);
+  console.log(`[detectEnvironmentType] 未匹配到任何quan trọng词 -> unknown`);
   return 'unknown';
 }
 
-// ==================== 视角关键词映射 ====================
+// ==================== 视角quan trọng词映射 ====================
 
 /**
- * 视角配置（带环境兼容性）
+ * 视角配置（带环境tương thích性）
  */
 interface ViewpointConfig {
   id: string;
@@ -198,17 +198,17 @@ interface ViewpointConfig {
   nameEn: string;
   propsZh: string[];
   propsEn: string[];
-  /** 兼容的环境类型，空数组表示通用 */
+  /** tương thích的环境类型，空数组表示通用 */
   environments: SceneEnvironmentType[];
 }
 
 /**
- * 动作关键词 -> 视角映射
- * 从分镜动作描写中识别需要的视角
- * 扩展关键词以覆盖更多场景
+ * 动作quan trọng词 -> 视角映射
+ * 从分镜动作描写đang xử lý...要的视角
+ * 扩展quan trọng词以覆盖更多场景
  * 
- * 【重要】environments 字段控制该视角适用于哪些环境类型
- * - 空数组 [] 表示通用视角，适用于所有环境
+ * 【重要】environments trường控制该视角适用于哪些环境类型
+ * - 空数组 [] 表示通用视角，适用于Tất cả环境
  * - 指定环境类型列表表示仅在这些环境中匹配
  */
 const VIEWPOINT_KEYWORDS: Record<string, ViewpointConfig> = {
@@ -385,13 +385,13 @@ const VIEWPOINT_KEYWORDS: Record<string, ViewpointConfig> = {
   '床头': { id: 'bedroom', name: '卧室', nameEn: 'Bedroom', propsZh: ['床', '床头柜', '台灯'], propsEn: ['bed', 'nightstand', 'lamp'], environments: ['indoor_home'] },
   '被窝': { id: 'bedroom', name: '卧室', nameEn: 'Bedroom', propsZh: ['床', '被子'], propsEn: ['bed', 'blanket'], environments: ['indoor_home'] },
   
-  // ========== 通用视角（适用于所有环境） ==========
-  // 对话/情感场景 - 通用
-  '交谈': { id: 'conversation', name: '对话区', nameEn: 'Conversation Area', propsZh: [], propsEn: [], environments: [] },
-  '聊天': { id: 'conversation', name: '对话区', nameEn: 'Conversation Area', propsZh: [], propsEn: [], environments: [] },
-  '说话': { id: 'conversation', name: '对话区', nameEn: 'Conversation Area', propsZh: [], propsEn: [], environments: [] },
-  '争吵': { id: 'conversation', name: '对话区', nameEn: 'Conversation Area', propsZh: [], propsEn: [], environments: [] },
-  '吵架': { id: 'conversation', name: '对话区', nameEn: 'Conversation Area', propsZh: [], propsEn: [], environments: [] },
+  // ========== 通用视角（适用于Tất cả环境） ==========
+  // Chat/情感场景 - 通用
+  '交谈': { id: 'conversation', name: 'Chat区', nameEn: 'Conversation Area', propsZh: [], propsEn: [], environments: [] },
+  '聊天': { id: 'conversation', name: 'Chat区', nameEn: 'Conversation Area', propsZh: [], propsEn: [], environments: [] },
+  '说话': { id: 'conversation', name: 'Chat区', nameEn: 'Conversation Area', propsZh: [], propsEn: [], environments: [] },
+  '争吵': { id: 'conversation', name: 'Chat区', nameEn: 'Conversation Area', propsZh: [], propsEn: [], environments: [] },
+  '吵架': { id: 'conversation', name: 'Chat区', nameEn: 'Conversation Area', propsZh: [], propsEn: [], environments: [] },
   '哭泣': { id: 'emotion', name: '情感特写', nameEn: 'Emotional Close-up', propsZh: [], propsEn: [], environments: [] },
   '流泪': { id: 'emotion', name: '情感特写', nameEn: 'Emotional Close-up', propsZh: [], propsEn: [], environments: [] },
   '微笑': { id: 'emotion', name: '情感特写', nameEn: 'Emotional Close-up', propsZh: [], propsEn: [], environments: [] },
@@ -419,7 +419,7 @@ const VIEWPOINT_KEYWORDS: Record<string, ViewpointConfig> = {
 // ==================== 核心函数 ====================
 
 /**
- * 从分镜动作描写中提取视角需求
+ * 从分镜动作描写đang xử lý...角需求
  */
 export function extractViewpointsFromShots(
   shots: Shot[],
@@ -430,7 +430,7 @@ export function extractViewpointsFromShots(
   for (const shot of shots) {
     const actionText = shot.actionSummary || '';
     
-    // 检查每个关键词
+    // 检查每quan trọng词
     for (const [keyword, config] of Object.entries(VIEWPOINT_KEYWORDS)) {
       if (actionText.includes(keyword)) {
         if (!viewpointMap.has(config.id)) {
@@ -474,9 +474,9 @@ export function extractViewpointsFromShots(
   // 重新分配 gridIndex
   viewpoints.forEach((v, i) => { v.gridIndex = i; });
   
-  // 如果视角不足 6 个，补充默认视角
+  // 如果视角不足 6 ，补充默认视角
   const defaultViewpoints: Array<Omit<SceneViewpoint, 'shotIds' | 'gridIndex'>> = [
-    { id: 'overview', name: '全景', nameEn: 'Overview', keyProps: [], keyPropsEn: [], description: '整体空间布局', descriptionEn: 'Overall spatial layout' },
+    { id: 'overview', name: '全景', nameEn: 'Overview', keyProps: [], keyPropsEn: [], description: '整体Bố cục không gian', descriptionEn: 'Overall spatial layout' },
     { id: 'detail', name: '细节', nameEn: 'Detail View', keyProps: [], keyPropsEn: [], description: '装饰细节特写', descriptionEn: 'Decorative details close-up' },
   ];
   
@@ -496,7 +496,7 @@ export function extractViewpointsFromShots(
 
 /**
  * 生成联合图提示词
- * 优先使用 AI 分析的视角，如果没有则回退到关键词提取
+ * 优先使用 AI 分析的视角，如果没有则回退到quan trọng词提取
  */
 export function generateContactSheetPrompt(config: ContactSheetConfig): ContactSheetPromptResult {
   const { scene, shots, styleTokens, aspectRatio, maxViewpoints = 6 } = config;
@@ -507,7 +507,7 @@ export function generateContactSheetPrompt(config: ContactSheetConfig): ContactS
   
   if (scene.viewpoints && scene.viewpoints.length > 0) {
     // 使用 AI 分析的视角
-    console.log(`[generateContactSheetPrompt] 使用 AI 分析视角: ${scene.viewpoints.length} 个`);
+    console.log(`[generateContactSheetPrompt] 使用 AI 分析视角: ${scene.viewpoints.length} `);
     viewpoints = scene.viewpoints.slice(0, maxViewpoints).map((v: any, idx: number) => ({
       id: v.id || `viewpoint_${idx}`,
       name: v.name || '未命名视角',
@@ -521,8 +521,8 @@ export function generateContactSheetPrompt(config: ContactSheetConfig): ContactS
     }));
     isAIAnalyzed = true;
   } else {
-    // 回退到关键词提取
-    console.log('[generateContactSheetPrompt] 没有 AI 视角，回退到关键词提取');
+    // 回退到quan trọng词提取
+    console.log('[generateContactSheetPrompt] 没有 AI 视角，回退到quan trọng词提取');
     viewpoints = extractViewpointsFromShots(shots, maxViewpoints);
   }
   
@@ -547,7 +547,7 @@ export function generateContactSheetPrompt(config: ContactSheetConfig): ContactS
     scene.lightingDesign && `Lighting: ${scene.lightingDesign}`,
   ].filter(Boolean).join('. ');
   
-  // 为每个视角生成描述
+  // 为每视角生成描述
   viewpoints.forEach((vp, index) => {
     const propsZh = vp.keyProps.length > 0 ? `，包含${vp.keyProps.join('、')}` : '';
     const propsEn = vp.keyPropsEn.length > 0 ? ` with ${vp.keyPropsEn.join(', ')}` : '';
@@ -563,14 +563,14 @@ export function generateContactSheetPrompt(config: ContactSheetConfig): ContactS
   const totalCells = gridLayout.rows * gridLayout.cols;
   const paddedCount = totalCells;
   
-  // 构建增强版提示词 — 对齐导演面板 generateGridAndSlice 的三层风格夹击结构
+  // 构建增强版提示词 — 对齐导演面板 generateGridAndSlice 的三层风格夹击Cấu trúc
   const promptParts: string[] = [];
   
   // 1. 核心指令区 (Instruction Block) — 使用与导演面板一致的 storyboard grid 术语
   promptParts.push('<instruction>');
   promptParts.push(`Generate a clean ${gridLayout.rows}x${gridLayout.cols} storyboard grid with exactly ${paddedCount} equal-sized panels.`);
   promptParts.push(`Overall Image Aspect Ratio: ${aspectRatio}.`);
-  // 明确指定单个格子的宽高比，防止 AI 混淆（导演面板核心差异点）
+  // 明确指定单格子的宽高比，防止 AI 混淆（导演面板核心差异点）
   const panelAspect = aspectRatio === '16:9' ? '16:9 (horizontal landscape)' : '9:16 (vertical portrait)';
   promptParts.push(`Each individual panel must have a ${panelAspect} aspect ratio.`);
   // 全局视觉风格（前置到指令区，权重最高 — 三层夹击第一层）
@@ -590,7 +590,7 @@ export function generateContactSheetPrompt(config: ContactSheetConfig): ContactS
     promptParts.push(`Scene Context: ${sceneDescEn}`);
   }
   
-  // 4. 每个格子的内容描述 — 每格附带 [same style] 锚定（三层夹击第二层）
+  // 4. 每格子的内容描述 — 每格附带 [same style] 锚定（三层夹击第二层）
   const styleAnchor = styleStr ? ' [same style]' : '';
   viewpoints.forEach((vp, idx) => {
     const row = Math.floor(idx / gridLayout.cols) + 1;
@@ -599,7 +599,7 @@ export function generateContactSheetPrompt(config: ContactSheetConfig): ContactS
     promptParts.push(`Panel [row ${row}, col ${col}] (no people): ${vp.nameEn.toUpperCase()}: ${vp.descriptionEn}${styleAnchor}`);
   });
   
-  // 5. 空白占位格描述
+  // 5. 空白Placeholder格描述
   for (let i = viewpoints.length; i < paddedCount; i++) {
     const row = Math.floor(i / gridLayout.cols) + 1;
     const col = (i % gridLayout.cols) + 1;
@@ -616,20 +616,20 @@ export function generateContactSheetPrompt(config: ContactSheetConfig): ContactS
     
     const prompt = promptParts.join('\n');
 
-    // 中文提示词
+    // đang xử lý...词
     const gridItemsZh = viewpoints.map((vp, i) => 
       `[${i + 1}] ${vp.name}：${vp.description || vp.name + '视角'}`
     ).join('\n');
     
-    const viewpointSource = isAIAnalyzed ? '（AI 分析）' : '（关键词提取）';
+    const viewpointSource = isAIAnalyzed ? '（AI 分析）' : '（quan trọng词提取）';
   
-  const promptZh = `一张${gridLayout.rows}x${gridLayout.cols}网格联合图，展示同一个「${scene.name || scene.location}」场景的${viewpoints.length}个不同机位视角${viewpointSource}。
+  const promptZh = `一张${gridLayout.rows}x${gridLayout.cols}网格联合图，Hiển thị同一「${scene.name || scene.location}」场景的${viewpoints.length}不同机位视角${viewpointSource}。
 ${sceneDescZh}
 
 网格布局（从左到右，从上到下）：
 ${gridItemsZh}
 
-风格：${styleTokens.length > 0 ? styleTokens.join('、') : '动画风格，柔和色彩，细节丰富'}，${viewpoints.length}个格子保持一致的透视和光照。每个格子用细白线分隔。只有背景，没有人物。`;
+风格：${styleTokens.length > 0 ? styleTokens.join('、') : '动画风格，柔和色彩，细节丰富'}，${viewpoints.length}格子保持一致的透视和光照。每格子用细白线ngăn cách。只有背景，没有nhân vật。`;
 
   return {
     prompt,
@@ -656,7 +656,7 @@ export function assignViewpointImages(
   const result = new Map<string, { imageUrl: string; gridIndex: number }>();
   
   for (const vp of viewpoints) {
-    // 计算该视角在切割结果中的索引
+    // 计算该视角在切割结果đang xử lý...
     const gridIndex = vp.gridIndex;
     const row = Math.floor(gridIndex / gridLayout.cols);
     const col = gridIndex % gridLayout.cols;
@@ -684,14 +684,14 @@ export function matchShotToViewpoint(
 ): string | null {
   const actionText = shot.actionSummary || '';
   
-  // 检查分镜是否已关联到某个视角
+  // 检查分镜是否已关联到某视角
   for (const vp of viewpoints) {
     if (vp.shotIds.includes(shot.id)) {
       return vp.id;
     }
   }
   
-  // 尝试根据动作关键词匹配
+  // 尝试根据动作quan trọng词匹配
   for (const [keyword, config] of Object.entries(VIEWPOINT_KEYWORDS)) {
     if (actionText.includes(keyword)) {
       const matchedVp = viewpoints.find(vp => vp.id === config.id);
@@ -714,7 +714,7 @@ import type {
 } from '@/stores/media-panel-store';
 
 /**
- * 从分镜文本中提取所有可搜索的内容
+ * 从分镜文本đang xử lý...ất cả可搜索的内容
  * 包括：动作描述、对白、视觉描述等
  */
 function getShotSearchableText(shot: Shot): string {
@@ -736,7 +736,7 @@ function getDefaultViewpointsForEnvironment(
 ): Array<Omit<SceneViewpoint, 'shotIds' | 'gridIndex'>> {
   // 通用默认视角
   const commonDefaults: Array<Omit<SceneViewpoint, 'shotIds' | 'gridIndex'>> = [
-    { id: 'overview', name: '全景', nameEn: 'Overview', keyProps: [], keyPropsEn: [], description: '整体空间布局', descriptionEn: 'Overall spatial layout' },
+    { id: 'overview', name: '全景', nameEn: 'Overview', keyProps: [], keyPropsEn: [], description: '整体Bố cục không gian', descriptionEn: 'Overall spatial layout' },
     { id: 'detail', name: '细节', nameEn: 'Detail View', keyProps: [], keyPropsEn: [], description: '细节特写', descriptionEn: 'Detail close-up' },
   ];
   
@@ -817,29 +817,29 @@ function getDefaultViewpointsForEnvironment(
 }
 
 /**
- * 检查视角配置是否与环境类型兼容
+ * 检查视角配置是否与环境类型tương thích
  */
 function isViewpointCompatibleWithEnvironment(
   config: ViewpointConfig,
   envType: SceneEnvironmentType
 ): boolean {
-  // 空数组表示通用视角，适用于所有环境
+  // 空数组表示通用视角，适用于Tất cả环境
   if (config.environments.length === 0) {
     return true;
   }
-  // unknown 环境不做过滤，允许所有视角
+  // unknown 环境不做过滤，允许Tất cả视角
   if (envType === 'unknown') {
     return true;
   }
-  // 检查环境是否在兼容列表中
+  // 检查环境是否在tương thích列表中
   return config.environments.includes(envType);
 }
 
 /**
  * 提取视角（不限数量）
- * 返回所有识别到的视角，不再限制为6个
+ * 返回Tất cả识别到的视角，不再限制为6
  * 
- * 视角是从分镜内容中提取的，不做环境过滤
+ * 视角是从分镜内容đang xử lý...，不做环境过滤
  * 
  * @param shots 分镜列表
  * @param sceneLocation 场景地点（仅用于补充默认视角）
@@ -851,7 +851,7 @@ export function extractAllViewpointsFromShots(
   const viewpointMap = new Map<string, SceneViewpoint>();
   const matchedShotIds = new Set<string>();
   
-  // 第一遍：根据关键词匹配分镜到视角
+  // 第一遍：根据quan trọng词匹配分镜到视角
   for (const shot of shots) {
     const searchText = getShotSearchableText(shot);
     let shotMatched = false;
@@ -907,7 +907,7 @@ export function extractAllViewpointsFromShots(
         shotIds: unmatchedShots.map(s => s.id),
         keyProps: [],
         keyPropsEn: [],
-        description: '整体空间布局',
+        description: '整体Bố cục không gian',
         descriptionEn: 'Overall spatial layout',
         gridIndex: viewpointMap.size,
       });
@@ -927,7 +927,7 @@ export function extractAllViewpointsFromShots(
   
   // 补充默认视角（全景和细节）
   const defaultViewpoints = [
-    { id: 'overview', name: '全景', nameEn: 'Overview', keyProps: [] as string[], keyPropsEn: [] as string[], description: '整体空间布局', descriptionEn: 'Overall spatial layout' },
+    { id: 'overview', name: '全景', nameEn: 'Overview', keyProps: [] as string[], keyPropsEn: [] as string[], description: '整体Bố cục không gian', descriptionEn: 'Overall spatial layout' },
     { id: 'detail', name: '细节', nameEn: 'Detail View', keyProps: [] as string[], keyPropsEn: [] as string[], description: '细节特写', descriptionEn: 'Detail close-up' },
   ];
   
@@ -949,7 +949,7 @@ export function extractAllViewpointsFromShots(
 
 /**
  * 将视角分组为联合图页
- * 每页最多 6 个视角
+ * 每页最多 6 视角
  */
 export function groupViewpointsIntoPages(
   viewpoints: SceneViewpoint[],
@@ -971,7 +971,7 @@ export function groupViewpointsIntoPages(
  * 生成联合图的提示词
  * 返回 PendingViewpointData 和 ContactSheetPromptSet 用于传递给场景库
  * 
- * 布局选择逻辑：
+ * 布局Chọn逻辑：
  * - 视角 ≤ 6：使用 2x3 或 3x2（1 张图）
  * - 视角 7-9：使用 3x3（1 张图）
  * - 视角 > 9：分多张图
@@ -985,11 +985,11 @@ export function generateMultiPageContactSheetData(
 } {
   const { scene, styleTokens, aspectRatio } = config;
   
-  // 提取所有视角（传入场景地点进行环境过滤）
+  // 提取Tất cả视角（传入场景地点进行环境过滤）
   const sceneLocation = scene.location || scene.name || '';
   const allViewpoints = extractAllViewpointsFromShots(config.shots, sceneLocation);
   
-  // 根据视角数量和宽高比自动选择最优布局
+  // 根据视角数量和宽高比自动Chọn最优布局
   // 强制使用 NxN 布局 (2x2 或 3x3) 以保证宽高比一致性，与 Director 面板保持一致
   let gridLayout: { rows: number; cols: number };
   let viewpointsPerPage: number;
@@ -997,16 +997,16 @@ export function generateMultiPageContactSheetData(
   const vpCount = allViewpoints.length;
   
   if (vpCount <= 4) {
-    // 4 个以内：使用 2x2
+    // 4 以内：使用 2x2
     gridLayout = { rows: 2, cols: 2 };
     viewpointsPerPage = 4;
   } else {
-    // 超过 4 个：使用 3x3 (最多 9 个一页)
+    // 超过 4 ：使用 3x3 (最多 9 一页)
     gridLayout = { rows: 3, cols: 3 };
     viewpointsPerPage = 9;
   }
   
-  console.log('[ContactSheet] 布局选择:', { vpCount, aspectRatio, gridLayout, viewpointsPerPage });
+  console.log('[ContactSheet] 布局Chọn:', { vpCount, aspectRatio, gridLayout, viewpointsPerPage });
   
   // 分页
   const pages = groupViewpointsIntoPages(allViewpoints, viewpointsPerPage);
@@ -1076,7 +1076,7 @@ export function generateMultiPageContactSheetData(
     const paddedCount = totalCells;
     const actualCount = pageViewpoints.length;
     
-    // 构建增强版提示词 — 对齐导演面板 generateGridAndSlice 的三层风格夹击结构
+    // 构建增强版提示词 — 对齐导演面板 generateGridAndSlice 的三层风格夹击Cấu trúc
     const promptParts: string[] = [];
     
     // 1. 核心指令区 (Instruction Block) — 使用与导演面板一致的 storyboard grid 术语
@@ -1084,7 +1084,7 @@ export function generateMultiPageContactSheetData(
     promptParts.push(`Generate a clean ${gridLayout.rows}x${gridLayout.cols} storyboard grid with exactly ${paddedCount} equal-sized panels.`);
     promptParts.push(`Overall Image Aspect Ratio: ${aspectRatio}.`);
     
-    // 明确指定单个格子的宽高比，防止 AI 混淆
+    // 明确指定单格子的宽高比，防止 AI 混淆
     const panelAspect = aspectRatio === '16:9' ? '16:9 (horizontal landscape)' : '9:16 (vertical portrait)';
     promptParts.push(`Each individual panel must have a ${panelAspect} aspect ratio.`);
     
@@ -1106,7 +1106,7 @@ export function generateMultiPageContactSheetData(
       promptParts.push(`Scene Context: ${sceneDescEn}`);
     }
     
-    // 4. 每个格子的内容描述 — 每格附带 [same style] 锚定（三层夹击第二层）
+    // 4. 每格子的内容描述 — 每格附带 [same style] 锚定（三层夹击第二层）
     const styleAnchor = styleStr ? ' [same style]' : '';
     pageViewpoints.forEach((vp, idx) => {
       const row = Math.floor(idx / gridLayout.cols) + 1;
@@ -1119,7 +1119,7 @@ export function generateMultiPageContactSheetData(
       promptParts.push(`Panel [row ${row}, col ${col}] (no people): ${content}${styleAnchor}`);
     });
     
-    // 5. 空白占位格描述
+    // 5. 空白Placeholder格描述
     for (let i = actualCount; i < paddedCount; i++) {
       const row = Math.floor(i / gridLayout.cols) + 1;
       const col = (i % gridLayout.cols) + 1;
@@ -1136,22 +1136,22 @@ export function generateMultiPageContactSheetData(
     
     const prompt = promptParts.join('\n');
 
-    // 中文提示词
+    // đang xử lý...词
     const gridItemsZh = pageViewpoints.map((vp, i) => 
       `[${i + 1}] ${vp.name}：${vp.description}`
     ).join('\n');
     
-    const promptZh = `一张精确的 ${gridLayout.rows}行${gridLayout.cols}列 网格图（共 ${totalCells} 个格子），展示同一个「${scene.name || scene.location}」场景的不同视角。
+    const promptZh = `一张精确的 ${gridLayout.rows}行${gridLayout.cols}列 网格图（共 ${totalCells} 格子），Hiển thị同一「${scene.name || scene.location}」场景的不同视角。
 ${sceneDescZh}
 
-${totalCells} 个格子分别展示：${gridItemsZh}。
+${totalCells} 格子分别Hiển thị：${gridItemsZh}。
 
 重要：
 - 必须精确生成 ${gridLayout.rows} 行 ${gridLayout.cols} 列，不能多也不能少。
-- 这是一张干净的参考图，图片上不要添加任何文字覆盖。
+- 这是一张干净的Tham chiếu图，图片上不要添加任何文字覆盖。
 - 不要添加标签、标题、说明文字、水印或任何类型的文字。
 
-风格：${styleTokens.length > 0 ? styleTokens.join('、') : '动画风格，柔和色彩，细节丰富'}，所有格子光照一致，格子之间用细白边框分隔，只有背景，没有人物。`;
+风格：${styleTokens.length > 0 ? styleTokens.join('、') : '动画风格，柔和色彩，细节丰富'}，Tất cả格子光照一致，格子之间用细白边框ngăn cách，只有背景，没有nhân vật。`;
     
     return {
       pageIndex,
@@ -1170,7 +1170,7 @@ ${totalCells} 个格子分别展示：${gridItemsZh}。
 
 /**
  * 从已有的 viewpoints 数据构建联合图数据
- * 用于从剧本面板跳转到场景库时，直接使用 AI 分析的视角
+ * 用于从剧本面板跳转到场景库时，Trực tiếp使用 AI 分析的视角
  * 
  * @param viewpoints - 来自 ScriptScene.viewpoints 的视角数据
  * @param scene - 场景信息（用于生成提示词）
@@ -1195,7 +1195,7 @@ export function buildContactSheetDataFromViewpoints(
   viewpoints: PendingViewpointData[];
   contactSheetPrompts: ContactSheetPromptSet[];
 } {
-  // 根据视角数量选择布局
+  // 根据视角数量Chọn布局
   const vpCount = viewpoints.length;
   let gridLayout: { rows: number; cols: number };
   let viewpointsPerPage: number;
@@ -1212,7 +1212,7 @@ export function buildContactSheetDataFromViewpoints(
     vpCount,
     gridLayout,
     viewpointsPerPage,
-    // 调试：场景美术设计字段
+    // 调试：场景美术设计trường
     sceneFields: {
       name: scene.name,
       location: scene.location,
@@ -1232,7 +1232,7 @@ export function buildContactSheetDataFromViewpoints(
     pages.push(page);
   }
   
-  // 构建场景描述（美术设计字段）
+  // 构建场景描述（美术设计trường）
   const sceneDescEn = [
     scene.architectureStyle && `Architecture: ${scene.architectureStyle}`,
     scene.colorPalette && `Color palette: ${scene.colorPalette}`,
@@ -1282,11 +1282,11 @@ export function buildContactSheetDataFromViewpoints(
       pendingViewpoints.push({
         id: vp.id,
         name: vp.name,
-        nameEn: vp.nameEn || vp.name, // 如果没有英文名，使用中文名
+        nameEn: vp.nameEn || vp.name, // 如果没有Tên tiếng Anh，使用中文名
         shotIds: vp.shotIds,
         shotIndexes,
         keyProps: vp.keyProps,
-        keyPropsEn: [], // 可能没有英文道具名，留空
+        keyPropsEn: [], // 可能没有英文道具名，Để trống
         gridIndex: idx,
         pageIndex,
       });
@@ -1327,7 +1327,7 @@ export function buildContactSheetDataFromViewpoints(
       promptParts.push(`Visual Description: ${visualPromptEn}`);
     }
     
-    // 每个格子的内容描述 + Layer 2: 每格风格锚定
+    // 每格子的内容描述 + Layer 2: 每格风格锚定
     pageViewpoints.forEach((vp, idx) => {
       const row = Math.floor(idx / gridLayout.cols) + 1;
       const col = (idx % gridLayout.cols) + 1;
@@ -1339,7 +1339,7 @@ export function buildContactSheetDataFromViewpoints(
       promptParts.push(`Panel [row ${row}, col ${col}] (no people): ${content} [same style]`);
     });
     
-    // 空白占位格
+    // 空白Placeholder格
     for (let i = actualCount; i < paddedCount; i++) {
       const row = Math.floor(i / gridLayout.cols) + 1;
       const col = (i % gridLayout.cols) + 1;
@@ -1352,26 +1352,26 @@ export function buildContactSheetDataFromViewpoints(
     
     const prompt = promptParts.join('\n');
     
-    // 中文提示词
+    // đang xử lý...词
     const gridItemsZh = pageViewpoints.map((vp, i) => {
       const content = vp.keyProps.length > 0 
-        ? `展示${vp.keyProps.join('、')}` 
-        : (vp.name === '全景' ? '展示整个空间布局的宽角度全景' : `${vp.name}视角`);
+        ? `Hiển thị${vp.keyProps.join('、')}` 
+        : (vp.name === '全景' ? 'Hiển thị整Bố cục không gian的宽角度全景' : `${vp.name}视角`);
       return `[${i + 1}] ${vp.name}：${content}`;
     }).join('\n');
     
-    const promptZh = `一张精确的 ${gridLayout.rows}行${gridLayout.cols}列 网格图（共 ${totalCells} 个格子），展示同一个「${scene.name || scene.location}」场景的不同视角。
+    const promptZh = `一张精确的 ${gridLayout.rows}行${gridLayout.cols}列 网格图（共 ${totalCells} 格子），Hiển thị同一「${scene.name || scene.location}」场景的不同视角。
 ${sceneDescZh}${visualPromptZh ? `\n场景氛围：${visualPromptZh}` : ''}
 
-${totalCells} 个格子分别展示：
+${totalCells} 格子分别Hiển thị：
 ${gridItemsZh}
 
 重要：
 - 必须精确生成 ${gridLayout.rows} 行 ${gridLayout.cols} 列，不能多也不能少。
-- 这是一张干净的参考图，图片上不要添加任何文字覆盖。
+- 这是一张干净的Tham chiếu图，图片上不要添加任何文字覆盖。
 - 不要添加标签、标题、说明文字、水印或任何类型的文字。
 
-风格：${styleTokens.length > 0 ? styleTokens.join('、') : '动画风格，柔和色彩，细节丰富'}，所有格子光照一致，格子之间用细白边框分隔，只有背景，没有人物。`;
+风格：${styleTokens.length > 0 ? styleTokens.join('、') : '动画风格，柔和色彩，细节丰富'}，Tất cả格子光照一致，格子之间用细白边框ngăn cách，只有背景，没有nhân vật。`;
     
     return {
       pageIndex,

@@ -5,9 +5,9 @@
  * Hạng S Store — Seedance 2.0 多模态创作panelTrạng tháiQuản lý
  *
  * 核心概念：
- * - ShotGroup：将 director-store 中的 SplitScene 按组合并，用于多Ống kính叙事videoTạo
- * - AssetRef：@tham chiếuTài sản（ảnh/video/âm thanh），在prompt中以 @Image1 @Video1 @Audio1 形式tham chiếu
- * - 双模式：Phân cảnh模式（从Kịch bản流水线Nhập）+ Tự do模式（纯Phương tiệnTải lên）
+ * - ShotGroup：将 director-store đang xử lý...plitScene 按组合并，用于多Ống kính叙事Tạo video
+ * - AssetRef：@tham chiếuTài sản（ảnh/video/âm thanh），在promptđang xử lý...Image1 @Video1 @Audio1 形式tham chiếu
+ * - 双chế độ：Phân cảnhchế độ（从Kịch bản流水线Nhập）+ Tự dochế độ（纯Phương tiệnTải lên）
  *
  * Seedance 2.0 限制：
  * - 输入：≤9ảnh + ≤3video(≤15s) + ≤3âm thanh(MP3,≤15s) + 文本(5000字符) ，Tổngfile≤12
@@ -25,8 +25,8 @@ export type AssetType = 'image' | 'video' | 'audio';
 
 /** Phương tiện用途（Seedance 2.0 @Phương tiện用途精确标注） */
 export type AssetPurpose =
-  | 'character_ref'     // Nhân vật参考
-  | 'scene_ref'         // Cảnh参考
+  | 'character_ref'     // Nhân vậtTham chiếu
+  | 'scene_ref'         // CảnhTham chiếu
   | 'first_frame'       // Khung hình đầu
   | 'grid_image'        // ô图
   | 'camera_replicate'  // 运镜复刻
@@ -34,14 +34,14 @@ export type AssetPurpose =
   | 'effect_replicate'  // 特效复刻
   | 'beat_sync'         // 音乐卡点
   | 'bgm'              // 背景音乐
-  | 'voice_ref'        // 语音参考
+  | 'voice_ref'        // 语音Tham chiếu
   | 'prev_video'       // 前组kéo dài
   | 'video_extend'     // 被kéo dài的video
   | 'video_edit_src'   // 被Chỉnh sửa的源video
-  | 'general'          // 通用参考
+  | 'general'          // 通用Tham chiếu
 ;
 
-/** videoTạoTrạng thái */
+/** Tạo videoTrạng thái */
 export type VideoGenStatus = 'idle' | 'generating' | 'completed' | 'failed';
 
 /** 输出video画幅比 */
@@ -53,7 +53,7 @@ export type SClassResolution = '480p' | '720p' | '1080p';
 /** 输出videoThời lượng（秒） */
 export type SClassDuration = 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15;
 
-/** 创作模式 */
+/** 创作chế độ */
 export type SClassMode = 'storyboard' | 'free';
 
 /** 组TạoLoại */
@@ -69,7 +69,7 @@ export type EditType = 'plot_change' | 'character_swap' | 'attribute_modify' | '
 
 /**
  * @tham chiếuTài sản
- * 在prompt中以 @Image1, @Video1, @Audio1 方式tham chiếu
+ * 在promptđang xử lý...Image1, @Video1, @Audio1 方式tham chiếu
  */
 export interface AssetRef {
   id: string;
@@ -91,7 +91,7 @@ export interface AssetRef {
 }
 
 /**
- * Tạo历史记录
+ * TạoLịch sử
  */
 export interface GenerationRecord {
   id: string;
@@ -111,16 +111,16 @@ export interface GenerationRecord {
 }
 
 /**
- * Ống kính组 — Hạng S核心数据结构
+ * Ống kính组 — Hạng S核心数据Cấu trúc
  *
- * 将 director-store 中的多个 SplitScene 编为一组，
+ * 将 director-store đang xử lý...SplitScene 编为一组，
  * 合并它们的Khung hình đầuảnh、prompt，Tạo一段多Ống kính叙事video。
  */
 export interface ShotGroup {
   id: string;
   /** Tên nhóm（Tự độngTạo或用户Tùy chỉnh） */
   name: string;
-  /** tham chiếu director-store 中 SplitScene.id  cột表 */
+  /** tham chiếu director-store đang xử lý...litScene.id  cột表 */
   sceneIds: number[];
   /** 组内TổngThời lượng限制（≤15s） */
   totalDuration: SClassDuration;
@@ -134,9 +134,9 @@ export interface ShotGroup {
   mergedPrompt: string;
   /** Tạo的video URL */
   videoUrl: string | null;
-  /** video媒体库 ID（用于拖拽到Thời gian线） */
+  /** videothư viện phương tiện ID（用于拖拽到Thời gian线） */
   videoMediaId: string | null;
-  /** videoTạoTrạng thái */
+  /** Tạo videoTrạng thái */
   videoStatus: VideoGenStatus;
   /** Tạo进度 0-100 */
   videoProgress: number;
@@ -146,9 +146,9 @@ export interface ShotGroup {
   history: GenerationRecord[];
   /** 排序索引 */
   sortIndex: number;
-  /** 合并ô图 dataUrl（videoTạo时构建，用于Xem trước/Tải xuống） */
+  /** 合并ô图 dataUrl（Tạo video时构建，用于Xem trước/Tải xuống） */
   gridImageUrl: string | null;
-  /** 最近一次Tạo使用的完整 prompt（用于Sao chép核对） */
+  /** 最近一次Tạo使用的đầy đủ prompt（用于Sao chép核对） */
   lastPrompt: string | null;
 
   // ---- 组级 AI 校准 ----
@@ -204,15 +204,15 @@ export interface SClassProjectData {
   shotGroups: ShotGroup[];
   /** 单镜Tạo覆盖表 (sceneId -> override) */
   singleShotOverrides: Record<number, SingleShotOverride>;
-  /** 全局 @tham chiếuTài sản（Tự do模式下使用） */
+  /** 全局 @tham chiếuTài sản（Tự dochế độ下使用） */
   globalAssetRefs: AssetRef[];
   /** Tạo配置 */
   config: SClassConfig;
-  /** 当前模式 */
+  /** 当前chế độ */
   mode: SClassMode;
   /** 是否已从 director 数据Tự động分组过 */
   hasAutoGrouped: boolean;
-  /** 最近一次九宫格Tạo的原始大图 URL（用于videoTạo时复用，避免重新合并） */
+  /** 最近一次九宫格Tạo的原始大图 URL（用于Tạo video时复用，避免重新合并） */
   lastGridImageUrl: string | null;
   /** lastGridImageUrl 对应的Phân cảnh ID  cột表（用于判断是否可复用） */
   lastGridSceneIds: number[] | null;
@@ -240,9 +240,9 @@ export interface SClassEditorPrefs {
 interface SClassState {
   activeProjectId: string | null;
   projects: Record<string, SClassProjectData>;
-  /** 当前选中的组 ID */
+  /** Đang chọn的组 ID */
   selectedGroupId: string | null;
-  /** Tạo模式：组Tạo / 单镜Tạo */
+  /** Tạochế độ：组Tạo / 单镜Tạo */
   generationMode: 'group' | 'single';
 }
 
@@ -264,7 +264,7 @@ interface SClassActions {
   removeSceneFromGroup: (groupId: string, sceneId: number) => void;
   moveSceneBetweenGroups: (fromGroupId: string, toGroupId: string, sceneId: number) => void;
 
-  // Ống kính组videoTạo
+  // Ống kính组Tạo video
   updateGroupVideoStatus: (groupId: string, updates: Partial<Pick<ShotGroup, 'videoStatus' | 'videoProgress' | 'videoUrl' | 'videoError' | 'videoMediaId'>>) => void;
   addGroupHistory: (groupId: string, record: GenerationRecord) => void;
 
@@ -533,7 +533,7 @@ export const useSClassStore = create<SClassStore>()(
         });
       },
 
-      // ========== Ống kính组videoTạo ==========
+      // ========== Ống kính组Tạo video ==========
 
       updateGroupVideoStatus: (groupId, updates) => {
         const { activeProjectId, projects } = get();
@@ -659,7 +659,7 @@ export const useSClassStore = create<SClassStore>()(
             },
           });
         } else {
-          // Thêm到全局（Tự do模式）
+          // Thêm到全局（Tự dochế độ）
           set({
             projects: {
               ...projects,
@@ -815,7 +815,7 @@ export const useSClassStore = create<SClassStore>()(
       merge: (persisted: any, current: any) => {
         if (!persisted) return current;
 
-        // 迁移辅助：清理 SClassConfig 中已xóa的冗余字段（aspectRatio/resolution 已由 director-store Quản lý）
+        // 迁移辅助：清理 SClassConfig đang xử lý...a的冗余trường（aspectRatio/resolution 已由 director-store Quản lý）
         const migrateConfig = (config: any) => {
           if (!config) return config;
           const { aspectRatio, resolution, ...clean } = config;

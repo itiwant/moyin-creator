@@ -196,7 +196,7 @@ function calculatePortraitGrid(sceneCount: number, canvasWidth: number, canvasHe
 
 /**
  * 预定义的最优布局（确保 AI 生成和切割一致性）
- * 关键原则：使用更接近正方形的布局，让每个格子的比例更接近目标
+ * quan trọng原则：使用更接近正方形的布局，让每格子的Tỷ lệ更接近目标
  */
 const OPTIMAL_LAYOUTS: Record<number, { landscape: { cols: number; rows: number }; portrait: { cols: number; rows: number } }> = {
   // 4 场景: 2x2 四宫格
@@ -209,7 +209,7 @@ const OPTIMAL_LAYOUTS: Record<number, { landscape: { cols: number; rows: number 
   9: { landscape: { cols: 3, rows: 3 }, portrait: { cols: 3, rows: 3 } },
   // 10 场景: 5x2 或 2x5
   10: { landscape: { cols: 5, rows: 2 }, portrait: { cols: 2, rows: 5 } },
-  // 12 场景: 4x3 或 3x4（关键！避免 6x2 或 2x6）
+  // 12 场景: 4x3 或 3x4（quan trọng！避免 6x2 或 2x6）
   12: { landscape: { cols: 4, rows: 3 }, portrait: { cols: 3, rows: 4 } },
 };
 
@@ -304,7 +304,7 @@ export function validateSceneCount(sceneCount: number, resolution: Resolution): 
     limit,
     message: isValid 
       ? '' 
-      : `场景数量超出 ${resolution} 分辨率上限（最多 ${limit} 个）。请切换到更高分辨率或减少场景数量。`,
+      : `场景数量超出 ${resolution} 分辨率上限（最多 ${limit} ）。请切换到更高分辨率或减少场景数量。`,
   };
 }
 

@@ -34,8 +34,8 @@ export interface IProvider {
  * 默认供应商模板
  * 
  * 核心供应商：
- * 1. 魔因API (memefast) - 全功能 AI 中转（推荐），支持文本/ảnh/video/识图
- * 2. RunningHub - 视角切换/多角度生成
+ * 1. 魔因API (memefast) - 全功能 AI trung gian（推荐），支持文本/ảnh/video/识图
+ * 2. RunningHub - 视角切换/đa góc độ生成
  */
 export const DEFAULT_PROVIDERS: Omit<IProvider, 'id' | 'apiKey'>[] = [
   {
@@ -69,7 +69,7 @@ export const DEFAULT_PROVIDERS: Omit<IProvider, 'id' | 'apiKey'>[] = [
 // ==================== Model Classification ====================
 
 /**
- * 根据模型名称模式推断模型能力
+ * 根据模型名称chế độ推断模型能力
  * 用于动态同步的 552+ 模型自动phân loại
  */
 export function classifyModelByName(modelName: string): ModelCapability[] {
@@ -107,7 +107,7 @@ export function classifyModelByName(modelName: string): ModelCapability[] {
   // ---- 推理/思考模型（仍归入 text）----
   if (/[- ](r1|thinking|reasoner|reason)/.test(name) || /^o[1-9]/.test(name)) return ['text', 'reasoning'];
 
-  // ---- 默认：对话模型 ----
+  // ---- 默认：Chat模型 ----
   return ['text'];
 }
 
@@ -115,10 +115,10 @@ export function classifyModelByName(modelName: string): ModelCapability[] {
 
 /**
  * 模型 API 调用格式
- * 基于 MemeFast 等平台 /v1/models 返回的 supported_endpoint_types 字段
+ * 基于 MemeFast 等平台 /v1/models 返回的 supported_endpoint_types trường
  */
 export type ModelApiFormat =
-  | 'openai_chat'        // /v1/chat/completions （文本/对话，也用于 Gemini ảnh生成）
+  | 'openai_chat'        // /v1/chat/completions （文本/Chat，也用于 Gemini ảnh生成）
   | 'openai_images'      // /v1/images/generations （标准ảnh生成）
   | 'openai_video'       // /v1/videos/generations （标准video生成）
   | 'kling_image'        // /kling/v1/images/generations 或 /kling/v1/images/omni-image
@@ -133,7 +133,7 @@ const IMAGE_ENDPOINT_MAP: Record<string, ModelApiFormat> = {
 };
 
 // MemeFast supported_endpoint_types 值 → 我们的video API 格式能力phân loại
-// 注意：这里统一映射为 'openai_video' 仅表示「video生成能力」，实际 API 路由由 use-video-generation.ts 中的 VIDEO_FORMAT_MAP 决定
+// 注意：这里统一映射为 'openai_video' 仅表示「video生成能力」，实际 API 路由由 use-video-generation.ts đang xử lý...IDEO_FORMAT_MAP 决定
 const VIDEO_ENDPOINT_MAP: Record<string, ModelApiFormat> = {
   'video统一格式': 'openai_video',
   'openAIvideo格式': 'openai_video',
@@ -270,7 +270,7 @@ function isModelIncompatibleError(errorText?: string): boolean {
 }
 
 /**
- * 检测 HTTP 500 响应体中是否包含上游负载饱和相关关键词。
+ * 检测 HTTP 500 响应体đang xử lý...含上游负载饱和相关quan trọng词。
  * MemeFast 有时用 500 而非 503/529 返回负载饱和错误。
  */
 function isUpstreamOverloadError(errorText?: string): boolean {
@@ -378,7 +378,7 @@ export class ApiKeyManager {
       this.markCurrentKeyFailed('auth');
       return true;
     }
-    // 所有 5xx 服务端错误均触发 key 轮转（memefast 等中转站 500 多为临时性故障）
+    // Tất cả 5xx 服务端错误均触发 key 轮转（memefast 等trung gian站 500 多为临时性故障）
     if (statusCode >= 500) {
       this.markCurrentKeyFailed('service_unavailable');
       return true;

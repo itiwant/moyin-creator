@@ -143,7 +143,7 @@ export function ImageStudio() {
                 <Label className="text-sm font-medium">Độ phân giải</Label>
                 <Select value={imageResolution} onValueChange={setImageResolution}>
                   <SelectTrigger className="h-9">
-                    <SelectValue placeholder="选择Độ phân giải" />
+                    <SelectValue placeholder="ChọnĐộ phân giải" />
                   </SelectTrigger>
                   <SelectContent>
                     {resolutions.map((r) => (

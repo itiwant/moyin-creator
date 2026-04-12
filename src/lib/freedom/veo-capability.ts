@@ -65,9 +65,9 @@ export function resolveVeoUploadCapability(
       minFiles: 1,
       maxFiles: 3,
       slots: [
-        { key: 'reference', label: '参考图 1', required: true },
-        { key: 'reference', label: '参考图 2', required: false },
-        { key: 'reference', label: '参考图 3', required: false },
+        { key: 'reference', label: 'Tham chiếu图 1', required: true },
+        { key: 'reference', label: 'Tham chiếu图 2', required: false },
+        { key: 'reference', label: 'Tham chiếu图 3', required: false },
       ],
     };
   }

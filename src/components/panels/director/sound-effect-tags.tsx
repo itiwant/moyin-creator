@@ -4,8 +4,8 @@
 "use client";
 
 /**
- * 音效Thẻ选择器组件 (Sound Effect Tags)
- * 用于选择Ống kính的音效Thẻ：自然môi trường、人物Hành động、Bầu không khí效果等
+ * 音效ThẻChọn器组件 (Sound Effect Tags)
+ * 用于ChọnỐng kính的音效Thẻ：自然môi trường、nhân vậtHành động、Bầu không khí效果等
  */
 
 import { useState } from "react";
@@ -25,7 +25,7 @@ interface SoundEffectTagsProps {
   maxTags?: number;
 }
 
-// 所有音效Thẻ的扁平 cột表
+// Tất cả音效Thẻ的扁平 cột表
 const ALL_SOUND_EFFECTS = [
   ...SOUND_EFFECT_PRESETS.nature,
   ...SOUND_EFFECT_PRESETS.action,
@@ -68,7 +68,7 @@ export function SoundEffectTags({
 
   return (
     <div className="space-y-1.5">
-      {/* Đã chọnThẻ展示 */}
+      {/* Hiển thị thẻ đã chọn */}
       <div className="flex flex-wrap gap-1">
         {value.map((tagId) => (
           <span

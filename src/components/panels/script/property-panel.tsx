@@ -94,8 +94,8 @@ interface PropertyPanelProps {
   scene?: ScriptScene;
   shot?: Shot;
   episode?: EpisodeDetail;  // 集信息
-  episodeShots?: Shot[];    // 该集的所有Phân cảnh
-  sceneShots?: Shot[];      // 该Cảnh的所有Phân cảnh（用于多视角phân tích）
+  episodeShots?: Shot[];    // 该集的Tất cảPhân cảnh
+  sceneShots?: Shot[];      // 该Cảnh的Tất cảPhân cảnh（用于多视角phân tích）
   onGoToCharacterLibrary?: (characterId: string) => void;
   onGoToSceneLibrary?: (sceneId: string) => void;
   onGoToDirector?: (shotId: string) => void;
@@ -174,16 +174,16 @@ export function PropertyPanel({
       if (scene.lightingDesign) lines.push(`Thiết kế ánh sáng：${scene.lightingDesign}`);
       if (scene.colorPalette) lines.push(`Bảng màu sắc：${scene.colorPalette}`);
       if (scene.eraDetails) lines.push(`Đặc trưng thời đại：${scene.eraDetails}`);
-      if (scene.keyProps && scene.keyProps.length > 0) lines.push(`关键道具：${scene.keyProps.join('、')}`);
-      if (scene.spatialLayout) lines.push(`空间布局：${scene.spatialLayout}`);
+      if (scene.keyProps && scene.keyProps.length > 0) lines.push(`quan trọng道具：${scene.keyProps.join('、')}`);
+      if (scene.spatialLayout) lines.push(`Bố cục không gian：${scene.spatialLayout}`);
       lines.push('');
     }
     
-    // 视觉prompt（按prompt语言显示）
+    // Prompt thị giác（按prompt语言显示）
     const includeZhScenePrompt = promptLanguage !== 'en';
     const includeEnScenePrompt = promptLanguage !== 'zh';
     if ((includeZhScenePrompt && scene.visualPrompt) || (includeEnScenePrompt && scene.visualPromptEn)) {
-      lines.push(`## 视觉prompt`);
+      lines.push(`## Prompt thị giác`);
       if (includeZhScenePrompt && scene.visualPrompt) lines.push(`Tiếng Trung：${scene.visualPrompt}`);
       if (includeEnScenePrompt && scene.visualPromptEn) lines.push(`English: ${scene.visualPromptEn}`);
       lines.push('');
@@ -192,13 +192,13 @@ export function PropertyPanel({
     // 多视角联合图（AI视角phân tích的产出）
     if (scene.viewpoints && scene.viewpoints.length > 0) {
       lines.push(`## 多视角联合图（AIphân tích）`);
-      lines.push(`视角数量：${scene.viewpoints.length} 个`);
+      lines.push(`视角数量：${scene.viewpoints.length} `);
       lines.push('');
       scene.viewpoints.forEach((vp, idx) => {
         lines.push(`### 视角 ${idx + 1}: ${vp.name}`);
         lines.push(`- ID: ${vp.id}`);
-        if (vp.nameEn) lines.push(`- 英文名: ${vp.nameEn}`);
-        if (vp.keyProps && vp.keyProps.length > 0) lines.push(`- 关键道具: ${vp.keyProps.join('、')}`);
+        if (vp.nameEn) lines.push(`- Tên tiếng Anh: ${vp.nameEn}`);
+        if (vp.keyProps && vp.keyProps.length > 0) lines.push(`- quan trọng道具: ${vp.keyProps.join('、')}`);
         if (vp.shotIds && vp.shotIds.length > 0) lines.push(`- 关联Phân cảnhID: ${vp.shotIds.join(', ')}`);
         lines.push(`- 网格位置: ${vp.gridIndex}`);
         lines.push('');
@@ -244,7 +244,7 @@ export function PropertyPanel({
     if (character.gender || character.age) {
       lines.push(`## 基本信息`);
       const basicInfo: string[] = [];
-      if (character.gender) basicInfo.push(`性别：${character.gender}`);
+      if (character.gender) basicInfo.push(`Giới tính：${character.gender}`);
       if (character.age) basicInfo.push(`年龄：${character.age}`);
       lines.push(basicInfo.join(' | '));
       lines.push('');
@@ -257,37 +257,37 @@ export function PropertyPanel({
       lines.push('');
     }
     
-    // 性格特征
+    // Đặc điểm tính cách
     if (character.personality) {
-      lines.push(`## 性格特征`);
+      lines.push(`## Đặc điểm tính cách`);
       lines.push(character.personality);
       lines.push('');
     }
     
-    // 核心特质
+    // Đặc trưng cốt lõi
     if (character.traits) {
-      lines.push(`## 核心特质`);
+      lines.push(`## Đặc trưng cốt lõi`);
       lines.push(character.traits);
       lines.push('');
     }
     
-    // 外貌特征
+    // Đặc điểm ngoại hình
     if (character.appearance) {
-      lines.push(`## 外貌特征`);
+      lines.push(`## Đặc điểm ngoại hình`);
       lines.push(character.appearance);
       lines.push('');
     }
     
-    // 技能/能力
+    // Kỹ năng/năng lực
     if (character.skills) {
-      lines.push(`## 技能/能力`);
+      lines.push(`## Kỹ năng/năng lực`);
       lines.push(character.skills);
       lines.push('');
     }
     
-    // 关键 hàng为/事迹
+    // quan trọng hàng为/事迹
     if (character.keyActions) {
-      lines.push(`## 关键 hàng为/事迹`);
+      lines.push(`## quan trọng hàng为/事迹`);
       lines.push(character.keyActions);
       lines.push('');
     }
@@ -299,10 +299,10 @@ export function PropertyPanel({
       lines.push('');
     }
     
-    // === 6层身份锚点（Nhân vật一致性）===
+    // === 6层身份neo（Nhân vật一致性）===
     if (character.identityAnchors) {
       const anchors = character.identityAnchors;
-      lines.push(`## 6层身份锚点`);
+      lines.push(`## 6层身份neo`);
       
       // ① 骨相层
       const boneFeatures: string[] = [];
@@ -323,12 +323,12 @@ export function PropertyPanel({
         lines.push(`② 五官层：${facialFeatures.join(', ')}`);
       }
       
-      // ③ 辨识标记层（最强锚点）
+      // ③ 辨识标记层（最强neo）
       if (anchors.uniqueMarks && anchors.uniqueMarks.length > 0) {
-        lines.push(`③ 辨识标记层（最强锚点）：${anchors.uniqueMarks.join('; ')}`);
+        lines.push(`③ 辨识标记层（最强neo）：${anchors.uniqueMarks.join('; ')}`);
       }
       
-      // ④ 色彩锚点层
+      // ④ 色彩neo层
       if (anchors.colorAnchors) {
         const colors: string[] = [];
         if (anchors.colorAnchors.iris) colors.push(`虹膜: ${anchors.colorAnchors.iris}`);
@@ -336,7 +336,7 @@ export function PropertyPanel({
         if (anchors.colorAnchors.skin) colors.push(`肤色: ${anchors.colorAnchors.skin}`);
         if (anchors.colorAnchors.lips) colors.push(`唇色: ${anchors.colorAnchors.lips}`);
         if (colors.length > 0) {
-          lines.push(`④ 色彩锚点层（Hex）：${colors.join(', ')}`);
+          lines.push(`④ 色彩neo层（Hex）：${colors.join(', ')}`);
         }
       }
       
@@ -345,20 +345,20 @@ export function PropertyPanel({
         lines.push(`⑤ 皮肤纹理层：${anchors.skinTexture}`);
       }
       
-      // ⑥ 发型锚点层
+      // ⑥ 发型neo层
       const hairFeatures: string[] = [];
       if (anchors.hairStyle) hairFeatures.push(`发型: ${anchors.hairStyle}`);
       if (anchors.hairlineDetails) hairFeatures.push(`发际线: ${anchors.hairlineDetails}`);
       if (hairFeatures.length > 0) {
-        lines.push(`⑥ 发型锚点层：${hairFeatures.join(', ')}`);
+        lines.push(`⑥ 发型neo层：${hairFeatures.join(', ')}`);
       }
       
       lines.push('');
     }
     
-    // === 负面prompt ===
+    // === Prompt phủ định ===
     if (character.negativePrompt) {
-      lines.push(`## 负面prompt`);
+      lines.push(`## Prompt phủ định`);
       if (character.negativePrompt.avoid && character.negativePrompt.avoid.length > 0) {
         lines.push(`要避免：${character.negativePrompt.avoid.join(', ')}`);
       }
@@ -368,16 +368,16 @@ export function PropertyPanel({
       lines.push('');
     }
     
-    // Nhân vậtThẻ
+    // Thẻ nhân vật
     if (character.tags && character.tags.length > 0) {
-      lines.push(`## Nhân vậtThẻ`);
+      lines.push(`## Thẻ nhân vật`);
       lines.push(character.tags.map(t => `#${t}`).join(' '));
       lines.push('');
     }
     
-    // Nhân vậtGhi chú
+    // Ghi chú nhân vật
     if (character.notes) {
-      lines.push(`## Nhân vậtGhi chú`);
+      lines.push(`## Ghi chú nhân vật`);
       lines.push(character.notes);
       lines.push('');
     }
@@ -400,7 +400,7 @@ export function PropertyPanel({
     // 情绪ThẻTiếng Trung映射
     const emotionLabels: Record<string, string> = {
       happy: '开心', sad: '悲伤', angry: '愤怒', surprised: '惊讶', fearful: '恐惧', calm: '平静',
-      tense: '紧张', excited: '兴奋', mysterious: '神秘', romantic: '浪漫', funny: '搞笑', touching: '感动',
+      tense: 'căng thẳng', excited: '兴奋', mysterious: 'bí ẩn', romantic: '浪漫', funny: '搞笑', touching: '感动',
       serious: '严肃', relaxed: '轻松', playful: '调侃', gentle: '温柔', passionate: '激昂', low: '低沉'
     };
     
@@ -413,7 +413,7 @@ export function PropertyPanel({
       lines.push(episode.synopsis);
       lines.push('');
     }
-    lines.push(`## Danh sách phân cảnh (共 ${episodeShots.length} 个)`);
+    lines.push(`## Danh sách phân cảnh (共 ${episodeShots.length} )`);
     lines.push('');
     
     episodeShots.forEach((s, idx) => {
@@ -497,10 +497,10 @@ export function PropertyPanel({
 
     // 景别Tiếng Trung映射
     const shotSizeLabels: Record<string, string> = {
-      'ECU': '特写', 'CU': '近景', 'MCU': '中近景', 'MS': '中景',
-      'MLS': '中远景', 'LS': '远景', 'ELS': '大远景', 'POV': '主观Phân cảnh'
+      'ECU': '特写', 'CU': '近景', 'MCU': 'đang xử lý..., 'MS': 'đang xử lý...
+      'MLS': 'đang xử lý..., 'LS': '远景', 'ELS': '大远景', 'POV': '主观Phân cảnh'
     };
-    // Phân cảnh运动Tiếng Trung映射（兼容旧值+新预设ID）
+    // Phân cảnh运动Tiếng Trung映射（tương thích旧值+新预设ID）
     const cameraLabelsLegacy: Record<string, string> = {
       'Static': '固定', 'Pan': '横摇', 'Tilt': '俯仰', 'Dolly': '推拉',
       'Zoom': '变焦', 'Tracking': '跟拍', 'Crane': '升降', 'Handheld': '手持'
@@ -537,7 +537,7 @@ export function PropertyPanel({
     if (shot.characterNames && shot.characterNames.length > 0) {
       lines.push(`出CảnhNhân vật: ${shot.characterNames.join('、')}`);
     }
-    // 对白字段始终显示，无对白时明确标注“无”，防止AIVideo模型幻觉
+    // 对白trường始终显示，无对白时明确标注“无”，防止AIVideo模型幻觉
     lines.push(`对白: ${shot.dialogue ? `「${shot.dialogue}」` : '无'}`);
     if (shot.actionSummary) {
       lines.push(`Hành động描述: ${shot.actionSummary}`);
@@ -582,7 +582,7 @@ export function PropertyPanel({
         lines.push(`机位描述: ${(shot as any).cameraPosition}`);
       }
       if ((shot as any).characterBlocking) {
-        lines.push(`人物布局: ${(shot as any).characterBlocking}`);
+        lines.push(`nhân vật布局: ${(shot as any).characterBlocking}`);
       }
       if ((shot as any).rhythm) {
         lines.push(`节奏: ${(shot as any).rhythm}`);
@@ -772,12 +772,12 @@ export function PropertyPanel({
             </div>
           )}
 
-          {/* 关键事件 */}
+          {/* quan trọng事件 */}
           {episode.keyEvents && episode.keyEvents.length > 0 && (
             <div>
               <div className="text-xs text-muted-foreground mb-2 flex items-center gap-1">
                 <ListChecks className="h-3 w-3" />
-                关键事件
+                quan trọng事件
               </div>
               <div className="space-y-1">
                 {episode.keyEvents.map((event, i) => (
@@ -794,7 +794,7 @@ export function PropertyPanel({
           <div className="bg-muted/30 p-3 rounded-lg">
             <div className="text-xs text-muted-foreground mb-2">Cảnh统计</div>
             <div className="text-sm">
-              Tập này共 <span className="font-medium text-primary">{episode.scenes?.length || 0}</span> 个Cảnh
+              Tập này共 <span className="font-medium text-primary">{episode.scenes?.length || 0}</span> Cảnh
             </div>
             <div className="text-xs text-muted-foreground mt-1">
               Phân cảnh状态：{episode.shotGenerationStatus === 'completed' ? '✅ 已生成' : 
@@ -901,7 +901,7 @@ export function PropertyPanel({
               </div>
               <div className="grid grid-cols-2 gap-2">
                 <div className="space-y-1">
-                  <Label className="text-xs">性别</Label>
+                  <Label className="text-xs">Giới tính</Label>
                   <Input value={editData.gender || ""} onChange={(e) => setEditData({ ...editData, gender: e.target.value })} className="h-8" />
                 </div>
                 <div className="space-y-1">
@@ -914,19 +914,19 @@ export function PropertyPanel({
                 <Textarea value={editData.personality || ""} onChange={(e) => setEditData({ ...editData, personality: e.target.value })} className="min-h-[60px]" />
               </div>
               <div className="space-y-1">
-                <Label className="text-xs">核心特质</Label>
+                <Label className="text-xs">Đặc trưng cốt lõi</Label>
                 <Textarea value={editData.traits || ""} onChange={(e) => setEditData({ ...editData, traits: e.target.value })} className="min-h-[60px]" />
               </div>
               <div className="space-y-1">
-                <Label className="text-xs">技能/能力</Label>
+                <Label className="text-xs">Kỹ năng/năng lực</Label>
                 <Textarea value={editData.skills || ""} onChange={(e) => setEditData({ ...editData, skills: e.target.value })} className="min-h-[60px]" placeholder="武功、魔法、专业技能等" />
               </div>
               <div className="space-y-1">
-                <Label className="text-xs">关键 hàng为/事迹</Label>
+                <Label className="text-xs">quan trọng hàng为/事迹</Label>
                 <Textarea value={editData.keyActions || ""} onChange={(e) => setEditData({ ...editData, keyActions: e.target.value })} className="min-h-[60px]" />
               </div>
               <div className="space-y-1">
-                <Label className="text-xs">外貌特征</Label>
+                <Label className="text-xs">Đặc điểm ngoại hình</Label>
                 <Textarea value={editData.appearance || ""} onChange={(e) => setEditData({ ...editData, appearance: e.target.value })} className="min-h-[40px]" />
               </div>
               <div className="space-y-1">
@@ -953,10 +953,10 @@ export function PropertyPanel({
                 </div>
               )}
               
-              {/* 视觉prompt（世界级大师生成） */}
+              {/* Prompt thị giác（世界级大师生成） */}
               {((promptLanguage !== 'en' && character.visualPromptZh) || (promptLanguage !== 'zh' && character.visualPromptEn)) && (
                 <div className="bg-gradient-to-r from-purple-500/10 to-transparent p-2 rounded-lg border-l-2 border-purple-500/30">
-                  <div className="text-xs text-purple-600 dark:text-purple-400 mb-1">🎨 视觉prompt</div>
+                  <div className="text-xs text-purple-600 dark:text-purple-400 mb-1">🎨 Prompt thị giác</div>
                   {promptLanguage !== 'en' && character.visualPromptZh && (
                     <div className="text-xs text-muted-foreground mb-1">{character.visualPromptZh}</div>
                   )}
@@ -988,25 +988,25 @@ export function PropertyPanel({
               )}
               {character.traits && (
                 <div>
-                  <div className="text-xs text-muted-foreground mb-1">核心特质</div>
+                  <div className="text-xs text-muted-foreground mb-1">Đặc trưng cốt lõi</div>
                   <div className="text-sm whitespace-pre-wrap">{character.traits}</div>
                 </div>
               )}
               {character.skills && (
                 <div>
-                  <div className="text-xs text-muted-foreground mb-1">技能/能力</div>
+                  <div className="text-xs text-muted-foreground mb-1">Kỹ năng/năng lực</div>
                   <div className="text-sm whitespace-pre-wrap">{character.skills}</div>
                 </div>
               )}
               {character.keyActions && (
                 <div>
-                  <div className="text-xs text-muted-foreground mb-1">关键 hàng为/事迹</div>
+                  <div className="text-xs text-muted-foreground mb-1">quan trọng hàng为/事迹</div>
                   <div className="text-sm whitespace-pre-wrap">{character.keyActions}</div>
                 </div>
               )}
               {character.appearance && (
                 <div>
-                  <div className="text-xs text-muted-foreground mb-1">外貌特征</div>
+                  <div className="text-xs text-muted-foreground mb-1">Đặc điểm ngoại hình</div>
                   <div className="text-sm whitespace-pre-wrap">{character.appearance}</div>
                 </div>
               )}
@@ -1018,7 +1018,7 @@ export function PropertyPanel({
               )}
               {character.tags && character.tags.length > 0 && (
                 <div>
-                  <div className="text-xs text-muted-foreground mb-1">Nhân vậtThẻ</div>
+                  <div className="text-xs text-muted-foreground mb-1">Thẻ nhân vật</div>
                   <div className="flex flex-wrap gap-1">
                     {character.tags.map((tag, i) => (
                       <span key={i} className="px-2 py-0.5 bg-primary/10 text-primary rounded text-xs">
@@ -1030,7 +1030,7 @@ export function PropertyPanel({
               )}
               {character.notes && (
                 <div>
-                  <div className="text-xs text-muted-foreground mb-1">Nhân vậtGhi chú</div>
+                  <div className="text-xs text-muted-foreground mb-1">Ghi chú nhân vật</div>
                   <div className="text-sm text-muted-foreground italic whitespace-pre-wrap">{character.notes}</div>
                 </div>
               )}
@@ -1046,10 +1046,10 @@ export function PropertyPanel({
               <div className="p-3 bg-blue-500/10 border border-blue-500/20 rounded-lg space-y-2">
                 <div className="text-xs text-blue-600 dark:text-blue-400 flex items-center gap-1 font-medium">
                   <CheckCircle2 className="h-3 w-3" />
-                  已创建 {character.stageCharacterIds.length} 个giai đoạn版本
+                  已创建 {character.stageCharacterIds.length} giai đoạn版本
                 </div>
                 <div className="text-xs text-muted-foreground">
-                  请在中栏Nhấp各giai đoạn版本（如「{character.name}（青年版）」），然后去Nhân vật库生成形象
+                  请在đang xử lý...ấp各giai đoạn版本（如「{character.name}（青年版）」），rồi去Thư viện nhân vật生成形象
                 </div>
               </div>
             ) : (
@@ -1059,7 +1059,7 @@ export function PropertyPanel({
                 onClick={() => onGoToCharacterLibrary?.(character.id)}
               >
                 <ArrowRight className="h-4 w-4 mr-2" />
-                {character.characterLibraryId ? '查看Nhân vật库形象' : '去Nhân vật库生成形象'}
+                {character.characterLibraryId ? '查看Thư viện nhân vật形象' : '去Thư viện nhân vật生成形象'}
               </Button>
             )}
             
@@ -1156,7 +1156,7 @@ export function PropertyPanel({
               </div>
               <div className="space-y-1">
                 <Label className="text-xs">Thời gian</Label>
-                <Input value={editData.time || ""} onChange={(e) => setEditData({ ...editData, time: e.target.value })} className="h-8" placeholder="如：白天、夜晚、黄昏" />
+                <Input value={editData.time || ""} onChange={(e) => setEditData({ ...editData, time: e.target.value })} className="h-8" placeholder="如：ban ngày、ban đêm、Hoàng hôn" />
               </div>
               <div className="space-y-1">
                 <Label className="text-xs">Bầu không khí</Label>
@@ -1181,7 +1181,7 @@ export function PropertyPanel({
                 </div>
               )}
               
-              {/* 专业Cảnh设计字段（AI校准后显示） */}
+              {/* 专业Cảnh设计trường（AI校准后显示） */}
               {(scene.architectureStyle || scene.lightingDesign || scene.colorPalette || scene.eraDetails) && (
                 <>
                   <Separator className="my-2" />
@@ -1213,24 +1213,24 @@ export function PropertyPanel({
                   )}
                   {scene.keyProps && scene.keyProps.length > 0 && (
                     <div>
-                      <div className="text-xs text-muted-foreground mb-1">关键道具</div>
+                      <div className="text-xs text-muted-foreground mb-1">quan trọng道具</div>
                       <div className="text-sm">{scene.keyProps.join('、')}</div>
                     </div>
                   )}
                   {scene.spatialLayout && (
                     <div>
-                      <div className="text-xs text-muted-foreground mb-1">空间布局</div>
+                      <div className="text-xs text-muted-foreground mb-1">Bố cục không gian</div>
                       <div className="text-sm">{scene.spatialLayout}</div>
                     </div>
                   )}
                 </>
               )}
               
-              {/* 视觉prompt（AI校准后显示） */}
+              {/* Prompt thị giác（AI校准后显示） */}
               {((promptLanguage !== 'en' && scene.visualPrompt) || (promptLanguage !== 'zh' && scene.visualPromptEn)) && (
                 <>
                   <Separator className="my-2" />
-                  <div className="text-xs font-medium text-primary mb-2">视觉prompt</div>
+                  <div className="text-xs font-medium text-primary mb-2">Prompt thị giác</div>
                   
                   {promptLanguage !== 'en' && scene.visualPrompt && (
                     <div>
@@ -1282,7 +1282,7 @@ export function PropertyPanel({
                     </div>
                     
                     <div className="text-xs text-muted-foreground mb-2">
-                      AI phân tích {viewpoints.length} 个视角
+                      AI phân tích {viewpoints.length} 视角
                     </div>
                     
                     {/* 视角 cột表 */}
@@ -1305,7 +1305,7 @@ export function PropertyPanel({
                       ))}
                       {viewpoints.length > 6 && (
                         <div className="text-xs text-muted-foreground text-center py-1">
-                          还有 {viewpoints.length - 6} 个视角...
+                          还有 {viewpoints.length - 6} 视角...
                         </div>
                       )}
                     </div>
@@ -1385,7 +1385,7 @@ export function PropertyPanel({
           <AlertDialogContent>
             <AlertDialogHeader>
               <AlertDialogTitle>Xác nhậnXóa</AlertDialogTitle>
-              <AlertDialogDescription>Xác nhận要XóaCảnh「{scene.name || scene.location}」?其下所有Phân cảnh也将被Xóa。</AlertDialogDescription>
+              <AlertDialogDescription>Xác nhận要XóaCảnh「{scene.name || scene.location}」?其下Tất cảPhân cảnh也将被Xóa。</AlertDialogDescription>
             </AlertDialogHeader>
             <AlertDialogFooter>
               <AlertDialogCancel>Hủy</AlertDialogCancel>
@@ -1578,7 +1578,7 @@ export function PropertyPanel({
                     {shot.emotionTags.map((tag, i) => {
                       const emotionLabels: Record<string, string> = {
                         happy: '开心', sad: '悲伤', angry: '愤怒', surprised: '惊讶', fearful: '恐惧', calm: '平静',
-                        tense: '紧张', excited: '兴奋', mysterious: '神秘', romantic: '浪漫', funny: '搞笑', touching: '感动',
+                        tense: 'căng thẳng', excited: '兴奋', mysterious: 'bí ẩn', romantic: '浪漫', funny: '搞笑', touching: '感动',
                         serious: '严肃', relaxed: '轻松', playful: '调侃', gentle: '温柔', passionate: '激昂', low: '低沉'
                       };
                       return (

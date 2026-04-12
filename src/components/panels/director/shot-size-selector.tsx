@@ -4,8 +4,8 @@
 "use client";
 
 /**
- * 景别选择器组件 (Shot Size Selector)
- * 用于选择Ống kính的景别Loại：Toàn cảnh xa、Cảnh trung、Cảnh gần、Cận cảnh等
+ * 景别Chọn器组件 (Shot Size Selector)
+ * 用于ChọnỐng kính的景别Loại：Toàn cảnh xa、Cảnh trung、Cảnh gần、Cận cảnh等
  */
 
 import {

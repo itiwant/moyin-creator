@@ -543,33 +543,33 @@ export async function splitStoryboardImage(
   const cellWidth = Math.floor(totalWidth / expectedCols);
   const cellHeight = Math.floor(totalHeight / expectedRows);
   
-  // === 动态居中裁剪修正（学习自合并生成的切割方法）===
+  // === 动态居đang xử lý...正（学习自合并生成的切割方法）===
   // 计算目标宽高比
   const targetAspectW = aspectRatio === '16:9' ? 16 : 9;
   const targetAspectH = aspectRatio === '16:9' ? 9 : 16;
   const targetRatio = targetAspectW / targetAspectH;
   
-  // 计算原图每个格子的实际比例
+  // 计算Ảnh gốc每格子的实际Tỷ lệ
   const rawRatio = cellWidth / cellHeight;
   
-  // 计算裁剪参数（如果比例不匹配，进行居中裁剪修正）
+  // 计算裁剪参数（如果Tỷ lệ不匹配，进行居đang xử lý...正）
   let cropX = 0, cropY = 0, cropW = cellWidth, cropH = cellHeight;
   let outputWidth: number, outputHeight: number;
   
   if (Math.abs(rawRatio - targetRatio) < 0.01) {
-    // 宽高比已经接近目标，直接使用
+    // 宽高比已经接近目标，Trực tiếp使用
     outputWidth = cellWidth;
     outputHeight = cellHeight;
     console.log('[ImageSplitter] Ratio already matches target, no crop needed');
   } else if (rawRatio > targetRatio) {
-    // 原图格子太宽，需要裁剪宽度（居中裁剪）
+    // Ảnh gốc格子太宽，需要裁剪宽度（居đang xử lý...
     cropW = Math.floor(cellHeight * targetRatio);
     cropX = Math.floor((cellWidth - cropW) / 2);
     outputWidth = cropW;
     outputHeight = cellHeight;
     console.log(`[ImageSplitter] Cell too wide (${rawRatio.toFixed(3)} > ${targetRatio.toFixed(3)}), crop width: ${cellWidth} → ${cropW}, offsetX: ${cropX}`);
   } else {
-    // 原图格子太高，需要裁剪高度（居中裁剪）
+    // Ảnh gốc格子太高，需要裁剪高度（居đang xử lý...
     cropH = Math.floor(cellWidth / targetRatio);
     cropY = Math.floor((cellHeight - cropH) / 2);
     outputWidth = cellWidth;
@@ -628,8 +628,8 @@ export async function splitStoryboardImage(
 
     if (!ctx) continue;
 
-    // Calculate source rectangle with CROP + INSET (居中裁剪 + 安全边距)
-    // 先应用居中裁剪偏移，再应用安全边距
+    // Calculate source rectangle with CROP + INSET (居đang xử lý...+ 安全边距)
+    // 先应用居đang xử lý...移，再应用安全边距
     const srcX = def.x + cropX + marginW;
     const srcY = def.y + cropY + marginH;
     const srcW = cropW - (marginW * 2);

@@ -4,12 +4,12 @@
 "use client";
 
 /**
- * CinematographyProfilePicker — 摄影风格档案选择器
+ * CinematographyProfilePicker — 摄影风格档案Chọn器
  *
  * 功能：
  * - 左侧：按phân loại显示档案列表（emoji + 名称）
- * - 右侧：悬停/选中时显示详细描述、摄影参数、参考影片
- * - 支持 Popover 弹出模式和内嵌模式
+ * - 右侧：悬停/đã chọn时显示详细描述、摄影参数、Tham chiếu影片
+ * - 支持 Popover 弹出chế độ和内嵌chế độ
  */
 
 import React, { useState, useMemo } from "react";
@@ -31,26 +31,26 @@ import { getMediaType, MEDIA_TYPE_LABELS, type MediaType } from "@/lib/constants
 import { isFieldSkipped } from "@/lib/generation/media-type-tokens";
 
 interface CinematographyProfilePickerProps {
-  /** 当前选中的档案 ID */
+  /** Đang chọn的档案 ID */
   value: string;
-  /** 选择变化回调 */
+  /** Chọn变化回调 */
   onChange: (profileId: string) => void;
-  /** 是否使用下拉弹出模式（默认 true） */
+  /** 是否使用下拉弹出chế độ（默认 true） */
   popover?: boolean;
-  /** 自定义触发器（仅 popover 模式） */
+  /** 自定义触发器（仅 popover chế độ） */
   trigger?: React.ReactNode;
   /** 自定义类名 */
   className?: string;
   /** 禁用状态 */
   disabled?: boolean;
-  /** 未选择时的占位文字 */
+  /** 未Chọn时的Placeholder文字 */
   placeholder?: string;
   /** 当前视觉风格 ID（用于显示媒介适配提示） */
   styleId?: string;
 }
 
 /**
- * 摄影风格档案选择器
+ * 摄影风格档案Chọn器
  */
 export function CinematographyProfilePicker({
   value,
@@ -59,23 +59,23 @@ export function CinematographyProfilePicker({
   trigger,
   className,
   disabled = false,
-  placeholder = "选择摄影风格",
+  placeholder = "Chọn摄影风格",
   styleId,
 }: CinematographyProfilePickerProps) {
   const [hoveredProfile, setHoveredProfile] = useState<CinematographyProfile | null>(null);
   const [isOpen, setIsOpen] = useState(false);
 
-  // 获取当前选中的档案
+  // 获取Đang chọn的档案
   const selectedProfile = useMemo(() => getCinematographyProfile(value), [value]);
 
-  // 预览的档案（悬停优先，否则显示选中的，兆底第一个）
+  // 预览的档案（悬停优先，否则显示đã chọn的，兆底第一）
   const previewProfile = hoveredProfile || selectedProfile || CINEMATOGRAPHY_PROFILES[0];
 
   // 媒介类型适配提示
   const mediaType: MediaType | undefined = styleId ? getMediaType(styleId) : undefined;
   const showAdaptHint = mediaType && mediaType !== 'cinematic';
 
-  // 处理选择
+  // 处理Chọn
   const handleSelect = (profile: CinematographyProfile) => {
     onChange(profile.id);
     if (popover) {
@@ -165,9 +165,9 @@ export function CinematographyProfilePicker({
           </div>
         </ScrollArea>
 
-        {/* 参考影片 */}
+        {/* Tham chiếu影片 */}
         <div className="border-t border-border/50 pt-2">
-          <div className="text-xs text-muted-foreground mb-1">🎞️ 参考影片</div>
+          <div className="text-xs text-muted-foreground mb-1">🎞️ Tham chiếu影片</div>
           <div className="flex flex-wrap gap-1">
             {previewProfile.referenceFilms.map((film) => (
               <span
@@ -183,7 +183,7 @@ export function CinematographyProfilePicker({
     </div>
   );
 
-  // 下拉模式
+  // 下拉chế độ
   if (popover) {
     return (
       <Popover open={isOpen} onOpenChange={setIsOpen}>
@@ -234,12 +234,12 @@ export function CinematographyProfilePicker({
     );
   }
 
-  // 内嵌模式
+  // 内嵌chế độ
   return pickerContent;
 }
 
 /**
- * 单个档案项
+ * 单档案项
  */
 interface ProfileItemProps {
   profile: CinematographyProfile;
@@ -265,7 +265,7 @@ function ProfileItem({ profile, isSelected, onSelect, onHover, onLeave }: Profil
       <span className="text-base flex-shrink-0">{profile.emoji}</span>
       {/* 名称 */}
       <span className="flex-1 text-left text-sm truncate">{profile.name}</span>
-      {/* 选中标记 */}
+      {/* đã chọn标记 */}
       {isSelected && (
         <Check className="w-4 h-4 text-primary flex-shrink-0" />
       )}

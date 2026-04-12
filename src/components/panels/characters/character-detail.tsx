@@ -39,25 +39,25 @@ import { ImagePreviewModal } from "@/components/panels/director/media-preview-mo
 
 // View type labels
 const VIEW_LABELS: Record<string, string> = {
-  front: "正面",
-  side: "侧面",
-  back: "背面",
-  "three-quarter": "四分之三",
+  front: "chính diện",
+  side: "bên cạnh",
+  back: "Mặt sau",
+  "three-quarter": "Ba phần tư",
 };
 
 // Gender labels
 const GENDER_LABELS: Record<string, string> = {
-  male: "男",
-  female: "女",
-  other: "其他",
+  male: "Nam",
+  female: "Nữ",
+  other: "Khác",
 };
 
 // Age labels
 const AGE_LABELS: Record<string, string> = {
   child: "Trẻ em",
   teen: "Thanh thiếu niên",
-  "young-adult": "青年",
-  adult: "中年",
+  "young-adult": "Thanh niên",
+  adult: "Trung niên",
   senior: "Cao niên",
 };
 
@@ -84,7 +84,7 @@ export function CharacterDetail({ character }: CharacterDetailProps) {
           <User className="h-6 w-6 text-muted-foreground" />
         </div>
         <p className="text-sm text-muted-foreground">
-          选择一个Nhân vật查看详情
+          Chọn một nhân vật để xem chi tiết
         </p>
       </div>
     );
@@ -93,7 +93,7 @@ export function CharacterDetail({ character }: CharacterDetailProps) {
   const handleSaveName = () => {
     if (editName.trim() && editName.trim() !== character.name) {
       updateCharacter(character.id, { name: editName.trim() });
-      toast.success("Tên已更新");
+      toast.success("Tên đã được cập nhật");
     }
     setIsEditingName(false);
   };
@@ -109,7 +109,7 @@ export function CharacterDetail({ character }: CharacterDetailProps) {
   const handleSaveNotes = () => {
     updateCharacter(character.id, { notes: editNotes.trim() || undefined });
     setIsEditingNotes(false);
-    toast.success("Ghi chú已更新");
+    toast.success("Ghi chú đã được cập nhật");
   };
 
   const handleAddTag = () => {
@@ -216,7 +216,7 @@ export function CharacterDetail({ character }: CharacterDetailProps) {
           <div className="space-y-2">
             <div 
               className="aspect-square rounded-lg bg-muted overflow-hidden border relative cursor-zoom-in"
-              title="双击查看完整ảnh"
+              title="Nhấp đúp để xem ảnh đầy đủ"
               draggable
               onDoubleClick={() => {
                 const url = currentView?.imageUrl || character.thumbnailUrl;
@@ -285,7 +285,7 @@ export function CharacterDetail({ character }: CharacterDetailProps) {
 
           {/* Character info */}
           <div className="space-y-3">
-            <div className="text-xs font-medium text-muted-foreground">Nhân vật信息</div>
+            <div className="text-xs font-medium text-muted-foreground">Thông tin nhân vật</div>
             
             {/* Basic info badges */}
             <div className="flex flex-wrap gap-1.5">
@@ -319,19 +319,19 @@ export function CharacterDetail({ character }: CharacterDetailProps) {
             {/* Visual traits */}
             {character.visualTraits && (
               <div className="space-y-1">
-                <Label className="text-xs text-muted-foreground">视觉特征</Label>
+                <Label className="text-xs text-muted-foreground">Đặc điểm thị giác</Label>
                 <p className="text-xs text-muted-foreground bg-muted rounded p-2">
                   {character.visualTraits}
                 </p>
               </div>
             )}
 
-            {/* Notes / Nhân vậtGhi chú */}
+            {/* Notes / Ghi chú nhân vật */}
             <div className="space-y-1">
               <div className="flex items-center justify-between">
                 <Label className="text-xs text-muted-foreground flex items-center gap-1">
                   <StickyNote className="h-3 w-3" />
-                  Nhân vậtGhi chú
+                  Ghi chú nhân vật
                 </Label>
                 {!isEditingNotes && (
                   <Button
@@ -352,7 +352,7 @@ export function CharacterDetail({ character }: CharacterDetailProps) {
                   <Textarea
                     value={editNotes}
                     onChange={(e) => setEditNotes(e.target.value)}
-                    placeholder="Thêmcốt truyện相关的Ghi chú..."
+                    placeholder="Thêm ghi chú liên quan đến cốt truyện..."
                     className="text-xs min-h-[60px]"
                     autoFocus
                   />
@@ -378,7 +378,7 @@ export function CharacterDetail({ character }: CharacterDetailProps) {
             <div className="space-y-2">
               <Label className="text-xs text-muted-foreground flex items-center gap-1">
                 <Tag className="h-3 w-3" />
-                Nhân vậtThẻ
+                Thẻ nhân vật
               </Label>
               <div className="flex flex-wrap gap-1">
                 {(character.tags || []).map((tag) => (
@@ -410,7 +410,7 @@ export function CharacterDetail({ character }: CharacterDetailProps) {
             {/* Reference images */}
             {character.referenceImages && character.referenceImages.length > 0 && (
               <div className="space-y-1">
-                <Label className="text-xs text-muted-foreground">Ảnh tham chiếu片</Label>
+                <Label className="text-xs text-muted-foreground">Ảnh tham chiếu</Label>
                 <div className="flex gap-1.5">
                   {character.referenceImages.map((img, i) => (
                     <img
@@ -436,7 +436,7 @@ export function CharacterDetail({ character }: CharacterDetailProps) {
               onClick={() => setShowWardrobe(true)}
             >
               <Shirt className="h-4 w-4 mr-2" />
-              衣橱 ({variationCount})
+              Tủ đồ ({variationCount})
             </Button>
 
             {currentView && (
@@ -447,7 +447,7 @@ export function CharacterDetail({ character }: CharacterDetailProps) {
                 onClick={() => handleExportImage(currentView.imageUrl, `${character.name}-${currentView.viewType}`)}
               >
                 <Download className="h-4 w-4 mr-2" />
-                Xuất当前视图
+                Xuất góc nhìn hiện tại
               </Button>
             )}
 
@@ -464,7 +464,7 @@ export function CharacterDetail({ character }: CharacterDetailProps) {
 
           {/* Tips */}
           <div className="text-xs text-muted-foreground space-y-1">
-            <p>💡 拖拽Nhân vậtảnh到 AI Đạo diễn面板使用</p>
+            <p>💡 Kéo ảnh nhân vật vào panel AI Đạo diễn để sử dụng</p>
           </div>
         </div>
       </ScrollArea>

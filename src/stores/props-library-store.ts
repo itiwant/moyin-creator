@@ -15,7 +15,7 @@ export interface PropItem {
   id: string;
   name: string;           // Đạo cụTên（可Chỉnh sửa）
   imageUrl: string;       // local-image://props/... 或远程URL
-  prompt: string;         // Tạo时的prompt（供参考）
+  prompt: string;         // Tạo时的prompt（供Tham chiếu）
   folderId: string | null; // 所属thư mục，null = Thư mục gốc
   createdAt: number;
 }
@@ -31,7 +31,7 @@ export interface PropFolder {
 interface PropsLibraryState {
   items: PropItem[];
   folders: PropFolder[];
-  // 当前选中thư mục（null = 全部）
+  // Đang chọnthư mục（null = Tất cả）
   selectedFolderId: string | null | 'all';
 }
 
@@ -124,7 +124,7 @@ export const usePropsLibraryStore = create<PropsLibraryStore>()(
           items: s.items.map((item) =>
             item.folderId === id ? { ...item, folderId: null } : item
           ),
-          // 如果当前选中了该thư mục，切回"全部"
+          // 如果Đang chọn了该thư mục，切回"Tất cả"
           selectedFolderId:
             s.selectedFolderId === id ? 'all' : s.selectedFolderId,
         }));

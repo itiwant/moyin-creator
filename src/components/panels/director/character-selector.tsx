@@ -4,8 +4,8 @@
 "use client";
 
 /**
- * Nhân vật库选择弹窗组件 (Character Selector)
- * 从Nhân vật库中选择Nhân vật关联到Phân cảnh
+ * Thư viện nhân vậtChọn弹窗组件 (Character Selector)
+ * 从Thư viện nhân vậtđang xử lý...hân vật关联到Phân cảnh
  */
 
 import React, { useState, useMemo } from "react";
@@ -67,7 +67,7 @@ export function CharacterSelector({
     }
   };
 
-  // 只统计在Nhân vật库中存在的Nhân vật（过滤无效ID）
+  // 只统计在Thư viện nhân vậtđang xử lý...Nhân vật（过滤无效ID）
   const selectedCharacters = visibleCharacters.filter(c => selectedIds.includes(c.id));
   const validSelectedCount = selectedCharacters.length;
 
@@ -145,7 +145,7 @@ export function CharacterSelector({
                         <span className="flex-1 text-[11px] truncate">Ảnh gốc cơ bản</span>
                         {!selectedVarId && <Check className="h-3 w-3 text-primary shrink-0" />}
                       </button>
-                      {/* biến thể cột表 */}
+                      {/* Danh sách biến thể */}
                       {availableVariations.map((v) => (
                         <button
                           key={v.id}

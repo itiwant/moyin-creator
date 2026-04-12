@@ -20,7 +20,7 @@ import {
 } from "lucide-react";
 import { useState } from "react";
 
-// 导航节点Loại
+// 导航mốcLoại
 export type AssetSection = "style-default" | "style-custom" | "props-library";
 
 interface AssetSidebarProps {
@@ -43,7 +43,7 @@ const NAV_MODULES: NavModule[] = [
     icon: Palette,
     children: [
       { id: "style-default", label: "Mặc địnhPhong cách", icon: Layers },
-      { id: "style-custom", label: "我的Phong cách", icon: UserCircle },
+      { id: "style-custom", label: "Phong cách của tôi", icon: UserCircle },
     ],
   },
   {
@@ -51,7 +51,7 @@ const NAV_MODULES: NavModule[] = [
     label: "Thư viện đạo cụ",
     icon: Box,
     children: [
-      { id: "props-library", label: "我的Đạo cụ", icon: Box },
+      { id: "props-library", label: "Đạo cụ của tôi", icon: Box },
     ],
   },
 ];
@@ -76,15 +76,15 @@ export function AssetSidebar({ activeSection, onSectionChange }: AssetSidebarPro
       <div className="px-3 py-3 border-b border-border shrink-0">
         <div className="flex items-center gap-2">
           <FolderOpen className="w-4 h-4 text-primary" />
-          <span className="text-sm font-semibold">个人Tài sản库</span>
+          <span className="text-sm font-semibold">Thư viện tài sản cá nhân</span>
         </div>
       </div>
 
-      {/* 导航树 */}
+      {/* Cây điều hướng */}
       <div className="flex-1 overflow-y-auto py-2">
         {NAV_MODULES.map((mod) => (
           <div key={mod.id} className="mb-1">
-            {/* 模块tiêu đề */}
+            {/* Tiêu đề module */}
             <button
               className="flex items-center gap-1.5 w-full px-3 py-1.5 text-xs font-medium text-muted-foreground hover:text-foreground transition-colors"
               onClick={() => toggleModule(mod.id)}
@@ -98,7 +98,7 @@ export function AssetSidebar({ activeSection, onSectionChange }: AssetSidebarPro
               {mod.label}
             </button>
 
-            {/* con项 */}
+            {/* Mục con */}
             {expanded.has(mod.id) && (
               <div className="ml-3">
                 {mod.children.map((child) => (

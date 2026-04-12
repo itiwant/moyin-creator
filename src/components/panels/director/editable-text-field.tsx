@@ -5,7 +5,7 @@
 
 /**
  * EditableTextField Component
- * 可双击Chỉnh sửa的文本字段组件
+ * 可双击Chỉnh sửa的文本trường组件
  */
 
 import React, { useState, useRef } from "react";

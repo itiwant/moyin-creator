@@ -363,7 +363,7 @@ export function WardrobeModal({ character, open, onOpenChange }: WardrobeModalPr
               </p>
               {!characterBaseImage && (
                 <p className="text-xs text-amber-600 dark:text-amber-400 mt-1">
-                  ⚠ Vui lòng tạo trướcNhân vậtCơ bảnảnh，衣橱biến thể需要Cơ bản定妆照作为参考
+                  ⚠ Vui lòng tạo trướcNhân vậtCơ bảnảnh，Biến thể tủ đồ需要Cơ bản定妆照作为Tham chiếu
                 </p>
               )}
             </div>
@@ -428,7 +428,7 @@ export function WardrobeModal({ character, open, onOpenChange }: WardrobeModalPr
                                 <img src={img} alt="ref" className="w-full h-full object-cover" />
                               </div>
                             ))}
-                            <span className="text-[10px] text-muted-foreground self-center">参考</span>
+                            <span className="text-[10px] text-muted-foreground self-center">Tham chiếu</span>
                           </div>
                         )}
 
@@ -535,7 +535,7 @@ export function WardrobeModal({ character, open, onOpenChange }: WardrobeModalPr
                     >
                       <img
                         src={img}
-                        alt={`服装参考 ${idx + 1}`}
+                        alt={`服装Tham chiếu ${idx + 1}`}
                         className="w-full h-full object-cover"
                       />
                       <button
@@ -545,7 +545,7 @@ export function WardrobeModal({ character, open, onOpenChange }: WardrobeModalPr
                         <X className="h-3 w-3" />
                       </button>
                       <div className="absolute bottom-0 left-0 right-0 bg-black/50 text-[9px] text-white text-center py-0.5">
-                        参考 {idx + 1}
+                        Tham chiếu {idx + 1}
                       </div>
                     </div>
                   ))}
@@ -574,7 +574,7 @@ export function WardrobeModal({ character, open, onOpenChange }: WardrobeModalPr
 
               {/* Visual prompt */}
               <div className="space-y-1">
-                <Label className="text-xs text-muted-foreground">视觉Mô tả（可选）</Label>
+                <Label className="text-xs text-muted-foreground">视觉Mô tả(tùy chọn)</Label>
                 <Textarea
                   placeholder="Mô tả服装细节或整体造型，如：\n- 白色蕾丝婚纱，长拖尾，头戴花冠\n- elegant white lace wedding dress, long train, floral headpiece"
                   value={newVariationPrompt}
@@ -582,7 +582,7 @@ export function WardrobeModal({ character, open, onOpenChange }: WardrobeModalPr
                   className="min-h-[72px]"
                 />
                 <p className="text-[11px] text-muted-foreground">
-                  可用中文或英文Mô tả，Hỗ trợ混合。有Ảnh tham chiếu时可简短Mô tả补充细节
+                  可用đang xử lý...文Mô tả，Hỗ trợ混合。有Ảnh tham chiếu时可简短Mô tả补充细节
                 </p>
               </div>
 
@@ -611,7 +611,7 @@ export function WardrobeModal({ character, open, onOpenChange }: WardrobeModalPr
 
           {/* Tips */}
           <div className="text-xs text-muted-foreground space-y-1 pt-2 border-t">
-            <p>💡 biến thểTạo会参考Nhân vậtCơ bản定妆照，保持面部特征一致</p>
+            <p>💡 biến thểTạo会Tham chiếuNhân vậtCơ bản定妆照，保持Khuôn mặt特征一致</p>
             <p>💡 Tải lên服装Ảnh tham chiếu可让 AI 更精准地Tạo目标造型</p>
             <p>💡 建议先TạoNhân vậtCơ bảnảnh，再Thêmbiến thể</p>
           </div>
@@ -642,7 +642,7 @@ export function WardrobeModal({ character, open, onOpenChange }: WardrobeModalPr
 /**
  * Build character-sheet-format variation image.
  *
- * The output is a FULL CHARACTER SHEET (三视图 + 表情设定 + 比例设定 + Hành động设定)
+ * The output is a FULL CHARACTER SHEET (三góc nhìn + Biểu cảm设定 + Tỷ lệ设定 + Hành động设定)
  * matching the base character generation format, NOT a single portrait.
  *
  * Prompt structure = base character sheet prompt + clothing description overlay.
@@ -671,7 +671,7 @@ async function generateVariationImage(params: {
   const baseUrl = featureConfig.baseUrl?.replace(/\/+$/, '');
 
   if (!model || !baseUrl) {
-    throw new Error('ảnhTạo服务未正确配置（缺少Model或 Base URL）');
+    throw new Error('Tạo ảnh服务未正确配置（缺少Model或 Base URL）');
   }
 
   // ---- Build CHARACTER SHEET prompt (same structure as generation-panel) ----
@@ -857,7 +857,7 @@ async function pollForVariationImage(
       }
 
       if (status === 'failed' || status === 'error') {
-        throw new Error(data.error || 'ảnhTạo thất bại');
+        throw new Error(data.error || 'Tạo ảnh thất bại');
       }
     } catch (error) {
       if (error instanceof Error &&
@@ -868,5 +868,5 @@ async function pollForVariationImage(
     }
   }
 
-  throw new Error('ảnhTạo超时');
+  throw new Error('Tạo ảnh超时');
 }

@@ -1,11 +1,11 @@
 "use client";
 
 /**
- * OverviewPanel — mục目Tổng quan（SeriesMeta 展示 + 内联Chỉnh sửa）
+ * OverviewPanel — mục目Tổng quan（SeriesMeta Hiển thị + 内联Chỉnh sửa）
  *
  * 两栏布局：
  *   左栏：Cốt lõi câu chuyện + 世界观 + 制作设定
- *   右栏：Nhân vật cột表 + 阵营 + 关键物品/地理
+ *   右栏：Nhân vật cột表 + 阵营 + quan trọng物品/地理
  */
 
 import { useState, useCallback } from "react";
@@ -75,11 +75,11 @@ const OVERVIEW_WORKFLOW_SECTIONS: Array<{ id: number; title: string; steps: stri
       "Nhấp vào Module đạo diễn",
       "Nhấp vào cây danh sách bên trái",
       "把需要的CảnhNhấp“+”后，Thêm到thanh tráiPhân cảnhChỉnh sửa里",
-      "ảnhTạo方式：选择“合并Tạo”，参数和图自 hàng选",
+      "Tạo ảnh方式：Chọn“合并Tạo”，参数和图自 hàng选",
       "Nhấp thực thi Tạo gộp",
       "Tạo ảnh hoàn tất",
       "无主角案例时：“Tạo成图”nút",
-      "有主角Tạo成图：在所有Phân cảnh页下方“Tạo video”nút",
+      "有主角Tạo成图：在Tất cảPhân cảnh页下方“Tạo video”nút",
     ],
   },
 ];
@@ -322,7 +322,7 @@ export function OverviewPanel() {
                   <EditableText value={meta.logline} placeholder="一句话概括故事主线..." onSave={(v) => update({ logline: v })} />
                 </FieldRow>
                 <FieldRow label="大纲">
-                  <EditableText value={meta.outline} placeholder="100-500字完整故事线..." onSave={(v) => update({ outline: v })} multiline />
+                  <EditableText value={meta.outline} placeholder="100-500字đầy đủ故事线..." onSave={(v) => update({ outline: v })} multiline />
                 </FieldRow>
                 <FieldRow label="核心冲突">
                   <EditableText value={meta.centralConflict} placeholder="主线矛盾..." onSave={(v) => update({ centralConflict: v })} />
@@ -351,7 +351,7 @@ export function OverviewPanel() {
                   <EditableText value={meta.timelineSetting} placeholder="精确Thời gian线设定..." onSave={(v) => update({ timelineSetting: v })} />
                 </FieldRow>
                 <FieldRow label="社会体系">
-                  <EditableText value={meta.socialSystem} placeholder="社会/权力结构..." onSave={(v) => update({ socialSystem: v })} />
+                  <EditableText value={meta.socialSystem} placeholder="社会/权力Cấu trúc..." onSave={(v) => update({ socialSystem: v })} />
                 </FieldRow>
                 <FieldRow label="力量体系">
                   <EditableText value={meta.powerSystem} placeholder="武功/魔法/科技..." onSave={(v) => update({ powerSystem: v })} />
@@ -370,11 +370,11 @@ export function OverviewPanel() {
                   <EditableText value={meta.colorPalette} placeholder="Toàn bộ主色调..." onSave={(v) => update({ colorPalette: v })} />
                 </FieldRow>
                 <FieldRow label="语言">
-                  <span className="text-xs">{meta.language || "中文"}</span>
+                  <span className="text-xs">{meta.language || "đang xử lý...</span>
                 </FieldRow>
               </SectionCard>
 
-              {/* 分集thư mục — con项目Quản lý台 */}
+              {/* 分集thư mục — Mục con目Quản lý台 */}
               <SectionCard icon={ListOrdered} title={`分集thư mục (${episodes.length} 集)`}>
                 {episodes.length === 0 ? (
                   <p className="text-xs text-muted-foreground italic">Chưa có分Số tập据（NhậpKịch bản后Tự độngTạo）</p>
@@ -583,7 +583,7 @@ export function OverviewPanel() {
                 )}
                 {meta.characters.length > 20 && (
                   <p className="text-[10px] text-muted-foreground">
-                    还有 {meta.characters.length - 20} 个Nhân vật...
+                    还有 {meta.characters.length - 20} Nhân vật...
                   </p>
                 )}
               </SectionCard>
@@ -608,11 +608,11 @@ export function OverviewPanel() {
                 )}
               </SectionCard>
 
-              {/* 关键物品 */}
-              <SectionCard icon={Gem} title={`关键物品 (${meta.keyItems?.length || 0})`}>
+              {/* quan trọng物品 */}
+              <SectionCard icon={Gem} title={`quan trọng物品 (${meta.keyItems?.length || 0})`}>
                 <NamedEntityList
                   items={meta.keyItems}
-                  emptyText="Chưa có关键物品（AI 分析后Tự động填充）"
+                  emptyText="Chưa cóquan trọng物品（AI 分析后Tự động填充）"
                   onUpdate={(items) => update({ keyItems: items })}
                 />
               </SectionCard>

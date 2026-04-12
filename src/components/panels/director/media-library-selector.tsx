@@ -4,8 +4,8 @@
 "use client";
 
 /**
- * Thư viện phương tiện选择器组件 (Media Library Selector)
- * 从Thư viện phương tiện中选择ảnhÁp dụng到Phân cảnhKhung hình đầu/Khung hình cuối
+ * Thư viện phương tiệnChọn器组件 (Media Library Selector)
+ * 从Thư viện phương tiệnđang xử lý...nhÁp dụng到Phân cảnhKhung hình đầu/Khung hình cuối
  */
 
 import React, { useState, useMemo } from "react";
@@ -60,7 +60,7 @@ export function MediaLibrarySelector({
     [visibleMedia]
   );
   
-  // 根据选中的Thư mục筛选ảnh
+  // 根据đã chọn的Thư mục筛选ảnh
   const filteredImages = useMemo(() => {
     if (selectedFolderId === null) {
       return imageFiles; // show all
@@ -68,7 +68,7 @@ export function MediaLibrarySelector({
     return imageFiles.filter(f => f.folderId === selectedFolderId);
   }, [imageFiles, selectedFolderId]);
   
-  // 处理选择ảnh
+  // 处理Chọnảnh
   const handleSelectImage = (imageUrl: string) => {
     onSelect(imageUrl);
     setIsOpen(false);

@@ -5,8 +5,8 @@
 
 /**
  * Phân cảnh卡片组件 (Split Scene Card Component)
- * Hiện单个Phân cảnh的所有信息，包括Khung hình đầu/Khung hình cuốiảnh、videoXem trước、promptChỉnh sửa等
- * 用于 SplitScene Loại（与 scene-card.tsx 中的 AIScene Loại不同）
+ * Hiện单Phân cảnh的Tất cả信息，包括Khung hình đầu/Khung hình cuốiảnh、videoXem trước、promptChỉnh sửa等
+ * 用于 SplitScene Loại（与 scene-card.tsx đang xử lý...IScene Loại不同）
  */
 
 import React, { useState, useRef } from "react";
@@ -85,7 +85,7 @@ import { useResolvedImageUrl } from "@/hooks/use-resolved-image-url";
 
 export interface SplitSceneCardProps {
   scene: SplitScene;
-  /** prompt语言Cài đặt（来自Kịch bản面板），决定Chỉnh sửa/Hiện哪个语言字段 */
+  /** prompt语言Cài đặt（来自Kịch bản面板），决定Chỉnh sửa/Hiện哪语言trường */
   promptLanguage?: PromptLanguage;
   // 三层prompt更新回调
   onUpdateImagePrompt: (id: number, prompt: string, promptZh?: string) => void;
@@ -110,7 +110,7 @@ export interface SplitSceneCardProps {
   onGenerateEndFrame?: (sceneId: number) => void;
   onRemoveImage?: (sceneId: number) => void;
   onUploadImage?: (sceneId: number, imageDataUrl: string) => void;
-  // 通用字段更新回调（用于双击Chỉnh sửa）
+  // 通用trường更新回调（用于双击Chỉnh sửa）
   onUpdateField?: (sceneId: number, field: keyof SplitScene, value: any) => void;
   // 角度切换回调
   onAngleSwitch?: (sceneId: number, type: "start" | "end") => void;
@@ -168,7 +168,7 @@ export function SplitSceneCard({
   const [editingPrompt, setEditingPrompt] = useState<'none' | 'image' | 'video' | 'endFrame'>('none');
   const [editPromptValue, setEditPromptValue] = useState('');
   const [showPromptDetails, setShowPromptDetails] = useState(false);
-  // 当前选中的帧目标：'start' | 'end'，用于Thư viện phương tiện选择
+  // Đang chọn的帧目标：'start' | 'end'，用于Thư viện phương tiệnChọn
   const [selectedFrameTarget, setSelectedFrameTarget] = useState<'start' | 'end'>('start');
   const endFrameInputRef = useRef<HTMLInputElement>(null);
   const firstFrameInputRef = useRef<HTMLInputElement>(null);
@@ -183,15 +183,15 @@ export function SplitSceneCard({
   const resolvedImageUrl = useResolvedImageUrl(effectiveImageUrl);
   const resolvedEndFrameUrl = useResolvedImageUrl(effectiveEndFrameUrl);
 
-  // 根据语言Cài đặt获取对应的prompt字段值
+  // 根据语言Cài đặt获取对应的prompttrường值
   const getPromptByLanguage = (vi: string | undefined, en: string | undefined): string => {
     if (promptLanguage === 'en') return en || '';
     if (promptLanguage === 'vi') return vi || '';
-    // vi+en: 优先中文，回退英文
+    // vi+en: 优先đang xử lý...退英文
     return vi || en || '';
   };
 
-  // Bắt đầuChỉnh sửa某个prompt（根据语言选择对应字段）
+  // Bắt đầuChỉnh sửa某prompt（根据语言Chọn对应trường）
   const startEditing = (type: 'image' | 'video' | 'endFrame') => {
     if (type === 'image') {
       setEditPromptValue(getPromptByLanguage(scene.imagePromptZh, scene.imagePrompt));
@@ -203,16 +203,16 @@ export function SplitSceneCard({
     setEditingPrompt(type);
   };
 
-  // Lưuprompt（根据语言Cài đặt只更新对应字段，不覆盖另一种语言）
+  // Lưuprompt（根据语言Cài đặt只更新对应trường，不覆盖另一种语言）
   const handleSavePrompt = () => {
     const langLabel = promptLanguage === 'en' ? 'tiếng Anh' : 'tiếng Trung';
 
     if (editingPrompt === 'image') {
       if (promptLanguage === 'en') {
-        // Chỉ tiếng Anh：更新 prompt，保留 promptZh 不变
+        // Chỉ tiếng Anh：更新 prompt，保留 promptZh không thay đổi
         onUpdateImagePrompt(scene.id, editPromptValue, scene.imagePromptZh);
       } else {
-        // 中文 / Trung-Anh：更新 promptZh，保留 prompt 不变
+        // đang xử lý... Trung-Anh：更新 promptZh，保留 prompt không thay đổi
         onUpdateImagePrompt(scene.id, scene.imagePrompt, editPromptValue);
       }
       toast.success(`Đã cập nhật gợi ý ${langLabel} khung hình đầu phân cảnh ${scene.id + 1}`);
@@ -263,7 +263,7 @@ export function SplitSceneCard({
     reader.onload = (event) => {
       const dataUrl = event.target?.result as string;
       onUpdateEndFrame(scene.id, dataUrl);
-      // Tải lênKhung hình cuối时Tự độngBật needsEndFrame，确保videoTạo时会使用Khung hình cuối参考
+      // Tải lênKhung hình cuối时Tự độngBật needsEndFrame，确保Tạo video时会使用Khung hình cuốiTham chiếu
       if (!scene.needsEndFrame) {
         onUpdateNeedsEndFrame(scene.id, true);
       }
@@ -296,7 +296,7 @@ export function SplitSceneCard({
         const res = await fetch(base64);
         blob = await res.blob();
       } else {
-        // data: / http: / https: 均可直接 fetch
+        // data: / http: / https: 均可Trực tiếp fetch
         const res = await fetch(imageUrl);
         blob = await res.blob();
       }
@@ -722,7 +722,7 @@ export function SplitSceneCard({
             {endFrameInput}
           </div>
 
-          {/* Thư viện nhân vật + Tham chiếu cảnh选择 */}
+          {/* Thư viện nhân vật + Tham chiếu cảnhChọn */}
           <div className="flex flex-col gap-1 justify-end">
             <CharacterSelector
               selectedIds={scene.characterIds || []}
@@ -752,12 +752,12 @@ export function SplitSceneCard({
                 disabled={isGeneratingAny}
               />
             )}
-            {/* Tham chiếu cảnh选择器 */}
+            {/* Tham chiếu cảnhChọn器 */}
             {selectedFrameTarget === 'start' ? (
-              // Khung hình đầuCảnh参考已在上方渲染
+              // Khung hình đầuCảnhTham chiếu已在上方渲染
               null
             ) : (
-              // Khung hình cuốiThư viện cảnh选择器
+              // Khung hình cuốiThư viện cảnhChọn器
               onUpdateEndFrameSceneReference && (
                 <SceneLibrarySelector
                   sceneId={scene.id}
@@ -772,7 +772,7 @@ export function SplitSceneCard({
                 />
               )
             )}
-            {/* Thư viện phương tiện选择器 */}
+            {/* Thư viện phương tiệnChọn器 */}
             {onUploadImage && (
               <MediaLibrarySelector
                 sceneId={scene.id}
@@ -1097,7 +1097,7 @@ export function SplitSceneCard({
               </div>
             </div>
           ) : (
-            /* 折叠摘要视图：彩色图标Thẻ + Nội dungXem trước */
+            /* 折叠摘要góc nhìn：彩色图标Thẻ + Nội dungXem trước */
             <div 
               className="space-y-1 p-2 rounded-md bg-muted/20 cursor-pointer hover:bg-muted/40 transition-colors border border-transparent hover:border-muted"
               onClick={() => setShowPromptDetails(true)}

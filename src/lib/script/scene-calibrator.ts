@@ -4,10 +4,10 @@
 /**
  * AI Scene Calibrator
  * 
- * 使用 AI 智能校准从剧本中提取的场景列表
+ * 使用 AI 智能校准从剧本đang xử lý...场景列表
  * 
  * 功能：
- * 1. 统计每个场景的出场次数、出现集数
+ * 1. 统计每场景的出场次数、出现集数
  * 2. AI 分析识别重要场景 vs 过渡场景
  * 3. AI 合并相同地点的变体（张家客厅 = 张明家客厅）
  * 4. AI 补充场景信息（建筑风格、光影、道具等）
@@ -50,15 +50,15 @@ export interface CalibratedScene {
   lightingDesign?: string;
   /** 色彩基调 */
   colorPalette?: string;
-  /** 关键道具 */
+  /** quan trọng道具 */
   keyProps?: string[];
-  /** 空间布局 */
+  /** Bố cục không gian */
   spatialLayout?: string;
   /** 时代特征 */
   eraDetails?: string;
   /** 英文视觉提示词 */
   visualPromptEn?: string;
-  /** 中文视觉描述 */
+  /** đang xử lý...描述 */
   visualPromptZh?: string;
   /** 原始名称变体 */
   nameVariants: string[];
@@ -103,7 +103,7 @@ export interface CalibrationOptions {
 // ==================== 统计函数 ====================
 
 /**
- * 从分集剧本中统计所有场景的出场数据
+ * 从分集剧本đang xử lý...ất cả场景的出场数据
  */
 export function collectSceneStats(
   episodeScripts: EpisodeRawScript[]
@@ -167,7 +167,7 @@ export function collectSceneStats(
         stat.actionSamples.push(`第${epIndex}集: ${contentSample}`);
       }
       
-      // 收集对白样本（用于理解场景中发生了什么）
+      // 收集对白样本（用于理解场景đang xử lý...什么）
       if (scene.dialogues && stat.dialogueSamples.length < 5) {
         for (const d of scene.dialogues.slice(0, 2)) {
           if (d && stat.dialogueSamples.length < 5) {
@@ -204,7 +204,7 @@ function extractLocationFromHeader(header: string): string {
   // 跳过 "1-1", "日/夜", "内/外"
   const locationParts = parts.filter(p => 
     !p.match(/^\d+-\d+$/) && 
-    !p.match(/^(日|夜|晨|暮|黄昏|黎明)$/) &&
+    !p.match(/^(日|夜|晨|暮|Hoàng hôn|Bình minh)$/) &&
     !p.match(/^(内|外|内\/外)$/)
   );
   return locationParts.join(' ') || header;
@@ -214,7 +214,7 @@ function extractLocationFromHeader(header: string): string {
  * 从场景头提取时间
  */
 function extractTimeFromHeader(header: string): string {
-  const timeMatch = header.match(/(日|夜|晨|暮|黄昏|黎明|清晨|傍晚)/);
+  const timeMatch = header.match(/(日|夜|晨|暮|Hoàng hôn|Bình minh|清晨|傍晚)/);
   return timeMatch ? timeMatch[1] : '日';
 }
 
@@ -229,12 +229,12 @@ function normalizeLocation(location: string): string {
 }
 
 /**
- * 清理场景地点字符串，移除人物信息等无关内容
+ * 清理场景地点字符串，移除nhân vật信息等无关内容
  */
 function cleanLocationString(location: string): string {
   if (!location) return '';
-  // 移除 "人物：XXX" 部分
-  let cleaned = location.replace(/\s*人物[\uff1a:].*/g, '');
+  // 移除 "nhân vật：XXX" 部分
+  let cleaned = location.replace(/\s*nhân vật[\uff1a:].*/g, '');
   // 移除 "角色：XXX" 部分
   cleaned = cleaned.replace(/\s*角色[\uff1a:].*/g, '');
   // 移除 "时间：XXX" 部分
@@ -246,7 +246,7 @@ function cleanLocationString(location: string): string {
 // ==================== 核心校准函数 ====================
 
 /**
- * AI 校准所有场景（轻量级模式）
+ * AI 校准Tất cả场景（轻量级chế độ）
  * 
  * 【重要】此函数只补充现有场景的美术设计信息，不改变：
  * - 场景列表（不新增、不删除、不合并）
@@ -258,10 +258,10 @@ export async function calibrateScenes(
   currentScenes: ScriptScene[],
   background: ProjectBackground,
   episodeScripts: EpisodeRawScript[],
-  _options?: CalibrationOptions // 不再需要，保留以兼容
+  _options?: CalibrationOptions // 不再需要，保留以tương thích
 ): Promise<SceneCalibrationResult> {
   
-  // 【轻量级模式】直接使用 currentScenes，不重新统计
+  // 【轻量级chế độ】Trực tiếp使用 currentScenes，不重新统计
   if (!currentScenes || currentScenes.length === 0) {
     console.warn('[calibrateScenes] currentScenes 为空，无法校准');
     return {
@@ -271,12 +271,12 @@ export async function calibrateScenes(
     };
   }
   
-  console.log('[calibrateScenes] 轻量级模式：为', currentScenes.length, '个现有场景补充美术设计');
+  console.log('[calibrateScenes] 轻量级chế độ：为', currentScenes.length, '现有场景补充美术设计');
   
   // 1. 收集场景的动作描写样本（用于推断道具）
   const stats = collectSceneStats(episodeScripts);
   
-  // 2. 准备场景批处理 items（每个场景带上统计信息）
+  // 2. 准备场景批处理 items（每场景带上统计信息）
   const batchItems = currentScenes.map((scene) => {
     const normalizedLoc = scene.location?.replace(/\s+/g, '').toLowerCase() || '';
     let sceneStat: SceneStats | undefined;
@@ -313,16 +313,16 @@ export async function calibrateScenes(
 为以下场景补充美术设计信息，用于生成场景概念图。
 
 【重要约束】
-1. **不新增场景** - 只处理列表中的场景
+1. **不新增场景** - 只处理列表đang xử lý...
 2. **不删除场景** - 即使是过渡场景也保留
 3. **不合并场景** - 只记录“合并建议”，不自行合并
 4. **保持原始 sceneId** - 必须原样返回
 
 【场景设计要素 - 必须基于动作描写推断】
-为每个场景补充：
+为每场景补充：
 - 建筑风格、光影设计、色彩基调
-- **关键道具**：必须根据「动作描写」推断
-- 空间布局、时代特征、importance 分类
+- **quan trọng道具**：必须根据「动作描写」推断
+- Bố cục không gian、时代特征、importance 分类
 
 请以JSON格式返回分析结果。`;
 
@@ -330,7 +330,7 @@ export async function calibrateScenes(
   const outlineContext = safeTruncate(background.outline || '', 1500);
 
   try {
-    // 闭包收集跨批次的聚合字段
+    // 闭包收集跨批次的聚合trường
     const allMergeRecords: SceneMergeRecord[] = [];
     const allAnalysisNotes: string[] = [];
     
@@ -363,11 +363,11 @@ ${background.worldSetting ? `世界观：${safeTruncate(background.worldSetting,
 【故事大纲】
 ${outlineContext || '无'}
 
-【现有场景列表 - 请为每个场景补充美术设计】（共${batch.length}个）
+【现有场景列表 - 请为每场景补充美术设计】（共${batch.length}）
 ${sceneList}
 
 【输出规则】
-1. 必须返回每个场景的 sceneId（与输入完全一致）
+1. 必须返回每场景的 sceneId（与输入完全一致）
 2. keyProps 必须从动作描写中提取
 3. 合并建议放在 mergeRecords
 
@@ -383,7 +383,7 @@ ${sceneList}
       "lightingDesign": "光影设计",
       "colorPalette": "色彩基调",
       "keyProps": ["道具1", "道具2"],
-      "spatialLayout": "空间布局",
+      "spatialLayout": "Bố cục không gian",
       "eraDetails": "时代特征",
       "atmosphere": "氛围"
     }
@@ -423,7 +423,7 @@ ${sceneList}
           }
         }
         
-        // 收集聚合字段
+        // 收集聚合trường
         allMergeRecords.push(...(batchParsed.mergeRecords || []));
         if (batchParsed.analysisNotes) allAnalysisNotes.push(batchParsed.analysisNotes);
         
@@ -450,9 +450,9 @@ ${sceneList}
       console.warn(`[SceneCalibrator] ${failedBatches} 批次失败，使用部分结果`);
     }
     
-    console.log('[calibrateScenes] AI 返回', sceneResults.size, '个场景结果');
+    console.log('[calibrateScenes] AI 返回', sceneResults.size, '场景结果');
     
-    // 【关键】按原始顺序遍历 currentScenes，只更新美术字段
+    // 【quan trọng】按原始顺序遍历 currentScenes，只更新美术trường
     const scenes: CalibratedScene[] = currentScenes.map((orig, i) => {
       let aiData = sceneResults.get(orig.id);
       if (!aiData) aiData = sceneResults.get('loc:' + normalizeLocation(orig.location || ''));
@@ -559,12 +559,12 @@ async function enrichScenesWithVisualPrompts(
     return scenes;
   }
   
-  console.log(`[enrichScenesWithVisualPrompts] 为 ${keyScenes.length} 个关键场景生成专业提示词...`);
+  console.log(`[enrichScenesWithVisualPrompts] 为 ${keyScenes.length} quan trọng场景生成专业提示词...`);
   
   const systemPrompt = `你是好莱坞顶级美术指导，曾为《盗梦空间》《布达佩斯大饭店》等电影设计场景。
 
 你的专业能力：
-- **空间美学**：懂得如何用构图、光影、色彩传达情绪
+- **空间美学**：懂得如何用bố cục、光影、色彩传达情绪
 - **时代还原**：准确把握不同年代的建筑和室内装饰特征
 - **AI图像生成**：深谙 Midjourney、DALL-E 等 AI 绘图模型的最佳提示词写法
 - **电影语言**：理解场景如何为叙事服务
@@ -589,15 +589,15 @@ ${keyScenes.map((s, i) => `${i+1}. ${s.name}
    - 时代：${s.eraDetails || '未知'}`).join('\n\n')}
 
 【输出要求】
-为每个场景生成：
-${promptLanguage !== 'en' ? '- 中文视觉描述（100-150字，包含空间感、氛围、细节）' : ''}
-${promptLanguage !== 'zh' ? '- 英文视觉提示词（50-80词，适合AI图像生成，包含风格、光影、构图）' : ''}
+为每场景生成：
+${promptLanguage !== 'en' ? '- đang xử lý...描述（100-150字，包含空间感、氛围、细节）' : ''}
+${promptLanguage !== 'zh' ? '- 英文视觉提示词（50-80词，适合AI图像生成，包含风格、光影、bố cục）' : ''}
 
 请返回JSON格式：
 {
   "scenes": [
     {
-      "name": "场景名"${promptLanguage !== 'en' ? ',\n      "visualPromptZh": "中文视觉描述"' : ''}${promptLanguage !== 'zh' ? ',\n      "visualPromptEn": "English visual prompt for AI image generation"' : ''}
+      "name": "场景名"${promptLanguage !== 'en' ? ',\n      "visualPromptZh": "đang xử lý...描述"' : ''}${promptLanguage !== 'zh' ? ',\n      "visualPromptEn": "English visual prompt for AI image generation"' : ''}
     }
   ]
 }`;
@@ -662,15 +662,15 @@ export function convertToScriptScenes(
     const nextVisualPromptEn = c.visualPromptEn || original?.visualPromptEn;
     
     return {
-      // 保留原始字段
+      // 保留原始trường
       ...original,
-      // 更新/补充 AI 校准的字段
+      // 更新/补充 AI 校准的trường
       id: original?.id || c.id,
       name: c.name,
       location: cleanedLocation,
       time: c.time,
       atmosphere: c.atmosphere,
-      // 专业场景设计字段
+      // 专业场景设计trường
       visualPrompt: promptLanguage === 'en' ? undefined : nextVisualPromptZh,
       visualPromptEn: promptLanguage === 'zh' ? undefined : nextVisualPromptEn,
       architectureStyle: c.architectureStyle,

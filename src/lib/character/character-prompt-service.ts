@@ -12,7 +12,7 @@
  * 3. 生成的阶段可转换为角色库的 CharacterVariation
  * 4. 使用世界级专业人设提升 AI 生成质量
  * 
- * 注意：这是一个辅助服务，不修改现有角色库的任何功能。
+ * 注意：这是一辅助服务，不修改现有角色库的任何功能。
  */
 
 import { useScriptStore } from '@/stores/script-store';
@@ -23,7 +23,7 @@ import type { CharacterVariation } from '@/stores/character-library-store';
 
 /**
  * 角色阶段形象
- * 一个角色在不同剧情阶段可能有不同的外观/状态
+ * 一角色在不同剧情阶段可能有不同的ngoại hình/状态
  */
 export interface CharacterStageAppearance {
   stageId: string;           // 阶段ID
@@ -31,14 +31,14 @@ export interface CharacterStageAppearance {
   episodeRange: string;      // 集数范围（如"1-5"、"10-20"）
   description: string;       // 该阶段的角色描述
   visualPromptEn: string;    // 英文视觉提示词
-  visualPromptZh: string;    // 中文视觉提示词
+  visualPromptZh: string;    // đang xử lý...提示词
   ageDescription?: string;   // 年龄描述
   clothingStyle?: string;    // 服装风格
-  keyChanges?: string;       // 与上一阶段的关键变化
+  keyChanges?: string;       // 与上一阶段的quan trọng变化
 }
 
 /**
- * 完整角色设计
+ * đầy đủ角色设计
  */
 export interface CharacterDesign {
   characterId: string;
@@ -46,12 +46,12 @@ export interface CharacterDesign {
   // 基础信息
   baseDescription: string;      // 基础角色描述
   baseVisualPromptEn: string;   // 基础英文提示词
-  baseVisualPromptZh: string;   // 基础中文提示词
+  baseVisualPromptZh: string;   // 基础đang xử lý...词
   // 多阶段形象
   stages: CharacterStageAppearance[];
-  // 一致性元素（所有阶段共享）
+  // 一致性元素（Tất cả阶段共享）
   consistencyElements: {
-    facialFeatures: string;     // 面部特征（不变）
+    facialFeatures: string;     // Khuôn mặt特征（không thay đổi）
     bodyType: string;           // 体型
     uniqueMarks: string;        // 独特标记（胎记、疤痕等）
   };
@@ -73,14 +73,14 @@ export interface CharacterDesignOptions {
 /**
  * 为剧本角色生成专业的多阶段角色设计
  * 
- * @param characterId 剧本中的角色ID
+ * @param characterId 剧本đang xử lý...ID
  * @param projectId 项目ID
  * @param options API配置
  */
 export async function generateCharacterDesign(
   characterId: string,
   projectId: string,
-  _options?: CharacterDesignOptions // 不再需要，保留以兼容
+  _options?: CharacterDesignOptions // 不再需要，保留以tương thích
 ): Promise<CharacterDesign> {
   const store = useScriptStore.getState();
   const project = store.projects[projectId];
@@ -134,7 +134,7 @@ function buildCharacterContext(project: any, character: any): {
   const episodes = project.episodeRawScripts || [];
   const shots = project.shots || [];
   
-  // 收集角色在各集中的出场信息
+  // 收集角色在各集đang xử lý...信息
   const characterAppearances: Array<{
     episodeIndex: number;
     episodeTitle: string;
@@ -171,14 +171,14 @@ function buildCharacterContext(project: any, character: any): {
   // 构建角色传记
   const characterBio = [
     character.name,
-    character.gender ? `性别：${character.gender}` : '',
+    character.gender ? `Giới tính：${character.gender}` : '',
     character.age ? `年龄：${character.age}` : '',
     character.personality ? `性格：${character.personality}` : '',
     character.role ? `身份：${character.role}` : '',
     character.traits ? `特质：${character.traits}` : '',
     character.appearance ? `外貌：${character.appearance}` : '',
     character.relationships ? `关系：${character.relationships}` : '',
-    character.keyActions ? `关键事迹：${character.keyActions}` : '',
+    character.keyActions ? `Sự kiện quan trọng：${character.keyActions}` : '',
   ].filter(Boolean).join('\n');
   
   return {
@@ -206,7 +206,7 @@ async function callAIForCharacterDesign(
 - **角色视觉设计**：能准确捕捉角色的外在形象、服装风格、肢体语言
 - **角色成长弧线**：理解角色在不同剧情阶段的形象变化（从少年到成年、从普通人到英雄等）
 - **AI图像生成经验**：深谙 Midjourney、DALL-E、Stable Diffusion 等 AI 绘图模型的工作原理，能写出高质量的提示词
-- **一致性保持**：知道如何描述面部特征、体型等不变元素，确保角色在不同阶段仍可辨认
+- **一致性保持**：知道如何描述Khuôn mặt特征、体型等không thay đổi元素，确保角色在不同阶段仍可辨认
 
 你的任务是根据剧本信息，为角色设计**多阶段视觉形象**。
 
@@ -236,27 +236,27 @@ ${context.characterAppearances.length > 0
    - 身份变化：普通人→商业大亨、学徒→武林高手
    - 状态变化：健康→受伤、普通→修仙后形态
    
-2. **设计多阶段形象**：为每个阶段生成独立的视觉提示词
-   - 如果角色没有明显阶段变化，只需设计1个阶段
-   - 如果有变化，设计2-4个阶段
+2. **设计多阶段形象**：为每阶段生成独立的视觉提示词
+   - 如果角色没有明显阶段变化，只需设计1阶段
+   - 如果有变化，设计2-4阶段
 
-3. **保持一致性元素**：识别角色的不变特征
-   - 面部特征（眼睛形状、五官比例）
+3. **保持一致性元素**：识别角色的không thay đổi特征
+   - Khuôn mặt特征（眼睛形状、五官Tỷ lệ）
    - 体型特征（身高、体格）
    - 独特标记（胎记、疤痕、标志性特征）
 
 4. **提示词要求**：
    - 英文提示词：40-60词，适合AI图像生成
-   - 中文提示词：详细描述，包含细节
+   - đang xử lý...词：详细描述，包含细节
 
 请以JSON格式返回：
 {
   "characterName": "角色名",
   "baseDescription": "角色基础描述（一句话）",
   "baseVisualPromptEn": "基础英文提示词",
-  "baseVisualPromptZh": "基础中文提示词",
+  "baseVisualPromptZh": "基础đang xử lý...词",
   "consistencyElements": {
-    "facialFeatures": "面部特征描述（英文）",
+    "facialFeatures": "Khuôn mặt特征描述（英文）",
     "bodyType": "体型描述（英文）",
     "uniqueMarks": "独特标记描述（英文，如无则为空）"
   },
@@ -267,7 +267,7 @@ ${context.characterAppearances.length > 0
       "episodeRange": "1-5",
       "description": "该阶段角色状态描述",
       "visualPromptEn": "该阶段英文视觉提示词",
-      "visualPromptZh": "该阶段中文视觉提示词",
+      "visualPromptZh": "该阶段đang xử lý...提示词",
       "ageDescription": "年龄描述",
       "clothingStyle": "服装风格",
       "keyChanges": "与上一阶段的变化（第一阶段为空）"
@@ -353,10 +353,10 @@ export function getCharacterPromptForEpisode(
 
 /**
  * 将角色设计转换为角色库的变体格式 (CharacterVariation)
- * 可直接用于 addVariation() 方法
+ * 可Trực tiếp用于 addVariation() 方法
  * 
  * @param design 角色设计
- * @returns 可直接添加到角色库的变体数组
+ * @returns 可Trực tiếp添加到角色库的变体数组
  */
 export function convertDesignToVariations(design: CharacterDesign): Array<Omit<CharacterVariation, 'id'>> {
   return design.stages.map(stage => ({
@@ -368,14 +368,14 @@ export function convertDesignToVariations(design: CharacterDesign): Array<Omit<C
       design.consistencyElements.uniqueMarks,
       stage.visualPromptEn,
     ].filter(Boolean).join(', '),
-    // referenceImage 留空，等待用户生成
+    // referenceImage Để trống，等待用户生成
     referenceImage: undefined,
     generatedAt: undefined,
   }));
 }
 
 /**
- * 为角色库中的角色生成变体（Wardrobe System）
+ * 为角色库đang xử lý...生成变体（Wardrobe System）
  * 基于角色设计的不同阶段
  * 
  * @deprecated 使用 convertDesignToVariations 代替
@@ -391,7 +391,7 @@ export function generateVariationsFromDesign(design: CharacterDesign): Array<{
 }
 
 /**
- * 为角色库的角色更新基础描述和视觉特征
+ * 为角色库的角色更新基础描述和Đặc điểm thị giác
  * 
  * @param design 角色设计
  * @returns 可用于 updateCharacter() 的更新对象

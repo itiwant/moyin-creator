@@ -6,7 +6,7 @@
  * 
  * 当用户在导演/S级面板切换视觉风格时，将现有 SplitScene[] 重新送入
  * 5阶段校准流程（calibrateShotsMultiStage），用新风格重写提示词和拍摄参数，
- * 同时保留已生成的图片/视频 URL 不变。
+ * 同时保留已生成的图片/视频 URL không thay đổi。
  */
 
 import type { SplitScene } from '@/stores/director-store';
@@ -33,7 +33,7 @@ function toShotInputData(scenes: SplitScene[]): ShotInputData[] {
       sceneAtmosphere: '',
       sceneTime: 'day',
       sceneWeather: '',
-      // 这些字段无法从 SplitScene 获取，传空串（Stage 3 仅作参考）
+      // 这些trường无法从 SplitScene 获取，传空串（Stage 3 仅作Tham chiếu）
       architectureStyle: '',
       colorPalette: '',
       eraDetails: '',
@@ -90,7 +90,7 @@ function buildGlobalContext(scriptProjectId?: string): GlobalContext {
 
 /**
  * 将校准结果写回 SplitScene（对齐 full-script-service.ts:1265-1305 的映射）
- * 保留已生成的图片/视频 URL 不变
+ * 保留已生成的图片/视频 URL không thay đổi
  */
 function applyCalibrationToScene(
   scene: SplitScene,
@@ -147,14 +147,14 @@ export interface RecalibrationResult {
 }
 
 /**
- * 用新风格重新校准所有分镜
+ * 用新风格重新校准Tất cả分镜
  * 
  * @param newStyleId 新的视觉风格 ID
  * @param splitScenes 当前分镜列表
  * @param scriptProjectId 可选的 script-store projectId（默认用活跃项目）
  * @param onProgress 进度回调
  * @returns 校准后的 SplitScene[]（调用方负责写入 store）
- * @throws 校准失败时抛出异常（调用方负责捕获并保持原状态不变）
+ * @throws 校准失败时抛出异常（调用方负责捕获并保持原状态không thay đổi）
  */
 export async function recalibrateSplitScenes(
   newStyleId: string,
@@ -202,7 +202,7 @@ export async function recalibrateSplitScenes(
     return scene;
   });
 
-  onProgress?.(calibratedCount, totalScenes, `已校准 ${calibratedCount}/${totalScenes} 个分镜`);
+  onProgress?.(calibratedCount, totalScenes, `已校准 ${calibratedCount}/${totalScenes} 分镜`);
 
   return {
     scenes: updatedScenes,

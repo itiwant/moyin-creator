@@ -5,7 +5,7 @@
 
 /**
  * CustomStylesGrid - Tùy chỉnhPhong cách网格
- * 展示用户Tạo的Phong cách，Hỗ trợTạo mới/Chỉnh sửa/Xóa/Sao chép
+ * Hiển thị用户Tạo的Phong cách，Hỗ trợTạo mới/Chỉnh sửa/Xóa/Sao chép
  */
 
 import { useCustomStyleStore } from "@/stores/custom-style-store";
@@ -45,11 +45,11 @@ export function CustomStylesGrid() {
 
   return (
     <div className="h-full flex flex-col">
-      {/* 顶部栏 */}
+      {/* Thanh trên */}
       <div className="flex items-center justify-between px-4 py-3 border-b border-border shrink-0">
         <div className="flex items-center gap-2">
-          <h2 className="text-sm font-semibold text-foreground">我的Phong cách</h2>
-          <span className="text-xs text-muted-foreground">{styles.length} 个</span>
+          <h2 className="text-sm font-semibold text-foreground">Phong cách của tôi</h2>
+          <span className="text-xs text-muted-foreground">{styles.length} </span>
         </div>
         <Button size="sm" onClick={() => setEditingStyle("new")}>
           <Plus className="w-3.5 h-3.5 mr-1.5" />
@@ -63,7 +63,7 @@ export function CustomStylesGrid() {
           {styles.length === 0 ? (
             <div className="flex flex-col items-center justify-center py-16 text-muted-foreground">
               <div className="text-sm mb-2">还没有Tùy chỉnhPhong cách</div>
-              <div className="text-xs mb-4">Nhấp「Tạo mớiPhong cách」Tạo你的第一个Phong cách</div>
+              <div className="text-xs mb-4">Nhấp「Tạo mớiPhong cách」Tạo你的第一Phong cách</div>
               <Button
                 variant="outline"
                 size="sm"

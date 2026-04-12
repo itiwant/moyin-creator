@@ -3,8 +3,8 @@
 // Commercial licensing available. See COMMERCIAL_LICENSE.md.
 
 /**
- * PropsLibrary - Thư viện đạo cụ主视图
- * 左侧thư mục树 + 右侧Đạo cụ网格，Hỗ trợTùy chỉnhthư mụcQuản lý
+ * PropsLibrary - Thư viện đạo cụ主góc nhìn
+ * Cây thư mục bên trái + 右侧Đạo cụ网格，Hỗ trợTùy chỉnhthư mụcQuản lý
  */
 
 import { useState, useRef } from 'react';
@@ -69,7 +69,7 @@ function PropCard({ item }: { item: PropItem }) {
   return (
     <>
       <div className="group relative flex flex-col rounded-lg border border-border bg-card overflow-hidden hover:border-primary/40 transition-colors">
-        {/* ảnh区 */}
+        {/* Khu vực ảnh */}
         <div className="aspect-square bg-muted relative overflow-hidden">
           {resolvedUrl ? (
             <img
@@ -85,7 +85,7 @@ function PropCard({ item }: { item: PropItem }) {
               <Package className="w-8 h-8 text-muted-foreground/40" />
             </div>
           )}
-          {/* 悬浮thao tác菜单 */}
+          {/* Menu thao tác khi di chuột */}
           <div className="absolute top-1.5 right-1.5 opacity-0 group-hover:opacity-100 transition-opacity">
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
@@ -141,7 +141,7 @@ function PropCard({ item }: { item: PropItem }) {
           </div>
         </div>
 
-        {/* Tên区 */}
+        {/* Khu vực tên */}
         <div className="px-2 py-1.5">
           {renaming ? (
             <Input
@@ -246,7 +246,7 @@ function FolderItem({
           <span className="flex-1 truncate">{folder.name}</span>
         )}
 
-        {/* thư mụcthao tácnút（悬浮Hiện） */}
+        {/* Nút thao tác thư mục (hiện khi di chuột) */}
         {!renaming && (
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
@@ -292,7 +292,7 @@ function FolderItem({
           <AlertDialogHeader>
             <AlertDialogTitle>Xóathư mục</AlertDialogTitle>
             <AlertDialogDescription>
-              Xác nhận xóathư mục「{folder.name}」？thư mục内的Đạo cụ将移至Thư mục gốc，不会被Xóa。
+              Xác nhận xóa thư mục「{folder.name}」? Các đạo cụ trong thư mục sẽ được chuyển về Thư mục gốc, không bị xóa.
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
@@ -345,7 +345,7 @@ function NewFolderDialog({
         <div className="py-2">
           <Input
             autoFocus
-            placeholder="输入Tên thư mục...汽车、武器..."
+            placeholder="Nhập tên thư mục... ví dụ: xe hơi, vũ khí..."
             value={name}
             onChange={(e) => setName(e.target.value)}
             onKeyDown={(e) => {
@@ -383,14 +383,14 @@ export function PropsLibrary() {
   const visibleItems = getPropsByFolder(selectedFolderId);
   const currentFolderName =
     selectedFolderId === 'all'
-      ? '全部Đạo cụ'
-      : folders.find((f) => f.id === selectedFolderId)?.name ?? '全部Đạo cụ';
+      ? 'Tất cả đạo cụ'
+      : folders.find((f) => f.id === selectedFolderId)?.name ?? 'Tất cả đạo cụ';
 
   return (
     <div className="h-full flex">
-      {/* ── 左侧thư mục树 ── */}
+      {/* ── Cây thư mục bên trái ── */}
       <div className="w-[160px] shrink-0 border-r border-border flex flex-col bg-panel">
-        {/* thư mục树tiêu đề */}
+        {/* Tiêu đề cây thư mục */}
         <div className="px-3 py-2.5 border-b border-border flex items-center justify-between shrink-0">
           <span className="text-xs font-semibold text-muted-foreground">thư mục</span>
           <Button
@@ -404,9 +404,9 @@ export function PropsLibrary() {
           </Button>
         </div>
 
-        {/* thư mục cột表 */}
+        {/* Danh sách thư mục */}
         <ScrollArea className="flex-1 py-1.5 px-1.5">
-          {/* 全部Đạo cụ */}
+          {/* Tất cả đạo cụ */}
           <button
             className={cn(
               'flex items-center gap-1.5 w-full px-3 py-1.5 rounded-md text-xs transition-colors',
@@ -417,7 +417,7 @@ export function PropsLibrary() {
             onClick={() => setSelectedFolderId('all')}
           >
             <Package className="w-3.5 h-3.5 shrink-0" />
-            <span className="truncate">全部Đạo cụ</span>
+            <span className="truncate">Tất cả đạo cụ</span>
             <span className="ml-auto text-[10px] opacity-60">{items.length}</span>
           </button>
 
@@ -466,7 +466,7 @@ export function PropsLibrary() {
         <div className="px-4 py-2.5 border-b border-border shrink-0 flex items-center gap-2">
           <Package className="w-4 h-4 text-muted-foreground" />
           <span className="text-sm font-medium">{currentFolderName}</span>
-          <span className="text-xs text-muted-foreground">({visibleItems.length} 个Đạo cụ)</span>
+          <span className="text-xs text-muted-foreground">({visibleItems.length} Đạo cụ)</span>
         </div>
 
         {/* Đạo cụ网格 */}
@@ -477,7 +477,7 @@ export function PropsLibrary() {
               <div className="text-center">
                 <p className="text-base font-medium">Thư viện đạo cụ为空</p>
                 <p className="text-sm mt-1">
-                  在「Tự do」panel的Studio ảnhTạo ảnh后，<br />
+                  在「Tự do」panel的Studio Tạo ảnh ảnh后，<br />
                   Nhấp「Lưu vào Thư viện đạo cụ」即可ThêmĐạo cụ
                 </p>
               </div>

@@ -4,8 +4,8 @@
 "use client";
 
 /**
- * 情绪Thẻ选择组件
- * Hỗ trợ多选、有序排 cột，用于控制videoTạo的Bầu không khí和语气
+ * 情绪ThẻChọn组件
+ * Hỗ trợ多选、有序排 cột，用于控制Tạo video的Bầu không khí和语气
  */
 
 import { useState } from "react";
@@ -50,7 +50,7 @@ export function EmotionTags({ value, onChange, disabled }: EmotionTagsProps) {
     onChange(value.filter(t => t !== tagId));
   };
 
-  // 检查是否已选中
+  // 检查是否Đã chọn
   const isSelected = (tagId: EmotionTag) => value.includes(tagId);
 
   // 渲染Thẻphân loại

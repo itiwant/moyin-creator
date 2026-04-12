@@ -62,7 +62,7 @@ export const useProjectStore = create<ProjectStore>()(
       createProject: (name) => {
         const newProject: Project = {
           id: generateUUID(),
-          name: name?.trim() || `新项目 ${new Date().toLocaleDateString('vi-VN')}`,
+          name: name?.trim() || `Dự án mới ${new Date().toLocaleDateString('vi-VN')}`,
           createdAt: Date.now(),
           updatedAt: Date.now(),
         };
@@ -152,19 +152,19 @@ export const useProjectStore = create<ProjectStore>()(
 
 /**
  * 扫描磁盘上 _p/ thư mục下的实际项目Thư mục，
- * 将未在 projects  cột表中注册的项目Tự động恢复。
+ * 将未在 projects  cột表đang xử lý...项目Tự động恢复。
  * 
  * 解决以下Cảnh：
- * - 更改存储路径并迁移数据后，前端 store 未 reload，或 moyin-project-store.json
- *   中的 projects  cột表不完整（旧Phiên bản、Thủ côngSao chép等）
- * - Nhập数据后 moyin-project-store.json 缺失或不含新项目
+ * - thay đổi存储路径并迁移数据后，前端 store 未 reload，或 moyin-project-store.json
+ *   đang xử lý...rojects  cột表不đầy đủ（旧Phiên bản、Thủ côngSao chép等）
+ * - Nhập数据后 moyin-project-store.json 缺失或不含Dự án mới
  * - 换电脑后指向旧数据thư mục，projects  cột表为空
  */
 async function discoverProjectsFromDisk(): Promise<void> {
   if (!window.fileStorage?.listDirs) return;
 
   try {
-    //  cột出 _p/ 下所有conthư mục名（每个conthư mục名就是一个 projectId）
+    //  cột出 _p/ 下Tất cảconthư mục名（每conthư mục名就是一 projectId）
     const diskProjectIds = await window.fileStorage.listDirs('_p');
     if (!diskProjectIds || diskProjectIds.length === 0) return;
 
@@ -179,10 +179,10 @@ async function discoverProjectsFromDisk(): Promise<void> {
       missingIds.map((id) => id.substring(0, 8))
     );
 
-    // 尝试从每个遗漏项目的 director / script store file中提取项目名
+    // 尝试从每遗漏项目的 director / script store fileđang xử lý...目名
     const recoveredProjects: Project[] = [];
     for (const pid of missingIds) {
-      let name = `恢复的项目 (${pid.substring(0, 8)})`;
+      let name = `Dự án khôi phục (${pid.substring(0, 8)})`;
       const createdAt = Date.now();
 
       // 尝试从 script store 获取Tên
@@ -191,7 +191,7 @@ async function discoverProjectsFromDisk(): Promise<void> {
         if (scriptRaw) {
           const parsed = JSON.parse(scriptRaw);
           const state = parsed?.state ?? parsed;
-          // script-store 的 projects 字段中可能有项目信息
+          // script-store 的 projects trườngđang xử lý...项目信息
           if (state?.projects?.[pid]?.title) {
             name = state.projects[pid].title;
           }
@@ -207,10 +207,10 @@ async function discoverProjectsFromDisk(): Promise<void> {
           if (state?.projects?.[pid]?.screenplay) {
             // 有Kịch bảnNội dung，说明确实是有效项目
             const screenplay = state.projects[pid].screenplay;
-            if (!name.includes('恢复的项目')) {
+            if (!name.includes('Dự án khôi phục')) {
               // 已经有Tên了，不覆盖
             } else if (screenplay) {
-              // 用Kịch bản前几个字做临时Tên
+              // 用Kịch bản前几字做临时Tên
               const preview = screenplay.substring(0, 20).replace(/\n/g, ' ').trim();
               if (preview) name = preview + '...';
             }

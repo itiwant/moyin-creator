@@ -13,7 +13,7 @@
  * Layer 5: 视觉风格 (Style)
  * Base: 用户提示词
  *
- * 摄影风格档案回退规则：逐镜字段为空时使用项目级摄影档案默认值
+ * 摄影风格档案回退规则：逐镜trường为空时使用项目级摄影档案默认值
  */
 
 import type { SplitScene, EmotionTag } from '@/stores/director-store';
@@ -64,7 +64,7 @@ export function buildEmotionDescription(emotionTags: EmotionTag[]): string {
   } else if (labels.length === 2) {
     return `氛围从${labels[0]}转为${labels[1]}，`;
   } else {
-    const progression = labels.slice(0, -1).join('、') + '然后' + labels[labels.length - 1];
+    const progression = labels.slice(0, -1).join('、') + 'rồi' + labels[labels.length - 1];
     return `氛围依次${progression}，`;
   }
 }
@@ -93,7 +93,7 @@ function findPresetToken<T extends { id: string; promptToken: string }>(
 export interface VideoPromptConfig {
   /** 视觉风格 tokens */
   styleTokens?: string[];
-  /** 画面比例 (仅作为上下文参考) */
+  /** 画面Tỷ lệ (仅作为上下文Tham chiếu) */
   aspectRatio?: '16:9' | '9:16';
   /** 媒介类型 — 控制摄影参数翻译策略 */
   mediaType?: MediaType;
@@ -102,12 +102,12 @@ export interface VideoPromptConfig {
 // ==================== 核心函数 ====================
 
 /**
- * 构建视频生成的完整 prompt
+ * 构建视频生成的đầy đủ prompt
  *
  * @param scene - 分镜数据 (SplitScene)
  * @param cinProfile - 摄影风格档案 (undefined 表示未设置)
- * @param config - 额外配置 (styleTokens 等)
- * @returns 组装好的完整 prompt 字符串
+ * @param config - 额外配置 (styleTokens , v.v.)
+ * @returns 组装好的đầy đủ prompt 字符串
  */
 export function buildVideoPrompt(
   scene: SplitScene,
@@ -128,7 +128,7 @@ export function buildVideoPrompt(
   // 1.1 判断高级机位描述
   const hasCameraPosition = scene.cameraPosition?.trim();
 
-  // 1.2 起始景别（仅当没有高级机位描述时）
+  // 1.2 bắt đầu景别（仅当没有高级机位描述时）
   if (!hasCameraPosition && scene.shotSize) {
     const shotPreset = SHOT_SIZE_PRESETS.find(p => p.id === scene.shotSize);
     if (shotPreset) {
@@ -140,7 +140,7 @@ export function buildVideoPrompt(
   if (hasCameraPosition) {
     cameraDesignParts.push(scene.cameraPosition!.trim());
   } else if (scene.cameraMovement?.trim() && scene.cameraMovement !== 'none') {
-    // 先查预设 promptToken，找不到回退原值（兼容旧数据）
+    // 先查预设 promptToken，找不到回退原值（tương thích旧数据）
     const cmPreset = CAMERA_MOVEMENT_PRESETS.find(p => p.id === scene.cameraMovement);
     cameraDesignParts.push(cmPreset?.promptToken || scene.cameraMovement.trim());
   }

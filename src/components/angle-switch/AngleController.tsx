@@ -41,8 +41,8 @@ export interface AngleControllerProps {
   compact?: boolean;
 }
 
-// ... (保持 CUBE_VERTICES 和 CUBE_EDGES 不变)
-// 立方体頂8个顶点的坐标（归一化）
+// ... (保持 CUBE_VERTICES 和 CUBE_EDGES không thay đổi)
+// 立方体頂8顶点的坐标（归一化）
 const CUBE_VERTICES = [
   { x: -1, y: -1, z: -1 },
   { x: 1, y: -1, z: -1 },
@@ -79,7 +79,7 @@ export function AngleController({
   const [theta, setTheta] = useState(45); // 水平 0-360
   const [phi, setPhi] = useState(90);    // 垂直 30-150
   
-  // ảnh比例Trạng thái
+  // ảnhTỷ lệTrạng thái
   const [imgAspectRatio, setImgAspectRatio] = useState(16 / 9); // Mặc địnhRộng
 
   // 交互Trạng thái
@@ -158,7 +158,7 @@ export function AngleController({
       });
     }
 
-    // Quay lại吸附后的视觉坐标(可选：如果想要完全吸附视觉效果，可以使用这个Quay lại值)
+    // Quay lại吸附后的视觉坐标(可选：如果想要完全吸附视觉效果，可以使用这Quay lại值)
     return { theta: snappedTheta, phi: snappedPhi };
   }, [direction, elevation, shotSize, onAngleChange]);
 
@@ -279,7 +279,7 @@ export function AngleController({
   // 计算当前方向索引（用于高亮LED灯）
   const directionIndex = Math.round(((theta % 360) + 360) % 360 / 45) % 8;
 
-  // 计算 3D 卡片的尺寸 (适应ảnh比例，且不超过最大范围)
+  // 计算 3D 卡片的尺寸 (适应ảnhTỷ lệ，且不超过最大范围)
   const maxCardSize = size * 0.7; // 增加一点最大范围
   let cardWidth = maxCardSize;
   let cardHeight = maxCardSize / imgAspectRatio;
@@ -324,7 +324,7 @@ export function AngleController({
           })}
         </svg>
 
-        {/* 2. 中央3DXem trước卡片 (交互核心) */}
+        {/* 2. đang xử lý...Xem trước卡片 (交互核心) */}
         <div 
           className="absolute pointer-events-none flex items-center justify-center"
           style={{
@@ -392,14 +392,14 @@ export function AngleController({
           </div>
         </div>
 
-        {/* 3. 外围指示器层 */}
+        {/* 3. 外围chỉ thị器层 */}
         
         {/* 圆形轨道 */}
         <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
           <div className="absolute rounded-full border border-white/10" style={{ width: radius * 2, height: radius * 2 }} />
         </div>
 
-        {/* 8个方向LED灯 */}
+        {/* 8方向LED灯 */}
         <div className="absolute inset-0 pointer-events-none">
           {HORIZONTAL_DIRECTIONS.map((dir, i) => {
             const deg = (i * 45 - 90) * (Math.PI / 180);
@@ -431,7 +431,7 @@ export function AngleController({
           />
         </svg>
 
-        {/* 黄色控制点 (现在作为指示器 + 辅助手柄) */}
+        {/* 黄色控制点 (现在作为chỉ thị器 + 辅助手柄) */}
         <div
           className={cn(
             "absolute z-20 transition-transform duration-75",

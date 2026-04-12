@@ -4,10 +4,10 @@
 "use client";
 
 /**
- * ExtendEditDialog — videokéo dài / videoChỉnh sửa对话框
+ * ExtendEditDialog — videokéo dài / videoChỉnh sửaChat框
  *
- * kéo dài模式：选择方向 + Thời lượng + 补充Mô tả → Tạo extend con组
- * Chỉnh sửa模式：选择Chỉnh sửaLoại + 补充Mô tả → Tạo edit con组
+ * kéo dàichế độ：Chọn方向 + Thời lượng + Mô tả bổ sung → Tạo extend con组
+ * Chỉnh sửachế độ：ChọnChỉnh sửaLoại + Mô tả bổ sung → Tạo edit con组
  */
 
 import { useState, useCallback } from "react";
@@ -174,7 +174,7 @@ export function ExtendEditDialog({
                   </SelectTrigger>
                   <SelectContent>
                     <SelectItem value="backward">về saukéo dài（Mặc định）</SelectItem>
-                    <SelectItem value="forward">về trướckéo dài（前置Nội dung）</SelectItem>
+                    <SelectItem value="forward">Về trước (nội dung trước đó)</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -200,7 +200,7 @@ export function ExtendEditDialog({
             </>
           )}
 
-          {/* ========== Chỉnh sửa模式参数 ========== */}
+          {/* ========== Tham số chế độ chỉnh sửa ========== */}
           {!isExtend && (
             <div className="space-y-1.5">
               <Label className="text-xs">Chỉnh sửaLoại</Label>
@@ -222,18 +222,18 @@ export function ExtendEditDialog({
             </div>
           )}
 
-          {/* ========== 补充Mô tả ========== */}
+          {/* ========== Mô tả bổ sung ========== */}
           <div className="space-y-1.5">
             <Label className="text-xs">
-              补充Mô tả
-              <span className="text-muted-foreground ml-1">（可选）</span>
+              Mô tả bổ sung
+              <span className="text-muted-foreground ml-1">(tùy chọn)</span>
             </Label>
             <textarea
               className="flex w-full rounded-md border border-input bg-transparent px-3 py-2 text-sm placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring resize-none"
               rows={3}
               placeholder={isExtend
-                ? "Mô tảkéo dài部分的hình ảnhNội dung，如：Ống kính缓缓拉远，Nhân vật渐 hàng渐远..."
-                : "Mô tảChỉnh sửa目标，如：将白天Cảnh改为夜晚，保持人物不变..."
+                ? "Mô tả nội dung hình ảnh phần kéo dài, ví dụ: Ống kính từ từ lùi ra xa, nhân vật dần khuất..."
+                : "Mô tả mục tiêu chỉnh sửa, ví dụ: Đổi cảnh ban ngày thành ban đêm, giữ nguyên nhân vật..."
               }
               value={description}
               onChange={(e) => setDescription(e.target.value)}

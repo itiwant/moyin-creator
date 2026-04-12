@@ -93,8 +93,8 @@ export function DirectorView() {
 
   // Step definitions for navigation
   const STEPS = [
-    { id: 'idle', name: '输入故事', storyboardStatus: 'idle' as const },
-    { id: 'preview', name: 'Xem trước故事板', storyboardStatus: 'preview' as const },
+    { id: 'idle', name: 'Nhập câu chuyện', storyboardStatus: 'idle' as const },
+    { id: 'preview', name: 'Xem trước storyboard', storyboardStatus: 'preview' as const },
     { id: 'editing', name: 'Chỉnh sửaCảnh', storyboardStatus: 'editing' as const },
   ];
 
@@ -123,11 +123,11 @@ export function DirectorView() {
     if (currentStepIndex >= STEPS.length - 1) return;
     // Can only go forward if conditions are met
     if (currentStepIndex === 0 && !storyboardImage) {
-      toast.error('Vui lòng tạo trước故事板');
+      toast.error('Vui lòng tạo storyboard trước');
       return;
     }
     if (currentStepIndex === 1 && splitScenes.length === 0) {
-      toast.error('请先切割Cảnh');
+      toast.error('Vui lòng cắt cảnh trước');
       return;
     }
     const nextStep = STEPS[currentStepIndex + 1];
@@ -166,14 +166,14 @@ export function DirectorView() {
     setStoryboardProgress(0);
 
     try {
-      // 从服务映射获取ảnhTạo配置
+      // 从服务映射获取Tạo ảnh配置
       const featureConfig = getFeatureConfig('character_generation');
       if (!featureConfig) {
-        throw new Error('请先在Cài đặt中配置ảnhTạo API');
+        throw new Error('Vui lòng cấu hình API Tạo ảnh trong Cài đặt trước');
       }
       const apiKey = featureConfig.apiKey;
       const provider = featureConfig.platform as string;
-      const model = featureConfig.models[0]; // 获取第一个Model
+      const model = featureConfig.models[0]; // Lấy Model đầu tiên
       const baseUrl = featureConfig.baseUrl;
       
       console.log('[DirectorView] Using image generation config:', { provider, model, baseUrl });
@@ -199,7 +199,7 @@ export function DirectorView() {
       const folderId = getOrCreateCategoryFolder('ai-image');
       const mediaId = addMediaFromUrl({
         url: result.imageUrl,
-        name: `故事板-${config.sceneCount}Cảnh`,
+        name: `storyboard-${config.sceneCount}canh`,
         type: 'image',
         source: 'ai-image',
         folderId,
@@ -209,37 +209,37 @@ export function DirectorView() {
 
       setStoryboardImage(result.imageUrl, mediaId);
       setStoryboardStatus('preview');
-      toast.success('故事板Tạo thành công，đã lưu到Thư viện phương tiện！');
+      toast.success('Storyboard tạo thành công, đã lưu vào Thư viện phương tiện!');
     } catch (error) {
       const err = error as Error;
       console.error('[DirectorView] Storyboard generation failed:', err);
       setStoryboardError(err.message);
       setStoryboardStatus('error');
-      toast.error(`故事板Tạo thất bại: ${err.message}`);
+      toast.error(`Storyboard tạo thất bại: ${err.message}`);
     }
   }, [getApiKey, setStoryboardImage, setStoryboardStatus, setStoryboardError, setStoryboardConfig, getOrCreateCategoryFolder, addMediaFromUrl, activeProjectId]);
 
   // Handle video generation from split scenes
   const handleGenerateVideos = useCallback(async () => {
     if (splitScenes.length === 0) {
-      toast.error('没有可Tạo的Cảnh');
+      toast.error('Không có cảnh nào để tạo');
       return;
     }
 
-    // 从服务映射获取videoTạo配置
+    // 从服务映射获取Tạo video配置
     const videoConfig = getFeatureConfig('video_generation');
     if (!videoConfig) {
-      toast.error('请先在Cài đặt中配置videoTạo API');
+      toast.error('Vui lòng cấu hình API Tạo video trong Cài đặt trước');
       return;
     }
     const apiKey = videoConfig.apiKey;
     const provider = videoConfig.platform as string;
-    const model = videoConfig.models[0]; // 获取第一个Model
+    const model = videoConfig.models[0]; // Lấy Model đầu tiên
     const baseUrl = videoConfig.baseUrl;
     
     console.log('[DirectorView] Using video generation config:', { provider, model, baseUrl });
 
-    toast.info(`Bắt đầu为 ${splitScenes.length} 个CảnhTạo video... (使用 ${provider} ${model || ''})`);
+    toast.info(`Bắt đầu tạo ảnh video cho ${splitScenes.length} cảnh... (sử dụng ${provider} ${model || ""})`);
 
     await generateSceneVideos(
       splitScenes.map(s => ({
@@ -250,7 +250,7 @@ export function DirectorView() {
       {
         aspectRatio: storyboardConfig.aspectRatio,
         apiKey,
-        provider, // 直接传递服务映射选择的 provider
+        provider, // Truyền trực tiếp provider đã chọn từ ánh xạ dịch vụ
         model,
         baseUrl,
       },
@@ -266,7 +266,7 @@ export function DirectorView() {
       }
     );
 
-    toast.success('所有Tạo video hoàn tất！');
+    toast.success('Tất cả video đã tạo xong!');
   }, [splitScenes, storyboardConfig]);
 
   // Render based on current status (prioritize storyboard workflow)
@@ -278,9 +278,9 @@ export function DirectorView() {
           return (
             <div className="flex flex-col items-center justify-center h-64 gap-4">
               <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary" />
-              <p className="text-sm text-muted-foreground">Tạo故事板中... {storyboardProgress}%</p>
+              <p className="text-sm text-muted-foreground">Đang tạo storyboard... {storyboardProgress}%</p>
               <p className="text-xs text-muted-foreground/60">
-                {storyboardConfig.sceneCount} 个Cảnh · {storyboardConfig.aspectRatio} · {storyboardConfig.resolution}
+                {storyboardConfig.sceneCount} Cảnh · {storyboardConfig.aspectRatio} · {storyboardConfig.resolution}
               </p>
             </div>
           );
@@ -297,7 +297,7 @@ export function DirectorView() {
           return (
             <div className="flex flex-col items-center justify-center h-64 gap-4">
               <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary" />
-              <p className="text-sm text-muted-foreground">Cắt thông minh中...</p>
+              <p className="text-sm text-muted-foreground">Đang cắt thông minh...</p>
             </div>
           );
 
@@ -315,7 +315,7 @@ export function DirectorView() {
               <div className="text-4xl">😕</div>
               <p className="text-sm text-destructive">{storyboardError}</p>
               <Button onClick={() => resetStoryboard()} variant="outline">
-                重试
+                Thử lại
               </Button>
             </div>
           );
@@ -337,7 +337,7 @@ export function DirectorView() {
         return (
           <div className="flex flex-col items-center justify-center h-64 gap-4">
             <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary" />
-            <p className="text-sm text-muted-foreground">TạoKịch bản中...</p>
+            <p className="text-sm text-muted-foreground">Đang tạo kịch bản...</p>
           </div>
         );
 
@@ -350,7 +350,7 @@ export function DirectorView() {
                 <h3 className="font-medium">{screenplay?.title || "Kịch bảnXem trước"}</h3>
                 <div className="flex items-center gap-2">
                   <span className="text-xs text-muted-foreground">
-                    {screenplay?.scenes.length || 0} 个Cảnh
+                    {screenplay?.scenes.length || 0} Cảnh
                   </span>
                   {(screenplay?.scenes.length || 0) > 0 && (
                     <Button
@@ -358,7 +358,7 @@ export function DirectorView() {
                       size="sm"
                       className="h-6 px-2 text-xs text-muted-foreground hover:text-destructive"
                       onClick={deleteAllScenes}
-                      title="Xóa全部Cảnh"
+                      title="Xóa tất cả cảnh"
                     >
                       <Trash2 className="h-3 w-3" />
                     </Button>
@@ -440,12 +440,12 @@ export function DirectorView() {
               <div>
                 <h3 className="font-medium">CảnhXem trước ảnh</h3>
                 <p className="text-xs text-muted-foreground">
-                  查看Tạo的ảnh，不满意可Tạo lại或Xóa
+                  Xem ảnh đã tạo, nếu không hài lòng có thể Tạo lại hoặc Xóa
                 </p>
               </div>
               <div className="flex items-center gap-2">
                 <span className="text-xs text-muted-foreground">
-                  {screenplay?.scenes.length || 0} 个Cảnh
+                  {screenplay?.scenes.length || 0} Cảnh
                 </span>
                 {(screenplay?.scenes.length || 0) > 0 && (
                   <Button
@@ -453,7 +453,7 @@ export function DirectorView() {
                     size="sm"
                     className="h-6 px-2 text-xs text-muted-foreground hover:text-destructive"
                     onClick={deleteAllScenes}
-                    title="Xóa全部Cảnh"
+                    title="Xóa tất cả cảnh"
                   >
                     <Trash2 className="h-3 w-3" />
                   </Button>
@@ -487,7 +487,7 @@ export function DirectorView() {
                 disabled={(screenplay?.scenes.length || 0) === 0}
               >
                 <Play className="h-4 w-4 mr-2" />
-                Xác nhận并Tạo video
+                Xác nhận và Tạo video
               </Button>
               <Button
                 variant="outline"
@@ -537,9 +537,9 @@ export function DirectorView() {
           <div className="flex flex-col gap-4">
             <div className="text-center py-4">
               <div className="text-2xl mb-2">🎉</div>
-              <h3 className="font-medium">Tạo完成！</h3>
+              <h3 className="font-medium">Tạo hoàn tất!</h3>
               <p className="text-sm text-muted-foreground">
-                所有Cảnhđã tạo完毕，Phương tiệnđã thêm到媒体库
+                Tất cả cảnh đã tạo xong, phương tiện đã được thêm vào thư viện
               </p>
             </div>
 
@@ -558,7 +558,7 @@ export function DirectorView() {
 
             {/* New screenplay button */}
             <Button onClick={reset} className="w-full">
-              Tạo新Kịch bản
+              Tạo kịch bản mới
             </Button>
           </div>
         );
@@ -569,7 +569,7 @@ export function DirectorView() {
             <div className="text-4xl">😕</div>
             <p className="text-sm text-destructive">{screenplayError}</p>
             <Button onClick={reset} variant="outline">
-              重试
+              Thử lại
             </Button>
           </div>
         );
@@ -592,7 +592,7 @@ export function DirectorView() {
               <span className={storyboardStatus === "editing" ? "hidden" : "text-xs text-muted-foreground capitalize"}>
                 {storyboardStatus === "generating" && `故事板 ${storyboardProgress}%`}
                 {storyboardStatus === "preview" && "Xem trước"}
-                {storyboardStatus === "splitting" && "切割中..."}
+                {storyboardStatus === "splitting" && "切割đang xử lý..."}
                 {storyboardStatus === "editing" && "Chỉnh sửaCảnh"}
                 {storyboardStatus === "error" && "错误"}
                 {storyboardStatus === "idle" && screenplayStatus === "generating" && "TạoKịch bản..."}

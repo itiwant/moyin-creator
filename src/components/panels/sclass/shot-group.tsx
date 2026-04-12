@@ -55,7 +55,7 @@ export interface ShotGroupCardProps {
   group: ShotGroup;
   /** Dữ liệu SplitScene trong nhóm */
   scenes: SplitScene[];
-  /** 所有 SplitScene (用于Thời lượng计算) */
+  /** Tất cả SplitScene (用于Thời lượng计算) */
   allScenes: SplitScene[];
   /** 组索引 (0-based) */
   groupIndex: number;
@@ -213,7 +213,7 @@ export function ShotGroupCard({
                 <p>TổngThời lượng超出 15s 限制！请减少Ống kính或缩短单镜Thời lượng。</p>
               ) : (
                 <p>
-                  组内 {group.sceneIds.length} 个Ống kính，TổngThời lượng {actualDuration}
+                  组内 {group.sceneIds.length} Ống kính，TổngThời lượng {actualDuration}
                   s
                 </p>
               )}
@@ -268,7 +268,7 @@ export function ShotGroupCard({
                   ) : (
                     <Sparkles className="h-3 w-3 mr-1" />
                   )}
-                  {isCalibrating ? '校准中' : isCalibrated ? '已校准' : 'AI校准'}
+                  {isCalibrating ? '校准đang xử lý... isCalibrated ? '已校准' : 'AI校准'}
                 </Button>
               </TooltipTrigger>
               <TooltipContent>

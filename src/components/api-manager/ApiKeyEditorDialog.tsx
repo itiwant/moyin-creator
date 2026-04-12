@@ -231,7 +231,7 @@ export function ApiKeyEditorDialog({
                       value={key.value}
                       onChange={(e) => updateKeyValue(key.id, e.target.value)}
                       disabled={!key.editing}
-                      placeholder="输入 API Key"
+                      placeholder="Nhập API Key"
                       className="font-mono text-sm"
                     />
                   </div>
@@ -279,7 +279,7 @@ export function ApiKeyEditorDialog({
                                   <Shield className="h-4 w-4" />
                                 </Button>
                               </TooltipTrigger>
-                              <TooltipContent>测试 Key</TooltipContent>
+                              <TooltipContent>Kiểm tra Key</TooltipContent>
                             </Tooltip>
                           </TooltipProvider>
 
@@ -326,7 +326,7 @@ export function ApiKeyEditorDialog({
           {/* Bottom action bar */}
           <div className="flex items-center justify-between pt-3 border-t">
             <span className="text-xs text-muted-foreground">
-              💡 Hỗ trợ多个 Key 轮换使用
+              💡 Hỗ trợ xoay vòng nhiều Key
             </span>
             <div className="flex items-center gap-2">
               {hasMultipleKeys && (
@@ -344,7 +344,7 @@ export function ApiKeyEditorDialog({
                             <Trash2 className="h-4 w-4" />
                           </Button>
                         </TooltipTrigger>
-                        <TooltipContent>Xóa无效 Keys</TooltipContent>
+                        <TooltipContent>Xóa Keys không hợp lệ</TooltipContent>
                       </Tooltip>
                     </TooltipProvider>
                   )}
@@ -355,10 +355,10 @@ export function ApiKeyEditorDialog({
                         <TooltipTrigger asChild>
                           <Button variant="ghost" size="sm" onClick={testAllKeys}>
                             <Shield className="h-4 w-4 mr-1" />
-                            测试全部
+                            Kiểm tra tất cả
                           </Button>
                         </TooltipTrigger>
-                        <TooltipContent>测试所有 Keys</TooltipContent>
+                        <TooltipContent>Kiểm tra tất cả Keys</TooltipContent>
                       </Tooltip>
                     </TooltipProvider>
                   )}

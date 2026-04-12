@@ -108,7 +108,7 @@ function isRetryableError(error: unknown): boolean {
 
 /**
  * Retry an operation with exponential backoff for retryable errors.
- * 支持 keyManager：遇到可重试错误时先触发 key 轮换，下次重试自动使用新 key。
+ * 支持 keyManager：遇到可Thử lại错误时先触发 key xoay vòng，下次Thử lại自动使用新 key。
  */
 async function freedomRetry<T>(
   operation: () => Promise<T>,
@@ -123,7 +123,7 @@ async function freedomRetry<T>(
       lastError = error as Error;
       if (!isRetryableError(error)) throw error;
 
-      // 触发 key 轮换（如果有 keyManager）
+      // 触发 key xoay vòng（如果有 keyManager）
       const errStatus = (error as any)?.status;
       if (keyManager && typeof errStatus === 'number') {
         const rotated = keyManager.handleError(errStatus);
@@ -240,14 +240,14 @@ const FREEDOM_VIDEO_ROUTE_MAP: Record<string, FreedomVideoRoute> = {
   // Vidu endpoint types (all route to unified /v1/video/generations)
   'vidu文生视频': 'unified',
   'vidu图生视频': 'unified',
-  'vidu参考生视频': 'unified',
+  'viduTham chiếu生视频': 'unified',
   'vidu首尾帧': 'unified',
   'luma视频延长': 'unified',  // luma extend uses 延长 (file 04 naming)
 };
 
 /**
  * 统一格式端点路径映射（端点类型 → 提交/轮询 URL 路径）
- * 每种端点类型直接对应确定的 URL，不再靠 fallback 猜测
+ * 每种端点类型Trực tiếp对应确定的 URL，不再靠 fallback 猜测
  */
 const UNIFIED_ENDPOINT_PATHS: Record<string, { submit: string; poll: (id: string) => string }> = {
   // 路径均为域名根起的绝对路径（不依赖 /v1/ 前缀拼接）
@@ -263,7 +263,7 @@ const UNIFIED_ENDPOINT_PATHS: Record<string, { submit: string; poll: (id: string
   // Vidu 企业版端点 (/ent/v2/)
   'vidu文生视频':   { submit: '/ent/v2/text2video',       poll: (id) => `/ent/v2/task?task_id=${id}` },
   'vidu图生视频':   { submit: '/ent/v2/img2video',        poll: (id) => `/ent/v2/task?task_id=${id}` },
-  'vidu参考生视频': { submit: '/ent/v2/reference2video',  poll: (id) => `/ent/v2/task?task_id=${id}` },
+  'viduTham chiếu生视频': { submit: '/ent/v2/reference2video',  poll: (id) => `/ent/v2/task?task_id=${id}` },
   'vidu首尾帧':     { submit: '/ent/v2/start-end2video',  poll: (id) => `/ent/v2/task?task_id=${id}` },
 };
 const DEFAULT_UNIFIED_ENDPOINT = { submit: '/v1/video/generations', poll: (id: string) => `/v1/video/generations/${id}` };
@@ -341,15 +341,15 @@ async function _generateFreedomImageInner(
   );
   if (!config) {
     const msg = getFeatureNotConfiguredMessage('character_generation');
-    toast.error('自由板块图片生成未配置：请在设置中配置「自由板块-图片」或「图片生成」服务映射');
+    toast.error('自由板块图片生成未配置：请在设置đang xử lý...自由板块-图片」或「图片生成」服务映射');
     throw new Error(msg);
   }
   console.log(`[Freedom] Image config source: ${configSource}`);
 
   const { baseUrl, model: defaultModel } = config;
-  // 每次重试动态取当前 key（利用 keyManager rotate 后的新 key）
+  // 每次Thử lại动态取当前 key（利用 keyManager rotate 后的新 key）
   const apiKey = config.keyManager?.getCurrentKey?.() || config.apiKey;
-  // 模型 ID 直接透传：UI 选的就是供应商原始 ID，无需转换
+  // 模型 ID Trực tiếp透传：UI 选的就是供应商原始 ID，无需转换
   const model = params.model || defaultModel;
   const normalizedBase = baseUrl.replace(/\/+$/, '');
 
@@ -425,7 +425,7 @@ async function generateViaChatCompletions(
   const imageUrl = extractChatCompletionsImage(data);
 
   if (!imageUrl) {
-    throw new Error('未能从聊天响应中提取图片 URL');
+    throw new Error('未能从聊天响应đang xử lý...片 URL');
   }
 
   const mediaId = saveToMediaLibrary(imageUrl, params.prompt, 'ai-image');
@@ -856,15 +856,15 @@ async function _generateFreedomVideoInner(
   );
   if (!config) {
     const msg = getFeatureNotConfiguredMessage('video_generation');
-    toast.error('自由板块视频生成未配置：请在设置中配置「自由板块-视频」或「视频生成」服务映射');
+    toast.error('自由板块视频生成未配置：请在设置đang xử lý...自由板块-视频」或「视频生成」服务映射');
     throw new Error(msg);
   }
   console.log(`[Freedom] Video config source: ${configSource}`);
 
   const { baseUrl, model: defaultModel } = config;
-  // 每次重试动态取当前 key（利用 keyManager rotate 后的新 key）
+  // 每次Thử lại动态取当前 key（利用 keyManager rotate 后的新 key）
   const apiKey = config.keyManager?.getCurrentKey?.() || config.apiKey;
-  // 模型 ID 直接透传：UI 选的就是供应商原始 ID，无需转换
+  // 模型 ID Trực tiếp透传：UI 选的就是供应商原始 ID，无需转换
   const model = params.model || defaultModel;
 
   const endpointTypes = useAPIConfigStore.getState().modelEndpointTypes[model];
@@ -1001,13 +1001,13 @@ function validateVeoVideoUploads(
 
   if (capability.mode === 'multi') {
     if (!!grouped.single || !!grouped.first || !!grouped.last) {
-      throw new Error(`模型 ${model} 仅支持多参考图输入`);
+      throw new Error(`模型 ${model} 仅支持多Tham chiếu图输入`);
     }
     if (grouped.references.length < capability.minFiles) {
-      throw new Error(`模型 ${model} 至少需要上传 1 张参考图`);
+      throw new Error(`模型 ${model} 至少需要上传 1 张Tham chiếu图`);
     }
     if (grouped.references.length > capability.maxFiles) {
-      throw new Error(`模型 ${model} 最多支持 ${capability.maxFiles} 张参考图`);
+      throw new Error(`模型 ${model} 最多支持 ${capability.maxFiles} 张Tham chiếu图`);
     }
     return grouped;
   }
@@ -1215,7 +1215,7 @@ async function generateVideoViaUnified(
     if (grouped.last) {
       metadata.image_end = await toUploadHttpUrl(grouped.last);
     }
-    // Reference images: vidu参考生视频 and similar models
+    // Reference images: viduTham chiếu生视频 and similar models
     if (grouped.references.length > 0) {
       metadata.reference_images = await Promise.all(
         grouped.references.map(async (f) => ({ url: await toUploadHttpUrl(f) }))
@@ -1225,7 +1225,7 @@ async function generateVideoViaUnified(
     if (Object.keys(metadata).length > 0) body.metadata = metadata;
   }
 
-  // 直接使用端点类型对应的 URL（绝对路径，从域名根拼接）
+  // Trực tiếp使用端点类型对应的 URL（绝对路径，从域名根拼接）
   const endpointPaths = getUnifiedEndpointPaths(endpointTypes || []);
   const rootBase = getRootBaseUrl(baseUrl);
   const submitUrl = `${rootBase}${endpointPaths.submit}`;
@@ -1258,9 +1258,9 @@ async function generateVideoViaUnified(
     submitData.output?.id;
   const directUrl = extractVideoUrl(submitData);
   if (directUrl) return { url: directUrl, taskId: taskId ? String(taskId) : undefined };
-  if (!taskId) throw new Error('统一视频接口返回空任务 ID');
+  if (!taskId) throw new Error('统一视频giao diện返回空任务 ID');
 
-  // 轮询：直接使用端点类型对应的 URL
+  // 轮询：Trực tiếp使用端点类型对应的 URL
   const pollUrl = `${rootBase}${endpointPaths.poll(String(taskId))}`;
 
   for (let i = 0; i < VIDEO_POLL_MAX_ATTEMPTS; i++) {

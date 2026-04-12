@@ -477,7 +477,7 @@ export function VideoStudio() {
                 <Label className="text-sm font-medium">Độ phân giải</Label>
                 <Select value={videoResolution} onValueChange={setVideoResolution}>
                   <SelectTrigger className="h-9">
-                    <SelectValue placeholder="选择Độ phân giải" />
+                    <SelectValue placeholder="ChọnĐộ phân giải" />
                   </SelectTrigger>
                   <SelectContent>
                     {resolutions.map((r) => (
@@ -652,7 +652,7 @@ export function VideoStudio() {
           <div className="flex flex-col items-center gap-3 text-muted-foreground">
             <VideoIcon className="h-16 w-16 opacity-20" />
             <p className="text-lg font-medium">Studio video</p>
-            <p className="text-sm">选择Model，输入Mô tả，Tạo你想要的video</p>
+            <p className="text-sm">ChọnModel，输入Mô tả，Tạo你想要的video</p>
           </div>
         )}
       </div>

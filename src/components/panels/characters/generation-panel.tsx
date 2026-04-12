@@ -112,12 +112,12 @@ export function GenerationPanel({ selectedCharacter, onCharacterCreated }: Gener
   const [keyActions, setKeyActions] = useState("");
   const [appearance, setAppearance] = useState("");
   const [relationships, setRelationships] = useState(""); // mối quan hệ nhân vật
-  const [tags, setTags] = useState<string[]>([]);  // Nhân vậtThẻ
-  const [notes, setNotes] = useState("");           // Nhân vậtGhi chú
-  // === 专业Nhân vật设计字段（世界级大师Tạo）===
-  const [visualPromptEn, setVisualPromptEn] = useState(""); // 英文视觉prompt
-  const [visualPromptZh, setVisualPromptZh] = useState(""); // 中文视觉prompt
-  // === 6层身份锚点 ===
+  const [tags, setTags] = useState<string[]>([]);  // Thẻ nhân vật
+  const [notes, setNotes] = useState("");           // Ghi chú nhân vật
+  // === 专业Nhân vật设计trường（世界级大师Tạo）===
+  const [visualPromptEn, setVisualPromptEn] = useState(""); // 英文Prompt thị giác
+  const [visualPromptZh, setVisualPromptZh] = useState(""); // đang xử lý...ompt thị giác
+  // === 6层身份neo ===
   const [identityAnchors, setIdentityAnchors] = useState<CharacterIdentityAnchors | undefined>();
   const [charNegativePrompt, setCharNegativePrompt] = useState<CharacterNegativePrompt | undefined>();
   // === prompt语言偏好 ===
@@ -146,7 +146,7 @@ export function GenerationPanel({ selectedCharacter, onCharacterCreated }: Gener
   // 检查是否有 AI 校准数据
   const hasCalibrationData = !!(identityAnchors || charNegativePrompt || visualPromptEn || visualPromptZh);
 
-  // 注意：thanh trái始终用于Tạo mớiNhân vật，不响应中间Nhân vật库的选择
+  // 注意：thanh trái始终用于Tạo mớiNhân vật，不响应đang xử lý...ư viện nhân vật的Chọn
   // thanh phải用于查看/Chỉnh sửa已有Nhân vật的详情
 
   // Handle pending data from script panel
@@ -154,7 +154,7 @@ export function GenerationPanel({ selectedCharacter, onCharacterCreated }: Gener
     if (pendingCharacterData) {
       setName(pendingCharacterData.name || "");
       
-      // 映射性别："男" -> "male", "女" -> "female"
+      // 映射Giới tính："Nam" -> "male", "Nữ" -> "female"
       const genderMap: Record<string, string> = {
         'Nam': 'male', 'Nam': 'male', 'male': 'male', 'Male': 'male',
         'Nữ': 'female', 'Nữ': 'female', 'female': 'female', 'Female': 'female',
@@ -162,7 +162,7 @@ export function GenerationPanel({ selectedCharacter, onCharacterCreated }: Gener
       const mappedGender = genderMap[pendingCharacterData.gender || ''] || '';
       setGender(mappedGender);
       
-      // 映射年龄：根据数字范围Tự động选择年龄段
+      // 映射年龄：根据数字范围Tự độngChọn年龄段
       const ageStr = pendingCharacterData.age || '';
       let mappedAge = '';
       if (ageStr.includes('5') && ageStr.includes('12') || ageStr.includes('Trẻ em')) {
@@ -171,12 +171,12 @@ export function GenerationPanel({ selectedCharacter, onCharacterCreated }: Gener
         mappedAge = 'teen';
       } else if (ageStr.includes('19') || ageStr.includes('20') || ageStr.includes('25') || ageStr.includes('30') || ageStr.includes('青年')) {
         mappedAge = 'young-adult';
-      } else if (ageStr.includes('35') || ageStr.includes('40') || ageStr.includes('45') || ageStr.includes('50') || ageStr.includes('中年')) {
+      } else if (ageStr.includes('35') || ageStr.includes('40') || ageStr.includes('45') || ageStr.includes('50') || ageStr.includes('đang xử lý...) {
         mappedAge = 'adult';
       } else if (ageStr.includes('55') || ageStr.includes('60') || ageStr.includes('70') || ageStr.includes('Cao niên')) {
         mappedAge = 'senior';
       } else if (ageStr.match(/\d+.*\d+/)) {
-        // 跨年龄段如 "25-50 tuổi"，选择中年
+        // 跨年龄段如 "25-50 tuổi"，Chọn中年
         mappedAge = 'adult';
       }
       setAge(mappedAge);
@@ -193,11 +193,11 @@ export function GenerationPanel({ selectedCharacter, onCharacterCreated }: Gener
       
       // Also build description for display/generation prompt
       const descParts: string[] = [];
-      if (pendingCharacterData.role) descParts.push(`【身份/背景】\n${pendingCharacterData.role}`);
-      if (pendingCharacterData.traits) descParts.push(`【核心特质】\n${pendingCharacterData.traits}`);
-      if (pendingCharacterData.skills) descParts.push(`【技能/能力】\n${pendingCharacterData.skills}`);
-      if (pendingCharacterData.keyActions) descParts.push(`【关键事迹】\n${pendingCharacterData.keyActions}`);
-      if (pendingCharacterData.appearance) descParts.push(`【外貌特征】\n${pendingCharacterData.appearance}`);
+      if (pendingCharacterData.role) descParts.push(`【Thân phận/bối cảnh】\n${pendingCharacterData.role}`);
+      if (pendingCharacterData.traits) descParts.push(`【Đặc trưng cốt lõi】\n${pendingCharacterData.traits}`);
+      if (pendingCharacterData.skills) descParts.push(`【Kỹ năng/năng lực】\n${pendingCharacterData.skills}`);
+      if (pendingCharacterData.keyActions) descParts.push(`【Sự kiện quan trọng】\n${pendingCharacterData.keyActions}`);
+      if (pendingCharacterData.appearance) descParts.push(`【Đặc điểm ngoại hình】\n${pendingCharacterData.appearance}`);
       if (pendingCharacterData.relationships) descParts.push(`【mối quan hệ nhân vật】\n${pendingCharacterData.relationships}`);
       if (descParts.length > 0) {
         setDescription(descParts.join("\n\n"));
@@ -215,7 +215,7 @@ export function GenerationPanel({ selectedCharacter, onCharacterCreated }: Gener
       if (pendingCharacterData.promptLanguage) {
         setPromptLanguage(pendingCharacterData.promptLanguage);
       }
-      // === 处理专业视觉prompt（世界级大师Tạo）===
+      // === 处理专业Prompt thị giác（世界级大师Tạo）===
       if (pendingCharacterData.visualPromptEn) {
         setVisualPromptEn(pendingCharacterData.visualPromptEn);
       }
@@ -223,7 +223,7 @@ export function GenerationPanel({ selectedCharacter, onCharacterCreated }: Gener
         setVisualPromptZh(pendingCharacterData.visualPromptZh);
       }
       
-      // === 处理6层身份锚点 ===
+      // === 处理6层身份neo ===
       if (pendingCharacterData.identityAnchors) {
         setIdentityAnchors(pendingCharacterData.identityAnchors);
       }
@@ -250,7 +250,7 @@ export function GenerationPanel({ selectedCharacter, onCharacterCreated }: Gener
       
       // TODO: 处理多阶段Nhân vậtbiến thể
       // 如果有 stageInfo 或 consistencyElements，应该：
-      // 1. 在Mô tả nhân vật中Gợi ý用户这是多阶段Nhân vật
+      // 1. 在Mô tả nhân vậtđang xử lý... ý用户这是多阶段Nhân vật
       // 2. TạoNhân vật后Tự động为其Thêm variations
       // 注：这部分逻辑应该在 handleCreateAndGenerate 后执 hàng
 
@@ -305,10 +305,10 @@ export function GenerationPanel({ selectedCharacter, onCharacterCreated }: Gener
     setRelationships("");
     setTags([]);
     setNotes("");
-    // === Đặt lại专业视觉prompt ===
+    // === Đặt lại专业Prompt thị giác ===
     setVisualPromptEn("");
     setVisualPromptZh("");
-    // === Đặt lại6层身份锚点 ===
+    // === Đặt lại6层身份neo ===
     setIdentityAnchors(undefined);
     setCharNegativePrompt(undefined);
     // === Đặt lại年代信息 ===
@@ -337,7 +337,7 @@ export function GenerationPanel({ selectedCharacter, onCharacterCreated }: Gener
       return;
     }
     if (selectedElements.length === 0) {
-      toast.error("请至少选择一个TạoNội dung");
+      toast.error("请至少Chọn一TạoNội dung");
       return;
     }
 
@@ -362,7 +362,7 @@ export function GenerationPanel({ selectedCharacter, onCharacterCreated }: Gener
       views: [],
       folderId: currentFolderId,
       projectId: activeProjectId || undefined,
-      // === 6层身份锚点（Nhân vật一致性）===
+      // === 6层身份neo（Nhân vật一致性）===
       identityAnchors: identityAnchors,
       negativePrompt: charNegativePrompt,
       // === 集作用域 ===
@@ -376,7 +376,7 @@ export function GenerationPanel({ selectedCharacter, onCharacterCreated }: Gener
     setGeneratingCharacter(targetId);
 
     try {
-      // 构建prompt：根据语言偏好选择prompt + 6层身份锚点 + Ảnh tham chiếu优先级逻辑 + 年代信息
+      // 构建prompt：根据语言偏好Chọnprompt + 6层身份neo + Ảnh tham chiếu优先级逻辑 + 年代信息
       // 获取实时的语言偏好（优先使用 pending 传来的，其次从 scriptProject 读取）
       const effectiveLang = promptLanguage || scriptProject?.promptLanguage || 'vi';
       const prompt = buildCharacterSheetPrompt(
@@ -397,12 +397,12 @@ export function GenerationPanel({ selectedCharacter, onCharacterCreated }: Gener
         : null;
       const isRealistic = stylePreset?.category === 'real';
       
-      // 构建负面prompt：合并Nhân vật特定的负面prompt
+      // 构建Prompt phủ định：合并Nhân vật特定的Prompt phủ định
       let negativePrompt = isRealistic
         ? 'blurry, low quality, watermark, text, cropped, anime, cartoon, illustration'
         : 'blurry, low quality, watermark, text, cropped';
       
-      // 如果有Nhân vật特定的负面prompt，追加到后面
+      // 如果有Nhân vật特定的Prompt phủ định，追加到后面
       if (charNegativePrompt) {
         const avoidList = charNegativePrompt.avoid || [];
         const styleExclusions = charNegativePrompt.styleExclusions || [];
@@ -423,7 +423,7 @@ export function GenerationPanel({ selectedCharacter, onCharacterCreated }: Gener
       setPreviewUrl(result.imageUrl);
       setPreviewCharacterId(targetId);
       setGenerationStatus('completed');
-      toast.success("Tạo ảnh hoàn tất，请Xem trướcXác nhận");
+      toast.success("Tạo ảnh hoàn tất, vui lòng Xem trước và Xác nhận");
     } catch (error) {
       const err = error as Error;
       setGenerationStatus('error', err.message);
@@ -485,7 +485,7 @@ export function GenerationPanel({ selectedCharacter, onCharacterCreated }: Gener
     return (
       <div className="h-full flex flex-col overflow-hidden">
         <div className="p-3 pb-2 border-b shrink-0">
-          <h3 className="font-medium text-sm">Xem trướcNhân vật设定图</h3>
+          <h3 className="font-medium text-sm">Xem trước ảnh thiết kế nhân vật</h3>
         </div>
         <ScrollArea className="flex-1 min-h-0">
           <div className="p-3 space-y-4 pb-32">
@@ -503,7 +503,7 @@ export function GenerationPanel({ selectedCharacter, onCharacterCreated }: Gener
         </ScrollArea>
         <div className="p-3 border-t space-y-2 shrink-0">
           <Button onClick={handleSavePreview} className="w-full">
-            Lưu设定图
+            Lưu ảnh thiết kế
           </Button>
           <Button onClick={handleCreateAndGenerate} variant="outline" className="w-full" disabled={isGenerating}>
             Tạo lại
@@ -538,10 +538,10 @@ export function GenerationPanel({ selectedCharacter, onCharacterCreated }: Gener
           {/* Gender and Age */}
           <div className="grid grid-cols-2 gap-2">
             <div className="space-y-2">
-              <Label className="text-xs">性别</Label>
+              <Label className="text-xs">Giới tính</Label>
               <Select value={gender} onValueChange={setGender} disabled={isGenerating}>
                 <SelectTrigger>
-                  <SelectValue placeholder="选择" />
+                  <SelectValue placeholder="Chọn" />
                 </SelectTrigger>
                 <SelectContent>
                   {GENDER_PRESETS.map((g) => (
@@ -554,7 +554,7 @@ export function GenerationPanel({ selectedCharacter, onCharacterCreated }: Gener
               <Label className="text-xs">年龄段</Label>
               <Select value={age} onValueChange={setAge} disabled={isGenerating}>
                 <SelectTrigger>
-                  <SelectValue placeholder="选择" />
+                  <SelectValue placeholder="Chọn" />
                 </SelectTrigger>
                 <SelectContent>
                   {AGE_PRESETS.map((a) => (
@@ -567,7 +567,7 @@ export function GenerationPanel({ selectedCharacter, onCharacterCreated }: Gener
 
           {/* Personality */}
           <div className="space-y-2">
-            <Label className="text-xs">性格特征</Label>
+            <Label className="text-xs">Đặc điểm tính cách</Label>
             <Input
               value={personality}
               onChange={(e) => setPersonality(e.target.value)}
@@ -582,7 +582,7 @@ export function GenerationPanel({ selectedCharacter, onCharacterCreated }: Gener
             <Textarea
               value={description}
               onChange={(e) => setDescription(e.target.value)}
-              placeholder="详细Mô tảNhân vật外观..."
+              placeholder="详细Mô tảNhân vậtngoại hình..."
               className="min-h-[80px] text-sm resize-none"
               disabled={isGenerating}
             />
@@ -624,7 +624,7 @@ export function GenerationPanel({ selectedCharacter, onCharacterCreated }: Gener
               {/* 折叠区Nội dung */}
               {calibrationExpanded && (
                 <div className="border-t p-2 space-y-3 bg-muted/20">
-                  {/* 6层身份锚点 */}
+                  {/* 6层身份neo */}
                   {identityAnchors && (
                     <div className="space-y-2">
                       <Label className="text-[10px] text-muted-foreground">① 骨相层</Label>
@@ -705,7 +705,7 @@ export function GenerationPanel({ selectedCharacter, onCharacterCreated }: Gener
                         />
                       </div>
                       
-                      <Label className="text-[10px] text-muted-foreground">③ 辨识标记层（最强锚点）</Label>
+                      <Label className="text-[10px] text-muted-foreground">③ 辨识标记层（最强neo）</Label>
                       <Input
                         value={identityAnchors.uniqueMarks?.join(', ') || ''}
                         onChange={(e) => {
@@ -713,12 +713,12 @@ export function GenerationPanel({ selectedCharacter, onCharacterCreated }: Gener
                           setIdentityAnchors({ ...identityAnchors, uniqueMarks: marks.length > 0 ? marks : [] });
                           setIsManuallyModified(true);
                         }}
-                        placeholder="特征标记，用逗号分隔"
+                        placeholder="特征标记，用逗号ngăn cách"
                         className="h-7 text-[10px]"
                         disabled={isGenerating}
                       />
                       
-                      <Label className="text-[10px] text-muted-foreground">④ 色彩锚点层（Hex色值）</Label>
+                      <Label className="text-[10px] text-muted-foreground">④ 色彩neo层（Hex色值）</Label>
                       <div className="grid grid-cols-4 gap-1">
                         <div className="flex items-center gap-1">
                           <input
@@ -798,7 +798,7 @@ export function GenerationPanel({ selectedCharacter, onCharacterCreated }: Gener
                         disabled={isGenerating}
                       />
                       
-                      <Label className="text-[10px] text-muted-foreground">⑥ 发型锚点层</Label>
+                      <Label className="text-[10px] text-muted-foreground">⑥ 发型neo层</Label>
                       <div className="grid grid-cols-2 gap-1">
                         <Input
                           value={identityAnchors.hairStyle || ''}
@@ -824,10 +824,10 @@ export function GenerationPanel({ selectedCharacter, onCharacterCreated }: Gener
                     </div>
                   )}
                   
-                  {/* 负面prompt */}
+                  {/* Prompt phủ định */}
                   {charNegativePrompt && (
                     <div className="space-y-2 pt-2 border-t">
-                      <Label className="text-[10px] text-muted-foreground">负面prompt</Label>
+                      <Label className="text-[10px] text-muted-foreground">Prompt phủ định</Label>
                       <Input
                         value={charNegativePrompt.avoid?.join(', ') || ''}
                         onChange={(e) => {
@@ -835,7 +835,7 @@ export function GenerationPanel({ selectedCharacter, onCharacterCreated }: Gener
                           setCharNegativePrompt({ ...charNegativePrompt, avoid: avoidList });
                           setIsManuallyModified(true);
                         }}
-                        placeholder="避免元素，用逗号分隔"
+                        placeholder="避免元素，用逗号ngăn cách"
                         className="h-7 text-[10px]"
                         disabled={isGenerating}
                       />
@@ -846,25 +846,25 @@ export function GenerationPanel({ selectedCharacter, onCharacterCreated }: Gener
                           setCharNegativePrompt({ ...charNegativePrompt, styleExclusions: exclusions.length > 0 ? exclusions : undefined });
                           setIsManuallyModified(true);
                         }}
-                        placeholder="Phong cách排除，用逗号分隔"
+                        placeholder="Phong cách排除，用逗号ngăn cách"
                         className="h-7 text-[10px]"
                         disabled={isGenerating}
                       />
                     </div>
                   )}
                   
-                  {/* 专业视觉prompt：根据语言偏好只展示一种，Chỉnh sửa后直接用于Tạo */}
+                  {/* 专业Prompt thị giác：根据语言偏好只Hiển thị一种，Chỉnh sửa后Trực tiếp用于Tạo */}
                   {(() => {
                     const effectiveLang = promptLanguage || scriptProject?.promptLanguage || 'vi';
                     const showZh = effectiveLang === 'vi' || effectiveLang === 'vi+en';
                     const activePrompt = showZh ? visualPromptZh : visualPromptEn;
                     const setActivePrompt = showZh ? setVisualPromptZh : setVisualPromptEn;
-                    const langLabel = showZh ? '中文' : '英文';
+                    const langLabel = showZh ? 'đang xử lý...: '英文';
                     if (!activePrompt) return null;
                     return (
                       <div className="space-y-2 pt-2 border-t">
                         <Label className="text-[10px] text-muted-foreground">
-                          视觉prompt（{langLabel}，修改后直接用于Tạo）
+                          Prompt thị giác（{langLabel}，修改后Trực tiếp用于Tạo）
                         </Label>
                         <Textarea
                           value={activePrompt}
@@ -897,7 +897,7 @@ export function GenerationPanel({ selectedCharacter, onCharacterCreated }: Gener
           {/* Reference images */}
           <div className="space-y-2">
             <div className="flex items-center justify-between">
-              <Label className="text-xs">Ảnh tham chiếu片</Label>
+              <Label className="text-xs">Ảnh tham chiếu</Label>
               <span className="text-xs text-muted-foreground">{referenceImages.length}/3</span>
             </div>
             <div className="flex gap-2 flex-wrap">
@@ -994,10 +994,10 @@ export function GenerationPanel({ selectedCharacter, onCharacterCreated }: Gener
                 // 基本信息
                 lines.push(`Tên nhân vật: ${name || '(未填写)'}`);
                 const genderLabel = GENDER_PRESETS.find(g => g.id === gender)?.label;
-                if (genderLabel) lines.push(`性别: ${genderLabel}`);
+                if (genderLabel) lines.push(`Giới tính: ${genderLabel}`);
                 const ageLabel = AGE_PRESETS.find(a => a.id === age)?.label;
                 if (ageLabel) lines.push(`年龄段: ${ageLabel}`);
-                if (personality) lines.push(`性格特征: ${personality}`);
+                if (personality) lines.push(`Đặc điểm tính cách: ${personality}`);
                 
                 // Mô tả nhân vật
                 if (description) {
@@ -1011,10 +1011,10 @@ export function GenerationPanel({ selectedCharacter, onCharacterCreated }: Gener
                   lines.push('');
                   lines.push(`AI 校准信息: ${isManuallyModified ? '已修改' : '已校准'}`);
                   
-                  // 6层身份锚点
+                  // 6层身份neo
                   if (identityAnchors) {
                     lines.push('');
-                    lines.push('--- 6层身份锚点 ---');
+                    lines.push('--- 6层身份neo ---');
                     
                     // ① 骨相层
                     const boneFeatures = [identityAnchors.faceShape, identityAnchors.jawline, identityAnchors.cheekbones].filter(Boolean);
@@ -1033,7 +1033,7 @@ export function GenerationPanel({ selectedCharacter, onCharacterCreated }: Gener
                       lines.push(`③ 辨识标记层: ${identityAnchors.uniqueMarks.join(', ')}`);
                     }
                     
-                    // ④ 色彩锚点层
+                    // ④ 色彩neo层
                     if (identityAnchors.colorAnchors) {
                       const colors: string[] = [];
                       if (identityAnchors.colorAnchors.iris) colors.push(`瞳色:${identityAnchors.colorAnchors.iris}`);
@@ -1041,7 +1041,7 @@ export function GenerationPanel({ selectedCharacter, onCharacterCreated }: Gener
                       if (identityAnchors.colorAnchors.skin) colors.push(`肤色:${identityAnchors.colorAnchors.skin}`);
                       if (identityAnchors.colorAnchors.lips) colors.push(`唇色:${identityAnchors.colorAnchors.lips}`);
                       if (colors.length > 0) {
-                        lines.push(`④ 色彩锚点层: ${colors.join(', ')}`);
+                        lines.push(`④ 色彩neo层: ${colors.join(', ')}`);
                       }
                     }
                     
@@ -1050,17 +1050,17 @@ export function GenerationPanel({ selectedCharacter, onCharacterCreated }: Gener
                       lines.push(`⑤ 皮肤纹理层: ${identityAnchors.skinTexture}`);
                     }
                     
-                    // ⑥ 发型锚点层
+                    // ⑥ 发型neo层
                     const hairFeatures = [identityAnchors.hairStyle, identityAnchors.hairlineDetails].filter(Boolean);
                     if (hairFeatures.length > 0) {
-                      lines.push(`⑥ 发型锚点层: ${hairFeatures.join(', ')}`);
+                      lines.push(`⑥ 发型neo层: ${hairFeatures.join(', ')}`);
                     }
                   }
                   
-                  // 负面prompt
+                  // Prompt phủ định
                   if (charNegativePrompt) {
                     lines.push('');
-                    lines.push('--- 负面prompt ---');
+                    lines.push('--- Prompt phủ định ---');
                     if (charNegativePrompt.avoid && charNegativePrompt.avoid.length > 0) {
                       lines.push(`避免: ${charNegativePrompt.avoid.join(', ')}`);
                     }
@@ -1069,10 +1069,10 @@ export function GenerationPanel({ selectedCharacter, onCharacterCreated }: Gener
                     }
                   }
                   
-                  // 专业视觉prompt
+                  // 专业Prompt thị giác
                   if (visualPromptEn || visualPromptZh) {
                     lines.push('');
-                    lines.push('--- 专业视觉prompt ---');
+                    lines.push('--- 专业Prompt thị giác ---');
                     if (visualPromptEn) lines.push(`EN: ${visualPromptEn}`);
                     if (visualPromptZh) lines.push(`ZH: ${visualPromptZh}`);
                   }
@@ -1095,9 +1095,9 @@ export function GenerationPanel({ selectedCharacter, onCharacterCreated }: Gener
                   lines.push(`Phong cáchprompt: ${stylePreset.prompt.substring(0, 100)}...`);
                 }
                 
-                // Ảnh tham chiếu片
+                // Ảnh tham chiếu
                 if (referenceImages.length > 0) {
-                  lines.push(`Ảnh tham chiếu片: ${referenceImages.length} 张`);
+                  lines.push(`Ảnh tham chiếu: ${referenceImages.length} 张`);
                 }
                 
                 // TạoNội dung
@@ -1137,15 +1137,15 @@ function fileToBase64(file: File): Promise<string> {
 }
 
 /**
- * 从6层身份锚点构建prompt
+ * 从6层身份neo构建prompt
  * 
- * @param anchors - 6层身份锚点
+ * @param anchors - 6层身份neo
  * @param hasReferenceImages - 是否有Ảnh tham chiếu
  * @returns 构建的prompt字符串
  * 
  * Ảnh tham chiếu优先级逻辑：
- * - 有Ảnh tham chiếu时：只使用最强锚点（uniqueMarks + colorAnchors），其他特征由Ảnh tham chiếu引导
- * - 无Ảnh tham chiếu时：使用完整的6层特征锁定
+ * - 有Ảnh tham chiếu时：只使用最强neo（uniqueMarks + colorAnchors），其他特征由Ảnh tham chiếu引导
+ * - 无Ảnh tham chiếu时：使用đầy đủ的6层特征锁定
  */
 function buildPromptFromAnchors(
   anchors: CharacterIdentityAnchors | undefined,
@@ -1154,13 +1154,13 @@ function buildPromptFromAnchors(
 ): string {
   if (!anchors) return '';
 
-  // 根据锚点值Nội dungTự động检测语言（中文锚点值 → 中文连接词）
+  // 根据neo值Nội dungTự động检测语言（đang xử lý...o值 → đang xử lý...词）
   const isZh = promptLanguage === 'vi' || /[\u4e00-\u9fff]/.test(anchors.faceShape || anchors.eyeShape || '');
 
   const parts: string[] = [];
 
   if (hasReferenceImages) {
-    // === 有Ảnh tham chiếu：只使用最强锚点 ===
+    // === 有Ảnh tham chiếu：只使用最强neo ===
     if (anchors.uniqueMarks && anchors.uniqueMarks.length > 0) {
       parts.push(isZh ? `辨识标记：${anchors.uniqueMarks.join('、')}` : `distinctive marks: ${anchors.uniqueMarks.join(', ')}`);
     }
@@ -1175,7 +1175,7 @@ function buildPromptFromAnchors(
       }
     }
   } else {
-    // === 无Ảnh tham chiếu：完整6层特征锁定 ===
+    // === 无Ảnh tham chiếu：đầy đủ6层特征锁定 ===
 
     // ① 骨相层
     const boneFeatures: string[] = [];
@@ -1201,7 +1201,7 @@ function buildPromptFromAnchors(
       parts.push(isZh ? `辨识标记：${anchors.uniqueMarks.join('、')}` : `distinctive marks: ${anchors.uniqueMarks.join(', ')}`);
     }
 
-    // ④ 色彩锚点层
+    // ④ 色彩neo层
     if (anchors.colorAnchors) {
       const colors: string[] = [];
       if (anchors.colorAnchors.iris) colors.push(isZh ? `瞳色${anchors.colorAnchors.iris}` : `iris ${anchors.colorAnchors.iris}`);
@@ -1209,7 +1209,7 @@ function buildPromptFromAnchors(
       if (anchors.colorAnchors.skin) colors.push(isZh ? `肤色${anchors.colorAnchors.skin}` : `skin ${anchors.colorAnchors.skin}`);
       if (anchors.colorAnchors.lips) colors.push(isZh ? `唇色${anchors.colorAnchors.lips}` : `lips ${anchors.colorAnchors.lips}`);
       if (colors.length > 0) {
-        parts.push(isZh ? `色彩锚点：${colors.join('，')}` : `color anchors: ${colors.join(', ')}`);
+        parts.push(isZh ? `色彩neo：${colors.join('，')}` : `color anchors: ${colors.join(', ')}`);
       }
     }
 
@@ -1218,7 +1218,7 @@ function buildPromptFromAnchors(
       parts.push(isZh ? `皮肤纹理：${anchors.skinTexture}` : `skin texture: ${anchors.skinTexture}`);
     }
 
-    // ⑥ 发型锚点层
+    // ⑥ 发型neo层
     const hairFeatures: string[] = [];
     if (anchors.hairStyle) hairFeatures.push(anchors.hairStyle);
     if (anchors.hairlineDetails) hairFeatures.push(anchors.hairlineDetails);
@@ -1234,12 +1234,12 @@ function buildPromptFromAnchors(
  * 构建Nhân vật设定图prompt
  * 
  * 优先级：
- * 1. 根据 promptLanguage 选择主prompt：vi→visualPromptZh, en→visualPromptEn, vi+en→两者合并
- * 2. 有Ảnh tham chiếu + 有锚点：简化Mô tả + 最强锚点
- * 3. 无Ảnh tham chiếu + 有锚点：完整6层锁定
- * 4. 有视觉prompt：使用AI大师Tạo的prompt
+ * 1. 根据 promptLanguage Chọn主prompt：vi→visualPromptZh, en→visualPromptEn, vi+en→两者合并
+ * 2. 有Ảnh tham chiếu + 有neo：简化Mô tả + 最强neo
+ * 3. 无Ảnh tham chiếu + 有neo：đầy đủ6层锁定
+ * 4. 有Prompt thị giác：使用AI大师Tạo的prompt
  * 5. 只有description：使用Cơ bảnMô tả
- * 6. 年代信息：加入服装Phong cách锚点
+ * 6. 年代信息：加入服装Phong cáchneo
  */
 function buildCharacterSheetPrompt(
   description: string, 
@@ -1263,19 +1263,19 @@ function buildCharacterSheetPrompt(
     : 'anime style, professional quality';
   const isRealistic = stylePreset?.category === 'real';
   
-  // 根据语言偏好选择主视觉prompt
+  // 根据语言偏好Chọn主Prompt thị giác
   const lang = promptLanguage || 'vi';
 
   // 构建年代服装prompt（根据语言偏好）
   let eraPrompt = '';
   if (storyYear) {
     if (lang === 'vi') {
-      if (storyYear >= 2020) eraPrompt = `${storyYear}年代当代中国时尚，现代休闲风`;
-      else if (storyYear >= 2010) eraPrompt = `${storyYear}年代中国时尚，韩风影响`;
-      else if (storyYear >= 2000) eraPrompt = `2000年代初期中国时尚，千禧年trang phục`;
-      else if (storyYear >= 1990) eraPrompt = `1990年代中国时尚，转型期trang phục`;
-      else if (storyYear >= 1980) eraPrompt = `1980年代中国时尚，改革开放时期trang phục`;
-      else eraPrompt = `${storyYear}年代中国trang phụcPhong cách`;
+      if (storyYear >= 2020) eraPrompt = `${storyYear}年代当代đang xử lý...，现代休闲风`;
+      else if (storyYear >= 2010) eraPrompt = `${storyYear}年代đang xử lý...，韩风影响`;
+      else if (storyYear >= 2000) eraPrompt = `2000年代初期đang xử lý...，千禧年trang phục`;
+      else if (storyYear >= 1990) eraPrompt = `1990年代đang xử lý...，转型期trang phục`;
+      else if (storyYear >= 1980) eraPrompt = `1980年代đang xử lý...，改革开放时期trang phục`;
+      else eraPrompt = `${storyYear}年代đang xử lý...ang phụcPhong cách`;
     } else {
       if (storyYear >= 2020) eraPrompt = `${storyYear}s contemporary Chinese fashion, modern casual style`;
       else if (storyYear >= 2010) eraPrompt = `${storyYear}s Chinese fashion, Korean-influenced style`;
@@ -1289,17 +1289,17 @@ function buildCharacterSheetPrompt(
   }
   let primaryVisualPrompt: string | undefined;
   if (lang === 'vi' || lang === 'vi+en') {
-    // 中文优先（vi+en 只是让用户同时看到两种，Tạo时用中文）
+    // đang xử lý...（vi+en 只是让用户同时看到两种，Tạo时用中文）
     primaryVisualPrompt = visualPromptZh || visualPromptEn;
   } else {
     // en：英文优先
     primaryVisualPrompt = visualPromptEn || visualPromptZh;
   }
   
-  // 构建Mô tả nhân vật：根据有无Ảnh tham chiếu决定使用完整锚点还是简化锚点
+  // 构建Mô tả nhân vật：根据有无Ảnh tham chiếu决定使用đầy đủneo还是简化neo
   let characterDescription = '';
   
-  // 构建身份锚点prompt
+  // 构建身份neoprompt
   const anchorPrompt = buildPromptFromAnchors(identityAnchors, hasReferenceImages || false, promptLanguage);
   
   if (hasReferenceImages) {
@@ -1309,11 +1309,11 @@ function buildCharacterSheetPrompt(
       ? `${basicDesc}, ${anchorPrompt}` 
       : basicDesc;
   } else if (anchorPrompt) {
-    // 无Ảnh tham chiếu + 有锚点：完整6层锁定
+    // 无Ảnh tham chiếu + 有neo：đầy đủ6层锁定
     const baseDesc = primaryVisualPrompt || description;
     characterDescription = `${baseDesc}, ${anchorPrompt}`;
   } else if (primaryVisualPrompt) {
-    // 使用AI大师prompt（已根据语言偏好选择）
+    // 使用AI大师prompt（已根据语言偏好Chọn）
     characterDescription = primaryVisualPrompt;
   } else {
     // 只有Cơ bảnMô tả

@@ -4,8 +4,8 @@
 /**
  * Viewpoint Matcher Service
  * 
- * 根据分镜动作描述智能匹配场景库中的视角变体
- * 策略：先用关键词快速匹配，匹配不到才调用 AI
+ * 根据分镜动作描述智能匹配场景库đang xử lý...变体
+ * 策略：先用quan trọng词快速匹配，匹配不到才调用 AI
  */
 
 import { getFeatureConfig } from '@/lib/ai/feature-router';
@@ -22,9 +22,9 @@ export interface ViewpointMatchResult {
   confidence: number; // 0-1
 }
 
-// ==================== 关键词映射 ====================
+// ==================== quan trọng词映射 ====================
 
-// 视角关键词映射（用于快速匹配）
+// 视角quan trọng词映射（用于快速匹配）
 const VIEWPOINT_KEYWORDS: Record<string, string[]> = {
   // 餐桌/用餐相关
   'dining': [
@@ -75,7 +75,7 @@ const VIEWPOINT_KEYWORDS: Record<string, string[]> = {
   ],
 };
 
-// 反向索引：关键词 -> 视角ID
+// 反向索引：quan trọng词 -> 视角ID
 const KEYWORD_TO_VIEWPOINT: Record<string, string> = {};
 for (const [viewpointId, keywords] of Object.entries(VIEWPOINT_KEYWORDS)) {
   for (const keyword of keywords) {
@@ -85,14 +85,14 @@ for (const [viewpointId, keywords] of Object.entries(VIEWPOINT_KEYWORDS)) {
 
 // ==================== 缓存 ====================
 
-// AI 匹配结果缓存（避免重复调用）
+// AI 匹配结果缓存（tránh trùng lặp调用）
 const aiMatchCache = new Map<string, { viewpointId: string | null; timestamp: number }>();
 const CACHE_TTL = 1000 * 60 * 30; // 30分钟缓存
 
 // ==================== 核心函数 ====================
 
 /**
- * 使用关键词快速匹配视角
+ * 使用quan trọng词快速匹配视角
  */
 function matchByKeyword(actionSummary: string): string | null {
   for (const [keyword, viewpointId] of Object.entries(KEYWORD_TO_VIEWPOINT)) {
@@ -204,7 +204,7 @@ function findMatchingParentScenes(
 }
 
 /**
- * 获取父场景的所有视角变体
+ * 获取父场景的Tất cả视角变体
  */
 function getViewpointVariants(
   parentSceneId: string,
@@ -214,7 +214,7 @@ function getViewpointVariants(
 }
 
 /**
- * 使用视角名称的关键词模糊匹配动作描述
+ * 使用视角名称的quan trọng词模糊匹配动作描述
  * 用于自定义视角名称（如"大巴车窗视角"）与动作描述的匹配
  */
 function matchByViewpointNameKeywords(
@@ -223,21 +223,21 @@ function matchByViewpointNameKeywords(
 ): Scene | null {
   if (!actionSummary || viewpointVariants.length === 0) return null;
   
-  // 对每个视角变体，提取名称中的关键词并检查是否出现在动作描述中
+  // 对每视角变体，提取名称đang xử lý...an trọng词并检查是否出现在动作描述中
   for (const variant of viewpointVariants) {
     const viewpointName = variant.viewpointName || variant.name || '';
     
-    // 提取视角名称中的关键词（去除通用词如"视角""角度"等）
+    // 提取视角名称đang xử lý...an trọng词（去除通用词如"视角""角度"等）
     const cleanedName = viewpointName
       .replace(/视角|角度|镜头|画面|场景/g, '')
       .trim();
     
     if (!cleanedName) continue;
     
-    // 将名称分词（按常见分隔符和中文单字拆分）
+    // 将名称分词（按常见ngăn cách符和đang xử lý...拆分）
     const keywords = extractKeywords(cleanedName);
     
-    // 检查动作描述是否包含这些关键词
+    // 检查动作描述是否包含这些quan trọng词
     for (const keyword of keywords) {
       if (keyword.length >= 2 && actionSummary.includes(keyword)) {
         console.log(`[ViewpointMatcher] Matched viewpoint "${viewpointName}" by keyword "${keyword}"`);
@@ -250,12 +250,12 @@ function matchByViewpointNameKeywords(
 }
 
 /**
- * 从名称中提取关键词
+ * 从名称đang xử lý...uan trọng词
  */
 function extractKeywords(name: string): string[] {
   const keywords: string[] = [];
   
-  // 1. 整体名称作为关键词
+  // 1. 整体名称作为quan trọng词
   if (name.length >= 2) {
     keywords.push(name);
   }
@@ -276,8 +276,8 @@ function extractKeywords(name: string): string[] {
     /沙发/, /茶几/, /餐桌/, /饭桌/, /书桌/, /床边/, /床头/,
     /厨房/, /卧室/, /客厅/, /书房/, /阳台/, /浴室/,
     /楼梯/, /走廊/, /过道/, /庭院/, /花园/,
-    /前排/, /后排/, /中间/, /左边/, /右边/, /中央/,
-    /入口/, /出口/, /通道/, /角落/, /中心/,
+    /前排/, /后排/, /đang xử lý... /左边/, /右边/, /đang xử lý...
+    /入口/, /出口/, /通道/, /角落/, /đang xử lý...
   ];
   
   for (const pattern of locationPatterns) {
@@ -293,11 +293,11 @@ function extractKeywords(name: string): string[] {
 // ==================== 主入口 ====================
 
 /**
- * 智能匹配场景库中的场景和视角
+ * 智能匹配场景库đang xử lý...和视角
  * 
  * @param sceneName 剧本场景名（如"张家客厅"）
  * @param actionSummary 分镜动作描述（如"饭桌上，张明与父母吃饭"）
- * @param sceneLibraryScenes 场景库中的所有场景
+ * @param sceneLibraryScenes 场景库đang xử lý...t cả场景
  * @param useAI 是否启用 AI 兜底（默认 true）
  */
 export async function matchSceneAndViewpoint(
@@ -312,11 +312,11 @@ export async function matchSceneAndViewpoint(
     return null;
   }
 
-  // 2. 先用预定义关键词匹配视角（如 dining, sofa, window 等）
+  // 2. 先用预定义quan trọng词匹配视角（如 dining, sofa, window 等）
   const keywordViewpointId = matchByKeyword(actionSummary);
   
   if (keywordViewpointId) {
-    // 在父场景中找对应的视角变体
+    // 在父场景đang xử lý...的视角变体
     for (const parent of parentScenes) {
       const variants = getViewpointVariants(parent.id, sceneLibraryScenes);
       const matchedVariant = variants.find(v => v.viewpointId === keywordViewpointId);
@@ -334,7 +334,7 @@ export async function matchSceneAndViewpoint(
     }
   }
 
-  // 2.5 尝试用自定义视角名称的关键词匹配
+  // 2.5 尝试用自定义视角名称的quan trọng词匹配
   for (const parent of parentScenes) {
     const variants = getViewpointVariants(parent.id, sceneLibraryScenes);
     if (variants.length > 0) {
@@ -352,7 +352,7 @@ export async function matchSceneAndViewpoint(
     }
   }
 
-  // 3. 关键词匹配失败，尝试 AI 匹配
+  // 3. quan trọng词匹配失败，尝试 AI 匹配
   if (useAI) {
     for (const parent of parentScenes) {
       const variants = getViewpointVariants(parent.id, sceneLibraryScenes);
@@ -383,7 +383,7 @@ export async function matchSceneAndViewpoint(
     }
   }
 
-  // 4. 都匹配不到，返回第一个父场景作为 fallback
+  // 4. 都匹配不到，返回第一父场景作为 fallback
   const bestParent = parentScenes[0];
   return {
     sceneLibraryId: bestParent.id,
@@ -396,7 +396,7 @@ export async function matchSceneAndViewpoint(
 }
 
 /**
- * 同步版本（仅关键词匹配，不调用 AI）
+ * 同步版本（仅quan trọng词匹配，不调用 AI）
  * 用于需要即时响应的场景
  */
 export function matchSceneAndViewpointSync(
@@ -410,7 +410,7 @@ export function matchSceneAndViewpointSync(
     return null;
   }
 
-  // 2. 用预定义关键词匹配视角
+  // 2. 用预定义quan trọng词匹配视角
   const keywordViewpointId = matchByKeyword(actionSummary);
   
   if (keywordViewpointId) {
@@ -431,7 +431,7 @@ export function matchSceneAndViewpointSync(
     }
   }
 
-  // 2.5 尝试用自定义视角名称的关键词匹配
+  // 2.5 尝试用自定义视角名称的quan trọng词匹配
   for (const parent of parentScenes) {
     const variants = getViewpointVariants(parent.id, sceneLibraryScenes);
     if (variants.length > 0) {
@@ -449,7 +449,7 @@ export function matchSceneAndViewpointSync(
     }
   }
 
-  // 3. 关键词匹配失败，返回父场景
+  // 3. quan trọng词匹配失败，返回父场景
   const bestParent = parentScenes[0];
   return {
     sceneLibraryId: bestParent.id,

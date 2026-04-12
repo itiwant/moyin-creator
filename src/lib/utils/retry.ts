@@ -70,7 +70,7 @@ export async function retryOperation<T>(
   
   let lastError: Error | undefined;
 
-  // maxRetries 表示"失败后最多重试几次"，首次尝试不计入重试
+  // maxRetries 表示"失败后最多Thử lại几次"，首次尝试不计入Thử lại
   // 总共尝试 1 + maxRetries 次
   for (let attempt = 0; attempt <= maxRetries; attempt++) {
     try {

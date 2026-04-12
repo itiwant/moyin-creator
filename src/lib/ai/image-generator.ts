@@ -92,7 +92,7 @@ function getTargetDimensions(aspectRatio: string, resolution?: string): { width:
  * - Nano Banana 2  = gemini-3.1-flash-image-preview → 支持 512/1K/2K/4K
  * - Nano Banana    = gemini-2.5-flash-image          → 固定 1K（不支持 image_size 参数）
  *
- * 用于决定是否在请求体中附加官方 image_size / aspect_ratio 参数
+ * 用于决定是否在请求体đang xử lý...方 image_size / aspect_ratio 参数
  */
 function isGeminiImageModel(model: string): boolean {
   const m = model.toLowerCase();
@@ -120,7 +120,7 @@ function geminiSupportsImageSize(model: string): boolean {
 function normalizeResolutionForGemini(resolution?: string): string {
   if (!resolution) return '2K';
   const upper = resolution.toUpperCase();
-  // 接受 '512' 直接通过（仅 3.1 Flash Image 支持）
+  // 接受 '512' Trực tiếp通过（仅 3.1 Flash Image 支持）
   if (upper === '512') return '512';
   // 确保是 '1K' / '2K' / '4K' 格式
   if (['1K', '2K', '4K'].includes(upper)) return upper;
@@ -128,7 +128,7 @@ function normalizeResolutionForGemini(resolution?: string): string {
 }
 
 /**
- * 判断模型是否需要像素尺寸格式 (如 "1024x1024") 而非比例格式 (如 "1:1")
+ * 判断模型是否需要像素尺寸格式 (如 "1024x1024") 而非Tỷ lệ格式 (如 "1:1")
  * doubao-seedream, cogview 等国产模型需要像素尺寸
  */
 function needsPixelSize(model: string): boolean {
@@ -204,7 +204,7 @@ async function generateImage(
     return submitViaKlingImages(params, model, apiKey, baseUrl, aspectRatio, featureConfig.keyManager);
   }
 
-  // 标准格式: /v1/images/generations (GPT Image, DALL-E, Flux, doubao-seedream 等)
+  // 标准格式: /v1/images/generations (GPT Image, DALL-E, Flux, doubao-seedream , v.v.)
   // aigc-image / vidu生图 等走自定义路径
   const result = await submitImageTask(
     params.prompt,
@@ -231,14 +231,14 @@ async function generateImage(
 }
 
 /**
- * 压缩 base64 参考图到合理体积
- * 中转站（new_api/one_api）在做 OpenAI → Gemini 格式转换时，
+ * 压缩 base64 Tham chiếu图到合理体积
+ * trung gian站（new_api/one_api）在做 OpenAI → Gemini 格式转换时，
  * 超大 base64 会导致 JSON 解析失败或 body size 超限，报 "contents is required"。
- * 将参考图缩小到 maxEdge px 并转为 JPEG 可大幅降低体积（2~4MB → ~60KB）。
+ * 将Tham chiếu图缩小到 maxEdge px 并转为 JPEG 可大幅降低体积（2~4MB → ~60KB）。
  */
 function compressReferenceImage(dataUri: string, maxEdge = 768, quality = 0.8): Promise<string> {
   return new Promise((resolve) => {
-    // 非 data URI（HTTP URL 等）直接返回，由服务端处理
+    // 非 data URI（HTTP URL 等）Trực tiếp返回，由服务端处理
     if (!dataUri.startsWith('data:image/')) {
       resolve(dataUri);
       return;
@@ -246,7 +246,7 @@ function compressReferenceImage(dataUri: string, maxEdge = 768, quality = 0.8): 
     const img = new Image();
     img.onload = () => {
       let { width, height } = img;
-      // 如果已经足够小，直接返回（转 JPEG 即可省体积）
+      // 如果已经足够小，Trực tiếp返回（转 JPEG 即可省体积）
       const scale = Math.min(1, maxEdge / Math.max(width, height));
       width = Math.round(width * scale);
       height = Math.round(height * scale);
@@ -268,7 +268,7 @@ function compressReferenceImage(dataUri: string, maxEdge = 768, quality = 0.8): 
  *
  * 分辨率处理策略：
  * - Gemini 图片模型（Nano Banana Pro / Nano Banana 2）：
- *   通过请求体 image_size + aspect_ratio 参数严格指定分辨率（中转站转发给 Gemini 原生 API）
+ *   通过请求体 image_size + aspect_ratio 参数严格指定分辨率（trung gian站转发给 Gemini 原生 API）
  * - 其他模型：通过 prompt 文本嵌入像素尺寸说明（软提示）
  */
 async function submitViaChatCompletions(
@@ -295,7 +295,7 @@ async function submitViaChatCompletions(
     ? ` Output the image at ${targetDims.width}x${targetDims.height} pixels resolution.`
     : '';
 
-  // 压缩参考图以避免超大 base64 导致中转站 "contents is required" 错误
+  // 压缩Tham chiếu图以避免超大 base64 导致trung gian站 "contents is required" 错误
   let compressedRefs: string[] | undefined;
   if (referenceImages && referenceImages.length > 0) {
     compressedRefs = await Promise.all(referenceImages.map(img => compressReferenceImage(img)));
@@ -325,20 +325,20 @@ async function submitViaChatCompletions(
   };
 
   // Gemini 图片模型：附加官方 image_size / aspect_ratio 参数
-  // 中转站（MemeFast / new_api / one_api 等）会将这些参数转发给 Gemini 原生 API 的
+  // trung gian站（MemeFast / new_api / one_api 等）会将这些参数转发给 Gemini 原生 API 的
   // generation_config.image_config
   if (isGemini) {
     const geminiResolution = geminiHasImageSize
       ? normalizeResolutionForGemini(resolution)
       : undefined; // gemini-2.5-flash-image 不支持 image_size
 
-    // 方式 1: 顶层参数（大部分中转站兼容）
+    // 方式 1: 顶层参数（大部分trung gian站tương thích）
     if (geminiResolution) {
       requestBody.image_size = geminiResolution;
     }
     requestBody.aspect_ratio = aspectRatio;
 
-    // 方式 2: 嵌套 generation_config（官方 SDK 格式，部分中转站支持）
+    // 方式 2: 嵌套 generation_config（官方 SDK 格式，部分trung gian站支持）
     requestBody.generation_config = {
       response_modalities: ['TEXT', 'IMAGE'],
       image_config: {
@@ -353,10 +353,10 @@ async function submitViaChatCompletions(
   console.log('[ImageGenerator] Submitting via chat completions:', { model, endpoint, isGemini, geminiImageSize: geminiHasImageSize ? normalizeResolutionForGemini(resolution) : 'N/A' });
 
   const response = await retryOperation(async () => {
-    // 每次重试独立创建 AbortController，避免共享 controller 在重试时已超时
+    // 每次Thử lại独立创建 AbortController，避免共享 controller 在Thử lại时已超时
     const controller = new AbortController();
     const timeoutId = setTimeout(
-      () => controller.abort(new DOMException('图片生成请求超时（60秒），请检查网络后重试', 'TimeoutError')),
+      () => controller.abort(new DOMException('图片生成请求超时（60秒），请检查网络后Thử lại', 'TimeoutError')),
       60000
     );
 
@@ -367,7 +367,7 @@ async function submitViaChatCompletions(
       signal.addEventListener('abort', onExternalAbort, { once: true });
     }
 
-    // 每次重试动态取当前 key（利用 keyManager rotate 后的新 key）
+    // 每次Thử lại动态取当前 key（利用 keyManager rotate 后的新 key）
     const currentApiKey = keyManager?.getCurrentKey?.() || apiKey;
 
     try {
@@ -395,11 +395,11 @@ async function submitViaChatCompletions(
 
         // 401 专项提示：引导用户检查 API Key
         if (resp.status === 401) {
-          msg = `API Key 无效或已过期，请前往「设置」检查图片生成服务的 API Key 配置（原始信息：${msg}）`;
+          msg = `API Key 无效或已hết hạn，请前往「设置」检查图片生成服务的 API Key 配置（原始信息：${msg}）`;
         }
         // 502 专项提示：上游服务临时不可用
         if (resp.status === 502) {
-          msg = `API 上游服务暂时不可用（502），将自动重试（原始信息：${msg}）`;
+          msg = `API 上游服务暂时不可用（502），将自动Thử lại（原始信息：${msg}）`;
         }
 
         const err = new Error(msg) as Error & { status?: number };
@@ -414,7 +414,7 @@ async function submitViaChatCompletions(
         const reason = controller.signal.reason;
         const readableMsg = reason instanceof Error
           ? reason.message
-          : (typeof reason === 'string' ? reason : '请求被中止，请重试');
+          : (typeof reason === 'string' ? reason : '请求被đang xử lý...Thử lại');
         const abortErr = new Error(readableMsg) as Error & { status?: number };
         throw abortErr;
       }
@@ -487,7 +487,7 @@ async function submitViaChatCompletions(
 
   // Extract image from response - multiple possible formats
   const choice = data.choices?.[0];
-  if (!choice) throw new Error('响应中无有效内容');
+  if (!choice) throw new Error('响应đang xử lý...内容');
 
   const message = choice.message;
 
@@ -518,7 +518,7 @@ async function submitViaChatCompletions(
     if (b64Match) return { imageUrl: b64Match[1] };
   }
 
-  throw new Error('未能从响应中提取图片 URL');
+  throw new Error('未能从响应đang xử lý...片 URL');
 }
 
 /**
@@ -536,7 +536,7 @@ async function submitImageTask(
   endpointTypes?: string[],
 ): Promise<{ taskId?: string; imageUrl?: string; pollUrl?: string }> {
   if (!baseUrl) {
-    throw new Error('请先在设置中配置图片生成服务映射');
+    throw new Error('请先在设置đang xử lý...片生成服务映射');
   }
   // 根据模型决定 size 格式
   let sizeValue: string = aspectRatio;
@@ -569,11 +569,11 @@ async function submitImageTask(
 
   try {
     const data = await retryOperation(async () => {
-      // 每次重试独立创建 AbortController，避免共享 controller 在重试时已超时
+      // 每次Thử lại独立创建 AbortController，避免共享 controller 在Thử lại时已超时
       const controller = new AbortController();
       const timeoutId = setTimeout(() => controller.abort(), 60000);
 
-      // 每次重试动态取当前 key（利用 keyManager rotate 后的新 key）
+      // 每次Thử lại动态取当前 key（利用 keyManager rotate 后的新 key）
       const currentApiKey = keyManager?.getCurrentKey?.() || apiKey;
       const imagePaths = getImageEndpointPaths(endpointTypes || []);
       const rootBase = getRootBaseUrl(baseUrl);
@@ -607,9 +607,9 @@ async function submitImageTask(
           }
 
           if (response.status === 401 || response.status === 403) {
-            throw new Error('API Key 无效或已过期');
+            throw new Error('API Key 无效或已hết hạn');
           } else if (response.status === 529 || response.status === 503) {
-            // 上游负载饱和/服务不可用，需要触发重试
+            // 上游负载饱和/服务不可用，需要触发Thử lại
             const err = new Error(errorMessage || `上游服务暂时不可用 (${response.status})`) as Error & { status?: number };
             err.status = response.status;
             throw err;
@@ -657,7 +657,7 @@ async function submitImageTask(
       // 可能是 base64
       const b64Match = content.match(/(data:image\/[^;]+;base64,[A-Za-z0-9+/=]+)/);
       if (b64Match) return { imageUrl: b64Match[1] };
-      // 可能直接是 URL
+      // 可能Trực tiếp是 URL
       const urlMatch = content.match(/(https?:\/\/[^\s"']+\.(?:png|jpg|jpeg|webp|gif)[^\s"']*)/i);
       if (urlMatch) return { imageUrl: urlMatch[1] };
     }
@@ -666,7 +666,7 @@ async function submitImageTask(
     let taskId: string | undefined;
     const dataList = data.data;
     if (Array.isArray(dataList) && dataList.length > 0) {
-      // 直接返回 URL（doubao-seedream、DALL-E 等同步模型）
+      // Trực tiếp返回 URL（doubao-seedream、DALL-E 等同步模型）
       if (dataList[0].url) return { imageUrl: dataList[0].url };
       taskId = dataList[0].task_id?.toString();
     }
@@ -784,9 +784,9 @@ export async function submitGridImageRequest(params: {
   aspectRatio: string;
   resolution?: string;
   referenceImages?: string[];
-  /** 可选：传入 keyManager 后，重试时自动用轮换后的新 key */
+  /** 可选：传入 keyManager 后，Thử lại时自动用xoay vòng后的新 key */
   keyManager?: { getCurrentKey: () => string | null; handleError: (status: number, errorText?: string) => boolean };
-  /** 外部中止信号，用于停止生成时真正取消网络请求 */
+  /** 外部đang xử lý...，用于停止生成时真正取消网络请求 */
   signal?: AbortSignal;
 }): Promise<{ imageUrl?: string; taskId?: string; pollUrl?: string }> {
   const { model, prompt, apiKey, baseUrl, aspectRatio, resolution, referenceImages, keyManager, signal } = params;
@@ -828,7 +828,7 @@ export async function submitGridImageRequest(params: {
   console.log('[GridImageAPI] Submitting to', endpoint);
 
   const data = await retryOperation(async () => {
-    // 每次重试动态取当前 key（利用 keyManager rotate 后的新 key）
+    // 每次Thử lại动态取当前 key（利用 keyManager rotate 后的新 key）
     const currentApiKey = keyManager?.getCurrentKey?.() || apiKey;
     if (signal?.aborted) throw new Error('用户已取消');
     const response = await fetch(endpoint, {

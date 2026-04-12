@@ -159,7 +159,7 @@ function MediaItemWithContextMenu({
             </ContextMenuItem>
             <ContextMenuItem onClick={() => onGenerateScenes(item)}>
               <Film className="h-4 w-4 mr-2 text-blue-500" />
-              Phân cảnhTạo
+              Phân cTạo ảnh
             </ContextMenuItem>
             <ContextMenuSeparator />
           </>
@@ -359,7 +359,7 @@ export function MediaView() {
     }
   };
 
-  // AI Đạo diễn功能 - Cắt thông minh（直接进入切割Trạng thái）
+  // AI Đạo diễn功能 - Cắt thông minh（Trực tiếp进入切割Trạng thái）
   const handleSmartSplit = (item: MediaFile) => {
     if (item.type !== 'image' || !item.url) return;
     
@@ -377,7 +377,7 @@ export function MediaView() {
     toast.success('已载入ảnh，请Nhấp“切割Cảnh”Bắt đầuCắt thông minh');
   };
 
-  // AI Đạo diễn功能 - Phân cảnhTạo（直接进入Chỉnh sửaTrạng thái，作为单张Phân cảnh）
+  // AI Đạo diễn功能 - Phân cTạo ảnh（Trực tiếp进入Chỉnh sửaTrạng thái，作为单张Phân cảnh）
   const handleGenerateScenes = (item: MediaFile) => {
     if (item.type !== 'image' || !item.url) return;
     
@@ -389,7 +389,7 @@ export function MediaView() {
     // Cài đặt故事板ảnh为当前ảnh
     setStoryboardImage(item.url, item.id);
     
-    // 直接Cài đặt为Chỉnh sửaTrạng thái，并Tạo单个Phân cảnh
+    // Trực tiếpCài đặt为Chỉnh sửaTrạng thái，并Tạo单Phân cảnh
     const { setSplitScenes, setStoryboardConfig } = useDirectorStore.getState();
     
     // Cài đặt配置为单Cảnh
@@ -398,10 +398,10 @@ export function MediaView() {
       storyPrompt: item.name,
     });
     
-    // Tạo单个Phân cảnh（包含所有必需属性）
+    // Tạo单Phân cảnh（包含Tất cả必需属性）
     setSplitScenes([{
       id: 0,
-      // Cảnh信息
+      // Thông tin cảnh
       sceneName: item.name,
       sceneLocation: '',
       // Khung hình đầu

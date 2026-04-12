@@ -196,7 +196,7 @@ export function SettingsPanel() {
         continue;
       }
 
-      // 为空 或 全部无效 → 重新设置默认值
+      // 为空 或 Tất cả无效 → 重新设置默认值
       const needsDefault = !cur || cur.length === 0 || !cur.some(isBindingValid);
       if (needsDefault) {
         setFeatureBindings(feature as AIFeature, [binding]);
@@ -457,7 +457,7 @@ export function SettingsPanel() {
     if (result.success) {
       setStoragePaths({ basePath: result.path || dir });
       
-      // 清除 localStorage 中的缓存，确保从新路径加载数据
+      // 清除 localStorage đang xử lý...，确保从新路径加载数据
       const keysToRemove = Object.keys(localStorage).filter(key => 
         key.startsWith('moyin-') || key.includes('store')
       );
@@ -503,7 +503,7 @@ export function SettingsPanel() {
     if (!confirm("Nhập dữ liệu sẽ ghi đè dữ liệu hiện tại, bạn có muốn tiếp tục?")) return;
     const result = await window.storageManager.importData(dir);
     if (result.success) {
-      // 清除 localStorage 中的缓存，防止旧数据覆盖导入的数据
+      // 清除 localStorage đang xử lý...，防止旧数据覆盖导入的数据
       const keysToRemove = Object.keys(localStorage).filter(key => 
         key.startsWith('moyin-') || key.includes('store')
       );
@@ -554,7 +554,7 @@ export function SettingsPanel() {
     if (result.success) {
       setStoragePaths({ basePath: result.path || dir });
       
-      // 清除 localStorage 中的缓存，确保从新路径加载数据
+      // 清除 localStorage đang xử lý...，确保从新路径加载数据
       const keysToRemove = Object.keys(localStorage).filter(key => 
         key.startsWith('moyin-') || key.includes('store')
       );
@@ -1615,7 +1615,7 @@ export function SettingsPanel() {
             // 使用 provider.id（而非 platform 字符串）避免多Nhà cung cấp时的歧义解析
             const pid = provider.id;
             const MEMEFAST_DEFAULT_BINDINGS: Record<string, string> = {
-              // NOTE: MemeFast 端点已升级，旧的 deepseek-v3 已不在 cột表中，改用 deepseek-v3.2
+              // NOTE: MemeFast 端点已升级，旧的 deepseek-v3 已不在 cột表đang xử lý... deepseek-v3.2
               script_analysis: `${pid}:deepseek-v3.2`,
               character_generation: `${pid}:gemini-3-pro-image-preview`,
               video_generation: `${pid}:doubao-seedance-1-5-pro-251215`,
@@ -1623,7 +1623,7 @@ export function SettingsPanel() {
             };
             for (const [feature, binding] of Object.entries(MEMEFAST_DEFAULT_BINDINGS)) {
               const current = getFeatureBindings(feature as AIFeature);
-              // 仅在Chưa cấu hình时设置默认值，避免覆盖用户手动选择
+              // 仅在Chưa cấu hình时设置默认值，避免覆盖用户手动Chọn
               if (!current || current.length === 0) {
                 setFeatureBindings(feature as AIFeature, [binding]);
                 continue;
@@ -1669,12 +1669,12 @@ export function SettingsPanel() {
         onSave={(provider) => {
           updateProvider(provider);
 
-          // Chỉnh sửa memefast 时也自动设置默认服务映射：初始状态会预置一个空 key 的 memefast，
+          // Chỉnh sửa memefast 时也自动设置默认服务映射：初始状态会预置一空 key 的 memefast，
           // 用户通常是“Chỉnh sửa填 key”，如果不在这里补默认映射，会导致服务映射一直是 0/6。
           if (provider.platform === 'memefast' && parseApiKeys(provider.apiKey).length > 0) {
             const pid = provider.id;
             const MEMEFAST_DEFAULT_BINDINGS: Record<string, string> = {
-              // NOTE: MemeFast 端点已升级，旧的 deepseek-v3 已不在 cột表中，改用 deepseek-v3.2
+              // NOTE: MemeFast 端点已升级，旧的 deepseek-v3 已不在 cột表đang xử lý... deepseek-v3.2
               script_analysis: `${pid}:deepseek-v3.2`,
               character_generation: `${pid}:gemini-3-pro-image-preview`,
               video_generation: `${pid}:doubao-seedance-1-5-pro-251215`,
