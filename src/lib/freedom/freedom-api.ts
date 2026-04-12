@@ -666,7 +666,7 @@ async function generateViaMidjourneyEndpoint(
   const submitData = await submitResp.json();
   // MJ API 成功时 code === 1；其他值表示 API 层错误（即使 HTTP 200）
   if (submitData.code !== undefined && submitData.code !== 1) {
-    throw new Error(submitData.description || submitData.error || `Midjourney 提交失败 (code=${submitData.code})`);
+    throw new Error(submitData.description || submitData.error || `Midjourney 提交thất bại (code=${submitData.code})`);
   }
   const taskId = submitData.result || submitData.task_id || submitData.id;
   if (!taskId) throw new Error('Midjourney 返回空任务 ID');
@@ -692,7 +692,7 @@ async function generateViaMidjourneyEndpoint(
       return { url: imageUrl, taskId: String(taskId), mediaId };
     }
     if (status === 'failure' || status === 'failed' || status === 'error') {
-      throw new Error(pollData.failReason || pollData.message || 'Midjourney Tạo失败');
+      throw new Error(pollData.failReason || pollData.message || 'Midjourney Tạothất bại');
     }
   }
 
@@ -831,7 +831,7 @@ async function generateViaReplicateImageEndpoint(
       return { url: imageUrl, taskId: String(predictionId), mediaId };
     }
     if (status === 'failed' || status === 'canceled') {
-      throw new Error(pollData.error || 'Replicate 图片Tạo失败');
+      throw new Error(pollData.error || 'Replicate 图片Tạothất bại');
     }
   }
   throw new Error('Replicate 图片Tạo超时');
@@ -1151,7 +1151,7 @@ async function generateVideoViaOpenAIOfficial(
       return { url: videoUrl, taskId: String(taskId) };
     }
     if (status === 'failed' || status === 'error') {
-      throw new Error(pollData.error?.message || pollData.error || pollData.message || 'Sora Tạo失败');
+      throw new Error(pollData.error?.message || pollData.error || pollData.message || 'Sora Tạothất bại');
     }
   }
 
@@ -1276,7 +1276,7 @@ async function generateVideoViaUnified(
       if (videoUrl) return { url: videoUrl, taskId: String(taskId) };
     }
     if (status === 'failed' || status === 'error' || status === 'cancelled') {
-      throw new Error(pollData.error?.message || pollData.error || pollData.message || '视频Tạo失败');
+      throw new Error(pollData.error?.message || pollData.error || pollData.message || '视频Tạothất bại');
     }
   }
 
@@ -1299,7 +1299,7 @@ async function generateVideoViaVolc(
     { type: 'text', text: promptParts.join(' ') },
   ];
 
-  // 附加上传图片（首帧/尾帧），对齐 Director 面板的 callVolcVideoApi
+  // 附加上传图片（首帧/尾帧），对齐 Director panel的 callVolcVideoApi
   const grouped = groupVideoUploadFiles(params.uploadFiles);
   const primaryFile = grouped.single || grouped.first;
   if (primaryFile) {
@@ -1344,7 +1344,7 @@ async function generateVideoViaVolc(
       return { url: videoUrl, taskId: String(taskId) };
     }
     if (status === 'failed' || status === 'expired' || status === 'cancelled' || status === 'error') {
-      throw new Error(pollData.error?.message || pollData.error || 'Volc 视频Tạo失败');
+      throw new Error(pollData.error?.message || pollData.error || 'Volc 视频Tạothất bại');
     }
   }
 
@@ -1403,7 +1403,7 @@ async function generateVideoViaWan(
       return { url: videoUrl, taskId: String(taskId) };
     }
     if (status === 'FAILED' || status === 'ERROR' || status === 'CANCELLED') {
-      throw new Error(pollData.output?.message || pollData.output?.error || 'Wan 视频Tạo失败');
+      throw new Error(pollData.output?.message || pollData.output?.error || 'Wan 视频Tạothất bại');
     }
   }
 
@@ -1496,7 +1496,7 @@ async function generateVideoViaKling(
       return { url: videoUrl, taskId: String(taskId) };
     }
     if (status === 'failed' || status === 'error') {
-      throw new Error(pollData.data?.task_status_msg || pollData.message || 'Kling 视频Tạo失败');
+      throw new Error(pollData.data?.task_status_msg || pollData.message || 'Kling 视频Tạothất bại');
     }
   }
 
@@ -1559,7 +1559,7 @@ async function generateVideoViaReplicate(
       return { url: videoUrl, taskId: String(predictionId) };
     }
     if (status === 'failed' || status === 'canceled') {
-      throw new Error(pollData.error || 'Replicate 视频Tạo失败');
+      throw new Error(pollData.error || 'Replicate 视频Tạothất bại');
     }
   }
   throw new Error('Replicate 视频Tạo超时');

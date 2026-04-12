@@ -62,7 +62,7 @@ export const ELEVATION_ANGLES: Array<{
   description: string;
 }> = [
   { id: 'low-angle', label: '仰视', description: '从下往上拍' },
-  { id: 'eye-level', label: '平视', description: '水平góc nhìn' },
+  { id: 'eye-level', label: 'Ngang tầm mắt', description: '水平góc nhìn' },
   { id: 'elevated', label: '微俯视', description: '略微俯视' },
   { id: 'high-angle', label: '大俯视', description: '从上往下拍' },
 ];

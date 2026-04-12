@@ -257,7 +257,7 @@ function compressReferenceImage(dataUri: string, maxEdge = 768, quality = 0.8): 
       ctx.drawImage(img, 0, 0, width, height);
       resolve(canvas.toDataURL('image/jpeg', quality));
     };
-    img.onerror = () => resolve(dataUri); // 解码失败就原样返回
+    img.onerror = () => resolve(dataUri); // 解码thất bại就原样返回
     img.src = dataUri;
   });
 }
@@ -847,7 +847,7 @@ export async function submitGridImageRequest(params: {
       if (keyManager?.handleError) {
         keyManager.handleError(response.status, errorText);
       }
-      let errorMessage = `API 失败: ${response.status}`;
+      let errorMessage = `API thất bại: ${response.status}`;
       try {
         const errJson = JSON.parse(errorText);
         errorMessage = errJson.error?.message || errJson.message || errorMessage;
@@ -994,7 +994,7 @@ async function submitViaKlingImages(
       return { imageUrl, taskId: String(taskId) };
     }
     if (status === 'failed' || status === 'error') {
-      throw new Error(pollData.data?.task_status_msg || 'Kling image Tạo失败');
+      throw new Error(pollData.data?.task_status_msg || 'Kling image Tạothất bại');
     }
   }
   throw new Error('Kling image Tạo超时');

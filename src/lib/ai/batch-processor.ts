@@ -9,7 +9,7 @@
  * 核心特性：
  *   - 双重约束分批（input token + output token）
  *   - 60K token Hard Cap（防止超长上下文模型 TTFT 过高 / Lost in the middle）
- *   - 容错隔离（单批次失败不影响其他批次，部分成功也返回kết quả）
+ *   - 容错隔离（单批次thất bại不影响其他批次，部分成功也返回kết quả）
  *   - 单批次Thử lại（指数退避，最多 2 次）
  *   - 并发 tập成（复用 runStaggered + 用户 concurrency 设置）
  *   - 进度回调
@@ -84,7 +84,7 @@ export interface ProcessBatchedOptions<TItem, TResult> {
 export interface ProcessBatchedResult<TResult> {
   /** 合并后的Tất cảkết quả */
   results: Map<string, TResult>;
-  /** 失败的批次数 */
+  /** thất bại的批次数 */
   failedBatches: number;
   /** 总批次数 */
   totalBatches: number;
@@ -173,8 +173,8 @@ export async function processBatched<TItem, TResult>(
       onProgress?.(1, 1, '完成');
       return { results: result, failedBatches: 0, totalBatches: 1 };
     } catch (err) {
-      console.error('[BatchProcessor] 唯一批次失败:', err);
-      onProgress?.(1, 1, '失败');
+      console.error('[BatchProcessor] 唯一批次thất bại:', err);
+      onProgress?.(1, 1, 'thất bại');
       return { results: new Map(), failedBatches: 1, totalBatches: 1 };
     }
   }
@@ -206,12 +206,12 @@ export async function processBatched<TItem, TResult>(
       successResults.push(result.value);
     } else {
       failedBatches++;
-      console.error('[BatchProcessor] 批次失败:', result.reason);
+      console.error('[BatchProcessor] 批次thất bại:', result.reason);
     }
   }
 
   if (failedBatches > 0) {
-    console.warn(`[BatchProcessor] ${failedBatches}/${batches.length} 批次失败，返回部分kết quả`);
+    console.warn(`[BatchProcessor] ${failedBatches}/${batches.length} 批次thất bại，返回部分kết quả`);
   }
 
   // 合并
@@ -227,7 +227,7 @@ export async function processBatched<TItem, TResult>(
     }
   }
 
-  onProgress?.(batches.length, batches.length, `完成 (${failedBatches > 0 ? `${failedBatches} 批失败` : 'Tất cả成功'})`);
+  onProgress?.(batches.length, batches.length, `完成 (${failedBatches > 0 ? `${failedBatches} 批thất bại` : 'Tất cả成功'})`);
 
   return { results: finalResults, failedBatches, totalBatches: batches.length };
 }
@@ -314,7 +314,7 @@ async function executeBatchWithRetry<TItem, TResult>(
       if (attempt < MAX_BATCH_RETRIES) {
         const delay = RETRY_BASE_DELAY * Math.pow(2, attempt);
         console.warn(
-          `[BatchProcessor] 批次执行失败 (attempt ${attempt + 1}/${MAX_BATCH_RETRIES + 1}), ` +
+          `[BatchProcessor] 批次执行thất bại (attempt ${attempt + 1}/${MAX_BATCH_RETRIES + 1}), ` +
           `${delay}ms 后Thử lại: ${lastError.message}`,
         );
         await new Promise(r => setTimeout(r, delay));

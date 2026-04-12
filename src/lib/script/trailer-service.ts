@@ -104,7 +104,7 @@ export async function selectTrailerShots(
 - 避免剧透quan trọng结局
 
 【输出要求】
-请返回一 JSON 数组，包含你chọn的分镜序号（index），按预告片播放顺序排列。
+请返回一 JSON 数组，包含你chọn的分镜序号（index），按预告片播放thứ tự排列。
 格式：{ "selectedIndices": [1, 5, 12, 23, 45, 60] }`;
 
     const userPrompt = `【项目信息】
@@ -142,7 +142,7 @@ ${shotSummaries.map(s =>
       }
     }
     
-    // 如果上面失败，尝试Trực tiếp匹配数字数组 [1, 2, 3, ...]
+    // 如果上面thất bại，尝试Trực tiếp匹配数字数组 [1, 2, 3, ...]
     if (selectedIndices.length === 0) {
       const arrayMatch = result.match(/\[\s*\d+(?:\s*,\s*\d+)*\s*\]/);
       if (arrayMatch) {
@@ -154,7 +154,7 @@ ${shotSummaries.map(s =>
       }
     }
     
-    // 如果还是失败，尝试提取Tất cả数字
+    // 如果还是thất bại，尝试提取Tất cả数字
     if (selectedIndices.length === 0) {
       const numbers = result.match(/\b(\d{1,3})\b/g);
       if (numbers) {
@@ -190,13 +190,13 @@ ${shotSummaries.map(s =>
       success: true,
       selectedShots: fallbackShots,
       shotIds: fallbackShots.map(s => s.id),
-      error: 'AI chọn失败，Sử dụng规则chọn',
+      error: 'AI chọnthất bại，Sử dụng规则chọn',
     };
   }
 }
 
 /**
- * 规则chọn（AI 失败时的回退方案）
+ * 规则chọn（AI thất bại时的回退方案）
  */
 function selectTrailerShotsByRules(shots: Shot[], targetCount: number): Shot[] {
   // 评分函数
@@ -253,7 +253,7 @@ function selectTrailerShotsByRules(shots: Shot[], targetCount: number): Shot[] {
       }
     }
     
-    // 按gốc顺序排序（预告片按时间线）
+    // 按gốcthứ tự排序（预告片按时间线）
     return selected.sort((a, b) => {
       const idxA = shots.findIndex(s => s.id === a.id);
       const idxB = shots.findIndex(s => s.id === b.id);

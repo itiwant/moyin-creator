@@ -334,17 +334,17 @@ export async function callChatAPI(
         console.log(`[callChatAPI] Rotated to next API key due to error ${response.status}, available: ${keyManager.getAvailableKeyCount()}/${totalKeys}`);
       }
       
-      // === Error-driven Discovery: 400 错误Tự động发现模型限制并Thử lại ===
+      // === Error-driven Discovery: 400 错误Tự độngPhát hiện模型限制并Thử lại ===
       if (response.status === 400) {
         const discovered = parseModelLimitsFromError(errorText);
         if (discovered) {
           cacheDiscoveredLimits(model, discovered);
           
-          // 如果发现了 maxOutput 限制且当前请求超出，立即用正确值Thử lại
+          // 如果Phát hiện了 maxOutput 限制且当前请求超出，立即用正确值Thử lại
           if (discovered.maxOutput && effectiveMaxTokens > discovered.maxOutput) {
             const correctedMaxTokens = Math.min(requestedMaxTokens, discovered.maxOutput);
             console.warn(
-              `[callChatAPI] 🧠 发现 ${model} maxOutput=${discovered.maxOutput}，` +
+              `[callChatAPI] 🧠 Phát hiện ${model} maxOutput=${discovered.maxOutput}，` +
               `以 max_tokens=${correctedMaxTokens} Tự độngThử lại...`
             );
             const retryBody = { ...body, max_tokens: correctedMaxTokens };
@@ -361,7 +361,7 @@ export async function callChatAPI(
                 return retryContent;
               }
             } else {
-              console.warn('[callChatAPI] 发现Thử lại仍失败:', retryResp.status);
+              console.warn('[callChatAPI] Phát hiệnThử lại仍thất bại:', retryResp.status);
             }
           }
         }
@@ -442,7 +442,7 @@ export async function callChatAPI(
               return retryContent;
             }
           } else {
-            console.warn('[callChatAPI] Thử lại请求失败:', retryResp.status);
+            console.warn('[callChatAPI] Thử lại请求thất bại:', retryResp.status);
           }
         } else {
           console.warn(

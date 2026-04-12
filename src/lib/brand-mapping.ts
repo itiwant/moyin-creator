@@ -4,7 +4,7 @@
 
 /**
  * thương hiệu注册表 + 模型名 → thương hiệu映射
- * 用于ánh xạ dịch vụ面板的thương hiệuphân loạiChọn
+ * 用于ánh xạ dịch vụpanel的thương hiệuphân loạiChọn
  */
 
 export interface BrandInfo {
@@ -48,7 +48,7 @@ export const BRAND_REGISTRY: Record<string, BrandInfo> = {
 
 /**
  * 模型名前缀 → thương hiệu映射规则
- * 顺序重要：更具体的chế độ应放在前面
+ * thứ tự重要：更具体的chế độ应放在前面
  */
 const BRAND_PATTERNS: Array<{ pattern: RegExp; brand: string }> = [
   // OpenAI 系列

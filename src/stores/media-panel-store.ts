@@ -115,7 +115,7 @@ export interface PendingCharacterData {
   // === 年代信息（从Kịch bản元数据传递）===
   storyYear?: number;  // Năm câu chuyện, ví dụ 2002
   era?: string;        // Mô tả bối cảnh thời đại
-  // === promptNgôn ngữ偏好（从Kịch bản面板透传）===
+  // === promptNgôn ngữ偏好（从Kịch bảnpanel透传）===
   promptLanguage?: import('@/types/script').PromptLanguage;  // 'vi' | 'en' | 'vi+en'
   // === 专业Nhân vậtThiết kếtrường（世界级大师Tạo） ===
   visualPromptEn?: string;  // Prompt thị giác tiếng Anh

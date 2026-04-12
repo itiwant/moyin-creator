@@ -844,7 +844,7 @@ export function SClassScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
       gridPromptParts.push('Generate a 2x2 grid image with 4 panels, each panel separated by thin white lines.');
       gridPromptParts.push('Layout: 2 rows, 2 columns, reading order left-to-right, top-to-bottom.');
       
-      // 每面板的Mô tả（包含nhân vật数量约束）
+      // 每panel的Mô tả（包含nhân vật数量约束）
       variationPrompts.forEach((v, idx) => {
         const row = Math.floor(idx / 2) + 1;
         const col = (idx % 2) + 1;
@@ -2280,7 +2280,7 @@ export function SClassScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
         
         // 标记是Khung hình đầu还是Khung hình cuối
         const frameLabel = task.type === 'end' ? '[END FRAME]' : '[FIRST FRAME]';
-        // 每格附带Phong cách锚定，防止多面板时Model遗忘全局Phong cách
+        // 每格附带Phong cách锚定，防止多panel时Model遗忘全局Phong cách
         const styleAnchor = fullStylePrompt ? ` [same style]` : '';
         gridPromptParts.push(`Panel [row ${row}, col ${col}] ${frameLabel} ${charConstraint}: ${desc}${styleAnchor}`);
       });
@@ -3022,7 +3022,7 @@ export function SClassScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
             <div className="text-center text-muted-foreground text-sm py-8">
               <Clapperboard className="h-8 w-8 mx-auto mb-2 opacity-50" />
               <p>Trailer功能</p>
-              <p className="text-xs mt-1">请在左侧「Kịch bản」面板đang xử lý...railer」Thẻ页TạoTrailer</p>
+              <p className="text-xs mt-1">请在左侧「Kịch bản」panelđang xử lý...railer」Thẻ页TạoTrailer</p>
               <p className="text-xs mt-1">chọn的Phân cảnh将在此Hiện并可thực hiệnảnh/Tạo video</p>
             </div>
           ) : (
@@ -3692,7 +3692,7 @@ export function SClassScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
                             setBatchProgress(null);
                           });
                       } else {
-                        // 单镜chế độ: Sử dụngĐạo diễn面板原有逻辑
+                        // 单镜chế độ: Sử dụngĐạo diễnpanel原有逻辑
                         handleGenerateVideos();
                       }
                     }}

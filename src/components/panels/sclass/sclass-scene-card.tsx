@@ -1063,7 +1063,7 @@ export function SClassSceneCard({
               </div>
             </div>
           ) : (
-            /* 折叠摘要góc nhìn：彩色图标Thẻ + Nội dungXem trước */
+            /* Tóm tắt thu gọn góc nhìn: Thẻ icon màu sắc + Xem trước Nội dung */
             <div 
               className="space-y-1 p-2 rounded-md bg-muted/20 cursor-pointer hover:bg-muted/40 transition-colors border border-transparent hover:border-muted"
               onClick={() => setShowPromptDetails(true)}
@@ -1110,7 +1110,7 @@ export function SClassSceneCard({
         {/* 秒数 + Ống kính + 情绪Bầu không khí（始终Hiện，不随prompt折叠） */}
         <div className="space-y-1.5">
           <div className="flex flex-wrap items-center gap-2">
-            {/* 秒数 */}
+            {/* Số giây */}
             <div className="flex items-center gap-1">
               <span className="text-[9px] text-muted-foreground">秒数:</span>
               <DurationSelector
@@ -1138,7 +1138,7 @@ export function SClassSceneCard({
                 </SelectContent>
               </Select>
             </div>
-            {/* 特殊拍摄手法 */}
+            {/* Kỹ thuật quay đặc biệt */}
             <div className="flex items-center gap-1">
               <Select
                 value={scene.specialTechnique || 'none'}
@@ -1157,7 +1157,7 @@ export function SClassSceneCard({
                 </SelectContent>
               </Select>
             </div>
-            {/* 拍摄角度 */}
+            {/* Góc quay */}
             <div className="flex items-center gap-1">
               <Select
                 value={scene.cameraAngle || 'eye-level'}
@@ -1195,7 +1195,7 @@ export function SClassSceneCard({
                 </SelectContent>
               </Select>
             </div>
-            {/* 摄影技法 */}
+            {/* Kỹ thuật nhiếp ảnh */}
             <div className="flex items-center gap-1">
               <Select
                 value={scene.photographyTechnique || 'none'}
@@ -1216,7 +1216,7 @@ export function SClassSceneCard({
               </Select>
             </div>
           </div>
-          {/* 机位Mô tả（AI Tạo的Tự do文本） */}
+          {/* Mô tả vị trí máy quay (văn bản tự do AI tạo) */}
           {scene.cameraPosition && (
             <div className="flex items-center gap-1.5">
               <span className="text-[9px] text-muted-foreground shrink-0">机位:</span>

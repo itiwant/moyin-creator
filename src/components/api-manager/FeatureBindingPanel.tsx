@@ -557,7 +557,7 @@ export function FeatureBindingPanel() {
                               ))}
                             </div>
                             <span className="text-[11px] text-blue-600/80 dark:text-blue-400/80">
-                              建议在 memefast.top 后台为以上分组都Thêm Key，Key 越多可用性越高。
+                              gợi ý在 memefast.top 后台为以上分组都Thêm Key，Key 越多可用性越高。
                             </span>
                           </div>
                         );
@@ -737,7 +737,7 @@ export function FeatureBindingPanel() {
       <div className="text-xs text-muted-foreground bg-muted/50 p-3 rounded-lg space-y-2">
         <p>
           <strong>💡 多Model轮询：</strong>
-          每功能可Chọn多Model，请求将按顺序分配到各Model（每次间隔 3 秒），避免单一 API 限流。
+          每功能可Chọn多Model，请求将按thứ tự分配到各Model（每次间隔 3 秒），避免单一 API 限流。
         </p>
         <p>
           <strong>📌 说明：</strong>

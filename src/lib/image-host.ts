@@ -118,7 +118,7 @@ async function toUploadFile(imageData: string, name?: string): Promise<{ blob: B
   if (isHttpUrl(imageData)) {
     const response = await fetch(imageData);
     if (!response.ok) {
-      throw new Error(`下载ảnh失败: ${response.status}`);
+      throw new Error(`下载ảnhthất bại: ${response.status}`);
     }
     blob = await response.blob();
   } else if (imageData.startsWith('data:')) {
@@ -240,8 +240,8 @@ async function uploadWithProvider(
         ? errorMessage
         : typeof messageField === 'string'
           ? messageField
-          : text || `tải lên失败: ${response.status}`;
-      return { success: false, error: `图床 ${provider.name} tải lên失败：${message}` };
+          : text || `tải lênthất bại: ${response.status}`;
+      return { success: false, error: `图床 ${provider.name} tải lênthất bại：${message}` };
     }
 
     const urlField = getByPath(data, provider.responseUrlField || 'url');
@@ -267,8 +267,8 @@ async function uploadWithProvider(
     });
     return { success: false, error: `图床 ${provider.name} tải lên成功但未返回 URL` };
   } catch (error) {
-    const message = error instanceof Error ? error.message : 'tải lên失败';
-    return { success: false, error: `图床 ${provider.name} 请求失败：${message}` };
+    const message = error instanceof Error ? error.message : 'tải lênthất bại';
+    return { success: false, error: `图床 ${provider.name} 请求thất bại：${message}` };
   }
 }
 
@@ -288,7 +288,7 @@ async function attemptProviderUpload(
   try {
     return await uploadWithProvider(provider, apiKey, imageData, options);
   } catch (error) {
-    return { success: false, error: error instanceof Error ? error.message : 'tải lên失败' };
+    return { success: false, error: error instanceof Error ? error.message : 'tải lênthất bại' };
   }
 }
 
@@ -316,7 +316,7 @@ export async function uploadToImageHost(
   }
 
   const orderedProviders = getRotatedProviders(providers);
-  let lastError = 'tải lên失败';
+  let lastError = 'tải lênthất bại';
 
   for (const provider of orderedProviders) {
     const keys = parseApiKeys(provider.apiKey);
@@ -327,7 +327,7 @@ export async function uploadToImageHost(
           if (result.success) {
             return result;
           }
-          lastError = result.error || 'tải lên失败';
+          lastError = result.error || 'tải lênthất bại';
           if (attempt < 1) {
             await sleep(600);
           }
@@ -353,7 +353,7 @@ export async function uploadToImageHost(
         return result;
       }
 
-      lastError = result.error || 'tải lên失败';
+      lastError = result.error || 'tải lênthất bại';
       keyManager.markCurrentKeyFailed();
     }
 

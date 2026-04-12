@@ -30,7 +30,7 @@ export interface ModelLimits {
 export interface DiscoveredModelLimits {
   maxOutput?: number;
   contextWindow?: number;
-  /** 发现时间戳 */
+  /** Phát hiện时间戳 */
   discoveredAt: number;
 }
 
@@ -229,7 +229,7 @@ export function parseModelLimitsFromError(errorText: string): Partial<Discovered
 }
 
 /**
- * 将发现的限制写入持久化缓存
+ * 将Phát hiện的限制写入持久化缓存
  * @returns true 如果成功写入，false 如果缓存未注入
  */
 export function cacheDiscoveredLimits(

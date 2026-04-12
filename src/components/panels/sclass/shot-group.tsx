@@ -510,7 +510,7 @@ export function ShotGroupCard({
         </div>
       )}
 
-      {/* ========== @tham chiếuQuản lý面板 ========== */}
+      {/* ========== @tham chiếuQuản lýpanel ========== */}
       {showRefManager && (
         <GroupRefManager
           group={group}

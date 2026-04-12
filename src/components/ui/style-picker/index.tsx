@@ -100,7 +100,7 @@ export function StylePicker({
     }
   };
 
-  // Nội dung面板
+  // Nội dungpanel
   const pickerContent = (
     <div className={cn("flex", popover ? "w-[520px] h-[400px]" : "w-full h-full", className)}>
       {/* 左侧：风格列表 */}

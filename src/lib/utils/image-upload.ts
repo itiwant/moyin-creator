@@ -50,7 +50,7 @@ export async function uploadBase64Image(imageData: string): Promise<string> {
     return result.url;
   }
 
-  throw new Error(result.error || '图片上传失败');
+  throw new Error(result.error || '图片上传thất bại');
 }
 
 /**

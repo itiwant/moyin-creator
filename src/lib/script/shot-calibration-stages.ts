@@ -167,7 +167,7 @@ export async function calibrateShotsMultiStage(
       }
     }
     if (failedBatches > 0) {
-      console.warn(`[MultiStage] ${stageName}: ${failedBatches} 批次失败`);
+      console.warn(`[MultiStage] ${stageName}: ${failedBatches} 批次thất bại`);
     }
   }
 
@@ -200,7 +200,7 @@ ${contextLine}${narrativeAnchorBlock}${episodeSynopsis ? `\n\n【本 tậpđại
 - conflictStage: 此镜头在本 tập核心冲突đang xử lý...（引入/激化/对抗/转折/解决/余波，无关填"辅助"）
 - shotPurpose: 一句话说明此镜头如何服务于故事核心（中文）
 - storyAlignment: 与Bối cảnh thế giới/故事核心的一致性（aligned/minor-deviation/needs-review）
-- visualFocus: 视觉焦点顺序（用→表示）
+- visualFocus: 视觉焦点thứ tự（用→表示）
 - cameraPosition: 机位Mô tả（中文）
 - characterBlocking: nhân vật布局（中文）
 - rhythm: 节奏感（中文）

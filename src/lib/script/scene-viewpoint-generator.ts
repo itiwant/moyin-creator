@@ -563,14 +563,14 @@ export function generateContactSheetPrompt(config: ContactSheetConfig): ContactS
   const totalCells = gridLayout.rows * gridLayout.cols;
   const paddedCount = totalCells;
   
-  // 构建增强版提示词 — 对齐Đạo diễn面板 generateGridAndSlice 的三层风格夹击Cấu trúc
+  // 构建增强版提示词 — 对齐Đạo diễnpanel generateGridAndSlice 的三层风格夹击Cấu trúc
   const promptParts: string[] = [];
   
-  // 1. 核心指令区 (Instruction Block) — Sử dụng与Đạo diễn面板一致的 storyboard grid 术语
+  // 1. 核心指令区 (Instruction Block) — Sử dụng与Đạo diễnpanel一致的 storyboard grid 术语
   promptParts.push('<instruction>');
   promptParts.push(`Generate a clean ${gridLayout.rows}x${gridLayout.cols} storyboard grid with exactly ${paddedCount} equal-sized panels.`);
   promptParts.push(`Overall Image Aspect Ratio: ${aspectRatio}.`);
-  // 明确指定单格子的宽高比，防止 AI 混淆（Đạo diễn面板核心差异点）
+  // 明确指定单格子的宽高比，防止 AI 混淆（Đạo diễnpanel核心差异点）
   const panelAspect = aspectRatio === '16:9' ? '16:9 (horizontal landscape)' : '9:16 (vertical portrait)';
   promptParts.push(`Each individual panel must have a ${panelAspect} aspect ratio.`);
   // 全局视觉风格（前置到指令区，权重最高 — 三层夹击第一层）
@@ -990,7 +990,7 @@ export function generateMultiPageContactSheetData(
   const allViewpoints = extractAllViewpointsFromShots(config.shots, sceneLocation);
   
   // 根据góc nhìn数量和宽高比Tự độngChọn最优布局
-  // 强制Sử dụng NxN 布局 (2x2 或 3x3) 以保证宽高比一致性，与 Director 面板保持一致
+  // 强制Sử dụng NxN 布局 (2x2 或 3x3) 以保证宽高比一致性，与 Director panel保持一致
   let gridLayout: { rows: number; cols: number };
   let viewpointsPerPage: number;
   
@@ -1076,10 +1076,10 @@ export function generateMultiPageContactSheetData(
     const paddedCount = totalCells;
     const actualCount = pageViewpoints.length;
     
-    // 构建增强版提示词 — 对齐Đạo diễn面板 generateGridAndSlice 的三层风格夹击Cấu trúc
+    // 构建增强版提示词 — 对齐Đạo diễnpanel generateGridAndSlice 的三层风格夹击Cấu trúc
     const promptParts: string[] = [];
     
-    // 1. 核心指令区 (Instruction Block) — Sử dụng与Đạo diễn面板一致的 storyboard grid 术语
+    // 1. 核心指令区 (Instruction Block) — Sử dụng与Đạo diễnpanel一致的 storyboard grid 术语
     promptParts.push('<instruction>');
     promptParts.push(`Generate a clean ${gridLayout.rows}x${gridLayout.cols} storyboard grid with exactly ${paddedCount} equal-sized panels.`);
     promptParts.push(`Overall Image Aspect Ratio: ${aspectRatio}.`);
@@ -1170,7 +1170,7 @@ ${totalCells} 格子分别Hiển thị：${gridItemsZh}。
 
 /**
  * 从已有的 viewpoints 数据构建联合图数据
- * 用于从剧本面板跳转到场景库时，Trực tiếpSử dụng AI 分析的góc nhìn
+ * 用于从剧本panel跳转到场景库时，Trực tiếpSử dụng AI 分析的góc nhìn
  * 
  * @param viewpoints - 来自 ScriptScene.viewpoints 的góc nhìn数据
  * @param scene - 场景信息（用于Tạo提示词）
@@ -1299,7 +1299,7 @@ export function buildContactSheetDataFromViewpoints(
     const paddedCount = totalCells;
     const actualCount = pageViewpoints.length;
     
-    // 构建英文提示词 — 对齐Đạo diễn面板三层风格注入
+    // 构建英文提示词 — 对齐Đạo diễnpanel三层风格注入
     const promptParts: string[] = [];
     
     // 计算每格的宽高比Mô tả

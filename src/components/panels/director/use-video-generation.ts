@@ -640,7 +640,7 @@ async function callUnifiedVideoApi(
   if (directUrl) return directUrl;
   if (!taskId) {
     console.error('[VideoGen] Cannot extract taskId from submit response:', JSON.stringify(submitData).substring(0, 300));
-    throw new Error(`Quay lại空的任务 ID（响应格式未识别，请检查控制台日志）`);
+    throw new Error(`Quay lại空的任务 ID（响应格式未识别，请检查console日志）`);
   }
 
   // 轮询：Trực tiếpSử dụng端点Loại对应的 URL
@@ -813,7 +813,7 @@ async function callVolcVideoApi(
     console.error('[VideoGen] Volc: cannot extract taskId. Full response:', JSON.stringify(submitData));
     // 兜底：将代理Quay lại的错误信息（如有）附加到异常đang xử lý...信息丢失
     const detail = submitData.message || submitData.error?.message || '';
-    throw new Error(detail || `doubao-seedance Quay lại空的任务 ID（响应格式未识别，请检查控制台日志）`);
+    throw new Error(detail || `doubao-seedance Quay lại空的任务 ID（响应格式未识别，请检查console日志）`);
   }
 
   // 轮询: GET /volc/v1/contents/generations/tasks/{taskId}

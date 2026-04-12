@@ -9,7 +9,7 @@
  * 
  * 双层架构：
  * 1. AI 检测（优先）：gọi API LLM 理解内容语义，精准识别Cấu trúc + 补全缺失đại cương
- * 2. 正则兜底（降级）：无 AI 配置或 AI gọi API失败时Sử dụng硬编码chế độ匹配
+ * 2. 正则兜底（降级）：无 AI 配置或 AI gọi APIthất bại时Sử dụng硬编码chế độ匹配
  * 
  * 核心原则：
  * - 只插入Cấu trúc标记（《》、đại cương：、nhân vật小传：）+ AI Tạo的đại cương
@@ -202,7 +202,7 @@ export interface ScriptStructureAnalysis {
 
 /**
  * AI Cấu trúc检测：gọi API LLM 分析剧本Cấu trúc，识别标题/đại cương/nhân vật/年代，并补全缺失đại cương
- * @returns 分析kết quả，AI 不可用或gọi API失败时返回 null
+ * @returns 分析kết quả，AI 不可用或gọi APIthất bại时返回 null
  */
 export async function analyzeScriptStructureWithAI(text: string): Promise<ScriptStructureAnalysis | null> {
   // 检查 AI 是否可用
@@ -274,12 +274,12 @@ export async function analyzeScriptStructureWithAI(text: string): Promise<Script
         break; // 成功则跳出Thử lại循环
       } catch (e) {
         lastError = e as Error;
-        console.warn(`[scriptNormalizer] AI gọi API失败 (attempt ${attempt + 1}/${MAX_RETRIES + 1}):`, lastError.message);
+        console.warn(`[scriptNormalizer] AI gọi APIthất bại (attempt ${attempt + 1}/${MAX_RETRIES + 1}):`, lastError.message);
       }
     }
     
     if (!result) {
-      console.warn('[scriptNormalizer] AI Cấu trúc检测Tất cả失败，将降级到正则兖底:', lastError?.message);
+      console.warn('[scriptNormalizer] AI Cấu trúc检测Tất cảthất bại，将降级到正则兖底:', lastError?.message);
       return null;
     }
     
@@ -294,7 +294,7 @@ export async function analyzeScriptStructureWithAI(text: string): Promise<Script
       return null;
     }
     jsonStr = jsonMatch[0];
-    // 3. 尝试Trực tiếp解析，失败则修复 JS 对象字面量（无引号 key）为 JSON
+    // 3. 尝试Trực tiếp解析，thất bại则修复 JS 对象字面量（无引号 key）为 JSON
     let analysis: ScriptStructureAnalysis;
     try {
       analysis = JSON.parse(jsonStr);
@@ -325,7 +325,7 @@ export async function analyzeScriptStructureWithAI(text: string): Promise<Script
     
     return analysis;
   } catch (error) {
-    console.warn('[scriptNormalizer] AI Cấu trúc检测失败，将降级到正则兜底:', error);
+    console.warn('[scriptNormalizer] AI Cấu trúc检测thất bại，将降级到正则兜底:', error);
     return null;
   }
 }

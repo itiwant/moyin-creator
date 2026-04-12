@@ -363,7 +363,7 @@ function shouldHideModel(type: 'image' | 'video', model: string): boolean {
     return false;
   }
 
-  // ảnh面板：Ẩn当前 UI 不Hỗ trợ的任务型Model（Chỉnh sửa/重绘/识图/放大等）
+  // ảnhpanel：Ẩn当前 UI 不Hỗ trợ的任务型Model（Chỉnh sửa/重绘/识图/放大等）
   if (/^mj_/i.test(model) && model !== 'mj_imagine') return true;
   if (/^ideogram_(edit|reframe|remix|replace_background|upscale|describe)/i.test(model)) return true;
   if (/^(kling-image-recognize|deepseek-ocr)$/i.test(model)) return true;
@@ -388,7 +388,7 @@ function isModelAllowedByPanelType(
     return modelType === 'ảnh';
   }
 
-  // video面板：先按 model_type 粗lọc
+  // videopanel：先按 model_type 粗lọc
   if (modelType && modelType !== 'âm thanh') return false;
 
   // 再按 endpoint type 细lọc，排除纯âm thanh类Model

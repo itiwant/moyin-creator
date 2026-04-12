@@ -613,7 +613,7 @@ export function WardrobeModal({ character, open, onOpenChange }: WardrobeModalPr
           <div className="text-xs text-muted-foreground space-y-1 pt-2 border-t">
             <p>💡 biến thểTạo会Tham chiếuNhân vậtCơ bản定妆照，保持Khuôn mặt特征一致</p>
             <p>💡 Tải lên服装Ảnh tham chiếu可让 AI 更精准地Tạo目标造型</p>
-            <p>💡 建议先TạoNhân vậtCơ bảnảnh，再Thêmbiến thể</p>
+            <p>💡 gợi ý先TạoNhân vậtCơ bảnảnh，再Thêmbiến thể</p>
           </div>
           </div>
         </div>

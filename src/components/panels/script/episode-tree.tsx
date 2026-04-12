@@ -1471,11 +1471,11 @@ export function EpisodeTree({
                 <Input value={formData.gender || ""} onChange={(e) => setFormData({ ...formData, gender: e.target.value })} />
               </div>
               <div className="space-y-2">
-                <Label>年龄</Label>
+                <Label>Tuổi</Label>
                 <Input value={formData.age || ""} onChange={(e) => setFormData({ ...formData, age: e.target.value })} />
               </div>
               <div className="space-y-2">
-                <Label>性格</Label>
+                <Label>Tính cách</Label>
                 <Input value={formData.personality || ""} onChange={(e) => setFormData({ ...formData, personality: e.target.value })} />
               </div>
               <DialogFooter>
@@ -1489,7 +1489,7 @@ export function EpisodeTree({
               {/* Khu vực nhập AI */}
               <div className="space-y-2">
                 <Label className="text-sm text-muted-foreground">
-                  Mô tả你需要的Nhân vật，例如：
+                  Mô tả nhân vật bạn cần, ví dụ:
                 </Label>
                 <div className="text-xs text-muted-foreground space-y-1 pl-2">
                   <p>• “缺第10 tập的王大哥这Nhân vật”</p>
@@ -1498,7 +1498,7 @@ export function EpisodeTree({
                 </div>
                 <div className="flex gap-2">
                   <Input
-                    placeholder="输入Nhân vật名或Mô tả..."
+                    placeholder="Nhập tên nhân vật hoặc mô tả..."
                     value={aiQuery}
                     onChange={(e) => setAiQuery(e.target.value)}
                     onKeyDown={(e) => {
@@ -1541,7 +1541,7 @@ export function EpisodeTree({
                     <p className="text-sm">{aiResult.message}</p>
                   </div>
                   
-                  {/* 找到Nhân vật时显示Thông tin nhân vật */}
+                  {/* Hiển thị thông tin nhân vật khi tìm thấy */}
                   {aiResult.character && (
                     <div className="space-y-2 pl-6">
                       <div className="grid grid-cols-2 gap-2 text-sm">
@@ -1557,7 +1557,7 @@ export function EpisodeTree({
                         )}
                         {aiResult.character.age && (
                           <div>
-                            <span className="text-muted-foreground">年龄：</span>
+                            <span className="text-muted-foreground">Tuổi:</span>
                             <span>{aiResult.character.age}</span>
                           </div>
                         )}

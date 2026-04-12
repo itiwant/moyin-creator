@@ -502,7 +502,7 @@ export interface Shot {
   conflictStage?: string;       // 冲突阶段：引入/激化/对抗/转折/解决/余波/辅助
   shotPurpose?: string;         // 镜头目的：此镜头如何服务于故事核心
   storyAlignment?: string;      // 与Bối cảnh thế giới/故事核心的一致性：aligned/minor-deviation/needs-review
-  visualFocus?: string;         // 视觉焦点：观众应该看什么（按顺序）
+  visualFocus?: string;         // 视觉焦点：观众应该看什么（按thứ tự）
   cameraPosition?: string;      // 机位Mô tả：摄影机相对于nhân vật的位置
   characterBlocking?: string;   // nhân vật布局：nhân vật在hình ảnhđang xử lý...关系
   rhythm?: string;              // 节奏Mô tả：这镜头的节奏感

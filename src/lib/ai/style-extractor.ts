@@ -72,7 +72,7 @@ async function resolveImageUrl(src: string): Promise<string> {
 }
 
 function extractErrorMessage(status: number, errorText: string): string {
-  let message = `API 请求失败: ${status}`;
+  let message = `API 请求thất bại: ${status}`;
 
   try {
     const errorJson = JSON.parse(errorText);

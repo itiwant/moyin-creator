@@ -230,7 +230,7 @@ import { callChatAPI } from '@/lib/script/script-parser';
 export interface CallFeatureAPIOptions {
   /** Tùy chỉnh温度，默认 0.7 */
   temperature?: number;
-  /** Tùy chỉnh最大输出 token 数（默认 4096，推理模型建议设置更高） */
+  /** Tùy chỉnh最大输出 token 数（默认 4096，推理模型gợi ý设置更高） */
   maxTokens?: number;
   /** 强制覆盖模型（一般不需要，Tự động从ánh xạ dịch vụ获取） */
   modelOverride?: string;

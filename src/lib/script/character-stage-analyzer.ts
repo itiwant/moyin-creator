@@ -157,7 +157,7 @@ ${promptLanguage !== 'en' ? '          "visualPromptZh": "35-40 tuổiđang xử
     const parsed = JSON.parse(cleaned);
     return parsed.analyses || [];
   } catch (error) {
-    console.error('[CharacterStageAnalyzer] AI分析失败:', error);
+    console.error('[CharacterStageAnalyzer] AI分析thất bại:', error);
     return [];
   }
 }

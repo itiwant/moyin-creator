@@ -187,7 +187,7 @@ ${shotSummaries}
     };
   } catch (error) {
     const err = error as Error;
-    console.error('[analyzeSceneViewpoints] ❌ AI 分析失败:');
+    console.error('[analyzeSceneViewpoints] ❌ AI 分析thất bại:');
     console.error('[analyzeSceneViewpoints] Error name:', err.name);
     console.error('[analyzeSceneViewpoints] Error message:', err.message);
     console.error('[analyzeSceneViewpoints] Error stack:', err.stack);
@@ -199,7 +199,7 @@ ${shotSummaries}
         { id: 'medium', name: 'đang xử lý... nameEn: 'Medium Shot', description: 'đang xử lý...', descriptionEn: 'Medium view', keyProps: [], keyPropsEn: [], shotIndexes: [] },
         { id: 'detail', name: '细节', nameEn: 'Detail', description: '细节Cực cận cảnh', descriptionEn: 'Detail close-up', keyProps: [], keyPropsEn: [], shotIndexes: [] },
       ],
-      analysisNote: 'AI 分析失败，Sử dụng默认góc nhìn',
+      analysisNote: 'AI 分析thất bại，Sử dụng默认góc nhìn',
     };
   }
 }

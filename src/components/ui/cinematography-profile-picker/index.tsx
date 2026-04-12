@@ -83,7 +83,7 @@ export function CinematographyProfilePicker({
     }
   };
 
-  // Nội dung面板
+  // Nội dungpanel
   const pickerContent = (
     <div className={cn("flex", popover ? "w-[560px] h-[420px]" : "w-full h-full", className)}>
       {/* 左侧：档案列表 */}

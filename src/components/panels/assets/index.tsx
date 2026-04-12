@@ -4,7 +4,7 @@
 "use client";
 
 /**
- * AssetsView - Tài sản面板主入sổ
+ * AssetsView - Tài sảnpanel主入sổ
  * Điều hướng trái树 + Khu vực nội dung phải
  */
 

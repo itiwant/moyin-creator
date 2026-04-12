@@ -246,11 +246,11 @@ function cleanLocationString(location: string): string {
 // ==================== 核心Hiệu chuẩn函数 ====================
 
 /**
- * AI Hiệu chuẩnTất cả场景（轻量级chế độ）
+ * AI Hiệu chuẩnTất cả场景（nhẹchế độ）
  * 
  * 【重要】此函数只补充现有场景的美术Thiết kế信息，不改变：
  * - 场景列表（不新增、不删除、不合并）
- * - 场景顺序
+ * - 场景thứ tự
  * - viewpoints（多góc nhìn联合图数据）
  * - sceneIds、shotIds 等关联数据
  */
@@ -261,7 +261,7 @@ export async function calibrateScenes(
   _options?: CalibrationOptions // 不再需要，保留以tương thích
 ): Promise<SceneCalibrationResult> {
   
-  // 【轻量级chế độ】Trực tiếpSử dụng currentScenes，不重新统计
+  // 【nhẹchế độ】Trực tiếpSử dụng currentScenes，不重新统计
   if (!currentScenes || currentScenes.length === 0) {
     console.warn('[calibrateScenes] currentScenes 为空，无法Hiệu chuẩn');
     return {
@@ -271,7 +271,7 @@ export async function calibrateScenes(
     };
   }
   
-  console.log('[calibrateScenes] 轻量级chế độ：为', currentScenes.length, '现有场景补充美术Thiết kế');
+  console.log('[calibrateScenes] nhẹchế độ：为', currentScenes.length, '现有场景补充美术Thiết kế');
   
   // 1. 收 tập场景的动作描写样本（用于推断道具）
   const stats = collectSceneStats(episodeScripts);
@@ -315,7 +315,7 @@ export async function calibrateScenes(
 【重要约束】
 1. **不新增场景** - 只处理列表đang xử lý...
 2. **不删除场景** - 即使是过渡场景也保留
-3. **不合并场景** - 只记录“合并建议”，不自行合并
+3. **不合并场景** - 只记录“合并gợi ý”，不自行合并
 4. **保持gốc sceneId** - 必须原样返回
 
 【场景Thiết kế要素 - 必须基于动作描写推断】
@@ -369,7 +369,7 @@ ${sceneList}
 【输出规则】
 1. 必须返回每场景的 sceneId（与输入完全一致）
 2. keyProps 必须从动作描写中提取
-3. 合并建议放在 mergeRecords
+3. 合并gợi ý放在 mergeRecords
 
 请返回JSON格式：
 {
@@ -447,12 +447,12 @@ ${sceneList}
     });
     
     if (failedBatches > 0) {
-      console.warn(`[SceneCalibrator] ${failedBatches} 批次失败，Sử dụng部分kết quả`);
+      console.warn(`[SceneCalibrator] ${failedBatches} 批次thất bại，Sử dụng部分kết quả`);
     }
     
     console.log('[calibrateScenes] AI 返回', sceneResults.size, '场景kết quả');
     
-    // 【quan trọng】按gốc顺序遍历 currentScenes，只更新美术trường
+    // 【quan trọng】按gốcthứ tự遍历 currentScenes，只更新美术trường
     const scenes: CalibratedScene[] = currentScenes.map((orig, i) => {
       let aiData = sceneResults.get(orig.id);
       if (!aiData) aiData = sceneResults.get('loc:' + normalizeLocation(orig.location || ''));
@@ -493,7 +493,7 @@ ${sceneList}
       analysisNotes: allAnalysisNotes.join('; ') || '',
     };
   } catch (error) {
-    console.error('[SceneCalibrator] AIHiệu chuẩn失败:', error);
+    console.error('[SceneCalibrator] AIHiệu chuẩnthất bại:', error);
     const fallbackScenes: CalibratedScene[] = Array.from(stats.values())
       .sort((a, b) => b.appearanceCount - a.appearanceCount)
       .map((s, i) => ({
@@ -512,7 +512,7 @@ ${sceneList}
     return {
       scenes: fallbackScenes,
       mergeRecords: [],
-      analysisNotes: 'AIHiệu chuẩn失败，返回基于统计的kết quả',
+      analysisNotes: 'AIHiệu chuẩnthất bại，返回基于统计的kết quả',
     };
   }
 }
@@ -633,7 +633,7 @@ ${promptLanguage !== 'zh' ? '- 英文视觉提示词（50-80词，适合AI图像
       return s;
     });
   } catch (error) {
-    console.error('[enrichScenesWithVisualPrompts] Tạo失败:', error);
+    console.error('[enrichScenesWithVisualPrompts] Tạothất bại:', error);
     return scenes;
   }
 }

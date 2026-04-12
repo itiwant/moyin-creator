@@ -4,7 +4,7 @@
 /**
  * 风格切换重新Hiệu chuẩn服务
  * 
- * 当用户在Đạo diễn/S级面板切换视觉风格时，将现有 SplitScene[] 重新送入
+ * 当用户在Đạo diễn/S级panel切换视觉风格时，将现有 SplitScene[] 重新送入
  * 5阶段Hiệu chuẩn流程（calibrateShotsMultiStage），用新风格重写提示词和拍摄参数，
  * 同时保留已Tạo的图片/视频 URL không thay đổi。
  */
@@ -154,7 +154,7 @@ export interface RecalibrationResult {
  * @param scriptProjectId 可选的 script-store projectId（默认用活跃项目）
  * @param onProgress 进度回调
  * @returns Hiệu chuẩn后的 SplitScene[]（gọi API方负责写入 store）
- * @throws Hiệu chuẩn失败时抛出异常（gọi API方负责捕获并保持原状态không thay đổi）
+ * @throws Hiệu chuẩnthất bại时抛出异常（gọi API方负责捕获并保持原状态không thay đổi）
  */
 export async function recalibrateSplitScenes(
   newStyleId: string,

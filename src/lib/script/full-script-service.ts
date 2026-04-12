@@ -90,7 +90,7 @@ export async function importFullScript(
       normalizeResult = applyAIAnalysis(processedText, aiAnalysis);
       console.log('[importFullScript] AI Cấu trúc检测完成:', normalizeResult.changes);
     } else {
-      // AI 不可用或失败：降级到正则兗底
+      // AI 不可用或thất bại：降级到正则兗底
       normalizeResult = normalizeScriptFormat(processedText);
       if (normalizeResult.changes.length > 0) {
         console.log('[importFullScript] 正则兜底归一化:', normalizeResult.changes);
@@ -155,7 +155,7 @@ export async function importFullScript(
       background: null,
       episodes: [],
       scriptData: null,
-      error: error instanceof Error ? error.message : "Nhập失败",
+      error: error instanceof Error ? error.message : "Nhậpthất bại",
     };
   }
 }
@@ -272,7 +272,7 @@ export async function importSingleEpisodeContent(
 
     // === 4. 轻量 AI 标题+đại cương（后台不阻塞） ===
     generateSingleEpisodeTitleAndSynopsis(projectId, episodeIndex).catch(e => {
-      console.warn(`${TAG} 标题/đại cươngTạo失败（不影响Cấu trúc补全）:`, e);
+      console.warn(`${TAG} 标题/đại cươngTạothất bại（不影响Cấu trúc补全）:`, e);
     });
 
     return { success: true, sceneCount: newScenes.length };
@@ -281,7 +281,7 @@ export async function importSingleEpisodeContent(
     return {
       success: false,
       sceneCount: 0,
-      error: error instanceof Error ? error.message : 'Cấu trúc补全失败',
+      error: error instanceof Error ? error.message : 'Cấu trúc补全thất bại',
     };
   }
 }
@@ -363,7 +363,7 @@ ${background?.era ? `thời đại：${background.era}` : ''}
       console.log(`[generateSingleEpisodeTitleAndSynopsis] 第${episodeIndex} tập标题/đại cương已Tạo`);
     }
   } catch (e) {
-    console.warn('[generateSingleEpisodeTitleAndSynopsis] AI gọi API失败:', e);
+    console.warn('[generateSingleEpisodeTitleAndSynopsis] AI gọi APIthất bại:', e);
   }
 }
 
@@ -561,7 +561,7 @@ export async function generateEpisodeShots(
               const unassignedShots = sceneShots.filter((s: any) => !allAssignedShotIds.has(s.id));
               
               if (unassignedShots.length > 0) {
-                console.log(`[generateEpisodeShots] ⚠️ 发现 ${unassignedShots.length} 未分配的分镜:`, unassignedShots.map((s: any) => s.id));
+                console.log(`[generateEpisodeShots] ⚠️ Phát hiện ${unassignedShots.length} 未分配的分镜:`, unassignedShots.map((s: any) => s.id));
                 
                 // 策略：根据分镜内容thông minh分配到最匹配的góc nhìn
                 for (const shot of unassignedShots) {
@@ -616,7 +616,7 @@ export async function generateEpisodeShots(
               console.log(`[generateEpisodeShots] 💾 场景 "${scene.location}" viewpoints 已更新:`, viewpointsData);
             }
           } else {
-            console.error(`[generateEpisodeShots] ❌ 场景分析失败:`, settledResult.reason);
+            console.error(`[generateEpisodeShots] ❌ 场景分析thất bại:`, settledResult.reason);
           }
         }
         
@@ -656,12 +656,12 @@ export async function generateEpisodeShots(
       } catch (e) {
         const err = e as Error;
         console.error('\n============================================');
-        console.error('[generateEpisodeShots] ❌ AI góc nhìn分析失败:', err);
+        console.error('[generateEpisodeShots] ❌ AI góc nhìn分析thất bại:', err);
         console.error('[generateEpisodeShots] Error name:', err.name);
         console.error('[generateEpisodeShots] Error message:', err.message);
         console.error('[generateEpisodeShots] Error stack:', err.stack);
         console.error('============================================\n');
-        viewpointSkippedReason = `AI 分析失败: ${err.message}`;
+        viewpointSkippedReason = `AI 分析thất bại: ${err.message}`;
         // 不影响主流程，但记录详细错误
       }
     }
@@ -746,7 +746,7 @@ function generateShotsFromSceneContent(
   const shots: Shot[] = [];
   let index = startIndex;
   
-  // 解析场景内容，按顺序Tạo分镜
+  // 解析场景内容，按thứ tựTạo分镜
   const lines = scene.rawContent.split('\n').filter(line => line.trim());
   
   for (const line of lines) {
@@ -1234,7 +1234,7 @@ ${characterBios.slice(0, 1000)}
     }
     
     if (failedBatches > 0) {
-      console.warn(`[ tập标题Hiệu chuẩn] ${failedBatches}/${totalBatches} 批次失败`);
+      console.warn(`[ tập标题Hiệu chuẩn] ${failedBatches}/${totalBatches} 批次thất bại`);
     }
     
     onProgress?.(calibratedCount, totalMissing, `已Hiệu chuẩn ${calibratedCount}/${totalMissing}  tập`);
@@ -1250,7 +1250,7 @@ ${characterBios.slice(0, 1000)}
       success: false,
       calibratedCount: 0,
       totalMissing,
-      error: error instanceof Error ? error.message : 'Hiệu chuẩn失败',
+      error: error instanceof Error ? error.message : 'Hiệu chuẩnthất bại',
     };
   }
 }
@@ -1487,7 +1487,7 @@ export async function calibrateEpisodeShots(
             return { batch, calibrations, success: true as const };
           } catch (err) {
             retryCount++;
-            console.warn(`[calibrateShots] 批次 ${batchNum} 失败，Thử lại ${retryCount}/${maxRetries}:`, err);
+            console.warn(`[calibrateShots] 批次 ${batchNum} thất bại，Thử lại ${retryCount}/${maxRetries}:`, err);
             if (retryCount >= maxRetries) {
               console.error(`[calibrateShots] 批次 ${batchNum} 达到最大Thử lại次数，跳过`);
               completedBatches++;
@@ -1581,7 +1581,7 @@ export async function calibrateEpisodeShots(
       success: false,
       calibratedCount: 0,
       totalShots,
-      error: error instanceof Error ? error.message : '分镜Hiệu chuẩn失败',
+      error: error instanceof Error ? error.message : '分镜Hiệu chuẩnthất bại',
     };
   }
 }
@@ -1751,7 +1751,7 @@ export async function calibrateSingleShot(
       success: false,
       calibratedCount: 0,
       totalShots: 1,
-      error: error instanceof Error ? error.message : '单分镜Hiệu chuẩn失败',
+      error: error instanceof Error ? error.message : '单分镜Hiệu chuẩnthất bại',
     };
   }
 }
@@ -1914,7 +1914,7 @@ ${characterBios ? `
    - 不得混入其他分镜的内容
    - 不得遗漏原文đang xử lý...信息
 
-3. **角色đầy đủ识别**：出场角色必须đầy đủ来自原文，按出现顺序列出
+3. **角色đầy đủ识别**：出场角色必须đầy đủ来自原文，按出现thứ tự列出
    - 例：原文"张明与父母吃着饭" → characterNames: ["张明", "张父", "张母"]
    - 禁止遗漏角色，禁止新增原文đang xử lý...角色
 
@@ -1951,7 +1951,7 @@ ${characterBios ? `
 **tự sự驱动trường（重要！必须基于本 tậpđại cương分析）：**
 10. tự sự功能 (narrativeFunction): 铺垫/升级/cao trào/转折/过渡/尾声
 11. 镜头目的 (shotPurpose): 为什么用这镜头？一句话说明
-12. 视觉焦点 (visualFocus): 观众应该按什么顺序看？用箭头表示
+12. 视觉焦点 (visualFocus): 观众应该按什么thứ tự看？用箭头表示
 13. 机位Mô tả (cameraPosition): 摄影机相对于nhân vật的位置
 14. nhân vật布局 (characterBlocking): nhân vật在画面đang xử lý...关系
 15. 节奏Mô tả (rhythm): 这镜头的节奏感
@@ -2238,10 +2238,10 @@ ${shotDescriptions}`;
         return partialResult;
       }
     } catch {
-      // 部分解析也失败
+      // 部分解析也thất bại
     }
     
-    throw new Error('解析 AI 响应失败');
+    throw new Error('解析 AI 响应thất bại');
   }
 }
 
@@ -2394,7 +2394,7 @@ ${characterBios.slice(0, 800)}
     }
     
     if (failedBatches > 0) {
-      console.warn(`[ tậpđại cươngTạo] ${failedBatches}/${totalBatches} 批次失败`);
+      console.warn(`[ tậpđại cươngTạo] ${failedBatches}/${totalBatches} 批次thất bại`);
     }
     
     onProgress?.(generatedCount, totalEpisodes, `已Tạo ${generatedCount}/${totalEpisodes}  tậpđại cương`);
@@ -2415,7 +2415,7 @@ ${characterBios.slice(0, 800)}
       success: false,
       generatedCount: 0,
       totalEpisodes,
-      error: error instanceof Error ? error.message : 'đại cươngTạo失败',
+      error: error instanceof Error ? error.message : 'đại cươngTạothất bại',
     };
   }
 }

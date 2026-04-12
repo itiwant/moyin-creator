@@ -121,7 +121,7 @@ export async function submitAngleSwitchTask(
     if (error instanceof Error) {
       throw error;
     }
-    throw new Error('提交 RunningHub 任务失败');
+    throw new Error('提交 RunningHub 任务thất bại');
   }
 }
 

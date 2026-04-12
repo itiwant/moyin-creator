@@ -372,7 +372,7 @@ export function MediaView() {
     setStoryboardImage(item.url, item.id);
     setStoryboardStatus('preview');
     
-    // 切换到Đạo diễn面板
+    // 切换到Đạo diễnpanel
     setActiveTab('director');
     toast.success('Đã tải ảnh, vui lòng Nhấp "Cắt cảnh" để Bắt đầu Cắt thông minh');
   };
@@ -453,7 +453,7 @@ export function MediaView() {
     
     setStoryboardStatus('editing');
     
-    // 切换到Đạo diễn面板
+    // 切换到Đạo diễnpanel
     setActiveTab('director');
     toast.success('Đã tạo phân cảnh, có thể bắt đầu Tạo video');
   };

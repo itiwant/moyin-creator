@@ -352,7 +352,7 @@ export async function matchSceneAndViewpoint(
     }
   }
 
-  // 3. quan trọng词匹配失败，尝试 AI 匹配
+  // 3. quan trọng词匹配thất bại，尝试 AI 匹配
   if (useAI) {
     for (const parent of parentScenes) {
       const variants = getViewpointVariants(parent.id, sceneLibraryScenes);
@@ -449,7 +449,7 @@ export function matchSceneAndViewpointSync(
     }
   }
 
-  // 3. quan trọng词匹配失败，返回父场景
+  // 3. quan trọng词匹配thất bại，返回父场景
   const bestParent = parentScenes[0];
   return {
     sceneLibraryId: bestParent.id,

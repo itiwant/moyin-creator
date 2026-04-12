@@ -2,7 +2,7 @@
 // Licensed under AGPL-3.0-or-later. See LICENSE for details.
 // Commercial licensing available. See COMMERCIAL_LICENSE.md.
 /**
- * Director Presets — Đạo diễn面板预设常量
+ * Director Presets — Đạo diễnpanel预设常量
  *
  * 从 director-store.ts đang xử lý...Tất cả预设常量和派生Loại。
  * 供 split-scenes.tsx、split-scene-card.tsx、prompt-builder.ts 等模块Nhập。
@@ -233,15 +233,15 @@ export const SPECIAL_TECHNIQUE_PRESETS = [
   { id: 'hitchcock-zoom' as const, label: 'Zoom Hitchcock', labelEn: 'Hitchcock Zoom', promptToken: 'dolly zoom, vertigo effect, Hitchcock zoom,' },
   { id: 'timelapse' as const, label: 'Time-lapse', labelEn: 'Timelapse', promptToken: 'timelapse, time passing rapidly,' },
   { id: 'crash-zoom-in' as const, label: 'Zoom đột ngột vào', labelEn: 'Crash Zoom In', promptToken: 'crash zoom in, sudden rapid zoom,' },
-  { id: 'crash-zoom-out' as const, label: '急拉Ống kính', labelEn: 'Crash Zoom Out', promptToken: 'crash zoom out, sudden rapid pull back,' },
-  { id: 'whip-pan' as const, label: '快速甩镜', labelEn: 'Whip Pan', promptToken: 'whip pan, fast swish pan, motion blur transition,' },
+  { id: 'crash-zoom-out' as const, label: 'Zoom đột ngột ra', labelEn: 'Crash Zoom Out', promptToken: 'crash zoom out, sudden rapid pull back,' },
+  { id: 'whip-pan' as const, label: 'Xoay máy nhanh', labelEn: 'Whip Pan', promptToken: 'whip pan, fast swish pan, motion blur transition,' },
   { id: 'bullet-time' as const, label: 'conpopupThời gian', labelEn: 'Bullet Time', promptToken: 'bullet time, frozen time orbit shot, ultra slow motion,' },
-  { id: 'fpv-shuttle' as const, label: 'FPV 穿梭', labelEn: 'FPV Shuttle', promptToken: 'FPV drone shuttle, first person flight through scene,' },
-  { id: 'macro-closeup' as const, label: '微距Cận cảnh', labelEn: 'Macro Close-up', promptToken: 'macro extreme close-up, intricate detail shot,' },
-  { id: 'first-person' as const, label: '第一人称', labelEn: 'First Person', promptToken: 'first person POV shot, subjective camera,' },
-  { id: 'slow-motion' as const, label: '慢Ống kính', labelEn: 'Slow Motion', promptToken: 'slow motion, dramatic slow mo, high frame rate,' },
-  { id: 'probe-lens' as const, label: '探针Ống kính', labelEn: 'Probe Lens', promptToken: 'probe lens shot, snorkel camera, macro perspective movement,' },
-  { id: 'spinning-tilt' as const, label: '旋转倾斜Ống kính', labelEn: 'Spinning Tilt', promptToken: 'spinning tilting camera, disorienting rotation,' },
+  { id: 'fpv-shuttle' as const, label: 'FPV xuyên', labelEn: 'FPV Shuttle', promptToken: 'FPV drone shuttle, first person flight through scene,' },
+  { id: 'macro-closeup' as const, label: 'Macro cận cảnh', labelEn: 'Macro Close-up', promptToken: 'macro extreme close-up, intricate detail shot,' },
+  { id: 'first-person' as const, label: 'Góc nhìn thứ nhất', labelEn: 'First Person', promptToken: 'first person POV shot, subjective camera,' },
+  { id: 'slow-motion' as const, label: 'Slow motion', labelEn: 'Slow Motion', promptToken: 'slow motion, dramatic slow mo, high frame rate,' },
+  { id: 'probe-lens' as const, label: 'Ống kính thăm dò', labelEn: 'Probe Lens', promptToken: 'probe lens shot, snorkel camera, macro perspective movement,' },
+  { id: 'spinning-tilt' as const, label: 'Xoay nghiêng máy', labelEn: 'Spinning Tilt', promptToken: 'spinning tilting camera, disorienting rotation,' },
 ] as const;
 
 export type SpecialTechniqueType = typeof SPECIAL_TECHNIQUE_PRESETS[number]['id'];
@@ -285,14 +285,14 @@ export type EmotionTag = typeof EMOTION_PRESETS.basic[number]['id']
 // ==================== 拍摄角度预设 (Camera Angle) ====================
 
 export const CAMERA_ANGLE_PRESETS = [
-  { id: 'eye-level' as const, label: '平视', labelEn: 'Eye Level', emoji: '👁️', promptToken: 'eye level angle,' },
-  { id: 'high-angle' as const, label: '俯拍', labelEn: 'High Angle', emoji: '⬇️', promptToken: 'high angle shot, looking down,' },
-  { id: 'low-angle' as const, label: '仰拍', labelEn: 'Low Angle', emoji: '⬆️', promptToken: 'low angle shot, looking up, heroic perspective,' },
-  { id: 'birds-eye' as const, label: '鸟瞰', labelEn: "Bird's Eye", emoji: '🦅', promptToken: "bird's eye view, top-down overhead shot," },
-  { id: 'worms-eye' as const, label: '虫视', labelEn: "Worm's Eye", emoji: '🐛', promptToken: "worm's eye view, extreme low angle from ground," },
+  { id: 'eye-level' as const, label: 'Ngang tầm mắt', labelEn: 'Eye Level', emoji: '👁️', promptToken: 'eye level angle,' },
+  { id: 'high-angle' as const, label: 'Góc cao nhìn xuống', labelEn: 'High Angle', emoji: '⬇️', promptToken: 'high angle shot, looking down,' },
+  { id: 'low-angle' as const, label: 'Góc thấp nhìn lên', labelEn: 'Low Angle', emoji: '⬆️', promptToken: 'low angle shot, looking up, heroic perspective,' },
+  { id: 'birds-eye' as const, label: 'Góc nhìn chim', labelEn: "Bird's Eye", emoji: '🦅', promptToken: "bird's eye view, top-down overhead shot," },
+  { id: 'worms-eye' as const, label: 'Góc nhìn sâu bọ', labelEn: "Worm's Eye", emoji: '🐛', promptToken: "worm's eye view, extreme low angle from ground," },
   { id: 'over-shoulder' as const, label: 'Qua vai', labelEn: 'Over the Shoulder', emoji: '🫂', promptToken: 'over the shoulder shot, OTS,' },
-  { id: 'side-angle' as const, label: '侧拍', labelEn: 'Side Angle', emoji: '↔️', promptToken: 'side angle, profile view,' },
-  { id: 'dutch-angle' as const, label: '荷兰角', labelEn: 'Dutch Angle', emoji: '📐', promptToken: 'dutch angle, tilted frame, canted angle,' },
+  { id: 'side-angle' as const, label: 'Góc bên', labelEn: 'Side Angle', emoji: '↔️', promptToken: 'side angle, profile view,' },
+  { id: 'dutch-angle' as const, label: 'Góc Hà Lan (Dutch)', labelEn: 'Dutch Angle', emoji: '📐', promptToken: 'dutch angle, tilted frame, canted angle,' },
   { id: 'third-person' as const, label: '第三人称', labelEn: 'Third Person', emoji: '🎮', promptToken: 'third person perspective, slightly behind and above subject,' },
 ] as const;
 

@@ -1097,7 +1097,7 @@ export function SplitSceneCard({
               </div>
             </div>
           ) : (
-            /* 折叠摘要góc nhìn：彩色图标Thẻ + Nội dungXem trước */
+            /* Tóm tắt thu gọn góc nhìn: Thẻ icon màu sắc + Xem trước Nội dung */
             <div 
               className="space-y-1 p-2 rounded-md bg-muted/20 cursor-pointer hover:bg-muted/40 transition-colors border border-transparent hover:border-muted"
               onClick={() => setShowPromptDetails(true)}
@@ -1141,10 +1141,10 @@ export function SplitSceneCard({
           )}
         </div>
 
-        {/* 秒数 + Cảnh quay + Cảm xúcBầu không khí（始终Hiện，不随Gợi ý折叠） */}
+        {/* Số giây + Cảnh quay + Bầu không khí cảm xúc (luôn hiện, không thu gọn theo Gợi ý) */}
         <div className="space-y-1.5">
           <div className="flex flex-wrap items-center gap-2">
-            {/* 秒数 */}
+            {/* Số giây */}
             <div className="flex items-center gap-1">
               <span className="text-[9px] text-muted-foreground">Giây:</span>
               <DurationSelector
@@ -1153,7 +1153,7 @@ export function SplitSceneCard({
                 disabled={isGeneratingAny}
               />
             </div>
-            {/* Cảnh quay运动 */}
+            {/* Chuyển động cảnh quay */}
             <div className="flex items-center gap-1">
               <Select
                 value={scene.cameraMovement || 'none'}
@@ -1172,7 +1172,7 @@ export function SplitSceneCard({
                 </SelectContent>
               </Select>
             </div>
-            {/* 特殊拍摄手法 */}
+            {/* Kỹ thuật quay đặc biệt */}
             <div className="flex items-center gap-1">
               <Select
                 value={scene.specialTechnique || 'none'}
@@ -1191,7 +1191,7 @@ export function SplitSceneCard({
                 </SelectContent>
               </Select>
             </div>
-            {/* 拍摄角度 */}
+            {/* Góc quay */}
             <div className="flex items-center gap-1">
               <Select
                 value={scene.cameraAngle || 'eye-level'}
@@ -1229,7 +1229,7 @@ export function SplitSceneCard({
                 </SelectContent>
               </Select>
             </div>
-            {/* 摄影技法 */}
+            {/* Kỹ thuật nhiếp ảnh */}
             <div className="flex items-center gap-1">
               <Select
                 value={scene.photographyTechnique || 'none'}
@@ -1250,7 +1250,7 @@ export function SplitSceneCard({
               </Select>
             </div>
           </div>
-          {/* 机位Mô tả（AI Tạo的Tự do文本） */}
+          {/* Mô tả vị trí máy quay (văn bản tự do AI tạo) */}
           {scene.cameraPosition && (
             <div className="flex items-center gap-1.5">
               <span className="text-[9px] text-muted-foreground shrink-0">Góc máy:</span>
@@ -1267,7 +1267,7 @@ export function SplitSceneCard({
           </div>
         </div>
 
-        {/* 第四排：Điều khiển âm thanh（Âm thanh môi trường/Hiệu ứng âm thanh/Thoại） */}
+        {/* Hàng 4: Điều khiển âm thanh (Âm thanh môi trường/Hiệu ứng âm thanh/Thoại) */}
         <div className="space-y-1">
           <Label className="text-[10px] text-muted-foreground mb-0.5 block">Điều khiển âm thanh</Label>
           {/* Âm thanh môi trường */}
@@ -1339,7 +1339,7 @@ export function SplitSceneCard({
               className="flex-1 h-6 px-1.5 text-[10px] rounded border bg-transparent disabled:opacity-40 placeholder:text-muted-foreground/30"
             />
           </div>
-          {/* 背景Âm nhạc */}
+          {/* Nhạc nền */}
           <div className="flex items-center gap-1.5">
             <button
               onClick={() => onUpdateField?.(scene.id, 'audioBgmEnabled', !(scene.audioBgmEnabled === true))}

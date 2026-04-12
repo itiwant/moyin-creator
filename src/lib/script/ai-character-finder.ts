@@ -415,7 +415,7 @@ ${dialogueSamples.join('\n')}
       tags: [parsed.importance || 'minor', 'AITạo'],
     };
   } catch (error) {
-    console.error('[generateCharacterData] AITạo失败:', error);
+    console.error('[generateCharacterData] AITạothất bại:', error);
     // 返回基础数据
     return {
       id: `char_${Date.now()}`,

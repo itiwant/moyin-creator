@@ -44,7 +44,7 @@ export function LocalImage({ src, fallback, className, alt, ...props }: LocalIma
         )}
         style={props.style}
       >
-        ảnh加载失败
+        ảnh加载thất bại
       </div>
     );
   }

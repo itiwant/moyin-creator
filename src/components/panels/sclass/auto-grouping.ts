@@ -6,7 +6,7 @@
  *
  * 将 director-store đang xử lý...plitScene[] Tự động分为 ShotGroup[]。
  * 策略：
- *   1. 按顺序贪心填装，每组TổngThời lượng ≤ maxDuration（Mặc định15s）
+ *   1. 按thứ tự贪心填装，每组TổngThời lượng ≤ maxDuration（Mặc định15s）
  *   2. Cảnh切换优先断开（不同 sceneName 的Ống kính优先不在同一组）
  *   3. Nhân vật重叠度高的Ống kính优先同组（characterIds 交 tập）
  *   4. 每组 2~maxPerGroup Ống kính
@@ -181,7 +181,7 @@ export function generateGroupName(
   const sceneMap = new Map(scenes.map((s) => [s.id, s]));
   const firstScene = sceneMap.get(group.sceneIds[0]);
 
-  // Sử dụng组内顺序编号（而非 scene.id），避免 1-based ID 导致偏移
+  // Sử dụng组内thứ tự编号（而非 scene.id），避免 1-based ID 导致偏移
   const allIds = scenes.map(s => s.id);
   const firstIdx = allIds.indexOf(group.sceneIds[0]);
   const lastIdx = allIds.indexOf(group.sceneIds[group.sceneIds.length - 1]);

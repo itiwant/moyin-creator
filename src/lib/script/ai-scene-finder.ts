@@ -272,7 +272,7 @@ ${contexts.slice(0, 3).join('\n\n')}
       notes: ensureString(parsed.notes),
     };
   } catch (error) {
-    console.error('[generateSceneData] AITạo失败:', error);
+    console.error('[generateSceneData] AITạothất bại:', error);
     // 返回基础数据
     return {
       id: `scene_${Date.now()}`,

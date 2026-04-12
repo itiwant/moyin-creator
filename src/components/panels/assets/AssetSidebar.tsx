@@ -4,7 +4,7 @@
 "use client";
 
 /**
- * AssetSidebar - Tài sản面板Điều hướng trái树
+ * AssetSidebar - Tài sảnpanelĐiều hướng trái树
  * 可插拔Thiết kế，后续可扩展Thư viện phương tiện、作品库等con模块
  */
 

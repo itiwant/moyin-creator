@@ -308,7 +308,7 @@ ${context.characterAppearances.length > 0
     };
   } catch (e) {
     console.error('[CharacterDesign] Failed to parse AI response:', result);
-    throw new Error('解析角色Thiết kế失败');
+    throw new Error('解析角色Thiết kếthất bại');
   }
 }
 
