@@ -209,7 +209,7 @@ export function DirectorContextPanel() {
   };
   
   // 根据Phân cảnh和Thông tin cảnh查找Khớp的Thư viện cảnhGóc nhìn
-  // 优先Sử dụngAI分析的shotIds关联，保底用Phân cảnh序号对应Góc nhìn序号
+  // 优先Sử dụngAI分析的shotIds关联，保底用Phân cảnhsố thứ tự对应Góc nhìnsố thứ tự
   const findMatchingSceneAndViewpointQuick = (shot: Shot, scene: ScriptScene, shotIndexInScene?: number): ViewpointMatchResult | null => {
     const sceneName = scene.name || '';
     
@@ -220,7 +220,7 @@ export function DirectorContextPanel() {
     );
     
     if (!parentScene) {
-      console.log(`[findMatchingSceneAndViewpointQuick] 未找到Khớp的父Cảnh: "${sceneName}"`);
+      console.log(`[findMatchingSceneAndViewpointQuick] Không tìm thấy Cảnh cha phù hợp: "${sceneName}"`);
       return null;
     }
     
@@ -229,7 +229,7 @@ export function DirectorContextPanel() {
       .filter(s => s.parentSceneId === parentScene.id)
       .sort((a, b) => a.createdAt - b.createdAt);
     
-    console.log(`[findMatchingSceneAndViewpointQuick] Cảnh "${sceneName}" 有 ${variants.length} Góc nhìnbiến thể`);
+    console.log(`[findMatchingSceneAndViewpointQuick] Cảnh "${sceneName}" có ${variants.length} biến thể Góc nhìn`);
     
     if (variants.length === 0) {
       // 没有Góc nhìnbiến thể，Quay lại父Cảnh
@@ -246,7 +246,7 @@ export function DirectorContextPanel() {
     // 方案一：优先检查Thư viện cảnhGóc nhìnbiến thể的shotIds（切割时Lưu的）
     const variantWithShot = variants.find(v => v.shotIds?.includes(shot.id));
     if (variantWithShot) {
-      console.log(`[findMatchingSceneAndViewpointQuick] 通过Thư viện cảnhshotIdsKhớp: Phân cảnh${shot.id} -> Góc nhìn "${variantWithShot.viewpointName || variantWithShot.name}"`);
+      console.log(`[findMatchingSceneAndViewpointQuick] Khớp qua shotIds Thư viện cảnh: Phân cảnh${shot.id} -> Góc nhìn "${variantWith
       return {
         sceneLibraryId: variantWithShot.id,
         viewpointId: variantWithShot.viewpointId,
@@ -267,7 +267,7 @@ export function DirectorContextPanel() {
           return variantName.includes(matchedViewpoint.name) || matchedViewpoint.name.includes(variantName);
         });
         if (matchedVariant) {
-          console.log(`[findMatchingSceneAndViewpointQuick] 通过Kịch bảnshotIdsKhớp: Phân cảnh${shot.id} -> Góc nhìn "${matchedVariant.viewpointName || matchedVariant.name}"`);
+          console.log(`[findMatchingSceneAndViewpointQuick] Khớp qua shotIds Kịch bản: Phân cảnh${shot.id} -> Góc nhìn "${matchedVaria
           return {
             sceneLibraryId: matchedVariant.id,
             viewpointId: matchedVariant.viewpointId,
@@ -280,7 +280,7 @@ export function DirectorContextPanel() {
       }
     }
     
-    // 方案三：保底 - 按Phân cảnh序号对应Góc nhìnbiến thể序号
+    // 方案三：保底 - 按Phân cảnhsố thứ tự对应Góc nhìnbiến thểsố thứ tự
     // Phân cảnh1 -> Góc nhìn1，Phân cảnh2 -> Góc nhìn2，...
     // 如果Phân cảnh数超过Góc nhìn数，循环Sử dụng
     const variantIndex = shotIndexInScene !== undefined 
@@ -289,7 +289,7 @@ export function DirectorContextPanel() {
     
     const matchedVariant = variants[variantIndex];
     
-    console.log(`[findMatchingSceneAndViewpointQuick] 通过序号Khớp: Phân cảnh序号 ${(shotIndexInScene ?? 0) + 1} -> Góc nhìnbiến thể ${variantIndex + 1}: "${matchedVariant.viewpointName || matchedVariant.name}"`);
+    console.log(`[findMatchingSceneAndViewpointQuick] Khớp qua số thứ tự: Phân cảnh số thứ tự ${(shotIndexInScene ?? 0) + 1} -> Góc nh
     
     return {
       sceneLibraryId: matchedVariant.id,
@@ -303,8 +303,8 @@ export function DirectorContextPanel() {
   
   // 在Thư viện cảnhđang xử lý...配的Góc nhìn
   const findViewpointInLibrary = (sceneName: string, viewpointName: string): ViewpointMatchResult | null => {
-    console.log(`[findViewpointInLibrary] 查找Cảnh: "${sceneName}", Góc nhìn: "${viewpointName}"`);
-    console.log(`[findViewpointInLibrary] Thư viện cảnhTổng数: ${sceneLibraryScenes.length}`);
+    console.log(`[findViewpointInLibrary] Tìm Cảnh: "${sceneName}", Góc nhìn: "${viewpointName}"`);
+    console.log(`[findViewpointInLibrary] Thư viện cảnhTổng số: ${sceneLibraryScenes.length}`);
     
     // 找到Khớp的父Cảnh
     const parentScenes = sceneLibraryScenes.filter(s => 
@@ -312,7 +312,7 @@ export function DirectorContextPanel() {
       (s.name.includes(sceneName) || sceneName.includes(s.name))
     );
     
-    console.log(`[findViewpointInLibrary] Khớp的父Cảnh数: ${parentScenes.length}`, parentScenes.map(s => s.name));
+    console.log(`[findViewpointInLibrary] Số Cảnh cha khớp: ${parentScenes.length}`, parentScenes.map(s => s.name));
     
     if (parentScenes.length === 0) return null;
     
@@ -326,7 +326,7 @@ export function DirectorContextPanel() {
       const matchedVariant = variants.find(v => {
         const variantName = v.viewpointName || v.name || '';
         const isMatch = variantName.includes(viewpointName) || viewpointName.includes(variantName);
-        console.log(`[findViewpointInLibrary] 对比: "${variantName}" vs "${viewpointName}" => ${isMatch}`);
+        console.log(`[findViewpointInLibrary] So sánh: "${variantName}" vs "${viewpointName}" => ${isMatch}`);
         return isMatch;
       });
       
@@ -334,8 +334,8 @@ export function DirectorContextPanel() {
         console.log(`[findViewpointInLibrary] ✅ KhớpThành công: ${matchedVariant.viewpointName || matchedVariant.name}`);
         console.log(`[findViewpointInLibrary] ảnhtrường:`, {
           id: matchedVariant.id,
-          referenceImage: matchedVariant.referenceImage ? `有(${matchedVariant.referenceImage.substring(0, 50)}...)` : '无',
-          referenceImageBase64: matchedVariant.referenceImageBase64 ? `有(${matchedVariant.referenceImageBase64.substring(0, 50)}...)` : '无',
+          referenceImage: matchedVariant.referenceImage ? `có(${matchedVariant.referenceImage.substring(0, 50)}...)` : 'không',
+          referenceImageBase64: matchedVariant.referenceImageBase64 ? `có(${matchedVariant.referenceImageBase64.substring(0, 50)}...)` : 'không',
         });
         return {
           sceneLibraryId: matchedVariant.id,
@@ -348,7 +348,7 @@ export function DirectorContextPanel() {
       }
     }
     
-    console.log(`[findViewpointInLibrary] ❌ 未找到Góc nhìn，Quay lại父Cảnh`);
+    console.log(`[findViewpointInLibrary] ❌ Không tìm thấy Góc nhìn, Quay lại Cảnh cha`);
     // 没找到Góc nhìn，Quay lại父Cảnh
     const bestParent = parentScenes[0];
     return {
@@ -392,7 +392,7 @@ export function DirectorContextPanel() {
     // 将Kịch bảnNhân vậtID/Tên映射到Thư viện nhân vậtID
     const characterLibraryIds = mapScriptCharacterIdsToLibraryIds(shot.characterIds || [], shot.characterNames);
     
-    // 获取Phân cảnh在Cảnh内的序号
+    // 获取Phân cảnh在Cảnh内的số thứ tự
     const sceneShots = shotsByScene[scene.id] || [];
     const shotIndexInScene = sceneShots.findIndex(s => s.id === shot.id);
     
@@ -534,7 +534,7 @@ export function DirectorContextPanel() {
       // 将Kịch bảnNhân vậtID/Tên映射到Thư viện nhân vậtID
       const characterLibraryIds = mapScriptCharacterIdsToLibraryIds(shot.characterIds || [], shot.characterNames);
       
-      // Tự độngKhớpThư viện cảnhđang xử lý...nh和Góc nhìn（优先Sử dụnghiện có的Góc nhìn关联，保底用序号）
+      // Tự độngKhớpThư viện cảnhđang xử lý...nh和Góc nhìn（优先Sử dụnghiện có的Góc nhìn关联，保底用số thứ tự）
       const sceneMatch = findMatchingSceneAndViewpointQuick(shot, scene, shotIndexInScene);
       if (sceneMatch) matchedCount++;
       
@@ -731,7 +731,7 @@ export function DirectorContextPanel() {
 
   return (
     <div className="h-full min-w-0 flex flex-col overflow-x-hidden">
-      {/* tiêu đề和Tiến trình */}
+      {/* Tiêu đề và Tiến trình */}
       <div className="p-3 border-b">
         <div className="flex items-center justify-between">
           <div>
@@ -747,7 +747,7 @@ export function DirectorContextPanel() {
         <p className="text-xs text-muted-foreground mt-2">
           Nhấp vào cảnh/phân cảnh để gửi đến đầu vào AI đạo diễn
         </p>
-        {/* Phân cảnhChỉnh sửa计数 */}
+        {/* Số lượng Phân cảnh Chỉnh sửa */}
         {splitScenes.length > 0 && (
           <div className="mt-2 px-2 py-1 bg-green-500/10 rounded text-xs text-green-600 flex items-center gap-1">
             <Plus className="h-3 w-3" />
@@ -831,7 +831,7 @@ export function DirectorContextPanel() {
                                 {sceneProgress}
                               </span>
                             </button>
-                            {/* ThêmCảnhTất cảPhân cảnh到Phân cảnhChỉnh sửa */}
+                            {/* Thêm tất cả Phân cảnh của Cảnh vào Phân cảnh Chỉnh sửa */}
                             <Button
                               variant="ghost"
                               size="sm"
@@ -844,7 +844,7 @@ export function DirectorContextPanel() {
                             >
                               <Plus className="h-3 w-3 text-green-500" />
                             </Button>
-                            {/* 发送Cảnhnút */}
+                            {/* Nút gửi Cảnh */}
                             <Button
                               variant="ghost"
                               size="sm"
@@ -886,7 +886,7 @@ export function DirectorContextPanel() {
                                         status={getShotCompletionStatus(shot)}
                                       />
                                     </button>
-                                    {/* Thêm到Phân cảnhnút */}
+                                    {/* Nút Thêm vào Phân cảnh */}
                                     <Button
                                       variant="ghost"
                                       size="sm"
@@ -917,7 +917,7 @@ export function DirectorContextPanel() {
 
       {/* phía dướithao tác */}
       <div className="p-3 border-t space-y-2">
-        {/* chế độ说明 */}
+        {/* Giải thích chế độ */}
         <div className="text-[10px] text-muted-foreground space-y-1">
           <p><span className="text-green-500">+</span> Thêm vào phân cảnh (tạo ảnh riêng)</p>
           <p><span className="text-primary">→</span> Gửi đến đầu vào (tạo hàng loạt tiết kiệm)</p>

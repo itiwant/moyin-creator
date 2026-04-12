@@ -157,7 +157,7 @@ export const useProjectStore = create<ProjectStore>()(
  * 解决以下Cảnh：
  * - thay đổi存储路径并迁移数据后，前端 store 未 reload，或 moyin-project-store.json
  *   đang xử lý...rojects  cột表不đầy đủ（旧Phiên bản、Thủ côngSao chép等）
- * - Nhập数据后 moyin-project-store.json 缺失或不含Dự án mới
+ * - Nhập数据后 moyin-project-store.json thiếu或不含Dự án mới
  * - 换电脑后指向旧数据thư mục，projects  cột表为空
  */
 async function discoverProjectsFromDisk(): Promise<void> {

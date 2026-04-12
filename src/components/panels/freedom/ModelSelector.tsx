@@ -396,7 +396,7 @@ function isModelAllowedByPanelType(
     return endpointTypes.some((t) => /video|video|Tạo video từ văn bản|Tạo video từ ảnh|首尾帧|参考生video|kéo dài|Hành động控制|数字人|omni-video/i.test(t));
   }
 
-  // endpoint 缺失时用Model名兜底判定（避免Tùy chỉnhMở rộng型号被误lọc）
+  // endpoint thiếu时用Model名兜底判定（避免Tùy chỉnhMở rộng型号被误lọc）
   return /kling|veo|sora|runway|vidu|hailuo|minimax\/video|wan|luma|grok-video|seedance|aigc-video/i.test(modelId);
 }
 

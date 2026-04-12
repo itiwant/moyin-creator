@@ -5,10 +5,10 @@
  * Full Script Service - đầy đủ剧本Nhập和按 tập分镜Tạo服务
  * 
  * 核心功能：
- * 1. Nhậpđầy đủ剧本（包含đại cương、nhân vật小传、60 tập内容）
+ * 1. Nhập kịch bản đầy đủ（包含đại cương、nhân vật小传、60 tập内容）
  * 2. 按 tậpTạo分镜（一次Tạo一 tập）
  * 3. 更新单 tập或Tất cả分镜
- * 4. AIHiệu chuẩn：为缺失标题的 tập数Tạo标题
+ * 4. AIHiệu chuẩn：为thiếu标题的 tập数Tạo标题
  */
 
 import type {
@@ -67,7 +67,7 @@ export interface GenerateEpisodeShotsResult {
 }
 
 /**
- * Nhậpđầy đủ剧本
+ * Nhập kịch bản đầy đủ
  * @param fullText đầy đủ剧本文本
  * @param projectId 项目ID
  */
@@ -1044,8 +1044,8 @@ export interface CalibrationResult {
 }
 
 /**
- * 检查 tập数是否缺失标题
- * 缺失标题的判断标准：标题为空，或只有"第X tập"没有冒号后的内容
+ * 检查 tập数是否thiếu标题
+ * thiếu标题的判断标准：标题为空，或只有"第X tập"没有冒号后的内容
  */
 function isMissingTitle(title: string): boolean {
   if (!title || title.trim() === '') return true;
@@ -1055,7 +1055,7 @@ function isMissingTitle(title: string): boolean {
 }
 
 /**
- * 获取缺失标题的 tập数列表
+ * 获取thiếu标题的 tập数列表
  */
 export function getMissingTitleEpisodes(projectId: string): EpisodeRawScript[] {
   const store = useScriptStore.getState();
@@ -1104,7 +1104,7 @@ function extractEpisodeSummary(episode: EpisodeRawScript): string {
 }
 
 /**
- * AIHiệu chuẩn：为缺失标题的 tập数Tạo标题
+ * AIHiệu chuẩn：为thiếu标题的 tập数Tạo标题
  * @param projectId 项目ID
  * @param options AI配置
  * @param onProgress 进度回调
@@ -1121,7 +1121,7 @@ export async function calibrateEpisodeTitles(
     return { success: false, calibratedCount: 0, totalMissing: 0, error: '项目không tồn tại' };
   }
   
-  // 找出缺失标题的 tập数
+  // 找出thiếu标题的 tập数
   const missingEpisodes = getMissingTitleEpisodes(projectId);
   const totalMissing = missingEpisodes.length;
   
@@ -1129,7 +1129,7 @@ export async function calibrateEpisodeTitles(
     return { success: true, calibratedCount: 0, totalMissing: 0 };
   }
   
-  onProgress?.(0, totalMissing, `找到 ${totalMissing}  tập缺失标题，开始Hiệu chuẩn...`);
+  onProgress?.(0, totalMissing, `找到 ${totalMissing}  tậpthiếu标题，开始Hiệu chuẩn...`);
   
   // 获取全局背景信息
   const background = project.projectBackground;
@@ -2554,7 +2554,7 @@ export function exportProjectMetadata(projectId: string): string {
 }
 
 /**
- * 获取缺失đại cương的 tập数
+ * 获取thiếuđại cương的 tập数
  */
 export function getMissingSynopsisEpisodes(projectId: string): EpisodeRawScript[] {
   const store = useScriptStore.getState();

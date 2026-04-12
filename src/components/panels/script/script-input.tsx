@@ -834,13 +834,13 @@ export function ScriptInput({
               ) : (
                 <>
                   <FileText className="h-4 w-4 mr-2" />
-                  Nhậpđầy đủ剧本
+                  Nhập kịch bản đầy đủ
                 </>
               )}
             </Button>
           )}
           
-          {/* AIHiệu chuẩnnút - Nhập成功且有缺失tiêu đề时显示 */}
+          {/* Nút AI Hiệu chuẩn - hiển thị khi Nhập thành công và thiếu tiêu đề */}
           {mode === "import" && importStatus === "ready" && (missingTitleCount ?? 0) > 0 && onCalibrate && (
             <Button
               onClick={handleCalibrate}
@@ -862,7 +862,7 @@ export function ScriptInput({
             </Button>
           )}
           
-          {/* Tạođại cươngnút - Nhập成功后显示 */}
+          {/* Nút Tạo đại cương - hiển thị sau khi Nhập thành công */}
           {mode === "import" && importStatus === "ready" && onGenerateSynopses && (
             <Button
               onClick={handleGenerateSynopses}
@@ -879,7 +879,7 @@ export function ScriptInput({
                 <>
                   <BookOpen className="h-4 w-4 mr-2" />
                   {(missingSynopsisCount ?? 0) > 0 
-                    ? `Tạođại cương（${missingSynopsisCount} tập缺失）`
+                    ? `Tạo đại cương (${missingSynopsisCount} tập thiếu)`
                     : 'Tạo lạiđại cương'
                   }
                 </>
@@ -887,7 +887,7 @@ export function ScriptInput({
             </Button>
           )}
           
-          {/* AIPhân tíchnút - 仅在Chế độ nhập显示 */}
+          {/* Nút AI Phân tích - chỉ hiển thị trong Chế độ nhập */}
           {mode === "import" && (
             <Button
               onClick={onParse}

@@ -227,7 +227,7 @@ export async function runCalibration(
 /**
  * 批量Hiệu chuẩnTất cả未Hiệu chuẩn的组
  *
- * @returns Thành công数 / Tổng数
+ * @returns Thành công数 / Tổng số
  */
 export async function runBatchCalibration(
   scenes: SplitScene[],

@@ -978,7 +978,7 @@ export function groupViewpointsIntoPages(
  */
 export function generateMultiPageContactSheetData(
   config: ContactSheetConfig,
-  shots: Shot[] // 用于获取分镜序号
+  shots: Shot[] // 用于获取分镜số thứ tự
 ): {
   viewpoints: PendingViewpointData[];
   contactSheetPrompts: ContactSheetPromptSet[];
@@ -1030,7 +1030,7 @@ export function generateMultiPageContactSheetData(
     ? styleTokens.join(', ') 
     : 'anime style, soft colors, detailed background';
   
-  // 构建分镜 ID 到序号的映射
+  // 构建分镜 ID 到số thứ tự的映射
   const shotIdToIndex = new Map<string, number>();
   shots.forEach(shot => {
     shotIdToIndex.set(shot.id, shot.index);
@@ -1050,7 +1050,7 @@ export function generateMultiPageContactSheetData(
       // 更新 gridIndex
       vp.gridIndex = idx;
       
-      // 获取关联分镜的序号
+      // 获取关联分镜的số thứ tự
       const shotIndexes = vp.shotIds
         .map(id => shotIdToIndex.get(id))
         .filter((idx): idx is number => idx !== undefined)
@@ -1174,7 +1174,7 @@ Quan trọng:
  * 
  * @param viewpoints - 来自 ScriptScene.viewpoints 的góc nhìn数据
  * @param scene - 场景信息（用于Tạo提示词）
- * @param shots - 分镜列表（用于获取分镜序号）
+ * @param shots - 分镜列表（用于获取分镜số thứ tự）
  * @param styleTokens - 风格标记
  * @param aspectRatio - 宽高比
  */
@@ -1262,7 +1262,7 @@ export function buildContactSheetDataFromViewpoints(
     ? styleTokens.join(', ') 
     : 'anime style, soft colors, detailed background';
   
-  // 构建分镜 ID 到序号的映射
+  // 构建分镜 ID 到số thứ tự的映射
   const shotIdToIndex = new Map<string, number>();
   shots.forEach(shot => {
     shotIdToIndex.set(shot.id, shot.index);
@@ -1273,7 +1273,7 @@ export function buildContactSheetDataFromViewpoints(
   
   pages.forEach((pageViewpoints, pageIndex) => {
     pageViewpoints.forEach((vp, idx) => {
-      // 获取关联分镜的序号
+      // 获取关联分镜的số thứ tự
       const shotIndexes = vp.shotIds
         .map(id => shotIdToIndex.get(id))
         .filter((idx): idx is number => idx !== undefined)

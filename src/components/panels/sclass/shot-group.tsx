@@ -273,7 +273,7 @@ export function ShotGroupCard({
               </TooltipTrigger>
               <TooltipContent>
                 {isCalibrated
-                  ? <p>Đã hoàn thành AI Hiệu chuẩn，Nhấp重新Hiệu chuẩn</p>
+                  ? <p>Đã hoàn thành AI Hiệu chuẩn，NhấpHiệu chuẩn lại</p>
                   : <p>AI phân tích các Ống kính trong nhóm, Tạo cung tự sự, thiết kế chuyển tiếp, tối ưu prompt</p>
                 }
               </TooltipContent>

@@ -2,7 +2,7 @@
 // Licensed under AGPL-3.0-or-later. See LICENSE for details.
 // Commercial licensing available. See COMMERCIAL_LICENSE.md.
 /**
- * 风格切换重新Hiệu chuẩn服务
+ * 风格切换Hiệu chuẩn lại服务
  * 
  * 当用户在Đạo diễn/S级panel切换视觉风格时，将hiện có SplitScene[] 重新送入
  * 5阶段Hiệu chuẩn流程（calibrateShotsMultiStage），用新风格重写提示词和拍摄参数，
@@ -147,7 +147,7 @@ export interface RecalibrationResult {
 }
 
 /**
- * 用新风格重新Hiệu chuẩnTất cả分镜
+ * 用新风格Hiệu chuẩn lạiTất cả分镜
  * 
  * @param newStyleId 新的视觉风格 ID
  * @param splitScenes 当前分镜列表
@@ -167,7 +167,7 @@ export async function recalibrateSplitScenes(
     return { scenes: [], calibratedCount: 0, totalScenes: 0 };
   }
 
-  onProgress?.(0, totalScenes, '准备重新Hiệu chuẩn...');
+  onProgress?.(0, totalScenes, '准备Hiệu chuẩn lại...');
 
   // 1. SplitScene → ShotInputData
   const shotInputs = toShotInputData(splitScenes);

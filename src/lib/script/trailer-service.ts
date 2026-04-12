@@ -104,7 +104,7 @@ export async function selectTrailerShots(
 - 避免剧透quan trọng结局
 
 【输出要求】
-请返回一 JSON 数组，包含你chọn的分镜序号（index），按预告片播放thứ tự排列。
+请返回一 JSON 数组，包含你chọn的分镜số thứ tự（index），按预告片播放thứ tự排列。
 格式：{ "selectedIndices": [1, 5, 12, 23, 45, 60] }`;
 
     const userPrompt = `【项目信息】
@@ -121,7 +121,7 @@ ${shotSummaries.map(s =>
    情绪：${Array.isArray(s.emotionTags) ? s.emotionTags.join(', ') : '无'}`
 ).join('\n\n')}
 
-请从以上分镜đang xử lý...${targetCount} 最适合做预告片的镜头，返回 JSON 格式的序号列表。`;
+请从以上分镜đang xử lý...${targetCount} 最适合做预告片的镜头，返回 JSON 格式的số thứ tự列表。`;
 
     // 统一从ánh xạ dịch vụ获取配置
     const result = await callFeatureAPI('script_analysis', systemPrompt, userPrompt);
@@ -166,12 +166,12 @@ ${shotSummaries.map(s =>
     }
     
     if (selectedIndices.length === 0) {
-      throw new Error('AI 返回格式lỗi，无法Phân tích序号');
+      throw new Error('AI 返回格式lỗi，无法Phân tíchsố thứ tự');
     }
     
     console.log('[TrailerService] Parsed selectedIndices:', selectedIndices);
 
-    // 根据序号获取对应的分镜
+    // 根据số thứ tự获取对应的分镜
     const selectedShots = selectedIndices
       .filter(idx => idx >= 1 && idx <= shots.length)
       .map(idx => shots[idx - 1]);

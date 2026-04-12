@@ -692,7 +692,7 @@ export function ScriptView() {
     }
   }, [projectId, styleId, targetDuration, promptLanguage, episodeRawScripts.length]);
 
-  // 计算缺失tiêu đề和đại cương的 tập数
+  // 计算thiếutiêu đề和đại cương的 tập数
   useEffect(() => {
     if (importStatus === 'ready' && projectId) {
       const missingTitles = getMissingTitleEpisodes(projectId);
@@ -703,7 +703,7 @@ export function ScriptView() {
     }
   }, [importStatus, projectId, episodeRawScripts]);
 
-  // AIHiệu chuẩn：为缺失tiêu đề的 tập数Tạotiêu đề
+  // AIHiệu chuẩn：为thiếutiêu đề的 tập数Tạotiêu đề
   const handleCalibrate = useCallback(async () => {
     const featureConfig = getFeatureConfig('script_analysis');
     if (!featureConfig) {

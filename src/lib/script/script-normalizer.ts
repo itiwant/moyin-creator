@@ -8,7 +8,7 @@
  * 使Phân tích器能正确提取标题、đại cương、nhân vật小传、 tập数等信息。
  * 
  * 双层架构：
- * 1. AI 检测（优先）：gọi API LLM 理解内容语义，精准识别Cấu trúc + bổ sung缺失đại cương
+ * 1. AI 检测（优先）：gọi API LLM 理解内容语义，精准识别Cấu trúc + bổ sungthiếuđại cương
  * 2. 正则兜底（降级）：无 AI 配置或 AI gọi APIthất bại时Sử dụng硬编码chế độKhớp
  * 
  * 核心原则：
@@ -201,7 +201,7 @@ export interface ScriptStructureAnalysis {
 }
 
 /**
- * AI Cấu trúc检测：gọi API LLM 分析剧本Cấu trúc，识别标题/đại cương/nhân vật/年代，并bổ sung缺失đại cương
+ * AI Cấu trúc检测：gọi API LLM 分析剧本Cấu trúc，识别标题/đại cương/nhân vật/年代，并bổ sungthiếuđại cương
  * @returns 分析kết quả，AI 不可用或gọi APIthất bại时返回 null
  */
 export async function analyzeScriptStructureWithAI(text: string): Promise<ScriptStructureAnalysis | null> {

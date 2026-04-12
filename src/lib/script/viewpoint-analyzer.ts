@@ -19,7 +19,7 @@ export interface AnalyzedViewpoint {
   descriptionEn: string;
   keyProps: string[];
   keyPropsEn: string[];
-  shotIndexes: number[];  // 关联的分镜序号
+  shotIndexes: number[];  // 关联的分镜số thứ tự
 }
 
 export interface ViewpointAnalysisResult {
