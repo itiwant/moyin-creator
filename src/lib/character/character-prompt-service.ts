@@ -75,7 +75,7 @@ export interface CharacterDesignOptions {
  * 
  * @param characterId 剧本đang xử lý...ID
  * @param projectId 项目ID
- * @param options API配置
+ * @param options APIcấu hình
  */
 export async function generateCharacterDesign(
   characterId: string,
@@ -277,7 +277,7 @@ ${context.characterAppearances.length > 0
 
   const userPrompt = `请为角色「${character.name}」Thiết kế多Giai đoạnThị giác形象。`;
   
-  // 统一从ánh xạ dịch vụ获取配置
+  // 统一从ánh xạ dịch vụ获取cấu hình
   const result = await callFeatureAPI('script_analysis', systemPrompt, userPrompt);
   
   // Phân tíchkết quả

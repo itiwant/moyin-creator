@@ -180,7 +180,7 @@ export interface SceneRawContent {
 // Thoại行
 export interface DialogueLine {
   character: string;          // 角色名
-  parenthetical?: string;     // 括号内动作/情绪，如（喝酒）
+  parenthetical?: string;     // 括号内动作/cảm xúc，如（喝酒）
   line: string;               // 台词Nội dung
 }
 
@@ -313,7 +313,7 @@ export type LightingDirection =
   | 'side'          // 侧光：强调轮廓和kết cấu
   | 'back'          // 逆光：轮廓光/剪影
   | 'top'           // 顶光：审讯感/戏剧性
-  | 'bottom'        // 底光：恐怖/不自然
+  | 'bottom'        // 底光：Kinh dị/不自然
   | 'rim'           // 轮廓光：cạnh发光，与背景分离
   | 'three-point';  // 三点布光：Tiêu chuẩn影视照明
 
@@ -477,11 +477,11 @@ export interface Shot {
   
   // === 3 lớp提示词系统 (Seedance 1.5 Pro) ===
   imagePrompt?: string;      // khung đầu提示词（英文，静态Mô tả）
-  imagePromptZh?: string;    // khung đầu提示词（中文）
+  imagePromptZh?: string;    // khung đầu提示词（tiếng Việt）
   videoPrompt?: string;      // video提示词（英文，动态动作）
-  videoPromptZh?: string;    // video提示词（中文）
+  videoPromptZh?: string;    // video提示词（tiếng Việt）
   endFramePrompt?: string;   // khung cuối提示词（英文，静态Mô tả）
-  endFramePromptZh?: string; // khung cuối提示词（中文）
+  endFramePromptZh?: string; // khung cuối提示词（tiếng Việt）
   needsEndFrame?: boolean;   // 是否需要khung cuối
   
   // === âm thanhThiết kế ===
@@ -494,8 +494,8 @@ export interface Shot {
   characterIds: string[];
   characterVariations: Record<string, string>; // charId -> variationId
   
-  // === 情绪标签 ===
-  emotionTags?: string[];  // 情绪标签 ID 数组，如 ['sad', 'tense', 'serious']
+  // === cảm xúc标签 ===
+  emotionTags?: string[];  // cảm xúc标签 ID 数组，如 ['sad', 'tense', 'serious']
   
   // === tự sựdẫn dắttrường（基于《电影Ngôn ngữ的语法》） ===
   narrativeFunction?: string;   // tự sựchức năng：铺垫/升级/cao trào/转折/chuyển tiếp/尾声

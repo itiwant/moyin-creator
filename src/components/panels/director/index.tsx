@@ -166,7 +166,7 @@ export function DirectorView() {
     setStoryboardProgress(0);
 
     try {
-      // 从ánh xạ dịch vụ获取Tạo ảnh配置
+      // 从ánh xạ dịch vụ获取Tạo ảnhcấu hình
       const featureConfig = getFeatureConfig('character_generation');
       if (!featureConfig) {
         throw new Error('Vui lòng cấu hình API Tạo ảnh trong Cài đặt trước');
@@ -226,7 +226,7 @@ export function DirectorView() {
       return;
     }
 
-    // 从ánh xạ dịch vụ获取Tạo video配置
+    // 从ánh xạ dịch vụ获取Tạo videocấu hình
     const videoConfig = getFeatureConfig('video_generation');
     if (!videoConfig) {
       toast.error('Vui lòng cấu hình API Tạo video trong Cài đặt trước');

@@ -22,7 +22,7 @@
 export interface ModelLimits {
   /** 模型最大输入上下文sổ（tokens） */
   contextWindow: number;
-  /** 模型最大输出 token 数（max_tokens tham số上限） */
+  /** 模型最大Đầu ra token 数（max_tokens tham số上限） */
   maxOutput: number;
 }
 

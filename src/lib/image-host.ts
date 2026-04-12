@@ -312,7 +312,7 @@ export async function uploadToImageHost(
     : store.getEnabledImageHostProviders();
 
   if (!providers || providers.length === 0) {
-    return { success: false, error: 'dịch vụ lưu trữ ảnh未配置' };
+    return { success: false, error: 'Dịch vụ lưu trữ ảnh chưa cấu hình' };
   }
 
   const orderedProviders = getRotatedProviders(providers);
@@ -334,7 +334,7 @@ export async function uploadToImageHost(
         }
         continue;
       }
-      lastError = `dịch vụ lưu trữ ảnh ${provider.name} 未配置 API Key`;
+      lastError = `Dịch vụ lưu trữ ảnh ${provider.name} chưa cấu hình API Key`;
       continue;
     }
 

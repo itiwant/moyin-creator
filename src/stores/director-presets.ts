@@ -246,10 +246,10 @@ export const SPECIAL_TECHNIQUE_PRESETS = [
 
 export type SpecialTechniqueType = typeof SPECIAL_TECHNIQUE_PRESETS[number]['id'];
 
-// ==================== 情绪Thẻ预设 ====================
+// ==================== cảm xúcThẻ预设 ====================
 
 export const EMOTION_PRESETS = {
-  // Cơ bản情绪
+  // Cơ bảncảm xúc
   basic: [
     { id: 'happy', label: 'Vui vẻ', emoji: '😊' },
     { id: 'sad', label: 'Buồn bã', emoji: '😢' },
@@ -258,7 +258,7 @@ export const EMOTION_PRESETS = {
     { id: 'fearful', label: 'Sợ hãi', emoji: '😨' },
     { id: 'calm', label: 'Bình tĩnh', emoji: '😐' },
   ],
-  // Bầu không khí情绪
+  // Bầu không khícảm xúc
   atmosphere: [
     { id: 'tense', label: 'Căng thẳng', emoji: '😰' },
     { id: 'excited', label: 'Hứng khởi', emoji: '🤩' },
@@ -267,7 +267,7 @@ export const EMOTION_PRESETS = {
     { id: 'funny', label: 'Hài hước', emoji: '😂' },
     { id: 'touching', label: 'Cảm động', emoji: '🥹' },
   ],
-  // 语气情绪
+  // 语气cảm xúc
   tone: [
     { id: 'serious', label: 'Nghiêm túc', emoji: '😑' },
     { id: 'relaxed', label: 'Nhẹ nhàng', emoji: '😌' },

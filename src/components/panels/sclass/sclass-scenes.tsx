@@ -5,7 +5,7 @@
 
 /**
  * Phân cảnh组件 (Split Scenes Component)
- * HiệnPhân cảnhcắtkết quả，Hỗ trợChỉnh sửaprompt、Tải lênKhung hình cuối、ChọnThư viện nhân vật、Thêm情绪Thẻ
+ * HiệnPhân cảnhcắtkết quả，Hỗ trợChỉnh sửaprompt、Tải lênKhung hình cuối、ChọnThư viện nhân vật、Thêmcảm xúcThẻ
  */
 
 import React, { useState, useCallback, useMemo, useRef } from "react";
@@ -667,7 +667,7 @@ export function SClassScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
     }
   }, [angleSwitchTarget, splitScenes, getProviderByPlatform, addAngleSwitchHistory]);
 
-  // 根据情绪ThẻTạoBầu không khíMô tả - Sử dụng统一 prompt-builder 模块
+  // 根据cảm xúcThẻTạoBầu không khíMô tả - Sử dụng统一 prompt-builder 模块
   const buildEmotionDescription = useCallback((emotionTags: EmotionTag[]): string => {
     return buildEmotionDesc(emotionTags);
   }, []);
@@ -749,7 +749,7 @@ export function SClassScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
       return;
     }
 
-    // Get API key - Sử dụngánh xạ dịch vụ配置
+    // Get API key - Sử dụngánh xạ dịch vụcấu hình
     const featureConfig = getFeatureConfig('character_generation');
     if (!featureConfig) {
       toast.error('Vui lòng cấu hình API Tạo ảnh trong Cài đặt trước');
@@ -828,7 +828,7 @@ export function SClassScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
         ? `Action sequence context: ${actionDesc}. ` 
         : '';
 
-      // === 情绪Bầu không khí（giữgiống性） ===
+      // === cảm xúcBầu không khí（giữgiống性） ===
       const emotionDesc = buildEmotionDescription(scene.emotionTags || []);
       const moodContext = emotionDesc ? `Mood across all panels: ${emotionDesc} ` : '';
 
@@ -1140,7 +1140,7 @@ export function SClassScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
       return;
     }
 
-    // 尝试获取Phân tích ảnh配置（仅当部分Phân cảnh缺少văn bảnMô tả时才需要）
+    // 尝试获取Phân tích ảnhcấu hình（仅当部分Phân cảnh缺少văn bảnMô tả时才需要）
     const featureConfig = getFeatureConfig('image_understanding');
     const apiKey = featureConfig?.apiKey || '';
     const provider = featureConfig?.platform || '';
@@ -1702,7 +1702,7 @@ export function SClassScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
     const scene = splitScenes.find(s => s.id === sceneId);
     if (!scene) return;
 
-    // Sử dụngánh xạ dịch vụ配置 - 不再 fallback 到硬编码
+    // Sử dụngánh xạ dịch vụcấu hình - 不再 fallback 到硬编码
     const featureConfig = getFeatureConfig('character_generation');
     if (!featureConfig) {
       toast.error('Vui lòng cấu hình ánh xạ dịch vụ Tạo ảnh trong Cài đặt');
@@ -2013,7 +2013,7 @@ export function SClassScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
       return;
     }
 
-    // 获取图像Tạo能力 - Sử dụngánh xạ dịch vụ配置
+    // 获取图像Tạo能力 - Sử dụngánh xạ dịch vụcấu hình
     const featureConfig = getFeatureConfig('character_generation');
     if (!featureConfig) {
       toast.error('Vui lòng cấu hình ánh xạ dịch vụ Tạo ảnh trong Cài đặt');
@@ -2154,7 +2154,7 @@ export function SClassScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
           const rawTileH = Math.floor(img.height / rows);
           const rawRatio = rawTileW / rawTileH;
           
-          // 计算最终输出的ô尺寸（保证目标Tỷ lệ khung hình）
+          // 计算最终Đầu ra的ô尺寸（保证目标Tỷ lệ khung hình）
           let outputW: number, outputH: number;
           let cropX = 0, cropY = 0, cropW = rawTileW, cropH = rawTileH;
           
@@ -2181,7 +2181,7 @@ export function SClassScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
           const marginW = Math.floor(cropW * safetyMargin);
           const marginH = Math.floor(cropH * safetyMargin);
           
-          // 双重保险：强制输出尺寸严格符合目标Tỷ lệ khung hình
+          // 双重保险：强制Đầu ra尺寸严格符合目标Tỷ lệ khung hình
           // Tránh因 Math.floor 导致的微小Tỷ lệ偏差
           if (targetAspect === '16:9') {
             outputH = Math.round(outputW * 9 / 16);
@@ -2614,7 +2614,7 @@ export function SClassScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
     } else {
       updateSplitSceneImageStatus(sceneId, { imageStatus: 'generating', imageProgress: 0, imageError: null });
     }
-    // Sử dụngánh xạ dịch vụ配置
+    // Sử dụngánh xạ dịch vụcấu hình
     const featureConfig = getFeatureConfig('character_generation');
     if (!featureConfig) {
       throw new Error('Vui lòng cấu hình ánh xạ dịch vụ Tạo ảnh trong Cài đặt');
@@ -2717,7 +2717,7 @@ export function SClassScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
       return;
     }
 
-    // Sử dụngánh xạ dịch vụ配置
+    // Sử dụngánh xạ dịch vụcấu hình
     const featureConfig = getFeatureConfig('character_generation');
     if (!featureConfig) {
       toast.error('Vui lòng cấu hình ánh xạ dịch vụ Tạo ảnh trong Cài đặt');
@@ -3067,7 +3067,7 @@ export function SClassScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
                             trailerScenes.forEach(scene => {
                               deleteSplitScene(scene.id);
                             });
-                            // Xóa tất cảTrailer配置
+                            // Xóa tất cảTrailercấu hình
                             clearTrailer();
                             toast.success(`Đã Xóa tất cả ${trailerScenes.length} Trailer Phân cảnh`);
                           }}

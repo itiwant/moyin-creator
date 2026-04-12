@@ -392,7 +392,7 @@ export function MediaView() {
     // Trực tiếpCài đặt为Chỉnh sửaTrạng thái，并Tạophân cảnh đơn
     const { setSplitScenes, setStoryboardConfig } = useDirectorStore.getState();
     
-    // Cài đặt配置为单Cảnh
+    // Cài đặtcấu hình为单Cảnh
     setStoryboardConfig({
       sceneCount: 1,
       storyPrompt: item.name,
@@ -432,7 +432,7 @@ export function MediaView() {
       videoUrl: null,
       videoError: null,
       videoMediaId: null,
-      // Nhân vật与情绪
+      // Nhân vật与cảm xúc
       characterIds: [],
       emotionTags: [],
       // Kịch bảnthông tin

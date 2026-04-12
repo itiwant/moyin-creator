@@ -33,7 +33,7 @@ function toShotInputData(scenes: SplitScene[]): ShotInputData[] {
       sceneAtmosphere: '',
       sceneTime: 'day',
       sceneWeather: '',
-      // 这些trường无法从 SplitScene 获取，传空串（Stage 3 仅作Tham chiếu）
+      // 这些trườngKhông thể从 SplitScene 获取，传空串（Stage 3 仅作Tham chiếu）
       architectureStyle: '',
       colorPalette: '',
       eraDetails: '',

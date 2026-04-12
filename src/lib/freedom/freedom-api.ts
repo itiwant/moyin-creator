@@ -99,8 +99,8 @@ function isRetryableError(error: unknown): boolean {
     message.includes('bão hòa') ||
     message.includes('tải已满') ||
     message.includes('tạmkhông khả dụng') ||
-    message.includes('服务tạmkhông khả dụng') ||
-    message.includes('无可用渠道') ||
+    message.includes('dịch vụ tạmkhông khả dụng') ||
+    message.includes('无可用kênh') ||
     message.includes('no available channel') ||
     message.includes('server error')
   );
@@ -164,8 +164,8 @@ function pickFeatureConfig(feature: AIFeature, requestedModel?: string): Feature
     const exact = all.find((c) => c.model === requestedModel);
     if (exact) return exact;
     // UI 展开的变体模型（如 gemini-3.1-pro 从绑定的 gemini-3-pro 展开而来）不会
-    // 精确Khớp到任何 config.model，此时回退到luân phiên配置而非返回 null，
-    // Tránhngười dùng选了可用变体却报"未配置"lỗi
+    // 精确Khớp到任何 config.model，此时回退到luân phiêncấu hình而非返回 null，
+    // Tránhngười dùng选了可用变体却报"未cấu hình"lỗi
   }
   return getFeatureConfig(feature) ?? all[0];
 }
@@ -246,7 +246,7 @@ const FREEDOM_VIDEO_ROUTE_MAP: Record<string, FreedomVideoRoute> = {
 };
 
 /**
- * 统一định dạng端点路径ánh xạ（端点类型 → 提交/luân phiên URL 路径）
+ * 统一định dạng端点路径ánh xạ（端点类型 → Gửi/luân phiên URL 路径）
  * 每种端点类型Trực tiếp对应确定的 URL，不再靠 fallback 猜测
  */
 const UNIFIED_ENDPOINT_PATHS: Record<string, { submit: string; poll: (id: string) => string }> = {
@@ -269,7 +269,7 @@ const UNIFIED_ENDPOINT_PATHS: Record<string, { submit: string; poll: (id: string
 const DEFAULT_UNIFIED_ENDPOINT = { submit: '/v1/video/generations', poll: (id: string) => `/v1/video/generations/${id}` };
 
 /**
- * 图片端点路径ánh xạ（端点类型 → 提交/luân phiên URL 路径）
+ * 图片端点路径ánh xạ（端点类型 → Gửi/luân phiên URL 路径）
  * 仅用于需要Tùy chỉnh路径的端点类型，其余走默认 /v1/images/generations
  */
 const IMAGE_ENDPOINT_PATHS: Record<string, { submit: string; poll: (id: string) => string }> = {
@@ -341,7 +341,7 @@ async function _generateFreedomImageInner(
   );
   if (!config) {
     const msg = getFeatureNotConfiguredMessage('character_generation');
-    toast.error('自由板块图片Tạo未配置：请在设置đang xử lý...自由板块-图片」hoặc「图片Tạo」ánh xạ dịch vụ');
+    toast.error('自由板块图片Tạo未cấu hình：请在设置đang xử lý...自由板块-图片」hoặc「图片Tạo」ánh xạ dịch vụ');
     throw new Error(msg);
   }
   console.log(`[Freedom] Image config source: ${configSource}`);
@@ -666,7 +666,7 @@ async function generateViaMidjourneyEndpoint(
   const submitData = await submitResp.json();
   // MJ API 成功时 code === 1；其他值表示 API 层lỗi（即使 HTTP 200）
   if (submitData.code !== undefined && submitData.code !== 1) {
-    throw new Error(submitData.description || submitData.error || `Midjourney 提交thất bại (code=${submitData.code})`);
+    throw new Error(submitData.description || submitData.error || `Midjourney Gửithất bại (code=${submitData.code})`);
   }
   const taskId = submitData.result || submitData.task_id || submitData.id;
   if (!taskId) throw new Error('Midjourney 返回空nhiệm vụ ID');
@@ -856,7 +856,7 @@ async function _generateFreedomVideoInner(
   );
   if (!config) {
     const msg = getFeatureNotConfiguredMessage('video_generation');
-    toast.error('自由板块视频Tạo未配置：请在设置đang xử lý...自由板块-视频」hoặc「视频Tạo」ánh xạ dịch vụ');
+    toast.error('自由板块视频Tạo未cấu hình：请在设置đang xử lý...自由板块-视频」hoặc「视频Tạo」ánh xạ dịch vụ');
     throw new Error(msg);
   }
   console.log(`[Freedom] Video config source: ${configSource}`);
@@ -1032,7 +1032,7 @@ function dataUrlToBlob(dataUrl: string, mimeHint?: string): Blob {
 async function toUploadBlob(file: FreedomVideoUploadFile): Promise<Blob> {
   if (/^https?:\/\//i.test(file.dataUrl)) {
     const resp = await fetch(file.dataUrl);
-    if (!resp.ok) throw new Error(`无法下载上传素材：${resp.status}`);
+    if (!resp.ok) throw new Error(`Không thể下载上传素材：${resp.status}`);
     return resp.blob();
   }
   return dataUrlToBlob(file.dataUrl, file.mimeType);

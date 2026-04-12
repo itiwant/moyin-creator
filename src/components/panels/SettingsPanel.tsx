@@ -1628,7 +1628,7 @@ export function SettingsPanel() {
                 setFeatureBindings(feature as AIFeature, [binding]);
                 continue;
               }
-              // 自愈：旧默认 deepseek-v3 -> deepseek-v3.2（尽量不破坏多选配置）
+              // 自愈：旧默认 deepseek-v3 -> deepseek-v3.2（尽量不破坏多选cấu hình）
               if (feature === 'script_analysis') {
                 const hasOld = current.some((b) => b.endsWith(':deepseek-v3'));
                 if (hasOld) {

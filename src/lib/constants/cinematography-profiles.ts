@@ -35,7 +35,7 @@ export type CinematographyCategory =
 
 export interface CinematographyProfile {
   id: string;
-  name: string;          // 中文名
+  name: string;          // tiếng Việt名
   nameEn: string;        // Tên tiếng Anh
   category: CinematographyCategory;
   description: string;   // đang xử lý...（1-2句）
@@ -112,7 +112,7 @@ const CINEMATIC_PROFILES: CinematographyProfile[] = [
     defaultSpeed: { playbackSpeed: 'normal' },
     defaultAngle: 'eye-level',
     defaultFocalLength: '50mm',
-    promptGuidance: '遵循经典电影语法，三点布光为基础，暖色调营造温暖质感。轨道推拉giữ画面稳定流畅，景深随tự sựchức năng调整——Chat用浅景深聚焦情绪，全景用深景深交代环境。',
+    promptGuidance: '遵循经典电影语法，三点布光为基础，暖色调营造温暖质感。轨道推拉giữ画面稳定流畅，景深随tự sựchức năng调整——Chat用浅景深聚焦cảm xúc，全景用深景深交代环境。',
     referenceFilms: ['肖申克的救赎', '阿甘正传', '教父'],
   },
   {
@@ -154,7 +154,7 @@ const CINEMATIC_PROFILES: CinematographyProfile[] = [
     name: '亲密剧情',
     nameEn: 'Intimate Drama',
     category: 'cinematic',
-    description: '自然侧光、暖色温、浅景深、三脚架静态、安静内敛、聚焦nhân vật情绪',
+    description: '自然侧光、暖色温、浅景深、三脚架静态、安静内敛、聚焦nhân vậtcảm xúc',
     emoji: '🫂',
     defaultLighting: { style: 'natural', direction: 'side', colorTemperature: 'warm' },
     defaultFocus: { depthOfField: 'shallow', focusTransition: 'rack-between' },
@@ -265,7 +265,7 @@ const STYLIZED_PROFILES: CinematographyProfile[] = [
   },
   {
     id: 'horror-thriller',
-    name: '恐怖惊悚',
+    name: 'Kinh dị惊悚',
     nameEn: 'Horror Thriller',
     category: 'stylized',
     description: '低调布光、底光不安感、冷色调、浅景深、Cầm tay颤抖、浓雾遮蔽',
@@ -277,7 +277,7 @@ const STYLIZED_PROFILES: CinematographyProfile[] = [
     defaultSpeed: { playbackSpeed: 'normal' },
     defaultAngle: 'low-angle',
     defaultFocalLength: '24mm',
-    promptGuidance: '恐怖片的摄影原则是「隐藏比Hiển thị更可怕」——浅景深让背景模糊成未知的威胁，浓雾遮蔽视野制造不安。底光让Khuôn mặt出现不自然的阴影，Cầm tay极慢移动制造潜 hàng感。quan trọng时刻突然nhanh甩镜，打破之前的缓慢Nhịp điệu。',
+    promptGuidance: 'Kinh dị片的摄影原则是「隐藏比Hiển thị更可怕」——浅景深让背景模糊成未知的威胁，浓雾遮蔽视野制造不安。底光让Khuôn mặt出现不自然的阴影，Cầm tay极慢移动制造潜 hàng感。quan trọng时刻突然nhanh甩镜，打破之前的缓慢Nhịp điệu。',
     referenceFilms: ['闪灵', '遗传厄运', '招魂', '午夜凶铃'],
   },
   {
@@ -365,7 +365,7 @@ const ERA_PROFILES: CinematographyProfile[] = [
     name: '90s港片',
     nameEn: '90s Hong Kong',
     category: 'era',
-    description: '霓虹侧光、混合色温、đang xử lý...Cầm tay晃动、薄霾弥漫、王家卫式忧郁',
+    description: '霓虹侧光、混合色温、đang xử lý...Cầm tay晃动、薄霾弥漫、王家卫式U sầu',
     emoji: '🌙',
     defaultLighting: { style: 'neon', direction: 'side', colorTemperature: 'mixed' },
     defaultFocus: { depthOfField: 'medium', focusTransition: 'rack-between' },
@@ -374,7 +374,7 @@ const ERA_PROFILES: CinematographyProfile[] = [
     defaultSpeed: { playbackSpeed: 'normal' },
     defaultAngle: 'eye-level',
     defaultFocalLength: '35mm',
-    promptGuidance: '90thập niên港片的摄影DNA是「都市霓虹+Cầm tay游走」——混合色温的đèn neon把城市街道染成红蓝交织的梦境。Cầm tay摄影在人群đang xử lý...偶尔Sử dụng抽帧hoặc降格制造王家卫式的虚影效果。薄霾笼罩的街头，每路人都像有故事。侧光勾勒出nhân vật忧郁的轮廓。',
+    promptGuidance: '90thập niên港片的摄影DNA是「都市霓虹+Cầm tay游走」——混合色温的đèn neon把城市街道染成红蓝交织的梦境。Cầm tay摄影在人群đang xử lý...偶尔Sử dụng抽帧hoặc降格制造王家卫式的虚影效果。薄霾笼罩的街头，每路人都像有故事。侧光勾勒出nhân vậtU sầu的轮廓。',
     referenceFilms: ['重庆森林', '堕落天使', '无间道', '英雄本色'],
   },
   {

@@ -179,7 +179,7 @@ async function generateSceneData(
 
 请根据提供的剧本thông tin和场景上下文，Tạođầy đủ的场景dữ liệu。
 
-【输出định dạng】
+【Đầu rađịnh dạng】
 请返回JSONđịnh dạng，chứa以下trường：
 {
   "name": "场景名称（简短）",
@@ -221,7 +221,7 @@ ${contexts.slice(0, 3).join('\n\n')}
 请基于以上thông tin，Tạo场景「${name}」的đầy đủdữ liệu。如果thông tin不足，请根据剧本类型和thời đại背景合理推断。`;
 
   try {
-    // 统一从ánh xạ dịch vụ获取配置
+    // 统一从ánh xạ dịch vụ获取cấu hình
     const result = await callFeatureAPI('script_analysis', systemPrompt, userPrompt);
     
     // Phân tích JSON
@@ -306,7 +306,7 @@ export async function findSceneByDescription(
       confidence: 0,
       episodeNumbers: [],
       contexts: [],
-      message: '无法识别场景名。请用类似"缺第5 tập的张家客厅"hoặc"Thêm医院走廊这场景"的方式Mô tả。',
+      message: 'Không thể识别场景名。请用类似"缺第5 tập的张家客厅"hoặc"Thêm医院走廊这场景"的方式Mô tả。',
     };
   }
   

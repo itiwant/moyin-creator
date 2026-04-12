@@ -115,9 +115,9 @@ ${globalContextSection}【nhiệm vụ】
 2. 从分镜动作和画面Mô tảđang xử lý...际需要的góc nhìn
 3. 结合本 tậpđại cương理解场景的tự sựchức năng，确定哪些góc nhìn是核心的
 4. 每góc nhìn要有quan trọngđạo cụ（从分镜的Tiêu điểm thị giác和环境声đang xử lý...
-5. 输出4-6góc nhìn
+5. Đầu ra4-6góc nhìn
 
-【输出định dạng】
+【Đầu rađịnh dạng】
 返回 JSON:
 {
   "viewpoints": [
@@ -150,7 +150,7 @@ ${shotSummaries}
     console.log('[analyzeSceneViewpoints] 场景:', scene.location || scene.name);
     console.log('[analyzeSceneViewpoints] 分镜số lượng:', shots.length);
     
-    // 统一从ánh xạ dịch vụ获取配置
+    // 统一从ánh xạ dịch vụ获取cấu hình
     const result = await callFeatureAPI('script_analysis', systemPrompt, userPrompt);
     
     console.log('[analyzeSceneViewpoints] ✅ AI API gọi API成功，返回内容độ dài:', result.length);

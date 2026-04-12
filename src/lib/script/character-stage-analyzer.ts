@@ -39,7 +39,7 @@ export interface StageVariationData {
   visualPromptZh: string;           // đang xử lý...词
 }
 
-// AnalyzeOptions 已经不需要了，统一从ánh xạ dịch vụ获取配置
+// AnalyzeOptions 已经不需要了，统一从ánh xạ dịch vụ获取cấu hình
 
 // ==================== 核心函数 ====================
 
@@ -49,7 +49,7 @@ export interface StageVariationData {
  * @param background 项目背景（chứađại cương）
  * @param characters 角色列表
  * @param totalEpisodes 总 tập数
- * @param options API配置
+ * @param options APIcấu hình
  */
 export async function analyzeCharacterStages(
   background: ProjectBackground,
@@ -143,7 +143,7 @@ ${promptLanguage !== 'en' ? '          "visualPromptZh": "35-40 tuổiđang xử
 }`;
 
   try {
-    // 统一从ánh xạ dịch vụ获取配置
+    // 统一从ánh xạ dịch vụ获取cấu hình
     const result = await callFeatureAPI('script_analysis', systemPrompt, userPrompt);
     
     // Phân tíchJSONkết quả

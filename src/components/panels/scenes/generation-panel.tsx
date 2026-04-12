@@ -1529,7 +1529,7 @@ Phong cách: ${stylePreset?.name || 'Phong cách hoạt hình'}, ánh sáng các
     (async () => {
       try {
         // ==================== Giai đoạn 1: Tạoảnh ghép ====================
-        // 获取 API 配置 — 与Đạo diễnpanelgiốngSử dụng submitGridImageRequest
+        // 获取 API cấu hình — 与Đạo diễnpanelgiốngSử dụng submitGridImageRequest
         const autoFeatureConfig = getFeatureConfig('character_generation');
         if (!autoFeatureConfig) {
           throw new Error(getFeatureNotConfiguredMessage('character_generation'));
@@ -1687,7 +1687,7 @@ Phong cách: ${stylePreset?.name || 'Phong cách hoạt hình'}, ánh sáng các
         }
 
         console.log('[AutoContactSheet] Số lượng Góc nhìn hợp lệ:', effectiveViewpoints.length);
-        // gỡ lỗi：输出每Góc nhìn的 gridIndex
+        // gỡ lỗi：Đầu ra每Góc nhìn的 gridIndex
         effectiveViewpoints.forEach((vp, i) => {
           console.log(`[AutoContactSheet] Góc nhìn[${i}]: id=${vp.id}, name=${vp.name}, gridIndex=${vp.gridIndex}`);
         });

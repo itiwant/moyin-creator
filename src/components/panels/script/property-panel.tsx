@@ -397,7 +397,7 @@ export function PropertyPanel({
   const handleCopyEpisodeShots = async () => {
     if (!episode || episodeShots.length === 0) return;
     
-    // 情绪ThẻTiếng Trungánh xạ
+    // cảm xúcThẻTiếng Trungánh xạ
     const emotionLabels: Record<string, string> = {
       happy: 'Vui vẻ', sad: 'Buồn bã', angry: 'Tức giận', surprised: 'Ngạc nhiên', fearful: 'Sợ hãi', calm: 'Bình tĩnh',
       tense: 'căng thẳng', excited: 'Hứng khởi', mysterious: 'bí ẩn', romantic: 'Lãng mạn', funny: 'Hài hước', touching: 'Cảm động',

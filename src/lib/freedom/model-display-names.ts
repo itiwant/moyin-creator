@@ -94,7 +94,7 @@ export const MODEL_DISPLAY_NAMES: Record<string, string> = {
   'mj_shorten': 'Midjourney 提示词精简',
   'mj_uploads': 'Midjourney 图片上传',
   'mj_action': 'Midjourney 动作',
-  'mj_modal': 'Midjourney Popup提交',
+  'mj_modal': 'Midjourney PopupGửi',
   'mj_fetch': 'Midjourney nhiệm vụ查询',
   'mj_notify': 'Midjourney 回调通知',
 

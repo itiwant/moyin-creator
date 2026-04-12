@@ -1289,7 +1289,7 @@ function buildCharacterSheetPrompt(
   }
   let primaryVisualPrompt: string | undefined;
   if (lang === 'vi' || lang === 'vi+en') {
-    // đang xử lý...（vi+en 只是让người dùng同时看到两种，Tạo时用中文）
+    // đang xử lý...（vi+en 只是让người dùng同时看到两种，Tạo时用tiếng Việt）
     primaryVisualPrompt = visualPromptZh || visualPromptEn;
   } else {
     // en：英文优先

@@ -31,7 +31,7 @@ import { toast } from "sonner";
 import type { IProvider } from "@/lib/api-key-manager";
 
 /**
- * Nền tảng预设配置
+ * Nền tảng预设cấu hình
  * 1. MemeFast API (memefast) - 全chức năngtrung gian（Đề xuất）
  * 2. RunningHub - Chuyển góc nhìn/đa góc độTạo
  * 3. Tùy chỉnh - OpenAI tương thích API

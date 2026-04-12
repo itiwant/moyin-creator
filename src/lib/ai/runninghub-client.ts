@@ -31,7 +31,7 @@ export interface RunningHubTaskResult {
 }
 
 /**
- * 提交góc nhìnchuyển sangnhiệm vụ
+ * Gửigóc nhìnchuyển sangnhiệm vụ
  */
 export async function submitAngleSwitchTask(
   params: RunningHubSubmitParams
@@ -121,7 +121,7 @@ export async function submitAngleSwitchTask(
     if (error instanceof Error) {
       throw error;
     }
-    throw new Error('提交 RunningHub nhiệm vụthất bại');
+    throw new Error('Gửi nhiệm vụ RunningHub thất bại');
   }
 }
 
@@ -187,7 +187,7 @@ export async function pollTaskUntilComplete(
   onProgress?: (progress: number, status: string) => void
 ): Promise<string> {
   const maxAttempts = 120; // tối đa2 phút
-  const pollInterval = 2000; // 2秒
+  const pollInterval = 2000; // 2 giây
 
   for (let attempt = 0; attempt < maxAttempts; attempt++) {
     const progress = Math.min(Math.floor((attempt / maxAttempts) * 100), 99);
@@ -221,7 +221,7 @@ export async function pollTaskUntilComplete(
     }
   }
 
-  throw new Error('góc nhìnchuyển sanghết thời gian，请Thử lại');
+  throw new Error('Chuyển đổi góc nhìn hết thời gian, vui lòng Thử lại');
 }
 
 /**
@@ -249,7 +249,7 @@ export async function generateAngleSwitch(params: {
     prompt: anglePrompt,
   });
 
-  // 提交nhiệm vụ
+  // Gửinhiệm vụ
   onProgress?.(0, 'SUBMITTING');
   const taskId = await submitAngleSwitchTask({
     referenceImage,

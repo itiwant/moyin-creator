@@ -38,7 +38,7 @@ const getRootBaseUrl = (baseUrl: string): string => {
 };
 
 /**
- * 图片端点路径ánh xạ（端点类型 → 提交/luân phiên URL 路径）
+ * 图片端点路径ánh xạ（端点类型 → Gửi/luân phiên URL 路径）
  * 仅用于需要Tùy chỉnh路径的端点类型，其余走默认 /v1/images/generations
  */
 const IMAGE_ENDPOINT_PATHS: Record<string, { submit: string; poll: (id: string) => string }> = {
@@ -103,7 +103,7 @@ function isGeminiImageModel(model: string): boolean {
 
 /**
  * 判断 Gemini 图片模型是否支持 image_size tham số（1K/2K/4K）
- * gemini-2.5-flash-image 只输出Cố định 1024px，不支持 image_size
+ * gemini-2.5-flash-image 只Đầu raCố định 1024px，不支持 image_size
  */
 function geminiSupportsImageSize(model: string): boolean {
   const m = model.toLowerCase();
@@ -395,11 +395,11 @@ async function submitViaChatCompletions(
 
         // 401 专项提示：引导người dùngkiểm tra API Key
         if (resp.status === 401) {
-          msg = `API Key không hợp lệ hoặc đãhết hạn，请前往「设置」kiểm tra图片Tạo服务的 API Key 配置（gốcthông tin：${msg}）`;
+          msg = `API Key không hợp lệ hoặc đãhết hạn，请前往「设置」kiểm tra图片Tạo服务的 API Key cấu hình（gốcthông tin：${msg}）`;
         }
         // 502 专项提示：thượng nguồn服务临时không khả dụng
         if (resp.status === 502) {
-          msg = `API thượng nguồn服务tạmkhông khả dụng（502），将Tự độngThử lại（gốcthông tin：${msg}）`;
+          msg = `API thượng nguồndịch vụ tạmkhông khả dụng（502），将Tự độngThử lại（gốcthông tin：${msg}）`;
         }
 
         const err = new Error(msg) as Error & { status?: number };
@@ -468,7 +468,7 @@ async function submitViaChatCompletions(
     }
 
     if (!lastChunk) {
-      throw new Error(`无法Phân tích图片 API 响应: ${responseText.substring(0, 120)}`);
+      throw new Error(`Không thểPhân tích图片 API 响应: ${responseText.substring(0, 120)}`);
     }
 
     // Reconstruct standard response format from accumulated deltas
@@ -610,11 +610,11 @@ async function submitImageTask(
             throw new Error('API Key không hợp lệ hoặc đã hết hạn');
           } else if (response.status === 529 || response.status === 503) {
             // thượng nguồntảibão hòa/服务không khả dụng，需要触发Thử lại
-            const err = new Error(errorMessage || `thượng nguồn服务tạm不Khả dụng (${response.status})`) as Error & { status?: number };
+            const err = new Error(errorMessage || `thượng nguồndịch vụ tạm不Khả dụng (${response.status})`) as Error & { status?: number };
             err.status = response.status;
             throw err;
           } else if (response.status >= 500) {
-            const err = new Error(errorMessage || '图片Tạo服务tạmkhông khả dụng') as Error & { status?: number };
+            const err = new Error(errorMessage || '图片Tạodịch vụ tạmkhông khả dụng') as Error & { status?: number };
             err.status = response.status;
             throw err;
           }
@@ -633,7 +633,7 @@ async function submitImageTask(
           if (sseMatch) {
             return JSON.parse(sseMatch[1]);
           }
-          throw new Error(`无法Phân tích图片 API 响应: ${text.substring(0, 100)}`);
+          throw new Error(`Không thểPhân tích图片 API 响应: ${text.substring(0, 100)}`);
         }
       } finally {
         clearTimeout(timeoutId);
@@ -919,7 +919,7 @@ export async function submitGridImageRequest(params: {
 
 /**
  * Kling image 原生端点Tạo
- * 提交到 /kling/v1/images/generations hoặc /kling/v1/images/omni-image
+ * Gửi到 /kling/v1/images/generations hoặc /kling/v1/images/omni-image
  * luân phiên到 /kling/v1/images/{path}/{task_id}
  */
 async function submitViaKlingImages(

@@ -41,7 +41,7 @@ export type AIFeature =
   | 'freedom_video';        // Tự dopanel-Tạo video
 
 /**
- * Liên kết tính năng配置
+ * Liên kết tính năngcấu hình
  * 每chức năng可绑定多Nhà cung cấp/Model（多选）
  * định dạng: platform:model 数组，如 ['memefast:deepseek-v3.2', 'memefast:gemini-3-pro-image-preview']
  */
@@ -61,8 +61,8 @@ export const AI_FEATURES: Array<{
   { key: 'video_generation', name: 'Tạo video', description: '将ảnhchuyển đổi thànhvideo' },
   { key: 'image_understanding', name: 'Phân tích ảnh', description: '分析ảnhNội dung' },
   { key: 'chat', name: '通用Chat', description: 'AI Chat和文本Tạo' },
-  { key: 'freedom_image', name: 'Tự dopanel-ảnh', description: 'Tự dopanelđộc lập的Tạo ảnh配置' },
-  { key: 'freedom_video', name: 'Tự dopanel-video', description: 'Tự dopanelđộc lập的Tạo video配置' },
+  { key: 'freedom_image', name: 'Tự dopanel-ảnh', description: 'Tự dopanelđộc lập的Tạo ảnhcấu hình' },
+  { key: 'freedom_video', name: 'Tự dopanel-video', description: 'Tự dopanelđộc lập的Tạo videocấu hình' },
 ];
 
 
@@ -100,7 +100,7 @@ export const DEFAULT_ADVANCED_OPTIONS: AdvancedGenerationOptions = {
 export type ImageHostPlatform = 'imgbb' | 'imgurl' | 'scdn' | 'catbox' | 'cloudflare_r2' | 'custom';
 
 /**
- * Lưu trữ ảnhNhà cung cấp配置（độc lậpánh xạ）
+ * Lưu trữ ảnhNhà cung cấpcấu hình（độc lậpánh xạ）
  */
 export interface ImageHostProvider {
   id: string;
@@ -351,7 +351,7 @@ function normalizeImageHostProviders(providers: ImageHostProvider[] | undefined 
   return (providers || []).filter(isVisibleImageHostProvider).map(normalizeImageHostProvider);
 }
 
-/** Legacy Lưu trữ ảnh配置（仅用于迁移） */
+/** Legacy Lưu trữ ảnhcấu hình（仅用于迁移） */
 export interface LegacyImageHostConfig {
   type: ImageHostPlatform;
   imgbbApiKey: string;

@@ -84,7 +84,7 @@ function extractErrorMessage(status: number, errorText: string): string {
   }
 
   if (status === 401 || status === 403) {
-    return 'API Key không hợp lệ hoặc đãhết hạn，请kiểm tra“nhận dạng ảnh”服务的 Key 配置';
+    return 'API Key không hợp lệ hoặc đãhết hạn，请kiểm tra“nhận dạng ảnh”服务的 Key cấu hình';
   }
 
   if (status >= 500) {
@@ -203,7 +203,7 @@ export async function extractStyleTokens(
     parsed = JSON.parse(cleanContent);
   } catch {
     console.error('[StyleExtractor] Failed to parse JSON:', content);
-    throw new Error('AI 返回的định dạng无法Phân tích');
+    throw new Error('Không thể Phân tích định dạng AI trả về');
   }
 
   const result: StyleExtractionResult = {

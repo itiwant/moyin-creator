@@ -102,7 +102,7 @@ function getBoundPlatformAndModel(store: ReturnType<typeof useAPIConfigStore.get
 }
 
 /**
- * 获取chức năng的Tất cả可用配置（多模型）
+ * 获取chức năng的Tất cả可用cấu hình（多模型）
  */
 export function getAllFeatureConfigs(feature: AIFeature): FeatureConfig[] {
   const store = useAPIConfigStore.getState();
@@ -230,18 +230,18 @@ import { callChatAPI } from '@/lib/script/script-parser';
 export interface CallFeatureAPIOptions {
   /** Tùy chỉnh温度，默认 0.7 */
   temperature?: number;
-  /** Tùy chỉnh最大输出 token 数（默认 4096，推理模型gợi ý设置更高） */
+  /** Tùy chỉnh最大Đầu ra token 数（默认 4096，推理模型gợi ý设置更高） */
   maxTokens?: number;
   /** 强制Ghi đè模型（一般不需要，Tự động从ánh xạ dịch vụ获取） */
   modelOverride?: string;
-  /** 强制Sử dụng指定的配置（用于hàng loạt调度时指定具体模型） */
+  /** 强制Sử dụng指定的cấu hình（用于hàng loạt调度时指定具体模型） */
   configOverride?: FeatureConfig;
   /** 关闭推理模型深度思考（智谱 GLM-4.7/4.5 等），默认 true */
   disableThinking?: boolean;
 }
 
 /**
- * 统一的 AI gọi API入sổ - Tự động从ánh xạ dịch vụ获取配置
+ * 统一的 AI gọi API入sổ - Tự động从ánh xạ dịch vụ获取cấu hình
  * 
  * v2: 支持多模型luân phiên
  * 
@@ -256,7 +256,7 @@ export async function callFeatureAPI(
   userPrompt: string,
   options?: CallFeatureAPIOptions
 ): Promise<string> {
-  // Sử dụng指定配置hoặcluân phiên获取
+  // Sử dụng指定cấu hìnhhoặcluân phiên获取
   const config = options?.configOverride || getFeatureConfig(feature);
   
   if (!config) {
@@ -279,7 +279,7 @@ export async function callFeatureAPI(
   console.log(`[callFeatureAPI] BaseURL: ${baseUrl}`);
   
   // gọi API底层 API
-  // Cấu trúc化 JSON 输出nhiệm vụ默认关闭深度思考，Tránh reasoning 耗尽 token
+  // Cấu trúc化 JSON Đầu ranhiệm vụ默认关闭深度思考，Tránh reasoning 耗尽 token
   const disableThinking = options?.disableThinking ?? true;
   return await callChatAPI(systemPrompt, userPrompt, {
     apiKey: config.allApiKeys.join(','),

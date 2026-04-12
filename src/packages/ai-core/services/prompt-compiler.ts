@@ -28,12 +28,12 @@ Yêu cầu:
 1. Sáng tác {{scene_count}} Cảnh
 2. Mỗi Cảnh chứa: số thứ tự Cảnh, lời dẫn chuyện, Mô tả Nội dung Thị giác, hành động nhân vật, loại ống kính, Mô tả ngoại hình nhân vật
 3. Mô tả visualContent/action/camera/characterDescription bằng tiếng Anh
-4. narration 用中文
-5. 不要输出 mood/情绪 trường（前端不需要）
+4. narration dùng tiếng Việt
+5. Không xuất trường mood/cảm xúc (frontend không cần)
 
-输出định dạng为 JSON：
+Định dạng đầu ra là JSON:
 {
-  "title": "video标题",
+  "title": "tiêu đề video",
   "scenes": [
     {
       "sceneId": 1,

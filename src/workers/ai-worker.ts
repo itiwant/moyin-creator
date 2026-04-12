@@ -685,12 +685,12 @@ async function handleExecuteScreenplayImages(command: { type: string; payload: {
         completedCount: 0,
         failedCount: screenplay.scenes.length,
         totalCount: screenplay.scenes.length,
-        error: '未配置ảnhTạo API Key，请在ánh xạ dịch vụđang xử lý...,
+        error: 'Chưa cấu hình API Key Tạo ảnh, vui lòng cấu hình trong ánh xạ dịch vụ',
       },
     });
     // Also report failure for each scene
     for (const scene of screenplay.scenes) {
-      reportSceneFailed(screenplay.id, scene.sceneId, '未配置ảnhTạo API Key', false);
+      reportSceneFailed(screenplay.id, scene.sceneId, 'Chưa cấu hình API Key Tạo ảnh', false);
     }
     return;
   }

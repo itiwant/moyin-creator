@@ -151,7 +151,7 @@ export function useSClassGeneration() {
         };
       }
 
-      // 1. 获取 API 配置
+      // 1. 获取 API cấu hình
       const featureConfig = getFeatureConfig("video_generation");
       if (!featureConfig) {
         const msg = getFeatureNotConfiguredMessage("video_generation");
@@ -175,7 +175,7 @@ export function useSClassGeneration() {
       const sclassProjectData = getProjectData(projectId);
       const sclassConfig = sclassProjectData.config;
 
-      // 1b. 从 director-store 直读共享配置（单一dữ liệu源，Tránh双 store 同步问题）
+      // 1b. 从 director-store 直读共享cấu hình（单一dữ liệu源，Tránh双 store 同步问题）
       const directorState = useDirectorStore.getState();
       const directorProject = directorState.projects[directorState.activeProjectId || ''];
       const storyboardConfig = directorProject?.storyboardConfig;
@@ -616,7 +616,7 @@ export function useSClassGeneration() {
       const projectId = activeProjectId;
       if (!projectId) return false;
 
-      // 从 director-store 直读共享配置（与 generateGroupVideo giữgiống）
+      // 从 director-store 直读共享cấu hình（与 generateGroupVideo giữgiống）
       const dirState = useDirectorStore.getState();
       const dirProj = dirState.projects[dirState.activeProjectId || ''];
       const sbConfig = dirProj?.storyboardConfig;

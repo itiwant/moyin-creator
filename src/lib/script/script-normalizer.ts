@@ -9,7 +9,7 @@
  * 
  * 双层架构：
  * 1. AI 检测（优先）：gọi API LLM 理解内容语义，chính xác识别Cấu trúc + bổ sungthiếuđại cương
- * 2. 正则兜底（降级）：无 AI 配置hoặc AI gọi APIthất bại时Sử dụng硬编码chế độKhớp
+ * 2. 正则兜底（降级）：无 AI cấu hìnhhoặc AI gọi APIthất bại时Sử dụng硬编码chế độKhớp
  * 
  * 核心原则：
  * - 只插入Cấu trúc标记（《》、đại cương：、nhân vật小传：）+ AI Tạo的đại cương
@@ -208,7 +208,7 @@ export async function analyzeScriptStructureWithAI(text: string): Promise<Script
   // kiểm tra AI 是否可用
   const config = getFeatureConfig('script_analysis');
   if (!config) {
-    console.log('[scriptNormalizer] 无 AI 配置，Bỏ quaCấu trúc检测');
+    console.log('[scriptNormalizer] 无 AI cấu hình，Bỏ quaCấu trúc检测');
     return null;
   }
   
@@ -343,7 +343,7 @@ export function applyAIAnalysis(text: string, analysis: ScriptStructureAnalysis)
   const hasCharBios = /(?:\*{0,2}nhân vật小传[：:]\*{0,2}|【nhân vật小传】)/i.test(text);
   
   // === 1. 标题 ===
-  // 验证 AI 返回的 title 不是 tập标题（如"第一 tập 初遇"）
+  // 验证 AI trả về title 不是 tập标题（如"第一 tập 初遇"）
   const isEpisodeTitle = analysis.title && /^第[一二三4五六七八九十百千\d]+ tập/.test(analysis.title);
   if (!hasTitle && analysis.title && !isEpisodeTitle) {
     const titlePos = normalized.indexOf(analysis.title);
@@ -355,7 +355,7 @@ export function applyAIAnalysis(text: string, analysis: ScriptStructureAnalysis)
       changes.push(`[AI] 标题: 《${analysis.title}》`);
     }
   } else if (isEpisodeTitle) {
-    console.warn(`[applyAIAnalysis] AI 返回的标题疑似 tập标题，已Bỏ qua: "${analysis.title}"`);
+    console.warn(`[applyAIAnalysis] AI trả về标题疑似 tập标题，已Bỏ qua: "${analysis.title}"`);
   }
   
   // === 2. nhân vật小传 ===

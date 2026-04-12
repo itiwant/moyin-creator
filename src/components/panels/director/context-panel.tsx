@@ -416,7 +416,7 @@ export function DirectorContextPanel() {
       needsEndFrame: shot.needsEndFrame || false,
       // Nhân vật（Sử dụngThư viện nhân vậtID）
       characterIds: characterLibraryIds,
-      // 情绪Thẻ（AIHiệu chuẩn产出）
+      // cảm xúcThẻ（AIHiệu chuẩn产出）
       emotionTags: (shot.emotionTags || []) as any,
       // Kích thước cảnh
       shotSize: shot.shotSize ? (SHOT_SIZE_MAP[shot.shotSize] || null) as any : null,
@@ -555,7 +555,7 @@ export function DirectorContextPanel() {
         needsEndFrame: shot.needsEndFrame || false,
         // Nhân vật（Sử dụngThư viện nhân vậtID）
         characterIds: characterLibraryIds,
-        // 情绪Thẻ（AIHiệu chuẩn产出）
+        // cảm xúcThẻ（AIHiệu chuẩn产出）
         emotionTags: (shot.emotionTags || []) as any,
         // Kích thước cảnh
         shotSize: shot.shotSize ? (SHOT_SIZE_MAP[shot.shotSize] || null) as any : null,

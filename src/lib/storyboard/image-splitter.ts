@@ -577,7 +577,7 @@ export async function splitStoryboardImage(
     console.log(`[ImageSplitter] Cell too tall (${rawRatio.toFixed(3)} < ${targetRatio.toFixed(3)}), crop height: ${cellHeight} → ${cropH}, offsetY: ${cropY}`);
   }
   
-  // 双重保险：强制输出尺寸严格符合目标宽高比
+  // 双重保险：强制Đầu ra尺寸严格符合目标宽高比
   if (aspectRatio === '16:9') {
     outputHeight = Math.round(outputWidth * 9 / 16);
   } else {

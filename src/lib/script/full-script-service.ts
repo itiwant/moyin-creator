@@ -455,7 +455,7 @@ export async function generateEpisodeShots(
     
     console.log('\n============================================');
     console.log('[generateEpisodeShots] === 开始 AI góc nhìn分析 ===');
-    console.log('[generateEpisodeShots] apiKey:', options.apiKey ? `已配置(độ dài${options.apiKey.length})` : '未配置');
+    console.log('[generateEpisodeShots] apiKey:', options.apiKey ? `已cấu hình(độ dài${options.apiKey.length})` : '未cấu hình');
     console.log('[generateEpisodeShots] provider:', options.provider);
     console.log('[generateEpisodeShots] baseUrl:', options.baseUrl || '默认');
     console.log('[generateEpisodeShots] episodeScenes.length:', episodeScenes.length);
@@ -463,8 +463,8 @@ export async function generateEpisodeShots(
     console.log('============================================\n');
     
     if (!options.apiKey) {
-      viewpointSkippedReason = 'apiKey 未配置';
-      console.error('[generateEpisodeShots] ❌ Bỏ qua AI góc nhìn分析: apiKey 未配置');
+      viewpointSkippedReason = 'apiKey 未cấu hình';
+      console.error('[generateEpisodeShots] ❌ Bỏ qua AI góc nhìn分析: apiKey 未cấu hình');
     } else if (episodeScenes.length === 0) {
       viewpointSkippedReason = '无场景';
       console.warn('[generateEpisodeShots] ⚠️ Bỏ qua AI góc nhìn分析: 无场景');
@@ -478,8 +478,8 @@ export async function generateEpisodeShots(
         const episodeSynopsis = episodeScript.synopsis || '';
         const keyEvents = episodeScript.keyEvents || [];
         
-        console.log('[generateEpisodeShots] 本 tậpđại cương:', episodeSynopsis ? `已配置(${episodeSynopsis.length}字)` : '未配置');
-        console.log('[generateEpisodeShots] Sự kiện quan trọng:', keyEvents.length > 0 ? keyEvents.join(', ') : '未配置');
+        console.log('[generateEpisodeShots] 本 tậpđại cương:', episodeSynopsis ? `已cấu hình(${episodeSynopsis.length}字)` : '未cấu hình');
+        console.log('[generateEpisodeShots] Sự kiện quan trọng:', keyEvents.length > 0 ? keyEvents.join(', ') : '未cấu hình');
         
         const background = project.projectBackground;
         const viewpointOptions: ViewpointAnalysisOptions = {
@@ -493,7 +493,7 @@ export async function generateEpisodeShots(
         
         console.log('[generateEpisodeShots] viewpointOptions 已构建, genre:', viewpointOptions.genre || '未知');
         
-        // 获取并发数配置（Sử dụng顶部静态Nhập的 store）
+        // 获取并发数cấu hình（Sử dụng顶部静态Nhập的 store）
         // 智谱 API 并发限制较严，góc nhìn分析tối đaSử dụng 10 并发
         const userConcurrency = useAPIConfigStore.getState().concurrency || 1;
         const concurrency = Math.min(userConcurrency, 10);
@@ -1031,7 +1031,7 @@ export function getEpisodeGenerationSummary(projectId: string): {
 
 // ==================== AI Hiệu chuẩnchức năng ====================
 
-// CalibrationOptions 已不需要，统一从ánh xạ dịch vụ获取配置
+// CalibrationOptions 已不需要，统一从ánh xạ dịch vụ获取cấu hình
 export interface CalibrationOptions {
   // 保Để trốnggiao diện以giữtương thích性
 }
@@ -1106,7 +1106,7 @@ function extractEpisodeSummary(episode: EpisodeRawScript): string {
 /**
  * AIHiệu chuẩn：为thiếu标题的 tập数Tạo标题
  * @param projectId 项目ID
- * @param options AI配置
+ * @param options AIcấu hình
  * @param onProgress Tiến độ回调
  */
 export async function calibrateEpisodeTitles(
@@ -1801,16 +1801,16 @@ async function callAIForShotCalibration(
   visualPrompt: string;
   // 3 lớp提示词系统
   imagePrompt: string;      // khung đầu提示词（静态Mô tả）
-  imagePromptZh: string;    // khung đầu提示词中文
+  imagePromptZh: string;    // khung đầu提示词tiếng Việt
   videoPrompt: string;      // 视频提示词（动态动作）
-  videoPromptZh: string;    // 视频提示词中文
+  videoPromptZh: string;    // 视频提示词tiếng Việt
   endFramePrompt: string;   // khung cuối提示词（静态Mô tả）
-  endFramePromptZh: string; // khung cuối提示词中文
+  endFramePromptZh: string; // khung cuối提示词tiếng Việt
   needsEndFrame: boolean;   // 是否需要khung cuối
   shotSize: string;
   cameraMovement: string;
   duration: number;         // thời lượng（秒）
-  emotionTags: string[];    // 情绪标签
+  emotionTags: string[];    // cảm xúc标签
   characterNames: string[]; // đầy đủ角色列表
   ambientSound: string;     // 环境音
   soundEffect: string;      // Hiệu ứng âm thanh
@@ -1919,9 +1919,9 @@ ${characterBios ? `
    - bị cấmbỏ sót角色，bị cấm新增原文đang xử lý...角色
 
 3. **đang xử lý...离**：
-   - **đang xử lý...ường**（visualDescription, ambientSound, soundEffect, imagePromptZh, videoPromptZh, endFramePromptZh）：必须是纯中文
+   - **đang xử lý...ường**（visualDescription, ambientSound, soundEffect, imagePromptZh, videoPromptZh, endFramePromptZh）：必须是纯tiếng Việt
    - **英文trường**（visualPrompt, imagePrompt, videoPrompt, endFramePrompt）：必须是100%纯英文，绝对bị cấm夹杂任何đang xử lý...
-   - 如果不确定某词怎么翻译，用英文Mô tảhoặc近义词代替，但绝不能留中文
+   - 如果不确定某词怎么翻译，用英文Mô tảhoặc近义词代替，但绝不能留tiếng Việt
 
 4. **thời lượng估算**：根据动作复杂度和Thoạiđộ dài估算合理的分镜thời lượng（秒）
    - 纯动作无Thoại：3-5秒
@@ -1929,7 +1929,7 @@ ${characterBios ? `
    - 较长Thoại：6-10秒
    - 复杂动作序列：5-8秒
 
-5. **音频Thiết kế**（必须用đang xử lý...根据原文识别并输出：
+5. **音频Thiết kế**（必须用đang xử lý...根据原文识别并Đầu ra：
    - ambientSound（环境音）：如"外鸟鸣"、"餐厅嗨杂声"、"风声"
    - soundEffect（Hiệu ứng âm thanh）：如"酒杯碎裂声"、"脚步声"、"门关闭声"
 
@@ -1943,7 +1943,7 @@ ${characterBios ? `
 4. 镜头运动 (cameraMovement): none/static/tracking/orbit/zoom-in/zoom-out/pan-left/pan-right/tilt-up/tilt-down/dolly-in/dolly-out/truck-left/truck-right/crane-up/crane-down/drone-aerial/360-roll
 4b. Kỹ thuật quay đặc biệt手法 (specialTechnique): none/hitchcock-zoom/timelapse/crash-zoom-in/crash-zoom-out/whip-pan/bullet-time/fpv-shuttle/macro-closeup/first-person/slow-motion/probe-lens/spinning-tilt
 5. thời lượng (duration): 秒数，整数
-6. 情绪标签 (emotionTags): 1-3情绪标签ID
+6. cảm xúc标签 (emotionTags): 1-3cảm xúc标签ID
 7. 出场角色 (characterNames): đầy đủ角色列表，来自原文
 8. 环境音 (ambientSound): **đang xử lý...，根据场景推断
 9. Hiệu ứng âm thanh (soundEffect): **đang xử lý...，根据动作推断
@@ -2015,7 +2015,7 @@ ${characterBios ? `
     - 画面动作（nhân vật动作、物体移动）
     - 镜头运动Mô tả
     - Thoại提示（如有）
-    - videoPromptZh: 纯中文
+    - videoPromptZh: 纯tiếng Việt
     - videoPrompt: 纯英文
 
 【18. khung cuối提示词 (endFramePrompt/endFramePromptZh): 用于 AI 图像Tạo，Mô tả视频khung cuối cùng的đầy đủ静态画面
@@ -2028,7 +2028,7 @@ ${characterBios ? `
     
     c) **nhân vậtMô tả**（重点！Mô tả动作hoàn thành后的状态）：
        - 同样chứaTuổi、trang phục
-       - **新的Biểu cảm神态**（动作hoàn thành后的情绪）
+       - **新的Biểu cảm神态**（动作hoàn thành后的cảm xúc）
        - **新的Tư thế位置**（动作hoàn thành后的位置）
        - đạo cụ的新状态
     
@@ -2059,10 +2059,10 @@ ${characterBios ? `
     
     **不确定时设为 true**（宁可多Tạo不要bỏ sót）
 
-【情绪标签Tùy chọn】
-基础情绪: happy, sad, angry, surprised, fearful, calm
-Bầu không khí情绪: tense, excited, mysterious, romantic, funny, touching
-语气情绪: serious, relaxed, playful, gentle, passionate, low
+【cảm xúc标签Tùy chọn】
+基础cảm xúc: happy, sad, angry, surprised, fearful, calm
+Bầu không khícảm xúc: tense, excited, mysterious, romantic, funny, touching
+语气cảm xúc: serious, relaxed, playful, gentle, passionate, low
 
 【风格要求】
 ${styleDesc}
@@ -2136,7 +2136,7 @@ ${getMediaTypeGuidance(mt)}
 **特别注意**：
 - 栩子花 = gardenias（不是 peonies）
 - visualDescription 必须是đang xử lý...要写英文
-- ambientSound/soundEffect 必须是中文`
+- ambientSound/soundEffect 必须是tiếng Việt`
   
   const shotDescriptions = shots.map(shot => {
     const chars = shot.characterNames?.join('、') || '无';
@@ -2184,13 +2184,13 @@ Bầu không khí: ${shot.sceneAtmosphere}
 
 🎬 **tự sựdẫn dắt分析（基于《电影Ngôn ngữ的语法》）**：
 - 根据「本 tậpđại cương」判断每镜头在整 tập故事đang xử lý...chức năng
-- 镜头Thiết kế必须服务于故事的情绪Nhịp điệu和tự sựcung
+- 镜头Thiết kế必须服务于故事的cảm xúcNhịp điệu和tự sựcung
 - Kích thước cảnhChọn要配合tự sựchức năng（铺垫用全景、cao trào用Cực cận cảnh等）
 - 考虑nhân vậtbố cục和vị trí camera对故事sức căng的影响
 
 ${shotDescriptions}`;
   
-  // 统一从ánh xạ dịch vụ获取配置（单分镜Hiệu chuẩn用更大 token 预算）
+  // 统一从ánh xạ dịch vụ获取cấu hình（单分镜Hiệu chuẩn用更大 token 预算）
   const result = await callFeatureAPI('script_analysis', systemPrompt, userPrompt, { maxTokens: 16384 });
   
   // Phân tích JSON kết quả（增强版）

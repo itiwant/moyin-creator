@@ -428,7 +428,7 @@ export function ScriptView() {
 
   // 为单 tậpTạo phân cảnh（需要先定义，因为 handleImportFullScript 依赖它）
   const handleGenerateEpisodeShots = useCallback(async (episodeIndex: number) => {
-    // Sử dụng feature router 获取 API 配置
+    // Sử dụng feature router 获取 API cấu hình
     const featureConfig = getFeatureConfig('script_analysis');
     
     console.log('[handleGenerateEpisodeShots] featureConfig:', featureConfig ? 'Đã cấu hình' : 'Chưa cấu hình');
@@ -443,7 +443,7 @@ export function ScriptView() {
       setViewpointAnalysisStatus('analyzing');
       
       const apiKey = featureConfig?.allApiKeys?.join(',') || '';
-      // Sử dụng配置的 provider，不再硬编码
+      // Sử dụngcấu hình的 provider，不再硬编码
       const provider = (featureConfig?.platform === 'zhipu' ? 'zhipu' : 'openai') as string;
       
       console.log('[handleGenerateEpisodeShots] apiKey length:', apiKey.length);
@@ -587,7 +587,7 @@ export function ScriptView() {
         setCharacterCalibrationStatus('calibrating');
         
         try {
-          // 统一从ánh xạ dịch vụ获取配置，不需要手动传参
+          // 统一从ánh xạ dịch vụ获取cấu hình，不需要手动传参
           const calibResult = await calibrateCharacters(
             result.scriptData.characters,
             result.projectBackground,
@@ -1028,7 +1028,7 @@ export function ScriptView() {
         negativePrompt: c.negativePrompt,
       })) || [];
       
-      // 统一从ánh xạ dịch vụ获取配置，不需要手动传参
+      // 统一从ánh xạ dịch vụ获取cấu hình，不需要手动传参
       const calibResult = await calibrateCharacters(
         rawCharacters,
         background,
@@ -1067,7 +1067,7 @@ export function ScriptView() {
         
         try {
           console.log('[handleCalibrateCharacters] Bắt đầu AI phân tích giai đoạn nhân vật...');
-          // 统一从ánh xạ dịch vụ获取配置，不需要手动传参
+          // 统一从ánh xạ dịch vụ获取cấu hình，不需要手动传参
           const analyses = await analyzeCharacterStages(
             background,
             newCharacters,
@@ -2330,7 +2330,7 @@ export function ScriptView() {
     toast.success('Trailer đã xóa');
   }, [clearTrailer]);
   
-  // 获取Trailer API 配置
+  // 获取Trailer API cấu hình
   const trailerApiOptions = useCallback((): TrailerGenerationOptions | null => {
     const featureConfig = getFeatureConfig('script_analysis');
     if (!featureConfig) return null;

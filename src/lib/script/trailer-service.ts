@@ -7,7 +7,7 @@
  * chức năng：从hiện có的分镜đang xử lý...选quan trọng分镜，Tạo预告片
  * chọnTiêu chuẩn：
  * - tự sựchức năng为"cao trào/转折"的优先
- * - 有强烈情绪标签的优先
+ * - 有强烈cảm xúc标签的优先
  * - 有Thị giác冲击的场景优先
  * - quan trọng角色出场的优先
  */
@@ -43,7 +43,7 @@ export interface TrailerGenerationResult {
  * @param shots Tất cả可用的分镜
  * @param background 项目背景thông tin
  * @param duration 预告片thời lượng
- * @param options API 配置
+ * @param options API cấu hình
  */
 export async function selectTrailerShots(
   shots: Shot[],
@@ -97,13 +97,13 @@ export async function selectTrailerShots(
 
 【chọnTiêu chuẩn】
 - 优先Chọntự sựchức năng为"cao trào"、"转折"、"冲突"的镜头
-- 优先Chọn有强烈情绪（tense, excited, mysterious）的镜头
+- 优先Chọn有强烈cảm xúc（tense, excited, mysterious）的镜头
 - 优先Chọn有Thị giác冲击力的画面（动作场面、Cực cận cảnh、对峙）
 - 优先Chọn主要角色出场的quan trọng时刻
 - Ghi đè不同 tập数，Hiển thị故事跨度
 - Tránh剧透quan trọng结局
 
-【输出要求】
+【Đầu ra要求】
 请返回一 JSON 数组，chứa你chọn的分镜số thứ tự（index），按预告片播放thứ tự排列。
 định dạng：{ "selectedIndices": [1, 5, 12, 23, 45, 60] }`;
 
@@ -118,15 +118,15 @@ ${shotSummaries.map(s =>
    Mô tả：${s.visualDescription.slice(0, 100)}
    角色：${s.characterNames.join('、') || '无'}
    tự sựchức năng：${s.narrativeFunction || '未知'}
-   情绪：${Array.isArray(s.emotionTags) ? s.emotionTags.join(', ') : '无'}`
+   cảm xúc：${Array.isArray(s.emotionTags) ? s.emotionTags.join(', ') : '无'}`
 ).join('\n\n')}
 
 请从以上分镜đang xử lý...${targetCount} 最适合做预告片的镜头，返回 JSON định dạng的số thứ tự列表。`;
 
-    // 统一从ánh xạ dịch vụ获取配置
+    // 统一从ánh xạ dịch vụ获取cấu hình
     const result = await callFeatureAPI('script_analysis', systemPrompt, userPrompt);
 
-    // Phân tích AI 返回的 JSON - 支持多种định dạng
+    // Phân tích AI trả về JSON - 支持多种định dạng
     let selectedIndices: number[] = [];
     
     console.log('[TrailerService] AI raw response (first 1000 chars):', result.slice(0, 1000));
@@ -166,7 +166,7 @@ ${shotSummaries.map(s =>
     }
     
     if (selectedIndices.length === 0) {
-      throw new Error('AI 返回định dạnglỗi，无法Phân tíchsố thứ tự');
+      throw new Error('AI 返回định dạnglỗi，Không thểPhân tíchsố thứ tự');
     }
     
     console.log('[TrailerService] Parsed selectedIndices:', selectedIndices);
@@ -210,7 +210,7 @@ function selectTrailerShotsByRules(shots: Shot[], targetCount: number): Shot[] {
     if (narrativeFunction.includes('冲突')) score += 6;
     if (narrativeFunction.includes('升级')) score += 4;
     
-    // 情绪评分
+    // cảm xúc评分
     const emotionTags = (shot as any).emotionTags || [];
     if (emotionTags.includes('tense')) score += 5;
     if (emotionTags.includes('excited')) score += 5;

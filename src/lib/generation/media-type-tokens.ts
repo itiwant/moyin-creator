@@ -11,7 +11,7 @@
  * - cinematic  → 直通，保留Tất cả物理摄影词汇
  * - animation  → 虚拟摄像机语义适配（轨道→视差平移、景深→cấp độ模糊）
  * - stop-motion → 微缩实拍约束（轨道→微型滑轨、景深→微距镜头）
- * - graphic    → Bỏ qua物理tham số，灯光→色彩/情绪/Nhịp điệuMô tả
+ * - graphic    → Bỏ qua物理tham số，灯光→色彩/cảm xúc/Nhịp điệuMô tả
  */
 
 import type { MediaType } from '@/lib/constants/visual-styles';
@@ -132,7 +132,7 @@ const GRAPHIC_TABLE: MediaTranslationTable = {
   cameraAngle:             'skip',
   focalLength:             'skip',
   photographyTechnique:    'skip',
-  // 灯光风格 → 转译为色彩/情绪
+  // 灯光风格 → 转译为色彩/cảm xúc
   lightingStyle: {
     'high-key':    'bright palette, open composition,',
     'low-key':     'dark tones, heavy contrast areas,',

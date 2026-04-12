@@ -38,7 +38,7 @@ export interface ProcessBatchedOptions<TItem, TResult> {
   /** 待处理的Tất cả items */
   items: TItem[];
 
-  /** AI chức năng类型（用于从 feature-router 获取配置） */
+  /** AI chức năng类型（用于从 feature-router 获取cấu hình） */
   feature: AIFeature;
 
   /**
@@ -48,7 +48,7 @@ export interface ProcessBatchedOptions<TItem, TResult> {
   buildPrompts: (batch: TItem[]) => { system: string; user: string };
 
   /**
-   * Phân tích AI 返回的gốc文本为Cấu trúc化kết quả
+   * Phân tích AI trả vềgốc文本为Cấu trúc化kết quả
    * 返回 Map<itemKey, result>，key 用于跨批次合并
    */
   parseResult: (raw: string, batch: TItem[]) => Map<string, TResult>;

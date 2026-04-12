@@ -191,19 +191,19 @@ ${contextLine}${narrativeAnchorBlock}${episodeSynopsis ? `\n\n【本 tậpđại
 2. 此镜头是否违反Bối cảnh thế giới设定？（如有违反，在 storyAlignment đang xử lý...
 3. shotPurpose 必须体现该镜头与故事核心的关系，不能只Mô tả画面
 
-为每分镜输出 JSON：
+为每分镜Đầu ra JSON：
 - shotSize: ECU/CU/MCU/MS/MLS/LS/WS/FS
 - cameraMovement: none/static/tracking/orbit/zoom-in/zoom-out/pan-left/pan-right/tilt-up/tilt-down/dolly-in/dolly-out/truck-left/truck-right/crane-up/crane-down/drone-aerial/360-roll
 - specialTechnique: none/hitchcock-zoom/timelapse/crash-zoom-in/crash-zoom-out/whip-pan/bullet-time/fpv-shuttle/macro-closeup/first-person/slow-motion/probe-lens/spinning-tilt
 - duration: 秒数(整数)，纯动作3-5秒/简短Thoại4-6秒/长Thoại6-10秒/复杂动作5-8秒
 - narrativeFunction: 铺垫/升级/cao trào/转折/chuyển tiếp/尾声
 - conflictStage: 此镜头在本 tập核心冲突đang xử lý...（引入/激化/对抗/转折/解决/余波，无关填"辅助"）
-- shotPurpose: 一句话说明此镜头如何服务于故事核心（中文）
+- shotPurpose: 一句话说明此镜头如何服务于故事核心（tiếng Việt）
 - storyAlignment: 与Bối cảnh thế giới/故事核心的giống性（aligned/minor-deviation/needs-review）
 - visualFocus: Tiêu điểm thị giácthứ tự（用→表示）
-- cameraPosition: vị trí cameraMô tả（中文）
-- characterBlocking: nhân vậtbố cục（中文）
-- rhythm: Nhịp điệu感（中文）
+- cameraPosition: vị trí cameraMô tả（tiếng Việt）
+- characterBlocking: nhân vậtbố cục（tiếng Việt）
+- rhythm: Nhịp điệu感（tiếng Việt）
 
 định dạng：{"shots":{"shot_id":{...}}}`;
 
@@ -239,7 +239,7 @@ ${contextLine}${narrativeAnchorBlock}${episodeSynopsis ? `\n\n【本 tậpđại
 - visualDescription: 纯đang xử lý...细画面Mô tả（trang phục/đạo cụ必须符合thời đại）
 ${s2VisualPromptRule}
 - emotionTags Tùy chọn: happy/sad/angry/surprised/fearful/calm/tense/excited/mysterious/romantic/funny/touching/serious/relaxed/playful/gentle/passionate/low
-- ambientSound/soundEffect: 纯中文
+- ambientSound/soundEffect: 纯tiếng Việt
 định dạng：${s2JsonFormat}`;
 
   try {
@@ -261,7 +261,7 @@ ${s2VisualPromptRule}
 
   const s3System = `你是电影摄影指导(DP)。根据Mô tả thị giác确定chuyên nghiệp拍摄tham số。${cinematographyGuidance ? `\n\n${cinematographyGuidance}` : ''}
 
-为每分镜输出：
+为每分镜Đầu ra：
 - lightingStyle: natural/high-key/low-key/silhouette/chiaroscuro/neon
 - lightingDirection: front/side/back/top/bottom/rim
 - colorTemperature: warm-3200K/neutral-5600K/cool-7500K/mixed/golden-hour/blue-hour
@@ -302,7 +302,7 @@ ${s2VisualPromptRule}
   onStageProgress?.(4, 5, 'khung đầu提示词');
   console.log('[MultiStage] Stage 4/5: khung đầu提示词');
 
-  // Stage 4: 根据 promptLanguage 动态调整输出trường
+  // Stage 4: 根据 promptLanguage 动态调整Đầu ratrường
   const s4Fields = promptLanguage === 'zh'
     ? 'imagePromptZh (纯đang xử lý...60-100字)'
     : promptLanguage === 'en'
@@ -314,7 +314,7 @@ ${s2VisualPromptRule}
     ? '{"shots":{"shot_id":{"imagePrompt":"","needsEndFrame":true}}}'
     : '{"shots":{"shot_id":{"imagePrompt":"","imagePromptZh":"","needsEndFrame":true}}}';
   const s4LangWarning = promptLanguage === 'zh'
-    ? '\n⚠️ imagePromptZh 必须纯中文'
+    ? '\n⚠️ imagePromptZh 必须纯tiếng Việt'
     : promptLanguage === 'en'
     ? '\n⚠️ imagePrompt 必须100%纯英文，bị cấm任何đang xử lý...'
     : '\n⚠️ imagePrompt 必须100%纯英文，bị cấm任何đang xử lý...\n⚠️ imagePromptZh 必须纯đang xử lý...
@@ -357,7 +357,7 @@ needsEndFrame 判断：
   onStageProgress?.(5, 5, '动态+khung cuối提示词');
   console.log('[MultiStage] Stage 5/5: 动态+khung cuối提示词');
 
-  // Stage 5: 根据 promptLanguage 动态调整输出trường
+  // Stage 5: 根据 promptLanguage 动态调整Đầu ratrường
   const s5VideoFields = promptLanguage === 'zh'
     ? 'videoPromptZh (纯đang xử lý...
     : promptLanguage === 'en'
@@ -374,7 +374,7 @@ needsEndFrame 判断：
     ? '{"shots":{"shot_id":{"videoPrompt":"","endFramePrompt":""}}}'
     : '{"shots":{"shot_id":{"videoPrompt":"","videoPromptZh":"","endFramePrompt":"","endFramePromptZh":""}}}';
   const s5LangWarning = promptLanguage === 'zh'
-    ? '\n⚠️ đang xử lý...ường必须纯中文'
+    ? '\n⚠️ đang xử lý...ường必须纯tiếng Việt'
     : promptLanguage === 'en'
     ? '\n⚠️ 英文trường必须100%纯英文'
     : '\n⚠️ 英文trường100%纯英文，đang xử lý...ường纯đang xử lý...

@@ -43,7 +43,7 @@ import { translateToken, type CinematographyField } from '@/lib/generation/media
 // ==================== 辅助函数 ====================
 
 /**
- * 根据情绪标签构建Bầu không khíMô tả文本
+ * 根据cảm xúc标签构建Bầu không khíMô tả文本
  */
 export function buildEmotionDescription(emotionTags: EmotionTag[]): string {
   if (!emotionTags || emotionTags.length === 0) return '';
@@ -88,7 +88,7 @@ function findPresetToken<T extends { id: string; promptToken: string }>(
   return translated || undefined; // Chuỗi rỗng → undefined (Bỏ qua)
 }
 
-// ==================== 视频 Prompt 构建配置 ====================
+// ==================== 视频 Prompt 构建cấu hình ====================
 
 export interface VideoPromptConfig {
   /** Tokens phong cách Thị giác */
@@ -106,7 +106,7 @@ export interface VideoPromptConfig {
  *
  * @param scene - 分镜dữ liệu (SplitScene)
  * @param cinProfile - 摄影风格档案 (undefined 表示未设置)
- * @param config - 额外配置 (styleTokens , v.v.)
+ * @param config - 额外cấu hình (styleTokens , v.v.)
  * @returns 组装好的đầy đủ prompt ký tự串
  */
 export function buildVideoPrompt(

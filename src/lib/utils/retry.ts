@@ -43,8 +43,8 @@ export function isRateLimitError(error: unknown): boolean {
     message.includes("bão hòa") ||
     message.includes("tải đã đầy") ||
     message.includes("tạm không khả dụng") ||
-    message.includes("服务tạmkhông khả dụng") ||
-    message.includes("无可用渠道") ||
+    message.includes("dịch vụ tạm không khả dụng") ||
+    message.includes("không có kênh khả dụng") ||
     message.includes("no available channel") ||
     message.includes("server error")
   ) {

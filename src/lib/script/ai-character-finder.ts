@@ -331,7 +331,7 @@ ${eraFashionGuidance}
 
 trang phục必须与剧本thời đại背景giống，不要混淆不同thời đại的trang phục风格。
 
-【输出định dạng】
+【Đầu rađịnh dạng】
 请返回JSONđịnh dạng，chứa以下trường：
 {
   "name": "角色名",
@@ -371,7 +371,7 @@ ${dialogueSamples.join('\n')}
 【重要】trang phục必须符合故事thời đại背景（${eraInfo}）！`;
 
   try {
-    // 统一从ánh xạ dịch vụ获取配置
+    // 统一从ánh xạ dịch vụ获取cấu hình
     const result = await callFeatureAPI('script_analysis', systemPrompt, userPrompt);
     
     // Phân tích JSON
@@ -447,7 +447,7 @@ export async function findCharacterByDescription(
       confidence: 0,
       episodeNumbers: [],
       contexts: [],
-      message: '无法识别角色名。请用类似"缺第10 tập的王大哥"hoặc"Thêm张小宝这角色"的方式Mô tả。',
+      message: 'Không thể识别角色名。请用类似"缺第10 tập的王大哥"hoặc"Thêm张小宝这角色"的方式Mô tả。',
     };
   }
   

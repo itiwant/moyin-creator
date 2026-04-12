@@ -216,7 +216,7 @@ function detectGenre(outline: string, characterBios: string): string {
     { keywords: /玄幻|魔法|异世界|龙族|精灵|魔族/, genre: '玄幻' },
     { keywords: /科幻|太空|星际|机器人|AI|外星|未来世界/, genre: '科幻' },
     { keywords: /悬疑|谋杀|侦探|推理|凶手|案件|警察/, genre: '悬疑' },
-    { keywords: /恐怖|鬼|灵异|诅咒|闹鬼/, genre: '恐怖' },
+    { keywords: /Kinh dị|鬼|灵异|诅咒|闹鬼/, genre: 'Kinh dị' },
     { keywords: /商战|创业|公司|股权|融资|上市|商业帝国|企业/, genre: '商战' },
     { keywords: /宫斗|后宫|嫔妃|皇上|太后|选秀/, genre: '宫斗' },
     { keywords: /宅斗|嫡女|庶出|大宅门|内宅/, genre: '宅斗' },

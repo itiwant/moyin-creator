@@ -117,7 +117,7 @@ async function matchByAI(
     return cached.viewpointId;
   }
 
-  // 获取 AI 配置
+  // 获取 AI cấu hình
   const config = getFeatureConfig('chat');
   if (!config) {
     console.warn('[ViewpointMatcher] No chat API configured for AI matching');
@@ -158,7 +158,7 @@ ${viewpointList}
         provider: config.platform,
         apiKey,
         model,
-        temperature: 0.1, // 低温度，更确定性的输出
+        temperature: 0.1, // 低温度，更确定性的Đầu ra
         maxTokens: 50,
       }),
     });
@@ -170,7 +170,7 @@ ${viewpointList}
     const data = await response.json();
     const result = data.content?.trim().toLowerCase();
     
-    // 验证返回的是hợp lệ的góc nhìnID
+    // 验证trả về是hợp lệ的góc nhìnID
     const viewpointId = availableViewpoints.find(v => v.id === result)?.id || null;
     
     // 缓存kết quả

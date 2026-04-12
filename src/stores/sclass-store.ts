@@ -11,7 +11,7 @@
  *
  * Seedance 2.0 限制：
  * - 输入：≤9ảnh + ≤3video(≤15s) + ≤3âm thanh(MP3,≤15s) + 文本(5000ký tự) ，Tổngfile≤12
- * - 输出：4-15s，480p/720p/1080p，16:9/9:16/4:3/3:4/21:9/1:1
+ * - Đầu ra：4-15s，480p/720p/1080p，16:9/9:16/4:3/3:4/21:9/1:1
  */
 
 import { create } from 'zustand';
@@ -44,13 +44,13 @@ export type AssetPurpose =
 /** Tạo videoTrạng thái */
 export type VideoGenStatus = 'idle' | 'generating' | 'completed' | 'failed';
 
-/** 输出videoTỉ lệ khung hình比 */
+/** Đầu ravideoTỉ lệ khung hình比 */
 export type SClassAspectRatio = '16:9' | '9:16' | '4:3' | '3:4' | '21:9' | '1:1';
 
-/** 输出videoĐộ phân giải */
+/** Đầu ravideoĐộ phân giải */
 export type SClassResolution = '480p' | '720p' | '1080p';
 
-/** 输出videoThời lượng（秒） */
+/** Đầu ravideoThời lượng（秒） */
 export type SClassDuration = 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15;
 
 /** Sáng tácchế độ */
@@ -206,7 +206,7 @@ export interface SClassProjectData {
   singleShotOverrides: Record<number, SingleShotOverride>;
   /** 全局 @tham chiếuTài sản（Tự dochế độ下Sử dụng） */
   globalAssetRefs: AssetRef[];
-  /** Tạo配置 */
+  /** Tạocấu hình */
   config: SClassConfig;
   /** 当前chế độ */
   mode: SClassMode;
@@ -219,7 +219,7 @@ export interface SClassProjectData {
   editorPrefs: SClassEditorPrefs;
 }
 
-/** Hạng STạo配置（共享配置 aspectRatio/resolution 已统一由 director-store Quản lý） */
+/** Hạng STạocấu hình（共享cấu hình aspectRatio/resolution 已统一由 director-store Quản lý） */
 export interface SClassConfig {
   defaultDuration: SClassDuration;
   /** Tạo并发数 */
@@ -277,7 +277,7 @@ interface SClassActions {
   addAssetRef: (groupId: string | null, asset: AssetRef) => void;
   removeAssetRef: (groupId: string | null, assetId: string) => void;
 
-  // 配置
+  // cấu hình
   updateConfig: (config: Partial<SClassConfig>) => void;
   setEditorPrefs: (prefs: Partial<SClassEditorPrefs>) => void;
 
@@ -709,7 +709,7 @@ export const useSClassStore = create<SClassStore>()(
         }
       },
 
-      // ========== 配置 ==========
+      // ========== cấu hình ==========
 
       updateConfig: (configUpdates) => {
         const { activeProjectId, projects } = get();

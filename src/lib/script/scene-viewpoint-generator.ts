@@ -20,15 +20,15 @@ export interface SceneViewpoint {
   name: string;         // Tên tiếng Trung: khu bàn ăn, khu sofa、边
   nameEn: string;       // Tên tiếng Anh：Dining Area, Sofa Area, Window
   shotIds: string[];    // 关联的分镜ID列表
-  keyProps: string[];   // 该góc nhìn需要的đạo cụ（中文）
+  keyProps: string[];   // 该góc nhìn需要的đạo cụ（tiếng Việt）
   keyPropsEn: string[]; // 该góc nhìn需要的đạo cụ（英文）
-  description: string;  // góc nhìnMô tả（中文）
+  description: string;  // góc nhìnMô tả（tiếng Việt）
   descriptionEn: string; // góc nhìnMô tả（英文）
   gridIndex: number;    // Chỉ mục trong ảnh ghép (0-5)
 }
 
 /**
- * ảnh ghépTạo配置
+ * ảnh ghépTạocấu hình
  */
 export interface ContactSheetConfig {
   scene: ScriptScene;
@@ -190,7 +190,7 @@ export function detectEnvironmentType(location: string): SceneEnvironmentType {
 // ==================== góc nhìnquan trọng词ánh xạ ====================
 
 /**
- * góc nhìn配置（带环境tương thích性）
+ * góc nhìncấu hình（带环境tương thích性）
  */
 interface ViewpointConfig {
   id: string;
@@ -817,7 +817,7 @@ function getDefaultViewpointsForEnvironment(
 }
 
 /**
- * kiểm tragóc nhìn配置是否与环境类型tương thích
+ * kiểm tragóc nhìncấu hình是否与环境类型tương thích
  */
 function isViewpointCompatibleWithEnvironment(
   config: ViewpointConfig,
@@ -1282,7 +1282,7 @@ export function buildContactSheetDataFromViewpoints(
       pendingViewpoints.push({
         id: vp.id,
         name: vp.name,
-        nameEn: vp.nameEn || vp.name, // 如果没有Tên tiếng Anh，Sử dụng中文名
+        nameEn: vp.nameEn || vp.name, // 如果没有Tên tiếng Anh，Sử dụngtiếng Việt名
         shotIds: vp.shotIds,
         shotIndexes,
         keyProps: vp.keyProps,

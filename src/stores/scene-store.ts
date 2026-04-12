@@ -543,8 +543,8 @@ export const ATMOSPHERE_PRESETS = [
   { id: 'tense', label: 'Căng thẳng', prompt: 'tense, suspenseful, uneasy atmosphere' },
   { id: 'romantic', label: 'Lãng mạn', prompt: 'romantic, warm, intimate atmosphere' },
   { id: 'mysterious', label: 'bí ẩn', prompt: 'mysterious, enigmatic, foggy atmosphere' },
-  { id: 'cheerful', label: '欢快', prompt: 'cheerful, lively, vibrant atmosphere' },
-  { id: 'melancholic', label: '忧郁', prompt: 'melancholic, sad, somber atmosphere' },
+  { id: 'cheerful', label: 'Vui vẻ', prompt: 'cheerful, lively, vibrant atmosphere' },
+  { id: 'melancholic', label: 'U sầu', prompt: 'melancholic, sad, somber atmosphere' },
   { id: 'epic', label: 'Hùng tráng', prompt: 'epic, grand, majestic atmosphere' },
-  { id: 'horror', label: '恐怖', prompt: 'horror, creepy, unsettling atmosphere' },
+  { id: 'horror', label: 'Kinh dị', prompt: 'horror, creepy, unsettling atmosphere' },
 ] as const;

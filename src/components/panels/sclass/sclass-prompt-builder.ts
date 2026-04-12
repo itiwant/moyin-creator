@@ -495,7 +495,7 @@ function buildShotSegment(
     parts.push(`playback: ${scene.playbackSpeed}`);
   }
 
-  // ===== 情绪Bầu không khí =====
+  // ===== cảm xúcBầu không khí =====
   if (scene.emotionTags && scene.emotionTags.length > 0) {
     parts.push(`mood: ${scene.emotionTags.join(' → ')}`);
   }
@@ -560,7 +560,7 @@ const EDIT_TYPE_TEMPLATE: Record<EditType, string> = {
 /**
  * 构建cấp nhóm prompt — Hạng S核心函数
  *
- * 输出định dạng（đang xử lý...）：
+ * Đầu rađịnh dạng（đang xử lý...）：
  * ```
  * 多Ống kínhtự sựvideo（共3Ống kính，TổngThời lượng14s）：
  *

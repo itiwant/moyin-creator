@@ -189,7 +189,7 @@ interface ParseOptions {
   shotCount?: number; // 每场景分镜数提示（传递给后续 shot generation）
   keyManager?: ApiKeyManager; // Optional: use existing key manager for rotation
   temperature?: number; // Tùy chỉnh温度，默认 0.7
-  maxTokens?: number; // Tùy chỉnh最大输出 token 数，默认 4096
+  maxTokens?: number; // Tùy chỉnh最大Đầu ra token 数，默认 4096
   /** 关闭推理模型深度思考（智谱 GLM-4.7/4.5 等），Tránh reasoning 耗尽 token */
   disableThinking?: boolean;
 }
@@ -224,7 +224,7 @@ export async function callChatAPI(
   
   if (!apiKey) {
     console.error('[callChatAPI] ❌ API Key 为空！');
-    throw new Error('API Key 未配置');
+    throw new Error('API Key 未cấu hình');
   }
   
   // Create or use existing key manager for rotation
@@ -234,10 +234,10 @@ export async function callChatAPI(
   console.log(`[callChatAPI] Sử dụng ${provider}，共 ${totalKeys}  API keys`);
 
   if (!baseUrl) {
-    throw new Error('Base URL 未配置');
+    throw new Error('Base URL 未cấu hình');
   }
   if (!model) {
-    throw new Error('模型未配置');
+    throw new Error('模型未cấu hình');
   }
   const normalizedBaseUrl = baseUrl.replace(/\/+$/, '');
   const url = /\/v\d+$/.test(normalizedBaseUrl)
@@ -275,11 +275,11 @@ export async function callChatAPI(
     throw err;
   }
   
-  // 输出空间不到请求的 50% → 打印 warning
+  // Đầu ra空间不到请求的 50% → 打印 warning
   if (availableForOutput < requestedMaxTokens * 0.5) {
     console.warn(
-      `[Dispatch] ⚠️ ${model}: 输出空间căng thẳng！可用≈${availableForOutput} tokens，` +
-      `请求=${requestedMaxTokens}，可能导致输出被cắt ngắn`
+      `[Dispatch] ⚠️ ${model}: Đầu ra空间căng thẳng！可用≈${availableForOutput} tokens，` +
+      `请求=${requestedMaxTokens}，可能导致Đầu ra被cắt ngắn`
     );
   }
   
@@ -300,7 +300,7 @@ export async function callChatAPI(
       'Authorization': `Bearer ${currentKey}`,
     };
     
-    // 模型Chọn逻辑：必须Sử dụng配置 model
+    // 模型Chọn逻辑：必须Sử dụngcấu hình model
     const modelName = model;
     console.log('[callChatAPI] Sử dụng模型:', modelName);
     
@@ -376,7 +376,7 @@ export async function callChatAPI(
     const content = data.choices?.[0]?.message?.content;
 
     if (!content) {
-      // 诊断日志：记录 API 实际返回的Cấu trúc
+      // 诊断日志：记录 API 实际trả vềCấu trúc
       const finishReason = data.choices?.[0]?.finish_reason;
       const usage = data.usage;
       const reasoningContent = data.choices?.[0]?.message?.reasoning_content;
@@ -564,7 +564,7 @@ Ngôn ngữ：${options.language || 'đang xử lý...${sceneCountHint}`;
     return scriptData;
   } catch (e) {
     console.error('[parseScript] Failed to parse JSON:', cleaned);
-    throw new Error('无法Phân tíchAI返回的剧本dữ liệu');
+    throw new Error('Không thểPhân tíchAItrả về剧本dữ liệu');
   }
 }
 
@@ -634,7 +634,7 @@ export async function generateShotList(
       : `场景${sceneIndex + 1}: ${scene.name || scene.location}，${scene.atmosphere || ''}环境`;
 
     const userPrompt = `为场景 ${sceneIndex + 1} Tạo电影级别的详细分镜。
-输出Ngôn ngữ: ${lang}
+Đầu raNgôn ngữ: ${lang}
 
 === 场景thông tin ===
 场景名: ${scene.name || scene.location}
@@ -834,7 +834,7 @@ người dùng可能输入：
 - MV概念："夏日青春的Nhạc视频"
 - 广告简报："30秒运动饮料广告"
 
-输出định dạng必须严格遵循（这是Nhập系统的Tiêu chuẩnđịnh dạng）：
+Đầu rađịnh dạng必须严格遵循（这是Nhập系统的Tiêu chuẩnđịnh dạng）：
 
 ---
 《剧本标题》
@@ -878,7 +878,7 @@ const STORYBOARD_STRUCTURE_PROMPT = `
 **★★★ Phát hiệnhiện có分镜Cấu trúc，必须遵守以下规则 ★★★**
 
 1. 保留原有的每一镜头/场景，一都不能少
-2. người dùng输入有12镜头，输出必须有12场景
+2. người dùng输入有12镜头，Đầu ra必须有12场景
 3. 每gốc镜头chuyển đổi thành一 **X-X 日/夜 内/外 地点** định dạng的场景
 4. 绝对bị cấm合并、省略、压缩镜头số lượng
 
@@ -891,7 +891,7 @@ const STORYBOARD_STRUCTURE_PROMPT = `
 bị cấm在场景内写多行！bị cấm分别列出Thoại、Hiệu ứng âm thanh！Tất cả内容必须压缩到一 △ 行中。
 
 示例：
-người dùng输入【镜头1】chứa画面Mô tả+Thoại+Hiệu ứng âm thanh，你的输出应该是：
+người dùng输入【镜头1】chứa画面Mô tả+Thoại+Hiệu ứng âm thanh，你的Đầu ra应该是：
 **1-1 日 内 篮球馆**
 nhân vật：马一花、沈星晴
 △记分牌Cực cận cảnh显示68:70，马一花带球被包夹Biểu cảm焦躁，全场屏息，心跳声逐渐响起
@@ -952,7 +952,7 @@ export async function generateScriptFromIdea(
   // 如果Phát hiệnhiện có分镜Cấu trúc，强调保留
   const preserveStructureNote = originalShotCount > 0 
     ? `\n\n**★★★ 特别注意 ★★★**
-người dùng输入chứa ${originalShotCount} 镜头/场景，你的输出必须有对应的 ${originalShotCount} 场景（**1-1** 到 **1-${originalShotCount}**）。
+người dùng输入chứa ${originalShotCount} 镜头/场景，你的Đầu ra必须有对应的 ${originalShotCount} 场景（**1-1** 到 **1-${originalShotCount}**）。
 
 Quan trọng:每场景内只能有一 △ 动作行！将该镜头的Tất cả画面、Thoại、Hiệu ứng âm thanh压缩成一句话。
 bị cấm分别列出多行ThoạihoặcHiệu ứng âm thanh，否则会Tạo多分镜！`
@@ -994,7 +994,7 @@ ${styleId ? `- Thị giác风格：${styleId}` : ''}
   // 对于详细分镜脚本，需要更高的 max_tokens
   const extendedOptions = {
     ...options,
-    maxTokens: originalShotCount > 5 ? 8192 : 4096, // 多镜头时增加输出độ dài
+    maxTokens: originalShotCount > 5 ? 8192 : 4096, // 多镜头时增加Đầu rađộ dài
   };
   
   const response = await callChatAPI(systemPrompt, userPrompt, extendedOptions);

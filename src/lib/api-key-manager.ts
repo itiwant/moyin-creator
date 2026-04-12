@@ -115,7 +115,7 @@ export function classifyModelByName(modelName: string): ModelCapability[] {
 
 /**
  * 模型 API gọi APIđịnh dạng
- * 基于 MemeFast 等平台 /v1/models 返回的 supported_endpoint_types trường
+ * 基于 MemeFast 等平台 /v1/models trả về supported_endpoint_types trường
  */
 export type ModelApiFormat =
   | 'openai_chat'        // /v1/chat/completions （文本/Chat，也用于 Gemini ảnhTạo）
@@ -158,7 +158,7 @@ const VIDEO_ENDPOINT_MAP: Record<string, ModelApiFormat> = {
  * 当端点元dữ liệukhông khả dụng时，根据模型名称推断
  */
 export function resolveImageApiFormat(endpointTypes: string[] | undefined, modelName?: string): ModelApiFormat {
-  // 1. Sử dụng API 返回的端点元dữ liệu
+  // 1. Sử dụng API trả về端点元dữ liệu
   if (endpointTypes && endpointTypes.length > 0) {
     // 优先Sử dụng image-generation 端点
     for (const t of endpointTypes) {
@@ -281,7 +281,7 @@ function isUpstreamOverloadError(errorText?: string): boolean {
     text.includes('tải已bão hòa') ||
     text.includes('tảibão hòa') ||
     text.includes('overloaded') ||
-    text.includes('无可用渠道') ||
+    text.includes('无可用kênh') ||
     text.includes('no available channel')
   );
 }
