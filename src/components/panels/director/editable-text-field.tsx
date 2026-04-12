@@ -110,7 +110,7 @@ export function EditableTextField({
     <div 
       className={cn("cursor-pointer group/field", className)}
       onDoubleClick={startEditing}
-      title="双击编辑"
+      title="Nhấp đúp để chỉnh sửa"
     >
       <Label className="text-[10px] text-muted-foreground flex items-center gap-1">
         {label}
@@ -121,7 +121,7 @@ export function EditableTextField({
         value ? "text-foreground/80" : "text-muted-foreground/50 italic",
         multiline && "line-clamp-2"
       )}>
-        {value || placeholder || "双击编辑..."}
+        {value || placeholder || "Nhấp đúp để chỉnh sửa..."}
       </p>
     </div>
   );

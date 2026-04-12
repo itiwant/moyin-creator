@@ -53,10 +53,10 @@ import { VISUAL_STYLE_PRESETS, getStyleTokens, getStylesByCategory, type VisualS
 import { StylePicker } from "@/components/ui/style-picker";
 
 const EXAMPLE_PROMPTS = [
-  "一只可爱的小猫在草地上玩耍，追逐蝴蝶",
-  "两个好朋友在公园里散步，分享快乐时光",
-  "小兔子和小熊在森林里冒险，发现神秘的宝藏",
-  "一个小女孩在海边堆沙堡，海浪轻轻拍打",
+  "Một chú mèo dễ thương vui đùa trên bãi cỏ, đuổi theo bướm",
+  "Hai người bạn thân đi dạo trong công viên, chia sẻ khoảnh khắc vui vẻ",
+  "Thỏ con và gấu nhỏ phiêu lưu trong rừng, khám phá kho báu bí ẩn",
+  "Một bé gái xây lâu đài cát bên biển, sóng nhẹ nhàng vỗ bờ",
 ];
 
 type StyleId = VisualStyleId | "random";
@@ -299,7 +299,7 @@ export function ScreenplayInput({ onGenerateStoryboard }: ScreenplayInputProps) 
       if (data.type === "character") {
         // Check if already added
         if (selectedCharacters.some(c => c.characterId === data.characterId)) {
-          toast.info("该角色已添加");
+          toast.info("Nhân vật này đã được thêm");
           return;
         }
 
@@ -311,7 +311,7 @@ export function ScreenplayInput({ onGenerateStoryboard }: ScreenplayInputProps) 
         };
 
         setSelectedCharacters(prev => [...prev, newChar]);
-        toast.success(`已添加角色: ${data.characterName}`);
+        toast.success(`Đã thêm nhân vật: ${data.characterName}`);
       }
     } catch (err) {
       // Not a valid character drop
@@ -352,9 +352,9 @@ export function ScreenplayInput({ onGenerateStoryboard }: ScreenplayInputProps) 
     let fullPrompt = prompt;
     if (selectedCharacters.length > 0) {
       const characterDescriptions = selectedCharacters
-        .map(c => `角色"${c.characterName}": ${c.visualTraits || '由AI根据名字设计'}`)
+        .map(c => `Nhân vật "${c.characterName}": ${c.visualTraits || 'Do AI thiết kế theo tên'}`)
         .join("; ");
-      fullPrompt = `${prompt}\n\n包含以下角色: ${characterDescriptions}`;
+      fullPrompt = `${prompt}\n\nBao gồm các nhân vật sau: ${characterDescriptions}`;
     }
     return fullPrompt;
   };
@@ -396,7 +396,7 @@ export function ScreenplayInput({ onGenerateStoryboard }: ScreenplayInputProps) 
 
   const handleSubmit = async () => {
     if (!prompt.trim()) {
-      toast.error("请输入剧本描述");
+      toast.error("Vui lòng nhập mô tả kịch bản");
       return;
     }
 
@@ -408,21 +408,21 @@ export function ScreenplayInput({ onGenerateStoryboard }: ScreenplayInputProps) 
         const actualStyleTokens = getSelectedStyleTokens();
         const rawCharacterImages = getCharacterReferenceImages();
         const characterDescriptions = selectedCharacters.map(
-          c => `${c.characterName}: ${c.visualTraits || '由AI根据名字设计'}`
+          c => `${c.characterName}: ${c.visualTraits || 'Do AI thiết kế theo tên'}`
         );
 
         // Upload base64 images to get HTTP URLs (API only accepts URLs)
         let characterReferenceImages: string[] = [];
         if (rawCharacterImages.length > 0) {
-          toast.info('正在上传角色参考图...');
+          toast.info('Đang tải ảnh tham chiếu nhân vật...');
           try {
             characterReferenceImages = await uploadMultipleImages(rawCharacterImages);
             if (characterReferenceImages.length > 0) {
-              toast.success(`成功上传 ${characterReferenceImages.length} 张角色参考图`);
+              toast.success(`Đã tải lên thành công ${characterReferenceImages.length} ảnh tham chiếu nhân vật`);
             }
           } catch (uploadError) {
             console.warn('[ScreenplayInput] Failed to upload character images:', uploadError);
-            toast.warning('角色参考图上传失败，将不使用角色参考图');
+            toast.warning('Tải ảnh tham chiếu nhân vật thất bại, sẽ không sử dụng ảnh tham chiếu');
           }
         }
 
@@ -448,7 +448,7 @@ export function ScreenplayInput({ onGenerateStoryboard }: ScreenplayInputProps) 
     // Legacy workflow: Check API keys for chat
     const chatReady = isFeatureConfigured('script_analysis') || checkChatKeys().isAllConfigured;
     if (!chatReady) {
-      toast.error('请在设置中配置「剧本分析/对话」的服务映射');
+      toast.error('Vui lòng cấu hình ánh xạ dịch vụ cho 'Phân tích kịch bản/Hội thoại' trong Cài đặt');
       return;
     }
 
@@ -492,12 +492,12 @@ export function ScreenplayInput({ onGenerateStoryboard }: ScreenplayInputProps) 
       // DirectorStore will be updated via onScreenplayGenerated callback
       useDirectorStore.getState().onScreenplayGenerated(screenplay);
       
-      toast.success("剧本生成成功！");
+      toast.success("Tạo kịch bản thành công!");
     } catch (error) {
       const err = error as Error;
       console.error("[ScreenplayInput] Generation failed:", err);
       setScreenplayError(err.message);
-      toast.error(`剧本生成失败: ${err.message}`);
+      toast.error(`Tạo kịch bản thất bại: ${err.message}`);
     } finally {
       setIsSubmitting(false);
     }
@@ -511,9 +511,9 @@ export function ScreenplayInput({ onGenerateStoryboard }: ScreenplayInputProps) 
     <div className="space-y-4">
       {/* Prompt input */}
       <div className="space-y-2">
-        <label className="text-sm font-medium">描述你想创作的视频</label>
+        <label className="text-sm font-medium">Mô tả video bạn muốn tạo</label>
         <Textarea
-          placeholder="例如：一只可爱的小猫在草地上玩耍..."
+          placeholder="VD: Một chú mèo dễ thương vui đùa trên bãi cỏ..."
           value={prompt}
           onChange={(e) => setPrompt(e.target.value)}
           className="min-h-[100px] resize-none"
@@ -523,7 +523,7 @@ export function ScreenplayInput({ onGenerateStoryboard }: ScreenplayInputProps) 
 
       {/* Example prompts */}
       <div className="space-y-2">
-        <label className="text-xs text-muted-foreground">示例提示</label>
+        <label className="text-xs text-muted-foreground">Ví dụ gợi ý</label>
         <div className="flex flex-wrap gap-1">
           {EXAMPLE_PROMPTS.map((example, i) => (
             <button
@@ -542,26 +542,26 @@ export function ScreenplayInput({ onGenerateStoryboard }: ScreenplayInputProps) 
       <div className="grid grid-cols-2 gap-3">
         {/* Aspect ratio */}
         <div className="space-y-1.5">
-          <Label className="text-sm font-medium">画面比例</Label>
+          <Label className="text-sm font-medium">Tỷ lệ khung hình</Label>
           <Select
             value={aspectRatio}
             onValueChange={(v) => setAspectRatio(v as AspectRatio)}
             disabled={isSubmitting}
           >
             <SelectTrigger className="w-full">
-              <SelectValue placeholder="选择比例" />
+              <SelectValue placeholder="Chọn tỷ lệ" />
             </SelectTrigger>
             <SelectContent>
               <SelectItem value="16:9">
                 <span className="flex items-center gap-2">
                   <Monitor className="h-3 w-3" />
-                  16:9 横屏
+                  16:9 Màn hình ngang
                 </span>
               </SelectItem>
               <SelectItem value="9:16">
                 <span className="flex items-center gap-2">
                   <Smartphone className="h-3 w-3" />
-                  9:16 竖屏
+                  9:16 Màn hình dọc
                 </span>
               </SelectItem>
             </SelectContent>
@@ -570,7 +570,7 @@ export function ScreenplayInput({ onGenerateStoryboard }: ScreenplayInputProps) 
 
         {/* Resolution */}
         <div className="space-y-1.5">
-          <Label className="text-sm font-medium">分辨率</Label>
+          <Label className="text-sm font-medium">Độ phân giải</Label>
           <Select
             value={resolution}
             onValueChange={(v) => {
@@ -585,14 +585,14 @@ export function ScreenplayInput({ onGenerateStoryboard }: ScreenplayInputProps) 
             disabled={isSubmitting}
           >
             <SelectTrigger className="w-full">
-              <SelectValue placeholder="选择分辨率" />
+              <SelectValue placeholder="Chọn độ phân giải" />
             </SelectTrigger>
             <SelectContent>
               <SelectItem value="2K">
-                2K (最多 {SCENE_LIMITS['2K']} 场景)
+                2K (Tối đa {SCENE_LIMITS['2K']} cảnh)
               </SelectItem>
               <SelectItem value="4K">
-                4K (最多 {SCENE_LIMITS['4K']} 场景)
+                4K (Tối đa {SCENE_LIMITS['4K']} cảnh)
               </SelectItem>
             </SelectContent>
           </Select>
@@ -604,10 +604,10 @@ export function ScreenplayInput({ onGenerateStoryboard }: ScreenplayInputProps) 
         {/* Scene count */}
         <div className="space-y-1.5">
           <Label className="text-sm font-medium flex items-center gap-2">
-            场景数量
+            Số lượng cảnh
             {!isSceneCountValid && (
               <span className="text-xs text-destructive font-normal">
-                超出上限
+                Vượt quá giới hạn
               </span>
             )}
           </Label>
@@ -617,12 +617,12 @@ export function ScreenplayInput({ onGenerateStoryboard }: ScreenplayInputProps) 
             disabled={isSubmitting}
           >
             <SelectTrigger className={`w-full ${!isSceneCountValid ? 'border-destructive' : ''}`}>
-              <SelectValue placeholder="选择场景数量" />
+              <SelectValue placeholder="Chọn số lượng cảnh" />
             </SelectTrigger>
             <SelectContent>
               {getMaxSceneOptions().map((n) => (
                 <SelectItem key={n} value={String(n)}>
-                  {n} 个场景
+                  {n} cảnh
                 </SelectItem>
               ))}
             </SelectContent>
@@ -631,12 +631,12 @@ export function ScreenplayInput({ onGenerateStoryboard }: ScreenplayInputProps) 
 
         {/* Style selection */}
         <div className="space-y-1.5">
-          <Label className="text-sm font-medium">视觉风格</Label>
+          <Label className="text-sm font-medium">Phong cách hình ảnh</Label>
           <StylePicker
             value={styleId === "random" ? "" : styleId}
             onChange={(id) => setStyleId(id as StyleId)}
             disabled={isSubmitting}
-            placeholder="选择风格（留空为随机）"
+            placeholder="Chọn phong cách (để trống là ngẫu nhiên)"
           />
         </div>
       </div>
@@ -656,11 +656,11 @@ export function ScreenplayInput({ onGenerateStoryboard }: ScreenplayInputProps) 
         <div className="flex items-center justify-between">
           <Label className="text-sm font-medium flex items-center gap-1">
             <Users className="h-4 w-4" />
-            角色库选择
+            Chọn từ thư viện nhân vật
           </Label>
           {selectedCharacters.length > 0 && (
             <span className="text-xs text-muted-foreground">
-              {selectedCharacters.length} 个
+              Đã chọn {selectedCharacters.length}
             </span>
           )}
         </div>
@@ -685,18 +685,18 @@ export function ScreenplayInput({ onGenerateStoryboard }: ScreenplayInputProps) 
               </PopoverTrigger>
               <PopoverContent className="w-64 p-0" align="start">
                 <div className="p-2 border-b">
-                  <p className="text-sm font-medium">选择角色</p>
+                  <p className="text-sm font-medium">Chọn nhân vật</p>
                 </div>
                 {visibleCharacters.length === 0 ? (
                   <div className="p-4 text-center">
                     <User className="h-8 w-8 mx-auto mb-2 text-muted-foreground" />
-                    <p className="text-sm text-muted-foreground mb-2">角色库为空</p>
+                    <p className="text-sm text-muted-foreground mb-2">Thư viện nhân vật trống</p>
                     <Button
                       variant="outline"
                       size="sm"
                       onClick={goToCharacterLibrary}
                     >
-                      去创建角色
+                      Đi tạo nhân vật
                     </Button>
                   </div>
                 ) : (
@@ -769,18 +769,18 @@ export function ScreenplayInput({ onGenerateStoryboard }: ScreenplayInputProps) 
                 </PopoverTrigger>
                 <PopoverContent className="w-64 p-0" align="start">
                   <div className="p-2 border-b">
-                    <p className="text-sm font-medium">选择角色</p>
+                    <p className="text-sm font-medium">Chọn nhân vật</p>
                   </div>
                   {visibleCharacters.length === 0 ? (
                     <div className="p-4 text-center">
                       <User className="h-8 w-8 mx-auto mb-2 text-muted-foreground" />
-                      <p className="text-sm text-muted-foreground mb-2">角色库为空</p>
+                      <p className="text-sm text-muted-foreground mb-2">Thư viện nhân vật trống</p>
                       <Button
                         variant="outline"
                         size="sm"
                         onClick={goToCharacterLibrary}
                       >
-                        去创建角色
+                        Đi tạo nhân vật
                       </Button>
                     </div>
                   ) : (
@@ -825,7 +825,7 @@ export function ScreenplayInput({ onGenerateStoryboard }: ScreenplayInputProps) 
       {/* Reference images */}
       <div className="space-y-2">
         <div className="flex items-center justify-between">
-          <label className="text-sm font-medium">参考图片（可选）</label>
+          <label className="text-sm font-medium">Ảnh tham chiếu (tùy chọn)</label>
           <span className="text-xs text-muted-foreground">{images.length}/3</span>
         </div>
 
@@ -870,9 +870,9 @@ export function ScreenplayInput({ onGenerateStoryboard }: ScreenplayInputProps) 
         <div className="flex items-start gap-2 p-2 rounded-md bg-yellow-500/10 border border-yellow-500/20">
           <AlertCircle className="h-4 w-4 text-yellow-500 mt-0.5 shrink-0" />
           <div className="text-xs text-yellow-600 dark:text-yellow-400">
-            <p className="font-medium">API 未配置</p>
+            <p className="font-medium">API chưa cấu hình</p>
             <p className="text-yellow-600/80 dark:text-yellow-400/80">
-              请在设置中为「剧本分析/对话」配置服务映射
+              Vui lòng cấu hình ánh xạ dịch vụ cho 'Phân tích kịch bản/Hội thoại' trong Cài đặt
             </p>
           </div>
         </div>
@@ -889,12 +889,12 @@ export function ScreenplayInput({ onGenerateStoryboard }: ScreenplayInputProps) 
           {isSubmitting ? (
             <>
               <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-current mr-2" />
-              生成中...
+              Đang tạo...
             </>
           ) : (
             <>
               <Wand2 className="h-4 w-4 mr-2" />
-              {onGenerateStoryboard ? "生成故事板" : "生成剧本"}
+              {onGenerateStoryboard ? "Tạo storyboard" : "Tạo kịch bản"}
             </>
           )}
         </Button>
@@ -907,7 +907,7 @@ export function ScreenplayInput({ onGenerateStoryboard }: ScreenplayInputProps) 
               </Button>
             </TooltipTrigger>
             <TooltipContent>
-              <p>AI 设置（即将推出）</p>
+              <p>Cài đặt AI (sắp ra mắt)</p>
             </TooltipContent>
           </Tooltip>
         </TooltipProvider>

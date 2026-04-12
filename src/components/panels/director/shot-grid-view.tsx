@@ -144,7 +144,7 @@ export function ShotGridView({ onGenerateImage, onGenerateVideo }: ShotGridViewP
   // Handle keyframe generation
   const handleGenerateKeyframe = async (shot: Shot, type: "start" | "end") => {
     if (!onGenerateImage) {
-      toast.error("图片生成服务未配置");
+      toast.error("Dịch vụ tạo ảnh chưa được cấu hình");
       return;
     }
 
@@ -177,9 +177,9 @@ export function ShotGridView({ onGenerateImage, onGenerateVideo }: ShotGridViewP
         ...(type === "start" ? { imageUrl, imageStatus: "completed" } : {}),
       });
 
-      toast.success(`${type === "start" ? "起始帧" : "结束帧"}生成完成`);
+      toast.success(`${type === "start" ? "Khung bắt đầu" : "Khung kết thúc"}TạoHoàn thành`);
     } catch (error) {
-      toast.error(`生成失败: ${(error as Error).message}`);
+      toast.error(`Tạo thất bại: ${(error as Error).message}`);
     } finally {
       setProcessingId(null);
       setProcessingType(null);
@@ -189,7 +189,7 @@ export function ShotGridView({ onGenerateImage, onGenerateVideo }: ShotGridViewP
   // Handle video generation
   const handleGenerateVideo = async (shot: Shot) => {
     if (!onGenerateVideo) {
-      toast.error("视频生成服务未配置");
+      toast.error("Dịch vụ tạo video chưa được cấu hình");
       return;
     }
 
@@ -197,7 +197,7 @@ export function ShotGridView({ onGenerateImage, onGenerateVideo }: ShotGridViewP
     const eKf = shot.keyframes?.find((k) => k.type === "end");
 
     if (!sKf?.imageUrl && !shot.imageUrl) {
-      toast.error("请先生成起始帧");
+      toast.error("Vui lòng tạo khung bắt đầu trước");
       return;
     }
 
@@ -220,9 +220,9 @@ export function ShotGridView({ onGenerateImage, onGenerateVideo }: ShotGridViewP
         },
       });
 
-      toast.success("视频生成完成");
+      toast.success("Tạo video hoàn tất");
     } catch (error) {
-      toast.error(`视频生成失败: ${(error as Error).message}`);
+      toast.error(`Tạo video thất bại: ${(error as Error).message}`);
     } finally {
       setProcessingId(null);
       setProcessingType(null);
@@ -237,7 +237,7 @@ export function ShotGridView({ onGenerateImage, onGenerateVideo }: ShotGridViewP
       : endKf?.imageUrl;
 
     if (!imageUrl) {
-      toast.error(`请先生成${type === "start" ? "起始帧" : "结束帧"}`);
+      toast.error(`Vui lòng tạo trước${type === "start" ? "Khung bắt đầu" : "Khung kết thúc"}`);
       return;
     }
 
@@ -263,7 +263,7 @@ export function ShotGridView({ onGenerateImage, onGenerateVideo }: ShotGridViewP
     const appId = runninghubProvider?.model?.[0];
 
     if (!apiKey || !baseUrl || !appId) {
-      toast.error("请先在设置中配置 RunningHub（API Key / Base URL / 模型AppId）");
+      toast.error("Vui lòng cấu hình RunningHub (API Key / Base URL / Model AppId) trong Cài đặt trước");
       setAngleSwitchOpen(false);
       return;
     }
@@ -273,7 +273,7 @@ export function ShotGridView({ onGenerateImage, onGenerateVideo }: ShotGridViewP
       : endKf?.imageUrl;
 
     if (!originalImage) {
-      toast.error("找不到原图");
+      toast.error("Không tìm thấy ảnh gốc");
       return;
     }
 
@@ -304,9 +304,9 @@ export function ShotGridView({ onGenerateImage, onGenerateVideo }: ShotGridViewP
       setAngleSwitchOpen(false);
       setAngleSwitchResultOpen(true);
 
-      toast.success("视角切换生成完成");
+      toast.success("Tạo chuyển góc nhìn hoàn tất");
     } catch (error) {
-      toast.error(`视角切换失败: ${(error as Error).message}`);
+      toast.error(`Chuyển góc nhìn thất bại: ${(error as Error).message}`);
     } finally {
       setIsAngleSwitching(false);
     }
@@ -338,13 +338,13 @@ export function ShotGridView({ onGenerateImage, onGenerateVideo }: ShotGridViewP
 
     setAngleSwitchResultOpen(false);
     setAngleSwitchResult(null);
-    toast.success("视角已应用");
+    toast.success("Đã áp dụng góc nhìn");
   };
 
   // Batch generate start frames
   const handleBatchGenerateImages = async () => {
     if (!onGenerateImage) {
-      toast.error("图片生成服务未配置");
+      toast.error("Dịch vụ tạo ảnh chưa được cấu hình");
       return;
     }
 
@@ -355,14 +355,14 @@ export function ShotGridView({ onGenerateImage, onGenerateVideo }: ShotGridViewP
     if (shotsToProcess.length === 0) return;
 
     if (allStartFramesGenerated) {
-      if (!confirm("确定要重新生成所有镜头的首帧吗？")) return;
+      if (!confirm("Bạn có chắc muốn tạo lại tất cả khung hình đầu không?")) return;
     }
 
     setBatchProgress({
       isVisible: true,
       current: 0,
       total: shotsToProcess.length,
-      message: allStartFramesGenerated ? "正在重新生成所有首帧..." : "正在批量生成首帧...",
+      message: allStartFramesGenerated ? "Đang tạo lại tất cả khung hình đầu..." : "Đang tạo hàng loạt khung hình đầu...",
     });
 
     for (let i = 0; i < shotsToProcess.length; i++) {
@@ -372,7 +372,7 @@ export function ShotGridView({ onGenerateImage, onGenerateVideo }: ShotGridViewP
       setBatchProgress((prev) => ({
         ...prev,
         current: i + 1,
-        message: `正在生成镜头 ${i + 1}/${shotsToProcess.length}...`,
+        message: `Đang tạo cảnh quay ${i + 1}/${shotsToProcess.length}...`,
       }));
 
       try {
@@ -405,15 +405,15 @@ export function ShotGridView({ onGenerateImage, onGenerateVideo }: ShotGridViewP
     }
 
     setBatchProgress({ isVisible: false, current: 0, total: 0 });
-    toast.success("批量生成完成");
+    toast.success("Tạo hàng loạt hoàn tất");
   };
 
   if (shots.length === 0) {
     return (
       <div className="flex flex-col items-center justify-center h-full text-zinc-500 bg-[#121212] p-8">
         <AlertCircle className="w-12 h-12 mb-4 opacity-50" />
-        <p className="text-sm">暂无镜头数据</p>
-        <p className="text-xs text-zinc-600 mt-1">请先在剧本阶段生成分镜列表</p>
+        <p className="text-sm">Chưa có dữ liệu cảnh quay</p>
+        <p className="text-xs text-zinc-600 mt-1">Vui lòng tạo danh sách phân cảnh ở giai đoạn kịch bản trước</p>
       </div>
     );
   }
@@ -426,14 +426,14 @@ export function ShotGridView({ onGenerateImage, onGenerateVideo }: ShotGridViewP
         current={batchProgress.current}
         total={batchProgress.total}
         message={batchProgress.message}
-        title="批量生成首帧"
+        title="Tạo hàng loạt khung hình đầu"
       />
 
       {/* Toolbar */}
       <div className="h-14 border-b border-zinc-800 bg-[#1A1A1A] px-4 flex items-center justify-between shrink-0">
         <div className="flex items-center gap-3">
           <LayoutGrid className="w-4 h-4 text-indigo-500" />
-          <span className="text-sm font-medium text-white">镜头网格</span>
+          <span className="text-sm font-medium text-white">Lưới cảnh quay</span>
           <span className="text-xs text-zinc-500 font-mono">
             {shots.filter((s) => s.imageUrl || s.keyframes?.find((k) => k.type === "start")?.imageUrl).length} / {shots.length}
           </span>
@@ -447,7 +447,7 @@ export function ShotGridView({ onGenerateImage, onGenerateVideo }: ShotGridViewP
           className="h-8"
         >
           <Sparkles className="w-3 h-3 mr-1.5" />
-          {allStartFramesGenerated ? "重新生成首帧" : "批量生成首帧"}
+          {allStartFramesGenerated ? "Tạo lại khung hình đầu" : "Tạo hàng loạt khung hình đầu"}
         </Button>
       </div>
 
@@ -530,7 +530,7 @@ export function ShotGridView({ onGenerateImage, onGenerateVideo }: ShotGridViewP
                   {String(activeShotIndex + 1).padStart(2, "0")}
                 </span>
                 <div>
-                  <h3 className="text-white font-medium text-sm">镜头详情</h3>
+                  <h3 className="text-white font-medium text-sm">Chi tiết cảnh quay</h3>
                   <p className="text-[10px] text-zinc-500">{activeShot.cameraMovement}</p>
                 </div>
               </div>
@@ -573,7 +573,7 @@ export function ShotGridView({ onGenerateImage, onGenerateVideo }: ShotGridViewP
                   <div className="bg-[#141414] p-4 rounded-lg border border-zinc-800 space-y-3">
                     <div className="flex items-center gap-2 text-zinc-400">
                       <MapPin className="w-3.5 h-3.5" />
-                      <span className="text-xs font-medium uppercase tracking-wider">场景环境</span>
+                      <span className="text-xs font-medium uppercase tracking-wider">Môi trường cảnh</span>
                     </div>
 
                     <div className="flex items-center justify-between">
@@ -616,7 +616,7 @@ export function ShotGridView({ onGenerateImage, onGenerateVideo }: ShotGridViewP
                                   <SelectValue />
                                 </SelectTrigger>
                                 <SelectContent>
-                                  <SelectItem value="default">默认造型</SelectItem>
+                                  <SelectItem value="default">Tạo hình mặc định</SelectItem>
                                   {char.variations.map((v) => (
                                     <SelectItem key={v.id} value={v.id}>
                                       {v.name}
@@ -636,7 +636,7 @@ export function ShotGridView({ onGenerateImage, onGenerateVideo }: ShotGridViewP
                 <div className="space-y-2">
                   <div className="flex items-center gap-2 text-zinc-400">
                     <Film className="w-3.5 h-3.5" />
-                    <span className="text-xs font-medium uppercase tracking-wider">叙事动作</span>
+                    <span className="text-xs font-medium uppercase tracking-wider">Hành động tường thuật</span>
                   </div>
 
                   <div className="bg-[#141414] p-3 rounded-lg border border-zinc-800">
@@ -655,14 +655,14 @@ export function ShotGridView({ onGenerateImage, onGenerateVideo }: ShotGridViewP
                 <div className="space-y-2">
                   <div className="flex items-center gap-2 text-zinc-400">
                     <Aperture className="w-3.5 h-3.5" />
-                    <span className="text-xs font-medium uppercase tracking-wider">视觉制作</span>
+                    <span className="text-xs font-medium uppercase tracking-wider">Sản xuất hình ảnh</span>
                   </div>
 
                   <div className="grid grid-cols-2 gap-3">
                     {/* Start Frame */}
                     <div className="space-y-1.5">
                       <div className="flex justify-between items-center">
-                        <span className="text-[10px] font-medium text-zinc-500">起始帧</span>
+                        <span className="text-[10px] font-medium text-zinc-500">Khung bắt đầu</span>
                         <div className="flex items-center gap-2">
                           {(startKf?.imageUrl || activeShot.imageUrl) && (
                             <button
@@ -671,7 +671,7 @@ export function ShotGridView({ onGenerateImage, onGenerateVideo }: ShotGridViewP
                               className="text-[10px] text-amber-400 hover:text-amber-300 disabled:opacity-50 flex items-center gap-0.5"
                             >
                               <RotateCw className="w-3 h-3" />
-                              视角
+                              Góc nhìn
                             </button>
                           )}
                           <button
@@ -679,7 +679,7 @@ export function ShotGridView({ onGenerateImage, onGenerateVideo }: ShotGridViewP
                             disabled={processingType === "start"}
                             className="text-[10px] text-indigo-400 hover:text-white disabled:opacity-50"
                           >
-                            {startKf?.imageUrl || activeShot.imageUrl ? "重新生成" : "生成"}
+                            {startKf?.imageUrl || activeShot.imageUrl ? "Tạo lại" : "Tạo"}
                           </button>
                         </div>
                       </div>
@@ -705,7 +705,7 @@ export function ShotGridView({ onGenerateImage, onGenerateVideo }: ShotGridViewP
                     {/* End Frame */}
                     <div className="space-y-1.5">
                       <div className="flex justify-between items-center">
-                        <span className="text-[10px] font-medium text-zinc-500">结束帧</span>
+                        <span className="text-[10px] font-medium text-zinc-500">Khung kết thúc</span>
                         <div className="flex items-center gap-2">
                           {endKf?.imageUrl && (
                             <button
@@ -714,7 +714,7 @@ export function ShotGridView({ onGenerateImage, onGenerateVideo }: ShotGridViewP
                               className="text-[10px] text-amber-400 hover:text-amber-300 disabled:opacity-50 flex items-center gap-0.5"
                             >
                               <RotateCw className="w-3 h-3" />
-                              视角
+                              Góc nhìn
                             </button>
                           )}
                           <button
@@ -722,7 +722,7 @@ export function ShotGridView({ onGenerateImage, onGenerateVideo }: ShotGridViewP
                             disabled={processingType === "end"}
                             className="text-[10px] text-indigo-400 hover:text-white disabled:opacity-50"
                           >
-                            {endKf?.imageUrl ? "重新生成" : "生成"}
+                            {endKf?.imageUrl ? "Tạo lại" : "Tạo"}
                           </button>
                         </div>
                       </div>
@@ -731,7 +731,7 @@ export function ShotGridView({ onGenerateImage, onGenerateVideo }: ShotGridViewP
                           <img src={endKf.imageUrl} className="w-full h-full object-cover" />
                         ) : (
                           <div className="absolute inset-0 flex items-center justify-center">
-                            <span className="text-[9px] text-zinc-700">可选</span>
+                            <span className="text-[9px] text-zinc-700">Tùy chọn</span>
                           </div>
                         )}
                         {processingType === "end" && (
@@ -749,7 +749,7 @@ export function ShotGridView({ onGenerateImage, onGenerateVideo }: ShotGridViewP
                   <div className="flex items-center justify-between">
                     <span className="text-xs font-medium text-white flex items-center gap-1.5">
                       <Video className="w-3.5 h-3.5 text-indigo-500" />
-                      视频生成
+                      Tạo video
                     </span>
                     {(activeShot.videoUrl || activeShot.interval?.videoUrl) && (
                       <span className="text-[10px] text-green-500 font-mono">● READY</span>
@@ -764,7 +764,7 @@ export function ShotGridView({ onGenerateImage, onGenerateVideo }: ShotGridViewP
                     />
                   ) : (
                     <div className="w-full aspect-video bg-zinc-900/50 rounded border border-dashed border-zinc-800 flex items-center justify-center">
-                      <span className="text-xs text-zinc-600 font-mono">预览区域</span>
+                      <span className="text-xs text-zinc-600 font-mono">Khu vực xem trước</span>
                     </div>
                   )}
 
@@ -777,11 +777,11 @@ export function ShotGridView({ onGenerateImage, onGenerateVideo }: ShotGridViewP
                     {processingType === "video" ? (
                       <>
                         <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                        生成中...
+                        Đang tạo...
                       </>
                     ) : (
                       <>
-                        {activeShot.videoUrl || activeShot.interval?.videoUrl ? "重新生成视频" : "生成视频"}
+                        {activeShot.videoUrl || activeShot.interval?.videoUrl ? "Tạo lại video" : "Tạo video"}
                       </>
                     )}
                   </Button>

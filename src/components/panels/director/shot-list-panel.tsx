@@ -83,7 +83,7 @@ export function ShotListPanel({ onGenerateImage }: ShotListPanelProps) {
   // Batch generate
   const handleBatchGenerate = async () => {
     if (!onGenerateImage) {
-      toast.error("图片生成服务未配置");
+      toast.error("Dịch vụ tạo ảnh chưa được cấu hình");
       return;
     }
 
@@ -93,7 +93,7 @@ export function ShotListPanel({ onGenerateImage }: ShotListPanelProps) {
 
     if (shotsToProcess.length === 0) return;
 
-    if (allStartFramesGenerated && !confirm("确定要重新生成所有首帧吗？")) {
+    if (allStartFramesGenerated && !confirm("Bạn có chắc muốn tạo lại tất cả khung hình đầu không?")) {
       return;
     }
 
@@ -101,7 +101,7 @@ export function ShotListPanel({ onGenerateImage }: ShotListPanelProps) {
       isVisible: true,
       current: 0,
       total: shotsToProcess.length,
-      message: "准备中...",
+      message: "Đang chuẩn bị...",
     });
 
     for (let i = 0; i < shotsToProcess.length; i++) {
@@ -111,7 +111,7 @@ export function ShotListPanel({ onGenerateImage }: ShotListPanelProps) {
       setBatchProgress((prev) => ({
         ...prev,
         current: i + 1,
-        message: `生成镜头 ${i + 1}/${shotsToProcess.length}`,
+        message: `TạoCảnh quay ${i + 1}/${shotsToProcess.length}`,
       }));
 
       try {
@@ -136,26 +136,26 @@ export function ShotListPanel({ onGenerateImage }: ShotListPanelProps) {
     }
 
     setBatchProgress({ isVisible: false, current: 0, total: 0 });
-    toast.success("批量生成完成");
+    toast.success("Tạo hàng loạt hoàn tất");
   };
 
   // Get scene name
   const getSceneName = (sceneRefId: string) => {
     const scene = scriptData?.scenes.find((s) => String(s.id) === sceneRefId);
-    return scene?.name || scene?.location || `场景 ${sceneRefId}`;
+    return scene?.name || scene?.location || `Cảnh ${sceneRefId}`;
   };
 
   if (shots.length === 0) {
     return (
       <div className="h-full flex flex-col">
         <div className="p-3 border-b border-border">
-          <h3 className="font-medium text-sm">镜头列表</h3>
+          <h3 className="font-medium text-sm">Danh sách cảnh quay</h3>
         </div>
         <div className="flex-1 flex flex-col items-center justify-center text-muted-foreground p-4">
           <AlertCircle className="w-10 h-10 mb-3 opacity-30" />
-          <p className="text-sm text-center">暂无镜头</p>
+          <p className="text-sm text-center">Chưa có cảnh quay</p>
           <p className="text-xs text-center mt-1 opacity-60">
-            请先在剧本阶段生成分镜
+            Vui lòng tạo phân cảnh ở giai đoạn kịch bản trước
           </p>
         </div>
       </div>
@@ -169,13 +169,13 @@ export function ShotListPanel({ onGenerateImage }: ShotListPanelProps) {
         current={batchProgress.current}
         total={batchProgress.total}
         message={batchProgress.message}
-        title="批量生成首帧"
+        title="Tạo hàng loạt khung hình đầu"
       />
 
       {/* Header */}
       <div className="p-3 border-b border-border space-y-2">
         <div className="flex items-center justify-between">
-          <h3 className="font-medium text-sm">镜头列表</h3>
+          <h3 className="font-medium text-sm">Danh sách cảnh quay</h3>
           <div className="flex items-center gap-1">
             <Button
               variant={viewMode === "grid" ? "secondary" : "ghost"}
@@ -216,7 +216,7 @@ export function ShotListPanel({ onGenerateImage }: ShotListPanelProps) {
             disabled={batchProgress.isVisible || !onGenerateImage}
           >
             <Sparkles className="w-3 h-3 mr-1" />
-            {allStartFramesGenerated ? "重新生成" : "批量生成"}
+            {allStartFramesGenerated ? "Tạo lại" : "Tạo hàng loạt"}
           </Button>
         </div>
       </div>
@@ -282,7 +282,7 @@ export function ShotListPanel({ onGenerateImage }: ShotListPanelProps) {
                     {/* Label */}
                     <div className="p-1.5 bg-background">
                       <p className="text-[10px] text-muted-foreground line-clamp-1">
-                        {shot.shotSize || shot.cameraMovement || "镜头"}
+                        {shot.shotSize || shot.cameraMovement || "Cảnh quay"}
                       </p>
                     </div>
                   </div>
@@ -337,7 +337,7 @@ export function ShotListPanel({ onGenerateImage }: ShotListPanelProps) {
                                 {String(globalIdx + 1).padStart(2, "0")}
                               </span>
                               <span className="text-xs truncate">
-                                {shot.shotSize || "镜头"}
+                                {shot.shotSize || "Cảnh quay"}
                               </span>
                             </div>
                             <p className="text-[10px] text-muted-foreground truncate">

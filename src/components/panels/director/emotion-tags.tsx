@@ -131,18 +131,18 @@ export function EmotionTags({ value, onChange, disabled }: EmotionTagsProps) {
             className="h-7 text-xs"
           >
             <Plus className="h-3 w-3 mr-1" />
-            添加情绪标签
+            Thêm thẻ cảm xúc
           </Button>
         </PopoverTrigger>
         <PopoverContent className="w-72 p-3" align="start">
           <div className="space-y-3">
-            <p className="text-sm font-medium">选择情绪标签</p>
+            <p className="text-sm font-medium">Chọn thẻ cảm xúc</p>
             <p className="text-xs text-muted-foreground">
-              按顺序添加标签，视频将按此顺序呈现情绪变化
+              Thêm thẻ theo thứ tự, video sẽ thể hiện sự thay đổi cảm xúc theo thứ tự này
             </p>
-            {renderTagGroup("基础情绪", EMOTION_PRESETS.basic)}
-            {renderTagGroup("氛围情绪", EMOTION_PRESETS.atmosphere)}
-            {renderTagGroup("语气情绪", EMOTION_PRESETS.tone)}
+            {renderTagGroup("Cảm xúc cơ bản", EMOTION_PRESETS.basic)}
+            {renderTagGroup("Cảm xúc không khí", EMOTION_PRESETS.atmosphere)}
+            {renderTagGroup("Cảm xúc giọng điệu", EMOTION_PRESETS.tone)}
           </div>
         </PopoverContent>
       </Popover>
@@ -150,12 +150,12 @@ export function EmotionTags({ value, onChange, disabled }: EmotionTagsProps) {
       {/* 提示文字 */}
       {value.length === 0 && (
         <p className="text-xs text-muted-foreground">
-          添加情绪标签控制视频氛围和说话语气
+          Thêm thẻ cảm xúc để kiểm soát không khí và giọng điệu video
         </p>
       )}
       {value.length > 1 && (
         <p className="text-xs text-muted-foreground">
-          情绪将按 {value.map((t, i) => getTagInfo(t)?.label).filter(Boolean).join(" → ")} 顺序变化
+          Cảm xúc sẽ theo thứ tự {value.map((t, i) => getTagInfo(t)?.label).filter(Boolean).join(" → ")} thay đổi
         </p>
       )}
     </div>

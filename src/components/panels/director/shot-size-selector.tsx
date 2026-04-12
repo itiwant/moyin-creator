@@ -40,12 +40,12 @@ export function ShotSizeSelector({
       <SelectTrigger className={`h-7 text-xs ${className || ""}`}>
         <div className="flex items-center gap-1.5">
           <Camera className="h-3 w-3 text-muted-foreground" />
-          <SelectValue placeholder="景别" />
+          <SelectValue placeholder="Cỡ cảnh" />
         </div>
       </SelectTrigger>
       <SelectContent>
         <SelectItem value="none">
-          <span className="text-muted-foreground">未设置</span>
+          <span className="text-muted-foreground">Chưa đặt</span>
         </SelectItem>
         {SHOT_SIZE_PRESETS.map((preset) => (
           <SelectItem key={preset.id} value={preset.id}>

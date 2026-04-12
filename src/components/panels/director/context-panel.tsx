@@ -464,8 +464,8 @@ export function DirectorContextPanel() {
       photographyTechnique: shot.photographyTechnique,
     }]);
     
-    const matchInfo = sceneMatch ? ` (匹配: ${sceneMatch.matchedSceneName})` : '';
-    toast.success(`已添加分镜到编辑列表${matchInfo}`);
+    const matchInfo = sceneMatch ? ` (Khớp: ${sceneMatch.matchedSceneName})` : '';
+    toast.success(`Đã thêm phân cảnh vào danh sách chỉnh sửa${matchInfo}`);
   };
 
   // 添加整个场景的所有分镜到分镜编辑（模式二）
@@ -476,7 +476,7 @@ export function DirectorContextPanel() {
       const fallbackPromptZh = scene.visualPrompt?.trim()
         || [scene.location, scene.atmosphere].filter(Boolean).join(' - ')
         || scene.name
-        || '场景描述';
+        || 'Mô tả cảnh';
       const fallbackPromptEn = scene.visualPromptEn?.trim() || '';
       const matchedScene = sceneLibraryScenes.find((s) =>
         !s.parentSceneId &&
@@ -488,7 +488,7 @@ export function DirectorContextPanel() {
       );
 
       addScenesAndSyncStyle([{
-        sceneName: scene.name || scene.location || '未命名场景',
+        sceneName: scene.name || scene.location || 'Cảnh chưa đặt tên',
         sceneLocation: scene.location || '',
         promptZh: fallbackPromptZh,
         promptEn: fallbackPromptEn,
@@ -515,8 +515,8 @@ export function DirectorContextPanel() {
         sceneReferenceImage: matchedScene?.referenceImage || matchedScene?.referenceImageBase64,
       }]);
 
-      const matchInfo = matchedScene ? `（已匹配场景库：${matchedScene.name}）` : '';
-      toast.success(`该场景暂无分镜，已创建 1 条场景分镜${matchInfo}`);
+      const matchInfo = matchedScene ? `（Đã khớp Thư viện cảnh: ${matchedScene.name}）` : '';
+      toast.success(`Cảnh này chưa có phân cảnh, đã tạo 1 phân cảnh${matchInfo}`);
       return;
     }
     
@@ -605,18 +605,18 @@ export function DirectorContextPanel() {
     });
     
     addScenesAndSyncStyle(scenesToAdd);
-    const matchInfo = matchedCount > 0 ? ` (${matchedCount}个已匹配场景库)` : '';
-    toast.success(`已添加 ${scenesToAdd.length} 个分镜到编辑列表${matchInfo}`);
+    const matchInfo = matchedCount > 0 ? ` (${matchedCount} cảnh khớp thư viện)` : '';
+    toast.success(`Đã thêm ${scenesToAdd.length} phân cảnh vào danh sách chỉnh sửa${matchInfo}`);
   };
 
   // 发送单个分镜到AI导演输入（模式一）
   const handleSendShot = (shot: Shot, scene: ScriptScene) => {
     // 构建故事提示
     const parts: string[] = [];
-    if (scene.location) parts.push(`场景：${scene.location}`);
-    if (scene.time) parts.push(`时间：${scene.time}`);
-    if (shot.actionSummary) parts.push(`动作：${shot.actionSummary}`);
-    if (shot.dialogue) parts.push(`对白：${shot.dialogue}`);
+    if (scene.location) parts.push(`Cảnh：${scene.location}`);
+    if (scene.time) parts.push(`Thời gian: ${scene.time}`);
+    if (shot.actionSummary) parts.push(`Hành động: ${shot.actionSummary}`);
+    if (shot.dialogue) parts.push(`Hội thoại: ${shot.dialogue}`);
 
     const storyPrompt = parts.join("\n");
 
@@ -650,9 +650,9 @@ export function DirectorContextPanel() {
 
     // 构建故事提示 - 合并场景下所有分镜
     const parts: string[] = [];
-    if (scene.location) parts.push(`场景：${scene.location}`);
-    if (scene.time) parts.push(`时间：${scene.time}`);
-    if (scene.atmosphere) parts.push(`氛围：${scene.atmosphere}`);
+    if (scene.location) parts.push(`Cảnh：${scene.location}`);
+    if (scene.time) parts.push(`Thời gian: ${scene.time}`);
+    if (scene.atmosphere) parts.push(`Không khí: ${scene.atmosphere}`);
 
     // 添加所有分镜的动作和对白
     sceneShots.forEach((shot, idx) => {
@@ -660,7 +660,7 @@ export function DirectorContextPanel() {
       if (shot.actionSummary) shotParts.push(shot.actionSummary);
       if (shot.dialogue) shotParts.push(`"${shot.dialogue}"`);
       if (shotParts.length > 0) {
-        parts.push(`[镜头${idx + 1}] ${shotParts.join(" - ")}`);
+        parts.push(`[Cảnh quay${idx + 1}] ${shotParts.join(" - ")}`);
       }
     });
 
@@ -700,13 +700,13 @@ export function DirectorContextPanel() {
         <div className="p-3 border-b">
           <h3 className="font-medium text-sm flex items-center gap-2">
             <FileVideo className="h-4 w-4" />
-            剧本结构
+            Cấu trúc kịch bản
           </h3>
         </div>
         <div className="flex-1 flex items-center justify-center p-4">
           <div className="text-center text-muted-foreground text-sm">
-            <p>暂无剧本数据</p>
-            <p className="mt-1">请先在剧本面板解析剧本</p>
+            <p>Chưa có dữ liệu kịch bản</p>
+            <p className="mt-1">Vui lòng phân tích kịch bản trong bảng kịch bản trước</p>
           </div>
         </div>
         <div className="p-3 border-t">
@@ -717,7 +717,7 @@ export function DirectorContextPanel() {
             onClick={handleBackToScript}
           >
             <ArrowLeft className="h-4 w-4 mr-2" />
-            去剧本面板
+            Đến bảng kịch bản
           </Button>
         </div>
       </div>
@@ -741,17 +741,17 @@ export function DirectorContextPanel() {
             )}
           </div>
           <span className="text-xs text-muted-foreground">
-            进度: {overallProgress}
+            Tiến trình: {overallProgress}
           </span>
         </div>
         <p className="text-xs text-muted-foreground mt-2">
-          点击场景/分镜可发送到AI导演输入
+          Nhấp vào cảnh/phân cảnh để gửi đến đầu vào AI đạo diễn
         </p>
         {/* 分镜编辑计数 */}
         {splitScenes.length > 0 && (
           <div className="mt-2 px-2 py-1 bg-green-500/10 rounded text-xs text-green-600 flex items-center gap-1">
             <Plus className="h-3 w-3" />
-            <span>已添加 {splitScenes.length} 个分镜到编辑列表</span>
+            <span>Đã thêm {splitScenes.length} phân cảnh vào danh sách chỉnh sửa</span>
           </div>
         )}
       </div>
@@ -840,7 +840,7 @@ export function DirectorContextPanel() {
                                 e.stopPropagation();
                                 handleAddSceneToSplitScenes(scene);
                               }}
-                              title="添加所有分镜到分镜编辑"
+                              title="Thêm tất cả phân cảnh vào chỉnh sửa"
                             >
                               <Plus className="h-3 w-3 text-green-500" />
                             </Button>
@@ -853,13 +853,13 @@ export function DirectorContextPanel() {
                                 e.stopPropagation();
                                 handleSendScene(scene);
                               }}
-                              title="发送整个场景到AI导演生成图片"
+                              title="Gửi toàn bộ cảnh đến AI đạo diễn để tạo ảnh"
                             >
                               <Send className="h-3 w-3 text-primary" />
                             </Button>
                           </div>
 
-                          {/* 分镜列表 */}
+                          {/* Danh sách phân cảnh */}
                           {expandedScenes.has(scene.id) && sceneShots.length > 0 && (
                             <div className="ml-4 space-y-0.5">
                               {sceneShots.map((shot) => {
@@ -874,13 +874,13 @@ export function DirectorContextPanel() {
                                         "flex-1 flex items-center gap-2 px-2 py-1 rounded hover:bg-muted text-left",
                                         isShotSelected && "bg-primary/10 ring-1 ring-primary/30"
                                       )}
-                                      title="单击: 发送到AI导演输入 | 双击: 直接添加到分镜编辑"
+                                      title="Nhấp: Gửi đến đầu vào AI đạo diễn | Nhấp đúp: Thêm trực tiếp vào phân cảnh"
                                     >
                                       <span className="text-xs font-mono text-muted-foreground w-5">
                                         {String(shot.index).padStart(2, "0")}
                                       </span>
                                       <span className="text-xs flex-1 truncate">
-                                        {shot.shotSize || "镜头"} - {shot.actionSummary?.slice(0, 20)}...
+                                        {shot.shotSize || "Cảnh quay"} - {shot.actionSummary?.slice(0, 20)}...
                                       </span>
                                       <StatusIcon
                                         status={getShotCompletionStatus(shot)}
@@ -895,7 +895,7 @@ export function DirectorContextPanel() {
                                         e.stopPropagation();
                                         handleAddShotToSplitScenes(shot, scene);
                                       }}
-                                      title="添加到分镜编辑"
+                                      title="Thêm vào chỉnh sửa phân cảnh"
                                     >
                                       <Plus className="h-3 w-3 text-green-500" />
                                     </Button>
@@ -919,8 +919,8 @@ export function DirectorContextPanel() {
       <div className="p-3 border-t space-y-2">
         {/* 模式说明 */}
         <div className="text-[10px] text-muted-foreground space-y-1">
-          <p><span className="text-green-500">+</span> 添加到分镜（单独生成图片）</p>
-          <p><span className="text-primary">→</span> 发送到输入（批量生成省钱）</p>
+          <p><span className="text-green-500">+</span> Thêm vào phân cảnh (tạo ảnh riêng)</p>
+          <p><span className="text-primary">→</span> Gửi đến đầu vào (tạo hàng loạt tiết kiệm)</p>
         </div>
         <Button
           variant="outline"
@@ -929,7 +929,7 @@ export function DirectorContextPanel() {
           onClick={handleBackToScript}
         >
           <ArrowLeft className="h-4 w-4 mr-2" />
-          返回剧本
+          Quay lại kịch bản
         </Button>
       </div>
     </div>
