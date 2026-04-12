@@ -121,7 +121,7 @@ export function SClassScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
   const PAGE_CONCURRENCY = 2; // giới hạn số nhóm xử lý đồng thời mỗi trang
   // 合并TạoDừng控制
   const mergedAbortRef = useRef(false);
-  // 合并Tạo控件将在 JSX đang xử lý...染，避免闭包tham chiếu问题
+  // 合并Tạo控件将在 JSX đang xử lý...染，Tránh闭包tham chiếu问题
   const [isGenerating, setIsGenerating] = useState(false);
   const [isGeneratingPrompts, setIsGeneratingPrompts] = useState(false);
   const [currentGeneratingId, setCurrentGeneratingId] = useState<number | null>(null);
@@ -161,7 +161,7 @@ export function SClassScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
     storyPrompt: '',
   };
   const projectFolderId = projectData?.projectFolderId || null;
-  // Trailer数据 - Trực tiếp从 splitScenes 筛选，保证功能一致
+  // Trailerdữ liệu - Trực tiếp从 splitScenes 筛选，保证chức năng一致
   const trailerConfig = projectData?.trailerConfig || null;
   const trailerShotIds = trailerConfig?.shotIds || [];
   
@@ -224,7 +224,7 @@ export function SClassScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
     addAngleSwitchHistory,
     deleteSplitScene,
     resetStoryboard,
-    // Trailer功能
+    // Trailerchức năng
     clearTrailer,
     // Phong cách quay phim档案
     setCinematographyProfileId,
@@ -1651,7 +1651,7 @@ export function SClassScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
               return;
             }
             
-            // 持久化到本地file系统（local-image://），避免 base64 被 partialize 清除
+            // 持久化到本地file系统（local-image://），Tránh base64 被 partialize 清除
             const persistResult = await persistSceneImage(lastFrameBase64, sceneId, 'end');
             updateSplitSceneEndFrame(sceneId, persistResult.localPath, 'video-extracted', persistResult.httpUrl || undefined);
             console.log('[SplitScenes] Saved video last frame locally:', persistResult.localPath);
@@ -1990,7 +1990,7 @@ export function SClassScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
     const base = scene.imagePromptZh?.trim() || scene.imagePrompt?.trim() || scene.videoPromptZh?.trim() || scene.videoPrompt?.trim() || '';
     const shot = allowedShotFromSize(scene.shotSize);
     const vertical = aspect === '9:16' ? 'vertical composition, tighter framing, avoid letterboxing, ' : '';
-    // Tắt相机运动与节奏，仅保留Góc nhìn/景别/bố cục
+    // Tắt相机运动与节奏，仅保留Góc nhìn/Kích thước cảnh/bố cục
     const cameraPart = `${angle}, ${shot}`;
     const anchor = buildAnchorPhrase(styleTokens);
     const style = styleTokens && styleTokens.length > 0 ? ` Style: ${styleTokens.join(', ')}` : '';
@@ -2182,7 +2182,7 @@ export function SClassScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
           const marginH = Math.floor(cropH * safetyMargin);
           
           // 双重保险：强制输出尺寸严格符合目标Tỷ lệ khung hình
-          // 避免因 Math.floor 导致的微小Tỷ lệ偏差
+          // Tránh因 Math.floor 导致的微小Tỷ lệ偏差
           if (targetAspect === '16:9') {
             outputH = Math.round(outputW * 9 / 16);
           } else {
@@ -2452,12 +2452,12 @@ export function SClassScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
       console.log('[MergedGen] Sliced into', slicedImages.length, 'images (from', paddedCount, 'grid cells, target aspect:', aspect, ')');
       
       // 回填到各Phân cảnh并Tự độngLưu到Thư viện phương tiện
-      // 同时Tải lên切割后的ảnh到Lưu trữ ảnh，避免Tạo video时再次Tải lên
+      // 同时Tải lên切割后的ảnh到Lưu trữ ảnh，TránhTạo video时再次Tải lên
       const folderId = getImageFolderId();
       const imageHostConfigured = isImageHostConfigured();
       
       // 回填：根据任务Loại决定更新Khung hình đầu还是Khung hình cuối
-      // 先持久化到本地file系统（local-image://），避免 base64 被 partialize 清除导致Nhập后ảnh丢失
+      // 先持久化到本地file系统（local-image://），Tránh base64 被 partialize 清除导致Nhập后ảnh丢失
       for (let i = 0; i < pageTasks.length; i++) {
         const task = pageTasks[i];
         const s = task.scene;
@@ -3015,13 +3015,13 @@ export function SClassScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
         </Tabs>
       </div>
 
-      {/* Trailer Tab Nội dung - 完全复用Phân cảnhChỉnh sửa的功能 */}
+      {/* Trailer Tab Nội dung - 完全复用Phân cảnhChỉnh sửa的chức năng */}
       {activeTab === "trailer" && (
         <>
           {trailerScenes.length === 0 ? (
             <div className="text-center text-muted-foreground text-sm py-8">
               <Clapperboard className="h-8 w-8 mx-auto mb-2 opacity-50" />
-              <p>Trailer功能</p>
+              <p>Trailerchức năng</p>
               <p className="text-xs mt-1">请在左侧「Kịch bản」panelđang xử lý...railer」Thẻ页TạoTrailer</p>
               <p className="text-xs mt-1">chọn的Phân cảnh将在此Hiện并可thực hiệnảnh/Tạo video</p>
             </div>
@@ -3245,7 +3245,7 @@ export function SClassScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
 
               {/* Tips */}
               <div className="text-xs text-muted-foreground bg-muted/50 rounded-md p-2">
-                <p>💡 TrailerPhân cảnh与主Phân cảnh共享数据，修改会同步。Nhấp每Phân cảnh下方的文字区域可Chỉnh sửaprompt。</p>
+                <p>💡 TrailerPhân cảnh与主Phân cảnh共享dữ liệu，修改会同步。Nhấp每Phân cảnh下方的文字区域可Chỉnh sửaprompt。</p>
               </div>
             </>
           )}

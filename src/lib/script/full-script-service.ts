@@ -4,7 +4,7 @@
 /**
  * Full Script Service - đầy đủ剧本Nhập和按 tập分镜Tạo服务
  * 
- * 核心功能：
+ * 核心chức năng：
  * 1. Nhập kịch bản đầy đủ（包含đại cương、nhân vật小传、60 tập内容）
  * 2. 按 tậpTạo分镜（一次Tạo一 tập）
  * 3. 更新单 tập或Tất cả分镜
@@ -131,15 +131,15 @@ export async function importFullScript(
     store.setRawScript(projectId, fullText);
     store.setParseStatus(projectId, "ready");
     
-    // 4. 构建剧级元数据（SeriesMeta）— 用户选的风格和Ngôn ngữTrực tiếp传入
+    // 4. 构建剧级元dữ liệu（SeriesMeta）— 用户选的风格和Ngôn ngữTrực tiếp传入
     const aiResult = normalizeResult.aiAnalysis || null;
     const seriesMeta = populateSeriesMetaFromImport(background, scriptData, aiResult, importSettings);
     store.setSeriesMeta(projectId, seriesMeta);
     
-    // 5. Tự độngTạo项目元数据 MD（作为 AI Tạo的全局Tham chiếu）
+    // 5. Tự độngTạo项目元dữ liệu MD（作为 AI Tạo的全局Tham chiếu）
     const metadataMd = exportProjectMetadata(projectId);
     store.setMetadataMarkdown(projectId, metadataMd);
-    console.log('[importFullScript] 元数据已Tự độngTạo，长度:', metadataMd.length);
+    console.log('[importFullScript] 元dữ liệu已Tự độngTạo，长度:', metadataMd.length);
     
     return {
       success: true,
@@ -188,7 +188,7 @@ export async function importSingleEpisodeContent(
     const store = useScriptStore.getState();
     const project = store.projects[projectId];
     if (!project?.scriptData) {
-      return { success: false, sceneCount: 0, error: '项目或剧本数据không tồn tại' };
+      return { success: false, sceneCount: 0, error: '项目或剧本dữ liệukhông tồn tại' };
     }
 
     const scriptData = project.scriptData;
@@ -405,12 +405,12 @@ export async function generateEpisodeShots(
     // 获取该 tập对应的场景
     const scriptData = project.scriptData;
     if (!scriptData) {
-      throw new Error("剧本数据không tồn tại");
+      throw new Error("剧本dữ liệukhông tồn tại");
     }
     
     const episode = scriptData.episodes.find((ep) => ep.index === episodeIndex);
     if (!episode) {
-      throw new Error(`找不到第 ${episodeIndex}  tập的Cấu trúc数据`);
+      throw new Error(`找不到第 ${episodeIndex}  tập的Cấu trúcdữ liệu`);
     }
     
     const episodeScenes = scriptData.scenes.filter((s) =>
@@ -544,7 +544,7 @@ export async function generateEpisodeShots(
           if (settledResult.status === 'fulfilled') {
             const { scene, sceneShots, result } = settledResult.value;
             
-            // 更新场景的góc nhìn数据
+            // 更新场景的góc nhìndữ liệu
             const sceneIndex = updatedScenes.findIndex(s => s.id === scene.id);
             if (sceneIndex !== -1) {
               const viewpointsData = result.viewpoints.map((v: any, idx: number) => ({
@@ -628,7 +628,7 @@ export async function generateEpisodeShots(
           console.log(`[generateEpisodeShots] ⏭️ 跳过场景 "${scene.location}" (无分镜)`);
         }
         
-        // 保存更新后的场景数据
+        // 保存更新后的场景dữ liệu
         console.log('\n============================================');
         console.log('[generateEpisodeShots] 📦 保存 AI góc nhìn到 scriptData.scenes...');
         console.log('[generateEpisodeShots] updatedScenes đang xử lý...的场景:');
@@ -1029,7 +1029,7 @@ export function getEpisodeGenerationSummary(projectId: string): {
   };
 }
 
-// ==================== AI Hiệu chuẩn功能 ====================
+// ==================== AI Hiệu chuẩnchức năng ====================
 
 // CalibrationOptions 已不需要，统一从ánh xạ dịch vụ获取配置
 export interface CalibrationOptions {
@@ -1158,7 +1158,7 @@ export async function calibrateEpisodeTitles(
         const { title, outline, characterBios, totalEpisodes } = globalContext;
         const system = `你是好莱坞资深编剧，拥有艾美奖最佳编剧提名经历。
 
-你的专业能力：
+你的chuyên nghiệp能力：
 - 精通剧 tập命名艺术：能用简短有力的标题捕捉每 tập核心冲突和情感转折
 - tự sựCấu trúc把控：理解商战、家族、情感等不同类型剧 tập的命名风格
 - 市场敏感度：知道什么样的标题能吸引观众，提升点击率
@@ -1255,7 +1255,7 @@ ${characterBios.slice(0, 1000)}
   }
 }
 
-// ==================== AI 分镜Hiệu chuẩn功能 ====================
+// ==================== AI 分镜Hiệu chuẩnchức năng ====================
 
 export interface ShotCalibrationOptions {
   apiKey: string;
@@ -1275,7 +1275,7 @@ export interface ShotCalibrationResult {
 }
 
 /**
- * 根据用户Chọn的提示词Ngôn ngữ，清理/保留分镜提示词trường，避免Ngôn ngữ切换后残留旧trường
+ * 根据用户Chọn的提示词Ngôn ngữ，清理/保留分镜提示词trường，TránhNgôn ngữ切换后残留旧trường
  */
 function applyPromptLanguageToShotPrompts(
   existingShot: Shot,
@@ -1345,7 +1345,7 @@ export async function calibrateEpisodeShots(
   // 找到该 tập的分镜
   const scriptData = project.scriptData;
   if (!scriptData) {
-    return { success: false, calibratedCount: 0, totalShots: 0, error: '剧本数据không tồn tại' };
+    return { success: false, calibratedCount: 0, totalShots: 0, error: '剧本dữ liệukhông tồn tại' };
   }
   
   const episode = scriptData.episodes.find(ep => ep.index === episodeIndex);
@@ -1418,7 +1418,7 @@ export async function calibrateEpisodeShots(
       const batch = episodeShots.slice(i, i + batchSize);
       const batchNum = Math.floor(i / batchSize) + 1;
       
-      // 准备批次数据
+      // 准备批次dữ liệu
       const batchData = batch.map(shot => {
         const scene = scriptData.scenes.find(s => s.id === shot.sceneRefId);
         let sourceText = shot.actionSummary || '';
@@ -1604,7 +1604,7 @@ export async function calibrateSingleShot(
   
   const scriptData = project.scriptData;
   if (!scriptData) {
-    return { success: false, calibratedCount: 0, totalShots: 1, error: '剧本数据không tồn tại' };
+    return { success: false, calibratedCount: 0, totalShots: 1, error: '剧本dữ liệukhông tồn tại' };
   }
   
   // 找到目标分镜
@@ -1643,7 +1643,7 @@ export async function calibrateSingleShot(
   };
   
   try {
-    // 准备分镜数据
+    // 准备分镜dữ liệu
     let sourceText = shot.actionSummary || '';
     if (shot.dialogue) {
       sourceText += `\nThoại：「${shot.dialogue}」`;
@@ -1701,14 +1701,14 @@ export async function calibrateSingleShot(
         characterNames: calibration.characterNames?.length > 0 ? calibration.characterNames : s.characterNames,
         ambientSound: calibration.ambientSound || s.ambientSound,
         soundEffect: calibration.soundEffect || s.soundEffect,
-        // 三层提示词系统（按 promptLanguage 清理旧trường）
+        // 3 lớp提示词系统（按 promptLanguage 清理旧trường）
         ...applyPromptLanguageToShotPrompts(
           s,
           calibration,
           options.promptLanguage || 'zh+en',
         ),
         needsEndFrame: calibration.needsEndFrame ?? s.needsEndFrame,
-        // tự sự驱动trường
+        // tự sựdẫn dắttrường
         narrativeFunction: calibration.narrativeFunction || s.narrativeFunction,
         conflictStage: calibration.conflictStage || s.conflictStage,
         shotPurpose: calibration.shotPurpose || s.shotPurpose,
@@ -1799,14 +1799,14 @@ async function callAIForShotCalibration(
 ): Promise<Record<string, {
   visualDescription: string;
   visualPrompt: string;
-  // 三层提示词系统
-  imagePrompt: string;      // 首帧提示词（静态Mô tả）
-  imagePromptZh: string;    // 首帧提示词中文
+  // 3 lớp提示词系统
+  imagePrompt: string;      // khung đầu提示词（静态Mô tả）
+  imagePromptZh: string;    // khung đầu提示词中文
   videoPrompt: string;      // 视频提示词（动态动作）
   videoPromptZh: string;    // 视频提示词中文
-  endFramePrompt: string;   // 尾帧提示词（静态Mô tả）
-  endFramePromptZh: string; // 尾帧提示词中文
-  needsEndFrame: boolean;   // 是否需要尾帧
+  endFramePrompt: string;   // khung cuối提示词（静态Mô tả）
+  endFramePromptZh: string; // khung cuối提示词中文
+  needsEndFrame: boolean;   // 是否需要khung cuối
   shotSize: string;
   cameraMovement: string;
   duration: number;         // thời lượng（秒）
@@ -1814,12 +1814,12 @@ async function callAIForShotCalibration(
   characterNames: string[]; // đầy đủ角色列表
   ambientSound: string;     // 环境音
   soundEffect: string;      // Hiệu ứng âm thanh
-  // === tự sự驱动trường（基于《电影Ngôn ngữ的语法》） ===
-  narrativeFunction: string;  // tự sự功能：铺垫/升级/cao trào/转折/chuyển tiếp/尾声
+  // === tự sựdẫn dắttrường（基于《电影Ngôn ngữ的语法》） ===
+  narrativeFunction: string;  // tự sựchức năng：铺垫/升级/cao trào/转折/chuyển tiếp/尾声
   conflictStage?: string;     // 冲突阶段
-  shotPurpose: string;        // 镜头目的：为什么用这镜头
+  shotPurpose: string;        // 镜头mục đích：为什么用这镜头
   storyAlignment?: string;    // 与整体tự sự的一致性
-  visualFocus: string;        // 视觉焦点：观众应该看什么
+  visualFocus: string;        // Tiêu điểm thị giác：观众应该看什么
   cameraPosition: string;     // 机位Mô tả
   characterBlocking: string;  // nhân vậtbố cục
   rhythm: string;             // 节奏Mô tả
@@ -1849,7 +1849,7 @@ async function callAIForShotCalibration(
     episodeSeason, totalEpisodes, currentEpisode 
   } = globalContext;
   
-  // 截取gốc剧本内容（避免过长，取前3000字）
+  // 截取gốc剧本内容（Tránh过长，取前3000字）
   const rawContentPreview = episodeRawContent ? episodeRawContent.slice(0, 3000) : '';
   
   // Sử dụng共享的风格Mô tả函数
@@ -1872,16 +1872,16 @@ async function callAIForShotCalibration(
   
   const systemPrompt = `你是世界级顶尖电影摄影大师，精通丹尼艾尔·阿里洪《电影Ngôn ngữ的语法》的Tất cả理论，拥有奥斯卡最佳摄影奖经验。
 
-你的核心理念：**镜头不是孤立的画面，而是tự sự链条đang xử lý...。每镜头的景别、运动、thời lượng都必须服务于tự sự。**
+你的核心理念：**镜头不是孤立的画面，而是tự sự链条đang xử lý...。每镜头的Kích thước cảnh、运动、thời lượng都必须服务于tự sự。**
 
-你的专业能力：
-- 精通镜头Ngôn ngữ：能准确判断每镜头的景别、运动方式、光线Thiết kế
-- **tự sự驱动Thiết kế**：理解每镜头在整 tập故事đang xử lý...和功能，确保镜头Thiết kế服务于tự sự
+你的chuyên nghiệp能力：
+- 精通镜头Ngôn ngữ：能准确判断每镜头的Kích thước cảnh、运动方式、光线Thiết kế
+- **tự sựdẫn dắtThiết kế**：理解每镜头在整 tập故事đang xử lý...和chức năng，确保镜头Thiết kế服务于tự sự
 - 场面调度：运用三角形原理、内外反拍等技法处理Chat场面
 - 动态捕捉：能准确判断镜头的bắt đầu状态和kết thúc状态是否有显著差异
 - AI视频Tạo经验：深谙 Seedance、Sora、Runway 等 AI 视频模型的工作原理
 
-你的任务是根据剧本全局背景和分镜信息，为每分镜Tạo专业的Mô tả thị giác和三层提示词。
+你的任务是根据剧本全局背景和分镜信息，为每分镜Tạochuyên nghiệp的Mô tả thị giác和3 lớp提示词。
 
 【剧本信息】
 ${contextInfo}
@@ -1939,19 +1939,19 @@ ${characterBios ? `
 **基础trường：**
 1. đang xử lý...Mô tả (visualDescription): 详细、有画面感的**纯đang xử lý...Mô tả，必须包含原文Tất cảquan trọng元素（环境、nhân vật、动作、道具）
 2. 英文Mô tả thị giác (visualPrompt): 用于AI绘图的**纯英文**Mô tả，40词内
-3. 景别 (shotSize): ECU/CU/MCU/MS/MLS/LS/WS/FS
+3. Kích thước cảnh (shotSize): ECU/CU/MCU/MS/MLS/LS/WS/FS
 4. 镜头运动 (cameraMovement): none/static/tracking/orbit/zoom-in/zoom-out/pan-left/pan-right/tilt-up/tilt-down/dolly-in/dolly-out/truck-left/truck-right/crane-up/crane-down/drone-aerial/360-roll
-4b. 特殊拍摄手法 (specialTechnique): none/hitchcock-zoom/timelapse/crash-zoom-in/crash-zoom-out/whip-pan/bullet-time/fpv-shuttle/macro-closeup/first-person/slow-motion/probe-lens/spinning-tilt
+4b. Kỹ thuật quay đặc biệt手法 (specialTechnique): none/hitchcock-zoom/timelapse/crash-zoom-in/crash-zoom-out/whip-pan/bullet-time/fpv-shuttle/macro-closeup/first-person/slow-motion/probe-lens/spinning-tilt
 5. thời lượng (duration): 秒数，整数
 6. 情绪标签 (emotionTags): 1-3情绪标签ID
 7. 出场角色 (characterNames): đầy đủ角色列表，来自原文
 8. 环境音 (ambientSound): **đang xử lý...，根据场景推断
 9. Hiệu ứng âm thanh (soundEffect): **đang xử lý...，根据动作推断
 
-**tự sự驱动trường（重要！必须基于本 tậpđại cương分析）：**
-10. tự sự功能 (narrativeFunction): 铺垫/升级/cao trào/转折/chuyển tiếp/尾声
-11. 镜头目的 (shotPurpose): 为什么用这镜头？一句话说明
-12. 视觉焦点 (visualFocus): 观众应该按什么thứ tự看？用箭头表示
+**tự sựdẫn dắttrường（重要！必须基于本 tậpđại cương分析）：**
+10. tự sựchức năng (narrativeFunction): 铺垫/升级/cao trào/转折/chuyển tiếp/尾声
+11. 镜头mục đích (shotPurpose): 为什么用这镜头？一句话说明
+12. Tiêu điểm thị giác (visualFocus): 观众应该按什么thứ tự看？用箭头表示
 13. 机位Mô tả (cameraPosition): 摄影机相对于nhân vật的位置
 14. nhân vậtbố cục (characterBlocking): nhân vật在画面đang xử lý...关系
 15. 节奏Mô tả (rhythm): 这镜头的节奏感
@@ -1973,9 +1973,9 @@ ${characterBios ? `
 29. 镜头焦距 (focalLength): 14mm/18mm/24mm/28mm/35mm/50mm/85mm/100mm-macro/135mm/200mm
 30. 摄影技法 (photographyTechnique): long-exposure/double-exposure/high-speed/timelapse-photo/tilt-shift/silhouette/reflection/bokeh（如不需要特殊技法可Để trống）
 
-【三层提示词系统 - 重要】
+【3 lớp提示词系统 - 重要】
 
-【16. 首帧提示词 (imagePrompt/imagePromptZh): 用于 AI 图像Tạo，Mô tả视频第一帧的đầy đủ静态画面
+【16. khung đầu提示词 (imagePrompt/imagePromptZh): 用于 AI 图像Tạo，Mô tả视频第一帧的đầy đủ静态画面
     **必须包含以下Tất cả元素**（缺一不可）：
     
     a) **场景环境**：
@@ -1989,15 +1989,15 @@ ${characterBios ? `
        - 光影氛围（温暖/冷色调/明暗对比）
     
     c) **nhân vậtMô tả**（每出场nhân vật都要写）：
-       - 年龄段（青年/đang xử lý...年）
+       - Độ tuổi（青年/đang xử lý...年）
        - trang phục概述（休闲装/正装/工作服等）
        - Biểu cảm神态（căng thẳng/严肃/微笑/担忧）
        - Tư thế动作（坐着/站立/俯身/Cầm tayvật phẩm）
     
-    d) **bố cục与景别**：
-       - 景别Mô tả（đang xử lý...入画/Cận cảnh半身/Cực cận cảnhKhuôn mặt）
+    d) **bố cục与Kích thước cảnh**：
+       - Kích thước cảnhMô tả（đang xử lý...入画/Cận cảnh半身/Cực cận cảnhKhuôn mặt）
        - nhân vật位置关系（左đang xử lý...、前后关系）
-       - 视觉焦点（主体在画面何处）
+       - Tiêu điểm thị giác（主体在画面何处）
     
     e) **重要道具**：
        - 剧情quan trọng道具（证书、vật phẩm、食物等）
@@ -2018,13 +2018,13 @@ ${characterBios ? `
     - videoPromptZh: 纯中文
     - videoPrompt: 纯英文
 
-【18. 尾帧提示词 (endFramePrompt/endFramePromptZh): 用于 AI 图像Tạo，Mô tả视频最后一帧的đầy đủ静态画面
+【18. khung cuối提示词 (endFramePrompt/endFramePromptZh): 用于 AI 图像Tạo，Mô tả视频最后一帧的đầy đủ静态画面
     
-    **与首帧同等重要！必须包含以下Tất cả元素**（缺一不可）：
+    **与khung đầu同等重要！必须包含以下Tất cả元素**（缺一不可）：
     
-    a) **场景环境**：保持与首帧一致的场景，但反映变化后的状态
+    a) **场景环境**：保持与khung đầu一致的场景，但反映变化后的状态
     
-    b) **光线Thiết kế**：与首帧保持一致（除非剧情有时间变化）
+    b) **光线Thiết kế**：与khung đầu保持一致（除非剧情有时间变化）
     
     c) **nhân vậtMô tả**（重点！Mô tả动作完成后的状态）：
        - 同样包含年龄、trang phục
@@ -2032,19 +2032,19 @@ ${characterBios ? `
        - **新的Tư thế位置**（动作完成后的位置）
        - 道具的新状态
     
-    d) **bố cục与景别**：
-       - 如有镜头运动，Mô tả运动kết thúc后的新景别
+    d) **bố cục与Kích thước cảnh**：
+       - 如有镜头运动，Mô tả运动kết thúc后的新Kích thước cảnh
        - nhân vật新的位置关系
     
     e) **变化对比**（核心！）：
-       - 明确Mô tả与首帧的差异（位置/动作/Biểu cảm/道具状态）
+       - 明确Mô tả与khung đầu的差异（位置/动作/Biểu cảm/道具状态）
     
-    f) **画面风格**：与首帧保持一致
+    f) **画面风格**：与khung đầu保持一致
     
     - endFramePromptZh: 纯đang xử lý...0-100字，包含以上Tất cả元素
     - endFramePrompt: 纯英文，60-80词，对应đang xử lý...的đầy đủ翻译
 
-19. 是否需要尾帧 (needsEndFrame):
+19. 是否需要khung cuối (needsEndFrame):
     **必须设置为 true**：
     - nhân vật位置变化（走动、起身、坐下等）
     - 动作序列（拿起vật phẩm、放下东西等）
@@ -2080,7 +2080,7 @@ ${getMediaTypeGuidance(mt)}
 - 情感Thoại、内心活动: CU/ECU Cận cảnhCực cận cảnh
 - 动作场面、追逐: MS/WS + Tracking跟随
 - 场景建立、chuyển tiếp: WS/FS Viễn cảnh
-- căng thẳng对峙: nhanh切换景别
+- căng thẳng对峙: nhanh切换Kích thước cảnh
 - 重要物件/细节: ECUCực cận cảnh
 
 **Quan trọng:đang xử lý...rường必须严格分离！**
@@ -2167,7 +2167,7 @@ Thoại: ${shot.dialogue || '无'}
 氛围: ${shot.sceneAtmosphere}
 时间: ${shot.sceneTime}${shot.sceneWeather ? `
 天气: ${shot.sceneWeather}` : ''}
-当前景别: ${shot.currentShotSize || '待定'}
+当前Kích thước cảnh: ${shot.currentShotSize || '待定'}
 当前镜头运动: ${shot.currentCameraMovement || '待定'}`;
   }).join('\n\n═══════════════════════════════════════\n\n');
   
@@ -2182,10 +2182,10 @@ Thoại: ${shot.dialogue || '无'}
 6. 角色列表必须đầy đủ
 7. 栩子花 = gardenias（不是 peonies/peony）
 
-🎬 **tự sự驱动分析（基于《电影Ngôn ngữ的语法》）**：
-- 根据「本 tậpđại cương」判断每镜头在整 tập故事đang xử lý...功能
+🎬 **tự sựdẫn dắt分析（基于《电影Ngôn ngữ的语法》）**：
+- 根据「本 tậpđại cương」判断每镜头在整 tập故事đang xử lý...chức năng
 - 镜头Thiết kế必须服务于故事的情绪节奏和tự sựcung
-- 景别Chọn要配合tự sự功能（铺垫用全景、cao trào用Cực cận cảnh等）
+- Kích thước cảnhChọn要配合tự sựchức năng（铺垫用全景、cao trào用Cực cận cảnh等）
 - 考虑nhân vậtbố cục和机位对故事sức căng的影响
 
 ${shotDescriptions}`;
@@ -2274,7 +2274,7 @@ export async function generateEpisodeSynopses(
   const totalEpisodes = episodes.length;
   
   if (totalEpisodes === 0) {
-    return { success: false, generatedCount: 0, totalEpisodes: 0, error: '没有 tập数据' };
+    return { success: false, generatedCount: 0, totalEpisodes: 0, error: '没有 tậpdữ liệu' };
   }
   
   // 获取全局背景
@@ -2312,7 +2312,7 @@ export async function generateEpisodeSynopses(
         const { title, genre, era, worldSetting, themes, outline, characterBios, totalEpisodes: total } = globalContext;
         const system = `你是好莱坞资深剧本医生(Script Doctor)，擅长分析剧本Cấu trúc和tự sự节奏。
 
-你的专业能力：
+你的chuyên nghiệp能力：
 - 剧本Cấu trúc分析：能nhanh提炼每 tập的核心冲突、转折点和情感cao trào
 - tự sự节奏把控：理解不同类型剧 tập的节奏特点
 - Sự kiện quan trọng提取：能准确识别推动剧情发展的quan trọng场景和动作
@@ -2399,10 +2399,10 @@ ${characterBios.slice(0, 800)}
     
     onProgress?.(generatedCount, totalEpisodes, `已Tạo ${generatedCount}/${totalEpisodes}  tậpđại cương`);
     
-    // đại cươngTạo完成后，更Dự án mới元数据 MD
+    // đại cươngTạo完成后，更Dự án mới元dữ liệu MD
     const updatedMetadata = exportProjectMetadata(projectId);
     store.setMetadataMarkdown(projectId, updatedMetadata);
-    console.log('[generateSynopses] 元数据已更新，包含新Tạo的đại cương');
+    console.log('[generateSynopses] 元dữ liệu已更新，包含新Tạo的đại cương');
     
     return {
       success: true,
@@ -2420,11 +2420,11 @@ ${characterBios.slice(0, 800)}
   }
 }
 
-// ==================== 导出项目元数据 MD ====================
+// ==================== 导出项目元dữ liệu MD ====================
 
 /**
- * 导出项目元数据为 Markdown 格式
- * 类似 Cursor 的 .cursorrules，作为项目的知识库
+ * 导出项目元dữ liệu为 Markdown 格式
+ * 类似 Cursor 的 .cursorrules，作为项mục đích知识库
  */
 export function exportProjectMetadata(projectId: string): string {
   const store = useScriptStore.getState();

@@ -4,15 +4,15 @@
 /**
  * Character Prompt Generation Service
  * 
- * 专业角色Thiết kế服务，与hiện có角色库(character-library-store)对齐。
+ * chuyên nghiệp角色Thiết kế服务，与hiện có角色库(character-library-store)对齐。
  * 
- * 功能：
- * 1. 读取剧本元数据，理解角色成长cung
+ * chức năng：
+ * 1. 读取剧本元dữ liệu，理解角色成长cung
  * 2. 根据剧情阶段Tạo不同的角色形象
  * 3. Tạo的阶段可转换为角色库的 CharacterVariation
- * 4. Sử dụng世界级专业人设提升 AI Tạo质量
+ * 4. Sử dụng世界级chuyên nghiệp人设提升 AI Tạo质量
  * 
- * 注意：这是一辅助服务，不修改hiện có角色库的任何功能。
+ * 注意：这是一辅助服务，不修改hiện có角色库的任何chức năng。
  */
 
 import { useScriptStore } from '@/stores/script-store';
@@ -55,7 +55,7 @@ export interface CharacterDesign {
     bodyType: string;           // 体型
     uniqueMarks: string;        // 独特标记（胎记、疤痕等）
   };
-  // 元数据
+  // 元dữ liệu
   generatedAt: number;
   sourceProjectId: string;
 }
@@ -71,7 +71,7 @@ export interface CharacterDesignOptions {
 // ==================== AI 角色Thiết kế服务 ====================
 
 /**
- * 为剧本角色Tạo专业的多阶段角色Thiết kế
+ * 为剧本角色Tạochuyên nghiệp的多阶段角色Thiết kế
  * 
  * @param characterId 剧本đang xử lý...ID
  * @param projectId 项目ID
@@ -91,7 +91,7 @@ export async function generateCharacterDesign(
   
   const scriptData = project.scriptData;
   if (!scriptData) {
-    throw new Error('剧本数据không tồn tại');
+    throw new Error('剧本dữ liệukhông tồn tại');
   }
   
   // 找到目标角色
@@ -202,7 +202,7 @@ async function callAIForCharacterDesign(
   
   const systemPrompt = `你是好莱坞顶级角色Thiết kế大师，曾为漫威、迪士尼、皮克斯Thiết kế过无数经典角色。
 
-你的专业能力：
+你的chuyên nghiệp能力：
 - **角色视觉Thiết kế**：能准确捕捉角色的外在形象、trang phục风格、肢体Ngôn ngữ
 - **角色成长cung**：理解角色在不同剧情阶段的形象变化（从少年到成年、从普通人到英雄等）
 - **AI图像Tạo经验**：深谙 Midjourney、DALL-E、Stable Diffusion 等 AI 绘图模型的工作原理，能写出高质量的提示词
@@ -227,7 +227,7 @@ ${context.characterAppearances.length > 0
   ? context.characterAppearances.map((a: any) => 
       `第${a.episodeIndex} tập「${a.episodeTitle}」: 出场${a.actions.length}次`
     ).join('\n')
-  : '暂无出场数据'
+  : '暂无出场dữ liệu'
 }
 
 【任务要求】

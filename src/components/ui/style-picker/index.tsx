@@ -6,7 +6,7 @@
 /**
  * StylePicker - 统一的视觉风格Chọn器
  * 
- * 功能：
+ * chức năng：
  * - 左侧：phân loại小图列表，可滚动
  * - bên phải：悬停/đã chọn时显示大图预览 + Mô tả
  * - 支持下拉popup出chế độ和内嵌chế độ
@@ -70,7 +70,7 @@ export function StylePicker({
   const [hoveredStyle, setHoveredStyle] = useState<StylePreset | null>(null);
   const [isOpen, setIsOpen] = useState(false);
 
-  // 用户Tùy chỉnh风格（用户数据，存储在 localStorage）
+  // 用户Tùy chỉnh风格（用户dữ liệu，存储在 localStorage）
   const customStyles = useCustomStyleStore((s) => s.styles);
   const customAsPresets: StylePreset[] = useMemo(() =>
     customStyles.map((s) => ({

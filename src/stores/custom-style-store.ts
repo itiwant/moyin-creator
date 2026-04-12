@@ -194,7 +194,7 @@ export const useCustomStyleStore = create<CustomStyleStore>()(
 
 // ==================== 注册Tùy chỉnhPhong cách查找回调 ====================
 // 让 visual-styles.ts 的工具函数（getStyleById/getStylePrompt 等）
-// 能查找到用户Tùy chỉnhPhong cách（存储在 localStorage 的用户数据）
+// 能查找到用户Tùy chỉnhPhong cách（存储在 localStorage 的用户dữ liệu）
 
 /**
  * 从promptđang xử lý...hong cáchphân loại（Hỗ trợTrung-Anhquan trọng词）

@@ -152,7 +152,7 @@ export function PropertyPanel({
   const scriptProject = useActiveScriptProject();
   const promptLanguage = scriptProject?.promptLanguage || 'zh';
 
-  // 复制Cảnh数据
+  // 复制Cảnhdữ liệu
   const handleCopySceneData = async () => {
     if (!scene) return;
     
@@ -231,11 +231,11 @@ export function PropertyPanel({
     }
   };
 
-  // 复制Nhân vật数据
+  // 复制Nhân vậtdữ liệu
   const handleCopyCharacterData = async () => {
     if (!character) return;
     
-    // 格式化Nhân vật数据
+    // 格式化Nhân vậtdữ liệu
     const lines: string[] = [];
     lines.push(`# Ảnh thiết kế nhân vật: ${character.name}`);
     lines.push('');
@@ -393,7 +393,7 @@ export function PropertyPanel({
     }
   };
 
-  // 复制 tậpPhân cảnh数据
+  // 复制 tậpPhân cảnhdữ liệu
   const handleCopyEpisodeShots = async () => {
     if (!episode || episodeShots.length === 0) return;
     
@@ -404,7 +404,7 @@ export function PropertyPanel({
       serious: 'Nghiêm túc', relaxed: 'Nhẹ nhàng', playful: 'Châm biếm', gentle: 'Dịu dàng', passionate: 'Sôi nổi', low: 'Trầm lắng'
     };
     
-    // 格式化Phân cảnh数据
+    // 格式化Phân cảnhdữ liệu
     const lines: string[] = [];
     lines.push(`# Tập ${episode.index}: ${episode.title.replace(/^Tập\d+[：:]?/, '')}`);
     lines.push('');
@@ -440,7 +440,7 @@ export function PropertyPanel({
       if (promptLanguage !== 'zh' && (s as any).visualPrompt) {
         lines.push(`**Prompt tiếng Anh**: ${(s as any).visualPrompt}`);
       }
-      // 三层prompt系统
+      // 3 lớpprompt系统
       if (s.imagePromptZh || s.imagePrompt) {
         if (promptLanguage === 'zh') {
           lines.push(`**Prompt khung đầu**: ${s.imagePromptZh || ''}`);
@@ -463,11 +463,11 @@ export function PropertyPanel({
         lines.push(`**Cần khung cuối**: Có`);
         if (s.endFramePromptZh || s.endFramePrompt) {
           if (promptLanguage === 'zh') {
-            lines.push(`**尾帧prompt**: ${s.endFramePromptZh || ''}`);
+            lines.push(`**Prompt khung cuối**: ${s.endFramePromptZh || ''}`);
           } else if (promptLanguage === 'en') {
-            lines.push(`**尾帧prompt**: ${s.endFramePrompt || ''}`);
+            lines.push(`**Prompt khung cuối**: ${s.endFramePrompt || ''}`);
           } else {
-            lines.push(`**尾帧prompt**: ${s.endFramePromptZh || ''} ${s.endFramePrompt ? `(EN: ${s.endFramePrompt})` : ''}`);
+            lines.push(`**Prompt khung cuối**: ${s.endFramePromptZh || ''} ${s.endFramePrompt ? `(EN: ${s.endFramePrompt})` : ''}`);
           }
         }
       }
@@ -485,7 +485,7 @@ export function PropertyPanel({
     }
   };
 
-  // 复制当前Phân cảnh的三层prompt
+  // 复制当前Phân cảnh的3 lớpprompt
   const handleCopyShotTriPrompts = async () => {
     if (!shot) return;
 
@@ -495,7 +495,7 @@ export function PropertyPanel({
       shot.endFramePrompt || shot.endFramePromptZh
     );
 
-    // 景别Tiếng Trung映射
+    // Kích thước cảnhTiếng Trung映射
     const shotSizeLabels: Record<string, string> = {
       'ECU': 'Cực cận cảnh', 'CU': 'Cận cảnh', 'MCU': 'đang xử lý..., 'MS': 'đang xử lý...
       'MLS': 'đang xử lý..., 'LS': 'Viễn cảnh', 'ELS': 'Đại viễn cảnh', 'POV': 'Góc nhìn chủ quan'
@@ -516,29 +516,29 @@ export function PropertyPanel({
 
     const lines: string[] = [];
     lines.push('═══════════════════════════════════════');
-    lines.push(`Phân cảnh ${shot.index} - 三层prompt数据`);
+    lines.push(`Phân cảnh ${shot.index} - Dữ liệu 3 lớp prompt`);
     lines.push('═══════════════════════════════════════');
     lines.push('');
 
     // Thông tin cơ bản
     lines.push('【Thông tin cơ bản】');
     if (shot.shotSize) {
-      lines.push(`景别: ${shotSizeLabels[shot.shotSize] || shot.shotSize} (${shot.shotSize})`);
+      lines.push(`Kích thước cảnh quay: ${shotSizeLabels[shot.shotSize] || shot.shotSize} (${shot.shotSize})`);
     }
     if (shot.cameraMovement) {
-      lines.push(`Phân cảnh运动: ${cameraLabels(shot.cameraMovement)}`);
+      lines.push(`Chuyển động Phân cảnh: ${cameraLabels(shot.cameraMovement)}`);
     }
     if (shot.specialTechnique && shot.specialTechnique !== 'none') {
-      lines.push(`特殊拍摄: ${specialTechniqueLabel(shot.specialTechnique)}`);
+      lines.push(`Kỹ thuật quay đặc biệt: ${specialTechniqueLabel(shot.specialTechnique)}`);
     }
     if (shot.duration) {
-      lines.push(`thời lượng: ${shot.duration}秒`);
+      lines.push(`Thời lượng: ${shot.duration} giây`);
     }
     if (shot.characterNames && shot.characterNames.length > 0) {
-      lines.push(`出CảnhNhân vật: ${shot.characterNames.join('、')}`);
+      lines.push(`Nhân vật xuất hiện: ${shot.characterNames.join(', ')}`);
     }
     // Thoạitrường始终显示，无Thoại时明确标注“无”，防止AIVideo模型幻觉
-    lines.push(`Thoại: ${shot.dialogue ? `「${shot.dialogue}」` : '无'}`);
+    lines.push(`Thoại: ${shot.dialogue ? `「${shot.dialogue}」` : 'không'}`);
     if (shot.actionSummary) {
       lines.push(`Hành độngMô tả: ${shot.actionSummary}`);
     }
@@ -563,23 +563,23 @@ export function PropertyPanel({
       lines.push('');
     }
 
-    // tự sự驱动Thiết kế（基于《电影Ngôn ngữ的语法》）
+    // tự sựdẫn dắtThiết kế（基于《电影Ngôn ngữ的语法》）
     const hasNarrative = (shot as any).narrativeFunction || (shot as any).shotPurpose || 
                          (shot as any).visualFocus || (shot as any).cameraPosition || 
                          (shot as any).characterBlocking || (shot as any).rhythm;
     if (hasNarrative) {
-      lines.push('【tự sự驱动Thiết kế】基于《电影Ngôn ngữ的语法》');
+      lines.push('【Thiết kế dẫn dắt tự sự】Dựa trên《Ngữ pháp Ngôn ngữ Điện ảnh》');
       if ((shot as any).narrativeFunction) {
-        lines.push(`tự sự功能: ${(shot as any).narrativeFunction}`);
+        lines.push(`Chức năng tự sự: ${(shot as any).narrativeFunction}`);
       }
       if ((shot as any).shotPurpose) {
-        lines.push(`Phân cảnh目的: ${(shot as any).shotPurpose}`);
+        lines.push(`Mục đích Phân cảnh: ${(shot as any).shotPurpose}`);
       }
       if ((shot as any).visualFocus) {
-        lines.push(`视觉焦点: ${(shot as any).visualFocus}`);
+        lines.push(`Tiêu điểm thị giác: ${(shot as any).visualFocus}`);
       }
       if ((shot as any).cameraPosition) {
-        lines.push(`机位Mô tả: ${(shot as any).cameraPosition}`);
+        lines.push(`Mô tả vị trí máy: ${(shot as any).cameraPosition}`);
       }
       if ((shot as any).characterBlocking) {
         lines.push(`nhân vậtbố cục: ${(shot as any).characterBlocking}`);
@@ -591,11 +591,11 @@ export function PropertyPanel({
     }
 
     if (!hasTri) {
-      lines.push('⚠️ 该Phân cảnh尚未Tạo三层prompt，请先执 hàng"Hiệu chuẩn phân cảnh AI"。');
+      lines.push('⚠️ 该Phân cảnh尚未Tạo3 lớpprompt，请先执 hàng"Hiệu chuẩn phân cảnh AI"。');
     } else {
-      // ===== 首帧prompt =====
+      // ===== khung đầuprompt =====
       lines.push('───────────────────────────────────────');
-      lines.push('【首帧prompt】用于Tạo video的第一帧Hình ảnh');
+      lines.push('【khung đầuprompt】用于Tạo video的第一帧Hình ảnh');
       lines.push('───────────────────────────────────────');
       if (promptLanguage !== 'en' && shot.imagePromptZh) {
         lines.push(`Tiếng Trung: ${shot.imagePromptZh}`);
@@ -631,12 +631,12 @@ export function PropertyPanel({
       }
       lines.push('');
 
-      // ===== 尾帧prompt =====
+      // ===== khung cuốiprompt =====
       lines.push('───────────────────────────────────────');
-      lines.push('【尾帧prompt】用于Tạo video的最后一帧（如需要）');
+      lines.push('【khung cuốiprompt】用于Tạo video的最后一帧（如需要）');
       lines.push('───────────────────────────────────────');
       if (shot.needsEndFrame) {
-        lines.push('需要尾帧: ✓ 是');
+        lines.push('需要khung cuối: ✓ 是');
         if (promptLanguage !== 'en' && shot.endFramePromptZh) {
           lines.push(`Tiếng Trung: ${shot.endFramePromptZh}`);
         }
@@ -651,7 +651,7 @@ export function PropertyPanel({
           lines.push('(未Tạo)');
         }
       } else {
-        lines.push('需要尾帧: ✗ 否（此Phân cảnh不需要单独的尾帧）');
+        lines.push('需要khung cuối: ✗ 否（此Phân cảnh不需要单独的khung cuối）');
       }
     }
 
@@ -840,7 +840,7 @@ export function PropertyPanel({
                   ) : (
                     <>
                       <Copy className="h-4 w-4 mr-2" />
-                      复制Phân cảnh数据 ({episodeShots.length})
+                      复制Phân cảnhdữ liệu ({episodeShots.length})
                     </>
                   )}
                 </Button>
@@ -919,7 +919,7 @@ export function PropertyPanel({
               </div>
               <div className="space-y-1">
                 <Label className="text-xs">Kỹ năng/năng lực</Label>
-                <Textarea value={editData.skills || ""} onChange={(e) => setEditData({ ...editData, skills: e.target.value })} className="min-h-[60px]" placeholder="武功、魔法、专业技能等" />
+                <Textarea value={editData.skills || ""} onChange={(e) => setEditData({ ...editData, skills: e.target.value })} className="min-h-[60px]" placeholder="武功、魔法、chuyên nghiệp技能等" />
               </div>
               <div className="space-y-1">
                 <Label className="text-xs">quan trọng hàng为/事迹</Label>
@@ -1076,7 +1076,7 @@ export function PropertyPanel({
               ) : (
                 <>
                   <Copy className="h-4 w-4 mr-2" />
-                  复制Nhân vật数据
+                  复制Nhân vậtdữ liệu
                 </>
               )}
             </Button>
@@ -1181,7 +1181,7 @@ export function PropertyPanel({
                 </div>
               )}
               
-              {/* 专业CảnhThiết kếtrường（AIHiệu chuẩn后显示） */}
+              {/* chuyên nghiệpCảnhThiết kếtrường（AIHiệu chuẩn后显示） */}
               {(scene.architectureStyle || scene.lightingDesign || scene.colorPalette || scene.eraDetails) && (
                 <>
                   <Separator className="my-2" />
@@ -1360,7 +1360,7 @@ export function PropertyPanel({
               ) : (
                 <Copy className="h-4 w-4 mr-2" />
               )}
-              {copiedScene ? '已复制' : '复制Cảnh数据'}
+              {copiedScene ? '已复制' : '复制Cảnhdữ liệu'}
             </Button>
             <Button
               variant="secondary"
@@ -1446,7 +1446,7 @@ export function PropertyPanel({
             <div className="space-y-3">
               <div className="grid grid-cols-2 gap-2">
                 <div className="space-y-1">
-                  <Label className="text-xs">景别</Label>
+                  <Label className="text-xs">Kích thước cảnh</Label>
                   <Input value={editData.shotSize || ""} onChange={(e) => setEditData({ ...editData, shotSize: e.target.value })} className="h-8" placeholder="如：WS/MS/CU/ECU" />
                 </div>
                 <div className="space-y-1">
@@ -1462,7 +1462,7 @@ export function PropertyPanel({
                 </div>
               </div>
               <div className="space-y-1">
-                <Label className="text-xs">特殊拍摄手法</Label>
+                <Label className="text-xs">Kỹ thuật quay đặc biệt手法</Label>
                 <Select value={editData.specialTechnique || 'none'} onValueChange={(v) => setEditData({ ...editData, specialTechnique: v })}>
                   <SelectTrigger className="h-8 text-xs"><SelectValue /></SelectTrigger>
                   <SelectContent>
@@ -1483,7 +1483,7 @@ export function PropertyPanel({
             </div>
           ) : (
             <div className="space-y-3">
-              {/* Phân cảnh信息：景别 + 运动 + thời lượng */}
+              {/* Phân cảnh信息：Kích thước cảnh + 运动 + thời lượng */}
               <div className="flex items-center gap-2 flex-wrap">
                 {shot.shotSize && (
                   <span className="px-2 py-0.5 bg-primary/10 text-primary rounded text-xs font-medium">
@@ -1648,7 +1648,7 @@ export function PropertyPanel({
               ) : (
                 <>
                   <Copy className="h-4 w-4 mr-2" />
-                  复制三层prompt数据
+                  复制3 lớppromptdữ liệu
                 </>
               )}
             </Button>

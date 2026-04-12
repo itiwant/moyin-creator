@@ -265,7 +265,7 @@ export function EpisodeTree({
   // Hiệu chuẩnXác nhậnPopup的本地chỉnh sửa状态
   const [localKeptCharacters, setLocalKeptCharacters] = useState<ScriptCharacter[]>([]);
   const [localFilteredCharacters, setLocalFilteredCharacters] = useState<FilteredCharacterRecord[]>([]);
-  // 缓存Người dùng thủ công xóa的Nhân vậtđầy đủ数据，便于恢复时不丢失 AI Tạo的trường
+  // 缓存Người dùng thủ công xóa的Nhân vậtđầy đủdữ liệu，便于恢复时不丢失 AI Tạo的trường
   const [removedCharactersCache, setRemovedCharactersCache] = useState<Map<string, ScriptCharacter>>(new Map());
   
   // 当Xác nhậnPopup打开时，从 props 同步
@@ -277,7 +277,7 @@ export function EpisodeTree({
     }
   }, [calibrationDialogOpen, pendingCalibrationCharacters, pendingFilteredCharacters]);
   
-  // 从保留 cột表xóaNhân vật（缓存đầy đủ数据以便恢复）
+  // 从保留 cột表xóaNhân vật（缓存đầy đủdữ liệu以便恢复）
   const handleRemoveKeptCharacter = useCallback((charId: string) => {
     const char = localKeptCharacters.find(c => c.id === charId);
     if (!char) return;
@@ -293,7 +293,7 @@ export function EpisodeTree({
   // 从lọc cột表恢复Nhân vật到保留 cột表
   const handleRestoreToKept = useCallback((characterName: string) => {
     setLocalFilteredCharacters(prev => prev.filter(fc => fc.name !== characterName));
-    // 优先从缓存恢复đầy đủNhân vật数据，避免丢失 AI Tạo的trường
+    // 优先从缓存恢复đầy đủNhân vậtdữ liệu，Tránh丢失 AI Tạo的trường
     const cachedChar = removedCharactersCache.get(characterName);
     if (cachedChar) {
       setLocalKeptCharacters(prev => [...prev, cachedChar]);
@@ -470,7 +470,7 @@ export function EpisodeTree({
     if (editingItem?.type === "scene") {
       onUpdateScene?.(editingItem.id, { name: formData.name, location: formData.location, time: formData.time, atmosphere: formData.atmosphere });
     } else {
-      // 如果有 AI kết quả，Sử dụng AI Tạo的đầy đủCảnh数据
+      // 如果有 AI kết quả，Sử dụng AI Tạo的đầy đủCảnhdữ liệu
       if (sceneAiResult?.scene) {
         onAddScene?.(sceneAiResult.scene, targetEpisodeId || undefined);
       } else {
@@ -554,7 +554,7 @@ export function EpisodeTree({
     if (editingItem?.type === "character") {
       onUpdateCharacter?.(editingItem.id, { name: formData.name, gender: formData.gender, age: formData.age, personality: formData.personality });
     } else {
-      // 如果有 AI kết quả，Sử dụng AI Tạo的đầy đủNhân vật数据
+      // 如果有 AI kết quả，Sử dụng AI Tạo的đầy đủNhân vậtdữ liệu
       if (aiResult?.character) {
         onAddCharacter?.(aiResult.character);
       } else {

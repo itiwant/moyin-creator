@@ -172,7 +172,7 @@ async function generateImage(
   const aspectRatio = params.aspectRatio || '1:1';
   const resolution = params.resolution || '2K';
 
-  // 根据元数据决定图片Tạo API 格式
+  // 根据元dữ liệu决定图片Tạo API 格式
   const endpointTypes = useAPIConfigStore.getState().modelEndpointTypes[model];
   const apiFormat = resolveImageApiFormat(endpointTypes, model);
 
@@ -295,7 +295,7 @@ async function submitViaChatCompletions(
     ? ` Output the image at ${targetDims.width}x${targetDims.height} pixels resolution.`
     : '';
 
-  // 压缩Tham chiếu图以避免超大 base64 导致trung gian站 "contents is required" lỗi
+  // 压缩Tham chiếu图以Tránh超大 base64 导致trung gian站 "contents is required" lỗi
   let compressedRefs: string[] | undefined;
   if (referenceImages && referenceImages.length > 0) {
     compressedRefs = await Promise.all(referenceImages.map(img => compressReferenceImage(img)));
@@ -353,7 +353,7 @@ async function submitViaChatCompletions(
   console.log('[ImageGenerator] Submitting via chat completions:', { model, endpoint, isGemini, geminiImageSize: geminiHasImageSize ? normalizeResolutionForGemini(resolution) : 'N/A' });
 
   const response = await retryOperation(async () => {
-    // 每次Thử lại独立tạo AbortController，避免共享 controller 在Thử lại时已超时
+    // 每次Thử lại独立tạo AbortController，Tránh共享 controller 在Thử lại时已超时
     const controller = new AbortController();
     const timeoutId = setTimeout(
       () => controller.abort(new DOMException('图片Tạo请求超时（60秒），请检查网络后Thử lại', 'TimeoutError')),
@@ -569,7 +569,7 @@ async function submitImageTask(
 
   try {
     const data = await retryOperation(async () => {
-      // 每次Thử lại独立tạo AbortController，避免共享 controller 在Thử lại时已超时
+      // 每次Thử lại独立tạo AbortController，Tránh共享 controller 在Thử lại时已超时
       const controller = new AbortController();
       const timeoutId = setTimeout(() => controller.abort(), 60000);
 

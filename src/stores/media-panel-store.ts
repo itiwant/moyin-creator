@@ -112,12 +112,12 @@ export interface PendingCharacterData {
   //  tập作用域透传
   sourceEpisodeIndex?: number;
   sourceEpisodeId?: string;
-  // === 年代信息（从Kịch bản元数据传递）===
+  // === Thông tin thời đại（从Kịch bản元dữ liệu传递）===
   storyYear?: number;  // Năm câu chuyện, ví dụ 2002
   era?: string;        // Mô tả bối cảnh thời đại
   // === promptNgôn ngữ偏好（从Kịch bảnpanel透传）===
   promptLanguage?: import('@/types/script').PromptLanguage;  // 'vi' | 'en' | 'vi+en'
-  // === 专业Nhân vậtThiết kếtrường（世界级大师Tạo） ===
+  // === chuyên nghiệpNhân vậtThiết kếtrường（世界级大师Tạo） ===
   visualPromptEn?: string;  // Prompt thị giác tiếng Anh
   visualPromptZh?: string;  // đang xử lý...ompt thị giác
   // === 6层身份neo（Nhân vật一致性） ===
@@ -152,7 +152,7 @@ export interface PendingSceneData {
   // promptNgôn ngữ偏好
   promptLanguage?: import('@/types/script').PromptLanguage;
   
-  // === 专业CảnhThiết kế（đầy đủ传递）===
+  // === chuyên nghiệpCảnhThiết kế（đầy đủ传递）===
   visualPrompt?: string;       // Mô tả thị giác tiếng Trung
   visualPromptEn?: string;     // Mô tả thị giác tiếng Anh
   architectureStyle?: string;  // Phong cách kiến trúc
@@ -162,12 +162,12 @@ export interface PendingSceneData {
   keyProps?: string[];         // Đạo cụ quan trọng
   spatialLayout?: string;      // Bố cục không gian
   
-  // === 多Góc nhìn联合图数据 ===
+  // === 多Góc nhìn联合图dữ liệu ===
   viewpoints?: PendingViewpointData[];           // Danh sách góc nhìn
   contactSheetPrompts?: ContactSheetPromptSet[]; // Prompt ảnh tổng hợp (có thể nhiều tờ)
 }
 
-// 待Tạo的Góc nhìn数据
+// 待Tạo的Góc nhìndữ liệu
 export interface PendingViewpointData {
   id: string;           // Góc nhìnID
   name: string;         // Tên tiếng Trung: khu bàn ăn, khu sofa

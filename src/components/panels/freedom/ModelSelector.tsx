@@ -383,7 +383,7 @@ function isModelAllowedByPanelType(
   const endpointTypes = modelEndpointTypes[modelId] || [];
   const modelType = modelTypes[modelId];
   if (type === 'image') {
-    // 未同步到 model_type 时先放 hàng，避免误伤可用Model
+    // 未同步到 model_type 时先放 hàng，Tránh误伤可用Model
     if (!modelType) return true;
     return modelType === 'ảnh';
   }
@@ -396,7 +396,7 @@ function isModelAllowedByPanelType(
     return endpointTypes.some((t) => /video|video|Tạo video từ văn bản|Tạo video từ ảnh|Khung đầu/cuối|Tạo video từ tham chiếu|kéo dài|Điều khiển hành động|Người ảo số|omni-video/i.test(t));
   }
 
-  // endpoint thiếu时用Model名兜底判定（避免Tùy chỉnhMở rộng型号被误lọc）
+  // endpoint thiếu时用Model名兜底判定（TránhTùy chỉnhMở rộng型号被误lọc）
   return /kling|veo|sora|runway|vidu|hailuo|minimax\/video|wan|luma|grok-video|seedance|aigc-video/i.test(modelId);
 }
 

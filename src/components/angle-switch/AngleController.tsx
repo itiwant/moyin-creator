@@ -8,7 +8,7 @@
  * 
  * 交互升级：
  * - 鼠标拖拽：控制旋转（水平/俯仰）
- * - 鼠标滚轮：控制缩放（景别）
+ * - 鼠标滚轮：控制缩放（Kích thước cảnh）
  * - 磁吸效果：接近标准角度时Tự động吸附，解决"太丝滑"问题
  */
 
@@ -183,7 +183,7 @@ export function AngleController({
     );
   }, [lastMousePos, theta, phi, shotSize, snapToGrid]);
 
-  // 处理滚轮 (Zoom) - Sử dụng ref 回调来避免 passive event listener 问题
+  // 处理滚轮 (Zoom) - Sử dụng ref 回调来Tránh passive event listener 问题
   const handleWheelRef = useRef<(e: WheelEvent) => void>();
   handleWheelRef.current = (e: WheelEvent) => {
     e.stopPropagation();

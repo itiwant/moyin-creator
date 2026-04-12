@@ -111,7 +111,7 @@ export interface GenerationRecord {
 }
 
 /**
- * Ống kính组 — Hạng S核心数据Cấu trúc
+ * Ống kính组 — Hạng S核心dữ liệuCấu trúc
  *
  * 将 director-store đang xử lý...SplitScene 编为一组，
  * 合并它们的Khung hình đầuảnh、prompt，Tạo一段多Ống kínhtự sựvideo。
@@ -174,7 +174,7 @@ export interface ShotGroup {
   editType?: EditType;
   /** 来源组 ID（kéo dài/Chỉnh sửa的gốcvideo组） */
   sourceGroupId?: string;
-  /** 来源video URL（冗余存储，避免原组被删后找不到） */
+  /** 来源video URL（冗余存储，Tránh原组被删后找不到） */
   sourceVideoUrl?: string;
 }
 
@@ -198,7 +198,7 @@ export interface SingleShotOverride {
 
 // ==================== Project Data ====================
 
-/** Hạng S项目级数据 */
+/** Hạng S项目级dữ liệu */
 export interface SClassProjectData {
   /** Ống kính组 cột表 */
   shotGroups: ShotGroup[];
@@ -210,9 +210,9 @@ export interface SClassProjectData {
   config: SClassConfig;
   /** 当前chế độ */
   mode: SClassMode;
-  /** 是否已从 director 数据Tự độngnhóm过 */
+  /** 是否已从 director dữ liệuTự độngnhóm过 */
   hasAutoGrouped: boolean;
-  /** 最近一次lưới 9 ôTạo的gốc大图 URL（用于Tạo video时复用，避免重新合并） */
+  /** 最近一次lưới 9 ôTạo的gốc大图 URL（用于Tạo video时复用，Tránh重新合并） */
   lastGridImageUrl: string | null;
   /** lastGridImageUrl 对应的Phân cảnh ID  cột表（用于判断是否可复用） */
   lastGridSceneIds: number[] | null;
@@ -333,7 +333,7 @@ const initialState: SClassState = {
 
 // ==================== Helpers ====================
 
-/** 获取当前项目数据 */
+/** 获取当前项目dữ liệu */
 const getCurrentProject = (state: SClassState): SClassProjectData | null => {
   if (!state.activeProjectId) return null;
   return state.projects[state.activeProjectId] || null;
@@ -859,7 +859,7 @@ export const useSClassStore = create<SClassStore>()(
 
 // ==================== Selectors ====================
 
-/** 获取当前活跃项目的 Hạng S数据 */
+/** 获取当前活跃项mục đích Hạng Sdữ liệu */
 export const useActiveSClassProject = (): SClassProjectData | null => {
   return useSClassStore((state) => {
     if (!state.activeProjectId) return null;
@@ -867,7 +867,7 @@ export const useActiveSClassProject = (): SClassProjectData | null => {
   });
 };
 
-/** 获取当前项目的Ống kính组 cột表 */
+/** 获取当前项mục đíchỐng kính组 cột表 */
 export const useShotGroups = (): ShotGroup[] => {
   return useSClassStore((state) => {
     if (!state.activeProjectId) return [];

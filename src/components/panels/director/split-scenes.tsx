@@ -296,7 +296,7 @@ export function SplitScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
   const imageAbortRef = useRef<AbortController | null>(null);
   const videoAbortRef = useRef<AbortController | null>(null);
   const endFrameAbortRef = useRef<AbortController | null>(null);
-  // 合并Tạo控件将在 JSX đang xử lý...染，避免闭包tham chiếu问题
+  // 合并Tạo控件将在 JSX đang xử lý...染，Tránh闭包tham chiếu问题
   const [isGenerating, setIsGenerating] = useState(false);
   const [isGeneratingPrompts, setIsGeneratingPrompts] = useState(false);
   const [currentGeneratingId, setCurrentGeneratingId] = useState<number | null>(null);
@@ -324,7 +324,7 @@ export function SplitScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
   // Get current project data
   const projectData = useActiveDirectorProject();
 
-  // 获取当前项目的promptNgôn ngữCài đặt（来自Kịch bảnpanel）
+  // 获取当前项mục đíchpromptNgôn ngữCài đặt（来自Kịch bảnpanel）
   const promptLanguage = useScriptStore(state => {
     const pid = state.activeProjectId;
     return pid ? state.projects[pid]?.promptLanguage : undefined;
@@ -342,7 +342,7 @@ export function SplitScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
     storyPrompt: '',
   };
   const projectFolderId = projectData?.projectFolderId || null;
-  // Trailer数据 - Trực tiếp从 splitScenes 筛选，保证功能一致
+  // Trailerdữ liệu - Trực tiếp从 splitScenes 筛选，保证chức năng一致
   const trailerConfig = projectData?.trailerConfig || null;
   const trailerShotIds = trailerConfig?.shotIds || [];
   
@@ -406,7 +406,7 @@ export function SplitScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
     deleteSplitScene,
     addBlankSplitScene,
     resetStoryboard,
-    // Trailer功能
+    // Trailerchức năng
     clearTrailer,
     // Phong cách quay phim档案
     setCinematographyProfileId,
@@ -415,7 +415,7 @@ export function SplitScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
 
   // Get current style from config
   // 优先Sử dụngTrực tiếp存储的 visualStyleId，回退到 styleTokens 反推（tương thích旧项目）
-  // 未Cài đặt时为 null（不施加任何Phong cách），避免Mặc định强制 2D 吉卜力
+  // 未Cài đặt时为 null（不施加任何Phong cách），TránhMặc định强制 2D 吉卜力
   const currentStyleId = useMemo(() => {
     if (storyboardConfig.visualStyleId) {
       return storyboardConfig.visualStyleId;
@@ -751,7 +751,7 @@ export function SplitScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
       };
       addAngleSwitchHistory(angleSwitchTarget.sceneId, angleSwitchTarget.type, newHistoryItem);
 
-      // 从 store 实时读取最新Trạng thái，避免闭包đang xử lý...litScenes 尚未更新导致chỉ mục偏差
+      // 从 store 实时读取最新Trạng thái，Tránh闭包đang xử lý...litScenes 尚未更新导致chỉ mục偏差
       const { activeProjectId, projects } = useDirectorStore.getState();
       const latestScenes = activeProjectId ? (projects[activeProjectId]?.splitScenes || []) : [];
       const updatedScene = latestScenes.find(s => s.id === angleSwitchTarget.sceneId);
@@ -1799,7 +1799,7 @@ export function SplitScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
               return;
             }
             
-            // 持久化到本地file系统（local-image://），避免 base64 被 partialize 清除
+            // 持久化到本地file系统（local-image://），Tránh base64 被 partialize 清除
             const persistResult = await persistSceneImage(lastFrameBase64, sceneId, 'end');
             updateSplitSceneEndFrame(sceneId, persistResult.localPath, 'video-extracted', persistResult.httpUrl || undefined);
             console.log('[SplitScenes] Saved video last frame locally:', persistResult.localPath);
@@ -1855,7 +1855,7 @@ export function SplitScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
   }, [splitScenes, storyboardConfig, getApiKey, updateSplitSceneVideo, autoSaveVideoToLibrary, buildEmotionDescription, getCharacterReferenceImages]);
 
   // Handle generate videos - serial processing based on concurrency
-  // 复用 handleGenerateSingleVideo 的统一 API gọi API逻辑，避免Sử dụngkhông tồn tại的 /api/ai/video 端点
+  // 复用 handleGenerateSingleVideo 的统一 API gọi API逻辑，TránhSử dụngkhông tồn tại的 /api/ai/video 端点
   const handleGenerateVideos = useCallback(async () => {
     if (splitScenes.length === 0) {
       toast.error("Không có phân cảnh nào để Tạo");
@@ -2256,7 +2256,7 @@ export function SplitScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
     const base = scene.imagePromptZh?.trim() || scene.imagePrompt?.trim() || scene.videoPromptZh?.trim() || scene.videoPrompt?.trim() || '';
     const shot = allowedShotFromSize(scene.shotSize);
     const vertical = aspect === '9:16' ? 'vertical composition, tighter framing, avoid letterboxing, ' : '';
-    // Tắt相机运动与节奏，仅保留Góc nhìn/景别/bố cục
+    // Tắt相机运动与节奏，仅保留Góc nhìn/Kích thước cảnh/bố cục
     const cameraPart = `${angle}, ${shot}`;
     const anchor = buildAnchorPhrase(styleTokens);
     const style = styleTokens && styleTokens.length > 0 ? ` Style: ${styleTokens.join(', ')}` : '';
@@ -2490,7 +2490,7 @@ export function SplitScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
           const marginH = Math.floor(cropH * safetyMargin);
           
           // 双重保险：强制输出尺寸严格符合目标Tỷ lệ khung hình
-          // 避免因 Math.floor 导致的微小Tỷ lệ偏差
+          // Tránh因 Math.floor 导致的微小Tỷ lệ偏差
           if (targetAspect === '16:9') {
             outputH = Math.round(outputW * 9 / 16);
           } else {
@@ -2773,12 +2773,12 @@ export function SplitScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
       console.log('[MergedGen] Sliced into', slicedImages.length, 'images (from', paddedCount, 'grid cells, target aspect:', aspect, ')');
       
       // 回填到各Phân cảnh并Tự độngLưu到Thư viện phương tiện
-      // 同时Tải lên切割后的ảnh到Lưu trữ ảnh，避免Tạo video时再次Tải lên
+      // 同时Tải lên切割后的ảnh到Lưu trữ ảnh，TránhTạo video时再次Tải lên
       const folderId = getImageFolderId();
       const imageHostConfigured = isImageHostConfigured();
       
       // 回填：根据任务Loại决定更新Khung hình đầu还是Khung hình cuối
-      // 先持久化到本地file系统（local-image://），避免 base64 被 partialize 清除导致Nhập后ảnh丢失
+      // 先持久化到本地file系统（local-image://），Tránh base64 被 partialize 清除导致Nhập后ảnh丢失
       for (let i = 0; i < pageTasks.length; i++) {
         const task = pageTasks[i];
         const s = task.scene;
@@ -3393,13 +3393,13 @@ export function SplitScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
         </Tabs>
       </div>
 
-      {/* Trailer Tab Nội dung - 完全复用Phân cảnhChỉnh sửa的功能 */}
+      {/* Trailer Tab Nội dung - 完全复用Phân cảnhChỉnh sửa的chức năng */}
       {activeTab === "trailer" && (
         <>
           {trailerScenes.length === 0 ? (
             <div className="text-center text-muted-foreground text-sm py-8">
               <Clapperboard className="h-8 w-8 mx-auto mb-2 opacity-50" />
-              <p>Trailer功能</p>
+              <p>Trailerchức năng</p>
               <p className="text-xs mt-1">请在左侧「Kịch bản」panelđang xử lý...railer」Thẻ页TạoTrailer</p>
               <p className="text-xs mt-1">chọn的Phân cảnh将在此Hiện并可thực hiệnảnh/Tạo video</p>
             </div>
@@ -3638,7 +3638,7 @@ export function SplitScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
 
               {/* Tips */}
               <div className="text-xs text-muted-foreground bg-muted/50 rounded-md p-2">
-                <p>💡 TrailerPhân cảnh与主Phân cảnh共享数据，修改会同步。Nhấp每Phân cảnh下方的文字区域可Chỉnh sửaGợi ý。</p>
+                <p>💡 TrailerPhân cảnh与主Phân cảnh共享dữ liệu，修改会同步。Nhấp每Phân cảnh下方的文字区域可Chỉnh sửaGợi ý。</p>
               </div>
             </>
           )}

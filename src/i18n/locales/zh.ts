@@ -162,7 +162,7 @@ const zh = {
 
   update: {
     title: "软件更新",
-    desktop_only: "请在桌面版đang xử lý...功能",
+    desktop_only: "请在桌面版đang xử lý...chức năng",
     open_link_failed: "打开下载链接thất bại",
     new_version: "Phát hiện新版本: {{version}}",
     current_version: "当前版本: {{version}}",

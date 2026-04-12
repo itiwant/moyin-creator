@@ -557,8 +557,8 @@ export const VISUAL_STYLE_PRESETS: readonly StylePreset[] = [
 ] as const;
 
 // ============================================================
-// Tùy chỉnh风格查找回调（用户数据，存储在 localStorage）
-// 通过回调避免常量文件Trực tiếp依赖 zustand store
+// Tùy chỉnh风格查找回调（用户dữ liệu，存储在 localStorage）
+// 通过回调Tránh常量文件Trực tiếp依赖 zustand store
 // ============================================================
 let _customStyleLookup: ((id: string) => StylePreset | undefined) | null = null;
 

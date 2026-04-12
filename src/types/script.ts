@@ -76,7 +76,7 @@ export interface CharacterIdentityAnchors {
  * 用于排除不符合角色设定的Tạokết quả
  */
 export interface CharacterNegativePrompt {
-  avoid: string[];          // 要避免的特征：["blonde hair", "blue eyes", "beard"]
+  avoid: string[];          // 要Tránh的特征：["blonde hair", "blue eyes", "beard"]
   styleExclusions?: string[]; // 风格排除：["anime style", "cartoon"]
 }
 
@@ -122,7 +122,7 @@ export interface ScriptScene {
   status?: CompletionStatus; // 场景Trạng thái tạo
   sceneLibraryId?: string; // 关联的场景库ID
   
-  // === 专业场景Thiết kếtrường（AIHiệu chuẩn时填充）===
+  // === chuyên nghiệp场景Thiết kếtrường（AIHiệu chuẩn时填充）===
   visualPromptEn?: string;      // 英文视觉提示词（用于AITạo ảnh）
   architectureStyle?: string;   // Phong cách kiến trúc（现代简约/đang xử lý.../工业风/欧式等）
   lightingDesign?: string;      // 光影Thiết kế（自然光/灯光/昏暗/明亮等）
@@ -148,7 +148,7 @@ export interface ScriptScene {
 }
 
 /**
- * 场景góc nhìn数据（简化版，存储在 ScriptScene 中）
+ * 场景góc nhìndữ liệu（简化版，存储在 ScriptScene 中）
  */
 export interface SceneViewpointData {
   id: string;           // góc nhìnID，如 'dining', 'sofa', 'window'
@@ -213,7 +213,7 @@ export interface ProjectBackground {
   themes?: string[];          // Chủ đềquan trọng词
 }
 
-// ==================== 剧级数据（SeriesMeta）— 跨 tập共享 ====================
+// ==================== 剧级dữ liệu（SeriesMeta）— 跨 tập共享 ====================
 
 /** đặt tên实体：địa lý/vật phẩm/phe phái等 */
 export interface NamedEntity {
@@ -235,7 +235,7 @@ export interface CharacterRelationship {
 }
 
 /**
- * 剧级元数据 — mục目主页Hiển thị，Tất cả tập共享
+ * 剧级元dữ liệu — mục目主页Hiển thị，Tất cả tập共享
  * 首次Nhập时由 AI + 正则Tự động填充，Hiệu chuẩn后回写丰富
  */
 export interface SeriesMeta {
@@ -422,7 +422,7 @@ export interface ContinuityCharacterState {
 export interface ContinuityRef {
   prevShotId: string | null;         // 上一镜头 ID
   nextShotId: string | null;         // 下一镜头 ID
-  prevEndFrameUrl: string | null;    // 上一镜头尾帧（Tự động填充）
+  prevEndFrameUrl: string | null;    // 上一镜头khung cuối（Tự động填充）
   characterStates: Record<string, ContinuityCharacterState>;  // charName -> 状态快照
   lightingContinuity: string;        // "与上一镜头保持同一侧光方向"
   flaggedIssues: string[];           // AI Tự động检测的穿帮风险
@@ -468,21 +468,21 @@ export interface Shot {
   
   // === 镜头Ngôn ngữ ===
   cameraMovement?: string;   // 鎡头运动（Dolly In, Pan Right, Static, Tracking等）
-  specialTechnique?: string; // 特殊拍摄手法（希区柯克Zoom、conpopup时间、FPV穿梭等）
-  shotSize?: string;         // 景别（Wide Shot, Medium Shot, Close-up, ECU等）
+  specialTechnique?: string; // Kỹ thuật quay đặc biệt手法（希区柯克Zoom、conpopup时间、FPV穿梭等）
+  shotSize?: string;         // Kích thước cảnh（Wide Shot, Medium Shot, Close-up, ECU等）
   duration?: number;         // 预估thời lượng（秒）
   
   // === 视觉Tạo ===
   visualPrompt?: string;     // 英文Mô tả thị giác（用于ảnhTạo，tương thích旧版）
   
-  // === 三层提示词系统 (Seedance 1.5 Pro) ===
-  imagePrompt?: string;      // 首帧提示词（英文，静态Mô tả）
-  imagePromptZh?: string;    // 首帧提示词（中文）
+  // === 3 lớp提示词系统 (Seedance 1.5 Pro) ===
+  imagePrompt?: string;      // khung đầu提示词（英文，静态Mô tả）
+  imagePromptZh?: string;    // khung đầu提示词（中文）
   videoPrompt?: string;      // video提示词（英文，动态动作）
   videoPromptZh?: string;    // video提示词（中文）
-  endFramePrompt?: string;   // 尾帧提示词（英文，静态Mô tả）
-  endFramePromptZh?: string; // 尾帧提示词（中文）
-  needsEndFrame?: boolean;   // 是否需要尾帧
+  endFramePrompt?: string;   // khung cuối提示词（英文，静态Mô tả）
+  endFramePromptZh?: string; // khung cuối提示词（中文）
+  needsEndFrame?: boolean;   // 是否需要khung cuối
   
   // === âm thanhThiết kế ===
   dialogue?: string;         // Thoại/台词
@@ -497,12 +497,12 @@ export interface Shot {
   // === 情绪标签 ===
   emotionTags?: string[];  // 情绪标签 ID 数组，如 ['sad', 'tense', 'serious']
   
-  // === tự sự驱动trường（基于《电影Ngôn ngữ的语法》） ===
-  narrativeFunction?: string;   // tự sự功能：铺垫/升级/cao trào/转折/chuyển tiếp/尾声
+  // === tự sựdẫn dắttrường（基于《电影Ngôn ngữ的语法》） ===
+  narrativeFunction?: string;   // tự sựchức năng：铺垫/升级/cao trào/转折/chuyển tiếp/尾声
   conflictStage?: string;       // 冲突阶段：引入/激化/对抗/转折/解决/余波/辅助
-  shotPurpose?: string;         // 镜头目的：此镜头如何服务于故事核心
+  shotPurpose?: string;         // 镜头mục đích：此镜头如何服务于故事核心
   storyAlignment?: string;      // 与Bối cảnh thế giới/故事核心的一致性：aligned/minor-deviation/needs-review
-  visualFocus?: string;         // 视觉焦点：观众应该看什么（按thứ tự）
+  visualFocus?: string;         // Tiêu điểm thị giác：观众应该看什么（按thứ tự）
   cameraPosition?: string;      // 机位Mô tả：摄影机相对于nhân vật的位置
   characterBlocking?: string;   // nhân vậtbố cục：nhân vật在hình ảnhđang xử lý...关系
   rhythm?: string;              // 节奏Mô tả：这镜头的节奏感

@@ -23,7 +23,7 @@ function App() {
   const [startupUpdate, setStartupUpdate] = useState<AvailableUpdateInfo | null>(null);
   const [updateDialogOpen, setUpdateDialogOpen] = useState(false);
 
-  // 启动时运行存储迁移 + 数据恢复
+  // 启动时运行存储迁移 + dữ liệu恢复
   useEffect(() => {
     (async () => {
       try {
@@ -38,7 +38,7 @@ function App() {
     })();
   }, []);
 
-  // 启动时Tự động同步Tất cả已配置 API Key 的供应商模型元数据
+  // 启动时Tự động同步Tất cả已配置 API Key 的供应商模型元dữ liệu
   useEffect(() => {
     if (isMigrating) return;
     let cancelled = false;

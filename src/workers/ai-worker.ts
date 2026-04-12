@@ -347,7 +347,7 @@ async function pollTaskCompletion(
       throw new Error('Cancelled');
     }
     
-    // API Key 通过 Header 传递，避免明文出现在 URL đang xử lý...风险：URL 会被日志/Lịch sử）
+    // API Key 通过 Header 传递，Tránh明文出现在 URL đang xử lý...风险：URL 会被日志/Lịch sử）
     const statusResponse = await fetch(
       buildApiUrl(`/api/ai/task/${taskId}?provider=${provider}&type=${type}`),
       {

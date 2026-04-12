@@ -34,7 +34,7 @@ export interface IProvider {
  * 默认供应商模板
  * 
  * 核心供应商：
- * 1. MemeFast API (memefast) - 全功能 AI trung gian（推荐），支持文本/ảnh/video/识图
+ * 1. MemeFast API (memefast) - 全chức năng AI trung gian（推荐），支持文本/ảnh/video/识图
  * 2. RunningHub - góc nhìn切换/đa góc độTạo
  */
 export const DEFAULT_PROVIDERS: Omit<IProvider, 'id' | 'apiKey'>[] = [
@@ -155,10 +155,10 @@ const VIDEO_ENDPOINT_MAP: Record<string, ModelApiFormat> = {
 
 /**
  * 根据模型的 supported_endpoint_types Xác nhậnảnhTạo应用的 API 格式
- * 当端点元数据不可用时，根据模型名称推断
+ * 当端点元dữ liệu不可用时，根据模型名称推断
  */
 export function resolveImageApiFormat(endpointTypes: string[] | undefined, modelName?: string): ModelApiFormat {
-  // 1. Sử dụng API 返回的端点元数据
+  // 1. Sử dụng API 返回的端点元dữ liệu
   if (endpointTypes && endpointTypes.length > 0) {
     // 优先Sử dụng image-generation 端点
     for (const t of endpointTypes) {

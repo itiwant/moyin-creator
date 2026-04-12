@@ -4,11 +4,11 @@
 /**
  * sclass-prompt-builder.ts — Hạng Scấp nhómprompt构建
  *
- * 核心功能：
+ * 核心chức năng：
  * 1. Tự động从 character-library-store 提取Nhân vậtẢnh tham chiếu → @Image
  * 2. Tự động从 scene-store 提取CảnhẢnh tham chiếu → @Image
  * 3. Tự động从 splitScene.dialogue 提取Thoại → 唇形同步指令
- * 4. 合并trong nhóm各Ống kính的三层prompt为「Ống kính1→Ống kính2→Ống kính3」Cấu trúc
+ * 4. 合并trong nhóm各Ống kính的3 lớpprompt为「Ống kính1→Ống kính2→Ống kính3」Cấu trúc
  * 5. 收 tập用户Tải lên的 @Video / @Audio tham chiếu
  * 6. 检查 Seedance 2.0 限制（≤9图 + ≤3video + ≤3âm thanh，Tổng≤12，prompt≤5000字符）
  */
@@ -452,7 +452,7 @@ function buildShotSegment(
   const isValid = (v?: string | null): v is string =>
     !!v && !['none', 'null', '无', '无技法', 'Mặc định'].includes(v.toLowerCase().trim());
 
-  // ===== Ống kínhNgôn ngữ（运镜 + 景别 + 角度 + Tiêu cự + 摄影技法） =====
+  // ===== Ống kínhNgôn ngữ（运镜 + Kích thước cảnh + 角度 + Tiêu cự + 摄影技法） =====
   if (isValid(scene.cameraMovement)) parts.push(scene.cameraMovement);
   if (isValid(scene.shotSize)) parts.push(scene.shotSize);
   if (isValid(scene.cameraAngle)) parts.push(scene.cameraAngle);

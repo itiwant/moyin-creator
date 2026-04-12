@@ -179,7 +179,7 @@ const TRANSLATION_TABLES: Partial<Record<MediaType, MediaTranslationTable>> = {
  * @param mediaType   - 当前视觉风格的媒介类型
  * @param field       - 摄影参数维度
  * @param presetId    - 预设 ID（如 'dolly', 'shallow'）
- * @param originalToken - gốc promptToken（来自预设数据）
+ * @param originalToken - gốc promptToken（来自预设dữ liệu）
  * @returns 翻译后的 token；空字符串表示该参数在此媒介下不适用
  */
 export function translateToken(

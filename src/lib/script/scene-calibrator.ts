@@ -6,12 +6,12 @@
  * 
  * Sử dụng AI thông minhHiệu chuẩn从剧本đang xử lý...场景列表
  * 
- * 功能：
+ * chức năng：
  * 1. 统计每场景的出场次数、出现 tập数
  * 2. AI 分析识别重要场景 vs chuyển tiếp场景
  * 3. AI 合并相同地点的变体（张家客厅 = 张明家客厅）
  * 4. AI 补充场景信息（Phong cách kiến trúc、光影、道具等）
- * 5. 大师级场景视觉Thiết kế（专业提示词Tạo）
+ * 5. 大师级场景视觉Thiết kế（chuyên nghiệp提示词Tạo）
  */
 
 import type { ScriptScene, ProjectBackground, EpisodeRawScript, SceneRawContent, PromptLanguage } from '@/types/script';
@@ -103,7 +103,7 @@ export interface CalibrationOptions {
 // ==================== 统计函数 ====================
 
 /**
- * 从tập剧本đang xử lý...ất cả场景的出场数据
+ * 从tập剧本đang xử lý...ất cả场景的出场dữ liệu
  */
 export function collectSceneStats(
   episodeScripts: EpisodeRawScript[]
@@ -251,8 +251,8 @@ function cleanLocationString(location: string): string {
  * 【重要】此函数只补充hiện có场景的美术Thiết kế信息，不改变：
  * - 场景列表（不新增、不删除、不合并）
  * - 场景thứ tự
- * - viewpoints（多góc nhìn联合图数据）
- * - sceneIds、shotIds 等关联数据
+ * - viewpoints（多góc nhìn联合图dữ liệu）
+ * - sceneIds、shotIds 等关联dữ liệu
  */
 export async function calibrateScenes(
   currentScenes: ScriptScene[],
@@ -307,7 +307,7 @@ export async function calibrateScenes(
   const seriesCtxBlock = seriesCtx ? `\n\n${seriesCtx}\n` : '';
 
   // 3. 构建共享的 system prompt
-  const systemPrompt = `你是专业的影视美术指导和场景Thiết kế师，擅长为hiện có场景补充专业的视觉Thiết kế方案。${seriesCtxBlock}
+  const systemPrompt = `你是chuyên nghiệp的影视美术指导和场景Thiết kế师，擅长为hiện có场景补充chuyên nghiệp的视觉Thiết kế方案。${seriesCtxBlock}
 
 【核心任务】
 为以下场景补充美术Thiết kế信息，用于Tạo场景概念图。
@@ -355,7 +355,7 @@ export async function calibrateScenes(
 tên phim：《${background.title}》
 ${background.genre ? `类型：${background.genre}` : ''}
 ${background.era ? `thời đại：${background.era}` : ''}
-${background.storyStartYear ? `故事年份：${background.storyStartYear}年${background.storyEndYear && background.storyEndYear !== background.storyStartYear ? ` - ${background.storyEndYear}年` : ''}` : ''}
+${background.storyStartYear ? `Năm câu chuyện：${background.storyStartYear}年${background.storyEndYear && background.storyEndYear !== background.storyStartYear ? ` - ${background.storyEndYear}年` : ''}` : ''}
 ${background.timelineSetting ? `时间线：${background.timelineSetting}` : ''}
 ${background.worldSetting ? `Bối cảnh thế giới：${safeTruncate(background.worldSetting, 200)}` : ''}
 总 tập数：${episodeScripts.length} tập
@@ -427,7 +427,7 @@ ${sceneList}
         allMergeRecords.push(...(batchParsed.mergeRecords || []));
         if (batchParsed.analysisNotes) allAnalysisNotes.push(batchParsed.analysisNotes);
         
-        // 返回 Map<sceneId, 场景数据>
+        // 返回 Map<sceneId, 场景dữ liệu>
         const map = new Map<string, any>();
         for (const s of (batchParsed.scenes || [])) {
           if (s.sceneId) {
@@ -480,7 +480,7 @@ ${sceneList}
       };
     });
     
-    // 为主要场景Tạo专业视觉提示词
+    // 为主要场景Tạochuyên nghiệp视觉提示词
     const enrichedScenes = await enrichScenesWithVisualPrompts(
       scenes,
       background,
@@ -536,14 +536,14 @@ export async function calibrateEpisodeScenes(
   // 只Hiệu chuẩn该 tập的场景
   const singleEpisodeScripts = [episodeScript];
   
-  // 复用全局Hiệu chuẩn逻辑，但只传入单 tập数据
+  // 复用全局Hiệu chuẩn逻辑，但只传入单 tậpdữ liệu
   return calibrateScenes(currentScenes, background, singleEpisodeScripts, options);
 }
 
-// ==================== 专业视觉Thiết kế ====================
+// ==================== chuyên nghiệp视觉Thiết kế ====================
 
 /**
- * 为主要场景Tạo专业的视觉提示词
+ * 为主要场景Tạochuyên nghiệp的视觉提示词
  */
 async function enrichScenesWithVisualPrompts(
   scenes: CalibratedScene[],
@@ -559,11 +559,11 @@ async function enrichScenesWithVisualPrompts(
     return scenes;
   }
   
-  console.log(`[enrichScenesWithVisualPrompts] 为 ${keyScenes.length} quan trọng场景Tạo专业提示词...`);
+  console.log(`[enrichScenesWithVisualPrompts] 为 ${keyScenes.length} quan trọng场景Tạochuyên nghiệp提示词...`);
   
   const systemPrompt = `你是好莱坞顶级美术指导，曾为《盗梦空间》《布达佩斯大饭店》等电影Thiết kế场景。
 
-你的专业能力：
+你的chuyên nghiệp能力：
 - **空间美学**：懂得如何用bố cục、光影、色彩传达情绪
 - **thời đại还原**：准确把握不同年代的建筑和室内装饰特征
 - **AI图像Tạo**：深谙 Midjourney、DALL-E 等 AI 绘图模型的最佳提示词写法
@@ -578,7 +578,7 @@ thời đại：${background.era || '未知'}
 ${background.outline?.slice(0, 1000) || '无'}
 
 【任务】
-为以下场景Tạo专业的视觉提示词：
+为以下场景Tạochuyên nghiệp的视觉提示词：
 
 ${keyScenes.map((s, i) => `${i+1}. ${s.name}
    - 重要性：${s.importance === 'main' ? '主场景' : '次要场景'}
@@ -604,7 +604,7 @@ ${promptLanguage !== 'zh' ? '- 英文视觉提示词（50-80词，适合AI图像
 
   try {
     // 统一从ánh xạ dịch vụ获取配置
-    const result = await callFeatureAPI('script_analysis', systemPrompt, '请为以上场景Tạo专业视觉提示词');
+    const result = await callFeatureAPI('script_analysis', systemPrompt, '请为以上场景Tạochuyên nghiệp视觉提示词');
     
     // Phân tíchkết quả
     let cleaned = result.replace(/```json\n?/g, '').replace(/```\n?/g, '').trim();
@@ -620,7 +620,7 @@ ${promptLanguage !== 'zh' ? '- 英文视觉提示词（50-80词，适合AI图像
       designMap.set(s.name, s);
     }
     
-    // 合并到场景数据
+    // 合并到场景dữ liệu
     return scenes.map(s => {
       const design = designMap.get(s.name);
       if (design) {
@@ -649,7 +649,7 @@ export function convertToScriptScenes(
   promptLanguage: PromptLanguage = 'zh+en',
 ): ScriptScene[] {
   return calibrated.map(c => {
-    // 查找gốc场景数据
+    // 查找gốc场景dữ liệu
     const original = originalScenes?.find(orig => 
       orig.name === c.name || 
       orig.location === c.location ||
@@ -670,7 +670,7 @@ export function convertToScriptScenes(
       location: cleanedLocation,
       time: c.time,
       atmosphere: c.atmosphere,
-      // 专业场景Thiết kếtrường
+      // chuyên nghiệp场景Thiết kếtrường
       visualPrompt: promptLanguage === 'en' ? undefined : nextVisualPromptZh,
       visualPromptEn: promptLanguage === 'zh' ? undefined : nextVisualPromptEn,
       architectureStyle: c.architectureStyle,
@@ -689,7 +689,7 @@ export function convertToScriptScenes(
         `出场${c.appearanceCount}次`,
         ...(c.keyProps || []).slice(0, 3),
       ],
-      // 【修复】保留gốc场景的 viewpoints 数据（AIgóc nhìn分析kết quả）
+      // 【修复】保留gốc场景的 viewpoints dữ liệu（AIgóc nhìn分析kết quả）
       viewpoints: original?.viewpoints,
     };
   });

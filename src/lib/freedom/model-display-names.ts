@@ -2,7 +2,7 @@
  * 模型友好名映射表
  * API ID → 用户可读的显示名
  *
- * 数据来源: https://memefast.top/api/pricing_new (2026-02-19)
+ * dữ liệu来源: https://memefast.top/api/pricing_new (2026-02-19)
  * 不在此表đang xử lý...Trực tiếp显示gốc ID
  */
 
@@ -202,13 +202,13 @@ export const MODEL_DISPLAY_NAMES: Record<string, string> = {
   'veo3': 'Veo 3',
   'veo3-fast': 'Veo 3 Fast',
   'veo3-pro': 'Veo 3 Pro',
-  'veo3-fast-frames': 'Veo 3 Fast 首尾帧',
-  'veo3-frames': 'Veo 3 首尾帧',
-  'veo3-pro-frames': 'Veo 3 Pro 首尾帧',
+  'veo3-fast-frames': 'Veo 3 Fast 首khung cuối',
+  'veo3-frames': 'Veo 3 首khung cuối',
+  'veo3-pro-frames': 'Veo 3 Pro 首khung cuối',
   'veo2': 'Veo 2',
   'veo2-fast': 'Veo 2 Fast',
   'veo2-fast-components': 'Veo 2 Fast 素材合成',
-  'veo2-fast-frames': 'Veo 2 Fast 首尾帧',
+  'veo2-fast-frames': 'Veo 2 Fast 首khung cuối',
   'veo2-pro': 'Veo 2 Pro',
   'veo2-pro-components': 'Veo 2 Pro 素材合成',
   // veo_ 下划线格式（同模型不同端点）

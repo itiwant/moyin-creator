@@ -5,14 +5,14 @@
  * Model Capability Registry — AI 调度đang xử lý...组件 1
  *
  * 职责：根据模型名称查询 contextWindow 和 maxOutput 限制。
- * 三层查找（优先级递减）：
+ * 3 lớp查找（优先级递减）：
  *   1. 持久化缓存（从 API lỗiđang xử lý...到的真实限制）
  *   2. 静态注册表（官方文档验证过的已知模型）
  *   3. _default 保守默认值
  *
  * Thiết kế原则：
  *   - 按模型名查表，不按 URL — memefast 代理的模型和直连一样
- *   - prefix Khớp按长度降序 — 避免短前缀误Khớp更具体的模型
+ *   - prefix Khớp按长度降序 — Tránh短前缀误Khớp更具体的模型
  *   - 仅Ghi đè text/chat 模型 — 图像/视频/音频不走 callChatAPI
  *   - 保守默认值 — 未知模型宁可多分批也不撞限制
  */
@@ -37,9 +37,9 @@ export interface DiscoveredModelLimits {
 // ==================== Static Registry ====================
 
 /**
- * 静态注册表 — 仅含官方文档验证过的数据
+ * 静态注册表 — 仅含官方文档验证过的dữ liệu
  *
- * 数据来源：
+ * dữ liệu来源：
  *   - DeepSeek: https://api-docs.deepseek.com/quick_start/pricing (V3.2 = 128K context)
  *   - GLM: https://bigmodel.cn/pricing + 多方验证 (4.7 = 200K ctx / 128K output)
  *   - Gemini: https://ai.google.dev/gemini-api/docs/models + OCI docs (2.5 = 1M ctx / 65K output)
@@ -102,7 +102,7 @@ let _setDiscoveredLimits: ((model: string, limits: Partial<DiscoveredModelLimits
 
 /**
  * 注入持久化缓存的读写函数（由 api-config-store 在初始化时gọi API）
- * 这种chế độ避免了 model-registry ↔ api-config-store 的循环依赖
+ * 这种chế độTránh了 model-registry ↔ api-config-store 的循环依赖
  */
 export function injectDiscoveryCache(
   getter: (model: string) => DiscoveredModelLimits | undefined,
@@ -117,7 +117,7 @@ export function injectDiscoveryCache(
 /**
  * 查询模型的 contextWindow 和 maxOutput 限制
  *
- * 三层查找：
+ * 3 lớp查找：
  *   1. 持久化缓存（Error-driven Discovery 学到的真实限制）
  *   2. 静态注册表（精确Khớp → prefix Khớp，prefix 按长度降序）
  *   3. _default
@@ -255,7 +255,7 @@ export function cacheDiscoveredLimits(
  *   - đang xử lý...1 token ≈ 0.6~1.0 汉字，/1.5 相当于放大估算（偏安全）
  *   - 英文/标点/JSON: 1 token ≈ 3~4 字符，/1.5 也偏安全
  *   - 宁可高估 token 数（多分批），也不低估（撞限制）
- *   - 不引入 tiktoken 等重型库，避免前端 WASM tương thích性和体积问题
+ *   - 不引入 tiktoken 等重型库，Tránh前端 WASM tương thích性和体积问题
  */
 export function estimateTokens(text: string): number {
   return Math.ceil(text.length / 1.5);
@@ -263,7 +263,7 @@ export function estimateTokens(text: string): number {
 
 /**
  * thông minhcắt ngắn文本，不在句子或段落đang xử lý...
- * 避免cắt ngắn导致 JSON Cấu trúc损坏或 AI 理解混乱
+ * Tránhcắt ngắn导致 JSON Cấu trúc损坏或 AI 理解混乱
  *
  * @param text gốc文本
  * @param maxLength 最大Số ký tự

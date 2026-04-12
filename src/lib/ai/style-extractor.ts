@@ -117,7 +117,7 @@ export async function extractStyleTokens(
 ): Promise<StyleExtractionResult> {
   const config = getFeatureConfig('image_understanding');
   if (!config) {
-    throw new Error('请先在设置đang xử lý...片理解”功能绑定 API 提供商');
+    throw new Error('请先在设置đang xử lý...片理解”chức năng绑定 API 提供商');
   }
 
   const baseUrl = config.baseUrl?.replace(/\/+$/, '');

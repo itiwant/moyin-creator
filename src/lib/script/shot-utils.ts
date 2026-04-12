@@ -31,7 +31,7 @@ export function calculateProgress(items: { status?: CompletionStatus }[]): strin
 }
 
 /**
- * 景别名称 → ShotSizeType 映射表
+ * Kích thước cảnh名称 → ShotSizeType 映射表
  * 用于将剧本đang xử lý...Mô tả转换为标准化 ID
  */
 export const SHOT_SIZE_MAP: Record<string, ShotSizeType> = {
@@ -46,7 +46,7 @@ export const SHOT_SIZE_MAP: Record<string, ShotSizeType> = {
 };
 
 /**
- * 将景别字符串转换为标准化 ShotSizeType
+ * 将Kích thước cảnh字符串转换为标准化 ShotSizeType
  */
 export function normalizeShotSize(shotSize: string | undefined | null): ShotSizeType | null {
   if (!shotSize) return null;

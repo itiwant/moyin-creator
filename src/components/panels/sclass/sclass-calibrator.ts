@@ -5,13 +5,13 @@
 /**
  * Hạng S「cấp nhóm AI Hiệu chuẩn」核心模块
  *
- * 功能：
- * 1. 读取trong nhóm各 SplitScene 数据（只读，不修改 director-store）
+ * chức năng：
+ * 1. 读取trong nhóm各 SplitScene dữ liệu（只读，不修改 director-store）
  * 2. gọi API LLM Tạocấp nhómtự sựcung、Ống kínhchuyển tiếp、âm thanhThiết kế、tối ưu prompt
  * 3. 写入 sclass-store 的 ShotGroup Hiệu chuẩntrường
  *
- * 数据安全：
- * - 只读 director-store，零污染gốcKịch bản数据
+ * dữ liệu安全：
+ * - 只读 director-store，零污染gốcKịch bảndữ liệu
  * - 产物只写 sclass-store.ShotGroup 的Hiệu chuẩntrường
  */
 
@@ -24,7 +24,7 @@ import { useSClassStore } from '@/stores/sclass-store';
 
 // ==================== Loại定义 ====================
 
-/** Hiệu chuẩn产物（AI 输出的 4 mụccấp nhómtối ưu数据） */
+/** Hiệu chuẩn产物（AI 输出的 4 mụccấp nhómtối ưudữ liệu） */
 export interface CalibrationResult {
   /** cấp nhómtự sựcungMô tả */
   narrativeArc: string;
@@ -58,7 +58,7 @@ function summarizeScene(scene: SplitScene, characters: Character[]): string {
   if (scene.ambientSound) parts.push(`Âm thanh môi trường：${scene.ambientSound}`);
   if (scene.soundEffectText) parts.push(`Hiệu ứng âm thanh：${scene.soundEffectText}`);
   if (scene.emotionTags?.length) parts.push(`情绪：${scene.emotionTags.join('、')}`);
-  if (scene.narrativeFunction) parts.push(`tự sự功能：${scene.narrativeFunction}`);
+  if (scene.narrativeFunction) parts.push(`tự sựchức năng：${scene.narrativeFunction}`);
 
   return parts.join('\n  ');
 }
@@ -94,7 +94,7 @@ export async function calibrateGroup(
   const systemPrompt = `你是一位资深电影Đạo diễn兼剪辑师，擅长多Ống kínhtự sựvideo的节奏把控和tự sự连贯性tối ưu。
 
 【核心约束 — 严格执 hàng】
-1. 严格基于以下Ống kính数据，不得ThêmKịch bảnđang xử lý...的Nhân vật、Cảnh或Thoại。
+1. 严格基于以下Ống kínhdữ liệu，不得ThêmKịch bảnđang xử lý...的Nhân vật、Cảnh或Thoại。
 2. 只做tự sự连贯tối ưu和chuyển tiếpThiết kế，不改变各Ống kính的核心Nội dung和情绪基调。
 3. 保留每Ống kính的原有运镜和Hành độngThiết kế，只在Ống kính衔接处增加chuyển tiếp指令。
 4. âm thanhThiết kế必须基于各Ống kínhhiện có的Âm thanh môi trường/Hiệu ứng âm thanh信息，不凭空创造新音源。

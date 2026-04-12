@@ -359,7 +359,7 @@ export function MediaView() {
     }
   };
 
-  // AI Đạo diễn功能 - Cắt thông minh（Trực tiếp进入切割Trạng thái）
+  // AI Đạo diễnchức năng - Cắt thông minh（Trực tiếp进入切割Trạng thái）
   const handleSmartSplit = (item: MediaFile) => {
     if (item.type !== 'image' || !item.url) return;
     
@@ -377,7 +377,7 @@ export function MediaView() {
     toast.success('Đã tải ảnh, vui lòng Nhấp "Cắt cảnh" để Bắt đầu Cắt thông minh');
   };
 
-  // AI Đạo diễn功能 - Phân cTạo ảnh（Trực tiếp进入Chỉnh sửaTrạng thái，作为单张Phân cảnh）
+  // AI Đạo diễnchức năng - Phân cTạo ảnh（Trực tiếp进入Chỉnh sửaTrạng thái，作为单张Phân cảnh）
   const handleGenerateScenes = (item: MediaFile) => {
     if (item.type !== 'image' || !item.url) return;
     

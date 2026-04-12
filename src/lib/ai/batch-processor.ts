@@ -38,7 +38,7 @@ export interface ProcessBatchedOptions<TItem, TResult> {
   /** 待处理的Tất cả items */
   items: TItem[];
 
-  /** AI 功能类型（用于从 feature-router 获取配置） */
+  /** AI chức năng类型（用于从 feature-router 获取配置） */
   feature: AIFeature;
 
   /**

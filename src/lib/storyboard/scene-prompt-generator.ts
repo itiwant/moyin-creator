@@ -12,8 +12,8 @@
  * 2. Only fall back to Vision API when scene has NO text descriptions.
  * 
  * Three-tier prompt system:
- * 1. Image Prompt (首帧提示词) - Static description for first frame image generation
- * 2. End Frame Prompt (尾帧提示词) - Static description for end frame (if needed)
+ * 1. Image Prompt (khung đầu提示词) - Static description for first frame image generation
+ * 2. End Frame Prompt (khung cuối提示词) - Static description for end frame (if needed)
  * 3. Video Prompt (视频提示词) - Dynamic action description for video generation
  * 
  * Also determines whether each scene needs an end frame based on:
@@ -52,12 +52,12 @@ export interface ScenePromptRequest {
 export interface GeneratedPrompt {
   id: number;
   
-  // === 首帧提示词 (First Frame - Static) ===
+  // === khung đầu提示词 (First Frame - Static) ===
   // For image generation: composition, lighting, character appearance, starting pose
   imagePrompt: string;      // English
   imagePromptZh: string;    // Chinese
   
-  // === 尾帧提示词 (End Frame - Static) ===
+  // === khung cuối提示词 (End Frame - Static) ===
   // For image generation: ending pose, position after movement
   needsEndFrame: boolean;   // Whether this scene needs an end frame
   endFramePrompt: string;   // English (empty if not needed)
@@ -324,8 +324,8 @@ Your Expertise:
 - **Storytelling Through Camera**: Understand how each shot serves the overall narrative
 
 You understand the THREE-TIER PROMPT SYSTEM for video generation:
-1. **First Frame Prompt** (首帧提示词): STATIC description for generating the starting image
-2. **End Frame Prompt** (尾帧提示词): STATIC description for generating the ending image (only if needed)
+1. **First Frame Prompt** (khung đầu提示词): STATIC description for generating the starting image
+2. **End Frame Prompt** (khung cuối提示词): STATIC description for generating the ending image (only if needed)
 3. **Video Prompt** (视频提示词): DYNAMIC description for the motion/action between frames
 
 # Context

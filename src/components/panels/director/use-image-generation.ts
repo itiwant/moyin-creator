@@ -267,7 +267,7 @@ export function allocateAngles(count: number, preselected: (string | undefined)[
 }
 
 export function buildAnchorPhrase(_styleTokens?: string[]): string {
-  // styleTokens 不再注入（Hiệu chuẩn后的 prompt 已包含Phong cáchMô tả，避免双重注入）
+  // styleTokens 不再注入（Hiệu chuẩn后的 prompt 已包含Phong cáchMô tả，Tránh双重注入）
   const noTextConstraint = 'IMPORTANT: NO TEXT, NO WORDS, NO LETTERS, NO CAPTIONS, NO SPEECH BUBBLES, NO DIALOGUE BOXES, NO SUBTITLES, NO WRITING of any kind.';
   return `Keep character appearance, wardrobe and facial features consistent. Keep lighting and color grading consistent. ${noTextConstraint}`;
 }

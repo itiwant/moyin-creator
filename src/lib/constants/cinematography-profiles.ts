@@ -112,7 +112,7 @@ const CINEMATIC_PROFILES: CinematographyProfile[] = [
     defaultSpeed: { playbackSpeed: 'normal' },
     defaultAngle: 'eye-level',
     defaultFocalLength: '50mm',
-    promptGuidance: '遵循经典电影语法，三点布光为基础，暖色调营造温暖质感。轨道推拉保持画面稳定流畅，景深随tự sự功能调整——Chat用浅景深聚焦情绪，全景用深景深交代环境。',
+    promptGuidance: '遵循经典电影语法，三点布光为基础，暖色调营造温暖质感。轨道推拉保持画面稳定流畅，景深随tự sựchức năng调整——Chat用浅景深聚焦情绪，全景用深景深交代环境。',
     referenceFilms: ['肖申克的救赎', '阿甘正传', '教父'],
   },
   {
@@ -220,7 +220,7 @@ const DOCUMENTARY_PROFILES: CinematographyProfile[] = [
     defaultSpeed: { playbackSpeed: 'normal' },
     defaultAngle: 'eye-level',
     defaultFocalLength: '24mm',
-    promptGuidance: '新闻纪实以信息传达为第一优先——深景深确保画面Tất cả元素清晰可辨，高调光消除阴影让细节đầy đủ呈现。肩扛摄影保持灵活跟踪，但比Cầm tay更稳定。画面bố cục讲究信息层次，重要nhân vật或事件始终在视觉焦点。',
+    promptGuidance: '新闻纪实以信息传达为第一优先——深景深确保画面Tất cả元素清晰可辨，高调光消除阴影让细节đầy đủ呈现。肩扛摄影保持灵活跟踪，但比Cầm tay更稳定。画面bố cục讲究信息层次，重要nhân vật或事件始终在Tiêu điểm thị giác。',
     referenceFilms: ['聚焦', '总统班底', '华盛顿邮报'],
   },
 ];
@@ -459,7 +459,7 @@ export function buildCinematographyGuidance(profileId: string): string {
     '',
     `**Tham chiếu影片：** ${profile.referenceFilms.join('、')}`,
     '',
-    '⚠️ 以上是本项目的摄影Ngôn ngữ基准。每Phân cảnh的拍摄控制trường应以此为默认值，但如果剧情的tự sự功能（如cao trào、转折）需要偏离基准，可以自由调整——quan trọng是要有tự sự理由，Không随机变化。',
+    '⚠️ 以上是本项mục đích摄影Ngôn ngữ基准。每Phân cảnh的拍摄控制trường应以此为默认值，但如果剧情的tự sựchức năng（如cao trào、转折）需要偏离基准，可以自由调整——quan trọng是要有tự sự理由，Không随机变化。',
   ].filter(Boolean);
 
   return lines.join('\n');

@@ -57,7 +57,7 @@ export function StyleEditor({ styleId, onClose }: StyleEditorProps) {
   const [extracting, setExtracting] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  // 加载hiện có数据
+  // 加载hiện códữ liệu
   useEffect(() => {
     if (existing) {
       setForm({
@@ -101,7 +101,7 @@ export function StyleEditor({ styleId, onClose }: StyleEditorProps) {
     try {
       const newImages: string[] = [];
       for (const file of Array.from(files)) {
-        // 转为 data URL 再Lưu（避免 blob: 协议不被 Electron Hỗ trợ）
+        // 转为 data URL 再Lưu（Tránh blob: 协议不被 Electron Hỗ trợ）
         const dataUrl = await fileToDataUrl(file);
         const filename = `style_ref_${Date.now()}_${file.name}`;
         const localPath = await saveImageToLocal(dataUrl, "styles", filename);

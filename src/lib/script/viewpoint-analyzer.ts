@@ -69,11 +69,11 @@ export async function analyzeSceneViewpoints(
       `【分镜${idx + 1}】`,
       shot.actionSummary && `动作Mô tả: ${shot.actionSummary}`,
       shot.visualDescription && `画面Mô tả: ${shot.visualDescription}`,
-      shot.visualFocus && `视觉焦点: ${shot.visualFocus}`,
+      shot.visualFocus && `Tiêu điểm thị giác: ${shot.visualFocus}`,
       shot.dialogue && `Thoại: ${shot.dialogue.slice(0, 80)}`,
       shot.ambientSound && `环境声: ${shot.ambientSound}`,
       shot.characterBlocking && `nhân vậtbố cục: ${shot.characterBlocking}`,
-      shot.shotSize && `景别: ${shot.shotSize}`,
+      shot.shotSize && `Kích thước cảnh: ${shot.shotSize}`,
       shot.cameraMovement && `镜头运动: ${shot.cameraMovement}`,
     ].filter(Boolean);
     return parts.join('\n  ');
@@ -101,7 +101,7 @@ export async function analyzeSceneViewpoints(
     ? `【剧本信息】\n${globalContextParts.join('\n')}\n\n`
     : '';
 
-  const systemPrompt = `你是专业的影视美术指导，擅长分析场景并确定需要的拍摄góc nhìn。
+  const systemPrompt = `你是chuyên nghiệp的影视美术指导，擅长分析场景并确定需要的拍摄góc nhìn。
 
 ${globalContextSection}【任务】
 根据本 tậpđại cương、场景信息和分镜内容，分析该场景需要哪些不同的góc nhìn/机位来Tạo场景背景图。
@@ -113,8 +113,8 @@ ${globalContextSection}【任务】
    - 户外场景：全景、Cận cảnh、特定地标等
    - 古代场景：堂屋、庭院、案几等
 2. 从分镜动作和画面Mô tảđang xử lý...际需要的góc nhìn
-3. 结合本 tậpđại cương理解场景的tự sự功能，确定哪些góc nhìn是核心的
-4. 每góc nhìn要有quan trọng道具（从分镜的视觉焦点和环境声đang xử lý...
+3. 结合本 tậpđại cương理解场景的tự sựchức năng，确定哪些góc nhìn是核心的
+4. 每góc nhìn要有quan trọng道具（从分镜的Tiêu điểm thị giác和环境声đang xử lý...
 5. 输出4-6góc nhìn
 
 【输出格式】
@@ -222,7 +222,7 @@ export async function analyzeMultipleScenesViewpoints(
     const result = await analyzeSceneViewpoints(scene, shots, options);
     results.set(scene.id, result);
     
-    // 避免 API 频率限制
+    // Tránh API 频率限制
     if (i < scenesWithShots.length - 1) {
       await new Promise(resolve => setTimeout(resolve, 500));
     }

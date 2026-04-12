@@ -3,7 +3,7 @@
 // Commercial licensing available. See COMMERCIAL_LICENSE.md.
 /**
  * RunningHub Angle Constants
- * 96种góc nhìn定义：8方向 × 4俯仰角 × 3景别
+ * 96种góc nhìn定义：8方向 × 4俯仰角 × 3Kích thước cảnh
  */
 
 export type HorizontalDirection = 
@@ -67,7 +67,7 @@ export const ELEVATION_ANGLES: Array<{
   { id: 'high-angle', label: '大nhìn xuống', description: '从上往下拍' },
 ];
 
-// 景别定义
+// Kích thước cảnh定义
 export const SHOT_SIZES: Array<{
   id: ShotSize;
   label: string;
@@ -98,7 +98,7 @@ const ELEVATION_PROMPTS: Record<ElevationAngle, string> = {
   'high-angle': 'high-angle shot',
 };
 
-// 景别到提示词的精确映射
+// Kích thước cảnh到提示词的精确映射
 const SHOT_SIZE_PROMPTS: Record<ShotSize, string> = {
   'close-up': 'close-up',
   'medium-shot': 'medium shot',

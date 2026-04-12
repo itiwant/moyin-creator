@@ -181,7 +181,7 @@ export function generateGroupName(
   const sceneMap = new Map(scenes.map((s) => [s.id, s]));
   const firstScene = sceneMap.get(group.sceneIds[0]);
 
-  // Sử dụngtrong nhómthứ tự编号（而非 scene.id），避免 1-based ID 导致偏移
+  // Sử dụngtrong nhómthứ tự编号（而非 scene.id），Tránh 1-based ID 导致偏移
   const allIds = scenes.map(s => s.id);
   const firstIdx = allIds.indexOf(group.sceneIds[0]);
   const lastIdx = allIds.indexOf(group.sceneIds[group.sceneIds.length - 1]);

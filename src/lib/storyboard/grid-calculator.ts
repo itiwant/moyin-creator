@@ -209,7 +209,7 @@ const OPTIMAL_LAYOUTS: Record<number, { landscape: { cols: number; rows: number 
   9: { landscape: { cols: 3, rows: 3 }, portrait: { cols: 3, rows: 3 } },
   // 10 场景: 5x2 或 2x5
   10: { landscape: { cols: 5, rows: 2 }, portrait: { cols: 2, rows: 5 } },
-  // 12 场景: 4x3 或 3x4（quan trọng！避免 6x2 或 2x6）
+  // 12 场景: 4x3 或 3x4（quan trọng！Tránh 6x2 或 2x6）
   12: { landscape: { cols: 4, rows: 3 }, portrait: { cols: 3, rows: 4 } },
 };
 

@@ -8,7 +8,7 @@
  * 供 split-scenes.tsx、split-scene-card.tsx、prompt-builder.ts 等模块Nhập。
  */
 
-// ==================== 景别预设 (Shot Size) ====================
+// ==================== Kích thước cảnh预设 (Shot Size) ====================
 
 export const SHOT_SIZE_PRESETS = [
   { id: 'ws', label: 'Toàn cảnh xa', labelEn: 'Wide Shot', abbr: 'WS', promptToken: 'wide shot, establishing shot, distant view' },
@@ -226,7 +226,7 @@ export const CAMERA_MOVEMENT_PRESETS = [
 
 export type CameraMovementType = typeof CAMERA_MOVEMENT_PRESETS[number]['id'];
 
-// ==================== 特殊拍摄手法预设 (Special Technique) ====================
+// ==================== Kỹ thuật quay đặc biệt手法预设 (Special Technique) ====================
 
 export const SPECIAL_TECHNIQUE_PRESETS = [
   { id: 'none' as const, label: 'Không', labelEn: 'None', promptToken: '' },

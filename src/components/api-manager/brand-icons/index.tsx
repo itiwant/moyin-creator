@@ -4,7 +4,7 @@
 
 /**
  * thương hiệu SVG 图标（源自 MemeFast pricing 页面 lobe-icons）
- * 拆分为多file避免单file过大
+ * 拆分为多fileTránh单file过大
  */
 
 import type { ReactNode } from "react";

@@ -63,7 +63,7 @@ export function DirectorContextPanel() {
   const splitScenes = projectData?.splitScenes || [];
   const storyboardStatus = projectData?.storyboardStatus || 'idle';
   
-  // 获取Thư viện cảnh数据
+  // 获取Thư viện cảnhdữ liệu
   const { scenes } = useSceneStore();
   const sceneLibraryScenes = useMemo(() => {
     if (resourceSharing.shareScenes) return scenes;
@@ -368,7 +368,7 @@ export function DirectorContextPanel() {
 
   // Thêmphân cảnh đơn到Phân cảnhChỉnh sửa（chế độ二）
   const handleAddShotToSplitScenes = (shot: Shot, scene: ScriptScene) => {
-    // Debug: 检查 Shot đang xử lý...prompt数据
+    // Debug: 检查 Shot đang xử lý...promptdữ liệu
     console.log('[ContextPanel] Adding shot to split scenes:', {
       shotId: shot.id,
       imagePrompt: shot.imagePrompt?.substring(0, 50),
@@ -406,7 +406,7 @@ export function DirectorContextPanel() {
       // 旧prompt（tương thích）
       promptZh,
       promptEn: shot.visualPrompt || shot.videoPrompt || '',
-      // 三层prompt系统 (Seedance 1.5 Pro)
+      // 3 lớpprompt系统 (Seedance 1.5 Pro)
       imagePrompt: shot.imagePrompt || '',
       imagePromptZh: shot.imagePromptZh || '',
       videoPrompt: shot.videoPrompt || '',
@@ -418,7 +418,7 @@ export function DirectorContextPanel() {
       characterIds: characterLibraryIds,
       // 情绪Thẻ（AIHiệu chuẩn产出）
       emotionTags: (shot.emotionTags || []) as any,
-      // 景别
+      // Kích thước cảnh
       shotSize: shot.shotSize ? (SHOT_SIZE_MAP[shot.shotSize] || null) as any : null,
       // Thời lượng
       duration: shot.duration || 5,
@@ -432,13 +432,13 @@ export function DirectorContextPanel() {
       actionSummary: shot.actionSummary || '',
       // Ống kính运动
       cameraMovement: shot.cameraMovement || '',
-      // 特殊拍摄手法
+      // Kỹ thuật quay đặc biệt手法
       specialTechnique: shot.specialTechnique || '',
       // Thư viện cảnh关联（Tự độngKhớp）
       sceneLibraryId: sceneMatch?.sceneLibraryId,
       viewpointId: sceneMatch?.viewpointId,
       sceneReferenceImage: sceneMatch?.sceneReferenceImage,
-      // tự sự驱动Thiết kế（基于《电影Ngôn ngữ的语法》）
+      // tự sựdẫn dắtThiết kế（基于《电影Ngôn ngữ的语法》）
       narrativeFunction: (shot as any).narrativeFunction || '',
       shotPurpose: (shot as any).shotPurpose || '',
       visualFocus: (shot as any).visualFocus || '',
@@ -545,7 +545,7 @@ export function DirectorContextPanel() {
         // 旧prompt（tương thích）
         promptZh,
         promptEn: shot.visualPrompt || shot.videoPrompt || '',
-        // 三层prompt系统 (Seedance 1.5 Pro)
+        // 3 lớpprompt系统 (Seedance 1.5 Pro)
         imagePrompt: shot.imagePrompt || '',
         imagePromptZh: shot.imagePromptZh || '',
         videoPrompt: shot.videoPrompt || '',
@@ -557,7 +557,7 @@ export function DirectorContextPanel() {
         characterIds: characterLibraryIds,
         // 情绪Thẻ（AIHiệu chuẩn产出）
         emotionTags: (shot.emotionTags || []) as any,
-        // 景别
+        // Kích thước cảnh
         shotSize: shot.shotSize ? (SHOT_SIZE_MAP[shot.shotSize] || null) as any : null,
         // Thời lượng
         duration: shot.duration || 5,
@@ -571,13 +571,13 @@ export function DirectorContextPanel() {
         actionSummary: shot.actionSummary || '',
         // Ống kính运动
         cameraMovement: shot.cameraMovement || '',
-        // 特殊拍摄手法
+        // Kỹ thuật quay đặc biệt手法
         specialTechnique: shot.specialTechnique || '',
         // Thư viện cảnh关联（Tự độngKhớp）
         sceneLibraryId: sceneMatch?.sceneLibraryId,
         viewpointId: sceneMatch?.viewpointId,
         sceneReferenceImage: sceneMatch?.sceneReferenceImage,
-        // tự sự驱动Thiết kế（基于《电影Ngôn ngữ的语法》）
+        // tự sựdẫn dắtThiết kế（基于《电影Ngôn ngữ的语法》）
         narrativeFunction: (shot as any).narrativeFunction || '',
         shotPurpose: (shot as any).shotPurpose || '',
         visualFocus: (shot as any).visualFocus || '',
@@ -693,7 +693,7 @@ export function DirectorContextPanel() {
     setSelectedShotId(null);
   };
 
-  // 没有Kịch bản数据时HiệnGợi ý
+  // 没有Kịch bảndữ liệu时HiệnGợi ý
   if (!scriptData) {
     return (
       <div className="h-full min-w-0 flex flex-col overflow-x-hidden">

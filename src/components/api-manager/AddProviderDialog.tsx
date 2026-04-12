@@ -32,7 +32,7 @@ import type { IProvider } from "@/lib/api-key-manager";
 
 /**
  * Nền tảng预设配置
- * 1. MemeFast API (memefast) - 全功能trung gian（Đề xuất）
+ * 1. MemeFast API (memefast) - 全chức năngtrung gian（Đề xuất）
  * 2. RunningHub - Chuyển góc nhìn/đa góc độTạo
  * 3. Tùy chỉnh - OpenAI tương thích API
  */

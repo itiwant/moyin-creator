@@ -4,12 +4,12 @@
 /**
  * AI Character Finder
  * 
- * 根据用户自然Ngôn ngữMô tả，从剧本đang xử lý...色并Tạo专业角色数据
+ * 根据用户自然Ngôn ngữMô tả，从剧本đang xử lý...色并Tạochuyên nghiệp角色dữ liệu
  * 
- * 功能：
+ * chức năng：
  * 1. Phân tích用户输入（如 "缺第10 tập的王大哥这角色"）
  * 2. 搜索剧本đang xử lý...信息
- * 3. AI Tạođầy đủ角色数据（包括视觉提示词）
+ * 3. AI Tạođầy đủ角色dữ liệu（包括视觉提示词）
  */
 
 import type { ScriptCharacter, ProjectBackground, EpisodeRawScript } from '@/types/script';
@@ -28,7 +28,7 @@ export interface CharacterSearchResult {
   episodeNumbers: number[];
   /** 找到的上下文（Thoại、场景等） */
   contexts: string[];
-  /** AI Tạo的đầy đủ角色数据 */
+  /** AI Tạo的đầy đủ角色dữ liệu */
   character?: ScriptCharacter;
   /** 搜索说明 */
   message: string;
@@ -187,7 +187,7 @@ function searchCharacterInScripts(
 }
 
 /**
- * Sử dụng AI Tạođầy đủ角色数据
+ * Sử dụng AI Tạođầy đủ角色dữ liệu
  */
 async function generateCharacterData(
   name: string,
@@ -265,7 +265,7 @@ async function generateCharacterData(
     if (storyType === 'future') {
       return `【未来/科幻trang phục指导】
 请根据剧本设定Thiết kế未来风格trang phục：
-- 科技感服饰、功能性装备、thông minh穿戴
+- 科技感服饰、chức năng性装备、thông minh穿戴
 - 根据设定可以是乌托邦风格或反乌托邦风格
 - 注意角色身份（平民/科学家/军人/机械师）`;
     }
@@ -305,7 +305,7 @@ async function generateCharacterData(
 请Thiết kế符合当代đang xử lý...装风格，根据角色年龄和身份Chọn合适的现代trang phục。`;
   };
   
-  // 构建年代信息字符串
+  // 构建Thông tin thời đại字符串
   const getEraInfo = () => {
     if (storyType === 'ancient') {
       return `thời đại背景：${background.era || background.timelineSetting || '古代'}`;
@@ -314,7 +314,7 @@ async function generateCharacterData(
       return `thời đại背景：${background.era || background.timelineSetting || '未来'}`;
     }
     if (background.storyStartYear) {
-      return `故事年份：${background.storyStartYear}年${background.storyEndYear && background.storyEndYear !== background.storyStartYear ? ` - ${background.storyEndYear}年` : ''}`;
+      return `Năm câu chuyện：${background.storyStartYear}年${background.storyEndYear && background.storyEndYear !== background.storyStartYear ? ` - ${background.storyEndYear}年` : ''}`;
     }
     return `thời đại背景：${background.era || background.timelineSetting || '现代'}`;
   };
@@ -322,9 +322,9 @@ async function generateCharacterData(
   const eraInfo = getEraInfo();
   const eraFashionGuidance = getEraFashionGuidance();
   
-  const systemPrompt = `你是专业的影góc nhìn色Thiết kế师，擅长从剧本信息đang xử lý...色特征并Tạo专业的角色数据。
+  const systemPrompt = `你是chuyên nghiệp的影góc nhìn色Thiết kế师，擅长从剧本信息đang xử lý...色特征并Tạochuyên nghiệp的角色dữ liệu。
 
-请根据提供的剧本信息和角色上下文，Tạođầy đủ的角色数据。
+请根据提供的剧本信息和角色上下文，Tạođầy đủ的角色dữ liệu。
 
 【trang phụcThiết kế要求】
 ${eraFashionGuidance}
@@ -366,7 +366,7 @@ ${contexts.slice(0, 3).join('\n\n')}
 【角色Thoại样本】
 ${dialogueSamples.join('\n')}
 
-请基于以上信息，Tạo角色「${name}」的đầy đủ数据。
+请基于以上信息，Tạo角色「${name}」的đầy đủdữ liệu。
 
 【重要】trang phục必须符合故事thời đại背景（${eraInfo}）！`;
 
@@ -416,7 +416,7 @@ ${dialogueSamples.join('\n')}
     };
   } catch (error) {
     console.error('[generateCharacterData] AITạothất bại:', error);
-    // 返回基础数据
+    // 返回基础dữ liệu
     return {
       id: `char_${Date.now()}`,
       name,
@@ -487,8 +487,8 @@ export async function findCharacterByDescription(
     };
   }
   
-  // 4. Sử dụng AI Tạođầy đủ角色数据
-  console.log('[findCharacterByDescription] 正在Tạo角色数据...');
+  // 4. Sử dụng AI Tạođầy đủ角色dữ liệu
+  console.log('[findCharacterByDescription] 正在Tạo角色dữ liệu...');
   
   const character = await generateCharacterData(
     name,

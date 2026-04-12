@@ -32,7 +32,7 @@ export interface FeatureConfig {
   model: string; // Đang chọn的模型
 }
 
-// 多模型轮询调度器：记录每功能的当前chỉ mục
+// 多模型轮询调度器：记录每chức năng的当前chỉ mục
 const featureRoundRobinIndex: Map<AIFeature, number> = new Map();
 
 /**
@@ -49,7 +49,7 @@ const FEATURE_PLATFORM_MAP: Partial<Record<AIFeature, string>> = {
 };
 
 /**
- * 默认模型映射：当供应商未显式绑定模型时，为特定功能提供默认模型
+ * 默认模型映射：当供应商未显式绑定模型时，为特定chức năng提供默认模型
  * 仅在 fallback 路径đang xử lý...用户显式绑定优先）
  */
 const FEATURE_DEFAULT_MODEL: Partial<Record<AIFeature, Record<string, string>>> = {
@@ -102,7 +102,7 @@ function getBoundPlatformAndModel(store: ReturnType<typeof useAPIConfigStore.get
 }
 
 /**
- * 获取功能的Tất cả可用配置（多模型）
+ * 获取chức năng的Tất cả可用配置（多模型）
  */
 export function getAllFeatureConfigs(feature: AIFeature): FeatureConfig[] {
   const store = useAPIConfigStore.getState();
@@ -157,7 +157,7 @@ export function getFeatureConfig(feature: AIFeature): FeatureConfig | null {
           const scopeKey = `${feature}:${fallbackModel || 'default'}`;
           const keyManager = getProviderKeyManager(provider.id, provider.apiKey, scopeKey);
           const featureInfo = AI_FEATURES.find(f => f.key === feature);
-          // 优先Sử dụng功能默认模型，否则取供应商第一模型
+          // 优先Sử dụngchức năng默认模型，否则取供应商第一模型
           const defaultModel = FEATURE_DEFAULT_MODEL[feature]?.[provider.platform];
           const model = defaultModel || provider.model?.[0] || '';
           return {
@@ -220,7 +220,7 @@ export function isFeatureReady(feature: AIFeature): boolean {
 export function getFeatureNotConfiguredMessage(feature: AIFeature): string {
   const featureInfo = AI_FEATURES.find(f => f.key === feature);
   const featureName = featureInfo?.name || feature;
-  return `请先在设置đang xử lý...{featureName}」功能绑定 API 供应商`;
+  return `请先在设置đang xử lý...{featureName}」chức năng绑定 API 供应商`;
 }
 
 // ==================== 统一 API gọi API入sổ ====================
@@ -273,13 +273,13 @@ export async function callFeatureAPI(
     throw new Error('请先在设置đang xử lý...型');
   }
   
-  console.log(`[callFeatureAPI] 功能: ${feature}`);
+  console.log(`[callFeatureAPI] chức năng: ${feature}`);
   console.log(`[callFeatureAPI] 供应商: ${config.provider.name} (${config.platform})`);
   console.log(`[callFeatureAPI] 模型: ${model}`);
   console.log(`[callFeatureAPI] BaseURL: ${baseUrl}`);
   
   // gọi API底层 API
-  // Cấu trúc化 JSON 输出任务默认关闭深度思考，避免 reasoning 耗尽 token
+  // Cấu trúc化 JSON 输出任务默认关闭深度思考，Tránh reasoning 耗尽 token
   const disableThinking = options?.disableThinking ?? true;
   return await callChatAPI(systemPrompt, userPrompt, {
     apiKey: config.allApiKeys.join(','),

@@ -4,9 +4,9 @@
 /**
  * Trailer Service - AI 预告片分镜chọn服务
  * 
- * 功能：从hiện có的分镜đang xử lý...选quan trọng分镜，Tạo预告片
+ * chức năng：从hiện có的分镜đang xử lý...选quan trọng分镜，Tạo预告片
  * chọn标准：
- * - tự sự功能为"cao trào/转折"的优先
+ * - tự sựchức năng为"cao trào/转折"的优先
  * - 有强烈情绪标签的优先
  * - 有视觉冲击的场景优先
  * - quan trọng角色出场的优先
@@ -86,7 +86,7 @@ export async function selectTrailerShots(
       shotSize: shot.shotSize || '',
     }));
 
-    const systemPrompt = `你是一位专业的电影预告片剪辑师，擅长从大量素材đang xử lý...具吸引力的镜头来制作预告片。
+    const systemPrompt = `你是一位chuyên nghiệp的电影预告片剪辑师，擅长从大量素材đang xử lý...具吸引力的镜头来制作预告片。
 
 你的任务是从给定的分镜列表đang xử lý...最适合做预告片的 ${targetCount} 分镜。
 
@@ -96,12 +96,12 @@ export async function selectTrailerShots(
 3. **cao trào悬念**：最具sức căng的画面，留下悬念（1-2镜头）
 
 【chọn标准】
-- 优先Chọntự sự功能为"cao trào"、"转折"、"冲突"的镜头
+- 优先Chọntự sựchức năng为"cao trào"、"转折"、"冲突"的镜头
 - 优先Chọn有强烈情绪（tense, excited, mysterious）的镜头
 - 优先Chọn有视觉冲击力的画面（动作场面、Cực cận cảnh、对峙）
 - 优先Chọn主要角色出场的quan trọng时刻
 - Ghi đè不同 tập数，Hiển thị故事跨度
-- 避免剧透quan trọng结局
+- Tránh剧透quan trọng结局
 
 【输出要求】
 请返回一 JSON 数组，包含你chọn的分镜số thứ tự（index），按预告片播放thứ tự排列。
@@ -117,7 +117,7 @@ ${shotSummaries.map(s =>
    动作：${s.actionSummary.slice(0, 100)}
    Mô tả：${s.visualDescription.slice(0, 100)}
    角色：${s.characterNames.join('、') || '无'}
-   tự sự功能：${s.narrativeFunction || '未知'}
+   tự sựchức năng：${s.narrativeFunction || '未知'}
    情绪：${Array.isArray(s.emotionTags) ? s.emotionTags.join(', ') : '无'}`
 ).join('\n\n')}
 
@@ -203,7 +203,7 @@ function selectTrailerShotsByRules(shots: Shot[], targetCount: number): Shot[] {
   const scoreShot = (shot: Shot): number => {
     let score = 0;
     
-    // tự sự功能评分
+    // tự sựchức năng评分
     const narrativeFunction = (shot as any).narrativeFunction || '';
     if (narrativeFunction.includes('cao trào')) score += 10;
     if (narrativeFunction.includes('转折')) score += 8;
@@ -304,7 +304,7 @@ export function convertShotsToSplitScenes(
     dialogue: shot.dialogue || '',
     actionSummary: shot.actionSummary || '',
     cameraMovement: shot.cameraMovement || '',
-    // tự sự驱动trường
+    // tự sựdẫn dắttrường
     narrativeFunction: (shot as any).narrativeFunction || '',
     shotPurpose: (shot as any).shotPurpose || '',
     visualFocus: (shot as any).visualFocus || '',

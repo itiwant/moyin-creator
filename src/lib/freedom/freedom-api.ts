@@ -165,7 +165,7 @@ function pickFeatureConfig(feature: AIFeature, requestedModel?: string): Feature
     if (exact) return exact;
     // UI 展开的变体模型（如 gemini-3.1-pro 从绑定的 gemini-3-pro 展开而来）不会
     // 精确Khớp到任何 config.model，此时回退到轮询配置而非返回 null，
-    // 避免用户选了可用变体却报"未配置"lỗi
+    // Tránh用户选了可用变体却报"未配置"lỗi
   }
   return getFeatureConfig(feature) ?? all[0];
 }
@@ -197,7 +197,7 @@ function detectFreedomImageRoute(model: string, endpointTypes?: string[]): Freed
   if (/^ideogram_/i.test(model)) {
     return 'ideogram';
   }
-  // Kling image: 模型名检测 + 端点元数据检测
+  // Kling image: 模型名检测 + 端点元dữ liệu检测
   if (/^kling-(image|omni-image)/i.test(model) || hasExactEndpoint('kling生图') || hasExactEndpoint('omni-image') || hasExactEndpoint('文生图')) {
     return 'kling_image';
   }
@@ -241,7 +241,7 @@ const FREEDOM_VIDEO_ROUTE_MAP: Record<string, FreedomVideoRoute> = {
   'vidu文生视频': 'unified',
   'vidu图生视频': 'unified',
   'viduTham chiếu生视频': 'unified',
-  'vidu首尾帧': 'unified',
+  'vidu首khung cuối': 'unified',
   'luma视频延长': 'unified',  // luma extend uses 延长 (file 04 naming)
 };
 
@@ -264,7 +264,7 @@ const UNIFIED_ENDPOINT_PATHS: Record<string, { submit: string; poll: (id: string
   'vidu文生视频':   { submit: '/ent/v2/text2video',       poll: (id) => `/ent/v2/task?task_id=${id}` },
   'vidu图生视频':   { submit: '/ent/v2/img2video',        poll: (id) => `/ent/v2/task?task_id=${id}` },
   'viduTham chiếu生视频': { submit: '/ent/v2/reference2video',  poll: (id) => `/ent/v2/task?task_id=${id}` },
-  'vidu首尾帧':     { submit: '/ent/v2/start-end2video',  poll: (id) => `/ent/v2/task?task_id=${id}` },
+  'vidu首khung cuối':     { submit: '/ent/v2/start-end2video',  poll: (id) => `/ent/v2/task?task_id=${id}` },
 };
 const DEFAULT_UNIFIED_ENDPOINT = { submit: '/v1/video/generations', poll: (id: string) => `/v1/video/generations/${id}` };
 
@@ -985,16 +985,16 @@ function validateVeoVideoUploads(
 
   if (capability.mode === 'first_last') {
     if (grouped.references.length > 0 || !!grouped.single) {
-      throw new Error(`模型 ${model} 仅支持首帧/尾帧输入`);
+      throw new Error(`模型 ${model} 仅支持khung đầu/khung cuối输入`);
     }
     if (capability.minFiles > 0 && !grouped.first) {
-      throw new Error(`模型 ${model} 需要上传首帧图片`);
+      throw new Error(`模型 ${model} 需要上传khung đầu图片`);
     }
     if (!grouped.first && grouped.last) {
-      throw new Error(`模型 ${model} 仅上传尾帧无效，请先上传首帧`);
+      throw new Error(`模型 ${model} 仅上传khung cuối无效，请先上传khung đầu`);
     }
     if (total > capability.maxFiles) {
-      throw new Error(`模型 ${model} 最多支持 2 张图片（首帧/尾帧）`);
+      throw new Error(`模型 ${model} 最多支持 2 张图片（khung đầu/khung cuối）`);
     }
     return grouped;
   }
@@ -1299,7 +1299,7 @@ async function generateVideoViaVolc(
     { type: 'text', text: promptParts.join(' ') },
   ];
 
-  // 附加上传图片（首帧/尾帧），对齐 Director panel的 callVolcVideoApi
+  // 附加上传图片（khung đầu/khung cuối），对齐 Director panel的 callVolcVideoApi
   const grouped = groupVideoUploadFiles(params.uploadFiles);
   const primaryFile = grouped.single || grouped.first;
   if (primaryFile) {

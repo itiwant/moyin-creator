@@ -52,7 +52,7 @@ export interface Scene {
   shotIds?: string[];         // Danh sách ID phân cảnh liên kết
   isViewpointVariant?: boolean; // Có phải biến thể góc nhìn không
   
-  // === 专业CảnhThiết kếtrường ===
+  // === chuyên nghiệpCảnhThiết kếtrường ===
   architectureStyle?: string;  // Phong cách kiến trúc
   colorPalette?: string;       // Bảng màu sắc
   eraDetails?: string;         // Đặc trưng thời đại

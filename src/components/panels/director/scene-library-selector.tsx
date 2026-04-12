@@ -5,7 +5,7 @@
 
 /**
  * Thư viện cảnhChọn器组件 (Scene Library Selector)
- * Hỗ trợ三层Chọn：父Cảnh → Góc nhìnbiến thể → 四góc nhìnconCảnh
+ * Hỗ trợ3 lớpChọn：父Cảnh → Góc nhìnbiến thể → 四góc nhìnconCảnh
  */
 
 import React, { useState, useMemo } from "react";

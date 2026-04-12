@@ -229,7 +229,7 @@ export function ScriptView() {
     }
   }, [activeProjectId, setActiveProjectId, ensureProject]);
 
-  // panel重新挂载时，将"Đang thực hiện"的瞬态状态重置为 idle，避免显示虚假的 loading 状态
+  // panel重新挂载时，将"Đang thực hiện"的瞬态状态重置为 idle，Tránh显示虚假的 loading 状态
   useEffect(() => {
     if (!activeProjectId) return;
     const state = useScriptStore.getState().projects[activeProjectId]?.calibrationState;
@@ -392,7 +392,7 @@ export function ScriptView() {
     [enterEpisode, projectId]
   );
 
-  // 获取đã chọn的数据
+  // 获取đã chọn的dữ liệu
   const selectedCharacter =
     selectedItemType === "character"
       ? scriptData?.characters.find((c) => c.id === selectedItemId)
@@ -406,7 +406,7 @@ export function ScriptView() {
       ? shots.find((s) => s.id === selectedItemId)
       : undefined;
   
-  // 获取đã chọn的 tập数据（包含đại cương）
+  // 获取đã chọn的 tậpdữ liệu（包含đại cương）
   const selectedEpisode = selectedItemType === "episode" && selectedItemId
     ? (() => {
         const epIndex = parseInt(selectedItemId.replace('episode_', ''));
@@ -568,7 +568,7 @@ export function ScriptView() {
         }
       }
       
-      // 4. Tạo（第1 tậpPhân cảnh）——此时元数据与đại cương已就绪
+      // 4. Tạo（第1 tậpPhân cảnh）——此时元dữ liệu与đại cương已就绪
       let viewpointResult: { viewpointAnalyzed: boolean; viewpointSkippedReason?: string } | null = null;
       if (result.episodes.length > 0) {
         toast.info("Đang tự động tạo phân cảnh tập 1...");
@@ -610,7 +610,7 @@ export function ScriptView() {
           );
           const newCharacters = resolvedCharacters.characters;
           
-          // 从 store 获取最新的 scriptData（避免Ghi đèPhân cảnhTạo的 AI góc nhìn数据）
+          // 从 store 获取最新的 scriptData（TránhGhi đèPhân cảnhTạo的 AI góc nhìndữ liệu）
           if (currentScriptData) {
             setScriptData(projectId, {
               ...currentScriptData,  // Sử dụng dữ liệu mới nhất, giữ scenes.viewpoints
@@ -962,7 +962,7 @@ export function ScriptView() {
   }, [projectId, episodeRawScripts.length]);
 
   // 手动触发 AI Nhân vậtHiệu chuẩn（包含多giai đoạnbiến thểTự độngTạo）
-  // 注意：Nhân vậtHiệu chuẩn是独立步骤，不依赖góc nhìnphân tích，可随时根据最新数据执 hàng
+  // 注意：Nhân vậtHiệu chuẩn是独立步骤，不依赖góc nhìnphân tích，可随时根据最新dữ liệu执 hàng
   const handleCalibrateCharacters = useCallback(async () => {
     const featureConfig = getFeatureConfig('script_analysis');
     if (!featureConfig) {
@@ -1036,7 +1036,7 @@ export function ScriptView() {
         { previousCharacters: existingCalibrated, promptLanguage, strictness: scriptProject?.calibrationStrictness || 'normal' }
       );
       
-      // 转换并更新Danh sách nhân vật（保留gốc数据）
+      // 转换并更新Danh sách nhân vật（保留gốcdữ liệu）
       const sortedChars = sortByImportance(calibResult.characters);
       
       // 不再硬编码lọc，由 calibrator 根据严格度统一处理
@@ -1099,7 +1099,7 @@ export function ScriptView() {
               const stageCharIds: string[] = [];
               for (let stageIdx = 0; stageIdx < analysis.stages.length; stageIdx++) {
                 const stage = analysis.stages[stageIdx];
-                // Sử dụngchỉ mục确保 ID 唯一，避免不同Nhân vật的相同giai đoạn名导致重复 key
+                // Sử dụngchỉ mục确保 ID 唯一，Tránh不同Nhân vật的相同giai đoạn名导致重复 key
                 const stageCharId = `${baseChar.id}_stage_${stageIdx}_${stage.name.replace(/\s+/g, '_')}`;
                 stageCharIds.push(stageCharId);
                 
@@ -1123,7 +1123,7 @@ export function ScriptView() {
                     ageDescription: stage.ageDescription,
                   },
                   consistencyElements: analysis.consistencyElements,
-                  // 专业Prompt thị giác
+                  // chuyên nghiệpPrompt thị giác
                   visualPromptEn: promptLanguage === 'zh' ? undefined : [
                     analysis.consistencyElements.facialFeatures,
                     analysis.consistencyElements.bodyType,
@@ -1251,7 +1251,7 @@ export function ScriptView() {
           store.updateSeriesMeta(projectId, updates);
           console.log('[handleConfirmCalibration] SeriesMeta Nhân vậtGhi lại hoàn tất');
         }
-        // Tạo lại元数据 MD
+        // Tạo lại元dữ liệu MD
         const mdContent = exportProjectMetadata(projectId);
         store.setMetadataMarkdown(projectId, mdContent);
       }
@@ -1562,10 +1562,10 @@ export function ScriptView() {
     ]
   );
 
-  // 跳转到Thư viện nhân vật（传递数据到Tạoconsole）
+  // 跳转到Thư viện nhân vật（传递dữ liệu到Tạoconsole）
   const handleGoToCharacterLibrary = useCallback(
     (characterId: string) => {
-      // 查找Nhân vật数据
+      // 查找Nhân vậtdữ liệu
       const character = scriptData?.characters.find((c) => c.id === characterId);
       if (!character) {
         setActiveTab("characters");
@@ -1582,8 +1582,8 @@ export function ScriptView() {
         return;
       }
 
-      // 传递Nhân vật数据到Thư viện nhân vậtTạoconsole（包含世界级大师Tạo的Prompt thị giác）
-      // 获取剧本元数据đang xử lý...信息
+      // 传递Nhân vậtdữ liệu到Thư viện nhân vậtTạoconsole（包含世界级大师Tạo的Prompt thị giác）
+      // 获取剧本元dữ liệuđang xử lý...信息
       const background = scriptProject?.projectBackground;
       
       goToCharacterWithData({
@@ -1602,7 +1602,7 @@ export function ScriptView() {
         styleId,
         // === promptNgôn ngữ偏好 ===
         promptLanguage: scriptProject?.promptLanguage || 'zh',
-        // === 专业Nhân vậtThiết kếtrường（世界级大师Tạo）===
+        // === chuyên nghiệpNhân vậtThiết kếtrường（世界级大师Tạo）===
         visualPromptEn: character.visualPromptEn,
         visualPromptZh: character.visualPromptZh,
         // === 6层身份neo（Nhân vật一致性）===
@@ -1611,7 +1611,7 @@ export function ScriptView() {
         // === 多Nhân vật giai đoạn支持 ===
         stageInfo: character.stageInfo,
         consistencyElements: character.consistencyElements,
-        // === 年代信息（从剧本元数据传递）===
+        // === Thông tin thời đại（从剧本元dữ liệu传递）===
         storyYear: background?.storyStartYear,
         era: background?.era || background?.timelineSetting,
         // ===  tập作用域透传 ===
@@ -1629,10 +1629,10 @@ export function ScriptView() {
     return getStyleTokens(currentStyleId);
   }, []);
 
-  // 跳转到Cảnh库（Sử dụng AI phân tích的đầy đủ数据，或基础Thông tin cảnh）
+  // 跳转到Cảnh库（Sử dụng AI phân tích的đầy đủdữ liệu，或基础Thông tin cảnh）
   const handleGoToSceneLibrary = useCallback(
     (sceneId: string) => {
-      // 查找Cảnh数据
+      // 查找Cảnhdữ liệu
       const scene = scriptData?.scenes.find((s) => s.id === sceneId);
       if (!scene) {
         setActiveTab("scenes");
@@ -1644,7 +1644,7 @@ export function ScriptView() {
       const hasCalibrationData = scene.architectureStyle || scene.keyProps?.length || scene.lightingDesign;
 
       if (hasViewpoints) {
-        // 【đầy đủ路径】有 AI góc nhìnphân tíchkết quả，构建联合图数据
+        // 【đầy đủ路径】有 AI góc nhìnphân tíchkết quả，构建联合图dữ liệu
         const invalidViewpoints = scene.viewpoints!.filter(vp => !vp.name || !vp.id);
         if (invalidViewpoints.length > 0) {
           console.warn('[handleGoToSceneLibrary] Phát hiện viewpoints không đầy đủ:', invalidViewpoints);
@@ -1736,7 +1736,7 @@ export function ScriptView() {
   // 跳转到AIĐạo diễn
   const handleGoToDirector = useCallback(
     (shotId: string) => {
-      // 查找Phân cảnh数据
+      // 查找Phân cảnhdữ liệu
       const shot = shots.find((s) => s.id === shotId);
       if (!shot) {
         setActiveTab("director");
@@ -1763,7 +1763,7 @@ export function ScriptView() {
 
       const storyPrompt = promptParts.join("\n");
 
-      // 传递数据并跳转 - phân cảnh đơn sceneCount=1
+      // 传递dữ liệu并跳转 - phân cảnh đơn sceneCount=1
       goToDirectorWithData({
         storyPrompt,
         characterNames: shot.characterNames,
@@ -1786,7 +1786,7 @@ export function ScriptView() {
   // 从Cảnh跳转到AIĐạo diễn（整Cảnh的Tất cảPhân cảnh）
   const handleGoToDirectorFromScene = useCallback(
     (sceneId: string) => {
-      // 查找Cảnh数据
+      // 查找Cảnhdữ liệu
       const scene = scriptData?.scenes.find((s) => s.id === sceneId);
       if (!scene) {
         setActiveTab("director");
@@ -1824,7 +1824,7 @@ export function ScriptView() {
         shot.characterNames?.forEach((name) => allCharacterNames.add(name));
       });
 
-      // 传递数据并跳转 - Cảnh级别 sceneCount=Phân cảnh数
+      // 传递dữ liệu并跳转 - Cảnh级别 sceneCount=Phân cảnh数
       goToDirectorWithData({
         storyPrompt,
         characterNames: Array.from(allCharacterNames),
@@ -2054,7 +2054,7 @@ export function ScriptView() {
           return orig;
         }
         
-        // 【quan trọng】只更新美术Thiết kếtrường，保留Tất cả原有数据（包括 viewpoints）
+        // 【quan trọng】只更新美术Thiết kếtrường，保留Tất cả原有dữ liệu（包括 viewpoints）
         const nextVisualPromptZh = calibrated.visualPromptZh || orig.visualPrompt;
         const nextVisualPromptEn = calibrated.visualPromptEn || orig.visualPromptEn;
         return {
@@ -2253,7 +2253,7 @@ export function ScriptView() {
           cameraMovement: shot.cameraMovement || '',
           sceneName: `Trailer #${idx + 1}`,
           sceneLocation: '',
-          // tự sự驱动trường
+          // tự sựdẫn dắttrường
           narrativeFunction: (shot as any).narrativeFunction || '',
           shotPurpose: (shot as any).shotPurpose || '',
           visualFocus: (shot as any).visualFocus || '',

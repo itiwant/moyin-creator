@@ -156,7 +156,7 @@ export async function buildImageWithRoles(
 
 /**
  * MemeFast supported_endpoint_types → 内部video路由格式
- * 基于 /api/pricing_new Quay lại的元数据，而非Model名猜测
+ * 基于 /api/pricing_new Quay lại的元dữ liệu，而非Model名猜测
  */
 const VIDEO_FORMAT_MAP: Record<string, 'openai_official' | 'unified' | 'volc' | 'wan' | 'kling' | 'replicate'> = {
   // OpenAI 官方video格式 (sora-2): /v1/videos
@@ -229,11 +229,11 @@ function getUnifiedEndpointPaths(endpointTypes: string[]): { submit: string; pol
 }
 
 /**
- * 根据Model的 supported_endpoint_types 元数据检测应Sử dụng的video API 格式
- * 优先Sử dụng MemeFast /api/pricing_new 同步的元数据，fallback 到Model名推断
+ * 根据Model的 supported_endpoint_types 元dữ liệu检测应Sử dụng的video API 格式
+ * 优先Sử dụng MemeFast /api/pricing_new 同步的元dữ liệu，fallback 到Model名推断
  */
 function detectVideoApiFormat(model: string): 'openai_official' | 'unified' | 'volc' | 'wan' | 'kling' | 'replicate' {
-  // 1. 查询 store đang xử lý...ndpoint types 元数据
+  // 1. 查询 store đang xử lý...ndpoint types 元dữ liệu
   const endpointTypes = useAPIConfigStore.getState().modelEndpointTypes[model];
   if (endpointTypes && endpointTypes.length > 0) {
     // 优先级：openai_official → kling → volc → wan → replicate → unified
@@ -272,7 +272,7 @@ function detectVideoApiFormat(model: string): 'openai_official' | 'unified' | 'v
         return 'unified';
       }
     }
-    // 有元数据但没Khớp到已知格式
+    // 有元dữ liệu但没Khớp到已知格式
     console.warn(`[VideoGen] Unknown endpoint types for ${model}:`, endpointTypes, '→ fallback to name-based');
   }
 
@@ -337,7 +337,7 @@ async function ensureMinImageSize(
 
   let objectUrl: string | undefined;
   try {
-    // 通过 fetch 加载ảnh为 blob，避免 CORS 问题
+    // 通过 fetch 加载ảnh为 blob，Tránh CORS 问题
     const response = await fetch(imageUrl);
     if (!response.ok) {
       console.warn('[VideoGen] ensureMinImageSize: fetch failed', response.status);
@@ -459,7 +459,7 @@ export async function callVideoGenerationApi(
     }))
   );
 
-  // 根据元数据/Model名检测 API 格式并路由，包裹Thử lại（Ghi đè 429/503/529 等）
+  // 根据元dữ liệu/Model名检测 API 格式并路由，包裹Thử lại（Ghi đè 429/503/529 等）
   const format = detectVideoApiFormat(model);
   console.log('[VideoGen] Detected API format:', { model, format, platform: resolvedPlatform });
 
@@ -1460,7 +1460,7 @@ export async function extractLastFrameFromVideo(
       }
     };
     
-    // 当video数据加载完成时尝试 seek
+    // 当videodữ liệu加载完成时尝试 seek
     video.onloadeddata = () => {
       if (hasResolved) return;
       console.log('[VideoGen] onloadeddata, readyState:', video.readyState, 'duration:', video.duration);

@@ -4,7 +4,7 @@
 /**
  * use-sclass-generation.ts — Hạng S Seedance 2.0 Tạo video Hook
  *
- * 核心功能：
+ * 核心chức năng：
  * 1. generateGroupVideo(group) — mỗi nhómTạo：收 tập @tham chiếu → 构建多模态请求 → gọi API API → 轮询
  * 2. generateAllGroups() — Tạo hàng loạt：逐组串 hàng，各组独立Tạo
  * 3. generateSingleShot(sceneId) — ống kính đơnTạo（tương thíchchế độ）
@@ -175,7 +175,7 @@ export function useSClassGeneration() {
       const sclassProjectData = getProjectData(projectId);
       const sclassConfig = sclassProjectData.config;
 
-      // 1b. 从 director-store 直读共享配置（单一数据源，避免双 store 同步问题）
+      // 1b. 从 director-store 直读共享配置（单一dữ liệu源，Tránh双 store 同步问题）
       const directorState = useDirectorStore.getState();
       const directorProject = directorState.projects[directorState.activeProjectId || ''];
       const storyboardConfig = directorProject?.storyboardConfig;

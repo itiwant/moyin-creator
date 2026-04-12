@@ -83,7 +83,7 @@ import { useResolvedImageUrl } from "@/hooks/use-resolved-image-url";
 
 export interface SplitSceneCardProps {
   scene: SplitScene;
-  // 三层prompt更新回调
+  // 3 lớpprompt更新回调
   onUpdateImagePrompt: (id: number, prompt: string, promptZh?: string) => void;
   onUpdateVideoPrompt: (id: number, prompt: string, promptZh?: string) => void;
   onUpdateEndFramePrompt: (id: number, prompt: string, promptZh?: string) => void;

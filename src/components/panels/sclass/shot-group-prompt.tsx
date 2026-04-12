@@ -6,7 +6,7 @@
 /**
  * ShotGroupPrompt — Hạng Scấp nhómpromptChỉnh sửa器
  *
- * 功能：
+ * chức năng：
  * - Tự độnggọi API sclass-prompt-builder 组装多Ống kính prompt
  * - Hiện @tham chiếuThẻ（Nhân vật图/Cảnh图/Khung hình đầu/video/âm thanh）+ hạn mức
  * - 用户可Chỉnh sửa/Ghi đèTự động prompt

@@ -6,7 +6,7 @@
 /**
  * Hạng Spanel — Seedance 2.0 多模态Sáng tácpanel
  * 
- * 复用 director-store 的Phân cảnh数据（SplitScene[]），
+ * 复用 director-store 的Phân cảnhdữ liệu（SplitScene[]），
  * 以「nhóm」为核心thực hiện多Ống kính合并tự sựTạo video。
  * 
  * 两种chế độ：
@@ -46,7 +46,7 @@ export function SClassView() {
   
   const { setActiveTab } = useMediaPanelStore();
 
-  // 判断是否有Phân cảnh数据可用
+  // 判断是否有Phân cảnhdữ liệu可用
   const hasSplitScenes = splitScenes.length > 0;
   
   // Render empty state when no split scenes available

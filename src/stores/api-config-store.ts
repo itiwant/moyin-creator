@@ -27,8 +27,8 @@ export type { IProvider } from '@/lib/api-key-manager';
 // ==================== AI Feature Types ====================
 
 /**
- * AI 功能模块Loại
- * 每功能可以绑定一 Nhà cung cấp API
+ * AI chức năng模块Loại
+ * 每chức năng可以绑定一 Nhà cung cấp API
  */
 export type AIFeature = 
   | 'script_analysis'       // Kịch bản分析
@@ -42,13 +42,13 @@ export type AIFeature =
 
 /**
  * Liên kết tính năng配置
- * 每功能可绑定多Nhà cung cấp/Model（多选）
+ * 每chức năng可绑定多Nhà cung cấp/Model（多选）
  * 格式: platform:model 数组，如 ['memefast:deepseek-v3.2', 'memefast:gemini-3-pro-image-preview']
  */
 export type FeatureBindings = Record<AIFeature, string[] | null>;
 
 /**
- * 功能信息定义
+ * chức năng信息定义
  */
 export const AI_FEATURES: Array<{
   key: AIFeature;
@@ -481,7 +481,7 @@ export interface APIConfigStatus {
 
 /**
  * Nhà cung cấp信息映射
- * 1. memefast - MemeFast API，全功能 AI trung gian（Đề xuất）
+ * 1. memefast - MemeFast API，全chức năng AI trung gian（Đề xuất）
  * 2. runninghub - RunningHub，Chuyển góc nhìn/đa góc độTạo
  */
 const PROVIDER_INFO: Record<ProviderId, { name: string; services: ServiceType[] }> = {
@@ -605,7 +605,7 @@ export const useAPIConfigStore = create<APIConfigStore>()(
           const memefastEnableGroups: Record<string, string[]> = {};
 
           if (isMemefast) {
-            // MemeFast: /api/pricing_new 获取全量元数据（公开giao diện）
+            // MemeFast: /api/pricing_new 获取全量元dữ liệu（公开giao diện）
             const domain = baseUrl.replace(/\/v\d+$/, '');
             const pricingUrl = `${domain}/api/pricing_new`;
 
@@ -779,7 +779,7 @@ export const useAPIConfigStore = create<APIConfigStore>()(
 
       // ==================== Feature Binding Management (Multi-Select) ====================
       
-      // Cài đặt功能的Tất cả绑定（替换）
+      // Cài đặtchức năng的Tất cả绑定（替换）
       setFeatureBindings: (feature, bindings) => {
         set((state) => ({
           featureBindings: { ...state.featureBindings, [feature]: bindings },
@@ -825,16 +825,16 @@ export const useAPIConfigStore = create<APIConfigStore>()(
         }
       },
 
-      // 获取功能的Tất cả绑定
+      // 获取chức năng的Tất cả绑定
       getFeatureBindings: (feature) => {
         const bindings = get().featureBindings;
         const value = bindings?.[feature];
-        // tương thích旧数据：如果是字符串，转为数组
+        // tương thích旧dữ liệu：如果是字符串，转为数组
         if (typeof value === 'string') return [value];
         return value || [];
       },
 
-      // 获取功能对应的Tất cả provider + model
+      // 获取chức năng对应的Tất cả provider + model
       getProvidersForFeature: (feature) => {
         const bindings = get().getFeatureBindings(feature);
         const results: Array<{ provider: IProvider; model: string }> = [];

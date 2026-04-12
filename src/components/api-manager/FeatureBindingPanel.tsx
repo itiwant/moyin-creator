@@ -37,7 +37,7 @@ import { getBrandIcon } from "./brand-icons";
 import { getModelDisplayName } from "@/lib/freedom/model-display-names";
 
 /**
- * Nhà cung cấpTùy chọn - 每功能可选的Nền tảng + Model
+ * Nhà cung cấpTùy chọn - 每chức năng可选的Nền tảng + Model
  */
 interface ProviderOption {
   providerId: string;
@@ -191,7 +191,7 @@ function providerSupportsCapability(
 
 /**
  * 检查特定Model是否Hỗ trợ所需能力
- * 优先级：硬编码映射 → Nền tảng元数据(model_type/tags) → ModelTên推断 → Nền tảng级别 fallback
+ * 优先级：硬编码映射 → Nền tảng元dữ liệu(model_type/tags) → ModelTên推断 → Nền tảng级别 fallback
  */
 function modelSupportsCapability(
   modelName: string,
@@ -208,7 +208,7 @@ function modelSupportsCapability(
     return modelCaps.includes(required);
   }
 
-  // 2. Nền tảng元数据（来自 /api/pricing_new 的 model_type + tags）
+  // 2. Nền tảng元dữ liệu（来自 /api/pricing_new 的 model_type + tags）
   if (modelType) {
     switch (required) {
       case 'text':
@@ -257,7 +257,7 @@ export function FeatureBindingPanel() {
     for (const p of providers) {
       if (parseApiKeys(p.apiKey).length > 0) {
         set.add(p.id);
-        // 也把 platform 加进去，以tương thích旧数据检查
+        // 也把 platform 加进去，以tương thích旧dữ liệu检查
         set.add(p.platform);
       }
     }
@@ -280,7 +280,7 @@ export function FeatureBindingPanel() {
           .filter((m) => m.length > 0);
 
         for (const model of models) {
-          // Sử dụngNền tảng元数据 (model_type/tags) thực hiện精确phân loại
+          // Sử dụngNền tảng元dữ liệu (model_type/tags) thực hiện精确phân loại
           const mType = modelTypes[model];
           const mTags = modelTags[model];
           if (!modelSupportsCapability(model, provider, feature.requiredCapability, mType, mTags)) continue;
@@ -308,7 +308,7 @@ export function FeatureBindingPanel() {
     return map;
   }, [providers, configuredProviderIds, modelTypes, modelTags]);
 
-  // 计算Đã cấu hình的功能数（至少有一有效绑定）
+  // 计算Đã cấu hình的chức năng数（至少有一有效绑定）
   const configuredCount = useMemo(() => {
     return FEATURE_CONFIGS.filter((feature) => {
       const bindings = getFeatureBindings(feature.key);
@@ -727,7 +727,7 @@ export function FeatureBindingPanel() {
               部分服务Chưa cấu hình
             </p>
             <p className="text-muted-foreground mt-1">
-              请在上方为每功能Chọn「Nhà cung cấp/Model」，并确保对应Nhà cung cấp已填写 API Key。
+              请在上方为每chức năngChọn「Nhà cung cấp/Model」，并确保对应Nhà cung cấp已填写 API Key。
             </p>
           </div>
         </div>
@@ -737,7 +737,7 @@ export function FeatureBindingPanel() {
       <div className="text-xs text-muted-foreground bg-muted/50 p-3 rounded-lg space-y-2">
         <p>
           <strong>💡 多Model轮询：</strong>
-          每功能可Chọn多Model，请求将按thứ tự分配到各Model（每次间隔 3 秒），避免单一 API 限流。
+          每chức năng可Chọn多Model，请求将按thứ tự分配到各Model（每次间隔 3 秒），Tránh单一 API 限流。
         </p>
         <p>
           <strong>📌 说明：</strong>

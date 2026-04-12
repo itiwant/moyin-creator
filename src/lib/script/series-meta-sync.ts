@@ -2,11 +2,11 @@
 // Licensed under AGPL-3.0-or-later. See LICENSE for details.
 // Commercial licensing available. See COMMERCIAL_LICENSE.md.
 /**
- * Series Meta Sync — 剧级元数据工具模块
+ * Series Meta Sync — 剧级元dữ liệu工具模块
  *
  * 1. populateSeriesMetaFromImport: 首次Nhập时从Phân tíchkết quả + AI 分析构建 SeriesMeta
  * 2. buildSeriesContextSummary: 从 SeriesMeta 构建紧凑的 AI 注入上下文摘要
- * 3. syncToSeriesMeta: Hiệu chuẩn完成后回写丰富数据到 SeriesMeta
+ * 3. syncToSeriesMeta: Hiệu chuẩn完成后回写丰富dữ liệu到 SeriesMeta
  */
 
 import type {
@@ -79,7 +79,7 @@ export function populateSeriesMetaFromImport(
       keyActions: c.keyActions,
       tags: c.faction ? [c.faction] : undefined,
     }));
-    console.log(`[populateSeriesMeta] AI 角色作为主数据源: ${meta.characters.length} `);
+    console.log(`[populateSeriesMeta] AI 角色作为主dữ liệu源: ${meta.characters.length} `);
   }
 
   // 如果 AI 提取了phe phái信息但角色没有 faction tag，补充 faction
@@ -97,7 +97,7 @@ export function populateSeriesMetaFromImport(
     }
   }
 
-  console.log('[populateSeriesMeta] 剧级数据已构建:', {
+  console.log('[populateSeriesMeta] 剧级dữ liệu已构建:', {
     title: meta.title,
     characters: meta.characters.length,
     factions: meta.factions?.length || 0,
@@ -138,7 +138,7 @@ export function buildSeriesContextSummary(meta: SeriesMeta | null): string {
   // 角色列表（紧凑格式）
   if (meta.characters.length > 0) {
     const charSummary = meta.characters
-      .slice(0, 15) // 最多 15 避免过长
+      .slice(0, 15) // 最多 15 Tránh过长
       .map(c => {
         const info = [c.name];
         if (c.age) info.push(`${c.age} tuổi`);
@@ -188,11 +188,11 @@ export function buildSeriesContextSummary(meta: SeriesMeta | null): string {
 export type CalibrationSyncType = 'character' | 'scene' | 'shot';
 
 /**
- * Hiệu chuẩn完成后回写数据到 SeriesMeta
+ * Hiệu chuẩn完成后回写dữ liệu到 SeriesMeta
  *
  * @param meta 当前 SeriesMeta
  * @param syncType Hiệu chuẩn类型
- * @param results Hiệu chuẩnkết quả数据
+ * @param results Hiệu chuẩnkết quảdữ liệu
  * @returns 更新后的 partial SeriesMeta（用于 updateSeriesMeta）
  */
 export function syncToSeriesMeta(

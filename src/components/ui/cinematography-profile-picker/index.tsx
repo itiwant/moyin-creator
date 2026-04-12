@@ -6,7 +6,7 @@
 /**
  * CinematographyProfilePicker — 摄影风格档案Chọn器
  *
- * 功能：
+ * chức năng：
  * - 左侧：按phân loại显示档案列表（emoji + 名称）
  * - bên phải：悬停/đã chọn时显示详细Mô tả、摄影参数、Tham chiếu影片
  * - 支持 Popover popup出chế độ和内嵌chế độ

@@ -457,7 +457,7 @@ export function SettingsPanel() {
     if (result.success) {
       setStoragePaths({ basePath: result.path || dir });
       
-      // 清除 localStorage đang xử lý...，确保从新路径加载数据
+      // 清除 localStorage đang xử lý...，确保从新路径加载dữ liệu
       const keysToRemove = Object.keys(localStorage).filter(key => 
         key.startsWith('moyin-') || key.includes('store')
       );
@@ -503,7 +503,7 @@ export function SettingsPanel() {
     if (!confirm("Nhập dữ liệu sẽ ghi đè dữ liệu hiện tại, bạn có muốn tiếp tục?")) return;
     const result = await window.storageManager.importData(dir);
     if (result.success) {
-      // 清除 localStorage đang xử lý...，防止旧数据Ghi đèNhập的数据
+      // 清除 localStorage đang xử lý...，防止旧dữ liệuGhi đèNhập的dữ liệu
       const keysToRemove = Object.keys(localStorage).filter(key => 
         key.startsWith('moyin-') || key.includes('store')
       );
@@ -554,7 +554,7 @@ export function SettingsPanel() {
     if (result.success) {
       setStoragePaths({ basePath: result.path || dir });
       
-      // 清除 localStorage đang xử lý...，确保从新路径加载数据
+      // 清除 localStorage đang xử lý...，确保从新路径加载dữ liệu
       const keysToRemove = Object.keys(localStorage).filter(key => 
         key.startsWith('moyin-') || key.includes('store')
       );
@@ -1612,7 +1612,7 @@ export function SettingsPanel() {
           }
           // 如果Thêm的是 memefast Nhà cung cấp，Tự động设置默认ánh xạ dịch vụ（仅在对应服务尚Chưa cấu hình时）
           if (providerData.platform === 'memefast') {
-            // Sử dụng provider.id（而非 platform 字符串）避免多Nhà cung cấp时的歧义Phân tích
+            // Sử dụng provider.id（而非 platform 字符串）Tránh多Nhà cung cấp时的歧义Phân tích
             const pid = provider.id;
             const MEMEFAST_DEFAULT_BINDINGS: Record<string, string> = {
               // NOTE: MemeFast 端点已升级，旧的 deepseek-v3 已不在 cột表đang xử lý... deepseek-v3.2
@@ -1623,7 +1623,7 @@ export function SettingsPanel() {
             };
             for (const [feature, binding] of Object.entries(MEMEFAST_DEFAULT_BINDINGS)) {
               const current = getFeatureBindings(feature as AIFeature);
-              // 仅在Chưa cấu hình时设置默认值，避免Ghi đè用户手动Chọn
+              // 仅在Chưa cấu hình时设置默认值，TránhGhi đè用户手动Chọn
               if (!current || current.length === 0) {
                 setFeatureBindings(feature as AIFeature, [binding]);
                 continue;
@@ -1645,7 +1645,7 @@ export function SettingsPanel() {
               }
             }
           }
-          // Thêm后Tự độngĐồng bộ model cột表和端点元数据
+          // Thêm后Tự độngĐồng bộ model cột表和端点元dữ liệu
           const finalProviderId = existingMemefast ? existingMemefast.id : provider.id;
           if (parseApiKeys(providerData.apiKey).length > 0) {
             setSyncingProvider(finalProviderId);
@@ -1703,7 +1703,7 @@ export function SettingsPanel() {
               }
             }
           }
-          // Chỉnh sửaLưu后Tự độngĐồng bộ model cột表和端点元数据
+          // Chỉnh sửaLưu后Tự độngĐồng bộ model cột表和端点元dữ liệu
           if (parseApiKeys(provider.apiKey).length > 0) {
             setSyncingProvider(provider.id);
             syncProviderModels(provider.id).then(result => {

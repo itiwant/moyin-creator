@@ -20,7 +20,7 @@ const DEFAULT_TEMPLATES: PromptTemplateConfig = {
   sceneImage: `{{style_tokens}}, {{character_description}}, {{visual_content}}, {{camera}}, {{quality_tokens}}`,
   sceneVideo: `{{character_description}}, {{visual_content}}, {{action}}, {{camera}}`,
   negative: `blurry, low quality, watermark, text, logo, signature, bad anatomy, deformed, mutated`,
-  screenplay: `你是一专业的video剧本Sáng tác者。请根据以下Mô tảSáng tác一短video剧本：
+  screenplay: `你是一chuyên nghiệp的video剧本Sáng tác者。请根据以下Mô tảSáng tác一短video剧本：
 
 Mô tả：{{prompt}}
 

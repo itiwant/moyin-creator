@@ -32,7 +32,7 @@ export interface ExportManifest {
     shotSize?: string;
     characterNames: string[];
     emotionTags?: string[];
-    // 三层提示词系统
+    // 3 lớp提示词系统
     imagePrompt?: string;
     imagePromptZh?: string;
     videoPrompt?: string;
@@ -40,7 +40,7 @@ export interface ExportManifest {
     endFramePrompt?: string;
     endFramePromptZh?: string;
     needsEndFrame?: boolean;
-    // tự sự驱动
+    // tự sựdẫn dắt
     narrativeFunction?: string;
     shotPurpose?: string;
     // 音频Thiết kế
@@ -165,7 +165,7 @@ function buildManifest(config: ExportConfig): ExportManifest {
       shotSize: shot.shotSize,
       characterNames: shot.characterNames || [],
       emotionTags: shot.emotionTags,
-      // 三层提示词系统
+      // 3 lớp提示词系统
       imagePrompt: shot.imagePrompt,
       imagePromptZh: shot.imagePromptZh,
       videoPrompt: shot.videoPrompt,
@@ -173,7 +173,7 @@ function buildManifest(config: ExportConfig): ExportManifest {
       endFramePrompt: shot.endFramePrompt,
       endFramePromptZh: shot.endFramePromptZh,
       needsEndFrame: shot.needsEndFrame,
-      // tự sự驱动
+      // tự sựdẫn dắt
       narrativeFunction: shot.narrativeFunction,
       shotPurpose: shot.shotPurpose,
       // 音频Thiết kế
@@ -518,14 +518,14 @@ export async function exportDirectorToFolder(
     currentFile++;
     onProgress?.({ current: currentFile, total: totalFiles, message: '已写入 manifest.json' });
 
-    // Export images (首帧)
+    // Export images (khung đầu)
     if (includeImages && imagesDir) {
       for (const scene of scenes) {
         const imageUrl = scene.imageHttpUrl || scene.imageDataUrl;
         if (!imageUrl) continue;
 
         const filename = `scene_${(scene.id + 1).toString().padStart(3, '0')}.png`;
-        onProgress?.({ current: currentFile, total: totalFiles, message: `导出首帧 ${filename}` });
+        onProgress?.({ current: currentFile, total: totalFiles, message: `导出khung đầu ${filename}` });
 
         try {
           const blob = await downloadFile(imageUrl);
@@ -561,13 +561,13 @@ export async function exportDirectorToFolder(
       }
     }
 
-    // Export end frames (尾帧)
+    // Export end frames (khung cuối)
     if (includeEndFrames && endFramesDir) {
       for (const scene of scenes) {
         if (!scene.endFrameImageUrl) continue;
 
         const filename = `scene_${(scene.id + 1).toString().padStart(3, '0')}_endframe.png`;
-        onProgress?.({ current: currentFile, total: totalFiles, message: `导出尾帧 ${filename}` });
+        onProgress?.({ current: currentFile, total: totalFiles, message: `导出khung cuối ${filename}` });
 
         try {
           const blob = await downloadFile(scene.endFrameHttpUrl || scene.endFrameImageUrl);

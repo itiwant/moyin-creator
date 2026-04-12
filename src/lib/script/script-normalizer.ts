@@ -58,7 +58,7 @@ export function preprocessLineBreaks(text: string): { text: string; inserted: bo
     '\n'
   );
   
-  // 3. 场景号前换行（1-1 xxx、2-3 xxx，前面不是数字/冒号避免误切时间）
+  // 3. 场景号前换行（1-1 xxx、2-3 xxx，前面不是数字/冒号Tránh误切时间）
   result = result.replace(
     /(?<!\n)(?<![\d：:])(?=\d+-\d+[\s\u4e00-\u9fa5])/g,
     '\n'
@@ -70,7 +70,7 @@ export function preprocessLineBreaks(text: string): { text: string; inserted: bo
     '\n'
   );
   
-  // 5. Thoại前换行：2-8字đang xử lý...+ 全角冒号/括号（避免切断 "年龄：" 等thuộc tính）
+  // 5. Thoại前换行：2-8字đang xử lý...+ 全角冒号/括号（Tránh切断 "年龄：" 等thuộc tính）
   // 仅当前面不是换行且不在thuộc tínhMô tảđang xử lý...有đang xử lý...号）
   result = result.replace(
     /(?<!\n)(?<![\u4e00-\u9fa5：])(?=[\u4e00-\u9fa5]{2,8}[（(][^）)]{0,10}[）)][：:])/g,
@@ -176,7 +176,7 @@ export interface ScriptStructureAnalysis {
   characterSectionKeyword: string;
   /** đại cương/故事概述区域bắt đầu文本（原文前30字符，无则Để trống） */
   outlineSectionKeyword: string;
-  // === 剧级元数据提取（可选，AI 有能力时填充） ===
+  // === 剧级元dữ liệu提取（可选，AI 有能力时填充） ===
   /** 一句话概括 */
   logline?: string;
   /** 核心冲突 */
@@ -213,13 +213,13 @@ export async function analyzeScriptStructureWithAI(text: string): Promise<Script
   }
   
   try {
-    // 发送较多内容以便提取剧级元数据（角色/phe phái/vật phẩm/địa lý）
+    // 发送较多内容以便提取剧级元dữ liệu（角色/phe phái/vật phẩm/địa lý）
     const MAX_ANALYSIS_LENGTH = 10000;
     const analysisText = text.length > MAX_ANALYSIS_LENGTH
       ? text.substring(0, MAX_ANALYSIS_LENGTH) + '\n...\uff08后续内容省略\uff09'
       : text;
     
-    const systemPrompt = `你是剧本Cấu trúc分析专家。分析用户提供的剧本/角色规格文本，识别Cấu trúc要素并提取剧级元数据。
+    const systemPrompt = `你是剧本Cấu trúc分析专家。分析用户提供的剧本/角色规格文本，识别Cấu trúc要素并提取剧级元dữ liệu。
 
 严格返回以下 JSON 格式（不要Thêm任何其他内容）：
 {
@@ -254,7 +254,7 @@ export async function analyzeScriptStructureWithAI(text: string): Promise<Script
 10. geography：从场景头和角色Mô tảđang xử lý...要地名
 11. 只分析Cấu trúc，不修改任何原文内容`;
 
-    // 最多Thử lại 2 次（共 3 次尝试），避免临时网络lỗi导致降级
+    // 最多Thử lại 2 次（共 3 次尝试），Tránh临时网络lỗi导致降级
     const MAX_RETRIES = 2;
     let result: string | null = null;
     let lastError: Error | null = null;
@@ -460,7 +460,7 @@ function normalizeTitle(text: string, changes: string[]): string {
     if (/^[【\[]/.test(trimmed)) continue;
     
     // 找到标题候选
-    // Sử dụng精确位置替换，避免替换到后续相同文本
+    // Sử dụng精确位置替换，Tránh替换到后续相同文本
     const lineStart = lines.slice(0, i).join('\n').length + (i > 0 ? 1 : 0);
     const originalLine = lines[i];
     const trimOffset = originalLine.indexOf(trimmed);

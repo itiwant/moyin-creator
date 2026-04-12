@@ -4,7 +4,7 @@
 /**
  * Prompt Builder — 统一视频提示词组装模块
  *
- * 核心原则：整合为语义层次，避免碎片化堆叠导致信号稀释
+ * 核心原则：整合为语义层次，Tránh碎片化堆叠导致信号稀释
  * Layer 1: 镜头Thiết kế (Camera) - 最高优先级
  * Layer 1.5: 灯光Thiết kế (Lighting)
  * Layer 2: 内容焦点 (Subject) - 次高优先级
@@ -104,7 +104,7 @@ export interface VideoPromptConfig {
 /**
  * 构建视频Tạo的đầy đủ prompt
  *
- * @param scene - 分镜数据 (SplitScene)
+ * @param scene - 分镜dữ liệu (SplitScene)
  * @param cinProfile - 摄影风格档案 (undefined 表示未设置)
  * @param config - 额外配置 (styleTokens , v.v.)
  * @returns 组装好的đầy đủ prompt 字符串
@@ -128,7 +128,7 @@ export function buildVideoPrompt(
   // 1.1 判断高级机位Mô tả
   const hasCameraPosition = scene.cameraPosition?.trim();
 
-  // 1.2 bắt đầu景别（仅当没有高级机位Mô tả时）
+  // 1.2 bắt đầuKích thước cảnh（仅当没有高级机位Mô tả时）
   if (!hasCameraPosition && scene.shotSize) {
     const shotPreset = SHOT_SIZE_PRESETS.find(p => p.id === scene.shotSize);
     if (shotPreset) {
@@ -140,7 +140,7 @@ export function buildVideoPrompt(
   if (hasCameraPosition) {
     cameraDesignParts.push(scene.cameraPosition!.trim());
   } else if (scene.cameraMovement?.trim() && scene.cameraMovement !== 'none') {
-    // 先查预设 promptToken，找不到回退原值（tương thích旧数据）
+    // 先查预设 promptToken，找不到回退原值（tương thích旧dữ liệu）
     const cmPreset = CAMERA_MOVEMENT_PRESETS.find(p => p.id === scene.cameraMovement);
     cameraDesignParts.push(cmPreset?.promptToken || scene.cameraMovement.trim());
   }
@@ -193,7 +193,7 @@ export function buildVideoPrompt(
     if (techToken) cameraDesignParts.push(techToken);
   }
 
-  // 1.9 特殊拍摄手法
+  // 1.9 Kỹ thuật quay đặc biệt手法
   if ((scene as any).specialTechnique && (scene as any).specialTechnique !== 'none') {
     const stPreset = SPECIAL_TECHNIQUE_PRESETS.find(p => p.id === (scene as any).specialTechnique);
     if (stPreset?.promptToken) cameraDesignParts.push(stPreset.promptToken);

@@ -4,8 +4,8 @@
 "use client";
 
 /**
- * 景别Chọn器组件 (Shot Size Selector)
- * 用于ChọnỐng kính的景别Loại：Toàn cảnh xa、Cảnh trung、Cảnh gần、Cận cảnh等
+ * Kích thước cảnhChọn器组件 (Shot Size Selector)
+ * 用于ChọnỐng kính的Kích thước cảnhLoại：Toàn cảnh xa、Cảnh trung、Cảnh gần、Cận cảnh等
  */
 
 import {
@@ -63,7 +63,7 @@ export function ShotSizeSelector({
 }
 
 /**
- * 景别ThẻHiện组件（只读）
+ * Kích thước cảnhThẻHiện组件（只读）
  */
 export function ShotSizeLabel({ shotSize }: { shotSize: ShotSizeType | null }) {
   if (!shotSize) return null;

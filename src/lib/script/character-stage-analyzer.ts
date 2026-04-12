@@ -6,7 +6,7 @@
  * 
  * 分析剧本đại cương，Tự động识别主要角色的阶段变化，Tạo多阶段变体。
  * 
- * 功能：
+ * chức năng：
  * 1. 分析đại cươngđang xử lý...跨度和角色成长轨迹
  * 2. 为主要角色Tạo阶段变体（青年版、đang xử lý...）
  * 3. 每变体包含 tập数范围，供分镜时Tự độnggọi API
@@ -68,7 +68,7 @@ export async function analyzeCharacterStages(
     return [];
   }
   
-  const systemPrompt = `你是专业的影góc nhìn色Thiết kế顾问，擅长分析角色在长篇剧 tậpđang xử lý...变化。
+  const systemPrompt = `你是chuyên nghiệp的影góc nhìn色Thiết kế顾问，擅长分析角色在长篇剧 tậpđang xử lý...变化。
 
 你的任务是分析剧本đại cương，判断每主要角色是否需要多阶段的形象变体。
 
@@ -108,7 +108,7 @@ ${mainCharacters.map(c => `
 外貌：${c.appearance || '未知'}
 `).join('\n')}
 
-请为每角色分析是否需要多阶段形象，并Tạo阶段变体数据。
+请为每角色分析是否需要多阶段形象，并Tạo阶段变体dữ liệu。
 
 返回JSON格式：
 {

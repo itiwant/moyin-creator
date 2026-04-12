@@ -114,7 +114,7 @@ export function GenerationPanel({ selectedCharacter, onCharacterCreated }: Gener
   const [relationships, setRelationships] = useState(""); // mối quan hệ nhân vật
   const [tags, setTags] = useState<string[]>([]);  // Thẻ nhân vật
   const [notes, setNotes] = useState("");           // Ghi chú nhân vật
-  // === 专业Nhân vậtThiết kếtrường（世界级大师Tạo）===
+  // === chuyên nghiệpNhân vậtThiết kếtrường（世界级大师Tạo）===
   const [visualPromptEn, setVisualPromptEn] = useState(""); // Prompt thị giác tiếng Anh
   const [visualPromptZh, setVisualPromptZh] = useState(""); // đang xử lý...ompt thị giác
   // === 6层身份neo ===
@@ -122,10 +122,10 @@ export function GenerationPanel({ selectedCharacter, onCharacterCreated }: Gener
   const [charNegativePrompt, setCharNegativePrompt] = useState<CharacterNegativePrompt | undefined>();
   // === promptNgôn ngữ偏好 ===
   const [promptLanguage, setPromptLanguage] = useState<PromptLanguage>('vi');
-  // === 年代信息（从Kịch bản元数据传递）===
+  // === Thông tin thời đại（从Kịch bản元dữ liệu传递）===
   const [storyYear, setStoryYear] = useState<number | undefined>();
   const [era, setEra] = useState<string | undefined>();
-  // ===  tập作用域（从 pending 数据透传）===
+  // ===  tập作用域（从 pending dữ liệu透传）===
   const [sourceEpisodeId, setSourceEpisodeId] = useState<string | undefined>();
   const [referenceImages, setReferenceImages] = useState<string[]>([]);
   const [styleId, setStyleId] = useState<string>(DEFAULT_STYLE_ID);
@@ -137,13 +137,13 @@ export function GenerationPanel({ selectedCharacter, onCharacterCreated }: Gener
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const [previewCharacterId, setPreviewCharacterId] = useState<string | null>(null);
   
-  // Khu vực thu gọn thông tin Hiệu chuẩn AITrạng thái：有数据时Mặc địnhMở rộng
+  // Khu vực thu gọn thông tin Hiệu chuẩn AITrạng thái：有dữ liệu时Mặc địnhMở rộng
   const [calibrationExpanded, setCalibrationExpanded] = useState(true);
   const [isManuallyModified, setIsManuallyModified] = useState(false);
 
   const isGenerating = generationStatus === 'generating';
   
-  // 检查是否有 AI Hiệu chuẩn数据
+  // 检查是否有 AI Hiệu chuẩndữ liệu
   const hasCalibrationData = !!(identityAnchors || charNegativePrompt || visualPromptEn || visualPromptZh);
 
   // 注意：thanh trái始终用于Tạo mớiNhân vật，不响应đang xử lý...ư viện nhân vật的Chọn
@@ -162,7 +162,7 @@ export function GenerationPanel({ selectedCharacter, onCharacterCreated }: Gener
       const mappedGender = genderMap[pendingCharacterData.gender || ''] || '';
       setGender(mappedGender);
       
-      // 映射年龄：根据数字范围Tự độngChọn年龄段
+      // 映射年龄：根据数字范围Tự độngChọnĐộ tuổi
       const ageStr = pendingCharacterData.age || '';
       let mappedAge = '';
       if (ageStr.includes('5') && ageStr.includes('12') || ageStr.includes('Trẻ em')) {
@@ -176,7 +176,7 @@ export function GenerationPanel({ selectedCharacter, onCharacterCreated }: Gener
       } else if (ageStr.includes('55') || ageStr.includes('60') || ageStr.includes('70') || ageStr.includes('Cao niên')) {
         mappedAge = 'senior';
       } else if (ageStr.match(/\d+.*\d+/)) {
-        // 跨年龄段如 "25-50 tuổi"，Chọn中年
+        // 跨Độ tuổi如 "25-50 tuổi"，Chọn中年
         mappedAge = 'adult';
       }
       setAge(mappedAge);
@@ -215,7 +215,7 @@ export function GenerationPanel({ selectedCharacter, onCharacterCreated }: Gener
       if (pendingCharacterData.promptLanguage) {
         setPromptLanguage(pendingCharacterData.promptLanguage);
       }
-      // === 处理专业Prompt thị giác（世界级大师Tạo）===
+      // === 处理chuyên nghiệpPrompt thị giác（世界级大师Tạo）===
       if (pendingCharacterData.visualPromptEn) {
         setVisualPromptEn(pendingCharacterData.visualPromptEn);
       }
@@ -231,7 +231,7 @@ export function GenerationPanel({ selectedCharacter, onCharacterCreated }: Gener
         setCharNegativePrompt(pendingCharacterData.negativePrompt);
       }
       
-      // === 处理年代信息 ===
+      // === 处理Thông tin thời đại ===
       if (pendingCharacterData.storyYear) {
         setStoryYear(pendingCharacterData.storyYear);
       }
@@ -305,13 +305,13 @@ export function GenerationPanel({ selectedCharacter, onCharacterCreated }: Gener
     setRelationships("");
     setTags([]);
     setNotes("");
-    // === Đặt lại专业Prompt thị giác ===
+    // === Đặt lạichuyên nghiệpPrompt thị giác ===
     setVisualPromptEn("");
     setVisualPromptZh("");
     // === Đặt lại6层身份neo ===
     setIdentityAnchors(undefined);
     setCharNegativePrompt(undefined);
-    // === Đặt lại年代信息 ===
+    // === Đặt lạiThông tin thời đại ===
     setStoryYear(undefined);
     setEra(undefined);
     // === Đặt lại tập作用域 ===
@@ -376,7 +376,7 @@ export function GenerationPanel({ selectedCharacter, onCharacterCreated }: Gener
     setGeneratingCharacter(targetId);
 
     try {
-      // 构建prompt：根据Ngôn ngữ偏好Chọnprompt + 6层身份neo + Ảnh tham chiếu优先级逻辑 + 年代信息
+      // 构建prompt：根据Ngôn ngữ偏好Chọnprompt + 6层身份neo + Ảnh tham chiếu优先级逻辑 + Thông tin thời đại
       // 获取实时的Ngôn ngữ偏好（优先Sử dụng pending 传来的，其次从 scriptProject 读取）
       const effectiveLang = promptLanguage || scriptProject?.promptLanguage || 'vi';
       const prompt = buildCharacterSheetPrompt(
@@ -984,19 +984,19 @@ export function GenerationPanel({ selectedCharacter, onCharacterCreated }: Gener
               )}
             </Button>
             
-            {/* Sao chépNhân vật数据nút */}
+            {/* Nút Sao chép dữ liệu Nhân vật */}
             <Button 
               variant="outline"
               onClick={() => {
-                // 构建Nhân vật数据文本
+                // 构建Nhân vậtdữ liệu文本
                 const lines: string[] = [];
                 
                 // 基本信息
-                lines.push(`Tên nhân vật: ${name || '(未填写)'}`);
+                lines.push(`Tên nhân vật: ${name || '(chưa điền)'}`);
                 const genderLabel = GENDER_PRESETS.find(g => g.id === gender)?.label;
                 if (genderLabel) lines.push(`Giới tính: ${genderLabel}`);
                 const ageLabel = AGE_PRESETS.find(a => a.id === age)?.label;
-                if (ageLabel) lines.push(`年龄段: ${ageLabel}`);
+                if (ageLabel) lines.push(`Độ tuổi: ${ageLabel}`);
                 if (personality) lines.push(`Đặc điểm tính cách: ${personality}`);
                 
                 // Mô tả nhân vật
@@ -1009,12 +1009,12 @@ export function GenerationPanel({ selectedCharacter, onCharacterCreated }: Gener
                 // AI Hiệu chuẩn信息
                 if (hasCalibrationData) {
                   lines.push('');
-                  lines.push(`AI Hiệu chuẩn信息: ${isManuallyModified ? 'Đã sửa' : 'Đã Hiệu chuẩn'}`);
+                  lines.push(`Thông tin AI Hiệu chuẩn: ${isManuallyModified ? 'Đã sửa' : 'Đã Hiệu chuẩn'}`);
                   
                   // 6层身份neo
                   if (identityAnchors) {
                     lines.push('');
-                    lines.push('--- 6层身份neo ---');
+                    lines.push('--- 6 lớp neo nhận dạng ---');
                     
                     // ① Lớp xương mặt
                     const boneFeatures = [identityAnchors.faceShape, identityAnchors.jawline, identityAnchors.cheekbones].filter(Boolean);
@@ -1036,7 +1036,7 @@ export function GenerationPanel({ selectedCharacter, onCharacterCreated }: Gener
                     // ④ Lớp neo màu sắc
                     if (identityAnchors.colorAnchors) {
                       const colors: string[] = [];
-                      if (identityAnchors.colorAnchors.iris) colors.push(`瞳色:${identityAnchors.colorAnchors.iris}`);
+                      if (identityAnchors.colorAnchors.iris) colors.push(`Màu con ngươi:${identityAnchors.colorAnchors.iris}`);
                       if (identityAnchors.colorAnchors.hair) colors.push(`màu tóc:${identityAnchors.colorAnchors.hair}`);
                       if (identityAnchors.colorAnchors.skin) colors.push(`Màu da:${identityAnchors.colorAnchors.skin}`);
                       if (identityAnchors.colorAnchors.lips) colors.push(`Màu môi:${identityAnchors.colorAnchors.lips}`);
@@ -1062,28 +1062,28 @@ export function GenerationPanel({ selectedCharacter, onCharacterCreated }: Gener
                     lines.push('');
                     lines.push('--- Prompt phủ định ---');
                     if (charNegativePrompt.avoid && charNegativePrompt.avoid.length > 0) {
-                      lines.push(`避免: ${charNegativePrompt.avoid.join(', ')}`);
+                      lines.push(`Tránh: ${charNegativePrompt.avoid.join(', ')}`);
                     }
                     if (charNegativePrompt.styleExclusions && charNegativePrompt.styleExclusions.length > 0) {
-                      lines.push(`Phong cách排除: ${charNegativePrompt.styleExclusions.join(', ')}`);
+                      lines.push(`Loại trừ phong cách: ${charNegativePrompt.styleExclusions.join(', ')}`);
                     }
                   }
                   
-                  // 专业Prompt thị giác
+                  // chuyên nghiệpPrompt thị giác
                   if (visualPromptEn || visualPromptZh) {
                     lines.push('');
-                    lines.push('--- 专业Prompt thị giác ---');
+                    lines.push('--- Prompt thị giác chuyên nghiệp ---');
                     if (visualPromptEn) lines.push(`EN: ${visualPromptEn}`);
                     if (visualPromptZh) lines.push(`ZH: ${visualPromptZh}`);
                   }
                 }
                 
-                // 年代信息
+                // Thông tin thời đại
                 if (storyYear || era) {
                   lines.push('');
-                  lines.push('--- 年代信息 ---');
-                  if (storyYear) lines.push(`故事年份: ${storyYear}年`);
-                  if (era) lines.push(`thời đại背景: ${era}`);
+                  lines.push('--- Thông tin thời đại ---');
+                  if (storyYear) lines.push(`Năm câu chuyện: ${storyYear}`);
+                  if (era) lines.push(`Bối cảnh thời đại: ${era}`);
                 }
                 
                 // Phong cách thị giác
@@ -1097,7 +1097,7 @@ export function GenerationPanel({ selectedCharacter, onCharacterCreated }: Gener
                 
                 // Ảnh tham chiếu
                 if (referenceImages.length > 0) {
-                  lines.push(`Ảnh tham chiếu: ${referenceImages.length} 张`);
+                  lines.push(`Ảnh tham chiếu: ${referenceImages.length} ảnh`);
                 }
                 
                 // TạoNội dung
@@ -1111,13 +1111,13 @@ export function GenerationPanel({ selectedCharacter, onCharacterCreated }: Gener
                 
                 const text = lines.join('\n');
                 navigator.clipboard.writeText(text);
-                toast.success('Nhân vật数据Đã sao chép vào clipboard');
+                toast.success('Dữ liệu Nhân vật đã sao chép vào clipboard');
               }}
               className="w-full"
               disabled={isGenerating}
             >
               <Copy className="h-4 w-4 mr-2" />
-              Sao chépNhân vật数据
+              Sao chépNhân vậtdữ liệu
             </Button>
           </div>
         </div>
@@ -1167,7 +1167,7 @@ function buildPromptFromAnchors(
 
     if (anchors.colorAnchors) {
       const colors: string[] = [];
-      if (anchors.colorAnchors.iris) colors.push(isZh ? `瞳色${anchors.colorAnchors.iris}` : `iris color ${anchors.colorAnchors.iris}`);
+      if (anchors.colorAnchors.iris) colors.push(isZh ? `Màu con ngươi${anchors.colorAnchors.iris}` : `iris color ${anchors.colorAnchors.iris}`);
       if (anchors.colorAnchors.hair) colors.push(isZh ? `màu tóc${anchors.colorAnchors.hair}` : `hair color ${anchors.colorAnchors.hair}`);
       if (anchors.colorAnchors.skin) colors.push(isZh ? `Màu da${anchors.colorAnchors.skin}` : `skin tone ${anchors.colorAnchors.skin}`);
       if (colors.length > 0) {
@@ -1204,7 +1204,7 @@ function buildPromptFromAnchors(
     // ④ Lớp neo màu sắc
     if (anchors.colorAnchors) {
       const colors: string[] = [];
-      if (anchors.colorAnchors.iris) colors.push(isZh ? `瞳色${anchors.colorAnchors.iris}` : `iris ${anchors.colorAnchors.iris}`);
+      if (anchors.colorAnchors.iris) colors.push(isZh ? `Màu con ngươi${anchors.colorAnchors.iris}` : `iris ${anchors.colorAnchors.iris}`);
       if (anchors.colorAnchors.hair) colors.push(isZh ? `màu tóc${anchors.colorAnchors.hair}` : `hair ${anchors.colorAnchors.hair}`);
       if (anchors.colorAnchors.skin) colors.push(isZh ? `Màu da${anchors.colorAnchors.skin}` : `skin ${anchors.colorAnchors.skin}`);
       if (anchors.colorAnchors.lips) colors.push(isZh ? `Màu môi${anchors.colorAnchors.lips}` : `lips ${anchors.colorAnchors.lips}`);
@@ -1239,7 +1239,7 @@ function buildPromptFromAnchors(
  * 3. Không có Ảnh tham chiếu + 有neo：đầy đủ6层锁定
  * 4. 有Prompt thị giác：Sử dụngAI大师Tạo的prompt
  * 5. 只有description：Sử dụngCơ bảnMô tả
- * 6. 年代信息：加入trang phụcPhong cáchneo
+ * 6. Thông tin thời đại：加入trang phụcPhong cáchneo
  */
 function buildCharacterSheetPrompt(
   description: string, 
@@ -1329,10 +1329,10 @@ function buildCharacterSheetPrompt(
 
   const basePrompt = isRealistic
     ? (isZh
-        ? `专业Nhân vậtẢnh tham chiếu，"${name}"，${characterDescription}，真人写实`
+        ? `chuyên nghiệpNhân vậtẢnh tham chiếu，"${name}"，${characterDescription}，真人写实`
         : `professional character reference for "${name}", ${characterDescription}, real person`)
     : (isZh
-        ? `专业Nhân vậtThiết kếẢnh tham chiếu，"${name}"，${characterDescription}`
+        ? `chuyên nghiệpNhân vậtThiết kếẢnh tham chiếu，"${name}"，${characterDescription}`
         : `professional character design sheet for "${name}", ${characterDescription}`);
   
   // Sử dụng SHEET_ELEMENTS 定义的 prompt，如果是真人Phong cách则转换成写实/摄影表述
@@ -1355,7 +1355,7 @@ function buildCharacterSheetPrompt(
   
   const contentPrompt = contentParts.join(', ');
   
-  // 统一强化纯白背景，避免背景颜色被Phong cách词带偏
+  // 统一强化纯白背景，Tránh背景颜色被Phong cách词带偏
   const whiteBackgroundPrompt = "pure solid white background, isolated character on white background, absolutely no background scenery";
   
   if (isRealistic) {

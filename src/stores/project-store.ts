@@ -69,7 +69,7 @@ export const useProjectStore = create<ProjectStore>()(
         set((state) => ({
           projects: [newProject, ...state.projects],
           // 不在这里Cài đặt activeProjectId —— 由 switchProject() 统一处理
-          // 避免 switchProject 因 ID 已相同而跳过 rehydration
+          // Tránh switchProject 因 ID 已相同而跳过 rehydration
         }));
         return newProject;
       },
@@ -155,10 +155,10 @@ export const useProjectStore = create<ProjectStore>()(
  * 将未在 projects  cột表đang xử lý...项目Tự động恢复。
  * 
  * 解决以下Cảnh：
- * - thay đổi存储路径并迁移数据后，前端 store 未 reload，或 moyin-project-store.json
+ * - thay đổi存储路径并迁移dữ liệu后，前端 store 未 reload，或 moyin-project-store.json
  *   đang xử lý...rojects  cột表不đầy đủ（旧Phiên bản、Thủ côngSao chép等）
- * - Nhập数据后 moyin-project-store.json thiếu或不含Dự án mới
- * - 换电脑后指向旧数据thư mục，projects  cột表为空
+ * - Nhậpdữ liệu后 moyin-project-store.json thiếu或不含Dự án mới
+ * - 换电脑后指向旧dữ liệuthư mục，projects  cột表为空
  */
 async function discoverProjectsFromDisk(): Promise<void> {
   if (!window.fileStorage?.listDirs) return;
@@ -179,7 +179,7 @@ async function discoverProjectsFromDisk(): Promise<void> {
       missingIds.map((id) => id.substring(0, 8))
     );
 
-    // 尝试从每遗漏项目的 director / script store fileđang xử lý...目名
+    // 尝试从每遗漏项mục đích director / script store fileđang xử lý...目名
     const recoveredProjects: Project[] = [];
     for (const pid of missingIds) {
       let name = `Dự án khôi phục (${pid.substring(0, 8)})`;

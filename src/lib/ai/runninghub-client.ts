@@ -3,7 +3,7 @@
 // Commercial licensing available. See COMMERCIAL_LICENSE.md.
 /**
  * RunningHub API Client
- * góc nhìn切换功能的API客户端
+ * góc nhìn切换chức năng的API客户端
  */
 
 import { retryOperation } from '@/lib/utils/retry';

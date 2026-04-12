@@ -4,7 +4,7 @@
 /**
  * Scene Viewpoint Generator
  * 
- * 从场景Hiệu chuẩn数据和分镜动作描写đang xử lý...角需求，
+ * 从场景Hiệu chuẩndữ liệu和分镜动作描写đang xử lý...角需求，
  * Tạo多góc nhìn联合图提示词，用于Tạo 6 格联合图。
  */
 
@@ -563,7 +563,7 @@ export function generateContactSheetPrompt(config: ContactSheetConfig): ContactS
   const totalCells = gridLayout.rows * gridLayout.cols;
   const paddedCount = totalCells;
   
-  // 构建增强版提示词 — 对齐Đạo diễnpanel generateGridAndSlice 的三层风格夹击Cấu trúc
+  // 构建增强版提示词 — 对齐Đạo diễnpanel generateGridAndSlice 的3 lớp风格夹击Cấu trúc
   const promptParts: string[] = [];
   
   // 1. 核心指令区 (Instruction Block) — Sử dụng与Đạo diễnpanel一致的 storyboard grid 术语
@@ -573,7 +573,7 @@ export function generateContactSheetPrompt(config: ContactSheetConfig): ContactS
   // 明确指定单格子的宽高比，防止 AI 混淆（Đạo diễnpanel核心差异点）
   const panelAspect = aspectRatio === '16:9' ? '16:9 (horizontal landscape)' : '9:16 (vertical portrait)';
   promptParts.push(`Each individual panel must have a ${panelAspect} aspect ratio.`);
-  // 全局视觉风格（前置到指令区，权重最高 — 三层夹击第一层）
+  // 全局视觉风格（前置到指令区，权重最高 — 3 lớp夹击第一层）
   if (styleStr) {
     promptParts.push(`MANDATORY Visual Style for ALL panels: ${styleStr}`);
   }
@@ -590,7 +590,7 @@ export function generateContactSheetPrompt(config: ContactSheetConfig): ContactS
     promptParts.push(`Scene Context: ${sceneDescEn}`);
   }
   
-  // 4. 每格子的内容Mô tả — 每格附带 [same style] 锚定（三层夹击第二层）
+  // 4. 每格子的内容Mô tả — 每格附带 [same style] 锚定（3 lớp夹击第二层）
   const styleAnchor = styleStr ? ' [same style]' : '';
   viewpoints.forEach((vp, idx) => {
     const row = Math.floor(idx / gridLayout.cols) + 1;
@@ -606,7 +606,7 @@ export function generateContactSheetPrompt(config: ContactSheetConfig): ContactS
     promptParts.push(`Panel [row ${row}, col ${col}]: empty placeholder, solid gray background`);
   }
   
-    // 6. 全局风格尾部再次强调（三层夹击第三层）
+    // 6. 全局风格尾部再次强调（3 lớp夹击第3 lớp）
     if (styleStr) {
       promptParts.push(`IMPORTANT - Apply this EXACT style uniformly to every panel: ${styleStr}`);
     }
@@ -1076,7 +1076,7 @@ export function generateMultiPageContactSheetData(
     const paddedCount = totalCells;
     const actualCount = pageViewpoints.length;
     
-    // 构建增强版提示词 — 对齐Đạo diễnpanel generateGridAndSlice 的三层风格夹击Cấu trúc
+    // 构建增强版提示词 — 对齐Đạo diễnpanel generateGridAndSlice 的3 lớp风格夹击Cấu trúc
     const promptParts: string[] = [];
     
     // 1. 核心指令区 (Instruction Block) — Sử dụng与Đạo diễnpanel一致的 storyboard grid 术语
@@ -1088,7 +1088,7 @@ export function generateMultiPageContactSheetData(
     const panelAspect = aspectRatio === '16:9' ? '16:9 (horizontal landscape)' : '9:16 (vertical portrait)';
     promptParts.push(`Each individual panel must have a ${panelAspect} aspect ratio.`);
     
-    // 全局视觉风格（前置到指令区，权重最高 — 三层夹击第一层）
+    // 全局视觉风格（前置到指令区，权重最高 — 3 lớp夹击第一层）
     if (styleStr) {
       promptParts.push(`MANDATORY Visual Style for ALL panels: ${styleStr}`);
     }
@@ -1106,7 +1106,7 @@ export function generateMultiPageContactSheetData(
       promptParts.push(`Scene Context: ${sceneDescEn}`);
     }
     
-    // 4. 每格子的内容Mô tả — 每格附带 [same style] 锚定（三层夹击第二层）
+    // 4. 每格子的内容Mô tả — 每格附带 [same style] 锚定（3 lớp夹击第二层）
     const styleAnchor = styleStr ? ' [same style]' : '';
     pageViewpoints.forEach((vp, idx) => {
       const row = Math.floor(idx / gridLayout.cols) + 1;
@@ -1126,7 +1126,7 @@ export function generateMultiPageContactSheetData(
       promptParts.push(`Panel [row ${row}, col ${col}]: empty placeholder, solid gray background`);
     }
     
-    // 6. 全局风格尾部再次强调（三层夹击第三层）
+    // 6. 全局风格尾部再次强调（3 lớp夹击第3 lớp）
     if (styleStr) {
       promptParts.push(`IMPORTANT - Apply this EXACT style uniformly to every panel: ${styleStr}`);
     }
@@ -1169,10 +1169,10 @@ Quan trọng:
 }
 
 /**
- * 从hiện có的 viewpoints 数据构建联合图数据
+ * 从hiện có的 viewpoints dữ liệu构建联合图dữ liệu
  * 用于从剧本panel跳转到场景库时，Trực tiếpSử dụng AI 分析的góc nhìn
  * 
- * @param viewpoints - 来自 ScriptScene.viewpoints 的góc nhìn数据
+ * @param viewpoints - 来自 ScriptScene.viewpoints 的góc nhìndữ liệu
  * @param scene - 场景信息（用于Tạo提示词）
  * @param shots - 分镜列表（用于获取分镜số thứ tự）
  * @param styleTokens - 风格标记
@@ -1208,7 +1208,7 @@ export function buildContactSheetDataFromViewpoints(
     viewpointsPerPage = 9;
   }
   
-  console.log('[buildContactSheetDataFromViewpoints] Sử dụng AI góc nhìn构建联合图数据:', {
+  console.log('[buildContactSheetDataFromViewpoints] Sử dụng AI góc nhìn构建联合图dữ liệu:', {
     vpCount,
     gridLayout,
     viewpointsPerPage,
@@ -1299,7 +1299,7 @@ export function buildContactSheetDataFromViewpoints(
     const paddedCount = totalCells;
     const actualCount = pageViewpoints.length;
     
-    // 构建英文提示词 — 对齐Đạo diễnpanel三层风格注入
+    // 构建英文提示词 — 对齐Đạo diễnpanel3 lớp风格注入
     const promptParts: string[] = [];
     
     // 计算每格的宽高比Mô tả

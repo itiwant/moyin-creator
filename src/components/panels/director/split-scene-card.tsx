@@ -87,7 +87,7 @@ export interface SplitSceneCardProps {
   scene: SplitScene;
   /** Cài đặt ngôn ngữ prompt (từ panel Kịch bản), quyết định trường ngôn ngữ nào được chỉnh sửa/hiển thị */
   promptLanguage?: PromptLanguage;
-  // 三层prompt更新回调
+  // 3 lớpprompt更新回调
   onUpdateImagePrompt: (id: number, prompt: string, promptZh?: string) => void;
   onUpdateVideoPrompt: (id: number, prompt: string, promptZh?: string) => void;
   onUpdateEndFramePrompt: (id: number, prompt: string, promptZh?: string) => void;
