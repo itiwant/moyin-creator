@@ -869,7 +869,7 @@ nhân vật：角色A、角色B
 5. Thoại格式：角色tên:（动作）台词
 6. MV/广告也要拆分成场景和分镜，只是内容侧重画面和Hiệu ứng âm thanh
 7. Ngôn ngữ与用户输入保持一致（đang xử lý...用đang xử lý...）
-8. **thời đại一致性**：đại cươngđang xử lý...确thời đại背景；nhân vật小传đang xử lý...、发型、道具必须严格符合该thời đại（如古代剧不得出现现代trang phục/电子产品；现代剧不得出现古代服饰）
+8. **thời đại一致性**：đại cươngđang xử lý...确thời đại背景；nhân vật小传đang xử lý...、Kiểu tóc、道具必须严格符合该thời đại（如古代剧不得出现现代trang phục/电子产品；现代剧不得出现古代服饰）
 9. **Bối cảnh thế giới一致性**：场景地点、Phong cách kiến trúc、xã hội规则必须符合剧本设定的Bối cảnh thế giới，不得出现mâu thuẫn元素`;
 
 // 针对hiện có分镜Cấu trúc输入的额外指令（如【镜头1】到【镜夷12】）

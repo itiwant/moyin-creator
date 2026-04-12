@@ -302,55 +302,55 @@ export function PropertyPanel({
     // === 6层身份neo（Nhân vật一致性）===
     if (character.identityAnchors) {
       const anchors = character.identityAnchors;
-      lines.push(`## 6层身份neo`);
+      lines.push(`## 6 lớp neo nhận dạng`);
       
-      // ① 骨相层
+      // ① Lớp xương mặt
       const boneFeatures: string[] = [];
-      if (anchors.faceShape) boneFeatures.push(`脸型: ${anchors.faceShape}`);
-      if (anchors.jawline) boneFeatures.push(`下颌线: ${anchors.jawline}`);
-      if (anchors.cheekbones) boneFeatures.push(`颧骨: ${anchors.cheekbones}`);
+      if (anchors.faceShape) boneFeatures.push(`Hình mặt: ${anchors.faceShape}`);
+      if (anchors.jawline) boneFeatures.push(`Đường hàm: ${anchors.jawline}`);
+      if (anchors.cheekbones) boneFeatures.push(`Xương gò má: ${anchors.cheekbones}`);
       if (boneFeatures.length > 0) {
-        lines.push(`① 骨相层：${boneFeatures.join(', ')}`);
+        lines.push(`① Lớp xương mặt: ${boneFeatures.join(', ')}`);
       }
       
-      // ② 五官层
+      // ② Lớp ngũ quan
       const facialFeatures: string[] = [];
-      if (anchors.eyeShape) facialFeatures.push(`眼型: ${anchors.eyeShape}`);
-      if (anchors.eyeDetails) facialFeatures.push(`眼部细节: ${anchors.eyeDetails}`);
-      if (anchors.noseShape) facialFeatures.push(`鼻型: ${anchors.noseShape}`);
-      if (anchors.lipShape) facialFeatures.push(`唇型: ${anchors.lipShape}`);
+      if (anchors.eyeShape) facialFeatures.push(`Hình mắt: ${anchors.eyeShape}`);
+      if (anchors.eyeDetails) facialFeatures.push(`Chi tiết mắt: ${anchors.eyeDetails}`);
+      if (anchors.noseShape) facialFeatures.push(`Hình mũi: ${anchors.noseShape}`);
+      if (anchors.lipShape) facialFeatures.push(`Hình môi: ${anchors.lipShape}`);
       if (facialFeatures.length > 0) {
-        lines.push(`② 五官层：${facialFeatures.join(', ')}`);
+        lines.push(`② Lớp ngũ quan: ${facialFeatures.join(', ')}`);
       }
       
-      // ③ 辨识标记层（最强neo）
+      // ③ Lớp dấu hiệu nhận dạng（最强neo）
       if (anchors.uniqueMarks && anchors.uniqueMarks.length > 0) {
-        lines.push(`③ 辨识标记层（最强neo）：${anchors.uniqueMarks.join('; ')}`);
+        lines.push(`③ Lớp dấu hiệu nhận dạng (neo mạnh nhất): ${anchors.uniqueMarks.join('; ')}`);
       }
       
-      // ④ 色彩neo层
+      // ④ Lớp neo màu sắc
       if (anchors.colorAnchors) {
         const colors: string[] = [];
-        if (anchors.colorAnchors.iris) colors.push(`虹膜: ${anchors.colorAnchors.iris}`);
+        if (anchors.colorAnchors.iris) colors.push(`Con ngươi: ${anchors.colorAnchors.iris}`);
         if (anchors.colorAnchors.hair) colors.push(`màu tóc: ${anchors.colorAnchors.hair}`);
-        if (anchors.colorAnchors.skin) colors.push(`肤色: ${anchors.colorAnchors.skin}`);
-        if (anchors.colorAnchors.lips) colors.push(`唇色: ${anchors.colorAnchors.lips}`);
+        if (anchors.colorAnchors.skin) colors.push(`Màu da: ${anchors.colorAnchors.skin}`);
+        if (anchors.colorAnchors.lips) colors.push(`Màu môi: ${anchors.colorAnchors.lips}`);
         if (colors.length > 0) {
-          lines.push(`④ 色彩neo层（Hex）：${colors.join(', ')}`);
+          lines.push(`④ Lớp neo màu sắc (Hex): ${colors.join(', ')}`);
         }
       }
       
-      // ⑤ 皮肤纹理层
+      // ⑤ Lớp kết cấu da
       if (anchors.skinTexture) {
-        lines.push(`⑤ 皮肤纹理层：${anchors.skinTexture}`);
+        lines.push(`⑤ Lớp kết cấu da: ${anchors.skinTexture}`);
       }
       
-      // ⑥ 发型neo层
+      // ⑥ Lớp neo kiểu tóc
       const hairFeatures: string[] = [];
-      if (anchors.hairStyle) hairFeatures.push(`发型: ${anchors.hairStyle}`);
-      if (anchors.hairlineDetails) hairFeatures.push(`发际线: ${anchors.hairlineDetails}`);
+      if (anchors.hairStyle) hairFeatures.push(`Kiểu tóc: ${anchors.hairStyle}`);
+      if (anchors.hairlineDetails) hairFeatures.push(`Đường tóc: ${anchors.hairlineDetails}`);
       if (hairFeatures.length > 0) {
-        lines.push(`⑥ 发型neo层：${hairFeatures.join(', ')}`);
+        lines.push(`⑥ Lớp neo kiểu tóc: ${hairFeatures.join(', ')}`);
       }
       
       lines.push('');
@@ -360,10 +360,10 @@ export function PropertyPanel({
     if (character.negativePrompt) {
       lines.push(`## Prompt phủ định`);
       if (character.negativePrompt.avoid && character.negativePrompt.avoid.length > 0) {
-        lines.push(`要避免：${character.negativePrompt.avoid.join(', ')}`);
+        lines.push(`Cần tránh: ${character.negativePrompt.avoid.join(', ')}`);
       }
       if (character.negativePrompt.styleExclusions && character.negativePrompt.styleExclusions.length > 0) {
-        lines.push(`风格排除：${character.negativePrompt.styleExclusions.join(', ')}`);
+        lines.push(`Loại trừ phong cách: ${character.negativePrompt.styleExclusions.join(', ')}`);
       }
       lines.push('');
     }
@@ -406,14 +406,14 @@ export function PropertyPanel({
     
     // 格式化Phân cảnh数据
     const lines: string[] = [];
-    lines.push(`# 第${episode.index} tập：${episode.title.replace(/^第\d+ tập[：:]?/, '')}`);
+    lines.push(`# Tập ${episode.index}: ${episode.title.replace(/^Tập\d+[：:]?/, '')}`);
     lines.push('');
     if (episode.synopsis) {
       lines.push(`## Tập nàyđại cương`);
       lines.push(episode.synopsis);
       lines.push('');
     }
-    lines.push(`## Danh sách phân cảnh (共 ${episodeShots.length} )`);
+    lines.push(`## Danh sách phân cảnh (tổng ${episodeShots.length})`);
     lines.push('');
     
     episodeShots.forEach((s, idx) => {
@@ -431,23 +431,23 @@ export function PropertyPanel({
         lines.push(`**Thoại**: 「${s.dialogue}」`);
       }
       if (s.characterNames && s.characterNames.length > 0) {
-        lines.push(`**出CảnhNhân vật**: ${s.characterNames.join('、')}`);
+        lines.push(`**Nhân vật xuất hiện**: ${s.characterNames.join(', ')}`);
       }
       if (s.emotionTags && s.emotionTags.length > 0) {
         const tags = s.emotionTags.map(t => emotionLabels[t] || t).join('、');
-        lines.push(`**情绪**: ${tags}`);
+        lines.push(`**Cảm xúc**: ${tags}`);
       }
       if (promptLanguage !== 'zh' && (s as any).visualPrompt) {
-        lines.push(`**英文Prompt**: ${(s as any).visualPrompt}`);
+        lines.push(`**Prompt tiếng Anh**: ${(s as any).visualPrompt}`);
       }
       // 三层prompt系统
       if (s.imagePromptZh || s.imagePrompt) {
         if (promptLanguage === 'zh') {
-          lines.push(`**首帧prompt**: ${s.imagePromptZh || ''}`);
+          lines.push(`**Prompt khung đầu**: ${s.imagePromptZh || ''}`);
         } else if (promptLanguage === 'en') {
-          lines.push(`**首帧prompt**: ${s.imagePrompt || ''}`);
+          lines.push(`**Prompt khung đầu**: ${s.imagePrompt || ''}`);
         } else {
-          lines.push(`**首帧prompt**: ${s.imagePromptZh || ''} ${s.imagePrompt ? `(EN: ${s.imagePrompt})` : ''}`);
+          lines.push(`**Prompt khung đầu**: ${s.imagePromptZh || ''} ${s.imagePrompt ? `(EN: ${s.imagePrompt})` : ''}`);
         }
       }
       if (s.videoPromptZh || s.videoPrompt) {
@@ -460,7 +460,7 @@ export function PropertyPanel({
         }
       }
       if (s.needsEndFrame) {
-        lines.push(`**需要尾帧**: 是`);
+        lines.push(`**Cần khung cuối**: Có`);
         if (s.endFramePromptZh || s.endFramePrompt) {
           if (promptLanguage === 'zh') {
             lines.push(`**尾帧prompt**: ${s.endFramePromptZh || ''}`);

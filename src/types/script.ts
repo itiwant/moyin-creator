@@ -41,34 +41,34 @@ export interface CharacterConsistencyElements {
  * 用于确保AI生图đang xử lý...色在不同场景保持一致
  */
 export interface CharacterIdentityAnchors {
-  // ① 骨相层 - Khuôn mặt骨骼Cấu trúc
-  faceShape?: string;       // 脸型：oval/square/heart/round/diamond/oblong
-  jawline?: string;         // 下颌线：sharp angular/soft rounded/prominent
-  cheekbones?: string;      // 颧骨：high prominent/subtle/wide set
+  // ① Lớp xương mặt - Khuôn mặt骨骼Cấu trúc
+  faceShape?: string;       // Hình mặt：oval/square/heart/round/diamond/oblong
+  jawline?: string;         // Đường hàm：sharp angular/soft rounded/prominent
+  cheekbones?: string;      // Xương gò má：high prominent/subtle/wide set
   
-  // ② 五官层 - 眼鼻唇精确Mô tả
-  eyeShape?: string;        // 眼型：almond/round/hooded/monolid/upturned
-  eyeDetails?: string;      // 眼部细节：double eyelids, slight epicanthic fold
-  noseShape?: string;       // 鼻型：straight bridge, rounded tip, medium width
-  lipShape?: string;        // 唇型：full lips, defined cupid's bow
+  // ② Lớp ngũ quan - 眼鼻唇精确Mô tả
+  eyeShape?: string;        // Hình mắt：almond/round/hooded/monolid/upturned
+  eyeDetails?: string;      // Chi tiết mắt：double eyelids, slight epicanthic fold
+  noseShape?: string;       // Hình mũi：straight bridge, rounded tip, medium width
+  lipShape?: string;        // Hình môi：full lips, defined cupid's bow
   
-  // ③ 辨识标记层 - 最强neo
+  // ③ Lớp dấu hiệu nhận dạng - 最强neo
   uniqueMarks: string[];    // 必填！胎记/疤痕/痣的精确位置："small mole 2cm below left eye"
   
-  // ④ 色彩neo层 - Hex色值
+  // ④ Lớp neo màu sắc - Hex色值
   colorAnchors?: {
-    iris?: string;          // 虹膜色：#3D2314 (dark brown)
+    iris?: string;          // Con ngươi色：#3D2314 (dark brown)
     hair?: string;          // màu tóc：#1A1A1A (jet black)
-    skin?: string;          // 肤色：#E8C4A0 (warm beige)
-    lips?: string;          // 唇色：#C4727E (dusty rose)
+    skin?: string;          // Màu da：#E8C4A0 (warm beige)
+    lips?: string;          // Màu môi：#C4727E (dusty rose)
   };
   
-  // ⑤ 皮肤纹理层
+  // ⑤ Lớp kết cấu da
   skinTexture?: string;     // visible pores on nose, light smile lines
   
-  // ⑥ 发型neo层
-  hairStyle?: string;       // 发型：shoulder-length, layered, side-parted
-  hairlineDetails?: string; // 发际线：natural hairline, slight widow's peak
+  // ⑥ Lớp neo kiểu tóc
+  hairStyle?: string;       // Kiểu tóc：shoulder-length, layered, side-parted
+  hairlineDetails?: string; // Đường tóc：natural hairline, slight widow's peak
 }
 
 /**

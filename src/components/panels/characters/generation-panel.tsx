@@ -337,7 +337,7 @@ export function GenerationPanel({ selectedCharacter, onCharacterCreated }: Gener
       return;
     }
     if (selectedElements.length === 0) {
-      toast.error("请至少Chọn一TạoNội dung");
+      toast.error("Vui lòng chọn ít nhất một Nội dung để Tạo");
       return;
     }
 
@@ -621,13 +621,13 @@ export function GenerationPanel({ selectedCharacter, onCharacterCreated }: Gener
                 </div>
               </button>
               
-              {/* thu gọn区Nội dung */}
+              {/* Nội dung vùng thu gọn */}
               {calibrationExpanded && (
                 <div className="border-t p-2 space-y-3 bg-muted/20">
-                  {/* 6层身份neo */}
+                  {/* 6 lớp neo nhận dạng */}
                   {identityAnchors && (
                     <div className="space-y-2">
-                      <Label className="text-[10px] text-muted-foreground">① 骨相层</Label>
+                      <Label className="text-[10px] text-muted-foreground">① Lớp xương mặt</Label>
                       <div className="grid grid-cols-3 gap-1">
                         <Input
                           value={identityAnchors.faceShape || ''}
@@ -635,7 +635,7 @@ export function GenerationPanel({ selectedCharacter, onCharacterCreated }: Gener
                             setIdentityAnchors({ ...identityAnchors, faceShape: e.target.value || undefined });
                             setIsManuallyModified(true);
                           }}
-                          placeholder="脸型"
+                          placeholder="Hình mặt"
                           className="h-7 text-[10px]"
                           disabled={isGenerating}
                         />
@@ -645,7 +645,7 @@ export function GenerationPanel({ selectedCharacter, onCharacterCreated }: Gener
                             setIdentityAnchors({ ...identityAnchors, jawline: e.target.value || undefined });
                             setIsManuallyModified(true);
                           }}
-                          placeholder="下颂"
+                          placeholder="Đường hàm dưới"
                           className="h-7 text-[10px]"
                           disabled={isGenerating}
                         />
@@ -655,13 +655,13 @@ export function GenerationPanel({ selectedCharacter, onCharacterCreated }: Gener
                             setIdentityAnchors({ ...identityAnchors, cheekbones: e.target.value || undefined });
                             setIsManuallyModified(true);
                           }}
-                          placeholder="颚骨"
+                          placeholder="Xương gò má"
                           className="h-7 text-[10px]"
                           disabled={isGenerating}
                         />
                       </div>
                       
-                      <Label className="text-[10px] text-muted-foreground">② 五官层</Label>
+                      <Label className="text-[10px] text-muted-foreground">② Lớp ngũ quan</Label>
                       <div className="grid grid-cols-2 gap-1">
                         <Input
                           value={identityAnchors.eyeShape || ''}
@@ -669,7 +669,7 @@ export function GenerationPanel({ selectedCharacter, onCharacterCreated }: Gener
                             setIdentityAnchors({ ...identityAnchors, eyeShape: e.target.value || undefined });
                             setIsManuallyModified(true);
                           }}
-                          placeholder="眼型"
+                          placeholder="Hình mắt"
                           className="h-7 text-[10px]"
                           disabled={isGenerating}
                         />
@@ -679,7 +679,7 @@ export function GenerationPanel({ selectedCharacter, onCharacterCreated }: Gener
                             setIdentityAnchors({ ...identityAnchors, noseShape: e.target.value || undefined });
                             setIsManuallyModified(true);
                           }}
-                          placeholder="鼻型"
+                          placeholder="Hình mũi"
                           className="h-7 text-[10px]"
                           disabled={isGenerating}
                         />
@@ -689,7 +689,7 @@ export function GenerationPanel({ selectedCharacter, onCharacterCreated }: Gener
                             setIdentityAnchors({ ...identityAnchors, lipShape: e.target.value || undefined });
                             setIsManuallyModified(true);
                           }}
-                          placeholder="唇型"
+                          placeholder="Hình môi"
                           className="h-7 text-[10px]"
                           disabled={isGenerating}
                         />
@@ -699,13 +699,13 @@ export function GenerationPanel({ selectedCharacter, onCharacterCreated }: Gener
                             setIdentityAnchors({ ...identityAnchors, eyeDetails: e.target.value || undefined });
                             setIsManuallyModified(true);
                           }}
-                          placeholder="眼部细节"
+                          placeholder="Chi tiết mắt"
                           className="h-7 text-[10px]"
                           disabled={isGenerating}
                         />
                       </div>
                       
-                      <Label className="text-[10px] text-muted-foreground">③ 辨识标记层（最强neo）</Label>
+                      <Label className="text-[10px] text-muted-foreground">③ Lớp dấu hiệu nhận dạng (neo mạnh nhất)</Label>
                       <Input
                         value={identityAnchors.uniqueMarks?.join(', ') || ''}
                         onChange={(e) => {
@@ -713,12 +713,12 @@ export function GenerationPanel({ selectedCharacter, onCharacterCreated }: Gener
                           setIdentityAnchors({ ...identityAnchors, uniqueMarks: marks.length > 0 ? marks : [] });
                           setIsManuallyModified(true);
                         }}
-                        placeholder="特征标记，用逗号ngăn cách"
+                        placeholder="Dấu hiệu đặc trưng, ngăn cách bằng dấu phẩy"
                         className="h-7 text-[10px]"
                         disabled={isGenerating}
                       />
                       
-                      <Label className="text-[10px] text-muted-foreground">④ 色彩neo层（Hex色值）</Label>
+                      <Label className="text-[10px] text-muted-foreground">④ Lớp neo màu sắc (giá trị Hex)</Label>
                       <div className="grid grid-cols-4 gap-1">
                         <div className="flex items-center gap-1">
                           <input
@@ -734,7 +734,7 @@ export function GenerationPanel({ selectedCharacter, onCharacterCreated }: Gener
                             className="w-6 h-6 rounded cursor-pointer"
                             disabled={isGenerating}
                           />
-                          <span className="text-[9px] text-muted-foreground">瞳</span>
+                          <span className="text-[9px] text-muted-foreground">Con ngươi</span>
                         </div>
                         <div className="flex items-center gap-1">
                           <input
@@ -750,7 +750,7 @@ export function GenerationPanel({ selectedCharacter, onCharacterCreated }: Gener
                             className="w-6 h-6 rounded cursor-pointer"
                             disabled={isGenerating}
                           />
-                          <span className="text-[9px] text-muted-foreground">发</span>
+                          <span className="text-[9px] text-muted-foreground">Tóc</span>
                         </div>
                         <div className="flex items-center gap-1">
                           <input
@@ -766,7 +766,7 @@ export function GenerationPanel({ selectedCharacter, onCharacterCreated }: Gener
                             className="w-6 h-6 rounded cursor-pointer"
                             disabled={isGenerating}
                           />
-                          <span className="text-[9px] text-muted-foreground">肤</span>
+                          <span className="text-[9px] text-muted-foreground">Da</span>
                         </div>
                         <div className="flex items-center gap-1">
                           <input
@@ -782,23 +782,23 @@ export function GenerationPanel({ selectedCharacter, onCharacterCreated }: Gener
                             className="w-6 h-6 rounded cursor-pointer"
                             disabled={isGenerating}
                           />
-                          <span className="text-[9px] text-muted-foreground">唇</span>
+                          <span className="text-[9px] text-muted-foreground">Môi</span>
                         </div>
                       </div>
                       
-                      <Label className="text-[10px] text-muted-foreground">⑤ 皮肤纹理层</Label>
+                      <Label className="text-[10px] text-muted-foreground">⑤ Lớp kết cấu da</Label>
                       <Input
                         value={identityAnchors.skinTexture || ''}
                         onChange={(e) => {
                           setIdentityAnchors({ ...identityAnchors, skinTexture: e.target.value || undefined });
                           setIsManuallyModified(true);
                         }}
-                        placeholder="皮肤纹理Mô tả"
+                        placeholder="Mô tả kết cấu da"
                         className="h-7 text-[10px]"
                         disabled={isGenerating}
                       />
                       
-                      <Label className="text-[10px] text-muted-foreground">⑥ 发型neo层</Label>
+                      <Label className="text-[10px] text-muted-foreground">⑥ Lớp neo kiểu tóc</Label>
                       <div className="grid grid-cols-2 gap-1">
                         <Input
                           value={identityAnchors.hairStyle || ''}
@@ -806,7 +806,7 @@ export function GenerationPanel({ selectedCharacter, onCharacterCreated }: Gener
                             setIdentityAnchors({ ...identityAnchors, hairStyle: e.target.value || undefined });
                             setIsManuallyModified(true);
                           }}
-                          placeholder="发型"
+                          placeholder="Kiểu tóc"
                           className="h-7 text-[10px]"
                           disabled={isGenerating}
                         />
@@ -816,7 +816,7 @@ export function GenerationPanel({ selectedCharacter, onCharacterCreated }: Gener
                             setIdentityAnchors({ ...identityAnchors, hairlineDetails: e.target.value || undefined });
                             setIsManuallyModified(true);
                           }}
-                          placeholder="发际线细节"
+                          placeholder="Chi tiết đường tóc"
                           className="h-7 text-[10px]"
                           disabled={isGenerating}
                         />
@@ -835,7 +835,7 @@ export function GenerationPanel({ selectedCharacter, onCharacterCreated }: Gener
                           setCharNegativePrompt({ ...charNegativePrompt, avoid: avoidList });
                           setIsManuallyModified(true);
                         }}
-                        placeholder="避免元素，用逗号ngăn cách"
+                        placeholder="Yếu tố tránh, ngăn cách bằng dấu phẩy"
                         className="h-7 text-[10px]"
                         disabled={isGenerating}
                       />
@@ -846,25 +846,25 @@ export function GenerationPanel({ selectedCharacter, onCharacterCreated }: Gener
                           setCharNegativePrompt({ ...charNegativePrompt, styleExclusions: exclusions.length > 0 ? exclusions : undefined });
                           setIsManuallyModified(true);
                         }}
-                        placeholder="Phong cách排除，用逗号ngăn cách"
+                        placeholder="Loại trừ phong cách, ngăn cách bằng dấu phẩy"
                         className="h-7 text-[10px]"
                         disabled={isGenerating}
                       />
                     </div>
                   )}
                   
-                  {/* 专业Prompt thị giác：根据Ngôn ngữ偏好只Hiển thị一种，Chỉnh sửa后Trực tiếp用于Tạo */}
+                  {/* Prompt thị giác chuyên nghiệp: chỉ hiện một loại theo Ngôn ngữ ưa thích, Chỉnh sửa xong Trực tiếp dùng để Tạo */}
                   {(() => {
                     const effectiveLang = promptLanguage || scriptProject?.promptLanguage || 'vi';
                     const showZh = effectiveLang === 'vi' || effectiveLang === 'vi+en';
                     const activePrompt = showZh ? visualPromptZh : visualPromptEn;
                     const setActivePrompt = showZh ? setVisualPromptZh : setVisualPromptEn;
-                    const langLabel = showZh ? 'đang xử lý...: '英文';
+                    const langLabel = showZh ? 'Tiếng Trung' : 'Tiếng Anh';
                     if (!activePrompt) return null;
                     return (
                       <div className="space-y-2 pt-2 border-t">
                         <Label className="text-[10px] text-muted-foreground">
-                          Prompt thị giác（{langLabel}，修改后Trực tiếp用于Tạo）
+                          Prompt thị giác ({langLabel}, sửa xong Trực tiếp dùng để Tạo)
                         </Label>
                         <Textarea
                           value={activePrompt}
@@ -1016,44 +1016,44 @@ export function GenerationPanel({ selectedCharacter, onCharacterCreated }: Gener
                     lines.push('');
                     lines.push('--- 6层身份neo ---');
                     
-                    // ① 骨相层
+                    // ① Lớp xương mặt
                     const boneFeatures = [identityAnchors.faceShape, identityAnchors.jawline, identityAnchors.cheekbones].filter(Boolean);
                     if (boneFeatures.length > 0) {
-                      lines.push(`① 骨相层: ${boneFeatures.join(', ')}`);
+                      lines.push(`① Lớp xương mặt: ${boneFeatures.join(', ')}`);
                     }
                     
-                    // ② 五官层
+                    // ② Lớp ngũ quan
                     const facialFeatures = [identityAnchors.eyeShape, identityAnchors.eyeDetails, identityAnchors.noseShape, identityAnchors.lipShape].filter(Boolean);
                     if (facialFeatures.length > 0) {
-                      lines.push(`② 五官层: ${facialFeatures.join(', ')}`);
+                      lines.push(`② Lớp ngũ quan: ${facialFeatures.join(', ')}`);
                     }
                     
-                    // ③ 辨识标记层
+                    // ③ Lớp dấu hiệu nhận dạng
                     if (identityAnchors.uniqueMarks && identityAnchors.uniqueMarks.length > 0) {
-                      lines.push(`③ 辨识标记层: ${identityAnchors.uniqueMarks.join(', ')}`);
+                      lines.push(`③ Lớp dấu hiệu nhận dạng: ${identityAnchors.uniqueMarks.join(', ')}`);
                     }
                     
-                    // ④ 色彩neo层
+                    // ④ Lớp neo màu sắc
                     if (identityAnchors.colorAnchors) {
                       const colors: string[] = [];
                       if (identityAnchors.colorAnchors.iris) colors.push(`瞳色:${identityAnchors.colorAnchors.iris}`);
                       if (identityAnchors.colorAnchors.hair) colors.push(`màu tóc:${identityAnchors.colorAnchors.hair}`);
-                      if (identityAnchors.colorAnchors.skin) colors.push(`肤色:${identityAnchors.colorAnchors.skin}`);
-                      if (identityAnchors.colorAnchors.lips) colors.push(`唇色:${identityAnchors.colorAnchors.lips}`);
+                      if (identityAnchors.colorAnchors.skin) colors.push(`Màu da:${identityAnchors.colorAnchors.skin}`);
+                      if (identityAnchors.colorAnchors.lips) colors.push(`Màu môi:${identityAnchors.colorAnchors.lips}`);
                       if (colors.length > 0) {
-                        lines.push(`④ 色彩neo层: ${colors.join(', ')}`);
+                        lines.push(`④ Lớp neo màu sắc: ${colors.join(', ')}`);
                       }
                     }
                     
-                    // ⑤ 皮肤纹理层
+                    // ⑤ Lớp kết cấu da
                     if (identityAnchors.skinTexture) {
-                      lines.push(`⑤ 皮肤纹理层: ${identityAnchors.skinTexture}`);
+                      lines.push(`⑤ Lớp kết cấu da: ${identityAnchors.skinTexture}`);
                     }
                     
-                    // ⑥ 发型neo层
+                    // ⑥ Lớp neo kiểu tóc
                     const hairFeatures = [identityAnchors.hairStyle, identityAnchors.hairlineDetails].filter(Boolean);
                     if (hairFeatures.length > 0) {
-                      lines.push(`⑥ 发型neo层: ${hairFeatures.join(', ')}`);
+                      lines.push(`⑥ Lớp neo kiểu tóc: ${hairFeatures.join(', ')}`);
                     }
                   }
                   
@@ -1169,7 +1169,7 @@ function buildPromptFromAnchors(
       const colors: string[] = [];
       if (anchors.colorAnchors.iris) colors.push(isZh ? `瞳色${anchors.colorAnchors.iris}` : `iris color ${anchors.colorAnchors.iris}`);
       if (anchors.colorAnchors.hair) colors.push(isZh ? `màu tóc${anchors.colorAnchors.hair}` : `hair color ${anchors.colorAnchors.hair}`);
-      if (anchors.colorAnchors.skin) colors.push(isZh ? `肤色${anchors.colorAnchors.skin}` : `skin tone ${anchors.colorAnchors.skin}`);
+      if (anchors.colorAnchors.skin) colors.push(isZh ? `Màu da${anchors.colorAnchors.skin}` : `skin tone ${anchors.colorAnchors.skin}`);
       if (colors.length > 0) {
         parts.push(colors.join(isZh ? '，' : ', '));
       }
@@ -1177,16 +1177,16 @@ function buildPromptFromAnchors(
   } else {
     // === Không có Ảnh tham chiếu：đầy đủ6层特征锁定 ===
 
-    // ① 骨相层
+    // ① Lớp xương mặt
     const boneFeatures: string[] = [];
     if (anchors.faceShape) boneFeatures.push(isZh ? `${anchors.faceShape}脸` : `${anchors.faceShape} face`);
     if (anchors.jawline) boneFeatures.push(isZh ? `${anchors.jawline}下颌` : `${anchors.jawline} jawline`);
-    if (anchors.cheekbones) boneFeatures.push(isZh ? `${anchors.cheekbones}颧骨` : `${anchors.cheekbones} cheekbones`);
+    if (anchors.cheekbones) boneFeatures.push(isZh ? `${anchors.cheekbones}Xương gò má` : `${anchors.cheekbones} cheekbones`);
     if (boneFeatures.length > 0) {
       parts.push(boneFeatures.join(isZh ? '，' : ', '));
     }
 
-    // ② 五官层
+    // ② Lớp ngũ quan
     const facialFeatures: string[] = [];
     if (anchors.eyeShape) facialFeatures.push(isZh ? `${anchors.eyeShape}眼` : `${anchors.eyeShape} eyes`);
     if (anchors.eyeDetails) facialFeatures.push(anchors.eyeDetails);
@@ -1196,34 +1196,34 @@ function buildPromptFromAnchors(
       parts.push(facialFeatures.join(isZh ? '，' : ', '));
     }
 
-    // ③ 辨识标记层
+    // ③ Lớp dấu hiệu nhận dạng
     if (anchors.uniqueMarks && anchors.uniqueMarks.length > 0) {
       parts.push(isZh ? `辨识标记：${anchors.uniqueMarks.join('、')}` : `distinctive marks: ${anchors.uniqueMarks.join(', ')}`);
     }
 
-    // ④ 色彩neo层
+    // ④ Lớp neo màu sắc
     if (anchors.colorAnchors) {
       const colors: string[] = [];
       if (anchors.colorAnchors.iris) colors.push(isZh ? `瞳色${anchors.colorAnchors.iris}` : `iris ${anchors.colorAnchors.iris}`);
       if (anchors.colorAnchors.hair) colors.push(isZh ? `màu tóc${anchors.colorAnchors.hair}` : `hair ${anchors.colorAnchors.hair}`);
-      if (anchors.colorAnchors.skin) colors.push(isZh ? `肤色${anchors.colorAnchors.skin}` : `skin ${anchors.colorAnchors.skin}`);
-      if (anchors.colorAnchors.lips) colors.push(isZh ? `唇色${anchors.colorAnchors.lips}` : `lips ${anchors.colorAnchors.lips}`);
+      if (anchors.colorAnchors.skin) colors.push(isZh ? `Màu da${anchors.colorAnchors.skin}` : `skin ${anchors.colorAnchors.skin}`);
+      if (anchors.colorAnchors.lips) colors.push(isZh ? `Màu môi${anchors.colorAnchors.lips}` : `lips ${anchors.colorAnchors.lips}`);
       if (colors.length > 0) {
         parts.push(isZh ? `色彩neo：${colors.join('，')}` : `color anchors: ${colors.join(', ')}`);
       }
     }
 
-    // ⑤ 皮肤纹理层
+    // ⑤ Lớp kết cấu da
     if (anchors.skinTexture) {
-      parts.push(isZh ? `皮肤纹理：${anchors.skinTexture}` : `skin texture: ${anchors.skinTexture}`);
+      parts.push(isZh ? `Kết cấu da：${anchors.skinTexture}` : `skin texture: ${anchors.skinTexture}`);
     }
 
-    // ⑥ 发型neo层
+    // ⑥ Lớp neo kiểu tóc
     const hairFeatures: string[] = [];
     if (anchors.hairStyle) hairFeatures.push(anchors.hairStyle);
     if (anchors.hairlineDetails) hairFeatures.push(anchors.hairlineDetails);
     if (hairFeatures.length > 0) {
-      parts.push(isZh ? `发型：${hairFeatures.join('，')}` : `hair: ${hairFeatures.join(', ')}`);
+      parts.push(isZh ? `Kiểu tóc：${hairFeatures.join('，')}` : `hair: ${hairFeatures.join(', ')}`);
     }
   }
 
@@ -1360,7 +1360,7 @@ function buildCharacterSheetPrompt(
   
   if (isRealistic) {
     return isZh
-      ? `${basePrompt}, ${contentPrompt}, 摄影Nhân vậtẢnh tham chiếu版式, 拼贴格式, ${whiteBackgroundPrompt}, ${styleTokens}, 电影级灯光, 高细节皮肤纹理, 照片写实`
+      ? `${basePrompt}, ${contentPrompt}, 摄影Nhân vậtẢnh tham chiếu版式, 拼贴格式, ${whiteBackgroundPrompt}, ${styleTokens}, 电影级灯光, 高细节Kết cấu da, 照片写实`
       : `${basePrompt}, ${contentPrompt}, photographic character reference layout, collage format, ${whiteBackgroundPrompt}, ${styleTokens}, cinematic lighting, highly detailed skin texture, photorealistic`;
   } else {
     return isZh

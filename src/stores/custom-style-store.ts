@@ -211,7 +211,7 @@ function inferCategoryFromPrompt(prompt: string): import('@/lib/constants/visual
     return 'real';
   }
   // đang xử lý...an trọng词：写实/真人/实景/电影级写实/实拍/胶片/剧照
-  if (/(写实|真人|实景|电影级|实拍|胶片|剧照|无\s?CGI|皮肤纹理|毛孔)/.test(prompt)) {
+  if (/(写实|真人|实景|电影级|实拍|胶片|剧照|无\s?CGI|Kết cấu da|毛孔)/.test(prompt)) {
     return 'real';
   }
   // 英文 3D quan trọng词
