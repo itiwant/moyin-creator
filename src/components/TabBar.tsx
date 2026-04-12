@@ -11,10 +11,13 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { ChevronLeft, LayoutDashboard, Settings, Sun, Moon, HelpCircle } from "lucide-react";
+import { useTranslation } from "@/i18n";
+import { LanguageSwitcher } from "@/components/ui/language-switcher";
 
 export function TabBar() {
   const { activeTab, inProject, setActiveTab, setInProject } = useMediaPanelStore();
   const { theme, toggleTheme } = useThemeStore();
+  const { t } = useTranslation("nav");
 
   // Dashboard mode
   if (!inProject) {
@@ -40,10 +43,10 @@ export function TabBar() {
                   )}
                 >
                   <LayoutDashboard className="h-5 w-5 mb-0.5" />
-                  <span className="text-[9px]">项目</span>
+                  <span className="text-[9px]">{t("project")}</span>
                 </button>
               </TooltipTrigger>
-              <TooltipContent side="right">项目仪表盘</TooltipContent>
+              <TooltipContent side="right">{t("project_dashboard")}</TooltipContent>
             </Tooltip>
           </TooltipProvider>
         </nav>
@@ -59,10 +62,10 @@ export function TabBar() {
                   className="w-full flex flex-col items-center py-2 text-muted-foreground hover:text-foreground transition-colors"
                 >
                   <HelpCircle className="h-4 w-4" />
-                  <span className="text-[8px]">帮助</span>
+                  <span className="text-[8px]">{t("help")}</span>
                 </a>
               </TooltipTrigger>
-              <TooltipContent side="right">使用帮助</TooltipContent>
+              <TooltipContent side="right">{t("use_help")}</TooltipContent>
             </Tooltip>
           </TooltipProvider>
           <TooltipProvider delayDuration={300}>
@@ -76,10 +79,10 @@ export function TabBar() {
                   )}
                 >
                   <Settings className="h-4 w-4" />
-                  <span className="text-[8px]">设置</span>
+                  <span className="text-[8px]">{t("settings")}</span>
                 </button>
               </TooltipTrigger>
-              <TooltipContent side="right">系统设置</TooltipContent>
+              <TooltipContent side="right">{t("system_settings")}</TooltipContent>
             </Tooltip>
           </TooltipProvider>
           {/* Theme Toggle */}
@@ -91,14 +94,18 @@ export function TabBar() {
                   className="w-full flex flex-col items-center py-2 text-muted-foreground hover:text-foreground transition-colors"
                 >
                   {theme === "dark" ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
-                  <span className="text-[8px]">{theme === "dark" ? "浅色" : "深色"}</span>
+                  <span className="text-[8px]">{theme === "dark" ? t("theme_light") : t("theme_dark")}</span>
                 </button>
               </TooltipTrigger>
               <TooltipContent side="right">
-                {theme === "dark" ? "切换到浅色模式" : "切换到深色模式"}
+                {theme === "dark" ? t("switch_to_light") : t("switch_to_dark")}
               </TooltipContent>
             </Tooltip>
           </TooltipProvider>
+          {/* Language Switcher */}
+          <div className="flex justify-center py-1">
+            <LanguageSwitcher />
+          </div>
         </div>
       </div>
     );
@@ -122,7 +129,7 @@ export function TabBar() {
                 <ChevronLeft className="h-4 w-4" />
               </button>
             </TooltipTrigger>
-            <TooltipContent side="right">返回项目列表</TooltipContent>
+            <TooltipContent side="right">{t("back_to_projects")}</TooltipContent>
           </Tooltip>
         </TooltipProvider>
       </div>
@@ -171,10 +178,10 @@ export function TabBar() {
                 className="w-full flex flex-col items-center py-2 text-muted-foreground hover:text-foreground transition-colors"
               >
                 <HelpCircle className="h-4 w-4" />
-                <span className="text-[8px]">帮助</span>
+                <span className="text-[8px]">{t("help")}</span>
               </a>
             </TooltipTrigger>
-            <TooltipContent side="right">使用帮助</TooltipContent>
+            <TooltipContent side="right">{t("use_help")}</TooltipContent>
           </Tooltip>
         </TooltipProvider>
         {bottomNavItems.map((item) => {
@@ -210,14 +217,18 @@ export function TabBar() {
                 className="w-full flex flex-col items-center py-2 text-muted-foreground hover:text-foreground transition-colors"
               >
                 {theme === "dark" ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
-                <span className="text-[8px]">{theme === "dark" ? "浅色" : "深色"}</span>
+                <span className="text-[8px]">{theme === "dark" ? t("theme_light") : t("theme_dark")}</span>
               </button>
             </TooltipTrigger>
             <TooltipContent side="right">
-              {theme === "dark" ? "切换到浅色模式" : "切换到深色模式"}
+              {theme === "dark" ? t("switch_to_light") : t("switch_to_dark")}
             </TooltipContent>
           </Tooltip>
         </TooltipProvider>
+        {/* Language Switcher */}
+        <div className="flex justify-center py-1">
+          <LanguageSwitcher />
+        </div>
       </div>
     </div>
   );
