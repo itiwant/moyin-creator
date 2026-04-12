@@ -91,7 +91,7 @@ export async function calibrateGroup(
     `【Ống kính${i + 1}】\n  ${summarizeScene(s, characters)}`
   ).join('\n\n');
 
-  const systemPrompt = `你是一位资深电影Đạo diễn兼剪辑师，擅长多Ống kínhtự sựvideo的节奏把控和tự sự连贯性tối ưu。
+  const systemPrompt = `你是一位资深电影Đạo diễn兼剪辑师，擅长多Ống kínhtự sựvideo的Nhịp điệu把控和tự sự连贯性tối ưu。
 
 【核心约束 — 严格执 hàng】
 1. 严格基于以下Ống kínhdữ liệu，不得ThêmKịch bảnđang xử lý...的Nhân vật、Cảnh或Thoại。

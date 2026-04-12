@@ -1822,7 +1822,7 @@ async function callAIForShotCalibration(
   visualFocus: string;        // Tiêu điểm thị giác：观众应该看什么
   cameraPosition: string;     // 机位Mô tả
   characterBlocking: string;  // nhân vậtbố cục
-  rhythm: string;             // 节奏Mô tả
+  rhythm: string;             // Nhịp điệuMô tả
   // === 拍摄控制trường ===
   lightingStyle?: string;
   lightingDirection?: string;
@@ -1954,7 +1954,7 @@ ${characterBios ? `
 12. Tiêu điểm thị giác (visualFocus): 观众应该按什么thứ tự看？用箭头表示
 13. 机位Mô tả (cameraPosition): 摄影机相对于nhân vật的位置
 14. nhân vậtbố cục (characterBlocking): nhân vật在画面đang xử lý...关系
-15. 节奏Mô tả (rhythm): 这镜头的节奏感
+15. Nhịp điệuMô tả (rhythm): 这镜头的Nhịp điệu感
 
 **拍摄控制trường（Cinematography Controls）：**
 16. 灯光风格 (lightingStyle): natural/high-key/low-key/silhouette/chiaroscuro/neon
@@ -1975,7 +1975,7 @@ ${characterBios ? `
 
 【3 lớp提示词系统 - 重要】
 
-【16. khung đầu提示词 (imagePrompt/imagePromptZh): 用于 AI 图像Tạo，Mô tả视频第一帧的đầy đủ静态画面
+【16. khung đầu提示词 (imagePrompt/imagePromptZh): 用于 AI 图像Tạo，Mô tả视频khung đầu tiên的đầy đủ静态画面
     **必须包含以下Tất cả元素**（缺一不可）：
     
     a) **场景环境**：
@@ -2018,7 +2018,7 @@ ${characterBios ? `
     - videoPromptZh: 纯中文
     - videoPrompt: 纯英文
 
-【18. khung cuối提示词 (endFramePrompt/endFramePromptZh): 用于 AI 图像Tạo，Mô tả视频最后一帧的đầy đủ静态画面
+【18. khung cuối提示词 (endFramePrompt/endFramePromptZh): 用于 AI 图像Tạo，Mô tả视频khung cuối cùng的đầy đủ静态画面
     
     **与khung đầu同等重要！必须包含以下Tất cả元素**（缺一不可）：
     
@@ -2184,7 +2184,7 @@ Thoại: ${shot.dialogue || '无'}
 
 🎬 **tự sựdẫn dắt分析（基于《电影Ngôn ngữ的语法》）**：
 - 根据「本 tậpđại cương」判断每镜头在整 tập故事đang xử lý...chức năng
-- 镜头Thiết kế必须服务于故事的情绪节奏和tự sựcung
+- 镜头Thiết kế必须服务于故事的情绪Nhịp điệu和tự sựcung
 - Kích thước cảnhChọn要配合tự sựchức năng（铺垫用全景、cao trào用Cực cận cảnh等）
 - 考虑nhân vậtbố cục和机位对故事sức căng的影响
 
@@ -2310,11 +2310,11 @@ export async function generateEpisodeSynopses(
       feature: 'script_analysis',
       buildPrompts: (batch) => {
         const { title, genre, era, worldSetting, themes, outline, characterBios, totalEpisodes: total } = globalContext;
-        const system = `你是好莱坞资深剧本医生(Script Doctor)，擅长分析剧本Cấu trúc和tự sự节奏。
+        const system = `你是好莱坞资深剧本医生(Script Doctor)，擅长分析剧本Cấu trúc和tự sựNhịp điệu。
 
 你的chuyên nghiệp能力：
 - 剧本Cấu trúc分析：能nhanh提炼每 tập的核心冲突、转折点和情感cao trào
-- tự sự节奏把控：理解不同类型剧 tập的节奏特点
+- tự sựNhịp điệu把控：理解不同类型剧 tập的Nhịp điệu特点
 - Sự kiện quan trọng提取：能准确识别推动剧情发展的quan trọng场景和动作
 
 你的任务是根据剧本全局背景和每 tập内容，为每 tậpTạo简洁的đại cương和Sự kiện quan trọng。

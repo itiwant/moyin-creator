@@ -286,7 +286,7 @@ async function generateCharacterData(
 - 老年人：传统休闲，常穿开衫、布鞋`;
       } else if (startYear >= 2000) {
         return `【${startYear}年代trang phục指导】
-- 年轻人：千禧年时尚，常穿紧身裤、Lỏng lẻo外套、板鞋
+- 年轻人：thiên niên kỷ时尚，常穿紧身裤、Lỏng lẻo外套、板鞋
 - đang xử lý...正式商务装，常穿西装套装、领带、皮鞋
 - 老年人：đang xử lý...简单开衫、布鞋`;
       } else if (startYear >= 1990) {

@@ -167,7 +167,7 @@ const SHOT_GENERATION_SYSTEM_PROMPT = `你是一chuyên nghiệp的分镜师/摄
    - Tracking(跟随), Crane(Nâng hạ), Handheld(Cầm tay), Zoom In/Out(Zoom)
 4. 【Mô tả thị giác】visualDescription 要像写电影文学剧本，详细Mô tả：
    - 场景光影（如"黑暗đang xử lý...芒笼罩"）
-   - 角色状态（如"身穿明黄色八卦袝，身姿矫健"）
+   - 角色状态（如"身穿明vàng八卦袝，身姿矫健"）
    - 气氛营造（如"căng thẳng的对峰气氛"）
    - 具体动作（如"镜头缓缓推进"）
 5. 【音频Thiết kế】每镜头都要考虑：
@@ -934,7 +934,7 @@ export async function generateScriptFromIdea(
     // Tham chiếu：每镜头约2-5秒
     const minShots = Math.max(2, Math.ceil(durationSeconds / 5));
     const maxShots = Math.max(3, Math.ceil(durationSeconds / 2));
-    durationGuidance = `\n- thời lượngTham chiếu：${durationSeconds}秒视频通常包含 ${minShots}-${maxShots} 分镜，请根据内容需要自行把握节奏`;
+    durationGuidance = `\n- thời lượngTham chiếu：${durationSeconds}秒视频通常包含 ${minShots}-${maxShots} 分镜，请根据内容需要自行把握Nhịp điệu`;
   }
 
   // 检测输入类型

@@ -175,7 +175,7 @@ export function SettingsPanel() {
       const model = b.slice(idx + 1);
       const p = providers.find(pv => pv.id === ref || pv.platform === ref);
       if (!p || parseApiKeys(p.apiKey).length === 0) return false;
-      // Model cột表为空时（尚未同步）暂时信任绑定
+      // Model cột表为空时（chưa同步）暂时信任绑定
       if (p.model.length === 0) return true;
       return p.model.includes(model);
     };

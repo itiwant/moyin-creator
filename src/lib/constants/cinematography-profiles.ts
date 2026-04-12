@@ -277,7 +277,7 @@ const STYLIZED_PROFILES: CinematographyProfile[] = [
     defaultSpeed: { playbackSpeed: 'normal' },
     defaultAngle: 'low-angle',
     defaultFocalLength: '24mm',
-    promptGuidance: '恐怖片的摄影原则是「隐藏比Hiển thị更可怕」——浅景深让背景模糊成未知的威胁，浓雾遮蔽视野制造不安。底光让Khuôn mặt出现不自然的阴影，Cầm tay极慢移动制造潜 hàng感。quan trọng时刻突然nhanh甩镜，打破之前的缓慢节奏。',
+    promptGuidance: '恐怖片的摄影原则是「隐藏比Hiển thị更可怕」——浅景深让背景模糊成未知的威胁，浓雾遮蔽视野制造不安。底光让Khuôn mặt出现不自然的阴影，Cầm tay极慢移动制造潜 hàng感。quan trọng时刻突然nhanh甩镜，打破之前的缓慢Nhịp điệu。',
     referenceFilms: ['闪灵', '遗传厄运', '招魂', '午夜凶铃'],
   },
   {

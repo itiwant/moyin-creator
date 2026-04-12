@@ -1034,7 +1034,7 @@ ${promptLanguage === 'zh' ? `【核心输出：6层身份neo】
 这是AI生图đang xử lý...色一致性的quan trọng技术，必须用đang xử lý...填写：
 
 ① Lớp xương mặt（Khuôn mặt骨骼Cấu trúc）
-   - faceShape: Hình mặt（鹅蛋形/方形/心形/圆形/菱形/长圆形）
+   - faceShape: Hình mặt（鹅蛋形/方形/心形/tròn/菱形/长tròn）
    - jawline: Đường hàm（棱角分明/柔和圆润/突出方正）
    - cheekbones: Xương gò má（高Xương gò má/不明显/宽Xương gò má）
 
@@ -1114,7 +1114,7 @@ ${promptLanguage === 'zh' ? `【核心输出：6层身份neo】
 ${promptLanguage === 'zh' ? '  "visualPromptZh": "đang xử lý...提示词",' : promptLanguage === 'en' ? '  "visualPromptEn": "English visual prompt, 40-60 words",' : '  "visualPromptEn": "English visual prompt, 40-60 words",\n  "visualPromptZh": "đang xử lý...提示词",'}
   "clothingStyle": "符合年代的trang phục风格",
   "identityAnchors": {
-${promptLanguage === 'zh' ? `    "faceShape": "长圆形",
+${promptLanguage === 'zh' ? `    "faceShape": "长tròn",
     "jawline": "柔和圆润，略带宽度",
     "cheekbones": "不明显",
     "eyeShape": "杏仁形，略下垂",

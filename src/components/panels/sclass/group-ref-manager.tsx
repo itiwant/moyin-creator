@@ -8,7 +8,7 @@
  *
  * chức năng：
  * - Tự động收 tập：Nhân vậtẢnh tham chiếu、CảnhẢnh tham chiếu、Khung hình đầuảnh → 只读Hiển thị
- * - Thủ côngTải lên：videotham chiếu（运镜/Hành động复刻）、âm thanhtham chiếu（节奏/BGM）
+ * - Thủ côngTải lên：videotham chiếu（运镜/Hành động复刻）、âm thanhtham chiếu（Nhịp điệu/BGM）
  * - hạn mức条：≤9 ảnh + ≤3 video + ≤3 âm thanh，Tổng ≤12
  * - Xóađã tải lên的video/âm thanhtham chiếu
  *

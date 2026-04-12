@@ -83,7 +83,7 @@ export function DirectorContextPanel() {
   // 从Kịch bảnThêm phân cảnh时，同步Kịch bảnPhong cách到Đạo diễnpanel的 storyboardConfig
   const addScenesAndSyncStyle: typeof addScenesFromScript = useCallback((scenes) => {
     addScenesFromScript(scenes);
-    // 如果Đạo diễnpanel尚未Cài đặt visualStyleId，从Kịch bản项目kế thừa
+    // 如果Đạo diễnpanelchưaCài đặt visualStyleId，从Kịch bản项目kế thừa
     const directorStyleId = projectData?.storyboardConfig?.visualStyleId;
     if (!directorStyleId && scriptProject?.styleId) {
       const style = getStyleById(scriptProject.styleId);

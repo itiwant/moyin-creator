@@ -159,7 +159,7 @@ export function buildVideoPrompt(
     if (token) cameraDesignParts.push(token);
   }
 
-  // 1.5 节奏修饰
+  // 1.5 Nhịp điệu修饰
   if (scene.rhythm?.trim()) {
     cameraDesignParts.push(`${scene.rhythm.trim()} rhythm`);
   }

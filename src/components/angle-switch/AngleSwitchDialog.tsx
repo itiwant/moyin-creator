@@ -5,7 +5,7 @@
 
 /**
  * Angle Switch Dialog - 可视化版
- * Chuyển góc nhìnChọn器 - Sử dụng圆形轨道控制器
+ * Chuyển góc nhìnChọn器 - Sử dụngtròn轨道控制器
  */
 
 import { useState, useCallback } from "react";

@@ -11,7 +11,7 @@
  * - cinematic  → 直通，保留Tất cả物理摄影词汇
  * - animation  → 虚拟摄像机语义适配（轨道→视差平移、景深→层次模糊）
  * - stop-motion → 微缩实拍约束（轨道→微型滑轨、景深→微距镜头）
- * - graphic    → 跳过物理参数，灯光→色彩/情绪/节奏Mô tả
+ * - graphic    → 跳过物理参数，灯光→色彩/情绪/Nhịp điệuMô tả
  */
 
 import type { MediaType } from '@/lib/constants/visual-styles';
@@ -152,7 +152,7 @@ const GRAPHIC_TABLE: MediaTranslationTable = {
     'blue-hour':   'twilight blue-purple cast,',
     mixed:         'mixed warm and cool accents,',
   },
-  // 播放速度 → 节奏Mô tả
+  // 播放速度 → Nhịp điệuMô tả
   playbackSpeed: {
     'slow-motion-4x': 'slow deliberate pacing,',
     'slow-motion-2x': 'slow pacing,',

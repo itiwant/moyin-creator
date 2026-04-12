@@ -585,17 +585,17 @@ export function PropertyPanel({
         lines.push(`nhân vậtbố cục: ${(shot as any).characterBlocking}`);
       }
       if ((shot as any).rhythm) {
-        lines.push(`节奏: ${(shot as any).rhythm}`);
+        lines.push(`Nhịp điệu: ${(shot as any).rhythm}`);
       }
       lines.push('');
     }
 
     if (!hasTri) {
-      lines.push('⚠️ 该Phân cảnh尚未Tạo3 lớpprompt，请先执 hàng"Hiệu chuẩn phân cảnh AI"。');
+      lines.push('⚠️ Phân cảnh này chưa Tạo 3 lớp prompt, vui lòng thực hiện "Hiệu chuẩn phân cảnh AI" trước.');
     } else {
       // ===== khung đầuprompt =====
       lines.push('───────────────────────────────────────');
-      lines.push('【khung đầuprompt】用于Tạo video的第一帧Hình ảnh');
+      lines.push('【Prompt khung đầu】Dùng để Tạo Hình ảnh khung đầu tiên của video');
       lines.push('───────────────────────────────────────');
       if (promptLanguage !== 'en' && shot.imagePromptZh) {
         lines.push(`Tiếng Trung: ${shot.imagePromptZh}`);
@@ -608,13 +608,13 @@ export function PropertyPanel({
         (promptLanguage === 'en' && !shot.imagePrompt) ||
         (promptLanguage === 'zh+en' && !shot.imagePrompt && !shot.imagePromptZh)
       ) {
-        lines.push('(未Tạo)');
+        lines.push('(Chưa tạo)');
       }
       lines.push('');
 
       // ===== Videoprompt =====
       lines.push('───────────────────────────────────────');
-      lines.push('【Videoprompt】用于图生Video，Mô tảHành động和运动');
+      lines.push('【Prompt Video】Dùng cho Tạo video từ ảnh, Mô tả Hành động và chuyển động');
       lines.push('───────────────────────────────────────');
       if (promptLanguage !== 'en' && shot.videoPromptZh) {
         lines.push(`Tiếng Trung: ${shot.videoPromptZh}`);
@@ -627,16 +627,16 @@ export function PropertyPanel({
         (promptLanguage === 'en' && !shot.videoPrompt) ||
         (promptLanguage === 'zh+en' && !shot.videoPrompt && !shot.videoPromptZh)
       ) {
-        lines.push('(未Tạo)');
+        lines.push('(Chưa tạo)');
       }
       lines.push('');
 
       // ===== khung cuốiprompt =====
       lines.push('───────────────────────────────────────');
-      lines.push('【khung cuốiprompt】用于Tạo video的最后一帧（如需要）');
+      lines.push('【Prompt khung cuối】Dùng để Tạo khung cuối cùng của video (nếu cần)');
       lines.push('───────────────────────────────────────');
       if (shot.needsEndFrame) {
-        lines.push('需要khung cuối: ✓ 是');
+        lines.push('Cần khung cuối: ✓ Có');
         if (promptLanguage !== 'en' && shot.endFramePromptZh) {
           lines.push(`Tiếng Trung: ${shot.endFramePromptZh}`);
         }
@@ -648,10 +648,10 @@ export function PropertyPanel({
           (promptLanguage === 'en' && !shot.endFramePrompt) ||
           (promptLanguage === 'zh+en' && !shot.endFramePrompt && !shot.endFramePromptZh)
         ) {
-          lines.push('(未Tạo)');
+          lines.push('(Chưa tạo)');
         }
       } else {
-        lines.push('需要khung cuối: ✗ 否（此Phân cảnh不需要单独的khung cuối）');
+        lines.push('Cần khung cuối: ✗ Không (Phân cảnh này không cần khung cuối riêng)');
       }
     }
 
@@ -751,7 +751,7 @@ export function PropertyPanel({
             </div>
             <div className="flex-1">
               <h3 className="font-medium">Tập {episode.index}</h3>
-              <p className="text-sm text-muted-foreground">{episode.title.replace(/^第\d+ tập[：:]？/, '')}</p>
+              <p className="text-sm text-muted-foreground">{episode.title.replace(/^Tập\d+[：:?]？?/, '')}</p>
             </div>
           </div>
 
@@ -797,7 +797,7 @@ export function PropertyPanel({
               Tập này có <span className="font-medium text-primary">{episode.scenes?.length || 0}</span> cảnh
             </div>
             <div className="text-xs text-muted-foreground mt-1">
-              Phân cảnh状态：{episode.shotGenerationStatus === 'completed' ? '✅ 已Tạo' : 
+              Trạng thái Phân cảnh: {episode.shotGenerationStatus === 'completed' ? '✅ Đã tạo' : 
                 episode.shotGenerationStatus === 'generating' ? '⏳ Đang tạo...' : '⏹ 未Tạo'}
             </div>
           </div>

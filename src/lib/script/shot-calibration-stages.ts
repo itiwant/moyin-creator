@@ -203,7 +203,7 @@ ${contextLine}${narrativeAnchorBlock}${episodeSynopsis ? `\n\n【本 tậpđại
 - visualFocus: Tiêu điểm thị giácthứ tự（用→表示）
 - cameraPosition: 机位Mô tả（中文）
 - characterBlocking: nhân vậtbố cục（中文）
-- rhythm: 节奏感（中文）
+- rhythm: Nhịp điệu感（中文）
 
 格式：{"shots":{"shot_id":{...}}}`;
 
@@ -290,7 +290,7 @@ ${s2VisualPromptRule}
           s.eraDetails ? `thời đại:${s.eraDetails}` : '',
           s.lightingDesign ? `光影:${s.lightingDesign}` : '',
         ].filter(Boolean);
-        return `ID: ${s.shotId}\n场景: ${s.sceneLocation} | 时间: ${s.sceneTime}${s.sceneWeather ? ` | 天气:${s.sceneWeather}` : ''}\nKích thước cảnh: ${prev.shotSize || '?'} | 运动: ${prev.cameraMovement || '?'} | 节奏: ${prev.rhythm || '?'}\nMô tả thị giác: ${prev.visualDescription || '?'}${artParts.length ? `\n场景美术: ${artParts.join(' | ')}` : ''}`;
+        return `ID: ${s.shotId}\n场景: ${s.sceneLocation} | 时间: ${s.sceneTime}${s.sceneWeather ? ` | 天气:${s.sceneWeather}` : ''}\nKích thước cảnh: ${prev.shotSize || '?'} | 运动: ${prev.cameraMovement || '?'} | Nhịp điệu: ${prev.rhythm || '?'}\nMô tả thị giác: ${prev.visualDescription || '?'}${artParts.length ? `\n场景美术: ${artParts.join(' | ')}` : ''}`;
       }).join('\n\n---\n\n');
       return { system: s3System, user: `请确定拍摄参数：\n\n${userShots}` };
     }, 200, 4096);

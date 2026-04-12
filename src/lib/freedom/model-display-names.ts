@@ -87,7 +87,7 @@ export const MODEL_DISPLAY_NAMES: Record<string, string> = {
   'mj-pan': 'Midjourney 平移扩展',
   'mj-upscale': 'Midjourney 放大',
   'mj-variation': 'Midjourney 变体',
-  'mj-zoom': 'Midjourney 缩放',
+  'mj-zoom': 'Midjourney Thu phóng',
   'mj_imagine': 'Midjourney 绘图',
   'mj_blend': 'Midjourney 混合chế độ',
   'mj_describe': 'Midjourney 图片Mô tả',

@@ -7,8 +7,8 @@
  * AngleController - Google Earth Phong cách 3D Góc nhìn控制器
  * 
  * 交互升级：
- * - 鼠标拖拽：控制旋转（水平/俯仰）
- * - 鼠标滚轮：控制缩放（Kích thước cảnh）
+ * - 鼠标Kéo：控制Xoay（水平/俯仰）
+ * - 鼠标Lăn：控制Thu phóng（Kích thước cảnh）
  * - 磁吸效果：接近标准角度时Tự động吸附，解决"太丝滑"问题
  */
 
@@ -162,7 +162,7 @@ export function AngleController({
     return { theta: snappedTheta, phi: snappedPhi };
   }, [direction, elevation, shotSize, onAngleChange]);
 
-  // 处理拖拽 (Orbit Rotation)
+  // 处理Kéo (Orbit Rotation)
   const handleDrag = useCallback((clientX: number, clientY: number) => {
     const deltaX = clientX - lastMousePos.x;
     const deltaY = clientY - lastMousePos.y;
@@ -183,7 +183,7 @@ export function AngleController({
     );
   }, [lastMousePos, theta, phi, shotSize, snapToGrid]);
 
-  // 处理滚轮 (Zoom) - Sử dụng ref 回调来Tránh passive event listener 问题
+  // 处理Lăn (Zoom) - Sử dụng ref 回调来Tránh passive event listener 问题
   const handleWheelRef = useRef<(e: WheelEvent) => void>();
   handleWheelRef.current = (e: WheelEvent) => {
     e.stopPropagation();
@@ -378,7 +378,7 @@ export function AngleController({
                   }} 
                 />
                 
-                {/* 3D厚度/边框效果 */}
+                {/* Hiệu ứng độ dày/viền 3D */}
                 <div 
                   className="absolute inset-0 rounded-[8px] border border-white/20 pointer-events-none"
                   style={{ transform: 'translateZ(1px)' }}
@@ -392,14 +392,14 @@ export function AngleController({
           </div>
         </div>
 
-        {/* 3. 外围chỉ thị器层 */}
+        {/* 3. Lớp chỉ thị ngoại vi */}
         
-        {/* 圆形轨道 */}
+        {/* Quỹ đạo tròn */}
         <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
           <div className="absolute rounded-full border border-white/10" style={{ width: radius * 2, height: radius * 2 }} />
         </div>
 
-        {/* 8方向LED灯 */}
+        {/* 8 đèn LED hướng */}
         <div className="absolute inset-0 pointer-events-none">
           {HORIZONTAL_DIRECTIONS.map((dir, i) => {
             const deg = (i * 45 - 90) * (Math.PI / 180);
@@ -419,7 +419,7 @@ export function AngleController({
           })}
         </div>
 
-        {/* 激光连接线 */}
+        {/* Đường kết nối laser */}
         <svg className="absolute inset-0 pointer-events-none" width={size} height={size}>
            <line
             x1={projectedController.x} y1={projectedController.y}
@@ -431,7 +431,7 @@ export function AngleController({
           />
         </svg>
 
-        {/* 黄色控制点 (现在作为chỉ thị器 + 辅助手柄) */}
+        {/* Điểm điều khiển vàng (hiện dùng làm chỉ thị + tay cầm phụ) */}
         <div
           className={cn(
             "absolute z-20 transition-transform duration-75",
@@ -452,7 +452,7 @@ export function AngleController({
           </div>
         </div>
         
-        {/* Đang tảiGhi đè层 */}
+        {/* Lớp Ghi đè khi đang tải */}
         {isLoading && (
           <div className="absolute inset-0 flex items-center justify-center bg-black/60 z-50">
             <div className="w-8 h-8 border-2 border-[#ccff00] border-t-transparent rounded-full animate-spin" />
@@ -460,7 +460,7 @@ export function AngleController({
         )}
       </div>
 
-      {/* phía dưới信息栏 */}
+      {/* Thanh thông tin phía dưới */}
       <div className="flex items-center gap-2 px-3 py-1.5 bg-[#1a1a1a] rounded-full border border-white/5 shadow-lg">
         <span className="text-[10px] text-[#ccff00] font-mono">
           {getAngleLabel(direction, elevation, shotSize)}
@@ -481,7 +481,7 @@ export function AngleController({
       
       {!compact && (
         <div className="text-[9px] text-zinc-500 font-mono">
-          [拖拽] 旋转 · [滚轮] 缩放
+          [Kéo] Xoay · [Lăn] Thu phóng
         </div>
       )}
     </div>

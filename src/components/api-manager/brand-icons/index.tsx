@@ -32,7 +32,7 @@ export function getBrandIcon(brandId: string, size = 16): ReactNode {
   const iconFn = ALL_ICONS[brandId];
   if (iconFn) return iconFn(size);
 
-  // Fallback: 首字母彩色圆形
+  // Fallback: 首字母彩色tròn
   const brand = BRAND_REGISTRY[brandId];
   const letter = (brand?.displayName || brandId || "?")[0].toUpperCase();
   const color = brand?.color || "#6B7280";

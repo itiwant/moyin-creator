@@ -16,7 +16,7 @@ export type StyleCategory = '3d' | '2d' | 'real' | 'stop_motion';
  * - cinematic: đầy đủ物理摄影词汇（真人/写实3D）
  * - animation: 动画运镜适配（2D动画/风格化3D）
  * - stop-motion: 微缩实拍约束（定格动画）
- * - graphic: 仅色彩/情绪/节奏（像素/水彩/简笔画等高度抽象风格）
+ * - graphic: 仅色彩/情绪/Nhịp điệu（像素/水彩/简笔画等高度抽象风格）
  */
 export type MediaType = 'cinematic' | 'animation' | 'stop-motion' | 'graphic';
 

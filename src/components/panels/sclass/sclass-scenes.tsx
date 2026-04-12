@@ -136,7 +136,7 @@ export function SClassScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
   const [selectedHistoryIndex, setSelectedHistoryIndex] = useState(-1);
   const [isAngleSwitching, setIsAngleSwitching] = useState(false);
   
-  // 提取video最后一帧Trạng thái
+  // 提取videokhung cuối cùngTrạng thái
   const [isExtractingFrame, setIsExtractingFrame] = useState(false);
 
   // Lưới 4 ôTrạng thái
@@ -500,7 +500,7 @@ export function SClassScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
     setIsExtractingFrame(true);
     
     try {
-      // 提取最后一帧
+      // 提取khung cuối cùng
       const lastFrameBase64 = await extractLastFrameFromVideo(scene.videoUrl, 0.1);
       if (!lastFrameBase64) {
         toast.error('Trích xuất khung hình thất bại');
@@ -1638,7 +1638,7 @@ export function SClassScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
       });
       toast.success(`Phân cảnh ${sceneId + 1} Tạo video hoàn tất, đã lưu vào thư viện phương tiện`);
       
-      // 视觉连续性：仅当Phân cảnhBắt buộc Khung hình cuối时，提取video最后一帧
+      // 视觉连续性：仅当Phân cảnhBắt buộc Khung hình cuối时，提取videokhung cuối cùng
       const currentScene = splitScenes.find(s => s.id === sceneId);
       const shouldExtractEndFrame = currentScene?.needsEndFrame && !currentScene?.endFrameImageUrl;
       
@@ -1990,7 +1990,7 @@ export function SClassScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
     const base = scene.imagePromptZh?.trim() || scene.imagePrompt?.trim() || scene.videoPromptZh?.trim() || scene.videoPrompt?.trim() || '';
     const shot = allowedShotFromSize(scene.shotSize);
     const vertical = aspect === '9:16' ? 'vertical composition, tighter framing, avoid letterboxing, ' : '';
-    // Tắt相机运动与节奏，仅保留Góc nhìn/Kích thước cảnh/bố cục
+    // Tắt相机运动与Nhịp điệu，仅保留Góc nhìn/Kích thước cảnh/bố cục
     const cameraPart = `${angle}, ${shot}`;
     const anchor = buildAnchorPhrase(styleTokens);
     const style = styleTokens && styleTokens.length > 0 ? ` Style: ${styleTokens.join(', ')}` : '';

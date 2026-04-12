@@ -134,7 +134,7 @@ export interface ShotGroup {
   mergedPrompt: string;
   /** Tạo的video URL */
   videoUrl: string | null;
-  /** videothư viện phương tiện ID（用于拖拽到Thời gian线） */
+  /** videothư viện phương tiện ID（用于Kéo到Thời gian线） */
   videoMediaId: string | null;
   /** Tạo videoTrạng thái */
   videoStatus: VideoGenStatus;

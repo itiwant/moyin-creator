@@ -428,7 +428,7 @@ export async function callVideoGenerationApi(
   videoResolution?: '480p' | '720p' | '1080p',
   /** Seedance 2.0: videotham chiếu URL  cột表 (运镜/Hành động复刻) */
   videoRefs?: string[],
-  /** Seedance 2.0: âm thanhtham chiếu URL  cột表 (节奏/BGM) */
+  /** Seedance 2.0: âm thanhtham chiếu URL  cột表 (Nhịp điệu/BGM) */
   audioRefs?: string[],
   /** Seedance 2.0: 是否Tạoâm thanh（Mặc định true） */
   enableAudio?: boolean,

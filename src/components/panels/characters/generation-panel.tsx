@@ -1162,7 +1162,7 @@ function buildPromptFromAnchors(
   if (hasReferenceImages) {
     // === 有Ảnh tham chiếu：只Sử dụng最强neo ===
     if (anchors.uniqueMarks && anchors.uniqueMarks.length > 0) {
-      parts.push(isZh ? `辨识标记：${anchors.uniqueMarks.join('、')}` : `distinctive marks: ${anchors.uniqueMarks.join(', ')}`);
+      parts.push(isZh ? `Dấu hiệu nhận dạng: ${anchors.uniqueMarks.join(', ')}` : `distinctive marks: ${anchors.uniqueMarks.join(', ')}`);
     }
 
     if (anchors.colorAnchors) {
@@ -1179,8 +1179,8 @@ function buildPromptFromAnchors(
 
     // ① Lớp xương mặt
     const boneFeatures: string[] = [];
-    if (anchors.faceShape) boneFeatures.push(isZh ? `${anchors.faceShape}脸` : `${anchors.faceShape} face`);
-    if (anchors.jawline) boneFeatures.push(isZh ? `${anchors.jawline}下颌` : `${anchors.jawline} jawline`);
+    if (anchors.faceShape) boneFeatures.push(isZh ? `Mặt ${anchors.faceShape}` : `${anchors.faceShape} face`);
+    if (anchors.jawline) boneFeatures.push(isZh ? `Hàm ${anchors.jawline}` : `${anchors.jawline} jawline`);
     if (anchors.cheekbones) boneFeatures.push(isZh ? `${anchors.cheekbones}Xương gò má` : `${anchors.cheekbones} cheekbones`);
     if (boneFeatures.length > 0) {
       parts.push(boneFeatures.join(isZh ? '，' : ', '));
@@ -1188,7 +1188,7 @@ function buildPromptFromAnchors(
 
     // ② Lớp ngũ quan
     const facialFeatures: string[] = [];
-    if (anchors.eyeShape) facialFeatures.push(isZh ? `${anchors.eyeShape}眼` : `${anchors.eyeShape} eyes`);
+    if (anchors.eyeShape) facialFeatures.push(isZh ? `Mắt ${anchors.eyeShape}` : `${anchors.eyeShape} eyes`);
     if (anchors.eyeDetails) facialFeatures.push(anchors.eyeDetails);
     if (anchors.noseShape) facialFeatures.push(anchors.noseShape);
     if (anchors.lipShape) facialFeatures.push(anchors.lipShape);
@@ -1198,7 +1198,7 @@ function buildPromptFromAnchors(
 
     // ③ Lớp dấu hiệu nhận dạng
     if (anchors.uniqueMarks && anchors.uniqueMarks.length > 0) {
-      parts.push(isZh ? `辨识标记：${anchors.uniqueMarks.join('、')}` : `distinctive marks: ${anchors.uniqueMarks.join(', ')}`);
+      parts.push(isZh ? `Dấu hiệu nhận dạng: ${anchors.uniqueMarks.join(', ')}` : `distinctive marks: ${anchors.uniqueMarks.join(', ')}`);
     }
 
     // ④ Lớp neo màu sắc
@@ -1209,7 +1209,7 @@ function buildPromptFromAnchors(
       if (anchors.colorAnchors.skin) colors.push(isZh ? `Màu da${anchors.colorAnchors.skin}` : `skin ${anchors.colorAnchors.skin}`);
       if (anchors.colorAnchors.lips) colors.push(isZh ? `Màu môi${anchors.colorAnchors.lips}` : `lips ${anchors.colorAnchors.lips}`);
       if (colors.length > 0) {
-        parts.push(isZh ? `色彩neo：${colors.join('，')}` : `color anchors: ${colors.join(', ')}`);
+        parts.push(isZh ? `Màu neo: ${colors.join(', ')}` : `color anchors: ${colors.join(', ')}`);
       }
     }
 
@@ -1270,11 +1270,11 @@ function buildCharacterSheetPrompt(
   let eraPrompt = '';
   if (storyYear) {
     if (lang === 'vi') {
-      if (storyYear >= 2020) eraPrompt = `${storyYear}年代当代đang xử lý...，现代休闲风`;
-      else if (storyYear >= 2010) eraPrompt = `${storyYear}年代đang xử lý...，韩风影响`;
-      else if (storyYear >= 2000) eraPrompt = `2000年代初期đang xử lý...，千禧年trang phục`;
-      else if (storyYear >= 1990) eraPrompt = `1990年代đang xử lý...，转型期trang phục`;
-      else if (storyYear >= 1980) eraPrompt = `1980年代đang xử lý...，改革开放时期trang phục`;
+      if (storyYear >= 2020) eraPrompt = `${storyYear}s contemporary style, modern casual fashion`;
+      else if (storyYear >= 2010) eraPrompt = `${storyYear}s fashion, Korean influence`;
+      else if (storyYear >= 2000) eraPrompt = `early 2000s style, millennium fashion`;
+      else if (storyYear >= 1990) eraPrompt = `1990s style, transitional era fashion`;
+      else if (storyYear >= 1980) eraPrompt = `1980s style, reform and opening-up era fashion`;
       else eraPrompt = `${storyYear}年代đang xử lý...ang phụcPhong cách`;
     } else {
       if (storyYear >= 2020) eraPrompt = `${storyYear}s contemporary Chinese fashion, modern casual style`;

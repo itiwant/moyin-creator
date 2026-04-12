@@ -505,7 +505,7 @@ export interface Shot {
   visualFocus?: string;         // Tiêu điểm thị giác：观众应该看什么（按thứ tự）
   cameraPosition?: string;      // 机位Mô tả：摄影机相对于nhân vật的位置
   characterBlocking?: string;   // nhân vậtbố cục：nhân vật在hình ảnhđang xử lý...关系
-  rhythm?: string;              // 节奏Mô tả：这镜头的节奏感
+  rhythm?: string;              // Nhịp điệuMô tả：这镜头的Nhịp điệu感
 
   // === 灯光师 (Gaffer) ===
   lightingStyle?: LightingStyle;           // 灯光风格预设

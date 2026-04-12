@@ -112,7 +112,7 @@ export interface SplitSceneCardProps {
   onAngleSwitch?: (sceneId: number, type: "start" | "end") => void;
   // Lưới 4 ô回调
   onQuadGrid?: (sceneId: number, type: "start" | "end") => void;
-  // 提取video最后一帧回调
+  // 提取videokhung cuối cùng回调
   onExtractVideoLastFrame?: (sceneId: number) => void;
   // Dừng tạo回调
   onStopImageGeneration?: (sceneId: number) => void;
