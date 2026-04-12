@@ -27,7 +27,7 @@ export function GenerationHistory({ type, onSelect, className }: GenerationHisto
     return (
       <div className={cn('flex flex-col items-center justify-center h-full text-muted-foreground', className)}>
         <Clock className="h-8 w-8 mb-2 opacity-40" />
-        <p className="text-sm">暂无生成记录</p>
+        <p className="text-sm">Chưa cóTạo记录</p>
       </div>
     );
   }
@@ -77,7 +77,7 @@ export function GenerationHistory({ type, onSelect, className }: GenerationHisto
                 <p className="text-xs text-muted-foreground truncate">{entry.model}</p>
                 <p className="text-xs mt-0.5 line-clamp-2">{entry.prompt}</p>
                 <p className="text-[10px] text-muted-foreground mt-1">
-                  {new Date(entry.createdAt).toLocaleString('zh-CN', {
+                  {new Date(entry.createdAt).toLocaleString('vi-VN', {
                     month: '2-digit',
                     day: '2-digit',
                     hour: '2-digit',

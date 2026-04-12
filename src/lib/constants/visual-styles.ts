@@ -26,9 +26,9 @@ export interface StylePreset {
   category: StyleCategory;
   /** 媒介类型 — 控制摄影参数翻译策略 */
   mediaType: MediaType;
-  /** 英文提示词 */
+  /** 英文prompt */
   prompt: string;
-  /** 负面提示词 */
+  /** 负面prompt */
   negativePrompt: string;
   /** 中文描述 */
   description: string;
@@ -589,14 +589,14 @@ export function getStyleById(styleId: string): StylePreset | undefined {
   return _findStyle(styleId);
 }
 
-/** 获取风格的提示词（styleId 为空时返回空字符串，表示不施加风格） */
+/** 获取风格的prompt（styleId 为空时返回空字符串，表示不施加风格） */
 export function getStylePrompt(styleId: string | null | undefined): string {
   if (!styleId) return '';
   const style = _findStyle(styleId);
   return style?.prompt || '';
 }
 
-/** 获取风格的负面提示词 */
+/** 获取风格的负面prompt */
 export function getStyleNegativePrompt(styleId: string | null | undefined): string {
   if (!styleId) return '';
   const style = _findStyle(styleId);
@@ -631,7 +631,7 @@ export function getStyleTokens(styleId: string): string[] {
 }
 
 /**
- * 根据分类获取风格列表
+ * 根据分类获取风格 cột表
  * @param categoryId 分类 ID（支持旧版 'animation'/'realistic' 和新版）
  */
 export function getStylesByCategory(categoryId: string): StylePreset[] {

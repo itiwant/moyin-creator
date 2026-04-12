@@ -117,9 +117,9 @@ interface ScriptInputProps {
   characterCalibrationStatus?: 'idle' | 'calibrating' | 'completed' | 'error';
   // Cảnh校准状态
   sceneCalibrationStatus?: 'idle' | 'calibrating' | 'completed' | 'error';
-  // 二次校准追踪（中栏独立按钮触发）
+  // 二次校准追踪（中栏独立nút触发）
   secondPassTypes?: Set<string>;
-  // 提示词语言
+  // prompt语言
   promptLanguage?: PromptLanguage;
   onPromptLanguageChange?: (value: PromptLanguage) => void;
 }
@@ -248,7 +248,7 @@ export function ScriptInput({
         <TabsContent value="import" className="flex-1 mt-3 overflow-y-auto">
           <div className="space-y-2">
             <Label className="text-xs text-muted-foreground">
-              Dán kịch bản đầy đủ（包含大纲、人物小传、各集内容）
+              Dán kịch bản đầy đủ（包含大纲、人物小传、各集Nội dung）
             </Label>
             <Textarea
               placeholder="支持的格式：\n• 第X集（集标记）\n• **1-1日 内 Địa điểm**（Cảnh头）\n• 人物：Nhân vậtA、Nhân vậtB\n• Nhân vật名：（Hành động）Hội thoại\n• △Hành động描写\n• 【字幕】【闪回】等"
@@ -257,13 +257,13 @@ export function ScriptInput({
               className="min-h-[200px] max-h-[40vh] resize-none text-sm overflow-y-auto"
               disabled={parseStatus === "parsing" || isImporting}
             />
-            {/* 导入状态提示 */}
+            {/* 导入状态Gợi ý */}
             {importStatus === "ready" && (
               <div className="space-y-1">
-                <p className="text-xs text-green-600">✓ 导入成功！可在右侧点击集名生成Phân cảnh</p>
+                <p className="text-xs text-green-600">✓ 导入成功！可在右侧Nhấp集名生成Phân cảnh</p>
                 {(missingTitleCount ?? 0) > 0 && (
                   <p className="text-xs text-amber-600">
-                    ⚠ {missingTitleCount} 集缺少标题，可使用AI校准生成
+                    ⚠ {missingTitleCount} 集缺少tiêu đề，可使用AI校准生成
                   </p>
                 )}
               </div>
@@ -272,7 +272,7 @@ export function ScriptInput({
               <p className="text-xs text-destructive">Nhập thất bại：{importError}</p>
             )}
             
-            {/* 持久进度状态显示 - 在执行过程中始终可见 */}
+            {/* 持久进度状态显示 - 在执 hàng过程中始终可见 */}
             {(importStatus === 'importing' || 
               calibrationStatus === 'calibrating' || 
               synopsisStatus === 'generating' || 
@@ -280,7 +280,7 @@ export function ScriptInput({
               characterCalibrationStatus === 'calibrating' ||
               sceneCalibrationStatus === 'calibrating') && (
               <div className="p-4 rounded-xl bg-primary/10 border-2 border-primary/30 space-y-3 shadow-lg">
-                {/* 标题：根据是否二次校准显示不同文案 */}
+                {/* tiêu đề：根据是否二次校准显示不同文案 */}
                 <div className="flex items-center gap-3 text-primary">
                   <Loader2 className="h-6 w-6 animate-spin" />
                   <span className="text-lg font-bold">
@@ -515,7 +515,7 @@ export function ScriptInput({
             </div>
 
             <div className="space-y-1">
-              <Label className="text-xs">提示词语言</Label>
+              <Label className="text-xs">prompt语言</Label>
               <Select
                 value={promptLanguage || "zh"}
                 onValueChange={(v) => onPromptLanguageChange?.(v as PromptLanguage)}
@@ -533,7 +533,7 @@ export function ScriptInput({
                 </SelectContent>
               </Select>
               <p className="text-[10px] text-muted-foreground">
-                控制AI校准生成中/英文提示词，默认Chỉ tiếng Trung可减少生成压力
+                控制AI校准生成中/英文prompt，默认Chỉ tiếng Trung可减少生成压力
               </p>
             </div>
 
@@ -636,7 +636,7 @@ export function ScriptInput({
                 disabled={parseStatus === "parsing"}
               />
               <p className="text-[10px] text-muted-foreground">
-                此风格将用于AI校准Phân cảnh时生成视觉描述
+                此风格将用于Hiệu chuẩn phân cảnh AI时生成视觉描述
               </p>
             </div>
           </div>
@@ -646,7 +646,7 @@ export function ScriptInput({
         {mode === "create" && (
           <div className="space-y-3">
             <div className="space-y-1">
-              <Label className="text-xs">提示词语言</Label>
+              <Label className="text-xs">prompt语言</Label>
               <Select
                 value={promptLanguage || "zh"}
                 onValueChange={(v) => onPromptLanguageChange?.(v as PromptLanguage)}
@@ -664,7 +664,7 @@ export function ScriptInput({
                 </SelectContent>
               </Select>
               <p className="text-[10px] text-muted-foreground">
-                控制AI生成中/英文提示词，默认Chỉ tiếng Trung可减少生成压力
+                控制AI生成中/英文prompt，默认Chỉ tiếng Trung可减少生成压力
               </p>
             </div>
             <div className="grid grid-cols-3 gap-2">
@@ -816,9 +816,9 @@ export function ScriptInput({
           </div>
         )}
 
-        {/* 导入/解析按钮 */}
+        {/* 导入/解析nút */}
         <div className="space-y-2">
-          {/* 完整剧本导入按钮（不需要AI，用规则解析） */}
+          {/* 完整剧本导入nút（不需要AI，用规则解析） */}
           {mode === "import" && onImportFullScript && (
             <Button
               onClick={handleImportFullScript}
@@ -840,7 +840,7 @@ export function ScriptInput({
             </Button>
           )}
           
-          {/* AI校准按钮 - 导入成功且有缺失标题时显示 */}
+          {/* AI校准nút - 导入成功且有缺失tiêu đề时显示 */}
           {mode === "import" && importStatus === "ready" && (missingTitleCount ?? 0) > 0 && onCalibrate && (
             <Button
               onClick={handleCalibrate}
@@ -856,13 +856,13 @@ export function ScriptInput({
               ) : (
                 <>
                   <RefreshCw className="h-4 w-4 mr-2" />
-                  AI校准（生成{missingTitleCount}集标题）
+                  AI校准（生成{missingTitleCount}集tiêu đề）
                 </>
               )}
             </Button>
           )}
           
-          {/* 生成大纲按钮 - 导入成功后显示 */}
+          {/* 生成大纲nút - 导入成功后显示 */}
           {mode === "import" && importStatus === "ready" && onGenerateSynopses && (
             <Button
               onClick={handleGenerateSynopses}
@@ -887,7 +887,7 @@ export function ScriptInput({
             </Button>
           )}
           
-          {/* AI解析按钮 - 仅在导入模式显示 */}
+          {/* AI解析nút - 仅在导入模式显示 */}
           {mode === "import" && (
             <Button
               onClick={onParse}

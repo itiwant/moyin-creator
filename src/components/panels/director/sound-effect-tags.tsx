@@ -4,8 +4,8 @@
 "use client";
 
 /**
- * 音效标签选择器组件 (Sound Effect Tags)
- * 用于选择镜头的音效标签：自然环境、人物动作、氛围效果等
+ * 音效Thẻ选择器组件 (Sound Effect Tags)
+ * 用于选择Ống kính的音效Thẻ：自然môi trường、人物Hành động、Bầu không khí效果等
  */
 
 import { useState } from "react";
@@ -25,7 +25,7 @@ interface SoundEffectTagsProps {
   maxTags?: number;
 }
 
-// 所有音效标签的扁平列表
+// 所有音效Thẻ的扁平 cột表
 const ALL_SOUND_EFFECTS = [
   ...SOUND_EFFECT_PRESETS.nature,
   ...SOUND_EFFECT_PRESETS.action,
@@ -33,7 +33,7 @@ const ALL_SOUND_EFFECTS = [
   ...SOUND_EFFECT_PRESETS.urban,
 ];
 
-// 分类名称映射
+// phân loạiTên映射
 const CATEGORY_LABELS: Record<keyof typeof SOUND_EFFECT_PRESETS, string> = {
   nature: "🌿 Môi trường tự nhiên",
   action: "🏃 Hành động nhân vật",
@@ -68,7 +68,7 @@ export function SoundEffectTags({
 
   return (
     <div className="space-y-1.5">
-      {/* Đã chọn标签展示 */}
+      {/* Đã chọnThẻ展示 */}
       <div className="flex flex-wrap gap-1">
         {value.map((tagId) => (
           <span
@@ -88,7 +88,7 @@ export function SoundEffectTags({
           </span>
         ))}
         
-        {/* Thêm按钮 */}
+        {/* Thêmnút */}
         {value.length < maxTags && !disabled && (
           <Popover open={isOpen} onOpenChange={setIsOpen}>
             <PopoverTrigger asChild>

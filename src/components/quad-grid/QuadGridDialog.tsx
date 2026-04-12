@@ -4,8 +4,8 @@
 "use client";
 
 /**
- * Quad Grid Dialog - 四宫格生成对话框
- * 基于锚点图生成2x2一致性变体
+ * Quad Grid Dialog - Lưới 4 ôTạo对话框
+ * 基于锚点图Tạo2x2一致性biến thể
  */
 
 import { useState } from "react";
@@ -41,21 +41,21 @@ const VARIATION_OPTIONS: {
 }[] = [
   {
     type: "angle",
-    label: "视角变体",
-    description: "同一场景的4个不同视角",
-    variations: ["正面偏左", "正面偏右", "侧面特写", "全景俯瞰"],
+    label: "Góc nhìnbiến thể",
+    description: "同一Cảnh的4个不同Góc nhìn",
+    variations: ["正面偏左", "正面偏右", "侧面Cận cảnh", "Toàn cảnh俯瞰"],
   },
   {
     type: "composition",
-    label: "构图变体",
-    description: "同一场景的4种不同构图",
-    variations: ["全身远景", "半身中景", "面部特写", "环境交代"],
+    label: "构图biến thể",
+    description: "同一Cảnh的4种不同构图",
+    variations: ["全身Toàn cảnh xa", "半身Cảnh trung", "面部Cận cảnh", "môi trường交代"],
   },
   {
     type: "moment",
-    label: "时刻变体",
-    description: "动作的4个时间节点",
-    variations: ["动作起始", "动作过程", "动作高潮", "动作结束"],
+    label: "时刻biến thể",
+    description: "Hành động的4个Thời gian节点",
+    variations: ["Hành động起始", "Hành động过程", "Hành động高潮", "Hành động结束"],
   },
 ];
 
@@ -76,9 +76,9 @@ export function QuadGridDialog({
     onGenerate(selectedType, useCharacterRef);
   };
 
-  // 生成期间禁止关闭对话框
+  // Tạo期间禁止Đóng对话框
   const handleOpenChange = (newOpen: boolean) => {
-    if (isGenerating && !newOpen) return; // 生成中不允许关闭
+    if (isGenerating && !newOpen) return; // Đang tạo不允许Đóng
     onOpenChange(newOpen);
   };
 
@@ -92,15 +92,15 @@ export function QuadGridDialog({
         <DialogHeader className="pb-2">
           <DialogTitle className="text-sm text-white flex items-center gap-2">
             <Grid2X2 className="h-4 w-4 text-cyan-400" />
-            四宫格生成 - {frameType === "start" ? "首帧" : "尾帧"}
+            Lưới 4 ôTạo - {frameType === "start" ? "Khung hình đầu" : "Khung hình cuối"}
           </DialogTitle>
           <DialogDescription className="text-xs text-zinc-400">
-            基于当前图片生成4张一致性变体，继承人物/场景/光色
+            基于当前ảnhTạo4张一致性biến thể，继承人物/Cảnh/光色
           </DialogDescription>
         </DialogHeader>
 
         <div className="space-y-4">
-          {/* 预览图 */}
+          {/* Xem trước图 */}
           {previewUrl && (
             <div className="flex justify-center">
               <div className="relative w-40 aspect-video rounded overflow-hidden border border-zinc-700">
@@ -116,9 +116,9 @@ export function QuadGridDialog({
             </div>
           )}
 
-          {/* 变体类型选择 */}
+          {/* biến thểLoại选择 */}
           <div className="space-y-2">
-            <Label className="text-xs text-zinc-400">选择变体类型</Label>
+            <Label className="text-xs text-zinc-400">选择biến thểLoại</Label>
             <div className="grid grid-cols-3 gap-2">
               {VARIATION_OPTIONS.map((option) => (
                 <button
@@ -143,11 +143,11 @@ export function QuadGridDialog({
             </div>
           </div>
 
-          {/* 预览4格内容 */}
+          {/* Xem trước4格Nội dung */}
           {selectedOption && (
             <div className="p-3 rounded bg-zinc-800/50 border border-zinc-700">
               <div className="text-[10px] text-zinc-500 mb-2">
-                将生成 2×2 四宫格：
+                将Tạo 2×2 Lưới 4 ô：
               </div>
               <div className="grid grid-cols-2 gap-1.5">
                 {selectedOption.variations.map((v, i) => (
@@ -174,16 +174,16 @@ export function QuadGridDialog({
               htmlFor="use-char-ref" 
               className="text-xs text-zinc-400 font-normal cursor-pointer select-none leading-none"
             >
-              参考角色库形象（若画面人物混乱请关闭此项）
+              参考Nhân vật库形象（若hình ảnh人物混乱请Đóng此项）
             </Label>
           </div>
 
-          {/* 按钮 */}
+          {/* nút */}
           <div className="flex gap-2 pt-2">
             {isGenerating ? (
               <div className="flex-1 flex items-center justify-center gap-2 h-8 bg-cyan-500/20 rounded border border-cyan-500/50">
                 <Loader2 className="h-4 w-4 text-cyan-400 animate-spin" />
-                <span className="text-sm text-cyan-400">正在生成四宫格，请稍候...</span>
+                <span className="text-sm text-cyan-400">Đang tạoLưới 4 ô，请稍候...</span>
               </div>
             ) : (
               <>
@@ -193,7 +193,7 @@ export function QuadGridDialog({
                   onClick={() => onOpenChange(false)}
                   className="flex-1 h-8 text-xs bg-transparent border-zinc-700 hover:bg-zinc-800 text-white"
                 >
-                  取消
+                  Hủy
                 </Button>
                 <Button
                   size="sm"
@@ -201,7 +201,7 @@ export function QuadGridDialog({
                   className="flex-1 h-8 text-xs bg-cyan-500 hover:bg-cyan-600 text-black"
                 >
                   <Sparkles className="h-3 w-3 mr-1" />
-                  生成四宫格
+                  TạoLưới 4 ô
                 </Button>
               </>
             )}

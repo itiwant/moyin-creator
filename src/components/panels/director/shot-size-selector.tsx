@@ -5,7 +5,7 @@
 
 /**
  * 景别选择器组件 (Shot Size Selector)
- * 用于选择镜头的景别类型：远景、中景、近景、特写等
+ * 用于选择Ống kính的景别Loại：Toàn cảnh xa、Cảnh trung、Cảnh gần、Cận cảnh等
  */
 
 import {
@@ -63,7 +63,7 @@ export function ShotSizeSelector({
 }
 
 /**
- * 景别标签显示组件（只读）
+ * 景别ThẻHiện组件（只读）
  */
 export function ShotSizeLabel({ shotSize }: { shotSize: ShotSizeType | null }) {
   if (!shotSize) return null;

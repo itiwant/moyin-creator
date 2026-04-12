@@ -53,7 +53,7 @@ export function useAngleSwitch({
   updateSplitSceneImage,
   updateSplitSceneEndFrame,
 }: UseAngleSwitchOptions): UseAngleSwitchReturn {
-  // 角度切换状态
+  // 角度切换Trạng thái
   const [angleSwitchOpen, setAngleSwitchOpen] = useState(false);
   const [angleSwitchResultOpen, setAngleSwitchResultOpen] = useState(false);
   const [angleSwitchTarget, setAngleSwitchTarget] = useState<AngleSwitchTarget | null>(null);
@@ -71,11 +71,11 @@ export function useAngleSwitch({
 
     const imageUrl = type === "start" ? scene.imageDataUrl : scene.endFrameImageUrl;
     if (!imageUrl) {
-      toast.error(`请先生成${type === "start" ? "首帧" : "尾帧"}`);
+      toast.error(`Vui lòng tạo trước${type === "start" ? "Khung hình đầu" : "Khung hình cuối"}`);
       return;
     }
 
-    // 重置选中索引（历史从 store 中读取）
+    // Đặt lại选中索引（历史从 store 中读取）
     setSelectedHistoryIndex(-1);
     setAngleSwitchTarget({ sceneId, type });
     setAngleSwitchOpen(true);
@@ -98,7 +98,7 @@ export function useAngleSwitch({
     const runninghubBaseUrl = runninghubProvider?.baseUrl?.trim();
     const runninghubAppId = runninghubProvider?.model?.[0];
     if (!runninghubKey || !runninghubBaseUrl || !runninghubAppId) {
-      toast.error("请先在设置中配置 RunningHub（API Key / Base URL / 模型AppId）");
+      toast.error("Vui lòng cấu hình RunningHub (API Key / Base URL / Model AppId) trong Cài đặt trước");
       setAngleSwitchOpen(false);
       return;
     }
@@ -108,7 +108,7 @@ export function useAngleSwitch({
 
     const originalImage = angleSwitchTarget.type === "start" ? scene.imageDataUrl : scene.endFrameImageUrl;
     if (!originalImage) {
-      toast.error("找不到原图");
+      toast.error("Không tìm thấy ảnh gốc");
       return;
     }
 
@@ -154,9 +154,9 @@ export function useAngleSwitch({
       setAngleSwitchOpen(false);
       setAngleSwitchResultOpen(true);
 
-      toast.success("视角切换生成完成");
+      toast.success("Chuyển góc nhìnTạo完成");
     } catch (error) {
-      toast.error(`视角切换失败: ${(error as Error).message}`);
+      toast.error(`Chuyển góc nhìnThất bại: ${(error as Error).message}`);
     } finally {
       setIsAngleSwitching(false);
     }
@@ -187,7 +187,7 @@ export function useAngleSwitch({
     setAngleSwitchResult(null);
     setAngleSwitchTarget(null);
     setSelectedHistoryIndex(-1);
-    toast.success("视角已应用");
+    toast.success("Góc nhìn已Áp dụng");
   }, [angleSwitchResult, angleSwitchTarget, splitScenes, selectedHistoryIndex, updateSplitSceneImage, updateSplitSceneEndFrame]);
 
   // Helper to get history for current target

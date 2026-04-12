@@ -3,8 +3,8 @@
 // Commercial licensing available. See COMMERCIAL_LICENSE.md.
 
 /**
- * SaveToPropsDialog - 保存图片到道具库弹窗
- * 在图片工作室生成图片后，用户可以选择目录并保存
+ * SaveToPropsDialog - Lưuảnh到Thư viện đạo cụ弹窗
+ * 在Studio ảnhTạo ảnh后，用户可以选择thư mục并Lưu
  */
 
 import { useState } from 'react';
@@ -28,9 +28,9 @@ import { toast } from 'sonner';
 interface SaveToPropsDialogProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
-  /** 待保存的图片URL（可能是远程URL） */
+  /** URL ảnh chờ lưu (có thể là URL từ xa) */
   imageUrl: string;
-  /** 生成时的提示词，可选 */
+  /** Prompt khi tạo, tùy chọn */
   prompt?: string;
 }
 
@@ -56,11 +56,11 @@ export function SaveToPropsDialog({
     setLocalFolderId(folder.id);
     setNewFolderName('');
     setNewFolderMode(false);
-    toast.success(`目录「${trimmed}」已创建`);
+    toast.success(`Thư mục「${trimmed}」đã tạo`);
   };
 
   const handleSave = async () => {
-    const name = propName.trim() || `道具_${Date.now()}`;
+    const name = propName.trim() || `Đạo cụ_${Date.now()}`;
     setSaving(true);
     try {
       // 尝试持久化到本地存储（Electron），浏览器端回退为原始URL
@@ -75,15 +75,15 @@ export function SaveToPropsDialog({
         prompt,
         folderId: selectedFolderId,
       });
-      // 同步道具库侧边栏选中状态（跳转到目标目录）
+      // 同步Thư viện đạo cụ侧边栏选中Trạng thái（跳转到目标thư mục）
       setSelectedFolderId(selectedFolderId ?? 'all');
-      toast.success(`「${name}」已保存到道具库`);
+      toast.success(`「${name}」đã lưu vào Thư viện đạo cụ`);
       onOpenChange(false);
-      // 重置表单
+      // Đặt lại表单
       setPropName('');
       setLocalFolderId(null);
     } catch (err: any) {
-      toast.error(`保存失败：${err.message}`);
+      toast.error(`LưuThất bại：${err.message}`);
     } finally {
       setSaving(false);
     }
@@ -104,30 +104,30 @@ export function SaveToPropsDialog({
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2">
             <Package className="h-4 w-4 text-primary" />
-            保存到道具库
+            Lưu vào Thư viện đạo cụ
           </DialogTitle>
         </DialogHeader>
 
         <div className="space-y-4 py-2">
-          {/* 图片预览 */}
+          {/* Xem trước ảnh */}
           <div className="flex justify-center">
             <div className="w-32 h-32 rounded-lg border border-border bg-muted overflow-hidden">
               <img
                 src={imageUrl}
-                alt="预览"
+                alt="Xem trước"
                 className="w-full h-full object-cover"
               />
             </div>
           </div>
 
-          {/* 道具名称 */}
+          {/* Đạo cụTên */}
           <div className="space-y-1.5">
             <Label htmlFor="prop-name" className="text-xs">
-              道具名称
+              Đạo cụTên
             </Label>
             <Input
               id="prop-name"
-              placeholder="输入道具名称（可留空自动命名）"
+              placeholder="Nhập tên đạo cụ (để trống để tự động đặt tên)"
               value={propName}
               onChange={(e) => setPropName(e.target.value)}
               onKeyDown={(e) => {
@@ -136,12 +136,12 @@ export function SaveToPropsDialog({
             />
           </div>
 
-          {/* 选择目录 */}
+          {/* 选择thư mục */}
           <div className="space-y-1.5">
-            <Label className="text-xs">保存到目录</Label>
+            <Label className="text-xs">Lưu vào thư mục</Label>
             <ScrollArea className="max-h-40 rounded-md border border-border">
               <div className="p-1.5 space-y-0.5">
-                {/* 根目录 */}
+                {/* Thư mục gốc */}
                 <button
                   className={cn(
                     'flex items-center gap-2 w-full px-2.5 py-1.5 rounded-md text-xs transition-colors',
@@ -152,10 +152,10 @@ export function SaveToPropsDialog({
                   onClick={() => setLocalFolderId(null)}
                 >
                   <Package className="h-3.5 w-3.5 shrink-0" />
-                  根目录（不分类）
+                  Thư mục gốc (không phân loại)
                 </button>
 
-                {/* 用户目录 */}
+                {/* Thư mục người dùng */}
                 {folders.map((folder) => (
                   <button
                     key={folder.id}
@@ -172,13 +172,13 @@ export function SaveToPropsDialog({
                   </button>
                 ))}
 
-                {/* 新建目录行内输入 */}
+                {/* Nhập tên thư mục mới */}
                 {newFolderMode ? (
                   <div className="flex items-center gap-1.5 px-2 py-1">
                     <FolderPlus className="h-3.5 w-3.5 text-muted-foreground shrink-0" />
                     <Input
                       autoFocus
-                      placeholder="目录名称..."
+                      placeholder="Tên thư mục..."
                       value={newFolderName}
                       onChange={(e) => setNewFolderName(e.target.value)}
                       onKeyDown={(e) => {
@@ -196,7 +196,7 @@ export function SaveToPropsDialog({
                       onClick={handleCreateFolder}
                       disabled={!newFolderName.trim()}
                     >
-                      确认
+                      Xác nhận
                     </Button>
                     <Button
                       size="sm"
@@ -207,7 +207,7 @@ export function SaveToPropsDialog({
                         setNewFolderName('');
                       }}
                     >
-                      取消
+                      Hủy
                     </Button>
                   </div>
                 ) : (
@@ -216,7 +216,7 @@ export function SaveToPropsDialog({
                     onClick={() => setNewFolderMode(true)}
                   >
                     <FolderPlus className="h-3.5 w-3.5 shrink-0" />
-                    + 新建目录
+                    + Tạo thư mục mới
                   </button>
                 )}
               </div>
@@ -226,18 +226,18 @@ export function SaveToPropsDialog({
 
         <DialogFooter>
           <Button variant="outline" onClick={handleClose} disabled={saving}>
-            取消
+            Hủy
           </Button>
           <Button onClick={handleSave} disabled={saving}>
             {saving ? (
               <>
                 <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                保存中...
+                Đang lưu...
               </>
             ) : (
               <>
                 <Package className="mr-2 h-4 w-4" />
-                保存
+                Lưu
               </>
             )}
           </Button>

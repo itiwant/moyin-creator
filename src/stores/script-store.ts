@@ -38,7 +38,7 @@ export interface ScriptCalibrationState {
   calibrationDialogOpen: boolean;
   pendingCalibrationCharacters: ScriptCharacter[] | null;
   pendingFilteredCharacters: FilteredCharacterRecord[];
-  // 面板切换后需恢复的导入/大纲生成状态
+  // 面板切换后需恢复的Nhập/大纲TạoTrạng thái
   importStatus: ScriptImportStatus;
   synopsisStatus: ScriptSynopsisStatus;
 }
@@ -174,7 +174,7 @@ const defaultProjectData = (): ScriptProjectData => ({
   episodeRawScripts: [],
   metadataMarkdown: '',
   metadataGeneratedAt: undefined,
-  promptLanguage: 'zh',
+  promptLanguage: 'vi',
   calibrationStrictness: 'normal',
   lastFilteredCharacters: [],
   calibrationState: defaultCalibrationState(),

@@ -4,8 +4,8 @@
 "use client";
 
 /**
- * 素材库选择器组件 (Media Library Selector)
- * 从素材库中选择图片应用到分镜首帧/尾帧
+ * Thư viện phương tiện选择器组件 (Media Library Selector)
+ * 从Thư viện phương tiện中选择ảnhÁp dụng到Phân cảnhKhung hình đầu/Khung hình cuối
  */
 
 import React, { useState, useMemo } from "react";
@@ -54,13 +54,13 @@ export function MediaLibrarySelector({
     return mediaFiles.filter((m) => m.projectId === activeProjectId);
   }, [mediaFiles, resourceSharing.shareMedia, activeProjectId]);
   
-  // 只获取图片类型的媒体文件（非临时）
+  // 只获取ảnhLoại的媒体file（非临时）
   const imageFiles = useMemo(() => 
     visibleMedia.filter(f => f.type === 'image' && !f.ephemeral),
     [visibleMedia]
   );
   
-  // 根据选中的文件夹筛选图片
+  // 根据选中的Thư mục筛选ảnh
   const filteredImages = useMemo(() => {
     if (selectedFolderId === null) {
       return imageFiles; // show all
@@ -68,7 +68,7 @@ export function MediaLibrarySelector({
     return imageFiles.filter(f => f.folderId === selectedFolderId);
   }, [imageFiles, selectedFolderId]);
   
-  // 处理选择图片
+  // 处理选择ảnh
   const handleSelectImage = (imageUrl: string) => {
     onSelect(imageUrl);
     setIsOpen(false);

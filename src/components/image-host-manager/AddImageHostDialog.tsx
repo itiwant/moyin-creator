@@ -61,20 +61,20 @@ export function AddImageHostDialog({
 
   const selectedPreset = IMAGE_HOST_PRESETS.find((p) => p.platform === platform);
   const apiKeyLabel = platform === "imgurl"
-    ? "上传 Tokens"
+    ? "Tải lên Tokens"
     : platform === "scdn"
       ? "API Key（无需填写）"
     : platform === "catbox"
       ? "Userhash（可选）"
       : "API Keys";
-  const apiKeyRequiredMessage = platform === "imgurl" ? "请输入上传 Token" : "请输入 API Key";
+  const apiKeyRequiredMessage = platform === "imgurl" ? "NhậpTải lên Token" : "Nhập API Key";
   const apiKeyPlaceholder = platform === "imgurl"
-    ? "输入上传 Token / Authorization 值（每行一个；如需 Bearer，请手动填写完整值）"
+    ? "输入Tải lên Token / Authorization 值（每 hàng一个；如需 Bearer，请Thủ công填写完整值）"
     : platform === "scdn"
-      ? "留空即可，SCDN 支持直接上传"
+      ? "留空即可，SCDN Hỗ trợ直接Tải lên"
     : platform === "catbox"
-      ? "可留空匿名上传；如需绑定到 Catbox 账号，请填写 userhash"
-    : "输入 API Keys（每行一个，或用逗号分隔）";
+      ? "可留空匿名Tải lên；如需绑定到 Catbox 账号，请填写 userhash"
+    : "输入 API Keys（每 hàng一个，或用逗号分隔）";
 
   useEffect(() => {
     if (open) {
@@ -121,7 +121,7 @@ export function AddImageHostDialog({
 
   const handleSubmit = () => {
     if (!name.trim()) {
-      toast.error("请输入名称");
+      toast.error("NhậpTên");
       return;
     }
     if (!baseUrl.trim() && !uploadPath.trim()) {
@@ -154,22 +154,22 @@ export function AddImageHostDialog({
     });
 
     onOpenChange(false);
-    toast.success(`已添加 ${name}`);
+    toast.success(`đã thêm ${name}`);
   };
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="max-w-lg max-h-[85vh] flex flex-col">
         <DialogHeader>
-          <DialogTitle>添加图床服务商</DialogTitle>
+          <DialogTitle>ThêmDịch vụ lưu trữ ảnh</DialogTitle>
         </DialogHeader>
 
         <div className="flex flex-col gap-4 py-4 overflow-y-auto pr-1">
           <div className="space-y-2">
-            <Label>平台</Label>
+            <Label>Nền tảng</Label>
             <Select value={platform} onValueChange={(v) => setPlatform(v as ImageHostPlatform)}>
               <SelectTrigger>
-                <SelectValue placeholder="选择平台" />
+                <SelectValue placeholder="选择Nền tảng" />
               </SelectTrigger>
               <SelectContent>
                 {IMAGE_HOST_PRESETS.map((preset) => (
@@ -182,8 +182,8 @@ export function AddImageHostDialog({
           </div>
 
           <div className="space-y-2">
-            <Label>名称</Label>
-            <Input value={name} onChange={(e) => setName(e.target.value)} placeholder="图床名称" />
+            <Label>Tên</Label>
+            <Input value={name} onChange={(e) => setName(e.target.value)} placeholder="Lưu trữ ảnhTên" />
           </div>
 
           <div className="space-y-2">
@@ -208,33 +208,33 @@ export function AddImageHostDialog({
             />
             {platform === "imgbb" && (
               <p className="text-xs text-red-500">
-                ImgBB 当前可用性存在问题，默认保持关闭；建议优先使用 Catbox。
+                ImgBB 当前可用性存在问题，Mặc định保持Đóng；建议优先使用 Catbox。
               </p>
             )}
             {platform === "imgurl" && (
               <p className="text-xs text-muted-foreground">
-                使用 ImgURL / Zpic 开放接口里的上传 Token（V3），支持多 Token 轮换。
+                使用 ImgURL / Zpic 开放接口里的Tải lên Token（V3），Hỗ trợ多 Token 轮换。
               </p>
             )}
             {platform === "scdn" && (
               <p className="text-xs text-muted-foreground">
-                SCDN 图床支持直接上传，当前更适合作为默认图床使用。
+                SCDN Lưu trữ ảnhHỗ trợ直接Tải lên，当前更适合作为Mặc địnhLưu trữ ảnh使用。
               </p>
             )}
             {platform === "catbox" && (
               <p className="text-xs text-muted-foreground">
-                Catbox 为海外图床；如果当前网络连不上，建议改用 SCDN 图床或自定义图床。
+                Catbox 为海外Lưu trữ ảnh；如果当前网络连不上，建议改用 SCDN Lưu trữ ảnh或Tùy chỉnhLưu trữ ảnh。
               </p>
             )}
           </div>
 
           <div className="flex items-center justify-between">
-            <Label>启用</Label>
+            <Label>Bật</Label>
             <Switch checked={enabled} onCheckedChange={setEnabled} />
           </div>
 
           <div className="space-y-2">
-            <Label className="text-sm text-muted-foreground">高级配置（可选）</Label>
+            <Label className="text-sm text-muted-foreground">Nâng cao配置（可选）</Label>
             <div className="grid grid-cols-2 gap-3">
               <div className="space-y-1">
                 <Label className="text-xs">API Key Query 参数</Label>
@@ -249,19 +249,19 @@ export function AddImageHostDialog({
                 <Input value={expirationParam} onChange={(e) => setExpirationParam(e.target.value)} placeholder="expiration" />
               </div>
               <div className="space-y-1">
-                <Label className="text-xs">图片字段名</Label>
+                <Label className="text-xs">ảnh字段名</Label>
                 <Input value={imageField} onChange={(e) => setImageField(e.target.value)} placeholder="image" />
               </div>
               <div className="space-y-1">
-                <Label className="text-xs">名称字段名</Label>
+                <Label className="text-xs">Tên字段名</Label>
                 <Input value={nameField} onChange={(e) => setNameField(e.target.value)} placeholder="name" />
               </div>
               <div className="space-y-1">
-                <Label className="text-xs">返回 URL 字段</Label>
+                <Label className="text-xs">Quay lại URL 字段</Label>
                 <Input value={responseUrlField} onChange={(e) => setResponseUrlField(e.target.value)} placeholder="data.url" />
               </div>
               <div className="space-y-1">
-                <Label className="text-xs">删除 URL 字段</Label>
+                <Label className="text-xs">Xóa URL 字段</Label>
                 <Input value={responseDeleteUrlField} onChange={(e) => setResponseDeleteUrlField(e.target.value)} placeholder="data.delete_url" />
               </div>
             </div>
@@ -269,8 +269,8 @@ export function AddImageHostDialog({
         </div>
 
         <DialogFooter>
-          <Button variant="outline" onClick={() => onOpenChange(false)}>取消</Button>
-          <Button onClick={handleSubmit}>添加</Button>
+          <Button variant="outline" onClick={() => onOpenChange(false)}>Hủy</Button>
+          <Button onClick={handleSubmit}>Thêm</Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>

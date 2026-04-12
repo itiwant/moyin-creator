@@ -4,8 +4,8 @@
 "use client";
 
 /**
- * AssetsView - 资产面板主入口
- * 左侧导航树 + 右侧内容区
+ * AssetsView - Tài sản面板主入口
+ * Điều hướng trái树 + Khu vực nội dung phải
  */
 
 import { useState } from "react";
@@ -38,7 +38,7 @@ export function AssetsView() {
   return (
     <div className="h-full">
       <ResizablePanelGroup direction="horizontal" className="h-full">
-        {/* 左侧导航 */}
+        {/* Điều hướng trái */}
         <ResizablePanel defaultSize={15} minSize={12} maxSize={25}>
           <AssetSidebar
             activeSection={activeSection}
@@ -48,7 +48,7 @@ export function AssetsView() {
 
         <ResizableHandle withHandle />
 
-        {/* 右侧内容区 */}
+        {/* Khu vực nội dung phải */}
         <ResizablePanel defaultSize={85} minSize={60}>
           <div className="h-full overflow-hidden">
             {renderContent()}

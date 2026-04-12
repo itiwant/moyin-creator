@@ -7,7 +7,7 @@
  * CinematographyProfilePicker — 摄影风格档案选择器
  *
  * 功能：
- * - 左侧：按分类显示档案列表（emoji + 名称）
+ * - 左侧：按phân loại显示档案列表（emoji + 名称）
  * - 右侧：悬停/选中时显示详细描述、摄影参数、参考影片
  * - 支持 Popover 弹出模式和内嵌模式
  */
@@ -83,7 +83,7 @@ export function CinematographyProfilePicker({
     }
   };
 
-  // 内容面板
+  // Nội dung面板
   const pickerContent = (
     <div className={cn("flex", popover ? "w-[560px] h-[420px]" : "w-full h-full", className)}>
       {/* 左侧：档案列表 */}
@@ -91,7 +91,7 @@ export function CinematographyProfilePicker({
         <div className="p-2">
           {CINEMATOGRAPHY_PROFILE_CATEGORIES.map((category) => (
             <div key={category.id} className="mb-4">
-              {/* 分类标题 */}
+              {/* phân loại标题 */}
               <div className="px-2 py-1.5 text-xs font-medium text-muted-foreground border-b border-border/50 mb-2">
                 {category.emoji} {category.name}
               </div>
@@ -159,7 +159,7 @@ export function CinematographyProfilePicker({
               />
             )}
             <ParamRow
-              label="⏱️ 速度"
+              label="⏱️ Tốc độ"
               value={previewProfile.defaultSpeed.playbackSpeed}
             />
           </div>

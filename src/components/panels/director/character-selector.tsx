@@ -4,8 +4,8 @@
 "use client";
 
 /**
- * 角色库选择弹窗组件 (Character Selector)
- * 从角色库中选择角色关联到分镜
+ * Nhân vật库选择弹窗组件 (Character Selector)
+ * 从Nhân vật库中选择Nhân vật关联到Phân cảnh
  */
 
 import React, { useState, useMemo } from "react";
@@ -46,7 +46,7 @@ export function CharacterSelector({
       : !activeProjectId
         ? []
         : characters.filter((c) => c.projectId === activeProjectId);
-    // 按 id 去重（项目复制会产生同 id 角色，保留首次出现的）
+    // 按 id 去重（项目Sao chép会产生同 id Nhân vật，保留首次出现的）
     const seen = new Set<string>();
     return list.filter((c) => {
       if (seen.has(c.id)) return false;
@@ -67,7 +67,7 @@ export function CharacterSelector({
     }
   };
 
-  // 只统计在角色库中存在的角色（过滤无效ID）
+  // 只统计在Nhân vật库中存在的Nhân vật（过滤无效ID）
   const selectedCharacters = visibleCharacters.filter(c => selectedIds.includes(c.id));
   const validSelectedCount = selectedCharacters.length;
 
@@ -145,7 +145,7 @@ export function CharacterSelector({
                         <span className="flex-1 text-[11px] truncate">Ảnh gốc cơ bản</span>
                         {!selectedVarId && <Check className="h-3 w-3 text-primary shrink-0" />}
                       </button>
-                      {/* 变体列表 */}
+                      {/* biến thể cột表 */}
                       {availableVariations.map((v) => (
                         <button
                           key={v.id}

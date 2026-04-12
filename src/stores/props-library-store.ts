@@ -3,27 +3,27 @@
 // Commercial licensing available. See COMMERCIAL_LICENSE.md.
 
 /**
- * PropsLibraryStore - 道具库状态管理
- * 支持自定义目录分类，持久化到 localStorage
+ * PropsLibraryStore - Thư viện đạo cụTrạng tháiQuản lý
+ * Hỗ trợTùy chỉnhthư mụcphân loại，持久化到 localStorage
  */
 
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
-// 道具项
+// Đạo cụ项
 export interface PropItem {
   id: string;
-  name: string;           // 道具名称（可编辑）
+  name: string;           // Đạo cụTên（可Chỉnh sửa）
   imageUrl: string;       // local-image://props/... 或远程URL
-  prompt: string;         // 生成时的提示词（供参考）
-  folderId: string | null; // 所属目录，null = 根目录
+  prompt: string;         // Tạo时的prompt（供参考）
+  folderId: string | null; // 所属thư mục，null = Thư mục gốc
   createdAt: number;
 }
 
-// 自定义目录
+// Tùy chỉnhthư mục
 export interface PropFolder {
   id: string;
-  name: string;           // 目录名称
+  name: string;           // thư mụcTên
   parentId: string | null; // 预留嵌套扩展（当前UI仅用一级）
   createdAt: number;
 }
@@ -31,23 +31,23 @@ export interface PropFolder {
 interface PropsLibraryState {
   items: PropItem[];
   folders: PropFolder[];
-  // 当前选中目录（null = 全部）
+  // 当前选中thư mục（null = 全部）
   selectedFolderId: string | null | 'all';
 }
 
 interface PropsLibraryActions {
-  // 道具操作
+  // Đạo cụthao tác
   addProp: (prop: Omit<PropItem, 'id' | 'createdAt'>) => PropItem;
   renameProp: (id: string, name: string) => void;
   deleteProp: (id: string) => void;
   moveProp: (propId: string, folderId: string | null) => void;
 
-  // 目录操作
+  // thư mụcthao tác
   addFolder: (name: string, parentId?: string | null) => PropFolder;
   renameFolder: (id: string, name: string) => void;
-  deleteFolder: (id: string) => void; // 删除时子道具移至根目录
+  deleteFolder: (id: string) => void; // Xóa时conĐạo cụ移至Thư mục gốc
 
-  // UI 状态
+  // UI Trạng thái
   setSelectedFolderId: (folderId: string | null | 'all') => void;
 
   // 查询
@@ -64,7 +64,7 @@ export const usePropsLibraryStore = create<PropsLibraryStore>()(
       folders: [],
       selectedFolderId: 'all',
 
-      // ── 道具操作 ──────────────────────────────────────────────────────────
+      // ── Đạo cụthao tác ──────────────────────────────────────────────────────────
 
       addProp: (prop) => {
         const newProp: PropItem = {
@@ -96,7 +96,7 @@ export const usePropsLibraryStore = create<PropsLibraryStore>()(
         }));
       },
 
-      // ── 目录操作 ──────────────────────────────────────────────────────────
+      // ── thư mụcthao tác ──────────────────────────────────────────────────────────
 
       addFolder: (name, parentId = null) => {
         const newFolder: PropFolder = {
@@ -120,17 +120,17 @@ export const usePropsLibraryStore = create<PropsLibraryStore>()(
       deleteFolder: (id) => {
         set((s) => ({
           folders: s.folders.filter((f) => f.id !== id),
-          // 该目录下的道具移至根目录
+          // 该thư mục下的Đạo cụ移至Thư mục gốc
           items: s.items.map((item) =>
             item.folderId === id ? { ...item, folderId: null } : item
           ),
-          // 如果当前选中了该目录，切回"全部"
+          // 如果当前选中了该thư mục，切回"全部"
           selectedFolderId:
             s.selectedFolderId === id ? 'all' : s.selectedFolderId,
         }));
       },
 
-      // ── UI 状态 ───────────────────────────────────────────────────────────
+      // ── UI Trạng thái ───────────────────────────────────────────────────────────
 
       setSelectedFolderId: (folderId) => {
         set({ selectedFolderId: folderId });

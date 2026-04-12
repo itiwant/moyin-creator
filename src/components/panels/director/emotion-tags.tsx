@@ -4,8 +4,8 @@
 "use client";
 
 /**
- * 情绪标签选择组件
- * 支持多选、有序排列，用于控制视频生成的氛围和语气
+ * 情绪Thẻ选择组件
+ * Hỗ trợ多选、有序排 cột，用于控制videoTạo的Bầu không khí和语气
  */
 
 import { useState } from "react";
@@ -25,7 +25,7 @@ interface EmotionTagsProps {
   disabled?: boolean;
 }
 
-// 获取标签信息
+// 获取Thẻ信息
 function getTagInfo(tagId: EmotionTag) {
   const allTags = [
     ...EMOTION_PRESETS.basic,
@@ -38,14 +38,14 @@ function getTagInfo(tagId: EmotionTag) {
 export function EmotionTags({ value, onChange, disabled }: EmotionTagsProps) {
   const [isOpen, setIsOpen] = useState(false);
 
-  // 添加标签
+  // ThêmThẻ
   const addTag = (tagId: EmotionTag) => {
     if (!value.includes(tagId)) {
       onChange([...value, tagId]);
     }
   };
 
-  // 移除标签
+  // xóaThẻ
   const removeTag = (tagId: EmotionTag) => {
     onChange(value.filter(t => t !== tagId));
   };
@@ -53,7 +53,7 @@ export function EmotionTags({ value, onChange, disabled }: EmotionTagsProps) {
   // 检查是否已选中
   const isSelected = (tagId: EmotionTag) => value.includes(tagId);
 
-  // 渲染标签分类
+  // 渲染Thẻphân loại
   const renderTagGroup = (
     title: string, 
     tags: readonly { id: string; label: string; emoji: string }[]
@@ -93,7 +93,7 @@ export function EmotionTags({ value, onChange, disabled }: EmotionTagsProps) {
 
   return (
     <div className="space-y-2">
-      {/* Đã chọn标签（有序显示） */}
+      {/* Đã chọnThẻ（有序Hiện） */}
       {value.length > 0 && (
         <div className="flex flex-wrap gap-1.5 items-center">
           {value.map((tagId, index) => {
@@ -121,7 +121,7 @@ export function EmotionTags({ value, onChange, disabled }: EmotionTagsProps) {
         </div>
       )}
 
-      {/* Thêm标签按钮 */}
+      {/* ThêmThẻnút */}
       <Popover open={isOpen} onOpenChange={setIsOpen}>
         <PopoverTrigger asChild>
           <Button
@@ -147,7 +147,7 @@ export function EmotionTags({ value, onChange, disabled }: EmotionTagsProps) {
         </PopoverContent>
       </Popover>
 
-      {/* 提示文字 */}
+      {/* Gợi ý文字 */}
       {value.length === 0 && (
         <p className="text-xs text-muted-foreground">
           Thêm thẻ cảm xúc để kiểm soát không khí và giọng điệu video

@@ -7,7 +7,7 @@
  * StylePicker - 统一的视觉风格选择器
  * 
  * 功能：
- * - 左侧：分类小图列表，可滚动
+ * - 左侧：phân loại小图列表，可滚动
  * - 右侧：悬停/选中时显示大图预览 + 描述
  * - 支持下拉弹出模式和内嵌模式
  */
@@ -30,7 +30,7 @@ import {
 } from "@/lib/constants/visual-styles";
 import { useCustomStyleStore } from "@/stores/custom-style-store";
 
-// 风格分类对应的背景色（图片已移除，使用色块占位）
+// 风格phân loại对应的背景色（ảnh已xóa，使用色块占位）
 const CATEGORY_COLORS: Record<string, string> = {
   '3d': 'bg-blue-500/20 text-blue-600',
   '2d': 'bg-green-500/20 text-green-600',
@@ -100,7 +100,7 @@ export function StylePicker({
     }
   };
 
-  // 内容面板
+  // Nội dung面板
   const pickerContent = (
     <div className={cn("flex", popover ? "w-[520px] h-[400px]" : "w-full h-full", className)}>
       {/* 左侧：风格列表 */}
@@ -108,7 +108,7 @@ export function StylePicker({
         <div className="p-2">
           {STYLE_CATEGORIES.map((category) => (
             <div key={category.id} className="mb-4">
-              {/* 分类标题 */}
+              {/* phân loại标题 */}
               <div className="px-2 py-1.5 text-xs font-medium text-muted-foreground border-b border-border/50 mb-2">
                 {category.name}
               </div>

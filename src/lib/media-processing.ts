@@ -26,7 +26,7 @@ export async function processMediaFiles(
     const fileType = getFileType(file);
 
     if (!fileType) {
-      toast.error(`不支持的文件类型: ${file.name}`);
+      toast.error(`不支持的file类型: ${file.name}`);
       continue;
     }
 

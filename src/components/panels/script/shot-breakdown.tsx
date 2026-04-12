@@ -55,7 +55,7 @@ export function ShotBreakdown({
       <div className="flex flex-col items-center justify-center py-12 text-center">
         <Film className="w-12 h-12 text-zinc-700 mb-4" />
         <p className="text-sm text-zinc-500">暂无Phân cảnh</p>
-        <p className="text-xs text-zinc-600 mt-1">Phân tích kịch bản后点击"生成Danh sách phân cảnh"</p>
+        <p className="text-xs text-zinc-600 mt-1">Phân tích kịch bản后Nhấp"生成Danh sách phân cảnh"</p>
       </div>
     );
   }

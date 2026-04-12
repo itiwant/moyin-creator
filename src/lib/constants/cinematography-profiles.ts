@@ -79,7 +79,7 @@ export interface CinematographyProfile {
   // ---- AI 指导 ----
   /** 给 AI 的中文摄影指导说明（2-3句话，注入 system prompt） */
   promptGuidance: string;
-  /** 参考影片列表（帮助 AI 理解目标风格） */
+  /** 参考影片 cột表（帮助 AI 理解目标风格） */
   referenceFilms: string[];
 }
 
@@ -93,7 +93,7 @@ export const CINEMATOGRAPHY_CATEGORIES: { id: CinematographyCategory; name: stri
   { id: 'era', name: '时代风格', emoji: '📅' },
 ];
 
-// ==================== 预设列表 ====================
+// ==================== 预设 cột表 ====================
 
 // ---------- 电影类 (cinematic) ----------
 
@@ -181,7 +181,7 @@ const CINEMATIC_PROFILES: CinematographyProfile[] = [
     defaultAngle: 'eye-level',
     defaultFocalLength: '85mm',
     defaultTechnique: 'bokeh',
-    promptGuidance: '浪漫感的核心是逆光——黄金时段的暖色逆光让人物轮廓发光。极浅景深把世界虚化成光斑，斯坦尼康轻柔跟随人物，仿佛在梦中行走。偶尔飘落的花瓣或光束为画面增添诗意。',
+    promptGuidance: '浪漫感的核心是逆光——黄金时段的暖色逆光让人物轮廓发光。极浅景深把世界虚化成光斑，斯坦尼康轻柔跟随人物，仿佛在梦中 hàng走。偶尔飘落的花瓣或光束为画面增添诗意。',
     referenceFilms: ['恋恋笔记本', '爱乐之城', '傲慢与偏见', '情书'],
   },
 ];
@@ -277,7 +277,7 @@ const STYLIZED_PROFILES: CinematographyProfile[] = [
     defaultSpeed: { playbackSpeed: 'normal' },
     defaultAngle: 'low-angle',
     defaultFocalLength: '24mm',
-    promptGuidance: '恐怖片的摄影原则是「隐藏比展示更可怕」——浅景深让背景模糊成未知的威胁，浓雾遮蔽视野制造不安。底光让面部出现不自然的阴影，手持极慢移动制造潜行感。关键时刻突然快速甩镜，打破之前的缓慢节奏。',
+    promptGuidance: '恐怖片的摄影原则是「隐藏比展示更可怕」——浅景深让背景模糊成未知的威胁，浓雾遮蔽视野制造不安。底光让面部出现不自然的阴影，手持极慢移动制造潜 hàng感。关键时刻突然快速甩镜，打破之前的缓慢节奏。',
     referenceFilms: ['闪灵', '遗传厄运', '招魂', '午夜凶铃'],
   },
   {
@@ -459,7 +459,7 @@ export function buildCinematographyGuidance(profileId: string): string {
     '',
     `**参考影片：** ${profile.referenceFilms.join('、')}`,
     '',
-    '⚠️ 以上是本项目的摄影语言基准。每个分镜的拍摄控制字段应以此为默认值，但如果剧情的叙事功能（如高潮、转折）需要偏离基准，可以自由调整——关键是要有叙事理由，不要随机变化。',
+    '⚠️ 以上是本项目的摄影语言基准。每个Phân cảnh的拍摄控制字段应以此为默认值，但如果剧情的叙事功能（如高潮、转折）需要偏离基准，可以自由调整——关键是要有叙事理由，Không随机变化。',
   ].filter(Boolean);
 
   return lines.join('\n');

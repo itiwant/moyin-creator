@@ -2,8 +2,8 @@
 // Licensed under AGPL-3.0-or-later. See LICENSE for details.
 // Commercial licensing available. See COMMERCIAL_LICENSE.md.
 /**
- * Quad Grid Components - 四宫格组件
- * 基于锚点图生成一致性变体
+ * Quad Grid Components - Lưới 4 ô组件
+ * 基于锚点图Tạo一致性biến thể
  */
 
 export { QuadGridDialog } from "./QuadGridDialog";

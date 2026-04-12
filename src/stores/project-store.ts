@@ -29,7 +29,7 @@ interface ProjectStore {
 // Default project for desktop app
 const DEFAULT_PROJECT: Project = {
   id: "default-project",
-  name: "魔因漫创项目",
+  name: "Dự án Moyin Creator",
   createdAt: Date.now(),
   updatedAt: Date.now(),
 };
@@ -62,13 +62,13 @@ export const useProjectStore = create<ProjectStore>()(
       createProject: (name) => {
         const newProject: Project = {
           id: generateUUID(),
-          name: name?.trim() || `新项目 ${new Date().toLocaleDateString('zh-CN')}`,
+          name: name?.trim() || `新项目 ${new Date().toLocaleDateString('vi-VN')}`,
           createdAt: Date.now(),
           updatedAt: Date.now(),
         };
         set((state) => ({
           projects: [newProject, ...state.projects],
-          // 不在这里设置 activeProjectId —— 由 switchProject() 统一处理
+          // 不在这里Cài đặt activeProjectId —— 由 switchProject() 统一处理
           // 避免 switchProject 因 ID 已相同而跳过 rehydration
         }));
         return newProject;
@@ -140,8 +140,8 @@ export const useProjectStore = create<ProjectStore>()(
         state.activeProjectId = project?.id || null;
         state.activeProject = project;
 
-        // 异步扫描磁盘上 _p/ 目录，将遗漏的项目恢复到列表中
-        // 解决路径切换/导入/迁移后项目列表为空的问题
+        // 异步扫描磁盘上 _p/ thư mục，将遗漏的项目恢复到 cột表中
+        // 解决路径切换/Nhập/迁移后项目 cột表为空的问题
         discoverProjectsFromDisk().catch((err) =>
           console.warn('[ProjectStore] Disk discovery failed:', err)
         );
@@ -151,20 +151,20 @@ export const useProjectStore = create<ProjectStore>()(
 );
 
 /**
- * 扫描磁盘上 _p/ 目录下的实际项目文件夹，
- * 将未在 projects 列表中注册的项目自动恢复。
+ * 扫描磁盘上 _p/ thư mục下的实际项目Thư mục，
+ * 将未在 projects  cột表中注册的项目Tự động恢复。
  * 
- * 解决以下场景：
+ * 解决以下Cảnh：
  * - 更改存储路径并迁移数据后，前端 store 未 reload，或 moyin-project-store.json
- *   中的 projects 列表不完整（旧版本、手动复制等）
- * - 导入数据后 moyin-project-store.json 缺失或不含新项目
- * - 换电脑后指向旧数据目录，projects 列表为空
+ *   中的 projects  cột表不完整（旧Phiên bản、Thủ côngSao chép等）
+ * - Nhập数据后 moyin-project-store.json 缺失或不含新项目
+ * - 换电脑后指向旧数据thư mục，projects  cột表为空
  */
 async function discoverProjectsFromDisk(): Promise<void> {
   if (!window.fileStorage?.listDirs) return;
 
   try {
-    // 列出 _p/ 下所有子目录名（每个子目录名就是一个 projectId）
+    //  cột出 _p/ 下所有conthư mục名（每个conthư mục名就是一个 projectId）
     const diskProjectIds = await window.fileStorage.listDirs('_p');
     if (!diskProjectIds || diskProjectIds.length === 0) return;
 
@@ -179,13 +179,13 @@ async function discoverProjectsFromDisk(): Promise<void> {
       missingIds.map((id) => id.substring(0, 8))
     );
 
-    // 尝试从每个遗漏项目的 director / script store 文件中提取项目名
+    // 尝试从每个遗漏项目的 director / script store file中提取项目名
     const recoveredProjects: Project[] = [];
     for (const pid of missingIds) {
       let name = `恢复的项目 (${pid.substring(0, 8)})`;
       const createdAt = Date.now();
 
-      // 尝试从 script store 获取名称
+      // 尝试从 script store 获取Tên
       try {
         const scriptRaw = await window.fileStorage.getItem(`_p/${pid}/script-store`);
         if (scriptRaw) {
@@ -198,19 +198,19 @@ async function discoverProjectsFromDisk(): Promise<void> {
         }
       } catch { /* ignore */ }
 
-      // 尝试从 director store 获取创建时间等信息
+      // 尝试从 director store 获取TạoThời gian等信息
       try {
         const directorRaw = await window.fileStorage.getItem(`_p/${pid}/director-store`);
         if (directorRaw) {
           const parsed = JSON.parse(directorRaw);
           const state = parsed?.state ?? parsed;
           if (state?.projects?.[pid]?.screenplay) {
-            // 有剧本内容，说明确实是有效项目
+            // 有Kịch bảnNội dung，说明确实是有效项目
             const screenplay = state.projects[pid].screenplay;
             if (!name.includes('恢复的项目')) {
-              // 已经有名称了，不覆盖
+              // 已经有Tên了，不覆盖
             } else if (screenplay) {
-              // 用剧本前几个字做临时名称
+              // 用Kịch bản前几个字做临时Tên
               const preview = screenplay.substring(0, 20).replace(/\n/g, ' ').trim();
               if (preview) name = preview + '...';
             }

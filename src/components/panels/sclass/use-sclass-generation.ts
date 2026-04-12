@@ -2,14 +2,14 @@
 // Licensed under AGPL-3.0-or-later. See LICENSE for details.
 // Commercial licensing available. See COMMERCIAL_LICENSE.md.
 /**
- * use-sclass-generation.ts — S级 Seedance 2.0 视频生成 Hook
+ * use-sclass-generation.ts — Hạng S Seedance 2.0 videoTạo Hook
  *
  * 核心功能：
- * 1. generateGroupVideo(group) — 单组生成：收集 @引用 → 构建多模态请求 → 调用 API → 轮询
- * 2. generateAllGroups() — 批量生成：逐组串行，各组独立生成
- * 3. generateSingleShot(sceneId) — 单镜生成（兼容模式）
- * 4. 自动上传 base64/local 图片到 HTTP URL
- * 5. 生成状态实时同步到 sclass-store
+ * 1. generateGroupVideo(group) — 单组Tạo：收集 @tham chiếu → 构建多模态请求 → 调用 API → 轮询
+ * 2. generateAllGroups() — Tạo hàng loạt：逐组串 hàng，各组独立Tạo
+ * 3. generateSingleShot(sceneId) — 单镜Tạo（兼容模式）
+ * 4. Tự độngTải lên base64/local ảnh到 HTTP URL
+ * 5. TạoTrạng thái实时同步到 sclass-store
  */
 
 import { useCallback, useRef } from "react";
@@ -87,7 +87,7 @@ export function useSClassGeneration() {
 
   // ========== Helpers ==========
 
-  /** 获取组内场景列表 */
+  /** 获取组内Cảnh cột表 */
   const getGroupScenes = useCallback(
     (group: ShotGroup): SplitScene[] => {
       return group.sceneIds
@@ -97,7 +97,7 @@ export function useSClassGeneration() {
     [splitScenes]
   );
 
-  /** 将 @引用中的图片 URL 转为 HTTP URL */
+  /** 将 @tham chiếu中的ảnh URL 转为 HTTP URL */
   const prepareImageUrls = useCallback(
     async (
       refs: AssetRef[]
@@ -127,7 +127,7 @@ export function useSClassGeneration() {
     []
   );
 
-  // ========== 单组生成 ==========
+  // ========== 单组Tạo ==========
 
   const generateGroupVideo = useCallback(
     async (
@@ -135,9 +135,9 @@ export function useSClassGeneration() {
       options?: {
         /** 进度回调 */
         onProgress?: (progress: number) => void;
-        /** 构建完格子图+prompt 后，询问用户是否继续生成视频；返回 false 则中止 */
+        /** 构建完ô图+prompt 后，询问用户是否Tiếp tụcTạo video；Quay lại false 则中止 */
         confirmBeforeGenerate?: () => Promise<boolean>;
-        /** 前组视频 URL（链式重试时传入，用于衔接前后组视频） */
+        /** 前组video URL（链式重试时传入，用于衔接前后组video） */
         prevVideoUrl?: string;
       }
     ): Promise<GroupGenerationResult> => {
@@ -169,7 +169,7 @@ export function useSClassGeneration() {
           groupId: group.id,
           success: false,
           videoUrl: null,
-          error: "请先在设置中配置视频生成 API Key",
+          error: "请先在Cài đặt中配置videoTạo API Key",
         };
       }
       const sclassProjectData = getProjectData(projectId);
@@ -183,18 +183,18 @@ export function useSClassGeneration() {
       const videoResolution = (storyboardConfig?.videoResolution || '720p') as SClassResolution;
       const styleTokens = storyboardConfig?.styleTokens;
 
-      // 2. 获取组内场景
+      // 2. 获取组内Cảnh
       const groupScenes = getGroupScenes(group);
       if (groupScenes.length === 0) {
         return {
           groupId: group.id,
           success: false,
           videoUrl: null,
-          error: "组内无场景",
+          error: "组内无Cảnh",
         };
       }
 
-      // 3. 设置生成中状态
+      // 3. Cài đặtĐang tạoTrạng thái
       updateGroupVideoStatus(group.id, {
         videoStatus: "generating",
         videoProgress: 0,
@@ -202,7 +202,7 @@ export function useSClassGeneration() {
       });
 
       try {
-      // 4. 从组内分镜聚合音频/运镜设置
+      // 4. 从组内Phân cảnh聚合âm thanh/运镜Cài đặt
         const isExtendOrEdit = group.generationType === 'extend' || group.generationType === 'edit';
         const hasAnyDialogue = groupScenes.some(s => s.audioDialogueEnabled !== false && s.dialogue?.trim());
         const hasAnyAmbient = groupScenes.some(s => s.audioAmbientEnabled !== false);
@@ -210,14 +210,14 @@ export function useSClassGeneration() {
         const enableAudio = hasAnyDialogue || hasAnyAmbient || hasAnySfx;
         const enableLipSync = hasAnyDialogue;
 
-        // camerafixed: 全部分镜运镜为 Static 或为空 → 锁定运镜
+        // camerafixed: 全部Phân cảnh运镜为 Static 或为空 → 锁定运镜
         const allStaticCamera = groupScenes.every(s => {
           const cm = (s.cameraMovement || '').toLowerCase().trim();
           return !cm || cm === 'static' || cm === '固定' || cm === '静止';
         });
 
-        // 4b. 构建格子图（合并首帧 或 复用缓存）
-        // 延长/编辑组跳过格子图 — 它们的首帧参考来自 sourceVideoUrl
+        // 4b. 构建ô图（合并Khung hình đầu 或 复用缓存）
+        // kéo dài/Chỉnh sửa组跳过ô图 — 它们的Khung hình đầu参考来自 sourceVideoUrl
         let gridImageRef: AssetRef | null = null;
 
         if (!isExtendOrEdit) {
@@ -231,7 +231,7 @@ export function useSClassGeneration() {
             sceneIds.length === cachedSceneIds.length &&
             sceneIds.every((id, i) => id === cachedSceneIds[i]);
 
-          // 收集组内分镜的首帧图片
+          // 收集组内Phân cảnh的Khung hình đầuảnh
           const firstFrameUrls = groupScenes
             .map(s => s.imageDataUrl || s.imageHttpUrl || '')
             .filter(Boolean);
@@ -239,19 +239,19 @@ export function useSClassGeneration() {
           if (firstFrameUrls.length > 0) {
             let gridDataUrl: string;
             if (canReuseGrid) {
-              // 复用步骤③保存的原始九宫格图
+              // 复用步骤③Lưu的原始九宫格图
               gridDataUrl = cachedGridUrl!;
               console.log('[SClassGen] 复用缓存九宫格图:', gridDataUrl.substring(0, 60));
             } else {
-              // 重新合并首帧为格子图
+              // 重新合并Khung hình đầu为ô图
               gridDataUrl = await mergeToGridImage(firstFrameUrls, aspectRatio);
-              console.log('[SClassGen] 已合并', firstFrameUrls.length, '张首帧为格子图');
+              console.log('[SClassGen] 已合并', firstFrameUrls.length, '张Khung hình đầu为ô图');
             }
 
             gridImageRef = {
               id: 'grid_image',
               type: 'image',
-              tag: '@图片1',
+              tag: '@ảnh1',
               localUrl: gridDataUrl,
               httpUrl: gridDataUrl.startsWith('http') ? gridDataUrl : null,
               fileName: 'grid_image.png',
@@ -262,7 +262,7 @@ export function useSClassGeneration() {
           }
         }
 
-        // 4c. 构建 prompt（传入格子图引用 + 风格 tokens）
+        // 4c. 构建 prompt（传入ô图tham chiếu + Phong cách tokens）
         const promptResult: GroupPromptResult = buildGroupPrompt({
           group,
           scenes: groupScenes,
@@ -276,22 +276,22 @@ export function useSClassGeneration() {
 
         if (promptResult.refs.overLimit) {
           console.warn(
-            "[SClassGen] 素材超限:",
+            "[SClassGen] Phương tiện超限:",
             promptResult.refs.limitWarnings
           );
         }
 
-        // 4d. 保存格子图 + prompt 到 group（用于 UI 预览/复制）
+        // 4d. Lưuô图 + prompt 到 group（用于 UI Xem trước/Sao chép）
         updateShotGroup(group.id, {
           gridImageUrl: gridImageRef?.localUrl || null,
           lastPrompt: promptResult.prompt || null,
         });
 
-        // 4e. 确认是否继续生成视频（用户可在此处仅预览格子图/prompt 后中止）
+        // 4e. Xác nhận是否Tiếp tụcTạo video（用户可在此处仅Xem trướcô图/prompt 后中止）
         if (options?.confirmBeforeGenerate) {
           const proceed = await options.confirmBeforeGenerate();
           if (!proceed) {
-            // 用户取消，重置状态但保留 gridImageUrl + lastPrompt
+            // 用户Hủy，Đặt lạiTrạng thái但保留 gridImageUrl + lastPrompt
             updateGroupVideoStatus(group.id, {
               videoStatus: 'idle',
               videoProgress: 0,
@@ -305,13 +305,13 @@ export function useSClassGeneration() {
           }
         }
 
-        // 5. 收集图片引用 → 转 HTTP URL
+        // 5. 收集ảnhtham chiếu → 转 HTTP URL
         const imageRefs = promptResult.refs.images;
         const imageWithRoles = await prepareImageUrls(imageRefs);
 
-        // 5b. 收集视频/音频引用 → 转 HTTP URL（Seedance 2.0 多模态输入）
+        // 5b. 收集video/âm thanhtham chiếu → 转 HTTP URL（Seedance 2.0 多模态输入）
         const videoRefUrls: string[] = [];
-        // 前组视频衔接（链式重试时传入）— 延长/编辑组已在 refs.videos 中携带 sourceVideoUrl，跳过
+        // 前组video衔接（链式重试时传入）— kéo dài/Chỉnh sửa组已在 refs.videos 中携带 sourceVideoUrl，跳过
         if (!isExtendOrEdit && options?.prevVideoUrl) {
           const prevHttpUrl = await convertToHttpUrl(options.prevVideoUrl).catch(() => "");
           if (prevHttpUrl) videoRefUrls.push(prevHttpUrl);
@@ -328,7 +328,7 @@ export function useSClassGeneration() {
 
         updateGroupVideoStatus(group.id, { videoProgress: 10 });
 
-        // 6. 调用视频生成 API
+        // 6. 调用videoTạo API
         const prompt =
           promptResult.prompt || `Multi-shot video: ${group.name}`;
         const duration = Math.max(
@@ -391,7 +391,7 @@ export function useSClassGeneration() {
               : (statusMatch ? Number(statusMatch[1]) : undefined);
             const alreadyRotatedByInner = typeof err.status === "number"
               && [400, 401, 403, 429, 500, 502, 503, 529].includes(err.status);
-            const fallbackStatus = /model|模型/i.test(message)
+            const fallbackStatus = /model|Model/i.test(message)
               && /not support|unsupported|无权限|权限不足|未开通|不可用/i.test(message)
               ? 400
               : undefined;
@@ -399,7 +399,7 @@ export function useSClassGeneration() {
             const rotated = alreadyRotatedByInner
               ? true
               : (typeof statusForHandle === "number" ? keyManager.handleError(statusForHandle, message) : false);
-            const retryableByMessage = /429|500|502|503|529|too many requests|rate|quota|service unavailable|overloaded|internal server error|server error|上游负载|上游服务|饱和|暂时不可用|服务暂时不可用|api key|无效|过期|model|模型|不支持|权限|未开通/.test(message.toLowerCase());
+            const retryableByMessage = /429|500|502|503|529|too many requests|rate|quota|service unavailable|overloaded|internal server error|server error|上游负载|上游服务|饱和|暂时不可用|服务暂时不可用|api key|无效|过期|model|Model|不Hỗ trợ|权限|未开通/.test(message.toLowerCase());
             const canRetry = attempt < maxVideoAttempts - 1 && (rotated || retryableByMessage);
 
             if (canRetry) {
@@ -415,16 +415,16 @@ export function useSClassGeneration() {
         }
 
         if (!videoUrl) {
-          throw lastVideoError || new Error("视频生成失败：没有可用 API Key");
+          throw lastVideoError || new Error("videoTạo thất bại：没有可用 API Key");
         }
 
-        // 7. 保存视频到本地
+        // 7. Lưuvideo到本地
         const localUrl = await saveVideoLocally(
           videoUrl,
           group.sceneIds[0] || 0
         );
 
-        // 8. 更新状态 → 完成
+        // 8. 更新Trạng thái → 完成
         updateGroupVideoStatus(group.id, {
           videoStatus: "completed",
           videoProgress: 100,
@@ -461,7 +461,7 @@ export function useSClassGeneration() {
         };
       } catch (error) {
         const err = error as Error;
-        const errorMsg = err.message || "视频生成失败";
+        const errorMsg = err.message || "videoTạo thất bại";
         const isModeration = isContentModerationError(err);
 
         console.error("[SClassGen] Group generation failed:", err);
@@ -469,7 +469,7 @@ export function useSClassGeneration() {
         updateGroupVideoStatus(group.id, {
           videoStatus: "failed",
           videoProgress: 0,
-          videoError: isModeration ? `内容审核未通过: ${errorMsg}` : errorMsg,
+          videoError: isModeration ? `Nội dung审核未通过: ${errorMsg}` : errorMsg,
         });
 
         return {
@@ -494,7 +494,7 @@ export function useSClassGeneration() {
     ]
   );
 
-  // ========== 批量生成（逐组串行 + 尾帧传递） ==========
+  // ========== Tạo hàng loạt（逐组串 hàng + Khung hình cuối传递） ==========
 
   const generateAllGroups = useCallback(
     async (
@@ -510,17 +510,17 @@ export function useSClassGeneration() {
       const groups = projectData.shotGroups;
 
       if (groups.length === 0) {
-        toast.error("没有镜头组");
+        toast.error("没有Ống kính组");
         return [];
       }
 
-      // 过滤需要生成的组（idle 或 failed）
+      // 过滤需要Tạo的组（idle 或 failed）
       const groupsToGenerate = groups.filter(
         (g) => g.videoStatus === "idle" || g.videoStatus === "failed"
       );
 
       if (groupsToGenerate.length === 0) {
-        toast.info("所有镜头组已生成或正在生成中");
+        toast.info("所有Ống kính组đã tạo或正在Đang tạo");
         return [];
       }
 
@@ -528,12 +528,12 @@ export function useSClassGeneration() {
       const results: GroupGenerationResult[] = [];
 
       toast.info(
-        `开始逐组生成 ${groupsToGenerate.length} 个镜头组视频...`
+        `Bắt đầu逐组Tạo ${groupsToGenerate.length} 个Ống kính组video...`
       );
 
       for (let i = 0; i < groupsToGenerate.length; i++) {
         if (abortRef.current) {
-          toast.warning("已中止批量生成");
+          toast.warning("已中止Tạo hàng loạt");
           break;
         }
 
@@ -561,11 +561,11 @@ export function useSClassGeneration() {
 
         if (result.success) {
           toast.success(
-            `组 ${i + 1}/${groupsToGenerate.length} 「${group.name}」生成完成`
+            `组 ${i + 1}/${groupsToGenerate.length} 「${group.name}」Tạo完成`
           );
         } else {
           toast.error(
-            `组 ${i + 1}/${groupsToGenerate.length} 「${group.name}」失败: ${result.error}`
+            `组 ${i + 1}/${groupsToGenerate.length} 「${group.name}」Thất bại: ${result.error}`
           );
         }
       }
@@ -580,10 +580,10 @@ export function useSClassGeneration() {
       const successCount = results.filter((r) => r.success).length;
       const failCount = results.filter((r) => !r.success).length;
       if (failCount === 0) {
-        toast.success(`全部 ${successCount} 个镜头组生成完成 🎬`);
+        toast.success(`全部 ${successCount} 个Ống kính组Tạo完成 🎬`);
       } else {
         toast.warning(
-          `生成完毕：${successCount} 成功，${failCount} 失败`
+          `Tạo完毕：${successCount} Thành công，${failCount} Thất bại`
         );
       }
 
@@ -592,13 +592,13 @@ export function useSClassGeneration() {
     [activeProjectId, getProjectData, generateGroupVideo]
   );
 
-  // ========== 单镜生成（兼容模式） ==========
+  // ========== 单镜Tạo（兼容模式） ==========
 
   const generateSingleShot = useCallback(
     async (sceneId: number): Promise<boolean> => {
       const scene = splitScenes.find((s: SplitScene) => s.id === sceneId);
       if (!scene) {
-        toast.error("未找到分镜");
+        toast.error("未找到Phân cảnh");
         return false;
       }
 
@@ -610,7 +610,7 @@ export function useSClassGeneration() {
 
       const keyManager = featureConfig.keyManager;
       if (!keyManager.getCurrentKey()) {
-        toast.error("请先在设置中配置视频生成 API Key");
+        toast.error("请先在Cài đặt中配置videoTạo API Key");
         return false;
       }
       const projectId = activeProjectId;
@@ -640,7 +640,7 @@ export function useSClassGeneration() {
         const prompt =
           scene.videoPrompt ||
           scene.videoPromptZh ||
-          `分镜 ${scene.id + 1} 视频`;
+          `Video phân cảnh ${scene.id + 1}`;
         const duration = Math.max(4, Math.min(15, scene.duration || 5));
 
         const maxVideoAttempts = Math.max(1, Math.min(keyManager.getTotalKeyCount(), 6));
@@ -677,7 +677,7 @@ export function useSClassGeneration() {
               : (statusMatch ? Number(statusMatch[1]) : undefined);
             const alreadyRotatedByInner = typeof err.status === "number"
               && [400, 401, 403, 429, 500, 502, 503, 529].includes(err.status);
-            const fallbackStatus = /model|模型/i.test(message)
+            const fallbackStatus = /model|Model/i.test(message)
               && /not support|unsupported|无权限|权限不足|未开通|不可用/i.test(message)
               ? 400
               : undefined;
@@ -685,7 +685,7 @@ export function useSClassGeneration() {
             const rotated = alreadyRotatedByInner
               ? true
               : (typeof statusForHandle === "number" ? keyManager.handleError(statusForHandle, message) : false);
-            const retryableByMessage = /429|500|502|503|529|too many requests|rate|quota|service unavailable|overloaded|internal server error|server error|上游负载|上游服务|饱和|暂时不可用|服务暂时不可用|api key|无效|过期|model|模型|不支持|权限|未开通/.test(message.toLowerCase());
+            const retryableByMessage = /429|500|502|503|529|too many requests|rate|quota|service unavailable|overloaded|internal server error|server error|上游负载|上游服务|饱和|暂时不可用|服务暂时不可用|api key|无效|过期|model|Model|不Hỗ trợ|权限|未开通/.test(message.toLowerCase());
             const canRetry = attempt < maxVideoAttempts - 1 && (rotated || retryableByMessage);
 
             if (canRetry) {
@@ -701,7 +701,7 @@ export function useSClassGeneration() {
         }
 
         if (!videoUrl) {
-          throw lastVideoError || new Error("视频生成失败：没有可用 API Key");
+          throw lastVideoError || new Error("videoTạo thất bại：没有可用 API Key");
         }
 
         const localUrl = await saveVideoLocally(videoUrl, sceneId);
@@ -713,7 +713,7 @@ export function useSClassGeneration() {
           videoError: null,
         });
 
-        toast.success(`分镜 ${sceneId + 1} 生成完成`);
+        toast.success(`Phân cảnh ${sceneId + 1} Tạo完成`);
         return true;
       } catch (error) {
         const err = error as Error;
@@ -722,7 +722,7 @@ export function useSClassGeneration() {
           videoProgress: 0,
           videoError: err.message,
         });
-        toast.error(`分镜 ${sceneId + 1} 生成失败: ${err.message}`);
+        toast.error(`Phân cảnh ${sceneId + 1} Tạo thất bại: ${err.message}`);
         return false;
       }
     },
@@ -738,7 +738,7 @@ export function useSClassGeneration() {
 
   const abortGeneration = useCallback(() => {
     abortRef.current = true;
-    toast.info("正在中止生成...");
+    toast.info("正在中止Tạo...");
   }, []);
 
   // ========== 重试单组 ==========
@@ -752,7 +752,7 @@ export function useSClassGeneration() {
       const group = projectData.shotGroups.find((g) => g.id === groupId);
       if (!group) return null;
 
-      // 重置状态
+      // Đặt lạiTrạng thái
       updateGroupVideoStatus(groupId, {
         videoStatus: "idle",
         videoProgress: 0,
@@ -772,15 +772,15 @@ export function useSClassGeneration() {
     [activeProjectId, getProjectData, updateGroupVideoStatus, generateGroupVideo]
   );
 
-  // ========== 链式延长 ==========
+  // ========== 链式kéo dài ==========
 
   /**
-   * 基于已完成组创建延长子组并生成视频
+   * 基于Đã hoàn thành组Tạokéo dàicon组并Tạo video
    *
-   * @param sourceGroupId 来源组 ID（必须已完成且有 videoUrl）
-   * @param extendDuration 延长时长 (4-15s)
-   * @param direction 延长方向
-   * @param description 用户补充描述（可选）
+   * @param sourceGroupId 来源组 ID（必须Đã hoàn thành且有 videoUrl）
+   * @param extendDuration kéo dàiThời lượng (4-15s)
+   * @param direction Hướng kéo dài
+   * @param description 用户补充Mô tả（可选）
    */
   const generateChainExtension = useCallback(
     async (
@@ -798,15 +798,15 @@ export function useSClassGeneration() {
       const pd = getProjectData(projectId);
       const sourceGroup = pd.shotGroups.find(g => g.id === sourceGroupId);
       if (!sourceGroup || !sourceGroup.videoUrl) {
-        toast.error('源组无已完成视频，无法延长');
+        toast.error('源组无Đã hoàn thànhvideo，无法kéo dài');
         return null;
       }
 
-      // 创建延长子组
+      // Tạokéo dàicon组
       const childId = `extend_${Date.now()}_${sourceGroupId.substring(0, 8)}`;
       const childGroup: ShotGroup = {
         id: childId,
-        name: `${sourceGroup.name} - 延长`,
+        name: `${sourceGroup.name} - kéo dài`,
         sceneIds: [...sourceGroup.sceneIds],
         sortIndex: sourceGroup.sortIndex + 0.5,
         totalDuration: Math.max(4, Math.min(15, extendDuration)) as ShotGroup["totalDuration"],
@@ -829,7 +829,7 @@ export function useSClassGeneration() {
       };
 
       addShotGroup(childGroup);
-      toast.info(`已创建延长子组「${childGroup.name}」`);
+      toast.info(`đã tạokéo dàicon组「${childGroup.name}」`);
 
       return generateGroupVideo(childGroup);
     },

@@ -27,37 +27,37 @@ export interface SceneFolder {
 
 export interface Scene {
   id: string;
-  name: string;           // 场景名称
-  location: string;       // 地点描述
-  time: string;           // 时间设定 (白天/夜晚/黄昏等)
-  atmosphere: string;     // 氛围描述 (紧张/温馨/神秘等)
+  name: string;           // Tên cảnh
+  location: string;       // Địa điểmMô tả
+  time: string;           // Thời gian设定 (白天/夜晚/黄昏等)
+  atmosphere: string;     // Bầu không khíMô tả (紧张/温馨/神秘等)
   projectId?: string;     // Associated project (optional)
-  visualPrompt?: string;  // 完整的视觉提示词
-  referenceImage?: string; // 生成的场景概念图 URL
+  visualPrompt?: string;  // 完整的视觉prompt
+  referenceImage?: string; // Tạo的Cảnh概念图 URL
   referenceImageBase64?: string; // Base64 for persistence
   styleId?: string;       // Visual style preset ID
   folderId?: string | null; // Folder ID for organization
   // Enhanced fields (inspired by AniKuku)
-  tags?: string[];        // 环境标签 如 #木柱 #窗棱 #古建筑
-  notes?: string;         // 地点备注 (剧情说明，与location分开)
-  status?: 'draft' | 'linked'; // 状态: draft=草稿, linked=已关联剧本
+  tags?: string[];        // môi trườngThẻ 如 #木柱 #窗棱 #古建筑
+  notes?: string;         // Địa điểmGhi chú (cốt truyện说明，与location分开)
+  status?: 'draft' | 'linked'; // Trạng thái: draft=Bản nháp, linked=已关联Kịch bản
   linkedEpisodeId?: string;    // 关联的剧集ID
   createdAt: number;
   updatedAt: number;
   
-  // === 视角变体支持 ===
-  parentSceneId?: string;     // 父场景 ID（如果是视角变体）
-  viewpointId?: string;       // 视角 ID（如 'dining', 'sofa' 等）
-  viewpointName?: string;     // 视角名称（如 '餐桌区', '沙发区' 等）
-  shotIds?: string[];         // 关联的分镜 ID 列表
-  isViewpointVariant?: boolean; // 是否是视角变体
+  // === Góc nhìnbiến thểHỗ trợ ===
+  parentSceneId?: string;     // 父Cảnh ID（如果是Góc nhìnbiến thể）
+  viewpointId?: string;       // Góc nhìn ID（如 'dining', 'sofa' 等）
+  viewpointName?: string;     // Góc nhìnTên（如 '餐桌区', '沙发区' 等）
+  shotIds?: string[];         // 关联的Phân cảnh ID  cột表
+  isViewpointVariant?: boolean; // 是否是Góc nhìnbiến thể
   
-  // === 专业场景设计字段 ===
-  architectureStyle?: string;  // 建筑风格
-  colorPalette?: string;       // 色彩基调
-  eraDetails?: string;         // 时代特征
-  lightingDesign?: string;     // 光影设计
-  keyProps?: string[];         // 关键道具
+  // === 专业Cảnh设计字段 ===
+  architectureStyle?: string;  // Phong cách kiến trúc
+  colorPalette?: string;       // Bảng màu sắc
+  eraDetails?: string;         // Đặc trưng thời đại
+  lightingDesign?: string;     // Thiết kế ánh sáng
+  keyProps?: string[];         // 关键Đạo cụ
   spatialLayout?: string;      // 空间布局
 }
 
@@ -80,7 +80,7 @@ interface SceneState {
   generatingSceneId: string | null;
   generationPrefs: SceneGenerationPrefs;
   generationPrefsByProject: Record<string, SceneGenerationPrefs>;
-  // 联合图自动生成任务跟踪 (parentSceneId → 状态)
+  // 联合图Tự độngTạo任务跟踪 (parentSceneId → Trạng thái)
   contactSheetTasks: Record<string, { status: 'generating' | 'splitting' | 'saving' | 'done' | 'error'; progress: number; message?: string }>;
 }
 
@@ -105,7 +105,7 @@ interface SceneActions {
   setGenerationStatus: (status: SceneGenerationStatus, error?: string) => void;
   setGeneratingScene: (id: string | null) => void;
   setGenerationPrefs: (prefs: Partial<SceneGenerationPrefs>) => void;
-  // 联合图任务管理
+  // 联合图任务Quản lý
   setContactSheetTask: (parentSceneId: string, task: { status: 'generating' | 'splitting' | 'saving' | 'done' | 'error'; progress: number; message?: string } | null) => void;
   
   // Project scoping helpers

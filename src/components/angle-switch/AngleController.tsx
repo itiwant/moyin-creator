@@ -4,12 +4,12 @@
 "use client";
 
 /**
- * AngleController - Google Earth 风格 3D 视角控制器
+ * AngleController - Google Earth Phong cách 3D Góc nhìn控制器
  * 
  * 交互升级：
  * - 鼠标拖拽：控制旋转（水平/俯仰）
  * - 鼠标滚轮：控制缩放（景别）
- * - 磁吸效果：接近标准角度时自动吸附，解决"太丝滑"问题
+ * - 磁吸效果：接近标准角度时Tự động吸附，解决"太丝滑"问题
  */
 
 import React, { useState, useCallback, useEffect, useMemo, useRef } from "react";
@@ -70,19 +70,19 @@ export function AngleController({
   isLoading = false,
   compact = false,
 }: AngleControllerProps) {
-  // 状态管理
+  // Trạng tháiQuản lý
   const [direction, setDirection] = useState<HorizontalDirection>(initialDirection);
   const [elevation, setElevation] = useState<ElevationAngle>(initialElevation);
   const [shotSize, setShotSize] = useState<ShotSize>(initialShotSize);
   
-  // 连续的视角参数 (用于渲染动画)
+  // 连续的Góc nhìn参数 (用于渲染动画)
   const [theta, setTheta] = useState(45); // 水平 0-360
   const [phi, setPhi] = useState(90);    // 垂直 30-150
   
-  // 图片比例状态
-  const [imgAspectRatio, setImgAspectRatio] = useState(16 / 9); // 默认宽屏
+  // ảnh比例Trạng thái
+  const [imgAspectRatio, setImgAspectRatio] = useState(16 / 9); // Mặc địnhRộng
 
-  // 交互状态
+  // 交互Trạng thái
   const [isDragging, setIsDragging] = useState(false);
   const [lastMousePos, setLastMousePos] = useState({ x: 0, y: 0 });
   const [cubeRotation, setCubeRotation] = useState(0);
@@ -106,7 +106,7 @@ export function AngleController({
       const targetPhi = [130, 90, 60, 40][elevIdx];
       setPhi(targetPhi);
     }
-  }, []); // 仅在挂载时执行一次
+  }, []); // 仅在挂载时执 hàng一次
 
   // 动画循环
   useEffect(() => {
@@ -137,7 +137,7 @@ export function AngleController({
     else if (p > 50) { elevIndex = 2; snappedPhi = 60; }   // elevated
     else { elevIndex = 3; snappedPhi = 40; }               // high-angle (俯视 - 摄像机在上)
 
-    // 3. 更新状态 (如果发生变化)
+    // 3. 更新Trạng thái (如果发生变化)
     const newDir = HORIZONTAL_DIRECTIONS[dirIndex];
     const newElev = ELEVATION_ANGLES[elevIndex];
 
@@ -158,7 +158,7 @@ export function AngleController({
       });
     }
 
-    // 返回吸附后的视觉坐标(可选：如果想要完全吸附视觉效果，可以使用这个返回值)
+    // Quay lại吸附后的视觉坐标(可选：如果想要完全吸附视觉效果，可以使用这个Quay lại值)
     return { theta: snappedTheta, phi: snappedPhi };
   }, [direction, elevation, shotSize, onAngleChange]);
 
@@ -204,7 +204,7 @@ export function AngleController({
     }
   };
 
-  // 使用原生事件监听器绑定 wheel 事件（设置 passive: false）
+  // 使用原生事件监听器绑定 wheel 事件（Cài đặt passive: false）
   useEffect(() => {
     const container = containerRef.current;
     if (!container) return;
@@ -279,7 +279,7 @@ export function AngleController({
   // 计算当前方向索引（用于高亮LED灯）
   const directionIndex = Math.round(((theta % 360) + 360) % 360 / 45) % 8;
 
-  // 计算 3D 卡片的尺寸 (适应图片比例，且不超过最大范围)
+  // 计算 3D 卡片的尺寸 (适应ảnh比例，且不超过最大范围)
   const maxCardSize = size * 0.7; // 增加一点最大范围
   let cardWidth = maxCardSize;
   let cardHeight = maxCardSize / imgAspectRatio;
@@ -324,7 +324,7 @@ export function AngleController({
           })}
         </svg>
 
-        {/* 2. 中央3D预览卡片 (交互核心) */}
+        {/* 2. 中央3DXem trước卡片 (交互核心) */}
         <div 
           className="absolute pointer-events-none flex items-center justify-center"
           style={{
@@ -452,7 +452,7 @@ export function AngleController({
           </div>
         </div>
         
-        {/* 加载中覆盖层 */}
+        {/* Đang tải覆盖层 */}
         {isLoading && (
           <div className="absolute inset-0 flex items-center justify-center bg-black/60 z-50">
             <div className="w-8 h-8 border-2 border-[#ccff00] border-t-transparent rounded-full animate-spin" />

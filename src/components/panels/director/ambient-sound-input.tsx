@@ -4,8 +4,8 @@
 "use client";
 
 /**
- * 环境声输入组件 (Ambient Sound Input)
- * 用于输入场景的环境声描述，如"森林鸟鸣"、"城市喧嚣"等
+ * môi trường声输入组件 (Ambient Sound Input)
+ * 用于输入Cảnh的môi trường声Mô tả，如"森林鸟鸣"、"城市喧嚣"等
  */
 
 import { useState, useEffect, useRef } from "react";

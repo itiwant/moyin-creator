@@ -175,7 +175,7 @@ export function SettingsPanel() {
       const model = b.slice(idx + 1);
       const p = providers.find(pv => pv.id === ref || pv.platform === ref);
       if (!p || parseApiKeys(p.apiKey).length === 0) return false;
-      // Model列表为空时（尚未同步）暂时信任绑定
+      // Model cột表为空时（尚未同步）暂时信任绑定
       if (p.model.length === 0) return true;
       return p.model.includes(model);
     };
@@ -1615,7 +1615,7 @@ export function SettingsPanel() {
             // 使用 provider.id（而非 platform 字符串）避免多Nhà cung cấp时的歧义解析
             const pid = provider.id;
             const MEMEFAST_DEFAULT_BINDINGS: Record<string, string> = {
-              // NOTE: MemeFast 端点已升级，旧的 deepseek-v3 已不在列表中，改用 deepseek-v3.2
+              // NOTE: MemeFast 端点已升级，旧的 deepseek-v3 已不在 cột表中，改用 deepseek-v3.2
               script_analysis: `${pid}:deepseek-v3.2`,
               character_generation: `${pid}:gemini-3-pro-image-preview`,
               video_generation: `${pid}:doubao-seedance-1-5-pro-251215`,
@@ -1645,7 +1645,7 @@ export function SettingsPanel() {
               }
             }
           }
-          // 添加后自动Đồng bộ model列表和端点元数据
+          // 添加后自动Đồng bộ model cột表和端点元数据
           const finalProviderId = existingMemefast ? existingMemefast.id : provider.id;
           if (parseApiKeys(providerData.apiKey).length > 0) {
             setSyncingProvider(finalProviderId);
@@ -1674,7 +1674,7 @@ export function SettingsPanel() {
           if (provider.platform === 'memefast' && parseApiKeys(provider.apiKey).length > 0) {
             const pid = provider.id;
             const MEMEFAST_DEFAULT_BINDINGS: Record<string, string> = {
-              // NOTE: MemeFast 端点已升级，旧的 deepseek-v3 已不在列表中，改用 deepseek-v3.2
+              // NOTE: MemeFast 端点已升级，旧的 deepseek-v3 已不在 cột表中，改用 deepseek-v3.2
               script_analysis: `${pid}:deepseek-v3.2`,
               character_generation: `${pid}:gemini-3-pro-image-preview`,
               video_generation: `${pid}:doubao-seedance-1-5-pro-251215`,
@@ -1703,7 +1703,7 @@ export function SettingsPanel() {
               }
             }
           }
-          // Chỉnh sửaLưu后自动Đồng bộ model列表和端点元数据
+          // Chỉnh sửaLưu后自动Đồng bộ model cột表和端点元数据
           if (parseApiKeys(provider.apiKey).length > 0) {
             setSyncingProvider(provider.id);
             syncProviderModels(provider.id).then(result => {

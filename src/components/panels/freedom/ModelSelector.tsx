@@ -24,8 +24,8 @@ interface ModelSelectorProps {
 }
 
 interface SelectorModel {
-  id: string;       // 供应商原始模型 ID（直接用于 API 调用）
-  name: string;     // 显示名
+  id: string;       // Nhà cung cấp原始Model ID（直接用于 API 调用）
+  name: string;     // Hiện名
   brandId: string;  // 品牌 ID
 }
 
@@ -38,7 +38,7 @@ const KLING_VIDEO_VARIANTS = [
   'kling-avatar-image2video',
   'kling-advanced-lip-sync',
   'kling-effects',
-  // kling-video 模型版本 (MemeFast model_version)
+  // kling-video ModelPhiên bản (MemeFast model_version)
   'kling-v1',
   'kling-v1-5',
   'kling-v1-6',
@@ -178,7 +178,7 @@ const SEEDREAM_IMAGE_VARIANTS = [
 const KLING_IMAGE_VARIANTS = [
   'kling-image',
   'kling-omni-image',
-  // kling-image 模型版本 (MemeFast model_version)
+  // kling-image ModelPhiên bản (MemeFast model_version)
   'kling-image-v1',
   'kling-image-v1-5',
   'kling-image-v2',
@@ -217,7 +217,7 @@ const VIDEO_FAMILY_VARIANTS: Record<string, string[]> = {
   'kling-advanced-lip-sync': KLING_VIDEO_VARIANTS,
   'kling-effects': KLING_VIDEO_VARIANTS,
   'aigc-video-kling': KLING_VIDEO_VARIANTS,
-  // kling-video 模型版本 (MemeFast model_version)
+  // kling-video ModelPhiên bản (MemeFast model_version)
   'kling-v1': KLING_VIDEO_VARIANTS,
   'kling-v1-5': KLING_VIDEO_VARIANTS,
   'kling-v1-6': KLING_VIDEO_VARIANTS,
@@ -324,7 +324,7 @@ const IMAGE_FAMILY_VARIANTS: Record<string, string[]> = {
   // Kling image
   'kling-image': KLING_IMAGE_VARIANTS,
   'kling-omni-image': KLING_IMAGE_VARIANTS,
-  // kling-image 模型版本 (MemeFast model_version)
+  // kling-image ModelPhiên bản (MemeFast model_version)
   'kling-image-v1': KLING_IMAGE_VARIANTS,
   'kling-image-v1-5': KLING_IMAGE_VARIANTS,
   'kling-image-v2': KLING_IMAGE_VARIANTS,
@@ -363,7 +363,7 @@ function shouldHideModel(type: 'image' | 'video', model: string): boolean {
     return false;
   }
 
-  // 图片面板：隐藏当前 UI 不支持的任务型模型（编辑/重绘/识图/放大等）
+  // ảnh面板：Ẩn当前 UI 不Hỗ trợ的任务型Model（Chỉnh sửa/重绘/识图/放大等）
   if (/^mj_/i.test(model) && model !== 'mj_imagine') return true;
   if (/^ideogram_(edit|reframe|remix|replace_background|upscale|describe)/i.test(model)) return true;
   if (/^(kling-image-recognize|deepseek-ocr)$/i.test(model)) return true;
@@ -383,20 +383,20 @@ function isModelAllowedByPanelType(
   const endpointTypes = modelEndpointTypes[modelId] || [];
   const modelType = modelTypes[modelId];
   if (type === 'image') {
-    // 未同步到 model_type 时先放行，避免误伤可用模型
+    // 未同步到 model_type 时先放 hàng，避免误伤可用Model
     if (!modelType) return true;
     return modelType === '图像';
   }
 
-  // 视频面板：先按 model_type 粗过滤
-  if (modelType && modelType !== '音视频') return false;
+  // video面板：先按 model_type 粗过滤
+  if (modelType && modelType !== '音video') return false;
 
-  // 再按 endpoint type 细过滤，排除纯音频类模型
+  // 再按 endpoint type 细过滤，排除纯âm thanh类Model
   if (endpointTypes.length > 0) {
-    return endpointTypes.some((t) => /视频|video|文生视频|图生视频|首尾帧|参考生视频|延长|动作控制|数字人|omni-video/i.test(t));
+    return endpointTypes.some((t) => /video|video|Tạo video từ văn bản|Tạo video từ ảnh|首Khung hình cuối|参考生video|kéo dài|Hành động控制|数字人|omni-video/i.test(t));
   }
 
-  // endpoint 缺失时用模型名兜底判定（避免自定义展开型号被误过滤）
+  // endpoint 缺失时用Model名兜底判定（避免Tùy chỉnhMở rộng型号被误过滤）
   return /kling|veo|sora|runway|vidu|hailuo|minimax\/video|wan|luma|grok-video|seedance|aigc-video/i.test(modelId);
 }
 
@@ -408,7 +408,7 @@ export function ModelSelector({ type, value, onChange, className }: ModelSelecto
   const modelTypes = useAPIConfigStore((s) => s.modelTypes);
   const modelEndpointTypes = useAPIConfigStore((s) => s.modelEndpointTypes);
 
-  // 直接从 featureBindings 读取已绑定的模型列表
+  // 直接从 featureBindings 读取已绑定的Model cột表
   // 格式: ["memefast:gemini-3-pro-image-preview", "memefast:flux-dev", ...]
   const models = useMemo((): SelectorModel[] => {
     const feature = type === 'image' ? 'freedom_image' : 'freedom_video';
@@ -486,7 +486,7 @@ export function ModelSelector({ type, value, onChange, className }: ModelSelecto
             className={cn('w-full justify-between h-10', className)}
           >
             <span className="truncate">
-              {selectedModel ? selectedModel.name : value ? getModelDisplayName(value) : '选择模型...'}
+              {selectedModel ? selectedModel.name : value ? getModelDisplayName(value) : '选择Model...'}
             </span>
             <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
           </Button>
@@ -495,7 +495,7 @@ export function ModelSelector({ type, value, onChange, className }: ModelSelecto
           <div className="flex items-center border-b px-3 py-2">
             <Search className="mr-2 h-4 w-4 shrink-0 opacity-50" />
             <Input
-              placeholder="搜索模型..."
+              placeholder="Tìm kiếmModel..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               className="border-0 focus-visible:ring-0 h-8 px-0"
@@ -544,9 +544,9 @@ export function ModelSelector({ type, value, onChange, className }: ModelSelecto
               {Object.keys(grouped).length === 0 && (
                 <div className="p-4 text-center text-sm text-muted-foreground space-y-2">
                   <Settings className="h-5 w-5 mx-auto mb-1 opacity-50" />
-                  <p>暂无可用模型</p>
+                  <p>Chưa có可用Model</p>
                   <p className="text-xs">
-                    请先在设置 → 服务映射 → {type === 'image' ? '自由板块-图片' : '自由板块-视频'} 中勾选模型
+                    请先在Cài đặt → 服务映射 → {type === 'image' ? 'Tự dopanel-ảnh' : 'Tự dopanel-video'} 中勾选Model
                   </p>
                 </div>
               )}
@@ -558,7 +558,7 @@ export function ModelSelector({ type, value, onChange, className }: ModelSelecto
         <div className="flex items-start gap-1.5 rounded-md border border-amber-500/40 bg-amber-500/10 px-2 py-1.5 text-xs text-amber-700 dark:text-amber-300">
           <AlertTriangle className="mt-0.5 h-3.5 w-3.5 shrink-0" />
           <span>
-            当前已选模型不可用（可能已下线或被当前面板过滤），请重新选择可用模型。
+            当前已选Model不可用（可能已下线或被当前面板过滤），请重新选择可用Model。
           </span>
         </div>
       )}

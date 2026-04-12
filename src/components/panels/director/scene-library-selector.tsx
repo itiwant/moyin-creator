@@ -4,8 +4,8 @@
 "use client";
 
 /**
- * 场景库选择器组件 (Scene Library Selector)
- * 支持三层选择：父场景 → 视角变体 → 四视图子场景
+ * Thư viện cảnh选择器组件 (Scene Library Selector)
+ * Hỗ trợ三层选择：父Cảnh → Góc nhìnbiến thể → 四视图conCảnh
  */
 
 import React, { useState, useMemo } from "react";
@@ -65,25 +65,25 @@ export function SceneLibrarySelector({
     return libraryScenes.filter((s) => s.projectId === activeProjectId);
   }, [libraryScenes, resourceSharing.shareScenes, activeProjectId]);
   
-  // 获取所有父场景（非视角变体）
+  // 获取所有父Cảnh（非Góc nhìnbiến thể）
   const parentScenes = useMemo(() => 
     visibleScenes.filter(s => !s.isViewpointVariant && !s.parentSceneId),
     [visibleScenes]
   );
   
-  // 根据选中的场景获取视角变体（第一层子场景）
+  // 根据选中的Cảnh获取Góc nhìnbiến thể（第一层conCảnh）
   const viewpointScenes = useMemo(() => {
     if (!selectedSceneLibraryId) return [];
     return visibleScenes.filter(s => s.parentSceneId === selectedSceneLibraryId);
   }, [visibleScenes, selectedSceneLibraryId]);
   
-  // 根据选中的视角获取四视图子场景（第二层子场景）
+  // 根据选中的Góc nhìn获取四视图conCảnh（第二层conCảnh）
   const subViewScenes = useMemo(() => {
     if (!selectedViewpointId) return [];
     return visibleScenes.filter(s => s.parentSceneId === selectedViewpointId);
   }, [visibleScenes, selectedViewpointId]);
   
-  // 获取当前选中的场景信息
+  // 获取当前选中的Cảnh信息
   const selectedScene = useMemo(() => {
     if (!selectedSceneLibraryId) return null;
     return visibleScenes.find(s => s.id === selectedSceneLibraryId) || null;
@@ -99,23 +99,23 @@ export function SceneLibrarySelector({
     return visibleScenes.find(s => s.id === selectedSubViewId) || null;
   }, [visibleScenes, selectedSubViewId]);
   
-  // 选择场景
+  // 选择Cảnh
   const handleSelectScene = (sceneLibId: string) => {
     const scene = visibleScenes.find(s => s.id === sceneLibId);
     if (!scene) {
       onChange(undefined, undefined, undefined, undefined);
       return;
     }
-    // 选中场景，清空视角和四视图
+    // 选中Cảnh，清空Góc nhìn和四视图
     const refImage = scene.referenceImage || scene.referenceImageBase64;
     onChange(sceneLibId, undefined, refImage, undefined);
   };
   
-  // 选择视角
+  // 选择Góc nhìn
   const handleSelectViewpoint = (viewpointId: string) => {
     const viewpoint = visibleScenes.find(s => s.id === viewpointId);
     if (!viewpoint) {
-      // 清空视角，使用父场景的参考图
+      // 清空Góc nhìn，使用父Cảnh的Ảnh tham chiếu
       const parentRefImage = selectedScene?.referenceImage || selectedScene?.referenceImageBase64;
       onChange(selectedSceneLibraryId, undefined, parentRefImage, undefined);
       return;
@@ -124,11 +124,11 @@ export function SceneLibrarySelector({
     onChange(selectedSceneLibraryId, viewpointId, refImage, undefined);
   };
   
-  // 选择四视图子场景
+  // 选择四视图conCảnh
   const handleSelectSubView = (subViewId: string) => {
     const subView = visibleScenes.find(s => s.id === subViewId);
     if (!subView) {
-      // 清空四视图，使用视角的参考图
+      // 清空四视图，使用Góc nhìn的Ảnh tham chiếu
       const viewpointRefImage = selectedViewpoint?.referenceImage || selectedViewpoint?.referenceImageBase64;
       onChange(selectedSceneLibraryId, selectedViewpointId, viewpointRefImage, undefined);
       return;
@@ -143,7 +143,7 @@ export function SceneLibrarySelector({
     setIsOpen(false);
   };
   
-  // 显示文本
+  // Hiện文本
   const displayText = useMemo(() => {
     if (!selectedScene) return isEndFrame ? 'Cảnh khung hình cuối' : 'Tham chiếu cảnh';
     if (selectedSubView) {
@@ -156,7 +156,7 @@ export function SceneLibrarySelector({
   // 是否有选中
   const hasSelection = !!selectedSceneLibraryId;
   
-  // 预览参考图（提取到组件级别以便使用 hook）
+  // Xem trướcẢnh tham chiếu（提取到组件级别以便使用 hook）
   const previewRefImage = selectedSubView?.referenceImage || selectedSubView?.referenceImageBase64
     || selectedViewpoint?.referenceImage || selectedViewpoint?.referenceImageBase64
     || selectedScene?.referenceImage || (selectedScene as any)?.contactSheetImage || selectedScene?.referenceImageBase64

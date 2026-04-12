@@ -171,19 +171,19 @@ export function PropertyPanel({
     if (scene.architectureStyle || scene.lightingDesign || scene.colorPalette || scene.eraDetails) {
       lines.push(`## Cảnh设计`);
       if (scene.architectureStyle) lines.push(`建筑风格：${scene.architectureStyle}`);
-      if (scene.lightingDesign) lines.push(`光影设计：${scene.lightingDesign}`);
-      if (scene.colorPalette) lines.push(`色彩基调：${scene.colorPalette}`);
-      if (scene.eraDetails) lines.push(`时代特征：${scene.eraDetails}`);
+      if (scene.lightingDesign) lines.push(`Thiết kế ánh sáng：${scene.lightingDesign}`);
+      if (scene.colorPalette) lines.push(`Bảng màu sắc：${scene.colorPalette}`);
+      if (scene.eraDetails) lines.push(`Đặc trưng thời đại：${scene.eraDetails}`);
       if (scene.keyProps && scene.keyProps.length > 0) lines.push(`关键道具：${scene.keyProps.join('、')}`);
       if (scene.spatialLayout) lines.push(`空间布局：${scene.spatialLayout}`);
       lines.push('');
     }
     
-    // 视觉提示词（按提示词语言显示）
+    // 视觉prompt（按prompt语言显示）
     const includeZhScenePrompt = promptLanguage !== 'en';
     const includeEnScenePrompt = promptLanguage !== 'zh';
     if ((includeZhScenePrompt && scene.visualPrompt) || (includeEnScenePrompt && scene.visualPromptEn)) {
-      lines.push(`## 视觉提示词`);
+      lines.push(`## 视觉prompt`);
       if (includeZhScenePrompt && scene.visualPrompt) lines.push(`Tiếng Trung：${scene.visualPrompt}`);
       if (includeEnScenePrompt && scene.visualPromptEn) lines.push(`English: ${scene.visualPromptEn}`);
       lines.push('');
@@ -285,16 +285,16 @@ export function PropertyPanel({
       lines.push('');
     }
     
-    // 关键行为/事迹
+    // 关键 hàng为/事迹
     if (character.keyActions) {
-      lines.push(`## 关键行为/事迹`);
+      lines.push(`## 关键 hàng为/事迹`);
       lines.push(character.keyActions);
       lines.push('');
     }
     
-    // 人物关系
+    // mối quan hệ nhân vật
     if (character.relationships) {
-      lines.push(`## 人物关系`);
+      lines.push(`## mối quan hệ nhân vật`);
       lines.push(character.relationships);
       lines.push('');
     }
@@ -332,7 +332,7 @@ export function PropertyPanel({
       if (anchors.colorAnchors) {
         const colors: string[] = [];
         if (anchors.colorAnchors.iris) colors.push(`虹膜: ${anchors.colorAnchors.iris}`);
-        if (anchors.colorAnchors.hair) colors.push(`发色: ${anchors.colorAnchors.hair}`);
+        if (anchors.colorAnchors.hair) colors.push(`màu tóc: ${anchors.colorAnchors.hair}`);
         if (anchors.colorAnchors.skin) colors.push(`肤色: ${anchors.colorAnchors.skin}`);
         if (anchors.colorAnchors.lips) colors.push(`唇色: ${anchors.colorAnchors.lips}`);
         if (colors.length > 0) {
@@ -356,9 +356,9 @@ export function PropertyPanel({
       lines.push('');
     }
     
-    // === 负面提示词 ===
+    // === 负面prompt ===
     if (character.negativePrompt) {
-      lines.push(`## 负面提示词`);
+      lines.push(`## 负面prompt`);
       if (character.negativePrompt.avoid && character.negativePrompt.avoid.length > 0) {
         lines.push(`要避免：${character.negativePrompt.avoid.join(', ')}`);
       }
@@ -409,7 +409,7 @@ export function PropertyPanel({
     lines.push(`# 第${episode.index}集：${episode.title.replace(/^第\d+集[：:]?/, '')}`);
     lines.push('');
     if (episode.synopsis) {
-      lines.push(`## 本集大纲`);
+      lines.push(`## Tập này大纲`);
       lines.push(episode.synopsis);
       lines.push('');
     }
@@ -440,34 +440,34 @@ export function PropertyPanel({
       if (promptLanguage !== 'zh' && (s as any).visualPrompt) {
         lines.push(`**英文Prompt**: ${(s as any).visualPrompt}`);
       }
-      // 三层提示词系统
+      // 三层prompt系统
       if (s.imagePromptZh || s.imagePrompt) {
         if (promptLanguage === 'zh') {
-          lines.push(`**首帧提示词**: ${s.imagePromptZh || ''}`);
+          lines.push(`**首帧prompt**: ${s.imagePromptZh || ''}`);
         } else if (promptLanguage === 'en') {
-          lines.push(`**首帧提示词**: ${s.imagePrompt || ''}`);
+          lines.push(`**首帧prompt**: ${s.imagePrompt || ''}`);
         } else {
-          lines.push(`**首帧提示词**: ${s.imagePromptZh || ''} ${s.imagePrompt ? `(EN: ${s.imagePrompt})` : ''}`);
+          lines.push(`**首帧prompt**: ${s.imagePromptZh || ''} ${s.imagePrompt ? `(EN: ${s.imagePrompt})` : ''}`);
         }
       }
       if (s.videoPromptZh || s.videoPrompt) {
         if (promptLanguage === 'zh') {
-          lines.push(`**Video提示词**: ${s.videoPromptZh || ''}`);
+          lines.push(`**Videoprompt**: ${s.videoPromptZh || ''}`);
         } else if (promptLanguage === 'en') {
-          lines.push(`**Video提示词**: ${s.videoPrompt || ''}`);
+          lines.push(`**Videoprompt**: ${s.videoPrompt || ''}`);
         } else {
-          lines.push(`**Video提示词**: ${s.videoPromptZh || ''} ${s.videoPrompt ? `(EN: ${s.videoPrompt})` : ''}`);
+          lines.push(`**Videoprompt**: ${s.videoPromptZh || ''} ${s.videoPrompt ? `(EN: ${s.videoPrompt})` : ''}`);
         }
       }
       if (s.needsEndFrame) {
         lines.push(`**需要尾帧**: 是`);
         if (s.endFramePromptZh || s.endFramePrompt) {
           if (promptLanguage === 'zh') {
-            lines.push(`**尾帧提示词**: ${s.endFramePromptZh || ''}`);
+            lines.push(`**尾帧prompt**: ${s.endFramePromptZh || ''}`);
           } else if (promptLanguage === 'en') {
-            lines.push(`**尾帧提示词**: ${s.endFramePrompt || ''}`);
+            lines.push(`**尾帧prompt**: ${s.endFramePrompt || ''}`);
           } else {
-            lines.push(`**尾帧提示词**: ${s.endFramePromptZh || ''} ${s.endFramePrompt ? `(EN: ${s.endFramePrompt})` : ''}`);
+            lines.push(`**尾帧prompt**: ${s.endFramePromptZh || ''} ${s.endFramePrompt ? `(EN: ${s.endFramePrompt})` : ''}`);
           }
         }
       }
@@ -485,7 +485,7 @@ export function PropertyPanel({
     }
   };
 
-  // 复制当前Phân cảnh的三层提示词
+  // 复制当前Phân cảnh的三层prompt
   const handleCopyShotTriPrompts = async () => {
     if (!shot) return;
 
@@ -516,7 +516,7 @@ export function PropertyPanel({
 
     const lines: string[] = [];
     lines.push('═══════════════════════════════════════');
-    lines.push(`Phân cảnh ${shot.index} - 三层提示词数据`);
+    lines.push(`Phân cảnh ${shot.index} - 三层prompt数据`);
     lines.push('═══════════════════════════════════════');
     lines.push('');
 
@@ -551,11 +551,11 @@ export function PropertyPanel({
       lines.push('');
     }
 
-    // 音频设计
+    // âm thanh设计
     if (shot.ambientSound || shot.soundEffect) {
-      lines.push('【音频设计】');
+      lines.push('【âm thanh设计】');
       if (shot.ambientSound) {
-        lines.push(`环境音: ${shot.ambientSound}`);
+        lines.push(`môi trường音: ${shot.ambientSound}`);
       }
       if (shot.soundEffect) {
         lines.push(`音效: ${shot.soundEffect}`);
@@ -591,11 +591,11 @@ export function PropertyPanel({
     }
 
     if (!hasTri) {
-      lines.push('⚠️ 该Phân cảnh尚未生成三层提示词，请先执行"AI校准Phân cảnh"。');
+      lines.push('⚠️ 该Phân cảnh尚未生成三层prompt，请先执 hàng"Hiệu chuẩn phân cảnh AI"。');
     } else {
-      // ===== 首帧提示词 =====
+      // ===== 首帧prompt =====
       lines.push('───────────────────────────────────────');
-      lines.push('【首帧提示词】用于Tạo video的第一帧Hình ảnh');
+      lines.push('【首帧prompt】用于Tạo video的第一帧Hình ảnh');
       lines.push('───────────────────────────────────────');
       if (promptLanguage !== 'en' && shot.imagePromptZh) {
         lines.push(`Tiếng Trung: ${shot.imagePromptZh}`);
@@ -612,9 +612,9 @@ export function PropertyPanel({
       }
       lines.push('');
 
-      // ===== Video提示词 =====
+      // ===== Videoprompt =====
       lines.push('───────────────────────────────────────');
-      lines.push('【Video提示词】用于图生Video，描述Hành động和运动');
+      lines.push('【Videoprompt】用于图生Video，描述Hành động和运动');
       lines.push('───────────────────────────────────────');
       if (promptLanguage !== 'en' && shot.videoPromptZh) {
         lines.push(`Tiếng Trung: ${shot.videoPromptZh}`);
@@ -631,9 +631,9 @@ export function PropertyPanel({
       }
       lines.push('');
 
-      // ===== 尾帧提示词 =====
+      // ===== 尾帧prompt =====
       lines.push('───────────────────────────────────────');
-      lines.push('【尾帧提示词】用于Tạo video的最后一帧（如需要）');
+      lines.push('【尾帧prompt】用于Tạo video的最后一帧（如需要）');
       lines.push('───────────────────────────────────────');
       if (shot.needsEndFrame) {
         lines.push('需要尾帧: ✓ 是');
@@ -762,13 +762,13 @@ export function PropertyPanel({
             <div className="bg-gradient-to-r from-primary/5 to-transparent p-3 rounded-lg border-l-2 border-primary/30">
               <div className="text-xs text-muted-foreground mb-2 flex items-center gap-1">
                 <BookOpen className="h-3 w-3" />
-                本集大纲
+                Tập này大纲
               </div>
               <div className="text-sm leading-relaxed whitespace-pre-wrap">{episode.synopsis}</div>
             </div>
           ) : (
             <div className="text-xs text-muted-foreground bg-muted/30 p-3 rounded-lg">
-              未生成大纲，点击下方按钮生成
+              未生成大纲，Nhấp下方nút生成
             </div>
           )}
 
@@ -794,7 +794,7 @@ export function PropertyPanel({
           <div className="bg-muted/30 p-3 rounded-lg">
             <div className="text-xs text-muted-foreground mb-2">Cảnh统计</div>
             <div className="text-sm">
-              本集共 <span className="font-medium text-primary">{episode.scenes?.length || 0}</span> 个Cảnh
+              Tập này共 <span className="font-medium text-primary">{episode.scenes?.length || 0}</span> 个Cảnh
             </div>
             <div className="text-xs text-muted-foreground mt-1">
               Phân cảnh状态：{episode.shotGenerationStatus === 'completed' ? '✅ 已生成' : 
@@ -804,7 +804,7 @@ export function PropertyPanel({
 
           <Separator />
 
-          {/* 操作 */}
+          {/* thao tác */}
           <div className="space-y-2">
             {episode.shotGenerationStatus !== 'completed' && (
               <Button
@@ -824,7 +824,7 @@ export function PropertyPanel({
                   onClick={() => onCalibrateShots?.(episode.index)}
                 >
                   <Sparkles className="h-4 w-4 mr-2" />
-                  AI校准Phân cảnh
+                  Hiệu chuẩn phân cảnh AI
                 </Button>
                 <Button
                   variant="outline"
@@ -922,7 +922,7 @@ export function PropertyPanel({
                 <Textarea value={editData.skills || ""} onChange={(e) => setEditData({ ...editData, skills: e.target.value })} className="min-h-[60px]" placeholder="武功、魔法、专业技能等" />
               </div>
               <div className="space-y-1">
-                <Label className="text-xs">关键行为/事迹</Label>
+                <Label className="text-xs">关键 hàng为/事迹</Label>
                 <Textarea value={editData.keyActions || ""} onChange={(e) => setEditData({ ...editData, keyActions: e.target.value })} className="min-h-[60px]" />
               </div>
               <div className="space-y-1">
@@ -930,7 +930,7 @@ export function PropertyPanel({
                 <Textarea value={editData.appearance || ""} onChange={(e) => setEditData({ ...editData, appearance: e.target.value })} className="min-h-[40px]" />
               </div>
               <div className="space-y-1">
-                <Label className="text-xs">人物关系</Label>
+                <Label className="text-xs">mối quan hệ nhân vật</Label>
                 <Textarea value={editData.relationships || ""} onChange={(e) => setEditData({ ...editData, relationships: e.target.value })} className="min-h-[40px]" />
               </div>
             </div>
@@ -953,10 +953,10 @@ export function PropertyPanel({
                 </div>
               )}
               
-              {/* 视觉提示词（世界级大师生成） */}
+              {/* 视觉prompt（世界级大师生成） */}
               {((promptLanguage !== 'en' && character.visualPromptZh) || (promptLanguage !== 'zh' && character.visualPromptEn)) && (
                 <div className="bg-gradient-to-r from-purple-500/10 to-transparent p-2 rounded-lg border-l-2 border-purple-500/30">
-                  <div className="text-xs text-purple-600 dark:text-purple-400 mb-1">🎨 视觉提示词</div>
+                  <div className="text-xs text-purple-600 dark:text-purple-400 mb-1">🎨 视觉prompt</div>
                   {promptLanguage !== 'en' && character.visualPromptZh && (
                     <div className="text-xs text-muted-foreground mb-1">{character.visualPromptZh}</div>
                   )}
@@ -1000,7 +1000,7 @@ export function PropertyPanel({
               )}
               {character.keyActions && (
                 <div>
-                  <div className="text-xs text-muted-foreground mb-1">关键行为/事迹</div>
+                  <div className="text-xs text-muted-foreground mb-1">关键 hàng为/事迹</div>
                   <div className="text-sm whitespace-pre-wrap">{character.keyActions}</div>
                 </div>
               )}
@@ -1012,7 +1012,7 @@ export function PropertyPanel({
               )}
               {character.relationships && (
                 <div>
-                  <div className="text-xs text-muted-foreground mb-1">人物关系</div>
+                  <div className="text-xs text-muted-foreground mb-1">mối quan hệ nhân vật</div>
                   <div className="text-sm whitespace-pre-wrap">{character.relationships}</div>
                 </div>
               )}
@@ -1039,9 +1039,9 @@ export function PropertyPanel({
 
           <Separator />
 
-          {/* 操作 */}
+          {/* thao tác */}
           <div className="space-y-2">
-            {/* Nhân vật cha（有Nhân vật giai đoạn）：显示提示，不显示生成按钮 */}
+            {/* Nhân vật cha（有Nhân vật giai đoạn）：显示Gợi ý，不显示生成nút */}
             {character.stageCharacterIds && character.stageCharacterIds.length > 0 ? (
               <div className="p-3 bg-blue-500/10 border border-blue-500/20 rounded-lg space-y-2">
                 <div className="text-xs text-blue-600 dark:text-blue-400 flex items-center gap-1 font-medium">
@@ -1049,11 +1049,11 @@ export function PropertyPanel({
                   已创建 {character.stageCharacterIds.length} 个giai đoạn版本
                 </div>
                 <div className="text-xs text-muted-foreground">
-                  请在中栏点击各giai đoạn版本（如「{character.name}（青年版）」），然后去Nhân vật库生成形象
+                  请在中栏Nhấp各giai đoạn版本（如「{character.name}（青年版）」），然后去Nhân vật库生成形象
                 </div>
               </div>
             ) : (
-              /* 普通Nhân vật或Nhân vật giai đoạn：显示生成按钮 */
+              /* 普通Nhân vật或Nhân vật giai đoạn：显示生成nút */
               <Button
                 className="w-full"
                 onClick={() => onGoToCharacterLibrary?.(character.id)}
@@ -1095,7 +1095,7 @@ export function PropertyPanel({
           <AlertDialogContent>
             <AlertDialogHeader>
               <AlertDialogTitle>Xác nhậnXóa</AlertDialogTitle>
-              <AlertDialogDescription>确定要XóaNhân vật「{character.name}」吗？</AlertDialogDescription>
+              <AlertDialogDescription>Xác nhận要XóaNhân vật「{character.name}」?</AlertDialogDescription>
             </AlertDialogHeader>
             <AlertDialogFooter>
               <AlertDialogCancel>Hủy</AlertDialogCancel>
@@ -1195,19 +1195,19 @@ export function PropertyPanel({
                   )}
                   {scene.lightingDesign && (
                     <div>
-                      <div className="text-xs text-muted-foreground mb-1">光影设计</div>
+                      <div className="text-xs text-muted-foreground mb-1">Thiết kế ánh sáng</div>
                       <div className="text-sm">{scene.lightingDesign}</div>
                     </div>
                   )}
                   {scene.colorPalette && (
                     <div>
-                      <div className="text-xs text-muted-foreground mb-1">色彩基调</div>
+                      <div className="text-xs text-muted-foreground mb-1">Bảng màu sắc</div>
                       <div className="text-sm">{scene.colorPalette}</div>
                     </div>
                   )}
                   {scene.eraDetails && (
                     <div>
-                      <div className="text-xs text-muted-foreground mb-1">时代特征</div>
+                      <div className="text-xs text-muted-foreground mb-1">Đặc trưng thời đại</div>
                       <div className="text-sm">{scene.eraDetails}</div>
                     </div>
                   )}
@@ -1226,11 +1226,11 @@ export function PropertyPanel({
                 </>
               )}
               
-              {/* 视觉提示词（AI校准后显示） */}
+              {/* 视觉prompt（AI校准后显示） */}
               {((promptLanguage !== 'en' && scene.visualPrompt) || (promptLanguage !== 'zh' && scene.visualPromptEn)) && (
                 <>
                   <Separator className="my-2" />
-                  <div className="text-xs font-medium text-primary mb-2">视觉提示词</div>
+                  <div className="text-xs font-medium text-primary mb-2">视觉prompt</div>
                   
                   {promptLanguage !== 'en' && scene.visualPrompt && (
                     <div>
@@ -1259,7 +1259,7 @@ export function PropertyPanel({
                         多视角联合图
                       </div>
                       <div className="text-xs text-muted-foreground">
-                        未phân tích视角（可选，AI校准Phân cảnh后自动生成）
+                        未phân tích视角（可选，Hiệu chuẩn phân cảnh AI后自动生成）
                       </div>
                     </>
                   );
@@ -1285,7 +1285,7 @@ export function PropertyPanel({
                       AI phân tích {viewpoints.length} 个视角
                     </div>
                     
-                    {/* 视角列表 */}
+                    {/* 视角 cột表 */}
                     <div className="space-y-1.5">
                       {viewpoints.slice(0, 6).map((vp, idx) => (
                         <div 
@@ -1341,7 +1341,7 @@ export function PropertyPanel({
 
           <Separator />
 
-          {/* 操作 */}
+          {/* thao tác */}
           <div className="space-y-2">
             <Button
               className="w-full"
@@ -1385,7 +1385,7 @@ export function PropertyPanel({
           <AlertDialogContent>
             <AlertDialogHeader>
               <AlertDialogTitle>Xác nhậnXóa</AlertDialogTitle>
-              <AlertDialogDescription>确定要XóaCảnh「{scene.name || scene.location}」吗？其下所有Phân cảnh也将被Xóa。</AlertDialogDescription>
+              <AlertDialogDescription>Xác nhận要XóaCảnh「{scene.name || scene.location}」?其下所有Phân cảnh也将被Xóa。</AlertDialogDescription>
             </AlertDialogHeader>
             <AlertDialogFooter>
               <AlertDialogCancel>Hủy</AlertDialogCancel>
@@ -1525,16 +1525,16 @@ export function PropertyPanel({
                 <div className="text-sm">{shot.actionSummary}</div>
               </div>
 
-              {/* 音频设计 */}
+              {/* âm thanh设计 */}
               {((shot as any).ambientSound || (shot as any).soundEffect || shot.dialogue) && (
                 <div className="bg-muted/30 p-3 rounded-lg space-y-2">
                   <div className="text-xs text-muted-foreground flex items-center gap-1">
                     <Volume2 className="h-3 w-3" />
-                    音频
+                    âm thanh
                   </div>
                   {(shot as any).ambientSound && (
                     <div>
-                      <span className="text-xs text-muted-foreground">环境声: </span>
+                      <span className="text-xs text-muted-foreground">môi trường声: </span>
                       <span className="text-xs italic">{(shot as any).ambientSound}</span>
                     </div>
                   )}
@@ -1626,7 +1626,7 @@ export function PropertyPanel({
 
           <Separator />
 
-          {/* 操作 */}
+          {/* thao tác */}
           <div className="space-y-2">
             <Button
               className="w-full"
@@ -1648,7 +1648,7 @@ export function PropertyPanel({
               ) : (
                 <>
                   <Copy className="h-4 w-4 mr-2" />
-                  复制三层提示词数据
+                  复制三层prompt数据
                 </>
               )}
             </Button>
@@ -1667,7 +1667,7 @@ export function PropertyPanel({
           <AlertDialogContent>
             <AlertDialogHeader>
               <AlertDialogTitle>Xác nhậnXóa</AlertDialogTitle>
-              <AlertDialogDescription>确定要XóaPhân cảnh {shot.index} 吗？</AlertDialogDescription>
+              <AlertDialogDescription>Xác nhận要XóaPhân cảnh {shot.index} ?</AlertDialogDescription>
             </AlertDialogHeader>
             <AlertDialogFooter>
               <AlertDialogCancel>Hủy</AlertDialogCancel>

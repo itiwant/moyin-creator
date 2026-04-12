@@ -5,7 +5,7 @@
 
 /**
  * Angle Switch Result Dialog
- * 视角切换结果预览对话框
+ * Chuyển góc nhìn结果Xem trước对话框
  */
 
 import {
@@ -88,9 +88,9 @@ export function AngleSwitchResultDialog({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="max-w-4xl">
         <DialogHeader>
-          <DialogTitle className="text-sm">视角切换 - 选择结果</DialogTitle>
+          <DialogTitle className="text-sm">Chuyển góc nhìn - 选择结果</DialogTitle>
           <DialogDescription className="sr-only">
-            对比原图和生成结果，选择并应用新视角
+            对比原图和Tạo结果，选择并Áp dụng新Góc nhìn
           </DialogDescription>
         </DialogHeader>
 
@@ -157,19 +157,19 @@ export function AngleSwitchResultDialog({
             onClick={() => handleDownload(result.newImage, `angle-switch-${Date.now()}.png`)}
           >
             <Download className="h-4 w-4 mr-2" />
-            下载
+            Tải xuống
           </Button>
           <Button variant="outline" onClick={onRegenerate}>
             <RotateCw className="h-4 w-4 mr-2" />
-            重新生成
+            Tạo lại
           </Button>
           <Button variant="outline" onClick={() => onOpenChange(false)}>
             <X className="h-4 w-4 mr-2" />
-            取消
+            Hủy
           </Button>
           <Button onClick={onApply}>
             <Check className="h-4 w-4 mr-2" />
-            应用
+            Áp dụng
           </Button>
         </DialogFooter>
       </DialogContent>

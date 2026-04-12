@@ -4,13 +4,13 @@
 /**
  * CORS-safe fetch wrapper
  *
- * 自动检测运行环境：
+ * 自动检测运行môi trường：
  * - Electron 桌面模式 → 直接使用原生 fetch()（无 CORS 限制）
  * - 浏览器开发模式   → 通过 Vite 开发服务器 /__api_proxy?url=... 代理转发
  * - 浏览器生产模式   → 直接 fetch()（需后端/Nginx 提供反向代理）
  */
 
-/** 检测是否在 Electron 环境中运行 */
+/** 检测是否在 Electron môi trường中运行 */
 function isElectron(): boolean {
   return !!(
     typeof window !== 'undefined' &&
@@ -39,7 +39,7 @@ export async function corsFetch(
 ): Promise<Response> {
   const targetUrl = url.toString();
 
-  // Electron 或非开发环境：直连
+  // Electron 或非开发môi trường：直连
   if (isElectron() || !isViteDev()) {
     return fetch(targetUrl, init);
   }

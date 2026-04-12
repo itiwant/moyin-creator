@@ -234,7 +234,7 @@ async function generateImage(
   const provider = (config as any).imageProvider || 'memefast';
   
   if (!apiKey) {
-    throw new Error('未配置图片生成 API Key');
+    throw new Error('未配置ảnh生成 API Key');
   }
   
   // Submit image generation task
@@ -290,7 +290,7 @@ async function generateVideo(
   const provider = (config as any).videoProvider || 'memefast';
   
   if (!apiKey) {
-    throw new Error('未配置视频生成 API Key');
+    throw new Error('未配置video生成 API Key');
   }
   
   // Submit video generation task
@@ -418,7 +418,7 @@ async function fetchAsBlob(url: string): Promise<Blob> {
 
 async function handleExecuteScene(command: ExecuteSceneCommand): Promise<void> {
   const { screenplayId, scene, config, characterBible, characterReferenceImages } = command.payload;
-  cancelled = false; // 新操作启动时重置取消标志
+  cancelled = false; // 新thao tác启动时重置取消标志
 
   console.log(`[AI Worker] Executing scene ${scene.sceneId} for screenplay ${screenplayId}`);
   
@@ -574,7 +574,7 @@ function reportSceneFailed(
  */
 async function handleExecuteScreenplay(command: { type: string; payload: { screenplay: AIScreenplay; config: GenerationConfig } }): Promise<void> {
   const { screenplay, config } = command.payload;
-  cancelled = false; // 新操作启动时重置取消标志
+  cancelled = false; // 新thao tác启动时重置取消标志
 
   console.log(`[AI Worker] Executing screenplay ${screenplay.id} with ${screenplay.scenes.length} scenes`);
   
@@ -655,7 +655,7 @@ async function handleExecuteScreenplay(command: { type: string; payload: { scree
  */
 async function handleExecuteScreenplayImages(command: { type: string; payload: { screenplay: AIScreenplay; config: GenerationConfig } }): Promise<void> {
   const { screenplay, config } = command.payload;
-  cancelled = false; // 新操作启动时重置取消标志
+  cancelled = false; // 新thao tác启动时重置取消标志
 
   console.log(`[AI Worker] Generating images for screenplay ${screenplay.id} with ${screenplay.scenes.length} scenes`);
   
@@ -685,12 +685,12 @@ async function handleExecuteScreenplayImages(command: { type: string; payload: {
         completedCount: 0,
         failedCount: screenplay.scenes.length,
         totalCount: screenplay.scenes.length,
-        error: '未配置图片生成 API Key，请在服务映射中配置',
+        error: '未配置ảnh生成 API Key，请在服务映射中配置',
       },
     });
     // Also report failure for each scene
     for (const scene of screenplay.scenes) {
-      reportSceneFailed(screenplay.id, scene.sceneId, '未配置图片生成 API Key', false);
+      reportSceneFailed(screenplay.id, scene.sceneId, '未配置ảnh生成 API Key', false);
     }
     return;
   }
@@ -758,7 +758,7 @@ async function handleExecuteScreenplayImages(command: { type: string; payload: {
  */
 async function handleExecuteScreenplayVideos(command: { type: string; payload: { screenplay: AIScreenplay; config: GenerationConfig } }): Promise<void> {
   const { screenplay, config } = command.payload;
-  cancelled = false; // 新操作启动时重置取消标志
+  cancelled = false; // 新thao tác启动时重置取消标志
 
   console.log(`[AI Worker] Generating videos for screenplay ${screenplay.id} with ${screenplay.scenes.length} scenes`);
   
@@ -1194,7 +1194,7 @@ async function executeSceneInternal(
 function handleCancel(command: CancelCommand): void {
   console.log('[AI Worker] Cancelling operations');
   cancelled = true;
-  // 不自动重置 cancelled 标志，由新的生成操作启动时重置
+  // 不自动重置 cancelled 标志，由新的生成thao tác启动时重置
 }
 
 // ==================== Helpers ====================

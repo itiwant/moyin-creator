@@ -4,15 +4,15 @@
 "use client";
 
 /**
- * StyleCard - 风格卡片组件
- * 默认风格和自定义风格共用
+ * StyleCard - Phong cách卡片组件
+ * Mặc địnhPhong cách和Tùy chỉnhPhong cách共用
  */
 
 import { cn } from "@/lib/utils";
 import { LocalImage } from "@/components/ui/local-image";
 import type { StyleCategory } from "@/lib/constants/visual-styles";
 
-// 风格分类色块（与 StylePicker 一致）
+// Phong cáchphân loại色块（与 StylePicker 一致）
 const CATEGORY_COLORS: Record<string, string> = {
   '3d': 'bg-blue-500/20 text-blue-600',
   '2d': 'bg-green-500/20 text-green-600',
@@ -30,8 +30,8 @@ const CATEGORY_LABELS: Record<string, string> = {
 interface StyleCardProps {
   name: string;
   description?: string;
-  category?: StyleCategory;     // 内置风格分类（用于色块显示）
-  referenceImages?: string[];   // 自定义风格参考图
+  category?: StyleCategory;     // 内置Phong cáchphân loại（用于色块Hiện）
+  referenceImages?: string[];   // Tùy chỉnhPhong cáchẢnh tham chiếu
   isCustom?: boolean;
   isSelected?: boolean;
   onClick?: () => void;
@@ -48,7 +48,7 @@ export function StyleCard({
   onClick,
   onDoubleClick,
 }: StyleCardProps) {
-  // 自定义风格用第一张参考图
+  // Tùy chỉnhPhong cách用第一张Ảnh tham chiếu
   const customImage = isCustom ? referenceImages?.[0] : undefined;
 
   return (
@@ -71,7 +71,7 @@ export function StyleCard({
             className="w-full h-full object-cover"
           />
         ) : category ? (
-          /* 内置风格：色块占位 + 分类标签 */
+          /* 内置Phong cách：色块占位 + phân loạiThẻ */
           <div className={cn(
             "w-full h-full flex flex-col items-center justify-center",
             CATEGORY_COLORS[category] || 'bg-muted/30'
@@ -80,13 +80,13 @@ export function StyleCard({
           </div>
         ) : (
           <div className="w-full h-full flex items-center justify-center text-muted-foreground text-xs">
-            无参考图
+            无Ảnh tham chiếu
           </div>
         )}
-        {/* 自定义标记 */}
+        {/* Tùy chỉnh标记 */}
         {isCustom && (
           <div className="absolute top-1.5 right-1.5 px-1.5 py-0.5 rounded text-[10px] bg-primary/80 text-primary-foreground">
-            自定义
+            Tùy chỉnh
           </div>
         )}
       </div>

@@ -4,7 +4,7 @@
 
 /**
  * 品牌注册表 + 模型名 → 品牌映射
- * 用于服务映射面板的品牌分类选择
+ * 用于服务映射面板的品牌phân loại选择
  */
 
 export interface BrandInfo {
@@ -71,7 +71,7 @@ const BRAND_PATTERNS: Array<{ pattern: RegExp; brand: string }> = [
 
   // 豆包 Doubao (ByteDance)
   { pattern: /^(doubao|seed[- ]?oss)/i,                                  brand: 'doubao' },
-  // seedance (豆包视频) — must be before generic seed
+  // seedance (豆包video) — must be before generic seed
   { pattern: /^(doubao-)?seed(ance|dream)/i,                             brand: 'doubao' },
 
   // Kling (可灵)
@@ -80,7 +80,7 @@ const BRAND_PATTERNS: Array<{ pattern: RegExp; brand: string }> = [
   // Midjourney
   { pattern: /^(mj_|midjourney|niji)/i,                                     brand: 'midjourney' },
 
-  // Flux (Black Forest Labs) — 含 flux.1.x 命名变体
+  // Flux (Black Forest Labs) — 含 flux.1.x đặt tênbiến thể
   { pattern: /^(flux[-_.]|black-forest)/i,                                 brand: 'flux' },
 
   // Grok (xAI)
@@ -107,7 +107,7 @@ const BRAND_PATTERNS: Array<{ pattern: RegExp; brand: string }> = [
   // Vidu (生数科技)
   { pattern: /^vidu/i,                                                     brand: 'vidu' },
 
-  // Replicate (含 org/model 命名格式)
+  // Replicate (含 org/model đặt tên格式)
   { pattern: /^(replicate|andreasjansson|stability-ai|cjwbw|lucataco|recraft-ai|riffusion|sujaykhandekar|prunaai)/i, brand: 'replicate' },
 
   // 百度文心 ERNIE / Embedding-V1
