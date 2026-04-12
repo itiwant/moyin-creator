@@ -216,7 +216,7 @@ function modelSupportsCapability(
       case 'image_generation':
         return modelType === 'ảnh';
       case 'video_generation':
-        // 音video类đang xử lý...带“video”Thẻ的（排除纯âm thanh/TTS/音乐）
+        // 音video类đang xử lý...带“video”Thẻ的（排除纯âm thanh/TTS/Nhạc）
         return modelType === '音video' && (modelTagsList?.some(t => t.includes('video')) ?? false);
       case 'vision':
         // 识图能力跨 model_type，只看 tags 是否含“识图”或“多模态”

@@ -1277,7 +1277,7 @@ export function SClassSceneCard({
               type="text"
               value={scene.soundEffectText || ''}
               onChange={(e) => onUpdateField?.(scene.id, 'soundEffectText', e.target.value)}
-              placeholder="脚步声、门关声..."
+              placeholder="Tiếng bước chân, tiếng đóng cửa..."
               disabled={isGeneratingAny || scene.audioSfxEnabled === false}
               className="flex-1 h-6 px-1.5 text-[10px] rounded border bg-transparent disabled:opacity-40 placeholder:text-muted-foreground/30"
             />
@@ -1305,7 +1305,7 @@ export function SClassSceneCard({
               className="flex-1 h-6 px-1.5 text-[10px] rounded border bg-transparent disabled:opacity-40 placeholder:text-muted-foreground/30"
             />
           </div>
-          {/* 背景音乐 */}
+          {/* Nhạc nền */}
           <div className="flex items-center gap-1.5">
             <button
               onClick={() => onUpdateField?.(scene.id, 'audioBgmEnabled', !(scene.audioBgmEnabled === true))}
@@ -1317,13 +1317,13 @@ export function SClassSceneCard({
                   : "bg-muted text-muted-foreground line-through"
               )}
             >
-              音乐
+              Nhạc
             </button>
             <input
               type="text"
               value={scene.backgroundMusic || ''}
               onChange={(e) => onUpdateField?.(scene.id, 'backgroundMusic', e.target.value)}
-              placeholder="Mặc định禁止背景音乐，如需要请开启并填写..."
+              placeholder="Mặc định禁止背景Nhạc，如需要请开启并填写..."
               disabled={isGeneratingAny || scene.audioBgmEnabled !== true}
               className="flex-1 h-6 px-1.5 text-[10px] rounded border bg-transparent disabled:opacity-40 placeholder:text-muted-foreground/30"
             />

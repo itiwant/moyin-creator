@@ -315,11 +315,11 @@ export function buildVideoPrompt(
   } else {
     promptParts.push('SFX: 禁止Hiệu ứng âm thanh');
   }
-  // 背景音乐：有内容且开启时包含，否则明确禁止
+  // 背景Nhạc：有内容且开启时包含，否则明确禁止
   if (scene.audioBgmEnabled === true && scene.backgroundMusic?.trim()) {
     promptParts.push(`Music: ${scene.backgroundMusic.trim()}`);
   } else {
-    promptParts.push('Music: 禁止背景音乐');
+    promptParts.push('Music: 禁止背景Nhạc');
   }
 
   // ---------- Layer 5: 视觉风格 (Style) ----------

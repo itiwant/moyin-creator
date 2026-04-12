@@ -362,7 +362,7 @@ export const MODEL_DISPLAY_NAMES: Record<string, string> = {
   'whisper-1': 'Whisper 语音转文字',
 
   // --- SunoAI ---
-  'suno_music': 'Suno 音乐Tạo',
+  'suno_music': 'Suno NhạcTạo',
   'suno_lyrics': 'Suno 歌词Tạo',
   'suno_upload': 'Suno 音频上传',
   'suno_fetch': 'Suno 任务查询',

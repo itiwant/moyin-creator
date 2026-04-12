@@ -32,8 +32,8 @@ export type AssetPurpose =
   | 'camera_replicate'  // 运镜复刻
   | 'action_replicate'  // Hành động复刻
   | 'effect_replicate'  // 特效复刻
-  | 'beat_sync'         // 音乐卡点
-  | 'bgm'              // 背景音乐
+  | 'beat_sync'         // Nhạc卡点
+  | 'bgm'              // 背景Nhạc
   | 'voice_ref'        // 语音Tham chiếu
   | 'prev_video'       // 前组kéo dài
   | 'video_extend'     // 被kéo dài的video

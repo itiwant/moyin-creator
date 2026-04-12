@@ -2761,9 +2761,9 @@ export function SplitScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
       if (!gridImageUrl) {
         console.error('[MergedGen] Không lấy được ảnh URL, apiResult:', apiResult);
         if (taskId) {
-          throw new Error(`lưới 9 ôTạo超时（任务 ${taskId} 在 3 phút内未Hoàn thành），API 服务可能繁忙，请稍后Thử lại`);
+          throw new Error(`Tạo lưới 9 ô quá thời gian (nhiệm vụ ${taskId} chưa hoàn thành trong 3 phút), API có thể đang bận, vui lòng Thử lại sau`);
         }
-        throw new Error('未获取到lưới 9 ôảnh URL，请检查 API 响应');
+        throw new Error('Không lấy được ảnh URL lưới 9 ô, vui lòng kiểm tra phản hồi API');
       }
       
       console.log('[MergedGen] Grid image URL:', gridImageUrl.substring(0, 80));
@@ -2841,7 +2841,7 @@ export function SplitScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
 
     for (let p = 0; p < taskPages.length; p++) {
       if (mergedAbortRef.current) {
-        console.log('[MergedGen] 用户Dừng合并Tạo');
+        console.log('[MergedGen] Người dùng Dừng Tạo gộp');
         toast.info('Đã dừng tạo gộp');
         setIsMergedRunning(false);
         return;
@@ -2855,29 +2855,29 @@ export function SplitScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
       const pageEndCount = pageTasks.filter(t => t.type === 'end').length;
       const pageInfo = [pageFirstCount > 0 ? `${pageFirstCount}Khung hình đầu` : '', pageEndCount > 0 ? `${pageEndCount}Khung hình cuối` : ''].filter(Boolean).join('+');
       
-      console.log(`[MergedGen] 第 ${p + 1}/${taskPages.length} 页，${pageTasks.length} 任务（${pageInfo}），${refs.length} 张Ảnh tham chiếu`);
+      console.log(`[MergedGen] Trang ${p + 1}/${taskPages.length}, ${pageTasks.length} nhiệm vụ (${pageInfo}), ${refs.length} Ảnh tham chiếu`);
       
       try {
         await generateGridAndSlice(pageTasks, refs);
         succeededCount++;
         if (!mergedAbortRef.current) {
-          toast.success(`第 ${p + 1}/${taskPages.length} 页Hoàn thành（${pageInfo}）`);
+          toast.success(`Trang ${p + 1}/${taskPages.length} hoàn thành (${pageInfo})`);
         }
       } catch (e: any) {
         const errorMsg = e.message || String(e);
-        console.error(`[MergedGen] 第 ${p + 1} 页Thất bại:`, errorMsg);
+        console.error(`[MergedGen] Trang ${p + 1} thất bại:`, errorMsg);
         // Đặt lại该页Phân cảnhTrạng thái为 error，不让它们卡在 'generating'
         resetPageTasksToError(pageTasks, errorMsg);
         failedPages.push({ index: p, pageTasks, refs, error: errorMsg });
-        toast.warning(`第 ${p + 1}/${taskPages.length} 页Thất bại，将Tự độngThử lại：${errorMsg.substring(0, 60)}`);
+        toast.warning(`Trang ${p + 1}/${taskPages.length} thất bại, sẽ tự động thử lại: ${errorMsg.substring(0, 60)}`);
         // Tiếp tục下一页，不中断
       }
     }
 
     // 第二轮：Tự độngThử lạiThất bại的页面（延迟 5 秒后Thử lại，给 API 恢复Thời gian）
     if (failedPages.length > 0 && !mergedAbortRef.current) {
-      console.log(`[MergedGen] ${failedPages.length} 页Thất bại，5 秒后Tự độngThử lại...`);
-      toast.info(`${failedPages.length} 页Tạo thất bại，5 秒后Tự độngThử lại...`);
+      console.log(`[MergedGen] ${failedPages.length} trang thất bại, tự động thử lại sau 5 giây...`);
+      toast.info(`${failedPages.length} trang tạo thất bại, tự động thử lại sau 5 giây...`);
       await new Promise(r => setTimeout(r, 5000));
 
       for (const fp of failedPages) {
@@ -2887,13 +2887,13 @@ export function SplitScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
         const pageEndCount = fp.pageTasks.filter(t => t.type === 'end').length;
         const pageInfo = [pageFirstCount > 0 ? `${pageFirstCount}Khung hình đầu` : '', pageEndCount > 0 ? `${pageEndCount}Khung hình cuối` : ''].filter(Boolean).join('+');
 
-        console.log(`[MergedGen] Tự độngThử lại第 ${fp.index + 1} 页（${pageInfo}）`);
+        console.log(`[MergedGen] Tự động thử lại trang ${fp.index + 1} (${pageInfo})`);
         try {
           // 重新收 tậpẢnh tham chiếu（可能在其他页Thành công后有新的图可用）
           const freshRefs = collectOptimizedRefsFromTasks(fp.pageTasks);
           await generateGridAndSlice(fp.pageTasks, freshRefs);
           succeededCount++;
-          toast.success(`第 ${fp.index + 1} 页Thử lạiThành công（${pageInfo}）`);
+          toast.success(`Trang ${fp.index + 1} thử lại thành công (${pageInfo})`);
         } catch (retryErr: any) {
           const retryMsg = retryErr.message || String(retryErr);
           console.error(`[MergedGen] 第 ${fp.index + 1} 页Thử lạivẫnThất bại:`, retryMsg);
