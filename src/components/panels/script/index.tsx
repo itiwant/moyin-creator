@@ -146,7 +146,7 @@ export function ScriptView() {
     "character" | "scene" | "shot" | "episode" | null
   >(null);
   
-  // đầy đủ剧本Nhập状态
+  // Nhập Kịch bản đầy đủ状态
   const [importError, setImportError] = useState<string | undefined>();
 
   // AIHiệu chuẩn状态
@@ -175,7 +175,7 @@ export function ScriptView() {
   const [multiStageHints, setMultiStageHints] = useState<string[]>([]);
   const [suggestMultiStage, setSuggestMultiStage] = useState(false);
   
-  // Nhân vậtHiệu chuẩn状态
+  // Trạng thái Hiệu chuẩn Nhân vật
   const characterCalibrationStatus = calibrationState?.characterCalibrationStatus || 'idle';
   const [characterCalibrationResult, setCharacterCalibrationResult] = useState<{
     filteredCount: number;
@@ -188,7 +188,7 @@ export function ScriptView() {
   const pendingFilteredCharacters = calibrationState?.pendingFilteredCharacters || [];
   const calibrationDialogOpen = calibrationState?.calibrationDialogOpen || false;
   
-  // CảnhHiệu chuẩn状态
+  // Trạng thái Hiệu chuẩn Cảnh
   const sceneCalibrationStatus = calibrationState?.sceneCalibrationStatus || 'idle';
   // góc nhìnphân tích状态（强制工作流）
   const viewpointAnalysisStatus = calibrationState?.viewpointAnalysisStatus || 'idle';
@@ -483,7 +483,7 @@ export function ScriptView() {
     }
   }, [projectId, styleId, targetDuration, promptLanguage]);
 
-  // đầy đủ剧本Nhập
+  // Nhập Kịch bản đầy đủ
   const handleImportFullScript = useCallback(async (text: string) => {
     if (!text.trim()) {
       toast.error("Vui lòng nhập nội dung kịch bản");

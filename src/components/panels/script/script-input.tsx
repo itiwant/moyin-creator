@@ -99,7 +99,7 @@ interface ScriptInputProps {
   onShotCountChange?: (value: string) => void;
   onParse: () => void;
   onGenerateFromIdea?: (idea: string) => void;
-  // đầy đủ剧本Nhập
+  // Nhập Kịch bản đầy đủ
   onImportFullScript?: (text: string) => Promise<void>;
   importStatus?: 'idle' | 'importing' | 'ready' | 'error';
   importError?: string;
@@ -113,11 +113,11 @@ interface ScriptInputProps {
   missingSynopsisCount?: number;
   // Trạng thái tạo phân cảnh
   viewpointAnalysisStatus?: 'idle' | 'analyzing' | 'completed' | 'error';
-  // Nhân vậtHiệu chuẩn状态
+  // Trạng thái Hiệu chuẩn Nhân vật
   characterCalibrationStatus?: 'idle' | 'calibrating' | 'completed' | 'error';
-  // CảnhHiệu chuẩn状态
+  // Trạng thái Hiệu chuẩn Cảnh
   sceneCalibrationStatus?: 'idle' | 'calibrating' | 'completed' | 'error';
-  // 二次Hiệu chuẩn追踪（đang xử lý...nút触发）
+  // Theo dõi Hiệu chuẩn lần hai (kích hoạt bởi nút)
   secondPassTypes?: Set<string>;
   // promptNgôn ngữ
   promptLanguage?: PromptLanguage;
