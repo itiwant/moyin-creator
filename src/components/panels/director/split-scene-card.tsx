@@ -375,7 +375,7 @@ export function SplitSceneCard({
 
   return (
     <div className="group relative border rounded-lg overflow-hidden bg-card hover:border-primary/50 transition-colors">
-      {/* 分镜编号和控制栏 */}
+      {/* Phân cảnh编号和控制栏 */}
       <div className="flex items-center justify-between px-3 py-1.5 bg-muted/30 border-b">
         <div className="flex items-center gap-2">
           <span className="text-sm font-bold text-muted-foreground">Phân cảnh #{scene.id + 1}</span>
@@ -432,10 +432,10 @@ export function SplitSceneCard({
         )}
       </div>
 
-      {/* 第一排：首帧图片 + 尾帧图片 + 角色库 */}
+      {/* 第一排：Khung hình đầu图片 + Khung hình cuối图片 + Thư viện nhân vật */}
       <div className="p-2 space-y-2">
         <div className="flex gap-2">
-          {/* 首帧图片 */}
+          {/* Khung hình đầu图片 */}
           <div className="flex-1">
             <div className="flex items-center justify-between mb-1">
               <button
@@ -558,7 +558,7 @@ export function SplitSceneCard({
             {firstFrameInput}
           </div>
 
-          {/* 尾帧图片 */}
+          {/* Khung hình cuối图片 */}
           <div className="flex-1">
             <div className="flex items-center justify-between mb-1">
               <div className="flex items-center gap-1">
@@ -722,7 +722,7 @@ export function SplitSceneCard({
             {endFrameInput}
           </div>
 
-          {/* 角色库 + 场景参考选择 */}
+          {/* Thư viện nhân vật + Tham chiếu cảnh选择 */}
           <div className="flex flex-col gap-1 justify-end">
             <CharacterSelector
               selectedIds={scene.characterIds || []}
@@ -752,7 +752,7 @@ export function SplitSceneCard({
                 disabled={isGeneratingAny}
               />
             )}
-            {/* 场景参考选择器 */}
+            {/* Tham chiếu cảnh选择器 */}
             {selectedFrameTarget === 'start' ? (
               // 首帧场景参考已在上方渲染
               null
@@ -772,7 +772,7 @@ export function SplitSceneCard({
                 />
               )
             )}
-            {/* 素材库选择器 */}
+            {/* Thư viện phương tiện选择器 */}
             {onUploadImage && (
               <MediaLibrarySelector
                 sceneId={scene.id}
@@ -790,7 +790,7 @@ export function SplitSceneCard({
           </div>
         </div>
 
-        {/* 第二排：生成图片/视频按钮 + 视频预览 */}
+        {/* 第二排：Tạo图片/视频按钮 + 视频预览 */}
         <div className="flex items-center gap-2">
           {!hasImage ? (
             <div className="flex items-center gap-1">

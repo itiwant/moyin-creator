@@ -3364,7 +3364,7 @@ export function SplitScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
         <div className="w-16 h-16 rounded-full bg-muted flex items-center justify-center">
           <ImageIcon className="h-8 w-8 text-muted-foreground" />
         </div>
-        <p className="text-sm text-muted-foreground">暂无切割的Phân cảnh</p>
+        <p className="text-sm text-muted-foreground">Chưa có切割的Phân cảnh</p>
       </div>
     );
   }

@@ -45,12 +45,12 @@ export function ExportPanel({ projectName, scriptData, shots, targetDuration }: 
 
   const handleExportToFolder = async () => {
     if (!stats.canExport) {
-      toast.error('没有可导出的素材');
+      toast.error('Không có tài nguyên để xuất');
       return;
     }
 
     setIsExporting(true);
-    setProgress({ current: 0, total: 0, message: '准备导出...' });
+    setProgress({ current: 0, total: 0, message: 'Chuẩn bị xuất...' });
 
     try {
       const success = await exportProjectToFolder(
@@ -67,11 +67,11 @@ export function ExportPanel({ projectName, scriptData, shots, targetDuration }: 
       );
 
       if (success) {
-        toast.success('导出完成！');
+        toast.success('Xuất hoàn tất!');
       }
     } catch (error) {
       const err = error as Error;
-      toast.error(`导出失败: ${err.message}`);
+      toast.error(`Xuất thất bại: ${err.message}`);
     } finally {
       setIsExporting(false);
       setProgress(null);
@@ -80,12 +80,12 @@ export function ExportPanel({ projectName, scriptData, shots, targetDuration }: 
 
   const handleDownloadFiles = async () => {
     if (!stats.canExport) {
-      toast.error('没有可导出的素材');
+      toast.error('Không có tài nguyên để xuất');
       return;
     }
 
     setIsExporting(true);
-    setProgress({ current: 0, total: 0, message: '准备下载...' });
+    setProgress({ current: 0, total: 0, message: 'Chuẩn bị tải xuống...' });
 
     try {
       await exportProjectFiles(
@@ -101,10 +101,10 @@ export function ExportPanel({ projectName, scriptData, shots, targetDuration }: 
         (p) => setProgress(p)
       );
 
-      toast.success('下载完成！');
+      toast.success('Tải xuống hoàn tất!');
     } catch (error) {
       const err = error as Error;
-      toast.error(`下载失败: ${err.message}`);
+      toast.error(`Tải xuống thất bại: ${err.message}`);
     } finally {
       setIsExporting(false);
       setProgress(null);
@@ -114,9 +114,9 @@ export function ExportPanel({ projectName, scriptData, shots, targetDuration }: 
   return (
     <div className="space-y-4 p-4 rounded-lg border bg-card">
       <div className="flex items-center justify-between">
-        <h3 className="font-medium text-sm">导出素材包</h3>
+        <h3 className="font-medium text-sm">Xuất gói tài nguyên</h3>
         <span className="text-xs text-muted-foreground">
-          可用于剪映、PR等视频编辑软件
+          Có thể dùng cho phần mềm chỉnh sửa video như Jianying, PR
         </span>
       </div>
 
@@ -124,15 +124,15 @@ export function ExportPanel({ projectName, scriptData, shots, targetDuration }: 
       <div className="grid grid-cols-3 gap-2 text-center">
         <div className="p-2 rounded bg-muted/50">
           <div className="text-lg font-semibold">{stats.totalShots}</div>
-          <div className="text-xs text-muted-foreground">总镜头</div>
+          <div className="text-xs text-muted-foreground">Tổng phân cảnh</div>
         </div>
         <div className="p-2 rounded bg-muted/50">
           <div className="text-lg font-semibold text-green-500">{stats.imagesReady}</div>
-          <div className="text-xs text-muted-foreground">图片就绪</div>
+          <div className="text-xs text-muted-foreground">Hình ảnh sẵn sàng</div>
         </div>
         <div className="p-2 rounded bg-muted/50">
           <div className="text-lg font-semibold text-blue-500">{stats.videosReady}</div>
-          <div className="text-xs text-muted-foreground">视频就绪</div>
+          <div className="text-xs text-muted-foreground">Video sẵn sàng</div>
         </div>
       </div>
 
@@ -141,7 +141,7 @@ export function ExportPanel({ projectName, scriptData, shots, targetDuration }: 
         <div className="flex items-center justify-between">
           <Label htmlFor="include-images" className="flex items-center gap-2 text-sm">
             <ImageIcon className="h-4 w-4" />
-            导出图片
+            Xuất hình ảnh
             <span className="text-xs text-muted-foreground">({stats.imagesReady})</span>
           </Label>
           <Switch
@@ -155,7 +155,7 @@ export function ExportPanel({ projectName, scriptData, shots, targetDuration }: 
         <div className="flex items-center justify-between">
           <Label htmlFor="include-videos" className="flex items-center gap-2 text-sm">
             <Video className="h-4 w-4" />
-            导出视频
+            Xuất video
             <span className="text-xs text-muted-foreground">({stats.videosReady})</span>
           </Label>
           <Switch
@@ -182,9 +182,9 @@ export function ExportPanel({ projectName, scriptData, shots, targetDuration }: 
       <div className="text-xs text-muted-foreground space-y-1">
         <div className="flex items-center gap-1">
           <FileJson className="h-3 w-3" />
-          包含 manifest.json 元数据文件
+          Bao gồm tệp metadata manifest.json
         </div>
-        <div>文件夹结构: images/, videos/, manifest.json</div>
+        <div>Cấu trúc thư mục: images/, videos/, manifest.json</div>
       </div>
 
       {/* Export buttons */}
@@ -197,12 +197,12 @@ export function ExportPanel({ projectName, scriptData, shots, targetDuration }: 
           {isExporting ? (
             <>
               <Loader2 className="h-4 w-4 mr-2 animate-spin" />
-              导出中...
+              Đang xuất...
             </>
           ) : (
             <>
               <FolderOpen className="h-4 w-4 mr-2" />
-              选择文件夹导出
+              Chọn thư mục xuất
             </>
           )}
         </Button>
@@ -219,7 +219,7 @@ export function ExportPanel({ projectName, scriptData, shots, targetDuration }: 
       {!stats.canExport && (
         <div className="flex items-center gap-2 text-xs text-muted-foreground">
           <AlertCircle className="h-3 w-3" />
-          请先生成镜头图片或视频
+          Vui lòng tạo hình ảnh hoặc video phân cảnh trước
         </div>
       )}
     </div>

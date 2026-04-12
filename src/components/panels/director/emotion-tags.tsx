@@ -93,7 +93,7 @@ export function EmotionTags({ value, onChange, disabled }: EmotionTagsProps) {
 
   return (
     <div className="space-y-2">
-      {/* 已选标签（有序显示） */}
+      {/* Đã chọn标签（有序显示） */}
       {value.length > 0 && (
         <div className="flex flex-wrap gap-1.5 items-center">
           {value.map((tagId, index) => {
@@ -121,7 +121,7 @@ export function EmotionTags({ value, onChange, disabled }: EmotionTagsProps) {
         </div>
       )}
 
-      {/* 添加标签按钮 */}
+      {/* Thêm标签按钮 */}
       <Popover open={isOpen} onOpenChange={setIsOpen}>
         <PopoverTrigger asChild>
           <Button

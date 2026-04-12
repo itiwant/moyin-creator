@@ -68,7 +68,7 @@ export function SoundEffectTags({
 
   return (
     <div className="space-y-1.5">
-      {/* 已选标签展示 */}
+      {/* Đã chọn标签展示 */}
       <div className="flex flex-wrap gap-1">
         {value.map((tagId) => (
           <span
@@ -88,7 +88,7 @@ export function SoundEffectTags({
           </span>
         ))}
         
-        {/* 添加按钮 */}
+        {/* Thêm按钮 */}
         {value.length < maxTags && !disabled && (
           <Popover open={isOpen} onOpenChange={setIsOpen}>
             <PopoverTrigger asChild>

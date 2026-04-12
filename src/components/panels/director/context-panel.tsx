@@ -731,7 +731,7 @@ export function DirectorContextPanel() {
 
   return (
     <div className="h-full min-w-0 flex flex-col overflow-x-hidden">
-      {/* 标题和进度 */}
+      {/* 标题和Tiến trình */}
       <div className="p-3 border-b">
         <div className="flex items-center justify-between">
           <div>
@@ -747,7 +747,7 @@ export function DirectorContextPanel() {
         <p className="text-xs text-muted-foreground mt-2">
           Nhấp vào cảnh/phân cảnh để gửi đến đầu vào AI đạo diễn
         </p>
-        {/* 分镜编辑计数 */}
+        {/* Phân cảnhChỉnh sửa计数 */}
         {splitScenes.length > 0 && (
           <div className="mt-2 px-2 py-1 bg-green-500/10 rounded text-xs text-green-600 flex items-center gap-1">
             <Plus className="h-3 w-3" />
@@ -792,7 +792,7 @@ export function DirectorContextPanel() {
                   </span>
                 </button>
 
-                {/* 场景列表 */}
+                {/* Cảnh列表 */}
                 {expandedEpisodes.has(episode.id) && (
                   <div className="ml-4 space-y-0.5">
                     {episodeScenes.map((scene) => {
@@ -804,7 +804,7 @@ export function DirectorContextPanel() {
 
                       return (
                         <div key={scene.id} className="space-y-0.5">
-                          {/* 场景标题 */}
+                          {/* Cảnh标题 */}
                           <div className="flex items-center group">
                             <button
                               onClick={() => toggleScene(scene.id)}
@@ -831,7 +831,7 @@ export function DirectorContextPanel() {
                                 {sceneProgress}
                               </span>
                             </button>
-                            {/* 添加场景所有分镜到分镜编辑 */}
+                            {/* ThêmCảnh所有Phân cảnh到Phân cảnhChỉnh sửa */}
                             <Button
                               variant="ghost"
                               size="sm"
@@ -844,7 +844,7 @@ export function DirectorContextPanel() {
                             >
                               <Plus className="h-3 w-3 text-green-500" />
                             </Button>
-                            {/* 发送场景按钮 */}
+                            {/* 发送Cảnh按钮 */}
                             <Button
                               variant="ghost"
                               size="sm"
@@ -886,7 +886,7 @@ export function DirectorContextPanel() {
                                         status={getShotCompletionStatus(shot)}
                                       />
                                     </button>
-                                    {/* 添加到分镜按钮 */}
+                                    {/* Thêm到Phân cảnh按钮 */}
                                     <Button
                                       variant="ghost"
                                       size="sm"
