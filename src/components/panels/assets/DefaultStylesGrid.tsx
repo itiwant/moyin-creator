@@ -5,7 +5,7 @@
 
 /**
  * DefaultStylesGrid - 内置Phong cách网格浏览（只读）
- * 按phân loại分组Hiển thị 48 预设Phong cách
+ * 按phân loạinhómHiển thị 48 预设Phong cách
  */
 
 import { useState } from "react";

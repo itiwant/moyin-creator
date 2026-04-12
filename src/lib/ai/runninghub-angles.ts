@@ -17,10 +17,10 @@ export type HorizontalDirection =
   | 'front-left-quarter'; // 左前 315°
 
 export type ElevationAngle = 
-  | 'low-angle'    // 仰视
+  | 'low-angle'    // nhìn lên
   | 'eye-level'    // 平视
-  | 'elevated'     // 微俯视
-  | 'high-angle';  // 大俯视
+  | 'elevated'     // 微nhìn xuống
+  | 'high-angle';  // 大nhìn xuống
 
 export type ShotSize = 
   | 'close-up'      // Cực cận cảnh
@@ -61,10 +61,10 @@ export const ELEVATION_ANGLES: Array<{
   label: string;
   description: string;
 }> = [
-  { id: 'low-angle', label: '仰视', description: '从下往上拍' },
+  { id: 'low-angle', label: 'nhìn lên', description: '从下往上拍' },
   { id: 'eye-level', label: 'Ngang tầm mắt', description: '水平góc nhìn' },
-  { id: 'elevated', label: '微俯视', description: '略微俯视' },
-  { id: 'high-angle', label: '大俯视', description: '从上往下拍' },
+  { id: 'elevated', label: '微nhìn xuống', description: '略微nhìn xuống' },
+  { id: 'high-angle', label: '大nhìn xuống', description: '从上往下拍' },
 ];
 
 // 景别定义

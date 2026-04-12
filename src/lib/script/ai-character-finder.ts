@@ -248,23 +248,23 @@ async function generateCharacterData(
   
   const storyType = detectStoryType();
   
-  // 根据剧本类型构建服装指导
+  // 根据剧本类型构建trang phục指导
   const getEraFashionGuidance = () => {
     // 古装剧
     if (storyType === 'ancient') {
       const era = background.era || background.timelineSetting || '古代';
-      return `【${era}服装指导】
-请根据剧本设定的历史thời đạiThiết kế服装：
+      return `【${era}trang phục指导】
+请根据剧本设定的历史thời đạiThiết kếtrang phục：
 - 如果是客梨或武侠：古代汉服、侠客服饰、布衣草鞋
 - 如果是宫廷：宫装、朝服、官服
 - 如果是仙侠/玄幻：仙侠风格的服饰、飘逸长袍
-请根据角色身份（平民/贵族/侠客/官员）Thiết kế合适的古代服装。`;
+请根据角色身份（平民/贵族/侠客/官员）Thiết kế合适的古代trang phục。`;
     }
     
     // 未来/科幻剧
     if (storyType === 'future') {
-      return `【未来/科幻服装指导】
-请根据剧本设定Thiết kế未来风格服装：
+      return `【未来/科幻trang phục指导】
+请根据剧本设定Thiết kế未来风格trang phục：
 - 科技感服饰、功能性装备、thông minh穿戴
 - 根据设定可以是乌托邦风格或反乌托邦风格
 - 注意角色身份（平民/科学家/军人/机械师）`;
@@ -275,34 +275,34 @@ async function generateCharacterData(
     
     if (startYear) {
       if (startYear >= 2020) {
-        return `【${startYear}年代服装指导】
+        return `【${startYear}年代trang phục指导】
 - 年轻人：休闲时尚、运动风、潮牌元素，常穿卫衣、牵仔裤、运动鞋
 - đang xử lý...商务休闲、简约现代，常穿Polo衫、休闲西装、卡其裤
 - 老年人：舒适休闲，常穿开衫、单子衫、布鞋或运动鞋`;
       } else if (startYear >= 2010) {
-        return `【${startYear}年代服装指导】
+        return `【${startYear}年代trang phục指导】
 - 年轻人：韩系时尚、小清新风格，常穿T恤、牵仔裤、帆布鞋
 - đang xử lý...商务正装或商务休闲，常穿西装、衬衫、皮鞋
 - 老年人：传统休闲，常穿开衫、布鞋`;
       } else if (startYear >= 2000) {
-        return `【${startYear}年代服装指导】
+        return `【${startYear}年代trang phục指导】
 - 年轻人：千禧年时尚，常穿紧身裤、Lỏng lẻo外套、板鞋
 - đang xử lý...正式商务装，常穿西装套装、领带、皮鞋
 - 老年人：đang xử lý...简单开衫、布鞋`;
       } else if (startYear >= 1990) {
-        return `【${startYear}年代服装指导】
+        return `【${startYear}年代trang phục指导】
 - 年轻人：喇叭裤、的确良外套、大肩垫西装
 - đang xử lý...đang xử lý...西装，解放鞋或简单皮鞋
 - 老年人：đang xử lý...棉袄、布鞋`;
       } else {
-        return `【${startYear}年代服装指导】
-请根据该年代的đang xử lý...服装风格Thiết kế`;
+        return `【${startYear}年代trang phục指导】
+请根据该年代的đang xử lý...trang phục风格Thiết kế`;
       }
     }
     
     // 默认现代
-    return `【现代服装指导】
-请Thiết kế符合当代đang xử lý...装风格，根据角色年龄和身份Chọn合适的现代服装。`;
+    return `【现代trang phục指导】
+请Thiết kế符合当代đang xử lý...装风格，根据角色年龄和身份Chọn合适的现代trang phục。`;
   };
   
   // 构建年代信息字符串
@@ -326,10 +326,10 @@ async function generateCharacterData(
 
 请根据提供的剧本信息和角色上下文，Tạođầy đủ的角色数据。
 
-【服装Thiết kế要求】
+【trang phụcThiết kế要求】
 ${eraFashionGuidance}
 
-服装必须与剧本thời đại背景一致，不要混淆不同thời đại的服装风格。
+trang phục必须与剧本thời đại背景一致，不要混淆不同thời đại的trang phục风格。
 
 【输出格式】
 请返回JSON格式，包含以下trường：
@@ -339,9 +339,9 @@ ${eraFashionGuidance}
   "age": "年龄Mô tả，如 '30 tuổi左右' 或 'đang xử lý...,
   "personality": "性格特点，2-3词",
   "role": "角色身份/职业/在剧đang xử lý...",
-  "appearance": "Đặc điểm ngoại hìnhMô tả（服装必须符合年代）",
+  "appearance": "Đặc điểm ngoại hìnhMô tả（trang phục必须符合年代）",
   "relationships": "与其他角色的关系",
-  "visualPromptEn": "英文视觉提示词，用于AI图像Tạo，Mô tả外貌、服装（必须符合年代）、气质",
+  "visualPromptEn": "英文视觉提示词，用于AI图像Tạo，Mô tả外貌、trang phục（必须符合年代）、气质",
   "visualPromptZh": "đang xử lý...提示词",
   "importance": "protagonist/supporting/minor"
 }`;
@@ -368,7 +368,7 @@ ${dialogueSamples.join('\n')}
 
 请基于以上信息，Tạo角色「${name}」的đầy đủ数据。
 
-【重要】服装必须符合故事thời đại背景（${eraInfo}）！`;
+【重要】trang phục必须符合故事thời đại背景（${eraInfo}）！`;
 
   try {
     // 统一从ánh xạ dịch vụ获取配置

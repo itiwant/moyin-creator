@@ -2,7 +2,7 @@
 // Licensed under AGPL-3.0-or-later. See LICENSE for details.
 // Commercial licensing available. See COMMERCIAL_LICENSE.md.
 /**
- * auto-grouping.ts — Hạng Sthông minh分组算法
+ * auto-grouping.ts — Hạng Sthông minhnhóm算法
  *
  * 将 director-store đang xử lý...plitScene[] Tự động分为 ShotGroup[]。
  * 策略：
@@ -66,7 +66,7 @@ function genId(): string {
 // ==================== Core Algorithm ====================
 
 /**
- * 对 SplitScene[] 执 hàngTự động分组
+ * 对 SplitScene[] 执 hàngTự độngnhóm
  *
  * @returns ShotGroup[] — 每组包含 sceneIds、totalDuration 等
  */
@@ -87,7 +87,7 @@ export function autoGroupScenes(
     const dur = Math.round(Math.min(Math.max(currentDuration, 4), 15)) as SClassDuration;
     groups.push({
       id: genId(),
-      name: `第${groups.length + 1}组`,
+      name: `Nhóm ${groups.length + 1}`,
       sceneIds: [...currentSceneIds],
       totalDuration: dur,
       imageRefs: [],
@@ -175,7 +175,7 @@ export function generateGroupName(
   scenes: SplitScene[],
   groupIndex: number,
 ): string {
-  if (group.sceneIds.length === 0) return `第${groupIndex + 1}组`;
+  if (group.sceneIds.length === 0) return `Nhóm ${groupIndex + 1}`;
 
   // 尝试Sử dụngCảnh名
   const sceneMap = new Map(scenes.map((s) => [s.id, s]));
@@ -192,5 +192,5 @@ export function generateGroupName(
     return `${firstScene.sceneName} (Ống kính${firstNum}-${lastNum})`;
   }
 
-  return `第${groupIndex + 1}组: Ống kính${firstNum}-${lastNum}`;
+  return `Nhóm ${groupIndex + 1}: Ống kính ${firstNum}-${lastNum}`;
 }

@@ -749,7 +749,7 @@ export function ScriptView() {
     }
   }, [projectId]);
 
-  // Hiệu chuẩn phân cảnh AI：优化Tiếng TrungMô tả、Tạo英文visualPrompt、优化Phân cảnhThiết kế
+  // Hiệu chuẩn phân cảnh AI：tối ưuTiếng TrungMô tả、Tạo英文visualPrompt、tối ưuPhân cảnhThiết kế
   const handleCalibrateShots = useCallback(async (episodeIndex: number) => {
     const featureConfig = getFeatureConfig('script_analysis');
     if (!featureConfig) {
@@ -1145,7 +1145,7 @@ export function ScriptView() {
                 ...baseChar,
                 stageCharacterIds: stageCharIds,
                 consistencyElements: analysis.consistencyElements,
-                // 标记Cho nhân vật cha，不需要单独Tạo形象，只作Cho nhân vật giai đoạn的分组
+                // 标记Cho nhân vật cha，不需要单独Tạo形象，只作Cho nhân vật giai đoạn的nhóm
                 tags: [...(baseChar.tags || []).filter(t => t !== 'protagonist'), 'Nhân vật cha'],
                 notes: `Nhân vật này có ${stageCharIds.length} phiên bản giai đoạn, vui lòng tạo hình ảnh cho từng phiên bản`,
               };

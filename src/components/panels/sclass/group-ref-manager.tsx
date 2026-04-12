@@ -4,7 +4,7 @@
 "use client";
 
 /**
- * GroupRefManager — Hạng S组级 @tham chiếuQuản lý器
+ * GroupRefManager — Hạng Scấp nhóm @tham chiếuQuản lý器
  *
  * 功能：
  * - Tự động收 tập：Nhân vậtẢnh tham chiếu、CảnhẢnh tham chiếu、Khung hình đầuảnh → 只读Hiển thị
@@ -433,15 +433,15 @@ function AutoImageSection({
       >
         <ImageIcon className="h-3 w-3 text-blue-500" />
         <span>
-          Tự động收 tập {totalCount} 张ảnh
-          {truncated && <span className="text-amber-500 ml-1">(vượt quá限制已截断至 {SEEDANCE_LIMITS.maxImages})</span>}
+          Tự động thu thập {totalCount} ảnh
+          {truncated && <span className="text-amber-500 ml-1">(vượt giới hạn, đã cắt xuống {SEEDANCE_LIMITS.maxImages})</span>}
         </span>
         <span className="text-[10px]">{expanded ? "▼" : "▶"}</span>
       </button>
 
       {expanded && (
         <div className="space-y-1.5 pl-1">
-          {/* Khung hình đầu图 */}
+          {/* Ảnh Khung hình đầu */}
           {frameRefs.length > 0 && (
             <RefGroup
               label="Khung hình đầu"
@@ -449,7 +449,7 @@ function AutoImageSection({
               refs={frameRefs}
             />
           )}
-          {/* Nhân vật图 */}
+          {/* Ảnh Nhân vật */}
           {charRefs.length > 0 && (
             <RefGroup
               label="Nhân vật"
@@ -457,7 +457,7 @@ function AutoImageSection({
               refs={charRefs}
             />
           )}
-          {/* Cảnh图 */}
+          {/* Ảnh Cảnh */}
           {sceneRefs.length > 0 && (
             <RefGroup
               label="Cảnh"
@@ -471,7 +471,7 @@ function AutoImageSection({
   );
 }
 
-/** tham chiếu分组Hiển thị */
+/** Hiển thị nhóm tham chiếu */
 function RefGroup({
   label,
   icon,
@@ -541,7 +541,7 @@ function UploadZone({
       <Plus className={cn("h-3 w-3", isVideo ? "text-purple-400" : "text-green-400")} />
       <span className="text-xs text-muted-foreground">
         {isVideo
-          ? "拖放或NhấpTải lênvideo (MP4/WebM, ≤15s)"
+          ? "Kéo thả hoặc Nhấp để Tải lên video (MP4/WebM, ≤15s)"
           : "拖放或NhấpTải lênâm thanh (MP3/WAV, ≤15s)"}
       </span>
     </div>
@@ -550,7 +550,7 @@ function UploadZone({
 
 // ==================== RefChip ====================
 
-/** đã tải lên的tham chiếuThẻ */
+/** Thẻ tham chiếu đã tải lên */
 function RefChip({
   ref_,
   onRemove,

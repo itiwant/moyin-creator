@@ -493,11 +493,11 @@ export function ScriptInput({
 
       {/* Vùng cài đặt - hiển thị Tùy chọn khác nhau tùy theo chế độ */}
       <div className="space-y-3 pt-2 border-t">
-        {/* Chế độ nhập：显示Ngôn ngữ、Cảnh数量、Phân cảnh数量 */}
+        {/* Chế độ nhập: hiển thị Ngôn ngữ, Số lượng Cảnh, Số lượng Phân cảnh */}
         {mode === "import" && (
           <div className="space-y-3">
             <div className="space-y-1">
-              <Label className="text-xs">剧本Ngôn ngữ</Label>
+              <Label className="text-xs">Ngôn ngữ kịch bản</Label>
               <Select
                 value={language}
                 onValueChange={onLanguageChange}
@@ -509,7 +509,7 @@ export function ScriptInput({
                 <SelectContent>
                   <SelectItem value="Tiếng Trung">Tiếng Trung</SelectItem>
                   <SelectItem value="English">English</SelectItem>
-                  <SelectItem value="日本語">日本語</SelectItem>
+                  <SelectItem value="日本語">Tiếng Nhật</SelectItem>
                 </SelectContent>
               </Select>
             </div>
@@ -533,13 +533,13 @@ export function ScriptInput({
                 </SelectContent>
               </Select>
               <p className="text-[10px] text-muted-foreground">
-                控制AIHiệu chuẩnTạođang xử lý...prompt，默认Chỉ tiếng Trung可giảmTạo压力
+                Kiểm soát AI Hiệu chuẩn khi Tạo prompt, mặc định Chỉ tiếng Trung có thể giảm áp lực Tạo
               </p>
             </div>
 
             <div className="grid grid-cols-2 gap-2">
               <div className="space-y-1">
-                <Label className="text-xs">Cảnh数量(tùy chọn)</Label>
+                <Label className="text-xs">Số lượng Cảnh (tùy chọn)</Label>
                 <Select
                   value={sceneCount || ""}
                   onValueChange={(v) => onSceneCountChange?.(v)}
@@ -560,14 +560,14 @@ export function ScriptInput({
               </div>
 
               <div className="space-y-1">
-                <Label className="text-xs">Phân cảnh数量(tùy chọn)</Label>
+                <Label className="text-xs">Số lượng Phân cảnh (tùy chọn)</Label>
                 {showCustomShotInput ? (
                   <div className="flex gap-1">
                     <Input
                       type="number"
                       min="1"
                       max="100"
-                      placeholder="输入数量"
+                      placeholder="Nhập số lượng"
                       value={customShotValue}
                       onChange={(e) => setCustomShotValue(e.target.value)}
                       onBlur={() => {
@@ -624,7 +624,7 @@ export function ScriptInput({
               </div>
             </div>
 
-            {/* Phong cách thị giác - Chế độ nhập也可以Chọn */}
+            {/* Phong cách thị giác - Chế độ nhập cũng có thể Chọn */}
             <div className="space-y-1">
               <Label className="text-xs flex items-center gap-1">
                 <Palette className="h-3 w-3" />
@@ -636,7 +636,7 @@ export function ScriptInput({
                 disabled={parseStatus === "parsing"}
               />
               <p className="text-[10px] text-muted-foreground">
-                此风格将用于Hiệu chuẩn phân cảnh AI时TạoMô tả thị giác
+                Phong cách này sẽ được dùng khi AI Hiệu chuẩn phân cảnh để Tạo Mô tả thị giác
               </p>
             </div>
           </div>
@@ -664,7 +664,7 @@ export function ScriptInput({
                 </SelectContent>
               </Select>
               <p className="text-[10px] text-muted-foreground">
-                控制AITạođang xử lý...prompt，默认Chỉ tiếng Trung可giảmTạo压力
+                控制AITạođang xử lý...prompt，默认Chỉ tiếng Trung可giảmTạoáp lực
               </p>
             </div>
             <div className="grid grid-cols-3 gap-2">
@@ -681,7 +681,7 @@ export function ScriptInput({
                   <SelectContent>
                     <SelectItem value="Tiếng Trung">Tiếng Trung</SelectItem>
                     <SelectItem value="English">English</SelectItem>
-                    <SelectItem value="日本語">日本語</SelectItem>
+                    <SelectItem value="日本語">Tiếng Nhật</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -718,7 +718,7 @@ export function ScriptInput({
 
             <div className="grid grid-cols-2 gap-2">
               <div className="space-y-1">
-                <Label className="text-xs">Cảnh数量(tùy chọn)</Label>
+                <Label className="text-xs">Số lượng Cảnh (tùy chọn)</Label>
                 <Select
                   value={sceneCount || ""}
                   onValueChange={(v) => onSceneCountChange?.(v)}
@@ -739,14 +739,14 @@ export function ScriptInput({
               </div>
 
               <div className="space-y-1">
-                <Label className="text-xs">Phân cảnh数量(tùy chọn)</Label>
+                <Label className="text-xs">Số lượng Phân cảnh (tùy chọn)</Label>
                 {showCustomShotInput ? (
                   <div className="flex gap-1">
                     <Input
                       type="number"
                       min="1"
                       max="100"
-                      placeholder="输入数量"
+                      placeholder="Nhập số lượng"
                       value={customShotValue}
                       onChange={(e) => setCustomShotValue(e.target.value)}
                       onBlur={() => {

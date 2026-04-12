@@ -863,7 +863,7 @@ function cleanCharacterName(rawName: string): string {
   name = name.replace(/\*+/g, '');
   // 去除括号及其内容，如 "王艳（周妻）" -> "王艳"
   name = name.replace(/[（\(][^）\)]*[）\)]?/g, '');
-  // 去除单独的右括号（截断情况）
+  // 去除单独的右括号（cắt ngắn情况）
   name = name.replace(/[）\)]/g, '');
   // 去除引号
   name = name.replace(/["“”‘’"']/g, '');

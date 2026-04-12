@@ -217,7 +217,7 @@ export function EpisodeTree({
   const [expandedEpisodes, setExpandedEpisodes] = useState<Set<string>>(new Set(["default"]));
   const [expandedScenes, setExpandedScenes] = useState<Set<string>>(new Set());
   const [filter, setFilter] = useState<FilterType>("all");
-  // Nhân vật分组thu gọn状态
+  // Nhân vậtnhómthu gọn状态
   const [extrasExpanded, setExtrasExpanded] = useState(false);
   // Tab 状态: Cấu trúc tập phim vs Trailer
   const [activeTab, setActiveTab] = useState<"structure" | "trailer">("structure");
@@ -341,7 +341,7 @@ export function EpisodeTree({
     }];
   }, [scriptData]);
 
-  // 按Cảnh分组的shots
+  // 按Cảnhnhóm的shots
   const shotsByScene = useMemo(() => {
     const map: Record<string, Shot[]> = {};
     shots.forEach((shot) => {
@@ -1113,7 +1113,7 @@ export function EpisodeTree({
                 return true;
               });
             
-            // 分组：Nhóm nhân vật chính (protagonist, supporting) 和 Quần chúngnhân vật phụ组 (minor, extra)
+            // nhóm：Nhóm nhân vật chính (protagonist, supporting) 和 Quần chúngnhân vật phụ组 (minor, extra)
             const mainCharacters = allCharacters.filter(c => {
               const tags = c.tags || [];
               return tags.includes('protagonist') || tags.includes('supporting');

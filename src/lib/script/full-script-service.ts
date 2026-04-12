@@ -798,7 +798,7 @@ function generateShotsFromSceneContent(
         index: index++,
         episodeId,
         sceneRefId: scene.id,
-        // 保留đầy đủ的gốc动作文本，不要截断，便于AIHiệu chuẩn时Sử dụng
+        // 保留đầy đủ的gốc动作文本，不要cắt ngắn，便于AIHiệu chuẩn时Sử dụng
         actionSummary: actionText,
         visualDescription: `${scene.location}，${actionText}`,
         characterNames: mentionedChars.map(c => c.name),
@@ -814,14 +814,14 @@ function generateShotsFromSceneContent(
     if (trimmedLine.startsWith('【') && trimmedLine.endsWith('】')) {
       const subtitleText = trimmedLine.slice(1, -1);
       
-      // 如果是闪回标记，Tạo过渡镜头
+      // 如果是闪回标记，Tạochuyển tiếp镜头
       if (subtitleText.includes('闪回')) {
         shots.push(createShot({
           index: index++,
           episodeId,
           sceneRefId: scene.id,
           actionSummary: subtitleText,
-          visualDescription: `【${subtitleText}】画面渐变过渡`,
+          visualDescription: `【${subtitleText}】画面渐变chuyển tiếp`,
           characterNames: [],
           characterIds: [],
           shotSize: 'WS',
@@ -1326,7 +1326,7 @@ function applyPromptLanguageToShotPrompts(
 }
 
 /**
- * AIHiệu chuẩn分镜：优化đang xử lý...、Tạo英文visualPrompt、优化镜头Thiết kế
+ * AIHiệu chuẩn分镜：tối ưuđang xử lý...、Tạo英文visualPrompt、tối ưu镜头Thiết kế
  */
 export async function calibrateEpisodeShots(
   episodeIndex: number,
@@ -1815,7 +1815,7 @@ async function callAIForShotCalibration(
   ambientSound: string;     // 环境音
   soundEffect: string;      // Hiệu ứng âm thanh
   // === tự sự驱动trường（基于《电影Ngôn ngữ的语法》） ===
-  narrativeFunction: string;  // tự sự功能：铺垫/升级/cao trào/转折/过渡/尾声
+  narrativeFunction: string;  // tự sự功能：铺垫/升级/cao trào/转折/chuyển tiếp/尾声
   conflictStage?: string;     // 冲突阶段
   shotPurpose: string;        // 镜头目的：为什么用这镜头
   storyAlignment?: string;    // 与整体tự sự的一致性
@@ -1949,7 +1949,7 @@ ${characterBios ? `
 9. Hiệu ứng âm thanh (soundEffect): **đang xử lý...，根据动作推断
 
 **tự sự驱动trường（重要！必须基于本 tậpđại cương分析）：**
-10. tự sự功能 (narrativeFunction): 铺垫/升级/cao trào/转折/过渡/尾声
+10. tự sự功能 (narrativeFunction): 铺垫/升级/cao trào/转折/chuyển tiếp/尾声
 11. 镜头目的 (shotPurpose): 为什么用这镜头？一句话说明
 12. 视觉焦点 (visualFocus): 观众应该按什么thứ tự看？用箭头表示
 13. 机位Mô tả (cameraPosition): 摄影机相对于nhân vật的位置
@@ -1990,7 +1990,7 @@ ${characterBios ? `
     
     c) **nhân vậtMô tả**（每出场nhân vật都要写）：
        - 年龄段（青年/đang xử lý...年）
-       - 服装概述（休闲装/正装/工作服等）
+       - trang phục概述（休闲装/正装/工作服等）
        - Biểu cảm神态（căng thẳng/严肃/微笑/担忧）
        - Tư thế动作（坐着/站立/俯身/Cầm tayvật phẩm）
     
@@ -2027,7 +2027,7 @@ ${characterBios ? `
     b) **光线Thiết kế**：与首帧保持一致（除非剧情有时间变化）
     
     c) **nhân vậtMô tả**（重点！Mô tả动作完成后的状态）：
-       - 同样包含年龄、服装
+       - 同样包含年龄、trang phục
        - **新的Biểu cảm神态**（动作完成后的情绪）
        - **新的Tư thế位置**（动作完成后的位置）
        - 道具的新状态
@@ -2079,7 +2079,7 @@ ${getMediaTypeGuidance(mt)}
 镜头Thiết kế原则：
 - 情感Thoại、内心活动: CU/ECU Cận cảnhCực cận cảnh
 - 动作场面、追逐: MS/WS + Tracking跟随
-- 场景建立、过渡: WS/FS Viễn cảnh
+- 场景建立、chuyển tiếp: WS/FS Viễn cảnh
 - căng thẳng对峙: nhanh切换景别
 - 重要物件/细节: ECUCực cận cảnh
 
@@ -2184,7 +2184,7 @@ Thoại: ${shot.dialogue || '无'}
 
 🎬 **tự sự驱动分析（基于《电影Ngôn ngữ的语法》）**：
 - 根据「本 tậpđại cương」判断每镜头在整 tập故事đang xử lý...功能
-- 镜头Thiết kế必须服务于故事的情绪节奏和tự sự弧线
+- 镜头Thiết kế必须服务于故事的情绪节奏和tự sựcung
 - 景别Chọn要配合tự sự功能（铺垫用全景、cao trào用Cực cận cảnh等）
 - 考虑nhân vậtbố cục和机位对故事sức căng的影响
 

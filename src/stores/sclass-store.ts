@@ -151,14 +151,14 @@ export interface ShotGroup {
   /** 最近一次TạoSử dụng的đầy đủ prompt（用于Sao chép核对） */
   lastPrompt: string | null;
 
-  // ---- 组级 AI Hiệu chuẩn ----
-  /** 组级tự sự弧线（AI Hiệu chuẩn产物） */
+  // ---- cấp nhóm AI Hiệu chuẩn ----
+  /** cấp nhómtự sựcung（AI Hiệu chuẩn产物） */
   narrativeArc?: string;
-  /** Ống kính间过渡指令，长度 = sceneIds.length - 1 */
+  /** Ống kính间chuyển tiếp指令，长度 = sceneIds.length - 1 */
   transitions?: string[];
-  /** 组级âm thanhThiết kế（整段 15s 规划） */
+  /** cấp nhómâm thanhThiết kế（整段 15s 规划） */
   groupAudioDesign?: string;
-  /** AI Hiệu chuẩn后的组级 prompt（优先级：mergedPrompt > calibratedPrompt > Tự động拼接） */
+  /** AI Hiệu chuẩn后的cấp nhóm prompt（优先级：mergedPrompt > calibratedPrompt > Tự động拼接） */
   calibratedPrompt?: string;
   /** Hiệu chuẩnTrạng thái */
   calibrationStatus?: 'idle' | 'calibrating' | 'done' | 'failed';
@@ -179,7 +179,7 @@ export interface ShotGroup {
 }
 
 /**
- * 单镜Tạo记录（保留单Ống kính独立Tạo能力）
+ * ống kính đơnTạo记录（保留单Ống kính独立Tạo能力）
  */
 export interface SingleShotOverride {
   sceneId: number;
@@ -202,7 +202,7 @@ export interface SingleShotOverride {
 export interface SClassProjectData {
   /** Ống kính组 cột表 */
   shotGroups: ShotGroup[];
-  /** 单镜TạoGhi đè表 (sceneId -> override) */
+  /** ống kính đơnTạoGhi đè表 (sceneId -> override) */
   singleShotOverrides: Record<number, SingleShotOverride>;
   /** 全局 @tham chiếuTài sản（Tự dochế độ下Sử dụng） */
   globalAssetRefs: AssetRef[];
@@ -210,7 +210,7 @@ export interface SClassProjectData {
   config: SClassConfig;
   /** 当前chế độ */
   mode: SClassMode;
-  /** 是否已从 director 数据Tự động分组过 */
+  /** 是否已从 director 数据Tự độngnhóm过 */
   hasAutoGrouped: boolean;
   /** 最近一次lưới 9 ôTạo的gốc大图 URL（用于Tạo video时复用，避免重新合并） */
   lastGridImageUrl: string | null;
@@ -242,7 +242,7 @@ interface SClassState {
   projects: Record<string, SClassProjectData>;
   /** Đang chọn的组 ID */
   selectedGroupId: string | null;
-  /** Tạochế độ：组Tạo / 单镜Tạo */
+  /** Tạochế độ：组Tạo / ống kính đơnTạo */
   generationMode: 'group' | 'single';
 }
 
@@ -268,7 +268,7 @@ interface SClassActions {
   updateGroupVideoStatus: (groupId: string, updates: Partial<Pick<ShotGroup, 'videoStatus' | 'videoProgress' | 'videoUrl' | 'videoError' | 'videoMediaId'>>) => void;
   addGroupHistory: (groupId: string, record: GenerationRecord) => void;
 
-  // 单镜Tạo
+  // ống kính đơnTạo
   setSingleShotOverride: (sceneId: number, override: SingleShotOverride) => void;
   updateSingleShotVideo: (sceneId: number, updates: Partial<Pick<SingleShotOverride, 'videoStatus' | 'videoProgress' | 'videoUrl' | 'videoError' | 'videoMediaId'>>) => void;
   removeSingleShotOverride: (sceneId: number) => void;
@@ -571,7 +571,7 @@ export const useSClassStore = create<SClassStore>()(
         });
       },
 
-      // ========== 单镜Tạo ==========
+      // ========== ống kính đơnTạo ==========
 
       setSingleShotOverride: (sceneId, override) => {
         const { activeProjectId, projects } = get();

@@ -345,7 +345,7 @@ export function FeatureBindingPanel() {
     });
   };
 
-  // 按thương hiệu分组（thương hiệuphân loại UI）
+  // 按thương hiệunhóm（thương hiệuphân loại UI）
   const brandGroupsByFeature = useMemo(() => {
     const result: Partial<Record<AIFeature, Array<{ brandId: string; options: ProviderOption[] }>>> = {};
 
@@ -375,7 +375,7 @@ export function FeatureBindingPanel() {
   // 每 feature 的Tìm kiếmquan trọng词
   const [searchQuery, setSearchQuery] = useState<Record<string, string>>({});
 
-  // MemeFast Nhà cung cấp ID  tập合（用于分组Gợi ý）
+  // MemeFast Nhà cung cấp ID  tập合（用于nhómGợi ý）
   const memefastProviderIds = useMemo(() => {
     const ids = new Set<string>();
     for (const p of providers) {
@@ -530,7 +530,7 @@ export function FeatureBindingPanel() {
                         </div>
                       )}
 
-                      {/* MemeFast 分组Gợi ý横幅 */}
+                      {/* MemeFast nhómGợi ý横幅 */}
                       {(() => {
                         const groups = new Set<string>();
                         for (const binding of currentBindings) {
@@ -547,7 +547,7 @@ export function FeatureBindingPanel() {
                         return (
                           <div className="flex flex-col gap-1.5 px-3 py-2.5 rounded-md bg-blue-500/10 border border-blue-500/30">
                             <span className="text-xs font-medium text-blue-600 dark:text-blue-400">
-                              已选的 MemeFast ModelHỗ trợ以下分组：
+                              已选的 MemeFast ModelHỗ trợ以下nhóm：
                             </span>
                             <div className="flex flex-wrap gap-1.5">
                               {sortedGroups.map(g => (
@@ -557,7 +557,7 @@ export function FeatureBindingPanel() {
                               ))}
                             </div>
                             <span className="text-[11px] text-blue-600/80 dark:text-blue-400/80">
-                              gợi ý在 memefast.top 后台为以上分组都Thêm Key，Key 越多可用性越高。
+                              gợi ý在 memefast.top 后台为以上nhóm都Thêm Key，Key 越多可用性越高。
                             </span>
                           </div>
                         );

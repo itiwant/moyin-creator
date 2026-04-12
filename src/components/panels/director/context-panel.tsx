@@ -109,7 +109,7 @@ export function DirectorContextPanel() {
     }];
   }, [scriptData]);
 
-  // 按Cảnh分组的shots
+  // 按Cảnhnhóm的shots
   const shotsByScene = useMemo(() => {
     const map: Record<string, Shot[]> = {};
     shots.forEach((shot) => {
@@ -319,7 +319,7 @@ export function DirectorContextPanel() {
     // 在父Cảnh的Góc nhìnbiến thểđang xử lý...配的Góc nhìn
     for (const parent of parentScenes) {
       const variants = sceneLibraryScenes.filter(s => s.parentSceneId === parent.id);
-      console.log(`[findViewpointInLibrary] 父Cảnh "${parent.name}" 的Góc nhìnbiến thể数: ${variants.length}`, 
+      console.log(`[findViewpointInLibrary] Số biến thể Góc nhìn của Cảnh cha "${parent.name}": ${variants.length}`, 
         variants.map(v => ({ name: v.name, viewpointName: v.viewpointName, id: v.id })));
       
       // 模糊匹配Góc nhìnTên

@@ -520,10 +520,10 @@ export function WardrobeModal({ character, open, onOpenChange }: WardrobeModalPr
               {/* Clothing reference images upload */}
               <div className="space-y-2">
                 <Label className="text-xs text-muted-foreground">
-                  服装Ảnh tham chiếu（可选，最多 {MAX_CLOTHING_REFS} 张）
+                  Ảnh tham chiếu trang phục (tùy chọn, tối đa {MAX_CLOTHING_REFS} ảnh)
                 </Label>
                 <p className="text-[11px] text-muted-foreground">
-                  Tải lên想要Nhân vật穿的衣服/造型照片，AI 会将Nhân vật融合到该服装中
+                  Tải lên ảnh trang phục/tạo hình muốn Nhân vật mặc, AI sẽ ghép Nhân vật vào trang phục đó
                 </p>
 
                 {/* Uploaded clothing refs */}
@@ -535,7 +535,7 @@ export function WardrobeModal({ character, open, onOpenChange }: WardrobeModalPr
                     >
                       <img
                         src={img}
-                        alt={`服装Tham chiếu ${idx + 1}`}
+                        alt={`Tham chiếu trang phục ${idx + 1}`}
                         className="w-full h-full object-cover"
                       />
                       <button
@@ -574,15 +574,15 @@ export function WardrobeModal({ character, open, onOpenChange }: WardrobeModalPr
 
               {/* Visual prompt */}
               <div className="space-y-1">
-                <Label className="text-xs text-muted-foreground">视觉Mô tả(tùy chọn)</Label>
+                <Label className="text-xs text-muted-foreground">Mô tả thị giác (tùy chọn)</Label>
                 <Textarea
-                  placeholder="Mô tả服装细节或整体造型，如：\n- 白色蕾丝婚纱，长拖尾，头戴花冠\n- elegant white lace wedding dress, long train, floral headpiece"
+                  placeholder="Mô tả chi tiết trang phục hoặc tổng thể tạo hình, ví dụ:\n- 白色蕾丝婚纱，长拖尾，头戴花冠\n- elegant white lace wedding dress, long train, floral headpiece"
                   value={newVariationPrompt}
                   onChange={(e) => setNewVariationPrompt(e.target.value)}
                   className="min-h-[72px]"
                 />
                 <p className="text-[11px] text-muted-foreground">
-                  可用đang xử lý...文Mô tả，Hỗ trợ混合。有Ảnh tham chiếu时可简短Mô tả补充细节
+                  Có thể dùng mô tả tiếng Trung, Hỗ trợ hỗn hợp. Khi có Ảnh tham chiếu có thể mô tả ngắn bổ sung chi tiết
                 </p>
               </div>
 
@@ -611,9 +611,9 @@ export function WardrobeModal({ character, open, onOpenChange }: WardrobeModalPr
 
           {/* Tips */}
           <div className="text-xs text-muted-foreground space-y-1 pt-2 border-t">
-            <p>💡 biến thểTạo会Tham chiếuNhân vậtCơ bản定妆照，保持Khuôn mặt特征一致</p>
-            <p>💡 Tải lên服装Ảnh tham chiếu可让 AI 更精准地Tạo目标造型</p>
-            <p>💡 gợi ý先TạoNhân vậtCơ bảnảnh，再Thêmbiến thể</p>
+            <p>💡 Tạo biến thể sẽ Tham chiếu ảnh Định trang Cơ bản của Nhân vật, giữ nhất quán đặc trưng Khuôn mặt</p>
+            <p>💡 Tải lên Ảnh tham chiếu trang phục giúp AI Tạo tạo hình mục tiêu chính xác hơn</p>
+            <p>💡 Gợi ý: Tạo ảnh Cơ bản của Nhân vật trước, sau đó Thêm biến thể</p>
           </div>
           </div>
         </div>
@@ -671,7 +671,7 @@ async function generateVariationImage(params: {
   const baseUrl = featureConfig.baseUrl?.replace(/\/+$/, '');
 
   if (!model || !baseUrl) {
-    throw new Error('Tạo ảnh服务未正确配置（缺少Model或 Base URL）');
+    throw new Error('Dịch vụ Tạo ảnh chưa được cấu hình đúng (thiếu Model hoặc Base URL)');
   }
 
   // ---- Build CHARACTER SHEET prompt (same structure as generation-panel) ----

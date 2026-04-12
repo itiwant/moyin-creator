@@ -38,7 +38,7 @@ export interface CharacterView {
  * while maintaining face/body consistency via base reference
  * 
  * Hỗ trợ两种用途：
- * 1. 服装/Trạng tháibiến thể："Trang phục hàng ngày"、"Trang phục chiến đấu"、"Trạng thái bị thương"
+ * 1. trang phục/Trạng tháibiến thể："Trang phục hàng ngày"、"Trang phục chiến đấu"、"Trạng thái bị thương"
  * 2. 年龄/阶段biến thể："青年版"、"Phiên bản trung niên"、"Cao niên版"（带episodeRange）
  */
 export interface CharacterVariation {

@@ -43,7 +43,7 @@ export interface ProcessBatchedOptions<TItem, TResult> {
 
   /**
    * 构建 prompt 函数 — 接收一 batch 的 items，返回 system + user prompt
-   * 每批gọi API一次，prompt đang xử lý...全局上下文（用 safeTruncate 截断）
+   * 每批gọi API一次，prompt đang xử lý...全局上下文（用 safeTruncate cắt ngắn）
    */
   buildPrompts: (batch: TItem[]) => { system: string; user: string };
 
@@ -97,7 +97,7 @@ export interface ProcessBatchedResult<TResult> {
  *
  * Tự động完成：
  *   1. 从 Registry 查出模型的 contextWindow 和 maxOutput
- *   2. 双重约束贪心分组（input + output）
+ *   2. 双重约束贪心nhóm（input + output）
  *   3. 通过 runStaggered 并发执行
  *   4. 单批次Thử lại + 容错隔离
  *   5. 合并kết quả
@@ -142,7 +142,7 @@ export async function processBatched<TItem, TResult>(
   const samplePrompts = buildPrompts([items[0]]);
   const systemPromptTokens = estimateTokens(samplePrompts.system);
 
-  // === 3. 双重约束贪心分组 ===
+  // === 3. 双重约束贪心nhóm ===
   const defaultItemTokenEstimator = (item: TItem) => estimateTokens(JSON.stringify(item));
   const defaultItemOutputEstimator = () => 300; // 默认每项 300 output tokens
 
@@ -235,7 +235,7 @@ export async function processBatched<TItem, TResult>(
 // ==================== Batch Splitting ====================
 
 /**
- * 双重约束贪心分组
+ * 双重约束贪心nhóm
  *
  * 约束 1（Input）: 每批 systemPromptTokens + sum(itemTokens) ≤ inputBudget
  * 约束 2（Output）: sum(itemOutputTokens) ≤ outputBudget

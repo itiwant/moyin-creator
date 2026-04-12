@@ -948,7 +948,7 @@ export function extractAllViewpointsFromShots(
 }
 
 /**
- * 将góc nhìn分组为联合图页
+ * 将góc nhìnnhóm为联合图页
  * 每页最多 6 góc nhìn
  */
 export function groupViewpointsIntoPages(

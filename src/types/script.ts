@@ -346,7 +346,7 @@ export type CameraRig =
   | 'handheld'      // Cầm tay：呼吸感/纪实/căng thẳng
   | 'steadicam'     // 斯坦尼康：丝滑跟随
   | 'dolly'         // 轨道车：匀速直线推拉
-  | 'crane'         // 摇臂：垂直Nâng hạ/大幅弧线
+  | 'crane'         // 摇臂：垂直Nâng hạ/大幅cung
   | 'drone'         // 航拍：nhìn từ trên/大范围运动
   | 'shoulder'      // 肩扛：轻微晃动/新闻纪实
   | 'slider';       // 滑轨：短距离平滑移动
@@ -498,7 +498,7 @@ export interface Shot {
   emotionTags?: string[];  // 情绪标签 ID 数组，如 ['sad', 'tense', 'serious']
   
   // === tự sự驱动trường（基于《电影Ngôn ngữ的语法》） ===
-  narrativeFunction?: string;   // tự sự功能：铺垫/升级/cao trào/转折/过渡/尾声
+  narrativeFunction?: string;   // tự sự功能：铺垫/升级/cao trào/转折/chuyển tiếp/尾声
   conflictStage?: string;       // 冲突阶段：引入/激化/对抗/转折/解决/余波/辅助
   shotPurpose?: string;         // 镜头目的：此镜头如何服务于故事核心
   storyAlignment?: string;      // 与Bối cảnh thế giới/故事核心的一致性：aligned/minor-deviation/needs-review

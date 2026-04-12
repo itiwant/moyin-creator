@@ -251,7 +251,7 @@ export function cacheDiscoveredLimits(
 /**
  * Token 估算（保守算法）
  *
- * Sử dụng 字符数/1.5 作为保守上限：
+ * Sử dụng Số ký tự/1.5 作为保守上限：
  *   - đang xử lý...1 token ≈ 0.6~1.0 汉字，/1.5 相当于放大估算（偏安全）
  *   - 英文/标点/JSON: 1 token ≈ 3~4 字符，/1.5 也偏安全
  *   - 宁可高估 token 数（多分批），也不低估（撞限制）
@@ -262,17 +262,17 @@ export function estimateTokens(text: string): number {
 }
 
 /**
- * thông minh截断文本，不在句子或段落đang xử lý...
- * 避免截断导致 JSON Cấu trúc损坏或 AI 理解混乱
+ * thông minhcắt ngắn文本，不在句子或段落đang xử lý...
+ * 避免cắt ngắn导致 JSON Cấu trúc损坏或 AI 理解混乱
  *
  * @param text gốc文本
- * @param maxLength 最大字符数
- * @param hint 截断时追加的提示后缀（帮助 AI 理解信息不đầy đủ，giảm幻觉）
+ * @param maxLength 最大Số ký tự
+ * @param hint cắt ngắn时追加的提示后缀（帮助 AI 理解信息不đầy đủ，giảm幻觉）
  */
 export function safeTruncate(
   text: string,
   maxLength: number,
-  hint: string = '...[后续内容已截断]',
+  hint: string = '...[后续内容已cắt ngắn]',
 ): string {
   if (text.length <= maxLength) return text;
 
@@ -282,13 +282,13 @@ export function safeTruncate(
 
   const sliced = text.slice(0, budget);
 
-  // 优先在换行处截断（保留đầy đủ段落）
+  // 优先在换行处cắt ngắn（保留đầy đủ段落）
   const lastNewline = sliced.lastIndexOf('\n');
   if (lastNewline > budget * 0.8) {
     return sliced.slice(0, lastNewline) + hint;
   }
 
-  // 其次在đang xử lý...文句末截断（保留đầy đủ句子）
+  // 其次在đang xử lý...文句末cắt ngắn（保留đầy đủ句子）
   const lastSentenceEnd = Math.max(
     sliced.lastIndexOf('。'),
     sliced.lastIndexOf('！'),

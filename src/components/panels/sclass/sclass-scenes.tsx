@@ -231,7 +231,7 @@ export function SClassScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
   } = useDirectorStore();
   const mediaProjectId = activeProjectId || undefined;
 
-  // ========== Hạng S分组Trạng thái ==========
+  // ========== Hạng SnhómTrạng thái ==========
   const {
     generationMode: sclassGenMode,
     setGenerationMode: setSclassGenMode,
@@ -267,12 +267,12 @@ export function SClassScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
   const sceneLibrary = useSceneStore((s) => s.scenes);
   const allCharacters = useCharacterLibraryStore((s) => s.characters);
 
-  // Tự động分组：首次全量分组 + 后续增量分组（Cột phải新增Phân cảnhTự động追加到组）
+  // Tự độngnhóm：首次全量nhóm + 后续增量nhóm（Cột phải新增Phân cảnhTự động追加到组）
   React.useEffect(() => {
     if (splitScenes.length === 0) return;
 
     if (!hasAutoGrouped) {
-      // 首次：对Tất cảPhân cảnh执 hàngTự động分组
+      // 首次：对Tất cảPhân cảnh执 hàngTự độngnhóm
       const groups = autoGroupScenes(splitScenes);
       const named = groups.map((g, idx) => ({
         ...g,
@@ -284,7 +284,7 @@ export function SClassScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
       return;
     }
 
-    // 已分组后：检测新增的未分配Phân cảnh，增量追加分组
+    // 已nhóm后：检测新增的未分配Phân cảnh，增量追加nhóm
     const assignedIds = new Set(shotGroups.flatMap(g => g.sceneIds));
     const unassigned = splitScenes.filter(s => !assignedIds.has(s.id));
     if (unassigned.length > 0) {
@@ -1638,7 +1638,7 @@ export function SClassScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
       });
       toast.success(`Phân cảnh ${sceneId + 1} Tạo video hoàn tất, đã lưu vào thư viện phương tiện`);
       
-      // 视觉连续性：仅当Phân cảnh需要Khung hình cuối时，提取video最后一帧
+      // 视觉连续性：仅当Phân cảnhBắt buộc Khung hình cuối时，提取video最后一帧
       const currentScene = splitScenes.find(s => s.id === sceneId);
       const shouldExtractEndFrame = currentScene?.needsEndFrame && !currentScene?.endFrameImageUrl;
       
@@ -2068,7 +2068,7 @@ export function SClassScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
         tasks.push({ scene, type: 'first' });
       }
       
-      // 仅Khung hình cuối 或 首+尾：检查是否需要Khung hình cuối
+      // 仅Khung hình cuối 或 首+尾：检查是否Bắt buộc Khung hình cuối
       if ((mode === 'last' || mode === 'both') && scene.needsEndFrame && !scene.endFrameImageUrl) {
         tasks.push({ scene, type: 'end' });
       }
@@ -3485,14 +3485,14 @@ export function SClassScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
               "px-3 py-1.5 text-xs",
               sclassGenMode === 'group' ? 'bg-primary text-primary-foreground' : 'bg-background hover:bg-muted'
             )}
-          >分组Tạo ({shotGroups.length} 组)</button>
+          >nhómTạo ({shotGroups.length} 组)</button>
           <button
             onClick={() => setSclassGenMode('single')}
             className={cn(
               "px-3 py-1.5 text-xs border-l",
               sclassGenMode === 'single' ? 'bg-primary text-primary-foreground' : 'bg-background hover:bg-muted'
             )}
-          >单镜Tạo ({splitScenes.length} 镜)</button>
+          >ống kính đơnTạo ({splitScenes.length} 镜)</button>
         </div>
         {sclassGenMode === 'group' && (
           <div className="ml-auto flex items-center gap-1.5">
@@ -3522,14 +3522,14 @@ export function SClassScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
                 const groups = autoGroupScenes(splitScenes);
                 const named = groups.map((g, idx) => ({ ...g, name: generateGroupName(g, splitScenes, idx) }));
                 setShotGroups(named);
-                toast.success(`已重新分组：${named.length} 组`);
+                toast.success(`已重新nhóm：${named.length} 组`);
               }}
-            >重新分组</Button>
+            >重新nhóm</Button>
           </div>
         )}
       </div>
 
-      {/* ========== 分组chế độ: ShotGroupCard ========== */}
+      {/* ========== nhómchế độ: ShotGroupCard ========== */}
       {sclassGenMode === 'group' ? (
         <div className="flex flex-col gap-3">
           {shotGroups.map((group, groupIdx) => {
@@ -3562,7 +3562,7 @@ export function SClassScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
                     generateGroupVideo(g, {
                       confirmBeforeGenerate: () => new Promise((resolve) => {
                         resolve(window.confirm(
-                          'ô图和prompt已准备hoàn tất，可在分组卡片đang xử lý... trước和Tải xuống。\n\n是否Tiếp tụcgọi API API Tạo video？'
+                          'ô图和prompt已准备hoàn tất，可在nhóm卡片đang xử lý... trước和Tải xuống。\n\n是否Tiếp tụcgọi API API Tạo video？'
                         ));
                       }),
                     }).finally(() => setIsGenerating(false));
@@ -3626,7 +3626,7 @@ export function SClassScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
           })}
         </div>
       ) : (
-        /* ========== 单镜chế độ: 平铺 SceneCard ========== */
+        /* ========== ống kính đơnchế độ: 平铺 SceneCard ========== */
         <div className="flex flex-col gap-3">
           {splitScenes.map((scene) => (
             <SceneCard
@@ -3669,7 +3669,7 @@ export function SClassScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
         </div>
       )}
 
-      {/* Action buttons — Hạng S组级Tạo video */}
+      {/* Action buttons — Hạng Scấp nhómTạo video */}
       {(() => {
         const scenesWithImages = splitScenes.filter(s => s.imageDataUrl).length;
         const scenesNeedVideo = splitScenes.filter(s => s.imageDataUrl && (s.videoStatus === 'idle' || s.videoStatus === 'failed')).length;
@@ -3683,7 +3683,7 @@ export function SClassScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
                   <Button
                     onClick={() => {
                       if (sclassGenMode === 'group') {
-                        // Hạng S组级Tạo: gọi API Seedance 2.0 API 逐组Tạo
+                        // Hạng Scấp nhómTạo: gọi API Seedance 2.0 API 逐组Tạo
                         setIsGenerating(true);
                         setBatchProgress(null);
                         generateAllGroups((progress) => setBatchProgress(progress))
@@ -3692,7 +3692,7 @@ export function SClassScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
                             setBatchProgress(null);
                           });
                       } else {
-                        // 单镜chế độ: Sử dụngĐạo diễnpanel原有逻辑
+                        // ống kính đơnchế độ: Sử dụngĐạo diễnpanel原有逻辑
                         handleGenerateVideos();
                       }
                     }}
@@ -3712,7 +3712,7 @@ export function SClassScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
                       <>
                         <Play className="h-4 w-4 mr-2" />
                         {sclassGenMode === 'group'
-                          ? `Seedance 2.0 组级Tạo (${groupsNeedGen}/${shotGroups.length} 组)`
+                          ? `Seedance 2.0 cấp nhómTạo (${groupsNeedGen}/${shotGroups.length} 组)`
                           : `Tạo video (${scenesNeedVideo}/${splitScenes.length})`
                         }
                       </>
@@ -3747,9 +3747,9 @@ export function SClassScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
       {/* Tips */}
       <div className="text-xs text-muted-foreground bg-muted/50 rounded-md p-2">
         {sclassGenMode === 'group' ? (
-          <p>💡 分组chế độ：每组 2~4 Ống kính合并为一 video，TổngThời lượng ≤15s。Nhấp「重新分组」可重新Tự động分配。</p>
+          <p>💡 nhómchế độ：每组 2~4 Ống kính合并为一 video，TổngThời lượng ≤15s。Nhấp「重新nhóm」可重新Tự động分配。</p>
         ) : (
-          <p>💡 单镜chế độ：每Ống kính独立Tạo一 video。NhấpPhân cảnh下方的文字区域可Chỉnh sửaprompt。</p>
+          <p>💡 ống kính đơnchế độ：每Ống kính独立Tạo一 video。NhấpPhân cảnh下方的文字区域可Chỉnh sửaprompt。</p>
         )}
       </div>
       </>

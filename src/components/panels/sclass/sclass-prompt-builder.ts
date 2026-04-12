@@ -2,7 +2,7 @@
 // Licensed under AGPL-3.0-or-later. See LICENSE for details.
 // Commercial licensing available. See COMMERCIAL_LICENSE.md.
 /**
- * sclass-prompt-builder.ts — Hạng S组级prompt构建
+ * sclass-prompt-builder.ts — Hạng Scấp nhómprompt构建
  *
  * 核心功能：
  * 1. Tự động从 character-library-store 提取Nhân vậtẢnh tham chiếu → @Image
@@ -36,11 +36,11 @@ export interface CollectedRefs {
   limitWarnings: string[];
 }
 
-/** 组级 prompt 构建kết quả */
+/** cấp nhóm prompt 构建kết quả */
 export interface GroupPromptResult {
   /** 最终组装的 prompt（发送给 API） */
   prompt: string;
-  /** prompt 字符数 */
+  /** prompt Số ký tự */
   charCount: number;
   /** 是否vượt quá 5000 字符限制 */
   overCharLimit: boolean;
@@ -558,7 +558,7 @@ const EDIT_TYPE_TEMPLATE: Record<EditType, string> = {
 };
 
 /**
- * 构建组级 prompt — Hạng S核心函数
+ * 构建cấp nhóm prompt — Hạng S核心函数
  *
  * 输出格式（đang xử lý...）：
  * ```
@@ -740,7 +740,7 @@ export function buildGroupPrompt(options: BuildGroupPromptOptions): GroupPromptR
 
   // 一致性约束
   promptParts.push('');
-  promptParts.push('Tất cảỐng kính保持Nhân vậtngoại hình一致，Ống kính间平滑过渡，不出现文字或hình mờ。');
+  promptParts.push('Tất cảỐng kính保持Nhân vậtngoại hình一致，Ống kính间平滑chuyển tiếp，不出现文字或hình mờ。');
 
   const prompt = promptParts.join('\n');
 

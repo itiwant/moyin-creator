@@ -56,9 +56,9 @@ const CUBE_VERTICES = [
 
 // 立方体的12条边
 const CUBE_EDGES = [
-  [0, 1], [1, 2], [2, 3], [3, 0], // 前面
-  [4, 5], [5, 6], [6, 7], [7, 4], // 后面
-  [0, 4], [1, 5], [2, 6], [3, 7], // 连接
+  [0, 1], [1, 2], [2, 3], [3, 0], // Mặt trước
+  [4, 5], [5, 6], [6, 7], [7, 4], // Mặt sau
+  [0, 4], [1, 5], [2, 6], [3, 7], // Kết nối
 ];
 
 export function AngleController({
@@ -76,8 +76,8 @@ export function AngleController({
   const [shotSize, setShotSize] = useState<ShotSize>(initialShotSize);
   
   // 连续的Góc nhìn参数 (用于渲染动画)
-  const [theta, setTheta] = useState(45); // 水平 0-360
-  const [phi, setPhi] = useState(90);    // 垂直 30-150
+  const [theta, setTheta] = useState(45); // Ngang 0-360
+  const [phi, setPhi] = useState(90);    // Dọc 30-150
   
   // ảnhTỷ lệTrạng thái
   const [imgAspectRatio, setImgAspectRatio] = useState(16 / 9); // Mặc địnhRộng
@@ -106,7 +106,7 @@ export function AngleController({
       const targetPhi = [130, 90, 60, 40][elevIdx];
       setPhi(targetPhi);
     }
-  }, []); // 仅在挂载时执 hàng一次
+  }, []); // Chỉ chạy một lần khi mount
 
   // 动画循环
   useEffect(() => {
@@ -132,10 +132,10 @@ export function AngleController({
     let elevIndex = 1; // default eye-level
     let snappedPhi = 90;
 
-    if (p > 110) { elevIndex = 0; snappedPhi = 130; }      // low-angle (仰视 - 摄像机在下)
+    if (p > 110) { elevIndex = 0; snappedPhi = 130; }      // low-angle (nhìn lên - máy quay ở dưới)
     else if (p > 75) { elevIndex = 1; snappedPhi = 90; }   // eye-level
     else if (p > 50) { elevIndex = 2; snappedPhi = 60; }   // elevated
-    else { elevIndex = 3; snappedPhi = 40; }               // high-angle (俯视 - 摄像机在上)
+    else { elevIndex = 3; snappedPhi = 40; }               // high-angle (nhìn xuống - máy quay ở trên)
 
     // 3. 更新Trạng thái (如果发生变化)
     const newDir = HORIZONTAL_DIRECTIONS[dirIndex];
@@ -194,8 +194,8 @@ export function AngleController({
     const currentIndex = sizes.indexOf(shotSize);
     
     let newIndex = currentIndex;
-    if (delta > 0 && currentIndex < 2) newIndex++; // 向下滚 -> 缩小/变远 (Wide)
-    if (delta < 0 && currentIndex > 0) newIndex--; // 向上滚 -> 放大/变近 (Close)
+    if (delta > 0 && currentIndex < 2) newIndex++; // Cuộn xuống -> thu nhỏ/ra xa (Wide)
+    if (delta < 0 && currentIndex > 0) newIndex--; // Cuộn lên -> phóng to/lại gần (Close)
     
     if (newIndex !== currentIndex) {
       const newSize = sizes[newIndex];

@@ -56,7 +56,7 @@ export const AI_FEATURES: Array<{
   description: string;
 }> = [
   { key: 'script_analysis', name: 'Kịch bản分析', description: '将故事文本分解为Cấu trúc化Kịch bản' },
-  { key: 'character_generation', name: 'Nhân vậtTạo', description: 'TạoNhân vậtẢnh tham chiếu和biến thể服装' },
+  { key: 'character_generation', name: 'Nhân vậtTạo', description: 'TạoNhân vậtẢnh tham chiếu和biến thểtrang phục' },
   { key: 'scene_generation', name: 'CTạo ảnh', description: 'TạoCảnhmôi trườngẢnh tham chiếu' },
   { key: 'video_generation', name: 'Tạo video', description: '将ảnh转换为video' },
   { key: 'image_understanding', name: 'Phân tích ảnh', description: '分析ảnhNội dung' },

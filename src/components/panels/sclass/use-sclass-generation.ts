@@ -7,7 +7,7 @@
  * 核心功能：
  * 1. generateGroupVideo(group) — mỗi nhómTạo：收 tập @tham chiếu → 构建多模态请求 → gọi API API → 轮询
  * 2. generateAllGroups() — Tạo hàng loạt：逐组串 hàng，各组独立Tạo
- * 3. generateSingleShot(sceneId) — 单镜Tạo（tương thíchchế độ）
+ * 3. generateSingleShot(sceneId) — ống kính đơnTạo（tương thíchchế độ）
  * 4. Tự độngTải lên base64/local ảnh到 HTTP URL
  * 5. TạoTrạng thái实时同步到 sclass-store
  */
@@ -592,7 +592,7 @@ export function useSClassGeneration() {
     [activeProjectId, getProjectData, generateGroupVideo]
   );
 
-  // ========== 单镜Tạo（tương thíchchế độ） ==========
+  // ========== ống kính đơnTạo（tương thíchchế độ） ==========
 
   const generateSingleShot = useCallback(
     async (sceneId: number): Promise<boolean> => {

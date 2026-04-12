@@ -7,7 +7,7 @@
  * 专业角色Thiết kế服务，与hiện có角色库(character-library-store)对齐。
  * 
  * 功能：
- * 1. 读取剧本元数据，理解角色成长弧线
+ * 1. 读取剧本元数据，理解角色成长cung
  * 2. 根据剧情阶段Tạo不同的角色形象
  * 3. Tạo的阶段可转换为角色库的 CharacterVariation
  * 4. Sử dụng世界级专业人设提升 AI Tạo质量
@@ -33,7 +33,7 @@ export interface CharacterStageAppearance {
   visualPromptEn: string;    // 英文视觉提示词
   visualPromptZh: string;    // đang xử lý...提示词
   ageDescription?: string;   // 年龄Mô tả
-  clothingStyle?: string;    // 服装风格
+  clothingStyle?: string;    // trang phục风格
   keyChanges?: string;       // 与上一阶段的quan trọng变化
 }
 
@@ -203,8 +203,8 @@ async function callAIForCharacterDesign(
   const systemPrompt = `你是好莱坞顶级角色Thiết kế大师，曾为漫威、迪士尼、皮克斯Thiết kế过无数经典角色。
 
 你的专业能力：
-- **角色视觉Thiết kế**：能准确捕捉角色的外在形象、服装风格、肢体Ngôn ngữ
-- **角色成长弧线**：理解角色在不同剧情阶段的形象变化（从少年到成年、从普通人到英雄等）
+- **角色视觉Thiết kế**：能准确捕捉角色的外在形象、trang phục风格、肢体Ngôn ngữ
+- **角色成长cung**：理解角色在不同剧情阶段的形象变化（从少年到成年、从普通人到英雄等）
 - **AI图像Tạo经验**：深谙 Midjourney、DALL-E、Stable Diffusion 等 AI 绘图模型的工作原理，能写出高质量的提示词
 - **一致性保持**：知道如何Mô tảKhuôn mặt特征、体型等không thay đổi元素，确保角色在不同阶段仍可辨认
 
@@ -231,7 +231,7 @@ ${context.characterAppearances.length > 0
 }
 
 【任务要求】
-1. **分析角色成长弧线**：根据剧情判断角色是否有明显的阶段变化
+1. **分析角色成长cung**：根据剧情判断角色是否有明显的阶段变化
    - 年龄变化：小孩→少年→成年→老年
    - 身份变化：普通人→商业大亨、学徒→武林高手
    - 状态变化：健康→受伤、普通→修仙后形态
@@ -269,7 +269,7 @@ ${context.characterAppearances.length > 0
       "visualPromptEn": "该阶段英文视觉提示词",
       "visualPromptZh": "该阶段đang xử lý...提示词",
       "ageDescription": "年龄Mô tả",
-      "clothingStyle": "服装风格",
+      "clothingStyle": "trang phục风格",
       "keyChanges": "与上一阶段的变化（第一阶段为空）"
     }
   ]

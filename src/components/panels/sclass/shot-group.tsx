@@ -4,13 +4,13 @@
 "use client";
 
 /**
- * ShotGroupCard — Hạng S分组容器组件
+ * ShotGroupCard — Hạng Snhóm容器组件
  *
  * Hiện一组Ống kính的聚合信息：
  * - Đầu nhóm：Tên nhóm + Ống kính数 + TổngThời lượng预算条
- * - 组级thao tác：Tạo video / Mở rộngthu gọn
+ * - cấp nhómthao tác：Tạo video / Mở rộngthu gọn
  * - Mở rộng后渲染内部的 SceneCard  cột表
- * - 组级videokết quảHiện
+ * - cấp nhómvideokết quảHiện
  */
 
 import React, { useState, useMemo, useCallback } from "react";
@@ -268,13 +268,13 @@ export function ShotGroupCard({
                   ) : (
                     <Sparkles className="h-3 w-3 mr-1" />
                   )}
-                  {isCalibrating ? 'Hiệu chuẩnđang xử lý... isCalibrated ? '已Hiệu chuẩn' : 'AIHiệu chuẩn'}
+                  {isCalibrating ? 'Đang hiệu chuẩn...' : isCalibrated ? 'Đã Hiệu chuẩn' : 'AI Hiệu chuẩn'}
                 </Button>
               </TooltipTrigger>
               <TooltipContent>
                 {isCalibrated
                   ? <p>Đã hoàn thành AI Hiệu chuẩn，Nhấp重新Hiệu chuẩn</p>
-                  : <p>AI 分析trong nhómỐng kính，Tạotự sự弧线、过渡Thiết kế、优化 prompt</p>
+                  : <p>AI phân tích các Ống kính trong nhóm, Tạo cung tự sự, thiết kế chuyển tiếp, tối ưu prompt</p>
                 }
               </TooltipContent>
             </Tooltip>
@@ -304,7 +304,7 @@ export function ShotGroupCard({
               </>
             )}
           </Button>
-          {/* kéo dài/Chỉnh sửanút（仅Đã hoàn thành的普通组Hiện） */}
+          {/* Nút kéo dài/Chỉnh sửa (chỉ hiện cho nhóm thường Đã hoàn thành) */}
           {isCompleted && !isChildGroup && (
             <>
               <TooltipProvider>
@@ -321,7 +321,7 @@ export function ShotGroupCard({
                       kéo dài
                     </Button>
                   </TooltipTrigger>
-                  <TooltipContent>基于当前videoTiếp tụckéo dài，可về sau或về trước拓展</TooltipContent>
+                  <TooltipContent>Tiếp tục kéo dài video hiện tại, có thể mở rộng về sau hoặc về trước</TooltipContent>
                 </Tooltip>
               </TooltipProvider>
               <TooltipProvider>
@@ -338,7 +338,7 @@ export function ShotGroupCard({
                       Chỉnh sửa
                     </Button>
                   </TooltipTrigger>
-                  <TooltipContent>对当前videothực hiệncốt truyệnChỉnh sửa、Thay thế nhân vật、thuộc tính修改等</TooltipContent>
+                  <TooltipContent>Chỉnh sửa cốt truyện, Thay thế nhân vật, sửa đổi thuộc tính cho video hiện tại</TooltipContent>
                 </Tooltip>
               </TooltipProvider>
             </>
@@ -346,7 +346,7 @@ export function ShotGroupCard({
         </div>
       </div>
 
-      {/* ========== Thời lượng预算条 ========== */}
+      {/* ========== Thanh ngân sách Thời lượng ========== */}
       <div className="px-3 py-1 bg-muted/10">
         <div className="w-full h-2 bg-muted rounded-full overflow-hidden flex">
           {durationSegments.map((seg, idx) => {
@@ -381,7 +381,7 @@ export function ShotGroupCard({
               </TooltipProvider>
             );
           })}
-          {/* 剩余空间 */}
+          {/* Không gian còn lại */}
           {budgetPercent < 100 && (
             <div
               className="h-full bg-muted/50"
@@ -409,7 +409,7 @@ export function ShotGroupCard({
             <div className="flex items-start gap-1.5">
               <Sparkles className="h-3 w-3 text-purple-500 mt-0.5 shrink-0" />
               <div>
-                <span className="text-[10px] font-medium text-purple-600 dark:text-purple-400">tự sự弧线</span>
+                <span className="text-[10px] font-medium text-purple-600 dark:text-purple-400">Cung tự sự</span>
                 <p className="text-xs text-muted-foreground mt-0.5">{group.narrativeArc}</p>
               </div>
             </div>
@@ -418,7 +418,7 @@ export function ShotGroupCard({
             <div className="flex items-start gap-1.5">
               <ChevronRight className="h-3 w-3 text-purple-400 mt-0.5 shrink-0" />
               <div>
-                <span className="text-[10px] font-medium text-purple-600 dark:text-purple-400">过渡Thiết kế</span>
+                <span className="text-[10px] font-medium text-purple-600 dark:text-purple-400">Thiết kế chuyển tiếp</span>
                 <p className="text-xs text-muted-foreground mt-0.5">
                   {group.transitions.map((t, i) => `${i + 1}→${i + 2}: ${t}`).join('；')}
                 </p>

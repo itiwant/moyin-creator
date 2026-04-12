@@ -1009,7 +1009,7 @@ export function GenerationPanel({ selectedCharacter, onCharacterCreated }: Gener
                 // AI Hiệu chuẩn信息
                 if (hasCalibrationData) {
                   lines.push('');
-                  lines.push(`AI Hiệu chuẩn信息: ${isManuallyModified ? 'Đã sửa' : '已Hiệu chuẩn'}`);
+                  lines.push(`AI Hiệu chuẩn信息: ${isManuallyModified ? 'Đã sửa' : 'Đã Hiệu chuẩn'}`);
                   
                   // 6层身份neo
                   if (identityAnchors) {
@@ -1239,7 +1239,7 @@ function buildPromptFromAnchors(
  * 3. Không có Ảnh tham chiếu + 有neo：đầy đủ6层锁定
  * 4. 有Prompt thị giác：Sử dụngAI大师Tạo的prompt
  * 5. 只有description：Sử dụngCơ bảnMô tả
- * 6. 年代信息：加入服装Phong cáchneo
+ * 6. 年代信息：加入trang phụcPhong cáchneo
  */
 function buildCharacterSheetPrompt(
   description: string, 
@@ -1266,7 +1266,7 @@ function buildCharacterSheetPrompt(
   // 根据Ngôn ngữ偏好Chọn主Prompt thị giác
   const lang = promptLanguage || 'vi';
 
-  // 构建年代服装prompt（根据Ngôn ngữ偏好）
+  // 构建年代trang phụcprompt（根据Ngôn ngữ偏好）
   let eraPrompt = '';
   if (storyYear) {
     if (lang === 'vi') {
@@ -1320,7 +1320,7 @@ function buildCharacterSheetPrompt(
     characterDescription = description;
   }
   
-  // 加入年代服装prompt
+  // 加入年代trang phụcprompt
   if (eraPrompt) {
     characterDescription = `${characterDescription}, ${eraPrompt}`;
   }

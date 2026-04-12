@@ -64,7 +64,7 @@ export interface CalibratedCharacter {
   facialFeatures?: string;
   /** 独特标记（疆痕、胎记等） */
   uniqueMarks?: string;
-  /** 服装风格 */
+  /** trang phục风格 */
   clothingStyle?: string;
   
   // === 6层身份neo（角色一致性）===
@@ -322,7 +322,7 @@ export async function calibrateCharacters(
     };
   }).sort((a, b) => b.priority - a.priority);
   
-  // 限制发送给 AI 的角色数量，避免输出截断
+  // 限制发送给 AI 的角色数量，避免输出cắt ngắn
   // 优先保留有名字的角色
   const maxCharsToSend = 150;
   const charsToProcess = charsWithStats.slice(0, maxCharsToSend);
@@ -426,7 +426,7 @@ ${strictness !== 'strict' ? `【极其重要 - Lỏng lẻo筛选原则】
 
 请以JSON格式返回分析kết quả。`;
 
-  // 共享的背景上下文（每批都带，用 safeTruncate 截断）
+  // 共享的背景上下文（每批都带，用 safeTruncate cắt ngắn）
   const outlineContext = safeTruncate(background.outline || '', 1500);
   const biosContext = safeTruncate(background.characterBios || '', 1000);
 
@@ -907,48 +907,48 @@ async function enrichCharactersWithVisualPrompts(
   
   console.log(`[enrichCharactersWithVisualPrompts] 为 ${keyCharacters.length} quan trọng角色Tạo专业提示词...`);
   
-  // 构建thời đại服装指导
+  // 构建thời đạitrang phục指导
   const getEraFashionGuidance = () => {
     const startYear = background.storyStartYear;
     const timeline = background.timelineSetting || background.era || '现代';
     
     if (startYear) {
       if (startYear >= 2020) {
-        return `【${startYear}年代服装指导】
+        return `【${startYear}年代trang phục指导】
 - 年轻人：休闲时尚、运动风、潮牌元素，常穿卫衣、牢仔裤、运动鞋
 - đang xử lý...商务休闲、简约现代，常穿Polo衫、休闲西装、卡其裤
 - 老年人：舒适休闲，常穿开衫、孖子衫、布鞋或运动鞋`;
       } else if (startYear >= 2010) {
-        return `【${startYear}年代服装指导】
+        return `【${startYear}年代trang phục指导】
 - 年轻人：韩系时尚、小清新风格，常穿T恤、牢仔裤、帆布鞋
 - đang xử lý...商务正装或商务休闲，常穿西装、衬衫、皮鞋
 - 老年人：传统休闲，常穿开衫、布鞋`;
       } else if (startYear >= 2000) {
-        return `【${startYear}年代服装指导】
+        return `【${startYear}年代trang phục指导】
 - 年轻人：千禅年时尚，常穿紧身裤、Lỏng lẻo外套、板鞋
 - đang xử lý...正式商务装，常穿西装套装、领带、皮鞋
 - 老年人：đang xử lý...简单开衫、布鞋`;
       } else if (startYear >= 1990) {
-        return `【${startYear}年代服装指导】
+        return `【${startYear}年代trang phục指导】
 - 年轻人：喝叭裤、确良外套、大肩垫西装、特宾球鞋
 - đang xử lý...đang xử lý...西装，常穿解放鞋或简单皮鞋
 - 老年人：đang xử lý...棉袄、布鞋`;
       } else {
-        return `【${startYear}年代服装指导】
-请根据该年代的đang xử lý...服装风格Thiết kế，避免古装或不符合thời đại的服装`;
+        return `【${startYear}年代trang phục指导】
+请根据该年代的đang xử lý...trang phục风格Thiết kế，避免古装或不符合thời đại的trang phục`;
       }
     }
     
     // 如果没有精确年份，根据 era 判断
     if (timeline.includes('现代') || timeline.includes('当代')) {
-      return `【现代服装指导】
-请Thiết kế符合当代đang xử lý...装风格，年轻人穿时尚休闲装，đang xử lý...商务休闲装，老年人穿舒适传统服装。
+      return `【现代trang phục指导】
+请Thiết kế符合当代đang xử lý...装风格，年轻人穿时尚休闲装，đang xử lý...商务休闲装，老年人穿舒适传统trang phục。
 绝对不要Thiết kế成古装、汉服、或古代服饰。`;
     }
 
     // 民国时期
     if (timeline.includes('民国') || timeline.includes('近代') || timeline.includes('清末')) {
-      return `【${timeline}服装指导】
+      return `【${timeline}trang phục指导】
 - 男性：长衫马褂、đang xử lý...西装礼帽（上层xã hội）、布衣长衫（平民）
 - 女性：旗袍、女学生装（上衣下裙）、短发或盘发
 - 禁止出现T恤、牛仔裤、运动鞋等现代服饰
@@ -957,50 +957,50 @@ async function enrichCharactersWithVisualPrompts(
 
     // 古代各朝代
     if (/唐朝|唐代/.test(timeline)) {
-      return `【唐朝服装指导】
+      return `【唐朝trang phục指导】
 - 男性：圆领袍、幞头、革带；武将可穿铠甲
 - 女性：高腰襟裙、披帛、发髀簪起、花钗装饰
-- 绝对禁止任何现代服装（西装/T恤/牵仔裤/运动鞋）`;
+- 绝对禁止任何现代trang phục（西装/T恤/牵仔裤/运动鞋）`;
     }
     if (/宋朝|宋代/.test(timeline)) {
-      return `【宋朝服装指导】
+      return `【宋朝trang phục指导】
 - 男性：直裰、交领袖衫、乌纱帽；文人偏素雅
 - 女性：褒子、裙、披帛，发型简约典雅
-- 绝对禁止任何现代服装`;
+- 绝对禁止任何现代trang phục`;
     }
     if (/明朝|明代/.test(timeline)) {
-      return `【明朝服装指导】
+      return `【明朝trang phục指导】
 - 男性：曳服、直裰、网巾或乌纱帽
 - 女性：交领衫、马面裙、披风，发型丰富多变
-- 绝对禁止任何现代服装`;
+- 绝对禁止任何现代trang phục`;
     }
     if (/清朝|清代/.test(timeline)) {
-      return `【清朝服装指导】
+      return `【清朝trang phục指导】
 - 男性：长袍马褂、瓜皮帽、辨子；官员穿补服
 - 女性：旗装（溜肩、立领、Lỏng lẻo）、旗头或两把头
-- 绝对禁止任何现代服装`;
+- 绝对禁止任何现代trang phục`;
     }
 
     // 泛古代/武侠/仙侠/宫斗/玄幻等
     if (/古代|武侠|仙侠|玄幻|宫斗|宅斗|战国|春秋|汉朝|三国|历史/.test(timeline)) {
-      return `【${timeline}服装指导】
+      return `【${timeline}trang phục指导】
 - Tất cả角色必须穿着đang xử lý...服饰（长袍、袖衫、披风、带子等）
 - 发型必须是古代式样（簪发、发髀、束发、发笪等）
 - 武侠/仙侠可加入飘逸江湖风格元素（剑、披风、护腕等）
-- 绝对禁止任何现代服装（西装/T恤/牛仔裤/运动鞋/手机/眼镜等）`;
+- 绝对禁止任何现代trang phục（西装/T恤/牛仔裤/运动鞋/手机/眼镜等）`;
     }
 
     // 科幻/未来
     if (/科幻|未来|星际|太空/.test(timeline)) {
-      return `【${timeline}服装指导】
-- 可以Thiết kế未来感/科技感服装，但需保持内部一致性
-- 禁止出现与Bối cảnh thế giới不符的服装元素`;
+      return `【${timeline}trang phục指导】
+- 可以Thiết kế未来感/科技感trang phục，但需保持内部一致性
+- 禁止出现与Bối cảnh thế giới不符的trang phục元素`;
     }
 
     // 其他未识别的thời đại — 用通用约束而非返回空
-    return `【${timeline}服装指导】
-请根据「${timeline}」thời đại背景Thiết kế角色服装，服装、发型、配饰必须严格符合该thời đại特征。
-绝对禁止出现与该thời đại不符的服装元素。`;
+    return `【${timeline}trang phục指导】
+请根据「${timeline}」thời đại背景Thiết kế角色trang phục，trang phục、发型、配饰必须严格符合该thời đại特征。
+绝对禁止出现与该thời đại不符的trang phục元素。`;
   };
   
   const eraFashionGuidance = getEraFashionGuidance();
@@ -1009,8 +1009,8 @@ async function enrichCharactersWithVisualPrompts(
   const systemPrompt = `你是好莱坞顶级角色Thiết kế大师，曾为漫威、迪士尼、皮克斯Thiết kế过无数经典角色。
 
 你的专业能力：
-- **角色视觉Thiết kế**：能准确捕捉角色的外在形象、服装风格、肢体Ngôn ngữ
-- **年代服装专家**：精通不同年代的đang xử lý...潮流，能准确还原历史时期的服装特征
+- **角色视觉Thiết kế**：能准确捕捉角色的外在形象、trang phục风格、肢体Ngôn ngữ
+- **年代trang phục专家**：精通不同年代的đang xử lý...潮流，能准确还原历史时期的trang phục特征
 - **AI图像Tạo专家**：深谙 Midjourney、DALL-E、Stable Diffusion 等 AI 绘图模型
 - **角色一致性专家**：掌握"6层特征锁定"技术，确保同一角色在不同场景保持一致
 
@@ -1102,17 +1102,17 @@ ${promptLanguage === 'zh' ? `【核心输出：6层身份neo】
 - avoid: 要避免的特征（如đang xử lý...色应避免 blonde hair, blue eyes）
 - styleExclusions: 风格排除（如 anime style, cartoon, painting）`}
 
-【服装要求】
-- 服装必须严格符合故事设定的thời đại背景（${background.era || '现代'}）
-- 根据角色年龄和身份Thiết kế合适的服装
-- 绝对不要Thiết kế与剧本thời đại不符的服饰（如古装剧禁止现代服装，现代剧禁止古代服饰）
+【trang phục要求】
+- trang phục必须严格符合故事设定的thời đại背景（${background.era || '现代'}）
+- 根据角色年龄和身份Thiết kế合适的trang phục
+- 绝对不要Thiết kế与剧本thời đại不符的服饰（如古装剧禁止现代trang phục，现代剧禁止古代服饰）
 
 请返回JSON格式（注意：只返回单角色对象，不要数组包裹）：
 {
   "name": "角色名",
   "detailedDescription": "详细的đang xử lý...Mô tả（100-200字）",
 ${promptLanguage === 'zh' ? '  "visualPromptZh": "đang xử lý...提示词",' : promptLanguage === 'en' ? '  "visualPromptEn": "English visual prompt, 40-60 words",' : '  "visualPromptEn": "English visual prompt, 40-60 words",\n  "visualPromptZh": "đang xử lý...提示词",'}
-  "clothingStyle": "符合年代的服装风格",
+  "clothingStyle": "符合年代的trang phục风格",
   "identityAnchors": {
 ${promptLanguage === 'zh' ? `    "faceShape": "长圆形",
     "jawline": "柔和圆润，略带宽度",

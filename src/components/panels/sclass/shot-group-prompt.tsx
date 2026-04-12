@@ -4,7 +4,7 @@
 "use client";
 
 /**
- * ShotGroupPrompt — Hạng S组级promptChỉnh sửa器
+ * ShotGroupPrompt — Hạng Scấp nhómpromptChỉnh sửa器
  *
  * 功能：
  * - Tự độnggọi API sclass-prompt-builder 组装多Ống kính prompt
@@ -111,7 +111,7 @@ export function ShotGroupPrompt({
     setIsEditing(false);
   }, [group.id, editValue, onUpdatePrompt]);
 
-  // Đặt lại为Tự độngTạo
+  // Đặt lại về Tự độngTạo
   const handleReset = useCallback(() => {
     onUpdatePrompt?.(group.id, "");
     setIsEditing(false);
@@ -214,11 +214,11 @@ export function ShotGroupPrompt({
         {result.dialogueSegments.length > 0 && (
           <div className="flex items-center gap-1 px-1.5 py-0.5 rounded bg-amber-500/10 text-amber-600 dark:text-amber-400">
             <MessageCircle className="h-3 w-3" />
-            <span>{result.dialogueSegments.length} 段Thoại</span>
+            <span>{result.dialogueSegments.length} đoạn Thoại</span>
           </div>
         )}
 
-        {/* vượt giới hạn警告 */}
+        {/* Cảnh báo vượt giới hạn */}
         {result.refs.overLimit && (
           <div className="flex items-center gap-1 text-red-500">
             <AlertCircle className="h-3 w-3" />
@@ -226,7 +226,7 @@ export function ShotGroupPrompt({
           </div>
         )}
 
-        {/* 字符数 */}
+        {/* Số ký tự */}
         <div
           className={cn(
             "ml-auto flex items-center gap-1 px-1.5 py-0.5 rounded",
@@ -242,7 +242,7 @@ export function ShotGroupPrompt({
         </div>
       </div>
 
-      {/* ========== Prompt Chỉnh sửa区 ========== */}
+      {/* ========== Vùng Chỉnh sửa Prompt ========== */}
       <div className="relative">
         {isEditing ? (
           <div className="space-y-1.5">
@@ -254,7 +254,7 @@ export function ShotGroupPrompt({
                 "text-xs font-mono resize-y",
                 isOverLimit && "border-red-500"
               )}
-              placeholder="组级prompt..."
+              placeholder="Prompt cấp nhóm..."
             />
             <div className="flex items-center gap-1.5">
               <Button
@@ -280,7 +280,7 @@ export function ShotGroupPrompt({
                 onClick={handleReset}
               >
                 <RotateCcw className="h-3 w-3 mr-1" />
-                Đặt lại为Tự động
+                Đặt lại về Tự động
               </Button>
             </div>
           </div>
@@ -299,13 +299,13 @@ export function ShotGroupPrompt({
                 <Edit3 className="h-3 w-3 text-muted-foreground" />
               </div>
             )}
-            {/* Prompt Xem trước：高亮 @tham chiếuThẻ */}
+            {/* Xem trước Prompt: tô sáng Thẻ @tham chiếu */}
             {highlightRefs(displayPrompt)}
           </div>
         )}
       </div>
 
-      {/* ========== vượt giới hạn警告详情 ========== */}
+      {/* ========== Chi tiết cảnh báo vượt giới hạn ========== */}
       {result.refs.limitWarnings.length > 0 && (
         <div className="flex items-start gap-1.5 text-xs text-red-500 bg-red-500/5 rounded p-1.5">
           <AlertCircle className="h-3 w-3 mt-0.5 shrink-0" />
@@ -326,7 +326,7 @@ export function ShotGroupPrompt({
  * 在 prompt 文本đang xử lý...@Image/@Video/@Audio Thẻ
  */
 function highlightRefs(text: string): React.ReactNode {
-  if (!text) return <span className="text-muted-foreground">NhấpChỉnh sửa组级prompt...</span>;
+  if (!text) return <span className="text-muted-foreground">Nhấp Chỉnh sửa Prompt cấp nhóm...</span>;
 
   // 匹配 @Image1, @Video2, @Audio3 等
   const regex = /(@(?:Image|Video|Audio)\d+)/g;

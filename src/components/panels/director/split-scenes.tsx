@@ -1786,7 +1786,7 @@ export function SplitScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
       });
       toast.success(`Phân cảnh ${sceneId + 1} Tạo video hoàn tất, đã lưu vào thư viện phương tiện`);
       
-      // 视觉连续性：仅当Phân cảnh需要Khung hình cuối时，提取video最后一帧
+      // 视觉连续性：仅当Phân cảnhBắt buộc Khung hình cuối时，提取video最后一帧
       const currentScene = splitScenes.find(s => s.id === sceneId);
       const shouldExtractEndFrame = currentScene?.needsEndFrame && !currentScene?.endFrameImageUrl;
       
@@ -2334,7 +2334,7 @@ export function SplitScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
         tasks.push({ scene, type: 'first' });
       }
       
-      // 仅Khung hình cuối 或 首+尾：检查是否需要Khung hình cuối
+      // 仅Khung hình cuối 或 首+尾：检查是否Bắt buộc Khung hình cuối
       if ((mode === 'last' || mode === 'both') && scene.needsEndFrame && !scene.endFrameImageUrl) {
         tasks.push({ scene, type: 'end' });
       }

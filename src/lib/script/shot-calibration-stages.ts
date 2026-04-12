@@ -95,7 +95,7 @@ export async function calibrateShotsMultiStage(
   // 剧级上下文摘要：来自 SeriesMeta
   const seriesCtx = globalContext.seriesContextSummary || '';
 
-  // tự sựneo：故事核心 + Bối cảnh thế giới + 核心冲突（截断避免过长）
+  // tự sựneo：故事核心 + Bối cảnh thế giới + 核心冲突（cắt ngắn避免过长）
   const narrativeAnchorParts = [
     seriesCtx ? `【剧级知识】\n${seriesCtx}` : '',
     outline ? `【故事核心】\n${outline.slice(0, 600)}` : '',
@@ -114,7 +114,7 @@ export async function calibrateShotsMultiStage(
   // thời đại/Bối cảnh thế giới上下文：供 Stage 2/4/5 视觉TạoSử dụng（避免 AI 产生与thời đại不符的幻觉）
   const eraContextParts = [
     contextLine,
-    era ? `⚠️ thời đại背景：${era}——Tất cảnhân vật服装、发型、道具、建筑必须严格符合「${era}」时期，禁止出现其他thời đại的元素（如古装剧禁止西装/T恤/手机等现代vật phẩm）` : '',
+    era ? `⚠️ thời đại背景：${era}——Tất cảnhân vậttrang phục、发型、道具、建筑必须严格符合「${era}」时期，禁止出现其他thời đại的元素（如古装剧禁止西装/T恤/手机等现代vật phẩm）` : '',
     worldSetting ? `Bối cảnh thế giới设定：${worldSetting.slice(0, 300)}` : '',
     characterBios ? `nhân vật造型Tham chiếu：${characterBios.slice(0, 300)}` : '',
   ].filter(Boolean);
@@ -196,7 +196,7 @@ ${contextLine}${narrativeAnchorBlock}${episodeSynopsis ? `\n\n【本 tậpđại
 - cameraMovement: none/static/tracking/orbit/zoom-in/zoom-out/pan-left/pan-right/tilt-up/tilt-down/dolly-in/dolly-out/truck-left/truck-right/crane-up/crane-down/drone-aerial/360-roll
 - specialTechnique: none/hitchcock-zoom/timelapse/crash-zoom-in/crash-zoom-out/whip-pan/bullet-time/fpv-shuttle/macro-closeup/first-person/slow-motion/probe-lens/spinning-tilt
 - duration: 秒数(整数)，纯动作3-5秒/简短Thoại4-6秒/长Thoại6-10秒/复杂动作5-8秒
-- narrativeFunction: 铺垫/升级/cao trào/转折/过渡/尾声
+- narrativeFunction: 铺垫/升级/cao trào/转折/chuyển tiếp/尾声
 - conflictStage: 此镜头在本 tập核心冲突đang xử lý...（引入/激化/对抗/转折/解决/余波，无关填"辅助"）
 - shotPurpose: 一句话说明此镜头如何服务于故事核心（中文）
 - storyAlignment: 与Bối cảnh thế giới/故事核心的一致性（aligned/minor-deviation/needs-review）
@@ -235,8 +235,8 @@ ${contextLine}${narrativeAnchorBlock}${episodeSynopsis ? `\n\n【本 tậpđại
 ⚠️ 规则：
 - 场景归属绝对Cố định：主场景不可thay đổi，闪回用"画面叠加"Mô tả
 - 角色列表必须đầy đủ来自原文，不增不减
-- **thời đại一致性**：nhân vật服装、发型、道具、环境细节必须严格符合剧本设定的thời đại背景，禁止混入其他thời đại元素
-- visualDescription: 纯đang xử lý...细画面Mô tả（服装/道具必须符合thời đại）
+- **thời đại一致性**：nhân vậttrang phục、发型、道具、环境细节必须严格符合剧本设定的thời đại背景，禁止混入其他thời đại元素
+- visualDescription: 纯đang xử lý...细画面Mô tả（trang phục/道具必须符合thời đại）
 ${s2VisualPromptRule}
 - emotionTags Tùy chọn: happy/sad/angry/surprised/fearful/calm/tense/excited/mysterious/romantic/funny/touching/serious/relaxed/playful/gentle/passionate/low
 - ambientSound/soundEffect: 纯中文
@@ -323,12 +323,12 @@ ${s2VisualPromptRule}
 
 ${styleDesc}${mediaTypeHint}
 
-⚠️ thời đại一致性（最重要）：nhân vật的服装、发型、配饰必须严格符合剧本设定的thời đại背景。例如古装剧đang xử lý...n vật必须穿古代服饰，禁止出现西装、T恤、现代发型等。
+⚠️ thời đại一致性（最重要）：nhân vật的trang phục、发型、配饰必须严格符合剧本设定的thời đại背景。例如古装剧đang xử lý...n vật必须穿古代服饰，禁止出现西装、T恤、现代发型等。
 
 ${s4Fields} 必须包含：
 a) 场景环境（地点+环境细节+时间氛围）
 b) 光线Thiết kế（光源+质感+氛围）
-c) nhân vậtMô tả（年龄+服装+Biểu cảm+Tư thế，每角色都写）
+c) nhân vậtMô tả（年龄+trang phục+Biểu cảm+Tư thế，每角色都写）
 d) bố cục与景别（景别+nhân vật位置关系+焦点）
 e) 重要道具（quan trọng道具+状态）
 f) 画面风格（电影感/色调）
@@ -384,7 +384,7 @@ needsEndFrame 判断：
 ${s5VideoFields}：
 - Mô tả视频đang xử lý...动作（nhân vật动作、物体移动、镜头运动）
 - 强调动词，Mô tả运动quá trình
-- ⚠️ Tất cảMô tả必须保持thời đại一致性（服装/道具/环境不能偏离剧本设定的thời đại）
+- ⚠️ Tất cảMô tả必须保持thời đại一致性（trang phục/道具/环境不能偏离剧本设定的thời đại）
 
 ${s5EndFields}：
 仅当 needsEndFrame=true 时Tạo，否则设为空字符串。

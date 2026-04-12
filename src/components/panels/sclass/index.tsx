@@ -7,7 +7,7 @@
  * Hạng Spanel — Seedance 2.0 多模态Sáng tácpanel
  * 
  * 复用 director-store 的Phân cảnh数据（SplitScene[]），
- * 以「分组」为核心thực hiện多Ống kính合并tự sựTạo video。
+ * 以「nhóm」为核心thực hiện多Ống kính合并tự sựTạo video。
  * 
  * 两种chế độ：
  * - Phân cảnhchế độ：从Kịch bản流水线Nhập的Phân cảnh，按组Tạo video
