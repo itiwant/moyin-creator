@@ -573,7 +573,7 @@ export function SClassSceneCard({
                     </button>
                   </>
                 )}
-              {/* Khung hình cuốiAITạonút：无论是“Bắt buộc Khung hình cuối”还是“Tùy chọn Khung hình cuối”都可以Tạo */}
+            {/* Nút Tạo AI Khung hình cuối */}
                 {!hasEndFrame && (
                   <button
                     onClick={(e) => { e.stopPropagation(); onGenerateEndFrame?.(scene.id); }}

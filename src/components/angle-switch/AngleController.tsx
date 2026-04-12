@@ -280,7 +280,7 @@ export function AngleController({
   const directionIndex = Math.round(((theta % 360) + 360) % 360 / 45) % 8;
 
   // 计算 3D 卡片的尺寸 (适应ảnhTỷ lệ，且不超过最大范围)
-  const maxCardSize = size * 0.7; // 增加一点最大范围
+  const maxCardSize = size * 0.7; // Tăng phạm vi tối đa một chút
   let cardWidth = maxCardSize;
   let cardHeight = maxCardSize / imgAspectRatio;
 
@@ -292,7 +292,7 @@ export function AngleController({
 
   return (
     <div className="flex flex-col items-center gap-3">
-      {/* 主控制器区域 */}
+      {/* Vùng bộ điều khiển chính */}
       <div
         ref={containerRef}
         className={cn(
@@ -302,10 +302,10 @@ export function AngleController({
         style={{ width: size, height: size }}
         onMouseDown={handleMouseDown}
       >
-        {/* 背景：深空 + 模糊 */}
+        {/* Nền: không gian sâu + mờ */}
         <div className="absolute inset-0 bg-gradient-to-b from-black/80 to-[#111] backdrop-blur-xl" />
 
-        {/* 1. 立方体网格框架 (背景层) */}
+        {/* 1. Khung lưới khối lập phương (lớp nền) */}
         <svg className="absolute inset-0 pointer-events-none" width={size} height={size}>
           {CUBE_EDGES.map(([i, j], idx) => {
             const v1 = rotateVertex(CUBE_VERTICES[i], cubeRotation);
@@ -324,7 +324,7 @@ export function AngleController({
           })}
         </svg>
 
-        {/* 2. đang xử lý...Xem trước卡片 (交互核心) */}
+        {/* 2. Thẻ Xem trước (lõi tương tác) */}
         <div 
           className="absolute pointer-events-none flex items-center justify-center"
           style={{
@@ -370,7 +370,7 @@ export function AngleController({
                   />
                 </div>
                 
-                {/* 玻璃反光效果 */}
+                {/* Hiệu ứng phản chiếu kính */}
                 <div 
                   className="absolute inset-0 rounded-[8px] bg-gradient-to-tr from-white/10 via-transparent to-transparent pointer-events-none mix-blend-overlay"
                   style={{

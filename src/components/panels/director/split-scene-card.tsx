@@ -607,7 +607,7 @@ export function SplitSceneCard({
                     </button>
                   </>
                 )}
-              {/* Khung hình cuốiAITạonút：无论是“CầnKhung hình cuối”还是“Tùy chọnKhung hình cuối”都可以Tạo */}
+            {/* Nút Tạo AI Khung hình cuối */}
                 {!hasEndFrame && (
                   <button
                     onClick={(e) => { e.stopPropagation(); onGenerateEndFrame?.(scene.id); }}

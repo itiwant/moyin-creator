@@ -542,7 +542,7 @@ function UploadZone({
       <span className="text-xs text-muted-foreground">
         {isVideo
           ? "Kéo thả hoặc Nhấp để Tải lên video (MP4/WebM, ≤15s)"
-          : "拖放或NhấpTải lênâm thanh (MP3/WAV, ≤15s)"}
+            : "Kéo thả hoặc Nhấp để Tải lên âm thanh (MP3/WAV, ≤15s)"}
       </span>
     </div>
   );

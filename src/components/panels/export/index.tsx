@@ -371,7 +371,7 @@ export function ExportView() {
               {/* Export stats hint */}
               {hasSplitScenes && directorStats && (
                 <div className="mt-4 text-xs text-muted-foreground">
-                  Có thể xuất: {directorStats.imagesReady} khung đầu · {directorStats.videosReady} video{directorStats.endFramesReady > 0 ? ` · ${directorStats.endFramesReady} 张Khung hình cuối` : ''}
+                  Có thể xuất: {directorStats.imagesReady} khung đầu · {directorStats.videosReady} video{directorStats.endFramesReady > 0 ? ` · ${directorStats.endFramesReady} Khung hình cuối` : ''}
                 </div>
               )}
             </div>

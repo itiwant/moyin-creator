@@ -251,7 +251,7 @@ export function ScriptInput({
               Dán kịch bản đầy đủ(bao gồm đại cương, tiểu sử nhân vật, nội dung từng tập)
             </Label>
             <Textarea
-              placeholder="Định dạng hỗ trợ:\n• Tập X (đánh dấu tập)\n• **Ngày 1-1 - Địa điểm** (đầu cảnh)\n• nhân vật: Nhân vật A, Nhân vật B\n• Tên nhân vật: (Hành động）Hội thoại\n• △Hành động描写\n• 【字幕】【闪回】等"
+              placeholder="Định dạng hỗ trợ:\n• Tập X (đánh dấu tập)\n• **Ngày 1-1 - Địa điểm** (đầu cảnh)\n• nhân vật: Nhân vật A, Nhân vật B\n• Tên nhân vật: (Hành động) Hội thoại\n• △ Mô tả Hành động\n• 【Phụ đề】【Hồi tưởng】, v.v."
               value={rawScript}
               onChange={(e) => onRawScriptChange(e.target.value)}
               className="min-h-[200px] max-h-[40vh] resize-none text-sm overflow-y-auto"
