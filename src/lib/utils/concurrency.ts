@@ -7,7 +7,7 @@
  * 行为：
  * - 每新任务在前一任务启动后至少等待 staggerMs 才启动
  * - 同时最多运行 maxConcurrent 任务
- * - 当活跃任务数达到上限时，等待有任务完成后才启动下一（仍保持 staggerMs 间隔）
+ * - 当đang hoạt động任务数达到上限时，等待有任务完成后才启动下一（仍保持 staggerMs 间隔）
  *
  * 例如 maxConcurrent=3, staggerMs=5000, 每任务耗时20秒：
  *   t=0s:  启动任务1

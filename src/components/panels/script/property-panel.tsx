@@ -250,7 +250,7 @@ export function PropertyPanel({
       lines.push('');
     }
     
-    // 身份/nền（主要Mô tả）
+    // Danh tính/nền（主要Mô tả）
     if (character.role) {
       lines.push(`## Danh tính/Nền`);
       lines.push(character.role);
@@ -299,7 +299,7 @@ export function PropertyPanel({
       lines.push('');
     }
     
-    // === 6层身份neo（Nhân vật一致性）===
+    // === 6层Danh tínhneo（Nhân vật一致性）===
     if (character.identityAnchors) {
       const anchors = character.identityAnchors;
       lines.push(`## 6 lớp neo nhận dạng`);
@@ -798,7 +798,7 @@ export function PropertyPanel({
             </div>
             <div className="text-xs text-muted-foreground mt-1">
               Trạng thái Phân cảnh: {episode.shotGenerationStatus === 'completed' ? '✅ Đã tạo' : 
-                episode.shotGenerationStatus === 'generating' ? '⏳ Đang tạo...' : '⏹ 未Tạo'}
+                episode.shotGenerationStatus === 'generating' ? '⏳ Đang tạo...' : '⏹ Chưa tạo'}
             </div>
           </div>
 
@@ -835,12 +835,12 @@ export function PropertyPanel({
                   {copied ? (
                     <>
                       <Check className="h-4 w-4 mr-2 text-green-500" />
-                      已复制
+                      Đã sao chép
                     </>
                   ) : (
                     <>
                       <Copy className="h-4 w-4 mr-2" />
-                      复制Phân cảnhdữ liệu ({episodeShots.length})
+                      Sao chép dữ liệu Phân cảnh ({episodeShots.length})
                     </>
                   )}
                 </Button>
@@ -896,8 +896,8 @@ export function PropertyPanel({
           {isEditing ? (
             <div className="space-y-3">
               <div className="space-y-1">
-                <Label className="text-xs">身份/nền</Label>
-                <Textarea value={editData.role || ""} onChange={(e) => setEditData({ ...editData, role: e.target.value })} className="min-h-[60px]" placeholder="详细的身份nềnMô tả" />
+                <Label className="text-xs">Danh tính/Nền</Label>
+                <Textarea value={editData.role || ""} onChange={(e) => setEditData({ ...editData, role: e.target.value })} className="min-h-[60px]" placeholder="详细的Danh tínhnềnMô tả" />
               </div>
               <div className="grid grid-cols-2 gap-2">
                 <div className="space-y-1">
@@ -905,12 +905,12 @@ export function PropertyPanel({
                   <Input value={editData.gender || ""} onChange={(e) => setEditData({ ...editData, gender: e.target.value })} className="h-8" />
                 </div>
                 <div className="space-y-1">
-                  <Label className="text-xs">年龄</Label>
+                  <Label className="text-xs">Tuổi</Label>
                   <Input value={editData.age || ""} onChange={(e) => setEditData({ ...editData, age: e.target.value })} className="h-8" />
                 </div>
               </div>
               <div className="space-y-1">
-                <Label className="text-xs">性格</Label>
+                <Label className="text-xs">Tính cách</Label>
                 <Textarea value={editData.personality || ""} onChange={(e) => setEditData({ ...editData, personality: e.target.value })} className="min-h-[60px]" />
               </div>
               <div className="space-y-1">
@@ -922,7 +922,7 @@ export function PropertyPanel({
                 <Textarea value={editData.skills || ""} onChange={(e) => setEditData({ ...editData, skills: e.target.value })} className="min-h-[60px]" placeholder="武功、魔法、chuyên nghiệp技能等" />
               </div>
               <div className="space-y-1">
-                <Label className="text-xs">quan trọng hàng为/事迹</Label>
+                <Label className="text-xs">Hành vi/Thành tích quan trọng</Label>
                 <Textarea value={editData.keyActions || ""} onChange={(e) => setEditData({ ...editData, keyActions: e.target.value })} className="min-h-[60px]" />
               </div>
               <div className="space-y-1">
@@ -936,18 +936,18 @@ export function PropertyPanel({
             </div>
           ) : (
             <div className="space-y-3">
-              {/* Nhân vật giai đoạn特殊信息 */}
+              {/* Thông tin đặc biệt theo giai đoạn Nhân vật */}
               {character.stageInfo && (
                 <div className="p-2 bg-blue-500/10 border border-blue-500/20 rounded-lg space-y-1">
                   <div className="text-xs text-blue-600 dark:text-blue-400 font-medium">
                     🎭 Nhân vật giai đoạn：{character.stageInfo.stageName}
                   </div>
                   <div className="text-xs text-muted-foreground">
-                    适用 tập数：第{character.stageInfo.episodeRange[0]}-{character.stageInfo.episodeRange[1]} tập
+                    Áp dụng cho tập: {character.stageInfo.episodeRange[0]}-{character.stageInfo.episodeRange[1]}
                   </div>
                   {character.stageInfo.ageDescription && (
                     <div className="text-xs text-muted-foreground">
-                      年龄：{character.stageInfo.ageDescription}
+                      Tuổi: {character.stageInfo.ageDescription}
                     </div>
                   )}
                 </div>
@@ -968,7 +968,7 @@ export function PropertyPanel({
               
               {character.role && (
                 <div>
-                  <div className="text-xs text-muted-foreground mb-1">身份/nền</div>
+                  <div className="text-xs text-muted-foreground mb-1">Danh tính/nền</div>
                   <div className="text-sm whitespace-pre-wrap">{character.role}</div>
                 </div>
               )}
@@ -982,7 +982,7 @@ export function PropertyPanel({
               )}
               {character.personality && (
                 <div>
-                  <div className="text-xs text-muted-foreground mb-1">性格</div>
+                  <div className="text-xs text-muted-foreground mb-1">Tính cách</div>
                   <div className="text-sm whitespace-pre-wrap">{character.personality}</div>
                 </div>
               )}
@@ -1071,7 +1071,7 @@ export function PropertyPanel({
               {copiedCharacter ? (
                 <>
                   <Check className="h-4 w-4 mr-2 text-green-500" />
-                  已复制
+                  Đã sao chép
                 </>
               ) : (
                 <>
@@ -1360,7 +1360,7 @@ export function PropertyPanel({
               ) : (
                 <Copy className="h-4 w-4 mr-2" />
               )}
-              {copiedScene ? '已复制' : '复制Cảnhdữ liệu'}
+              {copiedScene ? 'Đã sao chép' : '复制Cảnhdữ liệu'}
             </Button>
             <Button
               variant="secondary"
@@ -1643,7 +1643,7 @@ export function PropertyPanel({
               {copiedShotPrompts ? (
                 <>
                   <Check className="h-4 w-4 mr-2 text-green-500" />
-                  已复制
+                  Đã sao chép
                 </>
               ) : (
                 <>

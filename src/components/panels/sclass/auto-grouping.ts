@@ -125,7 +125,7 @@ export function autoGroupScenes(
       // Cảnh切换检测：不同Cảnh优先断开
       const prevScene = scenes[i - 1];
       if (prevScene && !isSameScene(prevScene, scene)) {
-        // 不同Cảnh —— 如果当前组hiện có ≥ minPerGroup Ống kính，断开
+        // 不同Cảnh —— 如果当nhóm trướchiện có ≥ minPerGroup Ống kính，断开
         if (currentSceneIds.length >= cfg.minPerGroup) {
           // 但若Nhân vật高度重叠，可以容忍（跨Cảnh但同Nhân vật）
           const overlap = characterOverlap(prevScene, scene);

@@ -201,7 +201,7 @@ export function ScriptView() {
   const [structureOverwriteConfirmOpen, setStructureOverwriteConfirmOpen] = useState(false);
   const prevEpisodeRef = useRef<{ index: number | null; rawLen: number }>({ index: null, rawLen: 0 });
 
-  // 二次Hiệu chuẩn追踪（đang xử lý...nút触发时标记，用于进度panel区分首次/二次）
+  // 二次Hiệu chuẩn追踪（đang xử lý...nút触发时标记，用于Tiến độpanel区分首次/二次）
   const [secondPassTypes, setSecondPassTypes] = useState<Set<string>>(new Set());
   const addSecondPass = useCallback((type: string) => {
     setSecondPassTypes(prev => new Set(prev).add(type));
@@ -1131,7 +1131,7 @@ export function ScriptView() {
                     stage.visualPromptEn,
                   ].filter(Boolean).join(', '),
                   visualPromptZh: promptLanguage === 'en' ? undefined : stage.visualPromptZh,
-                  // === kế thừa基础Nhân vật的6层身份neo ===
+                  // === kế thừa基础Nhân vật的6层Danh tínhneo ===
                   identityAnchors: baseChar.identityAnchors,
                   negativePrompt: baseChar.negativePrompt,
                 };
@@ -1605,7 +1605,7 @@ export function ScriptView() {
         // === chuyên nghiệpNhân vậtThiết kếtrường（世界级大师Tạo）===
         visualPromptEn: character.visualPromptEn,
         visualPromptZh: character.visualPromptZh,
-        // === 6层身份neo（Nhân vật一致性）===
+        // === 6层Danh tínhneo（Nhân vật一致性）===
         identityAnchors: character.identityAnchors,
         negativePrompt: character.negativePrompt,
         // === 多Nhân vật giai đoạn支持 ===

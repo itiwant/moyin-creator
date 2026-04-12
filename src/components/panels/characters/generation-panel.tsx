@@ -117,7 +117,7 @@ export function GenerationPanel({ selectedCharacter, onCharacterCreated }: Gener
   // === chuyên nghiệpNhân vậtThiết kếtrường（世界级大师Tạo）===
   const [visualPromptEn, setVisualPromptEn] = useState(""); // Prompt thị giác tiếng Anh
   const [visualPromptZh, setVisualPromptZh] = useState(""); // đang xử lý...ompt thị giác
-  // === 6层身份neo ===
+  // === 6层Danh tínhneo ===
   const [identityAnchors, setIdentityAnchors] = useState<CharacterIdentityAnchors | undefined>();
   const [charNegativePrompt, setCharNegativePrompt] = useState<CharacterNegativePrompt | undefined>();
   // === promptNgôn ngữ偏好 ===
@@ -162,7 +162,7 @@ export function GenerationPanel({ selectedCharacter, onCharacterCreated }: Gener
       const mappedGender = genderMap[pendingCharacterData.gender || ''] || '';
       setGender(mappedGender);
       
-      // 映射年龄：根据数字范围Tự độngChọnĐộ tuổi
+      // 映射Tuổi：根据数字范围Tự độngChọnĐộ tuổi
       const ageStr = pendingCharacterData.age || '';
       let mappedAge = '';
       if (ageStr.includes('5') && ageStr.includes('12') || ageStr.includes('Trẻ em')) {
@@ -223,7 +223,7 @@ export function GenerationPanel({ selectedCharacter, onCharacterCreated }: Gener
         setVisualPromptZh(pendingCharacterData.visualPromptZh);
       }
       
-      // === 处理6层身份neo ===
+      // === 处理6层Danh tínhneo ===
       if (pendingCharacterData.identityAnchors) {
         setIdentityAnchors(pendingCharacterData.identityAnchors);
       }
@@ -308,7 +308,7 @@ export function GenerationPanel({ selectedCharacter, onCharacterCreated }: Gener
     // === Đặt lạichuyên nghiệpPrompt thị giác ===
     setVisualPromptEn("");
     setVisualPromptZh("");
-    // === Đặt lại6层身份neo ===
+    // === Đặt lại6层Danh tínhneo ===
     setIdentityAnchors(undefined);
     setCharNegativePrompt(undefined);
     // === Đặt lạiThông tin thời đại ===
@@ -362,7 +362,7 @@ export function GenerationPanel({ selectedCharacter, onCharacterCreated }: Gener
       views: [],
       folderId: currentFolderId,
       projectId: activeProjectId || undefined,
-      // === 6层身份neo（Nhân vật一致性）===
+      // === 6层Danh tínhneo（Nhân vật一致性）===
       identityAnchors: identityAnchors,
       negativePrompt: charNegativePrompt,
       // ===  tập作用域 ===
@@ -376,7 +376,7 @@ export function GenerationPanel({ selectedCharacter, onCharacterCreated }: Gener
     setGeneratingCharacter(targetId);
 
     try {
-      // 构建prompt：根据Ngôn ngữ偏好Chọnprompt + 6层身份neo + Ảnh tham chiếu优先级逻辑 + Thông tin thời đại
+      // 构建prompt：根据Ngôn ngữ偏好Chọnprompt + 6层Danh tínhneo + Ảnh tham chiếu优先级逻辑 + Thông tin thời đại
       // 获取实时的Ngôn ngữ偏好（优先Sử dụng pending 传来的，其次从 scriptProject 读取）
       const effectiveLang = promptLanguage || scriptProject?.promptLanguage || 'vi';
       const prompt = buildCharacterSheetPrompt(
@@ -1011,7 +1011,7 @@ export function GenerationPanel({ selectedCharacter, onCharacterCreated }: Gener
                   lines.push('');
                   lines.push(`Thông tin AI Hiệu chuẩn: ${isManuallyModified ? 'Đã sửa' : 'Đã Hiệu chuẩn'}`);
                   
-                  // 6层身份neo
+                  // 6层Danh tínhneo
                   if (identityAnchors) {
                     lines.push('');
                     lines.push('--- 6 lớp neo nhận dạng ---');
@@ -1137,9 +1137,9 @@ function fileToBase64(file: File): Promise<string> {
 }
 
 /**
- * 从6层身份neo构建prompt
+ * 从6层Danh tínhneo构建prompt
  * 
- * @param anchors - 6层身份neo
+ * @param anchors - 6层Danh tínhneo
  * @param hasReferenceImages - 是否有Ảnh tham chiếu
  * @returns 构建的prompt字符串
  * 
@@ -1266,7 +1266,7 @@ function buildCharacterSheetPrompt(
   // 根据Ngôn ngữ偏好Chọn主Prompt thị giác
   const lang = promptLanguage || 'vi';
 
-  // 构建年代trang phụcprompt（根据Ngôn ngữ偏好）
+  // 构建thập niêntrang phụcprompt（根据Ngôn ngữ偏好）
   let eraPrompt = '';
   if (storyYear) {
     if (lang === 'vi') {
@@ -1275,7 +1275,7 @@ function buildCharacterSheetPrompt(
       else if (storyYear >= 2000) eraPrompt = `early 2000s style, millennium fashion`;
       else if (storyYear >= 1990) eraPrompt = `1990s style, transitional era fashion`;
       else if (storyYear >= 1980) eraPrompt = `1980s style, reform and opening-up era fashion`;
-      else eraPrompt = `${storyYear}年代đang xử lý...ang phụcPhong cách`;
+      else eraPrompt = `${storyYear}s era clothing style`;
     } else {
       if (storyYear >= 2020) eraPrompt = `${storyYear}s contemporary Chinese fashion, modern casual style`;
       else if (storyYear >= 2010) eraPrompt = `${storyYear}s Chinese fashion, Korean-influenced style`;
@@ -1285,7 +1285,7 @@ function buildCharacterSheetPrompt(
       else eraPrompt = `${storyYear}s era-appropriate Chinese clothing`;
     }
   } else if (era) {
-    eraPrompt = lang === 'vi' ? `${era}时期trang phụcPhong cách` : `${era} era clothing style`;
+    eraPrompt = `${era} era clothing style`;
   }
   let primaryVisualPrompt: string | undefined;
   if (lang === 'vi' || lang === 'vi+en') {
@@ -1299,7 +1299,7 @@ function buildCharacterSheetPrompt(
   // 构建Mô tả nhân vật：根据有Không có Ảnh tham chiếu决定Sử dụngđầy đủneo还是简化neo
   let characterDescription = '';
   
-  // 构建身份neoprompt
+  // 构建Danh tínhneoprompt
   const anchorPrompt = buildPromptFromAnchors(identityAnchors, hasReferenceImages || false, promptLanguage);
   
   if (hasReferenceImages) {
@@ -1320,7 +1320,7 @@ function buildCharacterSheetPrompt(
     characterDescription = description;
   }
   
-  // 加入年代trang phụcprompt
+  // 加入thập niêntrang phụcprompt
   if (eraPrompt) {
     characterDescription = `${characterDescription}, ${eraPrompt}`;
   }
@@ -1329,7 +1329,7 @@ function buildCharacterSheetPrompt(
 
   const basePrompt = isRealistic
     ? (isZh
-        ? `chuyên nghiệpNhân vậtẢnh tham chiếu，"${name}"，${characterDescription}，真人写实`
+        ? `professional character reference sheet, "${name}", ${characterDescription}, photorealistic`
         : `professional character reference for "${name}", ${characterDescription}, real person`)
     : (isZh
         ? `chuyên nghiệpNhân vậtThiết kếẢnh tham chiếu，"${name}"，${characterDescription}`
@@ -1360,11 +1360,11 @@ function buildCharacterSheetPrompt(
   
   if (isRealistic) {
     return isZh
-      ? `${basePrompt}, ${contentPrompt}, 摄影Nhân vậtẢnh tham chiếu版式, 拼贴格式, ${whiteBackgroundPrompt}, ${styleTokens}, 电影级灯光, 高细节Kết cấu da, 照片写实`
+      ? `${basePrompt}, ${contentPrompt}, photography character reference layout, collage format, ${whiteBackgroundPrompt}, ${styleTokens}, cinematic lighting, hi细节Kết cấu da, 照片写实`
       : `${basePrompt}, ${contentPrompt}, photographic character reference layout, collage format, ${whiteBackgroundPrompt}, ${styleTokens}, cinematic lighting, highly detailed skin texture, photorealistic`;
   } else {
     return isZh
-      ? `${basePrompt}, ${contentPrompt}, Nhân vậtẢnh tham chiếu版式, ${whiteBackgroundPrompt}, ${styleTokens}, 精细插画`
+      ? `${basePrompt}, ${contentPrompt}, character reference layout, ${whiteBackgroundPrompt}, ${styleTokens}, detailed illustration`
       : `${basePrompt}, ${contentPrompt}, character reference sheet layout, ${whiteBackgroundPrompt}, ${styleTokens}, detailed illustration`;
   }
 }

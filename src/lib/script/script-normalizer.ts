@@ -70,14 +70,14 @@ export function preprocessLineBreaks(text: string): { text: string; inserted: bo
     '\n'
   );
   
-  // 5. Thoại前换行：2-8字đang xử lý...+ 全角冒号/括号（Tránh切断 "年龄：" 等thuộc tính）
+  // 5. Thoại前换行：2-8字đang xử lý...+ 全角冒号/括号（Tránh切断 "Tuổi：" 等thuộc tính）
   // 仅当前面不是换行且不在thuộc tínhMô tảđang xử lý...有đang xử lý...号）
   result = result.replace(
     /(?<!\n)(?<![\u4e00-\u9fa5：])(?=[\u4e00-\u9fa5]{2,8}[（(][^）)]{0,10}[）)][：:])/g,
     '\n'
   );
   result = result.replace(
-    /(?<!\n)(?<![\u4e00-\u9fa5：年龄身份性格])(?=[\u4e00-\u9fa5]{2,6}[：:][（(「])/g,
+    /(?<!\n)(?<![\u4e00-\u9fa5：TuổiDanh tínhTính cách])(?=[\u4e00-\u9fa5]{2,6}[：:][（(「])/g,
     '\n'
   );
   
@@ -87,10 +87,10 @@ export function preprocessLineBreaks(text: string): { text: string; inserted: bo
     '\n'
   );
   
-  // 7. 角色传记条目前换行：句号/感叹号/分号等标点后紧跟 角色tên:年龄/年两：
+  // 7. 角色传记条目前换行：句号/感叹号/分号等标点后紧跟 角色tên:Tuổi/年两：
   // 处理紧凑格式nhân vật小传（Tất cả角色挤在同一行）
   result = result.replace(
-    /([。！；;）\)」】])\s*(?=[\u4e00-\u9fa5]{2,8}[：:]\s*(?:年龄|年两)[：:])/g,
+    /([。！；;）\)」】])\s*(?=[\u4e00-\u9fa5]{2,8}[：:]\s*(?:Tuổi|年两)[：:])/g,
     '$1\n'
   );
   
@@ -201,8 +201,8 @@ export interface ScriptStructureAnalysis {
 }
 
 /**
- * AI Cấu trúc检测：gọi API LLM 分析剧本Cấu trúc，识别标题/đại cương/nhân vật/年代，并bổ sungthiếuđại cương
- * @returns 分析kết quả，AI 不可用或gọi APIthất bại时返回 null
+ * AI Cấu trúc检测：gọi API LLM 分析剧本Cấu trúc，识别标题/đại cương/nhân vật/thập niên，并bổ sungthiếuđại cương
+ * @returns 分析kết quả，AI không khả dụng或gọi APIthất bại时返回 null
  */
 export async function analyzeScriptStructureWithAI(text: string): Promise<ScriptStructureAnalysis | null> {
   // 检查 AI 是否可用
@@ -234,7 +234,7 @@ export async function analyzeScriptStructureWithAI(text: string): Promise<Script
   "centralConflict": "chính tuyếnmâu thuẫn（如：nhân vật chính vs 反派+外部势力）",
   "themes": ["Chủ đềquan trọng词1", "Chủ đềquan trọng词2"],
   "characters": [
-    {"name": "角色名", "age": "年龄", "identity": "身份", "faction": "所属phe phái", "personality": "性格特点", "keyActions": "quan trọng行为"}
+    {"name": "角色名", "age": "Tuổi", "identity": "Danh tính", "faction": "所属phe phái", "personality": "Tính cách特点", "keyActions": "quan trọng行为"}
   ],
   "factions": [{"name": "phe phái名", "members": ["角色名1", "角色名2"]}],
   "keyItems": [{"name": "vật phẩm名", "description": "简述"}],
@@ -248,7 +248,7 @@ export async function analyzeScriptStructureWithAI(text: string): Promise<Script
 4. hasOutline：原文đang xử lý...有“đại cương”“故事简介”“故事背景”等明确的概述性段落
 5. generatedOutline：仅当 hasOutline=false 时Tạo
 6. characterSectionKeyword：必须是原文đang xử lý...在的文本đoạn
-7. characters：从nhân vật小传/角色Mô tảđang xử lý...ất cả角色，包含名字、年龄、身份、phe phái、性格、quan trọng行为
+7. characters：从nhân vật小传/角色Mô tảđang xử lý...ất cả角色，包含名字、Tuổi、Danh tính、phe phái、Tính cách、quan trọng行为
 8. factions：从「一、核心nhân vật chính」「二、chính diện势力角色」「三、反派势力角色」等分类đang xử lý...营
 9. keyItems：从đại cương+角色Mô tảđang xử lý...要vật phẩm（如vũ khí、信物、象征物）
 10. geography：从场景头和角色Mô tảđang xử lý...要地名
@@ -453,7 +453,7 @@ function normalizeTitle(text: string, changes: string[]): string {
       continue;
     }
     
-    // 跳过hiện có冒号的Mô tả行（如 "角色tên:年龄：35"）
+    // 跳过hiện có冒号的Mô tả行（如 "角色tên:Tuổi：35"）
     if (/[：:].{15,}/.test(trimmed)) continue;
     
     // 跳过括号标记行
@@ -478,7 +478,7 @@ function normalizeTitle(text: string, changes: string[]): string {
  * 支持：
  * - 显式标题：nhân vật介绍：、角色介绍：、主要角色：、角色设定：
  * - đang xử lý...角色分类：一、核心nhân vật chính / 一、主要角色
- * - 角色Mô tảchế độ：XX：年龄：35 / XX：35 tuổi
+ * - 角色Mô tảchế độ：XX：Tuổi：35 / XX：35 tuổi
  */
 function normalizeCharacterSection(text: string, changes: string[]): string {
   // 1. 显式角色区域标题 → 替换为 "nhân vật小传："
@@ -507,8 +507,8 @@ function normalizeCharacterSection(text: string, changes: string[]): string {
     return text.slice(0, insertPos) + 'nhân vật小传：\n' + text.slice(insertPos);
   }
   
-  // 3. 角色Mô tả特征chế độ：角色tên:年龄：XX 或 角色tên:XX tuổi，身份：...
-  const charDescPattern = /^([\u4e00-\u9fa5]{2,8}[：:]\s*(?:年龄[：:]|Giới tính[：:]|身份[：:]|\d{1,3} tuổi))/m;
+  // 3. 角色Mô tả特征chế độ：角色tên:Tuổi：XX 或 角色tên:XX tuổi，Danh tính：...
+  const charDescPattern = /^([\u4e00-\u9fa5]{2,8}[：:]\s*(?:Tuổi[：:]|Giới tính[：:]|Danh tính[：:]|\d{1,3} tuổi))/m;
   const charDescMatch = charDescPattern.exec(text);
   if (charDescMatch && charDescMatch.index !== undefined) {
     const insertPos = charDescMatch.index;

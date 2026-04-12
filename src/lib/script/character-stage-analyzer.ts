@@ -75,7 +75,7 @@ export async function analyzeCharacterStages(
 【判断标准】
 角色需要多阶段形象的情况：
 1. 时间跨度大（如从25 tuổi到50 tuổi）
-2. 身份地位变化（从普通人到成功企业家）
+2. Danh tính地位变化（从普通人到成功企业家）
 3. 外貌有显著变化（年轻→成熟→老年）
 4. 剧 tập数量多（30 tập以上的nhân vật chính通常需要）
 
@@ -103,8 +103,8 @@ ${background.outline?.slice(0, 1500) || '无'}
 【需要分析的角色】
 ${mainCharacters.map(c => `
 角色：${c.name}
-年龄：${c.age || '未知'}
-身份：${c.role || '未知'}
+Tuổi：${c.age || '未知'}
+Danh tính：${c.role || '未知'}
 外貌：${c.appearance || '未知'}
 `).join('\n')}
 
@@ -245,7 +245,7 @@ export function detectMultiStageHints(outline: string, totalEpisodes: number): {
     }
   }
   
-  // 检测年龄变化（多种格式）
+  // 检测Tuổi变化（多种格式）
   const agePatterns = [
     /(\d+) tuổi.*?(\d+) tuổi/,              // 25 tuổi...50 tuổi
     /(\d+)-(\d+) tuổi/,                   // 25-50 tuổi
@@ -257,9 +257,9 @@ export function detectMultiStageHints(outline: string, totalEpisodes: number): {
     const ageMatch = outline.match(pattern);
     if (ageMatch) {
       const ageSpan = parseInt(ageMatch[2]) - parseInt(ageMatch[1]);
-      if (ageSpan >= 10) { // 年龄跨度至少10 tuổi
+      if (ageSpan >= 10) { // Tuổi跨度至少10 tuổi
         hasAgeChange = true;
-        hints.push(`年龄跨度${ageMatch[1]} tuổi到${ageMatch[2]} tuổi`);
+        hints.push(`Tuổi跨度${ageMatch[1]} tuổi到${ageMatch[2]} tuổi`);
         break;
       }
     }

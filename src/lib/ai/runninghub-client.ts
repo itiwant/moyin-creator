@@ -94,7 +94,7 @@ export async function submitAngleSwitchTask(
           response.status === 401 || response.status === 403
             ? 'API Key 无效或已hết hạn'
             : response.status >= 500
-              ? 'RunningHub 服务暂时不可用'
+              ? 'RunningHub 服务暂时không khả dụng'
               : errorMessage
         ) as Error & { status?: number };
         error.status = response.status;

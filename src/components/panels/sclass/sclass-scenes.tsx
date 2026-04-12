@@ -781,7 +781,7 @@ export function SClassScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
     console.log('[QuadGrid] Using image config:', { platform, model, imageBaseUrl });
 
     setIsQuadGridGenerating(true);
-    // 不在这里ĐóngChat框，保持MởHiện进度
+    // 不在这里ĐóngChat框，保持MởHiệnTiến độ
     // setQuadGridOpen(false) 移到Tạo thành công后
 
     try {
@@ -2382,7 +2382,7 @@ export function SClassScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
         
         for (let attempt = 0; attempt < maxAttempts; attempt++) {
           const progress = Math.min(10 + Math.floor((attempt / maxAttempts) * 80), 90);
-          // 根据任务Loại更新各自的进度
+          // 根据任务Loại更新各自的Tiến độ
           pageTasks.forEach(task => {
             if (task.type === 'end') {
               updateSplitSceneEndFrameStatus(task.scene.id, { endFrameProgress: progress });

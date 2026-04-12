@@ -175,7 +175,7 @@ const STYLES_2D: StylePreset[] = [
     mediaType: 'animation',
     prompt: '(best quality, masterpiece, 8k:1.2), (90s retro anime style:1.3), (cel animation aesthetic:1.2), (vintage VHS effect, lo-fi:1.1), (Sailor Moon style:1.1), matte painting background, nostalgic',
     negativePrompt: '(worst quality, low quality:1.4), (digital painting, modern anime style, 3D), (high definition, sharp), (glossy)',
-    description: '90年代复古动画，赛璐璐风格，低保真',
+    description: '90thập niên复古动画，赛璐璐风格，低保真',
     thumbnail: '2d_retro.png',
   },
   {
@@ -205,7 +205,7 @@ const STYLES_2D: StylePreset[] = [
     mediaType: 'animation',
     prompt: '(best quality, masterpiece, 8k:1.2), (80s shoujo manga style:1.3), (sparkly big eyes:1.2), (pastel colors, flowers and bubbles:1.1), (retro fashion:1.1), dreamy, romantic',
     negativePrompt: '(worst quality, low quality:1.4), (modern digital art), (3D, realistic), (dark, horror), (thick lines), ugly',
-    description: '80年代少女漫风格，星星眼，粉嫩配色',
+    description: '80thập niên少女漫风格，星星眼，粉嫩配色',
     thumbnail: '2d_retro_girl.png',
   },
   {
@@ -335,7 +335,7 @@ const STYLES_2D: StylePreset[] = [
     mediaType: 'animation',
     prompt: '(best quality, masterpiece, 8k:1.2), (1930s rubber hose animation:1.3), (Cuphead style:1.2), (vintage Disney style:1.1), (black and white, film grain:1.1), swinging limbs, pie eyes',
     negativePrompt: '(worst quality, low quality:1.4), (modern cartoon), (color), (3D, realistic), (anime), (stiff animation)',
-    description: '橡皮管动画，30年代卡通，茶杯头风格',
+    description: '橡皮管动画，30thập niên卡通，茶杯头风格',
     thumbnail: '2d_rubberhose.png',
   },
   {
@@ -462,7 +462,7 @@ const STYLES_REAL: StylePreset[] = [
     mediaType: 'cinematic',
     prompt: '(best quality, masterpiece, 8k, high detailed:1.2), (90s Hong Kong movie style:1.3), (Wong Kar-wai aesthetic:1.2), (neon lights, high contrast:1.1), (motion blur, film grain:1.1), dreamy, moody',
     negativePrompt: '(worst quality, low quality:1.4), (modern digital look), (clean, sharp, sterile), (3D, anime), (bright daylight), ugly',
-    description: '港风复古，王家卫风格，霓虹灯，90年代电影',
+    description: '港风复古，王家卫风格，霓虹灯，90thập niên电影',
     thumbnail: 'real_hk_retro.png',
   },
   {

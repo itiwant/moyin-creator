@@ -374,7 +374,7 @@ const ERA_PROFILES: CinematographyProfile[] = [
     defaultSpeed: { playbackSpeed: 'normal' },
     defaultAngle: 'eye-level',
     defaultFocalLength: '35mm',
-    promptGuidance: '90年代港片的摄影DNA是「都市霓虹+Cầm tay游走」——混合色温的霓虹灯把城市街道染成红蓝交织的梦境。Cầm tay摄影在人群đang xử lý...偶尔Sử dụng抽帧或降格制造王家卫式的虚影效果。薄霾笼罩的街头，每路人都像有故事。侧光勾勒出nhân vật忧郁的轮廓。',
+    promptGuidance: '90thập niên港片的摄影DNA是「都市霓虹+Cầm tay游走」——混合色温的霓虹灯把城市街道染成红蓝交织的梦境。Cầm tay摄影在人群đang xử lý...偶尔Sử dụng抽帧或降格制造王家卫式的虚影效果。薄霾笼罩的街头，每路人都像有故事。侧光勾勒出nhân vật忧郁的轮廓。',
     referenceFilms: ['重庆森林', '堕落天使', '无间道', '英雄本色'],
   },
   {

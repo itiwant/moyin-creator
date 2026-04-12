@@ -344,7 +344,7 @@ export async function uploadToImageHost(
     for (let i = 0; i < maxRetries; i++) {
       const apiKey = keyManager.getCurrentKey();
       if (!apiKey) {
-        lastError = 'Tất cả API Key 暂时不可用';
+        lastError = 'Tất cả API Key 暂时không khả dụng';
         break;
       }
 

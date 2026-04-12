@@ -724,7 +724,7 @@ export function DirectorContextPanel() {
     );
   }
 
-  // 计算整体进度
+  // 计算整体Tiến độ
   const overallProgress = calculateProgress(
     shots.map((s) => ({ status: getShotCompletionStatus(s) }))
   );

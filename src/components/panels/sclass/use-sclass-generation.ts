@@ -87,7 +87,7 @@ export function useSClassGeneration() {
 
   // ========== Helpers ==========
 
-  /** 获取trong nhómDanh sách cảnh */
+  /** Lấy Danh sách cảnh trong nhóm */
   const getGroupScenes = useCallback(
     (group: ShotGroup): SplitScene[] => {
       return group.sceneIds
@@ -97,7 +97,7 @@ export function useSClassGeneration() {
     [splitScenes]
   );
 
-  /** 将 @tham chiếuđang xử lý...h URL 转为 HTTP URL */
+  /** Chuyển đổi ảnh URL @tham chiếu thành HTTP URL */
   const prepareImageUrls = useCallback(
     async (
       refs: AssetRef[]
@@ -133,11 +133,11 @@ export function useSClassGeneration() {
     async (
       group: ShotGroup,
       options?: {
-        /** 进度回调 */
+        /** Callback tiến độ */
         onProgress?: (progress: number) => void;
-        /** 构建完ô图+prompt 后，询问用户是否Tiếp tụcTạo video；Quay lại false 则đang xử lý.../
+        /** Sau khi tạo xong ảnh lưới + prompt, hỏi người dùng có muốn Tiếp tục Tạo video không; Quay lại false thì dừng */
         confirmBeforeGenerate?: () => Promise<boolean>;
-        /** 前组video URL（链式Thử lại时传入，用于衔接前后组video） */
+        /** URL video nhóm trước (truyền vào khi Thử lại theo chuỗi, dùng để nối video trước/sau) */
         prevVideoUrl?: string;
       }
     ): Promise<GroupGenerationResult> => {
@@ -147,7 +147,7 @@ export function useSClassGeneration() {
           groupId: group.id,
           success: false,
           videoUrl: null,
-          error: "无活跃项目",
+          error: "Không có dự án đang hoạt động",
         };
       }
 
@@ -190,7 +190,7 @@ export function useSClassGeneration() {
           groupId: group.id,
           success: false,
           videoUrl: null,
-          error: "trong nhóm无Cảnh",
+          error: "Không có Cảnh trong nhóm",
         };
       }
 
@@ -213,7 +213,7 @@ export function useSClassGeneration() {
         // camerafixed: Tất cảPhân cảnh运镜为 Static 或为空 → 锁定运镜
         const allStaticCamera = groupScenes.every(s => {
           const cm = (s.cameraMovement || '').toLowerCase().trim();
-          return !cm || cm === 'static' || cm === 'Cố định' || cm === '静止';
+          return !cm || cm === 'static' || cm === 'Cố định' || cm === 'tĩnh';
         });
 
         // 4b. 构建ô图（合并Khung hình đầu 或 复用缓存）
@@ -241,11 +241,11 @@ export function useSClassGeneration() {
             if (canReuseGrid) {
               // 复用步骤③Lưu的gốclưới 9 ô图
               gridDataUrl = cachedGridUrl!;
-              console.log('[SClassGen] 复用缓存lưới 9 ô图:', gridDataUrl.substring(0, 60));
+              console.log('[SClassGen] Tái sử dụng ảnh lưới 9 ô từ cache:', gridDataUrl.substring(0, 60));
             } else {
               // 重新合并Khung hình đầu为ô图
               gridDataUrl = await mergeToGridImage(firstFrameUrls, aspectRatio);
-              console.log('[SClassGen] 已合并', firstFrameUrls.length, '张Khung hình đầu为ô图');
+              console.log('[SClassGen] Đã hợp nhất', firstFrameUrls.length, 'Khung hình đầu thành ảnh lưới');
             }
 
             gridImageRef = {
@@ -311,7 +311,7 @@ export function useSClassGeneration() {
 
         // 5b. 收 tậpvideo/âm thanhtham chiếu → 转 HTTP URL（Seedance 2.0 多模态输入）
         const videoRefUrls: string[] = [];
-        // 前组video衔接（链式Thử lại时传入）— kéo dài/Chỉnh sửa组已在 refs.videos đang xử lý...sourceVideoUrl，跳过
+        // nhóm trướcvideo衔接（链式Thử lại时传入）— kéo dài/Chỉnh sửa组已在 refs.videos đang xử lý...sourceVideoUrl，跳过
         if (!isExtendOrEdit && options?.prevVideoUrl) {
           const prevHttpUrl = await convertToHttpUrl(options.prevVideoUrl).catch(() => "");
           if (prevHttpUrl) videoRefUrls.push(prevHttpUrl);
@@ -392,14 +392,14 @@ export function useSClassGeneration() {
             const alreadyRotatedByInner = typeof err.status === "number"
               && [400, 401, 403, 429, 500, 502, 503, 529].includes(err.status);
             const fallbackStatus = /model|Model/i.test(message)
-              && /not support|unsupported|无权限|权限不足|未开通|不可用/i.test(message)
+              && /not support|unsupported|không có quyền|quyền không đủ|chưa mở|không khả dụng/i.test(message)
               ? 400
               : undefined;
             const statusForHandle = parsedStatus ?? fallbackStatus;
             const rotated = alreadyRotatedByInner
               ? true
               : (typeof statusForHandle === "number" ? keyManager.handleError(statusForHandle, message) : false);
-            const retryableByMessage = /429|500|502|503|529|too many requests|rate|quota|service unavailable|overloaded|internal server error|server error|上游负载|上游服务|饱和|暂时不可用|服务暂时不可用|api key|无效|hết hạn|model|Model|不Hỗ trợ|权限|未开通/.test(message.toLowerCase());
+            const retryableByMessage = /429|500|502|503|529|too many requests|rate|quota|service unavailable|overloaded|internal server error|server error|上游负载|上游服务|饱和|暂时không khả dụng|服务暂时không khả dụng|api key|无效|hết hạn|model|Model|不Hỗ trợ|权限|chưa mở/.test(message.toLowerCase());
             const canRetry = attempt < maxVideoAttempts - 1 && (rotated || retryableByMessage);
 
             if (canRetry) {
@@ -502,7 +502,7 @@ export function useSClassGeneration() {
     ): Promise<GroupGenerationResult[]> => {
       const projectId = activeProjectId;
       if (!projectId) {
-        toast.error("无活跃项目");
+        toast.error("无đang hoạt động项目");
         return [];
       }
 
@@ -678,14 +678,14 @@ export function useSClassGeneration() {
             const alreadyRotatedByInner = typeof err.status === "number"
               && [400, 401, 403, 429, 500, 502, 503, 529].includes(err.status);
             const fallbackStatus = /model|Model/i.test(message)
-              && /not support|unsupported|无权限|权限不足|未开通|不可用/i.test(message)
+              && /not support|unsupported|không có quyền|quyền không đủ|chưa mở|không khả dụng/i.test(message)
               ? 400
               : undefined;
             const statusForHandle = parsedStatus ?? fallbackStatus;
             const rotated = alreadyRotatedByInner
               ? true
               : (typeof statusForHandle === "number" ? keyManager.handleError(statusForHandle, message) : false);
-            const retryableByMessage = /429|500|502|503|529|too many requests|rate|quota|service unavailable|overloaded|internal server error|server error|上游负载|上游服务|饱和|暂时不可用|服务暂时不可用|api key|无效|hết hạn|model|Model|不Hỗ trợ|权限|未开通/.test(message.toLowerCase());
+            const retryableByMessage = /429|500|502|503|529|too many requests|rate|quota|service unavailable|overloaded|internal server error|server error|上游负载|上游服务|饱和|暂时không khả dụng|服务暂时không khả dụng|api key|无效|hết hạn|model|Model|不Hỗ trợ|权限|chưa mở/.test(message.toLowerCase());
             const canRetry = attempt < maxVideoAttempts - 1 && (rotated || retryableByMessage);
 
             if (canRetry) {
@@ -759,7 +759,7 @@ export function useSClassGeneration() {
         videoError: null,
       });
 
-      // 查找前组的 videoUrl（链式衔接）
+      // 查找nhóm trước的 videoUrl（链式衔接）
       let prevVideoUrl: string | undefined;
       const allGroups = projectData.shotGroups;
       const idx = allGroups.findIndex(g => g.id === groupId);
@@ -791,7 +791,7 @@ export function useSClassGeneration() {
     ): Promise<GroupGenerationResult | null> => {
       const projectId = activeProjectId;
       if (!projectId) {
-        toast.error('无活跃项目');
+        toast.error('无đang hoạt động项目');
         return null;
       }
 

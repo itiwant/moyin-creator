@@ -1428,7 +1428,7 @@ export async function extractLastFrameFromVideo(
       video.currentTime = targetTime;
     };
     
-    // 方法：Sử dụng timeupdate 监听播放进度，当接近目标Thời gian时捕获
+    // 方法：Sử dụng timeupdate 监听播放Tiến độ，当接近目标Thời gian时捕获
     video.ontimeupdate = () => {
       if (hasResolved || targetTime < 0) return; // 未Bắt đầu seek 时忽略
       

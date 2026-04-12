@@ -23,7 +23,7 @@ export interface FilteredCharacterRecord {
 export interface CharacterStageInfo {
   stageName: string;              // 阶段名称："青年版"、"Phiên bản trung niên"、"Khởi nghiệp ban đầu"
   episodeRange: [number, number]; // 适用 tập数范围：[bắt đầu tập, kết thúc tập]
-  ageDescription?: string;        // 该阶段年龄Mô tả："25 tuổi"、"50 tuổi"
+  ageDescription?: string;        // 该阶段TuổiMô tả："25 tuổi"、"50 tuổi"
 }
 
 /**
@@ -85,7 +85,7 @@ export interface ScriptCharacter {
   name: string;
   gender?: string;
   age?: string;
-  personality?: string; // 性格特点（详细Mô tả）
+  personality?: string; // Tính cách特点（详细Mô tả）
   role?: string; // Thân phận/bối cảnh（详细Mô tả）
   traits?: string; // Đặc trưng cốt lõi（详细Mô tả）
   skills?: string; // Kỹ năng/năng lực（如武功、魔法等）
@@ -105,8 +105,8 @@ export interface ScriptCharacter {
   visualPromptEn?: string;         // 英文视觉提示词（用于AITạo ảnh）
   visualPromptZh?: string;         // đang xử lý...提示词
   
-  // === 6层身份neo（AIHiệu chuẩn时填充）===
-  identityAnchors?: CharacterIdentityAnchors;  // 身份neo（用于角色一致性）
+  // === 6层Danh tínhneo（AIHiệu chuẩn时填充）===
+  identityAnchors?: CharacterIdentityAnchors;  // Danh tínhneo（用于角色一致性）
   negativePrompt?: CharacterNegativePrompt;    // 负面提示词（排除不符合的特征）
 }
 
@@ -129,7 +129,7 @@ export interface ScriptScene {
   colorPalette?: string;        // 色彩基调（暖色调/冷色调/đang xử lý...）
   keyProps?: string[];          // quan trọng道具列表
   spatialLayout?: string;       // Bố cục không gianMô tả
-  eraDetails?: string;          // thời đại特征（如2000年代的装修风格）
+  eraDetails?: string;          // thời đại特征（如2000thập niên的装修风格）
   
   // === 出场统计（AIHiệu chuẩn时填充）===
   episodeNumbers?: number[];    // 出现在哪些 tập
@@ -204,7 +204,7 @@ export interface ProjectBackground {
   genre?: string;             // 类型（商战/武侠/爱情等）
   era?: string;               // thời đại背景（民国/现代/古代等）
   timelineSetting?: string;   // 精确时间线设定（如"2022年夏天"、"1990-2020年"）
-  storyStartYear?: number;    // 故事开始年份（用于推算角色年龄）
+  storyStartYear?: number;    // 故事开始年份（用于推算角色Tuổi）
   storyEndYear?: number;      // 故事kết thúc年份
   totalEpisodes?: number;     // Tổng tập数
   outline: string;            // 故事đại cương

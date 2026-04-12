@@ -35,7 +35,7 @@ export type AssetPurpose =
   | 'beat_sync'         // Nhạc卡点
   | 'bgm'              // 背景Nhạc
   | 'voice_ref'        // 语音Tham chiếu
-  | 'prev_video'       // 前组kéo dài
+  | 'prev_video'       // nhóm trướckéo dài
   | 'video_extend'     // 被kéo dài的video
   | 'video_edit_src'   // 被Chỉnh sửa的源video
   | 'general'          // 通用Tham chiếu
@@ -138,7 +138,7 @@ export interface ShotGroup {
   videoMediaId: string | null;
   /** Tạo videoTrạng thái */
   videoStatus: VideoGenStatus;
-  /** Tạo进度 0-100 */
+  /** TạoTiến độ 0-100 */
   videoProgress: number;
   /** lỗi信息 */
   videoError: string | null;
@@ -156,7 +156,7 @@ export interface ShotGroup {
   narrativeArc?: string;
   /** Ống kính间chuyển tiếp指令，长度 = sceneIds.length - 1 */
   transitions?: string[];
-  /** cấp nhómâm thanhThiết kế（整段 15s 规划） */
+  /** Thiết kế âm thanh cấp nhóm (kế hoạch toàn đoạn 15 giây) */
   groupAudioDesign?: string;
   /** AI Hiệu chuẩn后的cấp nhóm prompt（优先级：mergedPrompt > calibratedPrompt > Tự động拼接） */
   calibratedPrompt?: string;
@@ -859,7 +859,7 @@ export const useSClassStore = create<SClassStore>()(
 
 // ==================== Selectors ====================
 
-/** 获取当前活跃项mục đích Hạng Sdữ liệu */
+/** 获取当前đang hoạt động项mục đích Hạng Sdữ liệu */
 export const useActiveSClassProject = (): SClassProjectData | null => {
   return useSClassStore((state) => {
     if (!state.activeProjectId) return null;

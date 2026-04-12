@@ -90,7 +90,7 @@ export async function importFullScript(
       normalizeResult = applyAIAnalysis(processedText, aiAnalysis);
       console.log('[importFullScript] AI Cấu trúc检测完成:', normalizeResult.changes);
     } else {
-      // AI 不可用或thất bại：降级到正则兗底
+      // AI không khả dụng或thất bại：降级到正则兗底
       normalizeResult = normalizeScriptFormat(processedText);
       if (normalizeResult.changes.length > 0) {
         console.log('[importFullScript] 正则兜底归一化:', normalizeResult.changes);
@@ -1107,7 +1107,7 @@ function extractEpisodeSummary(episode: EpisodeRawScript): string {
  * AIHiệu chuẩn：为thiếu标题的 tập数Tạo标题
  * @param projectId 项目ID
  * @param options AI配置
- * @param onProgress 进度回调
+ * @param onProgress Tiến độ回调
  */
 export async function calibrateEpisodeTitles(
   projectId: string,
@@ -2027,7 +2027,7 @@ ${characterBios ? `
     b) **光线Thiết kế**：与khung đầu保持一致（除非剧情有时间变化）
     
     c) **nhân vậtMô tả**（重点！Mô tả动作完成后的状态）：
-       - 同样包含年龄、trang phục
+       - 同样包含Tuổi、trang phục
        - **新的Biểu cảm神态**（动作完成后的情绪）
        - **新的Tư thế位置**（动作完成后的位置）
        - 道具的新状态
@@ -2509,9 +2509,9 @@ export function exportProjectMetadata(projectId: string): string {
     for (const char of characters) {
       sections.push(`### ${char.name}`);
       if (char.gender) sections.push(`- Giới tính：${char.gender}`);
-      if (char.age) sections.push(`- 年龄：${char.age}`);
-      if (char.role) sections.push(`- 身份：${char.role}`);
-      if (char.personality) sections.push(`- 性格：${char.personality}`);
+      if (char.age) sections.push(`- Tuổi：${char.age}`);
+      if (char.role) sections.push(`- Danh tính：${char.role}`);
+      if (char.personality) sections.push(`- Tính cách：${char.personality}`);
       if (char.traits) sections.push(`- 特质：${char.traits}`);
       if (char.relationships) sections.push(`- 关系：${char.relationships}`);
       if (char.skills) sections.push(`- 技能：${char.skills}`);

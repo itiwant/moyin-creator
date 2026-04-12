@@ -328,7 +328,7 @@ ${styleDesc}${mediaTypeHint}
 ${s4Fields} 必须包含：
 a) 场景环境（地点+环境细节+时间氛围）
 b) 光线Thiết kế（光源+质感+氛围）
-c) nhân vậtMô tả（年龄+trang phục+Biểu cảm+Tư thế，每角色都写）
+c) nhân vậtMô tả（Tuổi+trang phục+Biểu cảm+Tư thế，每角色都写）
 d) bố cục与Kích thước cảnh（Kích thước cảnh+nhân vật位置关系+焦点）
 e) 重要道具（quan trọng道具+状态）
 f) 画面风格（电影感/色调）

@@ -120,7 +120,7 @@ export interface PendingCharacterData {
   // === chuyên nghiệpNhân vậtThiết kếtrường（世界级大师Tạo） ===
   visualPromptEn?: string;  // Prompt thị giác tiếng Anh
   visualPromptZh?: string;  // đang xử lý...ompt thị giác
-  // === 6层身份neo（Nhân vật一致性） ===
+  // === 6层Danh tínhneo（Nhân vật一致性） ===
   identityAnchors?: CharacterIdentityAnchors;  // Neo danh tính - khóa 6 lớp đặc trưng
   negativePrompt?: CharacterNegativePrompt;    // Prompt phủ định
   // === 多阶段Nhân vậtHỗ trợ ===

@@ -601,7 +601,7 @@ export function EpisodeTree({
     setDeleteItem(null);
   };
 
-  // 计算整体进度
+  // 计算整体Tiến độ
   const overallProgress = useMemo(() => {
     if (!scriptData) return '0/0';
     return calculateProgress(

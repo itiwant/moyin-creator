@@ -12,7 +12,7 @@
  *   - 容错隔离（单批次thất bại不影响其他批次，部分成功也返回kết quả）
  *   - 单批次Thử lại（指数退避，最多 2 次）
  *   - 并发 tập成（复用 runStaggered + 用户 concurrency 设置）
- *   - 进度回调
+ *   - Tiến độ回调
  */
 
 import type { AIFeature } from '@/stores/api-config-store';
@@ -76,7 +76,7 @@ export interface ProcessBatchedOptions<TItem, TResult> {
   apiOptions?: CallFeatureAPIOptions;
 
   /**
-   * 进度回调
+   * Tiến độ回调
    */
   onProgress?: (completed: number, total: number, message: string) => void;
 }

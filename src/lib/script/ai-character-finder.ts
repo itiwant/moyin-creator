@@ -258,7 +258,7 @@ async function generateCharacterData(
 - 如果是客梨或武侠：古代汉服、侠客服饰、布衣草鞋
 - 如果是宫廷：宫装、朝服、官服
 - 如果是仙侠/玄幻：仙侠风格的服饰、飘逸长袍
-请根据角色身份（平民/贵族/侠客/官员）Thiết kế合适的古代trang phục。`;
+请根据角色Danh tính（平民/贵族/侠客/官员）Thiết kế合适的古代trang phục。`;
     }
     
     // 未来/科幻剧
@@ -267,42 +267,42 @@ async function generateCharacterData(
 请根据剧本设定Thiết kế未来风格trang phục：
 - 科技感服饰、chức năng性装备、thông minh穿戴
 - 根据设定可以是乌托邦风格或反乌托邦风格
-- 注意角色身份（平民/科学家/军人/机械师）`;
+- 注意角色Danh tính（平民/科学家/军人/机械师）`;
     }
     
-    // 现代剧 - 根据具体年代
+    // 现代剧 - 根据具体thập niên
     const startYear = background.storyStartYear;
     
     if (startYear) {
       if (startYear >= 2020) {
-        return `【${startYear}年代trang phục指导】
+        return `【${startYear}thập niêntrang phục指导】
 - 年轻人：休闲时尚、运动风、潮牌元素，常穿卫衣、牵仔裤、运动鞋
 - đang xử lý...商务休闲、简约现代，常穿Polo衫、休闲西装、卡其裤
 - 老年人：舒适休闲，常穿开衫、单子衫、布鞋或运动鞋`;
       } else if (startYear >= 2010) {
-        return `【${startYear}年代trang phục指导】
+        return `【${startYear}thập niêntrang phục指导】
 - 年轻人：韩系时尚、小清新风格，常穿T恤、牵仔裤、帆布鞋
 - đang xử lý...商务正装或商务休闲，常穿西装、衬衫、皮鞋
 - 老年人：传统休闲，常穿开衫、布鞋`;
       } else if (startYear >= 2000) {
-        return `【${startYear}年代trang phục指导】
+        return `【${startYear}thập niêntrang phục指导】
 - 年轻人：thiên niên kỷ时尚，常穿紧身裤、Lỏng lẻo外套、板鞋
 - đang xử lý...正式商务装，常穿西装套装、领带、皮鞋
 - 老年人：đang xử lý...简单开衫、布鞋`;
       } else if (startYear >= 1990) {
-        return `【${startYear}年代trang phục指导】
+        return `【${startYear}thập niêntrang phục指导】
 - 年轻人：喇叭裤、的确良外套、大肩垫西装
 - đang xử lý...đang xử lý...西装，解放鞋或简单皮鞋
 - 老年人：đang xử lý...棉袄、布鞋`;
       } else {
-        return `【${startYear}年代trang phục指导】
-请根据该年代的đang xử lý...trang phục风格Thiết kế`;
+        return `【${startYear}thập niêntrang phục指导】
+请根据该thập niên的đang xử lý...trang phục风格Thiết kế`;
       }
     }
     
     // 默认现代
     return `【现代trang phục指导】
-请Thiết kế符合当代đang xử lý...装风格，根据角色年龄和身份Chọn合适的现代trang phục。`;
+请Thiết kế符合当代đang xử lý...装风格，根据角色Tuổi和Danh tínhChọn合适的现代trang phục。`;
   };
   
   // 构建Thông tin thời đại字符串
@@ -336,12 +336,12 @@ trang phục必须与剧本thời đại背景一致，不要混淆不同thời 
 {
   "name": "角色名",
   "gender": "男/女",
-  "age": "年龄Mô tả，如 '30 tuổi左右' 或 'đang xử lý...,
-  "personality": "性格特点，2-3词",
-  "role": "角色身份/职业/在剧đang xử lý...",
-  "appearance": "Đặc điểm ngoại hìnhMô tả（trang phục必须符合年代）",
+  "age": "TuổiMô tả，如 '30 tuổi左右' 或 'đang xử lý...,
+  "personality": "Tính cách特点，2-3词",
+  "role": "角色Danh tính/职业/在剧đang xử lý...",
+  "appearance": "Đặc điểm ngoại hìnhMô tả（trang phục必须符合thập niên）",
   "relationships": "与其他角色的关系",
-  "visualPromptEn": "英文视觉提示词，用于AI图像Tạo，Mô tả外貌、trang phục（必须符合年代）、气质",
+  "visualPromptEn": "英文视觉提示词，用于AI图像Tạo，Mô tả外貌、trang phục（必须符合thập niên）、气质",
   "visualPromptZh": "đang xử lý...提示词",
   "importance": "protagonist/supporting/minor"
 }`;

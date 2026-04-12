@@ -32,7 +32,7 @@ export interface CharacterStageAppearance {
   description: string;       // 该阶段的角色Mô tả
   visualPromptEn: string;    // 英文视觉提示词
   visualPromptZh: string;    // đang xử lý...提示词
-  ageDescription?: string;   // 年龄Mô tả
+  ageDescription?: string;   // TuổiMô tả
   clothingStyle?: string;    // trang phục风格
   keyChanges?: string;       // 与上一阶段的quan trọng变化
 }
@@ -173,8 +173,8 @@ function buildCharacterContext(project: any, character: any): {
     character.name,
     character.gender ? `Giới tính：${character.gender}` : '',
     character.age ? `Tuổi: ${character.age}` : '',
-    character.personality ? `性格：${character.personality}` : '',
-    character.role ? `身份：${character.role}` : '',
+    character.personality ? `Tính cách：${character.personality}` : '',
+    character.role ? `Danh tính：${character.role}` : '',
     character.traits ? `特质：${character.traits}` : '',
     character.appearance ? `外貌：${character.appearance}` : '',
     character.relationships ? `关系：${character.relationships}` : '',
@@ -232,8 +232,8 @@ ${context.characterAppearances.length > 0
 
 【任务要求】
 1. **分析角色成长cung**：根据剧情判断角色是否有明显的阶段变化
-   - 年龄变化：小孩→少年→成年→老年
-   - 身份变化：普通人→商业大亨、学徒→武林高手
+   - Tuổi变化：小孩→少年→成年→老年
+   - Danh tính变化：普通人→商业大亨、学徒→武林高手
    - 状态变化：健康→受伤、普通→修仙后形态
    
 2. **Thiết kế多阶段形象**：为每阶段Tạo独立的视觉提示词
@@ -268,7 +268,7 @@ ${context.characterAppearances.length > 0
       "description": "该阶段角色状态Mô tả",
       "visualPromptEn": "该阶段英文视觉提示词",
       "visualPromptZh": "该阶段đang xử lý...提示词",
-      "ageDescription": "年龄Mô tả",
+      "ageDescription": "TuổiMô tả",
       "clothingStyle": "trang phục风格",
       "keyChanges": "与上一阶段的变化（第一阶段为空）"
     }

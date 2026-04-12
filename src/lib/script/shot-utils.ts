@@ -23,7 +23,7 @@ export function getShotCompletionStatus(shot: Shot): CompletionStatus {
 }
 
 /**
- * 计算一组带 status trường的 items 的进度字符串
+ * 计算一组带 status trường的 items 的Tiến độ字符串
  */
 export function calculateProgress(items: { status?: CompletionStatus }[]): string {
   const completed = items.filter((i) => i.status === "completed").length;

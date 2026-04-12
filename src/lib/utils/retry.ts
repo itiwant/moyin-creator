@@ -42,8 +42,8 @@ export function isRateLimitError(error: unknown): boolean {
     message.includes("上游服务") ||
     message.includes("饱和") ||
     message.includes("负载已满") ||
-    message.includes("暂时不可用") ||
-    message.includes("服务暂时不可用") ||
+    message.includes("暂时không khả dụng") ||
+    message.includes("服务暂时không khả dụng") ||
     message.includes("无可用渠道") ||
     message.includes("no available channel") ||
     message.includes("server error")

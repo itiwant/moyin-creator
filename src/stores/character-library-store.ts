@@ -39,7 +39,7 @@ export interface CharacterView {
  * 
  * Hỗ trợ两种用途：
  * 1. trang phục/Trạng tháibiến thể："Trang phục hàng ngày"、"Trang phục chiến đấu"、"Trạng thái bị thương"
- * 2. 年龄/阶段biến thể："青年版"、"Phiên bản trung niên"、"Cao niên版"（带episodeRange）
+ * 2. Tuổi/阶段biến thể："青年版"、"Phiên bản trung niên"、"Cao niên版"（带episodeRange）
  */
 export interface CharacterVariation {
   id: string;
@@ -86,7 +86,7 @@ export interface Character {
   status?: 'draft' | 'linked'; // Trạng thái: draft=Bản nháp, linked=Đã liên kết kịch bản
   linkedEpisodeId?: string;    // ID tập đã liên kết
   
-  // === 6层身份neo（Nhân vật一致性）===
+  // === 6层Danh tínhneo（Nhân vật一致性）===
   identityAnchors?: CharacterIdentityAnchors;  // Neo danh tính - khóa 6 lớp đặc trưng
   negativePrompt?: CharacterNegativePrompt;    // Prompt phủ định
   

@@ -24,15 +24,15 @@ import { useSClassStore } from '@/stores/sclass-store';
 
 // ==================== Loại定义 ====================
 
-/** Hiệu chuẩn产物（AI 输出的 4 mụccấp nhómtối ưudữ liệu） */
+/** Kết quả Hiệu chuẩn (AI xuất ra 4 mục dữ liệu tối ưu cấp nhóm) */
 export interface CalibrationResult {
   /** cấp nhómtự sựcungMô tả */
   narrativeArc: string;
-  /** Ống kính间chuyển tiếp指令（长度 = scenes.length - 1） */
+  /** Lệnh chuyển tiếp giữa các Ống kính (độ dài = scenes.length - 1) */
   transitions: string[];
-  /** cấp nhómâm thanhThiết kế（整段 15s 规划） */
+  /** Thiết kế âm thanh cấp nhóm (kế hoạch toàn đoạn 15 giây) */
   groupAudioDesign: string;
-  /** AI tối ưu后的cấp nhóm prompt */
+  /** Prompt cấp nhóm sau khi AI tối ưu */
   calibratedPrompt: string;
 }
 
@@ -53,11 +53,11 @@ function summarizeScene(scene: SplitScene, characters: Character[]): string {
   parts.push(`Thời lượng：${scene.duration || 5}s`);
   if (charNames) parts.push(`Nhân vật：${charNames}`);
   if (scene.actionSummary) parts.push(`Hành động：${scene.actionSummary}`);
-  if (scene.cameraMovement) parts.push(`运镜：${scene.cameraMovement}`);
+  if (scene.cameraMovement) parts.push(`Chuyển động máy: ${scene.cameraMovement}`);
   if (scene.dialogue) parts.push(`Thoại：${scene.dialogue}`);
   if (scene.ambientSound) parts.push(`Âm thanh môi trường：${scene.ambientSound}`);
   if (scene.soundEffectText) parts.push(`Hiệu ứng âm thanh：${scene.soundEffectText}`);
-  if (scene.emotionTags?.length) parts.push(`情绪：${scene.emotionTags.join('、')}`);
+  if (scene.emotionTags?.length) parts.push(`Cảm xúc: ${scene.emotionTags.join(', ')}`);
   if (scene.narrativeFunction) parts.push(`tự sựchức năng：${scene.narrativeFunction}`);
 
   return parts.join('\n  ');
@@ -81,7 +81,7 @@ export async function calibrateGroup(
   _sceneLibrary: Scene[],
 ): Promise<CalibrationResult> {
   if (scenes.length === 0) {
-    throw new Error('trong nhóm无Ống kính，无法Hiệu chuẩn');
+    throw new Error('Không có Ống kính trong nhóm, không thể Hiệu chuẩn');
   }
 
   const totalDuration = scenes.reduce((sum, s) => sum + (s.duration || 5), 0);
@@ -91,7 +91,7 @@ export async function calibrateGroup(
     `【Ống kính${i + 1}】\n  ${summarizeScene(s, characters)}`
   ).join('\n\n');
 
-  const systemPrompt = `你是一位资深电影Đạo diễn兼剪辑师，擅长多Ống kínhtự sựvideo的Nhịp điệu把控和tự sự连贯性tối ưu。
+  const systemPrompt = `Bạn là một Đạo diễn điện ảnh kỳ cựu kiêm biên tập viên, giỏi kiểm soát Nhịp điệu và tối ưu tính liên mạch tự sự trong video đa Ống kính.
 
 【核心约束 — 严格执 hàng】
 1. 严格基于以下Ống kínhdữ liệu，不得ThêmKịch bảnđang xử lý...的Nhân vật、Cảnh或Thoại。

@@ -51,7 +51,7 @@ function toShotInputData(scenes: SplitScene[]): ShotInputData[] {
 function buildGlobalContext(scriptProjectId?: string): GlobalContext {
   const store = useScriptStore.getState();
   
-  // 找到活跃的 script project
+  // 找到đang hoạt động的 script project
   const projectId = scriptProjectId || store.activeProjectId;
   const project = projectId ? store.projects[projectId] : null;
   
@@ -151,8 +151,8 @@ export interface RecalibrationResult {
  * 
  * @param newStyleId 新的视觉风格 ID
  * @param splitScenes 当前分镜列表
- * @param scriptProjectId 可选的 script-store projectId（默认用活跃项目）
- * @param onProgress 进度回调
+ * @param scriptProjectId 可选的 script-store projectId（默认用đang hoạt động项目）
+ * @param onProgress Tiến độ回调
  * @returns Hiệu chuẩn后的 SplitScene[]（gọi API方负责写入 store）
  * @throws Hiệu chuẩnthất bại时抛出异常（gọi API方负责捕获并保持原状态không thay đổi）
  */

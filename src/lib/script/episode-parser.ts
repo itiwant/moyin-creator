@@ -144,7 +144,7 @@ function extractTimelineInfo(outline: string, characterBios: string): {
   // 2. 提取thời đại背景（如"现代"、"民国"、"唐朝"）
   const eraPatterns = [
     /(现代|当代|近代|民国|清末|清朝|明朝|宋朝|唐朝|汉朝|三国|战国|春秋|古代|远古|未来)/,
-    /(二十世纪|二十一世纪|20世纪|21世纪|\d{2}年代)/,
+    /(二十世纪|二十一世纪|20世纪|21世纪|\d{2}thập niên)/,
   ];
   
   let era = '现代'; // 默认现代
@@ -169,7 +169,7 @@ function extractTimelineInfo(outline: string, characterBios: string): {
     }
   }
   
-  // 4. 无显式年代quan trọng词且无年份时，通过古风术语推断
+  // 4. 无显式thập niênquan trọng词且无年份时，通过古风术语推断
   // 仅当 era 仍为默认值 '现代' 且没有年份佐证时才推断
   if (era === '现代' && !storyStartYear) {
     // 古代官职/封建制度术语（高置信度）
@@ -715,14 +715,14 @@ function chineseToNumber(chinese: string): number {
 /**
  * 从nhân vật小传文本đang xử lý...色信息
  * 支持两种格式：
- * 1. 紧凑格式：角色tên:年龄：XX身份：... （从 Word/微信复制的无换行文本）
- * 2. 标准格式：角色tên:Mô tả 或 角色名（年龄）：Mô tả
+ * 1. 紧凑格式：角色tên:Tuổi：XXDanh tính：... （从 Word/微信复制的无换行文本）
+ * 2. 标准格式：角色tên:Mô tả 或 角色名（Tuổi）：Mô tả
  */
 export function parseCharacterBios(bios: string): ScriptCharacter[] {
   if (!bios || !bios.trim()) return [];
   
-  // 检测紧凑格式：角色tên:年龄/年两：XX （至少2条目才认定为紧凑格式）
-  const compactEntryRegex = /([\u4e00-\u9fa5]{2,12})[：:]\s*(?:年龄|年两)[：:]\s*(\d{1,3})/g;
+  // 检测紧凑格式：角色tên:Tuổi/年两：XX （至少2条目才认定为紧凑格式）
+  const compactEntryRegex = /([\u4e00-\u9fa5]{2,12})[：:]\s*(?:Tuổi|年两)[：:]\s*(\d{1,3})/g;
   const compactMatches = [...bios.matchAll(compactEntryRegex)];
   
   if (compactMatches.length >= 2) {
@@ -734,7 +734,7 @@ export function parseCharacterBios(bios: string): ScriptCharacter[] {
 }
 
 /**
- * 紧凑格式Phân tích：角色tên:年龄：XX身份：...quan trọng行为：...
+ * 紧凑格式Phân tích：角色tên:Tuổi：XXDanh tính：...quan trọng行为：...
  * Tự động剥离段落标记（一、核心nhân vật chính 等）提取真实角色名
  */
 function parseCompactBioFormat(bios: string, matches: RegExpMatchArray[]): ScriptCharacter[] {
@@ -750,7 +750,7 @@ function parseCompactBioFormat(bios: string, matches: RegExpMatchArray[]): Scrip
     const actualName = stripSectionKeywords(rawName);
     if (!actualName || actualName.length < 2 || actualName.length > 8) continue;
     
-    // 提取Mô tả：从年龄后到下一角色条目之前
+    // 提取Mô tả：从Tuổi后到下一角色条目之前
     const descStart = match.index! + match[0].length;
     const descEnd = i < matches.length - 1 ? matches[i + 1].index! : bios.length;
     let description = bios.slice(descStart, descEnd).trim();
@@ -789,7 +789,7 @@ function stripSectionKeywords(name: string): string {
 }
 
 /**
- * 标准格式Phân tích（原逻辑）：角色tên:Mô tả 或 角色名（年龄）：Mô tả
+ * 标准格式Phân tích（原逻辑）：角色tên:Mô tả 或 角色名（Tuổi）：Mô tả
  */
 function parseStandardBioFormat(bios: string): ScriptCharacter[] {
   const characters: ScriptCharacter[] = [];
@@ -806,7 +806,7 @@ function parseStandardBioFormat(bios: string): ScriptCharacter[] {
     // 跳过非角色内容
     if (name.length > 10 || name.match(/^[第一二三四五六七八九十\d]/)) continue;
     // 跳过thuộc tính标签和补充说明
-    if (/^(?:年龄|身份|性格|补充|注|备注|Đặc trưng cốt lõi|quan trọng行为)$/.test(name)) continue;
+    if (/^(?:Tuổi|Danh tính|Tính cách|补充|注|备注|Đặc trưng cốt lõi|quan trọng行为)$/.test(name)) continue;
     
     characters.push({
       id: `char_${index}`,
@@ -826,8 +826,8 @@ function parseStandardBioFormat(bios: string): ScriptCharacter[] {
  * 从Mô tảđang xử lý...格特点
  */
 function extractPersonality(description: string): string {
-  // 查找性格相关quan trọng词
-  const personalityKeywords = ['性格', '为人', '品性', '脾气'];
+  // 查找Tính cách相关quan trọng词
+  const personalityKeywords = ['Tính cách', '为人', '品性', '脾气'];
   for (const keyword of personalityKeywords) {
     const match = description.match(new RegExp(`${keyword}[^，。,\.]+`));
     if (match) return match[0];

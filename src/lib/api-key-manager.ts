@@ -155,7 +155,7 @@ const VIDEO_ENDPOINT_MAP: Record<string, ModelApiFormat> = {
 
 /**
  * 根据模型的 supported_endpoint_types Xác nhậnảnhTạo应用的 API 格式
- * 当端点元dữ liệu不可用时，根据模型名称推断
+ * 当端点元dữ liệukhông khả dụng时，根据模型名称推断
  */
 export function resolveImageApiFormat(endpointTypes: string[] | undefined, modelName?: string): ModelApiFormat {
   // 1. Sử dụng API 返回的端点元dữ liệu

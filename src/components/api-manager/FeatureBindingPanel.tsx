@@ -564,7 +564,7 @@ export function FeatureBindingPanel() {
                       })()}
                       {isFreedomFeature && invalidBindings.length > 0 && (
                         <p className="text-[11px] text-amber-700 dark:text-amber-300">
-                          检测到暂不可用绑定：系统不会Tự động清理，Model恢复后会Tự độngTiếp tục可用。
+                          检测到暂không khả dụng绑定：系统不会Tự động清理，Model恢复后会Tự độngTiếp tục可用。
                         </p>
                       )}
 

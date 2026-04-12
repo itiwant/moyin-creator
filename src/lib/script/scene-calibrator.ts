@@ -565,7 +565,7 @@ async function enrichScenesWithVisualPrompts(
 
 你的chuyên nghiệp能力：
 - **空间美学**：懂得如何用bố cục、光影、色彩传达情绪
-- **thời đại还原**：准确把握不同年代的建筑和室内装饰特征
+- **thời đại还原**：准确把握不同thập niên的建筑和室内装饰特征
 - **AI图像Tạo**：深谙 Midjourney、DALL-E 等 AI 绘图模型的最佳提示词写法
 - **电影Ngôn ngữ**：理解场景如何为tự sự服务
 
