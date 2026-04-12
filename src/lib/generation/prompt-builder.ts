@@ -309,11 +309,11 @@ export function buildVideoPrompt(
   } else {
     promptParts.push('Ambient: 禁止环境音');
   }
-  // 音效：有内容且开启时包含，否则明确禁止
+  // Hiệu ứng âm thanh：有内容且开启时包含，否则明确禁止
   if (scene.audioSfxEnabled !== false && scene.soundEffectText?.trim()) {
     promptParts.push(`SFX: ${scene.soundEffectText.trim()}`);
   } else {
-    promptParts.push('SFX: 禁止音效');
+    promptParts.push('SFX: 禁止Hiệu ứng âm thanh');
   }
   // 背景音乐：有内容且开启时包含，否则明确禁止
   if (scene.audioBgmEnabled === true && scene.backgroundMusic?.trim()) {

@@ -699,18 +699,18 @@ export function buildGroupPrompt(options: BuildGroupPromptOptions): GroupPromptR
     promptParts.push(`âm thanhTham chiếu：${audioRefLines.join('；')}`);
   }
 
-  // âm thanhThiết kế（môi trường音 + 音效，按Ống kính cột出）
+  // âm thanhThiết kế（Âm thanh môi trường + Hiệu ứng âm thanh，按Ống kính cột出）
   const audioDesignLines: string[] = [];
   for (let i = 0; i < scenes.length; i++) {
     const s = scenes[i];
     const aParts: string[] = [];
     if (s.audioAmbientEnabled !== false && s.ambientSound?.trim()) {
-      aParts.push(`môi trường音：${s.ambientSound.trim()}`);
+      aParts.push(`Âm thanh môi trường：${s.ambientSound.trim()}`);
     }
     const sfxText = s.soundEffectText?.trim();
     const sfxTags = s.soundEffects?.length ? s.soundEffects.join('、') : '';
     if (s.audioSfxEnabled !== false && (sfxText || sfxTags)) {
-      aParts.push(`音效：${sfxText || sfxTags}`);
+      aParts.push(`Hiệu ứng âm thanh：${sfxText || sfxTags}`);
     }
     if (aParts.length > 0) {
       audioDesignLines.push(`Ống kính${i + 1}：${aParts.join('；')}`);

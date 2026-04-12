@@ -132,7 +132,7 @@ export function StylePicker({
           {customAsPresets.length > 0 && (
             <div className="mb-4">
               <div className="px-2 py-1.5 text-xs font-medium text-primary border-b border-primary/30 mb-2">
-                我的风格
+                Phong cách của tôi
               </div>
               <div className="space-y-1">
                 {customAsPresets.map((style) => (
@@ -263,7 +263,7 @@ function StyleItem({ style, isSelected, isCustom, onSelect, onHover, onLeave }: 
       </span>
       {/* Tên */}
       <span className="flex-1 text-left text-sm truncate">{style.name}</span>
-      {/* đã chọn标记 */}
+      {/* Dấu đã chọn */}
       {isSelected && (
         <Check className="w-4 h-4 text-primary flex-shrink-0" />
       )}

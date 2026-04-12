@@ -4,8 +4,8 @@
 "use client";
 
 /**
- * 音效ThẻChọn器组件 (Sound Effect Tags)
- * 用于ChọnỐng kính的音效Thẻ：自然môi trường、nhân vậtHành động、Bầu không khí效果等
+ * Hiệu ứng âm thanhThẻChọn器组件 (Sound Effect Tags)
+ * 用于ChọnỐng kính的Hiệu ứng âm thanhThẻ：自然môi trường、nhân vậtHành động、Bầu không khí效果等
  */
 
 import { useState } from "react";
@@ -25,7 +25,7 @@ interface SoundEffectTagsProps {
   maxTags?: number;
 }
 
-// Tất cả音效Thẻ的扁平 cột表
+// Tất cảHiệu ứng âm thanhThẻ的扁平 cột表
 const ALL_SOUND_EFFECTS = [
   ...SOUND_EFFECT_PRESETS.nature,
   ...SOUND_EFFECT_PRESETS.action,

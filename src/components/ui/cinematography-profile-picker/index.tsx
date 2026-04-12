@@ -154,7 +154,7 @@ export function CinematographyProfilePicker({
             />
             {previewProfile.defaultAtmosphere.effects.length > 0 && (
               <ParamRow
-                label="🌫️ 氛围"
+                label="🌫️ Bầu không khí"
                 value={`${previewProfile.defaultAtmosphere.effects.join(" + ")} (${previewProfile.defaultAtmosphere.intensity})`}
               />
             )}
@@ -165,9 +165,9 @@ export function CinematographyProfilePicker({
           </div>
         </ScrollArea>
 
-        {/* Tham chiếu影片 */}
+        {/* Phim tham chiếu */}
         <div className="border-t border-border/50 pt-2">
-          <div className="text-xs text-muted-foreground mb-1">🎞️ Tham chiếu影片</div>
+          <div className="text-xs text-muted-foreground mb-1">🎞️ Phim tham chiếu</div>
           <div className="flex flex-wrap gap-1">
             {previewProfile.referenceFilms.map((film) => (
               <span
@@ -265,7 +265,7 @@ function ProfileItem({ profile, isSelected, onSelect, onHover, onLeave }: Profil
       <span className="text-base flex-shrink-0">{profile.emoji}</span>
       {/* Tên */}
       <span className="flex-1 text-left text-sm truncate">{profile.name}</span>
-      {/* đã chọn标记 */}
+      {/* Dấu đã chọn */}
       {isSelected && (
         <Check className="w-4 h-4 text-primary flex-shrink-0" />
       )}

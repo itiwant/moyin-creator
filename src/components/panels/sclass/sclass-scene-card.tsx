@@ -991,7 +991,7 @@ export function SClassSceneCard({
                       value={editPromptValue}
                       onChange={(e) => setEditPromptValue(e.target.value)}
                       className="min-h-[50px] text-xs resize-none border-orange-500/30 focus-visible:ring-orange-500/30"
-                      placeholder="Mô tảKhung hình cuối的静态hình ảnh..."
+                      placeholder="Mô tả ảnh tĩnh Khung hình cuối..."
                       autoFocus
                     />
                     <div className="flex gap-1 justify-end mt-1">
@@ -1024,20 +1024,20 @@ export function SClassSceneCard({
                 )}
               </div>
 
-              {/* ━━ videoprompt ━━ 绿色左边框 */}
+              {/* ━━ Prompt video ━━ viền trái xanh lá */}
               <div className="border-l-[3px] border-green-500 pl-3 py-1 space-y-1.5">
                 <Label className="text-[10px] text-green-600 dark:text-green-400 flex items-center gap-1 font-medium">
                   <Play className="h-3 w-3" />
-                  videoprompt（动态Hành động）
+                  Prompt video (Hành động động)
                 </Label>
-                {/* videoprompt文本 */}
+                {/* Văn bản prompt video */}
                 {editingPrompt === 'video' ? (
                   <>
                     <Textarea
                       value={editPromptValue}
                       onChange={(e) => setEditPromptValue(e.target.value)}
                       className="min-h-[50px] text-xs resize-none border-green-500/30 focus-visible:ring-green-500/30"
-                      placeholder="Mô tảvideođang xử lý...nh động、运动、变化..."
+                      placeholder="Mô tả video: hành động, chuyển động, thay đổi..."
                       autoFocus
                     />
                     <div className="flex gap-1 justify-end mt-1">
@@ -1072,20 +1072,20 @@ export function SClassSceneCard({
                 <span className="shrink-0 inline-flex items-center gap-0.5 text-violet-600 dark:text-violet-400 font-medium">
                   <Edit3 className="h-2.5 w-2.5" /> Kịch bản:
                 </span>
-                <span className="text-muted-foreground">{scene.actionSummary || '未Cài đặt'}</span>
+                <span className="text-muted-foreground">{scene.actionSummary || 'Chưa cài đặt'}</span>
               </p>
               <p className="text-[10px] truncate flex items-center gap-1.5">
                 <span className="shrink-0 inline-flex items-center gap-0.5 text-blue-600 dark:text-blue-400 font-medium">
                   <ImageIcon className="h-2.5 w-2.5" /> Khung hình đầu:
                 </span>
-                <span className="text-muted-foreground">{scene.imagePromptZh || scene.imagePrompt || '未Cài đặt'}</span>
+                <span className="text-muted-foreground">{scene.imagePromptZh || scene.imagePrompt || 'Chưa cài đặt'}</span>
               </p>
               {(scene.needsEndFrame || scene.endFramePromptZh || scene.endFramePrompt) && (
                 <p className="text-[10px] truncate flex items-center gap-1.5">
                   <span className="shrink-0 inline-flex items-center gap-0.5 text-orange-600 dark:text-orange-400 font-medium">
                     ◉ Khung hình cuối:
                   </span>
-                  <span className="text-orange-600/70 dark:text-orange-400/70">{scene.endFramePromptZh || scene.endFramePrompt || '未Cài đặt'}</span>
+                  <span className="text-orange-600/70 dark:text-orange-400/70">{scene.endFramePromptZh || scene.endFramePrompt || 'Chưa cài đặt'}</span>
                 </p>
               )}
               <p className="text-[10px] truncate flex items-center gap-1.5">
@@ -1093,7 +1093,7 @@ export function SClassSceneCard({
                   <Play className="h-2.5 w-2.5" /> Video:
                 </span>
                 <span className="text-muted-foreground">
-                  {scene.videoPromptZh || scene.videoPrompt || '未Cài đặt'}
+                  {scene.videoPromptZh || scene.videoPrompt || 'Chưa cài đặt'}
                 {scene.cameraMovement && scene.cameraMovement !== 'none' && (
                     <span className="ml-1 text-green-500/50">[{CAMERA_MOVEMENT_PRESETS.find(p => p.id === scene.cameraMovement)?.label || scene.cameraMovement}]</span>
                   )}
@@ -1107,19 +1107,19 @@ export function SClassSceneCard({
           )}
         </div>
 
-        {/* 秒数 + Ống kính + 情绪Bầu không khí（始终Hiện，不随prompt折叠） */}
+        {/* Số giây + Ống kính + Bầu không khí cảm xúc (luôn hiện, không thu gọn theo prompt) */}
         <div className="space-y-1.5">
           <div className="flex flex-wrap items-center gap-2">
             {/* Số giây */}
             <div className="flex items-center gap-1">
-              <span className="text-[9px] text-muted-foreground">秒数:</span>
+              <span className="text-[9px] text-muted-foreground">Giây:</span>
               <DurationSelector
                 value={scene.duration || 5}
                 onChange={(v) => onUpdateDuration(scene.id, v)}
                 disabled={isGeneratingAny}
               />
             </div>
-            {/* Ống kính运动 */}
+            {/* Chuyển động ống kính */}
             <div className="flex items-center gap-1">
               <Select
                 value={scene.cameraMovement || 'none'}
@@ -1206,7 +1206,7 @@ export function SClassSceneCard({
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="none" className="text-[11px]">无技法</SelectItem>
+                  <SelectItem value="none" className="text-[11px]">Không có kỹ thuật</SelectItem>
                   {PHOTOGRAPHY_TECHNIQUE_PRESETS.map((p) => (
                     <SelectItem key={p.id} value={p.id} className="text-[11px]">
                       {p.emoji} {p.label}
@@ -1219,11 +1219,11 @@ export function SClassSceneCard({
           {/* Mô tả vị trí máy quay (văn bản tự do AI tạo) */}
           {scene.cameraPosition && (
             <div className="flex items-center gap-1.5">
-              <span className="text-[9px] text-muted-foreground shrink-0">机位:</span>
+              <span className="text-[9px] text-muted-foreground shrink-0">Vị trí máy:</span>
               <span className="text-[10px] text-muted-foreground/80 truncate">{scene.cameraPosition}</span>
             </div>
           )}
-          {/* 情绪Bầu không khí */}
+          {/* Bầu không khí cảm xúc */}
           <div>
             <EmotionTags
               value={scene.emotionTags || []}
@@ -1233,10 +1233,10 @@ export function SClassSceneCard({
           </div>
         </div>
 
-        {/* 第四排：âm thanh控制（môi trường音/音效/Thoại） */}
+        {/* Hàng 4: Điều khiển âm thanh (âm thanh môi trường/hiệu ứng âm thanh/Thoại) */}
         <div className="space-y-1">
-          <Label className="text-[10px] text-muted-foreground mb-0.5 block">âm thanh控制</Label>
-          {/* môi trường音 */}
+          <Label className="text-[10px] text-muted-foreground mb-0.5 block">Điều khiển âm thanh</Label>
+          {/* Âm thanh môi trường */}
           <div className="flex items-center gap-1.5">
             <button
               onClick={() => onUpdateField?.(scene.id, 'audioAmbientEnabled', scene.audioAmbientEnabled === false)}
@@ -1248,18 +1248,18 @@ export function SClassSceneCard({
                   : "bg-muted text-muted-foreground line-through"
               )}
             >
-              môi trường音
+              Âm thanh môi trường
             </button>
             <input
               type="text"
               value={scene.ambientSound || ''}
               onChange={(e) => onUpdateAmbientSound(scene.id, e.target.value)}
-              placeholder="风声、雨声、鸟鸣..."
+              placeholder="Tiếng gió, tiếng mưa, chim hót..."
               disabled={isGeneratingAny || scene.audioAmbientEnabled === false}
               className="flex-1 h-6 px-1.5 text-[10px] rounded border bg-transparent disabled:opacity-40 placeholder:text-muted-foreground/30"
             />
           </div>
-          {/* 音效 */}
+          {/* Hiệu ứng âm thanh */}
           <div className="flex items-center gap-1.5">
             <button
               onClick={() => onUpdateField?.(scene.id, 'audioSfxEnabled', scene.audioSfxEnabled === false)}
@@ -1271,7 +1271,7 @@ export function SClassSceneCard({
                   : "bg-muted text-muted-foreground line-through"
               )}
             >
-              音效
+              Hiệu ứng âm thanh
             </button>
             <input
               type="text"

@@ -555,10 +555,10 @@ export function PropertyPanel({
     if (shot.ambientSound || shot.soundEffect) {
       lines.push('【âm thanhThiết kế】');
       if (shot.ambientSound) {
-        lines.push(`môi trường音: ${shot.ambientSound}`);
+        lines.push(`Âm thanh môi trường: ${shot.ambientSound}`);
       }
       if (shot.soundEffect) {
-        lines.push(`音效: ${shot.soundEffect}`);
+        lines.push(`Hiệu ứng âm thanh: ${shot.soundEffect}`);
       }
       lines.push('');
     }
@@ -1540,7 +1540,7 @@ export function PropertyPanel({
                   )}
                   {(shot as any).soundEffect && (
                     <div>
-                      <span className="text-xs text-muted-foreground">音效: </span>
+                      <span className="text-xs text-muted-foreground">Hiệu ứng âm thanh: </span>
                       <span className="text-xs italic">{(shot as any).soundEffect}</span>
                     </div>
                   )}

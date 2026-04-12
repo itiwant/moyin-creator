@@ -487,7 +487,7 @@ export interface Shot {
   // === âm thanhThiết kế ===
   dialogue?: string;         // Thoại/台词
   ambientSound?: string;     // môi trường声（如：“沉重的风声伴随空旷堂内回响”）
-  soundEffect?: string;      // 音效（如：“远处悠长的钟声”）
+  soundEffect?: string;      // Hiệu ứng âm thanh（如：“远处悠长的钟声”）
   
   // === 角色信息 ===
   characterNames?: string[];

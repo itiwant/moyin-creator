@@ -40,7 +40,7 @@ export const DURATION_PRESETS = [
 // Thời lượngLoại: 4-12 秒
 export type DurationType = number;
 
-// ==================== 音效Thẻ预设 (Sound Effects) ====================
+// ==================== Hiệu ứng âm thanhThẻ预设 (Sound Effects) ====================
 
 export const SOUND_EFFECT_PRESETS = {
   // 自然môi trường

@@ -3385,7 +3385,7 @@ export function SClassScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
       {/* Row 1.5: Seedance 2.0 âm thanh/运镜Gợi ý（实际控制复用每Phân cảnh的 per-scene âm thanh开关） */}
       <div className="flex flex-wrap items-center gap-3 p-2 rounded-lg bg-muted/20 border">
         <Music className="h-3.5 w-3.5 text-muted-foreground" />
-        <span className="text-xs text-muted-foreground">âm thanh/运镜: 复用每Phân cảnh的独立开关（Thoại / 音效 / môi trường声 / 运镜）Tự động聚合</span>
+        <span className="text-xs text-muted-foreground">âm thanh/运镜: 复用每Phân cảnh的独立开关（Thoại / Hiệu ứng âm thanh / môi trường声 / 运镜）Tự động聚合</span>
         <span className="text-xs text-muted-foreground/60">Thời lượng上限 15s · Seedance 2.0</span>
       </div>
 

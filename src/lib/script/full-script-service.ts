@@ -1813,7 +1813,7 @@ async function callAIForShotCalibration(
   emotionTags: string[];    // 情绪标签
   characterNames: string[]; // đầy đủ角色列表
   ambientSound: string;     // 环境音
-  soundEffect: string;      // 音效
+  soundEffect: string;      // Hiệu ứng âm thanh
   // === tự sự驱动trường（基于《电影Ngôn ngữ的语法》） ===
   narrativeFunction: string;  // tự sự功能：铺垫/升级/cao trào/转折/过渡/尾声
   conflictStage?: string;     // 冲突阶段
@@ -1931,7 +1931,7 @@ ${characterBios ? `
 
 5. **音频Thiết kế**（必须用đang xử lý...根据原文识别并输出：
    - ambientSound（环境音）：如"外鸟鸣"、"餐厅嗨杂声"、"风声"
-   - soundEffect（音效）：如"酒杯碎裂声"、"脚步声"、"门关闭声"
+   - soundEffect（Hiệu ứng âm thanh）：如"酒杯碎裂声"、"脚步声"、"门关闭声"
 
 【任务】
 为每分镜Tạo：
@@ -1946,7 +1946,7 @@ ${characterBios ? `
 6. 情绪标签 (emotionTags): 1-3情绪标签ID
 7. 出场角色 (characterNames): đầy đủ角色列表，来自原文
 8. 环境音 (ambientSound): **đang xử lý...，根据场景推断
-9. 音效 (soundEffect): **đang xử lý...，根据动作推断
+9. Hiệu ứng âm thanh (soundEffect): **đang xử lý...，根据动作推断
 
 **tự sự驱动trường（重要！必须基于本 tậpđại cương分析）：**
 10. tự sự功能 (narrativeFunction): 铺垫/升级/cao trào/转折/过渡/尾声

@@ -55,8 +55,8 @@ function summarizeScene(scene: SplitScene, characters: Character[]): string {
   if (scene.actionSummary) parts.push(`Hành động：${scene.actionSummary}`);
   if (scene.cameraMovement) parts.push(`运镜：${scene.cameraMovement}`);
   if (scene.dialogue) parts.push(`Thoại：${scene.dialogue}`);
-  if (scene.ambientSound) parts.push(`môi trường音：${scene.ambientSound}`);
-  if (scene.soundEffectText) parts.push(`音效：${scene.soundEffectText}`);
+  if (scene.ambientSound) parts.push(`Âm thanh môi trường：${scene.ambientSound}`);
+  if (scene.soundEffectText) parts.push(`Hiệu ứng âm thanh：${scene.soundEffectText}`);
   if (scene.emotionTags?.length) parts.push(`情绪：${scene.emotionTags.join('、')}`);
   if (scene.narrativeFunction) parts.push(`tự sự功能：${scene.narrativeFunction}`);
 
@@ -97,7 +97,7 @@ export async function calibrateGroup(
 1. 严格基于以下Ống kính数据，不得ThêmKịch bảnđang xử lý...的Nhân vật、Cảnh或Thoại。
 2. 只做tự sự连贯优化和过渡Thiết kế，不改变各Ống kính的核心Nội dung和情绪基调。
 3. 保留每Ống kính的原有运镜和Hành độngThiết kế，只在Ống kính衔接处增加过渡指令。
-4. âm thanhThiết kế必须基于各Ống kính已有的môi trường音/音效信息，不凭空创造新音源。
+4. âm thanhThiết kế必须基于各Ống kính已有的Âm thanh môi trường/Hiệu ứng âm thanh信息，不凭空创造新音源。
 5. calibratedPrompt 是对Tất cảỐng kính的整合重写，必须包含每Ống kính的核心信息，不遗漏。
 
 请以 JSON 格式Quay lại，Không有任何解释文字。`;
@@ -115,7 +115,7 @@ ${sceneSummaries}
   "transitions": [
     "Ống kính1→Ống kính2 的过渡指令（如：hình ảnh溶解、硬切、声桥过渡等）"
   ],
-  "groupAudioDesign": "整段 ${totalDuration}s 的âm thanhThiết kế规划（môi trường音层次、音效时机、情绪曲线）",
+  "groupAudioDesign": "整段 ${totalDuration}s 的âm thanhThiết kế规划（Âm thanh môi trường层次、Hiệu ứng âm thanh时机、情绪曲线）",
   "calibratedPrompt": "整合优化后的đầy đủ组级prompt，đang xử lý...于 Seedance 2.0 多Ống kínhtự sựTạo video"
 }
 
