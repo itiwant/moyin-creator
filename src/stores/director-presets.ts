@@ -325,7 +325,7 @@ export const PHOTOGRAPHY_TECHNIQUE_PRESETS = [
   { id: 'high-speed' as const, label: 'Chụp nhanh đông cứng', labelEn: 'High Speed Freeze', emoji: '⚡', promptToken: 'high speed photography, frozen motion, sharp action freeze frame,' },
   { id: 'bokeh' as const, label: 'Bokeh (nông DOF)', labelEn: 'Bokeh', emoji: '💫', promptToken: 'beautiful bokeh, creamy out-of-focus highlights, dreamy background blur,' },
   { id: 'reflection' as const, label: 'Phản chiếu/Gương', labelEn: 'Reflection', emoji: '🪞', promptToken: 'reflection photography, mirror surface, symmetrical composition,' },
-  { id: 'silhouette-technique' as const, label: '剪影拍摄', labelEn: 'Silhouette', emoji: '🌅', promptToken: 'silhouette photography, dark figure against bright background, rim light outline,' },
+  { id: 'silhouette-technique' as const, label: 'Chụp bóng silhouette', labelEn: 'Silhouette', emoji: '🌅', promptToken: 'silhouette photography, dark figure against bright background, rim light outline,' },
 ] as const;
 
 export type PhotographyTechniqueType = typeof PHOTOGRAPHY_TECHNIQUE_PRESETS[number]['id'];

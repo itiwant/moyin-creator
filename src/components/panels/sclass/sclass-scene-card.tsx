@@ -868,13 +868,13 @@ export function SClassSceneCard({
             )}>
               <AlertCircle className="h-3 w-3" />
               {isVideoModerationSkipped 
-                ? 'Nội dung审核跳过'
+                ? 'Nội dung bị bỏ qua kiểm duyệt'
                 : (scene.videoError || 'Tạo thất bại')}
             </span>
           )}
         </div>
 
-        {/* 第三排：prompt系统（Kịch bảnHành động + 三层prompt + 情绪Thẻ） - 彩色分区 */}
+        {/* Hàng 3: Hệ thống prompt (Hành động kịch bản + 3 lớp prompt + Thẻ cảm xúc) - phân vùng màu sắc */}
         <div className="space-y-1.5">
           {/* Header thu gọn/mở rộng: Chevron + tiêu đề + Huy hiệu trạng thái điền */}
           <button
@@ -924,29 +924,29 @@ export function SClassSceneCard({
 
           {showPromptDetails ? (
             <div className="space-y-2 pl-1">
-              {/* ━━ Kịch bảnHành động（prompt来源）━━ 紫色左边框 */}
+              {/* ━━ Hành động kịch bản (nguồn prompt) ━━ viền trái tím */}
               <div className="border-l-[3px] border-violet-500 pl-3 py-1 space-y-1">
                 <Label className="text-[10px] text-violet-600 dark:text-violet-400 flex items-center gap-1 font-medium">
                   <Edit3 className="h-3 w-3" />
-                  Kịch bảnHành động（prompt来源）
+                  Hành động kịch bản (nguồn prompt)
                 </Label>
                 <div className="rounded bg-violet-500/5 border border-violet-500/10">
                   <EditableTextField
                     label=""
                     value={scene.actionSummary || ''}
                     onChange={(v) => onUpdateField?.(scene.id, 'actionSummary', v)}
-                    placeholder="双击ThêmHành độngMô tả（AI 将据此Tạo三层prompt）..."
+                    placeholder="Nhấp đôi để Thêm mô tả Hành động (AI sẽ Tạo 3 lớp prompt dựa trên đây)..."
                     disabled={isGeneratingAny}
                     multiline
                   />
                 </div>
               </div>
 
-              {/* ━━ Khung hình đầuprompt ━━ 蓝色左边框 */}
+              {/* ━━ Prompt Khung hình đầu ━━ viền trái xanh lam */}
               <div className="border-l-[3px] border-blue-500 pl-3 py-1 space-y-1">
                 <Label className="text-[10px] text-blue-600 dark:text-blue-400 flex items-center gap-1 font-medium">
                   <ImageIcon className="h-3 w-3" />
-                  Khung hình đầuprompt（静态hình ảnh）
+                  Prompt Khung hình đầu (ảnh tĩnh)
                 </Label>
                 {editingPrompt === 'image' ? (
                   <>
@@ -954,7 +954,7 @@ export function SClassSceneCard({
                       value={editPromptValue}
                       onChange={(e) => setEditPromptValue(e.target.value)}
                       className="min-h-[50px] text-xs resize-none border-blue-500/30 focus-visible:ring-blue-500/30"
-                      placeholder="Mô tảKhung hình đầu的静态hình ảnh..."
+                      placeholder="Mô tả ảnh tĩnh Khung hình đầu..."
                       autoFocus
                     />
                     <div className="flex gap-1 justify-end mt-1">
@@ -979,7 +979,7 @@ export function SClassSceneCard({
                 )}
               </div>
 
-              {/* ━━ Khung hình cuốiprompt ━━ 橙色左边框 */}
+              {/* ━━ Prompt Khung hình cuối ━━ viền trái cam */}
               <div className="border-l-[3px] border-orange-500 pl-3 py-1 space-y-1">
                 <Label className="text-[10px] text-orange-600 dark:text-orange-400 flex items-center gap-1 font-medium">
                   <span>◉</span>

@@ -112,7 +112,7 @@ export function StylePicker({
               <div className="px-2 py-1.5 text-xs font-medium text-muted-foreground border-b border-border/50 mb-2">
                 {category.name}
               </div>
-              {/* 风格列表 */}
+              {/* Danh sách phong cách */}
               <div className="space-y-1">
                 {category.styles.map((style) => (
                   <StyleItem
@@ -128,7 +128,7 @@ export function StylePicker({
             </div>
           ))}
 
-          {/* 用户Tùy chỉnh风格（用户人资产） */}
+          {/* Phong cách tùy chỉnh của người dùng (tài sản người dùng) */}
           {customAsPresets.length > 0 && (
             <div className="mb-4">
               <div className="px-2 py-1.5 text-xs font-medium text-primary border-b border-primary/30 mb-2">
@@ -152,9 +152,9 @@ export function StylePicker({
         </div>
       </ScrollArea>
 
-      {/* 右侧：预览信息 */}
+      {/* Bên phải: Thông tin xem trước */}
       <div className="flex-1 p-4 flex flex-col">
-        {/* 色块Placeholder + 风格名称 */}
+        {/* Màu sắc Placeholder + Tên phong cách */}
         <div className={cn(
           "flex-1 flex flex-col items-center justify-center rounded-lg mb-3",
           CATEGORY_COLORS[previewStyle.category] || 'bg-muted/30'
@@ -162,7 +162,7 @@ export function StylePicker({
           <div className="text-2xl font-bold mb-2">{previewStyle.name}</div>
           <div className="text-xs opacity-70">{previewStyle.category.toUpperCase()} · {previewStyle.mediaType}</div>
         </div>
-        {/* 风格信息 */}
+        {/* Thông tin phong cách */}
         <div className="text-center">
           <div className="font-medium text-sm mb-1">{previewStyle.name}</div>
           <div className="text-xs text-muted-foreground line-clamp-2">
@@ -197,7 +197,7 @@ export function StylePicker({
                       ? 'bg-primary/20 text-primary'
                       : CATEGORY_COLORS[selectedStyle.category] || 'bg-muted'
                   )}>
-                    {selectedStyle.id.startsWith('custom_style_') ? '★' : selectedStyle.category === '3d' ? '3D' : selectedStyle.category === '2d' ? '2D' : selectedStyle.category === 'real' ? '真' : '定'}
+                    {selectedStyle.id.startsWith('custom_style_') ? '★' : selectedStyle.category === '3d' ? '3D' : selectedStyle.category === '2d' ? '2D' : selectedStyle.category === 'real' ? 'Thực' : 'Tùy'}
                   </span>
                 )}
                 <span className={!selectedStyle ? "text-muted-foreground" : ""}>
@@ -254,14 +254,14 @@ function StyleItem({ style, isSelected, isCustom, onSelect, onHover, onLeave }: 
       onMouseEnter={onHover}
       onMouseLeave={onLeave}
     >
-      {/* 色块Placeholder */}
+      {/* Màu sắc Placeholder */}
       <span className={cn(
         "w-10 h-10 rounded flex items-center justify-center text-[10px] font-bold flex-shrink-0",
         isCustom ? 'bg-primary/20 text-primary' : CATEGORY_COLORS[style.category] || 'bg-muted'
       )}>
-        {isCustom ? '★' : style.category === '3d' ? '3D' : style.category === '2d' ? '2D' : style.category === 'real' ? '真' : '定'}
+        {isCustom ? '★' : style.category === '3d' ? '3D' : style.category === '2d' ? '2D' : style.category === 'real' ? 'Thực' : 'Tùy'}
       </span>
-      {/* 名称 */}
+      {/* Tên */}
       <span className="flex-1 text-left text-sm truncate">{style.name}</span>
       {/* đã chọn标记 */}
       {isSelected && (

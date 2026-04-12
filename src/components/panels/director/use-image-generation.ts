@@ -177,7 +177,7 @@ export async function callImageGenerationApi(
         }
         imageUrl = imageUrl || normalizeUrl(statusData.output_url) || normalizeUrl(statusData.result_url) || normalizeUrl(statusData.url);
 
-        if (!imageUrl) throw new Error('任务完成但没有ảnh URL');
+        if (!imageUrl) throw new Error('Nhiệm vụ hoàn thành nhưng không có ảnh URL');
         
         const httpUrl = imageUrl;
         let finalImageUrl = imageUrl;

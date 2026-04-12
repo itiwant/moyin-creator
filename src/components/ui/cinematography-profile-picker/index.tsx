@@ -95,7 +95,7 @@ export function CinematographyProfilePicker({
               <div className="px-2 py-1.5 text-xs font-medium text-muted-foreground border-b border-border/50 mb-2">
                 {category.emoji} {category.name}
               </div>
-              {/* 档案列表 */}
+              {/* Danh sách hồ sơ */}
               <div className="space-y-1">
                 {category.profiles.map((profile) => (
                   <ProfileItem
@@ -113,9 +113,9 @@ export function CinematographyProfilePicker({
         </div>
       </ScrollArea>
 
-      {/* 右侧：预览 */}
+      {/* Bên phải: Xem trước */}
       <div className="flex-1 p-4 flex flex-col overflow-hidden">
-        {/* 档案标题 */}
+        {/* Tiêu đề hồ sơ */}
         <div className="flex items-center gap-2 mb-3">
           <span className="text-2xl">{previewProfile.emoji}</span>
           <div>
@@ -129,27 +129,27 @@ export function CinematographyProfilePicker({
           {previewProfile.description}
         </div>
 
-        {/* 媒介适配提示 */}
+        {/* Gợi ý thích nghi phương tiện */}
         {showAdaptHint && (
           <div className="text-xs mb-3 px-2 py-1.5 rounded bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20">
-            ⓘ 当前视觉风格为「{MEDIA_TYPE_LABELS[mediaType]}」媒介，摄影参数将Tự động适配
-            {isFieldSkipped(mediaType, 'cameraRig') && '（器材/景深/转焦将被跳过）'}
+            ⓘ Phong cách thị giác hiện tại là phương tiện「{MEDIA_TYPE_LABELS[mediaType]}」, tham số nhiếp ảnh sẽ tự động thích nghi
+            {isFieldSkipped(mediaType, 'cameraRig') && '(Thiết bị/Độ sâu/Chuyển tiêu sẽ bị bỏ qua)'}
           </div>
         )}
 
-        {/* 摄影参数速览 */}
+        {/* Tổng quan tham số nhiếp ảnh */}
         <ScrollArea className="flex-1 mb-3">
           <div className="space-y-2 text-xs">
             <ParamRow
-              label="💡 灯光"
+              label="💡 Ánh sáng"
               value={`${previewProfile.defaultLighting.style} · ${previewProfile.defaultLighting.direction} · ${previewProfile.defaultLighting.colorTemperature}`}
             />
             <ParamRow
-              label="🔭 焦点"
+              label="🔭 Tiêu điểm"
               value={`${previewProfile.defaultFocus.depthOfField} · ${previewProfile.defaultFocus.focusTransition}`}
             />
             <ParamRow
-              label="🎥 器材"
+              label="🎥 Thiết bị"
               value={`${previewProfile.defaultRig.cameraRig} · ${previewProfile.defaultRig.movementSpeed}`}
             />
             {previewProfile.defaultAtmosphere.effects.length > 0 && (
@@ -263,7 +263,7 @@ function ProfileItem({ profile, isSelected, onSelect, onHover, onLeave }: Profil
     >
       {/* Emoji */}
       <span className="text-base flex-shrink-0">{profile.emoji}</span>
-      {/* 名称 */}
+      {/* Tên */}
       <span className="flex-1 text-left text-sm truncate">{profile.name}</span>
       {/* đã chọn标记 */}
       {isSelected && (
