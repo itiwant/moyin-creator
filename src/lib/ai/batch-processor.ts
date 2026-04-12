@@ -241,7 +241,7 @@ export async function processBatched<TItem, TResult>(
  * 约束 2（Output）: sum(itemOutputTokens) ≤ outputBudget
  *
  * 贪心策略：依次Thêm item，任一约束即将vượt quá时开始新批次。
- * 单 item vượt quá预算时仍独立成批（至少每批 1  item）。
+ * 单 item vượt quá预算时仍độc lập成批（至少每批 1  item）。
  */
 function createBatches<TItem>(
   items: TItem[],

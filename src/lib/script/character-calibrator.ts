@@ -92,7 +92,7 @@ export interface CalibrationOptions {
   strictness?: CalibrationStrictness;
 }
 
-// ==================== 从剧本重新提取角色 ====================
+// ==================== 从剧本lại提取角色 ====================
 
 /**
  * 从 episodeRawScripts đang xử lý...取Tất cả角色
@@ -448,7 +448,7 @@ ${strictness !== 'strict' ? `【极其重要 - Lỏng lẻo筛选原则】
       items: batchItems,
       feature: 'script_analysis',
       buildPrompts: (batch) => {
-        // 每批构建独立的角色列表和Thoại样本
+        // 每批构建độc lập的角色列表和Thoại样本
         const charList = batch.map((c, i) => {
           if (c.sceneCount === 0 && c.dialogueCount === 0) {
             return `${i + 1}. ${c.name} [未统计到出场]`;
@@ -635,7 +635,7 @@ ${batchDialogues.slice(0, 100).join('\n')}
     episodeRange: c.episodeSpan,
   }));
     
-  // === 第三步：为nhân vật chính和重要nhân vật phụTạochuyên nghiệpThị giác提示词（独立 try/catch，thất bại不影响Hiệu chuẩnkết quả）===
+  // === 第三步：为nhân vật chính和重要nhân vật phụTạochuyên nghiệpThị giác提示词（độc lập try/catch，thất bại不影响Hiệu chuẩnkết quả）===
   let enrichedCharacters = characters;
   try {
     enrichedCharacters = await enrichCharactersWithVisualPrompts(
@@ -680,7 +680,7 @@ ${batchDialogues.slice(0, 100).join('\n')}
       console.log(`[CharacterCalibrator] 合并上次Hiệu chuẩn丢失的 ${missingCharacters.length} 角色:`, 
         missingCharacters.map(c => c.name));
       
-      // 为丢失的角色重新分配 ID
+      // 为丢失的角色lại分配 ID
       const maxId = Math.max(...finalCharacters.map(c => {
         const match = c.id.match(/char_(\d+)/);
         return match ? parseInt(match[1]) : 0;

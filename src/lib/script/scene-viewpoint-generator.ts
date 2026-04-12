@@ -471,7 +471,7 @@ export function extractViewpointsFromShots(
     .sort((a, b) => b.shotIds.length - a.shotIds.length)
     .slice(0, maxViewpoints);
   
-  // 重新分配 gridIndex
+  // lại分配 gridIndex
   viewpoints.forEach((v, i) => { v.gridIndex = i; });
   
   // 如果góc nhìn不足 6 ，补充默认góc nhìn
@@ -959,7 +959,7 @@ export function groupViewpointsIntoPages(
   
   for (let i = 0; i < viewpoints.length; i += viewpointsPerPage) {
     const page = viewpoints.slice(i, i + viewpointsPerPage);
-    // 重新分配页内 gridIndex (0-5)
+    // lại分配页内 gridIndex (0-5)
     page.forEach((v, idx) => { v.gridIndex = idx; });
     pages.push(page);
   }
@@ -1227,7 +1227,7 @@ export function buildContactSheetDataFromViewpoints(
   const pages: typeof viewpoints[] = [];
   for (let i = 0; i < viewpoints.length; i += viewpointsPerPage) {
     const page = viewpoints.slice(i, i + viewpointsPerPage);
-    // 重新分配页内 gridIndex (0-based)
+    // lại分配页内 gridIndex (0-based)
     page.forEach((v, idx) => { (v as any).gridIndex = idx; });
     pages.push(page);
   }

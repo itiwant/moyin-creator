@@ -261,7 +261,7 @@ export async function calibrateScenes(
   _options?: CalibrationOptions // 不再需要，保留以tương thích
 ): Promise<SceneCalibrationResult> {
   
-  // 【nhẹchế độ】Trực tiếpSử dụng currentScenes，不重新统计
+  // 【nhẹchế độ】Trực tiếpSử dụng currentScenes，不lại统计
   if (!currentScenes || currentScenes.length === 0) {
     console.warn('[calibrateScenes] currentScenes 为空，无法Hiệu chuẩn');
     return {

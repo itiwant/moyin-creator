@@ -236,7 +236,7 @@ ${context.characterAppearances.length > 0
    - Danh tính变化：普通人→商业大亨、学徒→武林高手
    - 状态变化：健康→受伤、普通→修仙后形态
    
-2. **Thiết kế多阶段形象**：为每阶段Tạo独立的Thị giác提示词
+2. **Thiết kế多阶段形象**：为每阶段Tạođộc lập的Thị giác提示词
    - 如果角色没有明显阶段变化，只需Thiết kế1阶段
    - 如果有变化，Thiết kế2-4阶段
 

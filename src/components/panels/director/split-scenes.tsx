@@ -1525,7 +1525,7 @@ export function SplitScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
       });
 
       // Khung hình đầuảnhChọn逻辑：
-      // 1. 如果本地持久化ảnh存在且Đã cấu hìnhLưu trữ ảnh，始终优先Sử dụng本地图重新Tải lên到当前Lưu trữ ảnh
+      // 1. 如果本地持久化ảnh存在且Đã cấu hìnhLưu trữ ảnh，始终优先Sử dụng本地图lạiTải lên到当前Lưu trữ ảnh
       // 2. 否则仅在 imageSource === 'ai-generated' 且hiện cóKhả dụng HTTP URL 时复用该 URL
       // 3. 其余情况Sử dụng imageDataUrl，并在后续转换为 HTTP URL
       let firstFrameUrl = scene.imageDataUrl || (isHttpImageUrl(scene.imageHttpUrl) ? scene.imageHttpUrl : '');
@@ -2889,7 +2889,7 @@ export function SplitScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
 
         console.log(`[MergedGen] Tự động thử lại trang ${fp.index + 1} (${pageInfo})`);
         try {
-          // 重新thu thậpẢnh tham chiếu（可能在其他页Thành công后有新的图可用）
+          // lạithu thậpẢnh tham chiếu（可能在其他页Thành công后有新的图可用）
           const freshRefs = collectOptimizedRefsFromTasks(fp.pageTasks);
           await generateGridAndSlice(fp.pageTasks, freshRefs);
           succeededCount++;

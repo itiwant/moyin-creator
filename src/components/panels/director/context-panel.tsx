@@ -361,7 +361,7 @@ export function DirectorContextPanel() {
     };
   };
   
-  // 异步Phiên bản：quan trọng词 + AI Khớp（用于批量Thêm）
+  // 异步Phiên bản：quan trọng词 + AI Khớp（用于hàng loạtThêm）
   const findMatchingSceneAndViewpointWithAI = async (sceneName: string, actionSummary: string): Promise<ViewpointMatchResult | null> => {
     return matchSceneAndViewpoint(sceneName, actionSummary, sceneLibraryScenes, true);
   };

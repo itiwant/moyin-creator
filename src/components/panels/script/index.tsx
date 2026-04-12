@@ -229,7 +229,7 @@ export function ScriptView() {
     }
   }, [activeProjectId, setActiveProjectId, ensureProject]);
 
-  // panel重新挂载时，将"Đang thực hiện"的瞬态状态重置为 idle，Tránh显示虚假的 loading 状态
+  // panellại挂载时，将"Đang thực hiện"的瞬态状态重置为 idle，Tránh显示虚假的 loading 状态
   useEffect(() => {
     if (!activeProjectId) return;
     const state = useScriptStore.getState().projects[activeProjectId]?.calibrationState;
@@ -962,7 +962,7 @@ export function ScriptView() {
   }, [projectId, episodeRawScripts.length]);
 
   // 手动触发 AI Nhân vậtHiệu chuẩn（包含多giai đoạnbiến thểTự độngTạo）
-  // 注意：Nhân vậtHiệu chuẩn是独立步骤，不依赖góc nhìnphân tích，可随时根据最新dữ liệu执 hàng
+  // 注意：Nhân vậtHiệu chuẩn是độc lập步骤，不依赖góc nhìnphân tích，可随时根据最新dữ liệu执 hàng
   const handleCalibrateCharacters = useCallback(async () => {
     const featureConfig = getFeatureConfig('script_analysis');
     if (!featureConfig) {
@@ -1095,7 +1095,7 @@ export function ScriptView() {
               }
               const baseChar = newCharacters[baseCharIndex];
               
-              // 为每giai đoạntạo独立的 ScriptCharacter
+              // 为每giai đoạntạođộc lập的 ScriptCharacter
               const stageCharIds: string[] = [];
               for (let stageIdx = 0; stageIdx < analysis.stages.length; stageIdx++) {
                 const stage = analysis.stages[stageIdx];

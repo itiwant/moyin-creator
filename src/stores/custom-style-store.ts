@@ -3,7 +3,7 @@
 // Commercial licensing available. See COMMERCIAL_LICENSE.md.
 /**
  * Custom Style Store
- * người dùngTùy chỉnhPhong cáchTài sảnQuản lý，独立于内置预设
+ * người dùngTùy chỉnhPhong cáchTài sảnQuản lý，độc lập于内置预设
  * Sử dụng localStorage 持久化（全局Tài sản，不按项目分割）
  */
 

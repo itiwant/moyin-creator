@@ -4,7 +4,7 @@
 /**
  * 5阶段分镜Hiệu chuẩn模块
  * 
- * 将 30+ trường拆分为 5 独立 AI gọi API，Tránh推理模型 token 耗尽
+ * 将 30+ trường拆分为 5 độc lập AI gọi API，Tránh推理模型 token 耗尽
  * 
  * Stage 1: tự sự骨架 (9 fields) — Kích thước cảnh/运动/thời lượng + tự sự分析
  * Stage 2: Mô tả thị giác (6 fields) — đang xử lý...述 + 角色 + 音频

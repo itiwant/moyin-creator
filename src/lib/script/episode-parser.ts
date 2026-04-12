@@ -281,7 +281,7 @@ function extractThemes(outline: string, characterBios: string): string[] {
     { keywords: /友情|兄弟|义气|忠诚/, theme: '友情' },
     { keywords: /quyền lực|争斗|权谋|阴谋/, theme: '权谋' },
     { keywords: /正义|公平|法治|真相/, theme: '正义' },
-    { keywords: /自由|解放|独立/, theme: '自由' },
+    { keywords: /自由|解放|độc lập/, theme: '自由' },
     { keywords: /救赎|原谅|和解|忏悔/, theme: '救赎' },
     { keywords: /背叛|出卖|信任/, theme: '背叛与信任' },
     { keywords: /命运|宿命|天命/, theme: '命运' },

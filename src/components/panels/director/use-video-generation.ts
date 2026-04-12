@@ -324,10 +324,10 @@ function handleVideoSubmitError(
 
 /**
  * Tạo video API 通常要求输入ảnh满足最小尺寸（如 Seedance 要求宽度 ≥ 300px）。
- * 当lưới 9 ô切割后的ảnh尺寸过小时，Tự động放大到满足最低要求后重新Tải lên。
+ * 当lưới 9 ô切割后的ảnh尺寸过小时，Tự động放大到满足最低要求后lạiTải lên。
  * @param imageUrl  HTTP URL ảnh地址
  * @param minDimension  宽高的最小像素值（Mặc định 300，Khớp Seedance 等Model要求）
- * @returns gốc URL（尺寸达标）或放大后重新Tải lên的新 URL
+ * @returns gốc URL（尺寸达标）或放大后lạiTải lên的新 URL
  */
 async function ensureMinImageSize(
   imageUrl: string,
@@ -381,7 +381,7 @@ async function ensureMinImageSize(
     objectUrl = undefined;
     const upscaledDataUrl = canvas.toDataURL('image/png');
 
-    // 重新Tải lên到Lưu trữ ảnh
+    // lạiTải lên到Lưu trữ ảnh
     if (!isImageHostConfigured()) {
       console.warn('[VideoGen] Image host not configured, cannot re-upload upscaled image');
       return imageUrl;

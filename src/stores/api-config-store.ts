@@ -61,8 +61,8 @@ export const AI_FEATURES: Array<{
   { key: 'video_generation', name: 'Tạo video', description: '将ảnh转换为video' },
   { key: 'image_understanding', name: 'Phân tích ảnh', description: '分析ảnhNội dung' },
   { key: 'chat', name: '通用Chat', description: 'AI Chat和文本Tạo' },
-  { key: 'freedom_image', name: 'Tự dopanel-ảnh', description: 'Tự dopanel独立的Tạo ảnh配置' },
-  { key: 'freedom_video', name: 'Tự dopanel-video', description: 'Tự dopanel独立的Tạo video配置' },
+  { key: 'freedom_image', name: 'Tự dopanel-ảnh', description: 'Tự dopanelđộc lập的Tạo ảnh配置' },
+  { key: 'freedom_video', name: 'Tự dopanel-video', description: 'Tự dopanelđộc lập的Tạo video配置' },
 ];
 
 
@@ -100,7 +100,7 @@ export const DEFAULT_ADVANCED_OPTIONS: AdvancedGenerationOptions = {
 export type ImageHostPlatform = 'imgbb' | 'imgurl' | 'scdn' | 'catbox' | 'cloudflare_r2' | 'custom';
 
 /**
- * Lưu trữ ảnhNhà cung cấp配置（独立映射）
+ * Lưu trữ ảnhNhà cung cấp配置（độc lập映射）
  */
 export interface ImageHostProvider {
   id: string;

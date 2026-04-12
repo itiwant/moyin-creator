@@ -348,7 +348,7 @@ export function collectAllRefs(
   const videoSlice = (group.videoRefs || []).slice(0, SEEDANCE_LIMITS.maxVideos);
   const audioSlice = (group.audioRefs || []).slice(0, SEEDANCE_LIMITS.maxAudios);
 
-  // 6. 重新编号 tag（map Tạo新对象，消除副作用）
+  // 6. lại编号 tag（map Tạo新对象，消除副作用）
   const taggedImages = images.map((ref, i) => ({ ...ref, tag: `@ảnh${i + 1}` }));
   const taggedVideos = videoSlice.map((ref, i) => ({ ...ref, tag: `@video${i + 1}` }));
   const taggedAudios = audioSlice.map((ref, i) => ({ ...ref, tag: `@âm thanh${i + 1}` }));
@@ -588,7 +588,7 @@ export function buildGroupPrompt(options: BuildGroupPromptOptions): GroupPromptR
     gridImageRef,
   } = options;
 
-  // 0. kéo dài/Chỉnh sửachế độ — 走独立分支
+  // 0. kéo dài/Chỉnh sửachế độ — 走độc lập分支
   const genType = group.generationType || 'new';
   if (genType === 'extend' || genType === 'edit') {
     return buildExtendEditPrompt(group, scenes, characters, sceneLibrary, styleTokens);

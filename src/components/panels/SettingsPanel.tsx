@@ -196,7 +196,7 @@ export function SettingsPanel() {
         continue;
       }
 
-      // 为空 或 Tất cả无效 → 重新设置默认值
+      // 为空 或 Tất cả无效 → lại设置默认值
       const needsDefault = !cur || cur.length === 0 || !cur.some(isBindingValid);
       if (needsDefault) {
         setFeatureBindings(feature as AIFeature, [binding]);

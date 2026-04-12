@@ -6,7 +6,7 @@
  *
  * 核心chức năng：
  * 1. generateGroupVideo(group) — mỗi nhómTạo：thu thập @tham chiếu → 构建đa phương thức请求 → gọi API API → luân phiên
- * 2. generateAllGroups() — Tạo hàng loạt：逐组串 hàng，各组独立Tạo
+ * 2. generateAllGroups() — Tạo hàng loạt：từng nhóm串 hàng，各组độc lậpTạo
  * 3. generateSingleShot(sceneId) — ống kính đơnTạo（tương thíchchế độ）
  * 4. Tự độngTải lên base64/local ảnh到 HTTP URL
  * 5. TạoTrạng thái实时同步到 sclass-store
@@ -243,7 +243,7 @@ export function useSClassGeneration() {
               gridDataUrl = cachedGridUrl!;
               console.log('[SClassGen] Tái sử dụng ảnh lưới 9 ô từ cache:', gridDataUrl.substring(0, 60));
             } else {
-              // 重新合并Khung hình đầu为ô图
+              // lại合并Khung hình đầu为ô图
               gridDataUrl = await mergeToGridImage(firstFrameUrls, aspectRatio);
               console.log('[SClassGen] Đã hợp nhất', firstFrameUrls.length, 'Khung hình đầu thành ảnh lưới');
             }
@@ -494,7 +494,7 @@ export function useSClassGeneration() {
     ]
   );
 
-  // ========== Tạo hàng loạt（逐组串 hàng + Khung hình cuối传递） ==========
+  // ========== Tạo hàng loạt（từng nhóm串 hàng + Khung hình cuối传递） ==========
 
   const generateAllGroups = useCallback(
     async (

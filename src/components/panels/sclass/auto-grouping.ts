@@ -151,7 +151,7 @@ export function autoGroupScenes(
 }
 
 /**
- * 重新计算组的TổngThời lượng
+ * lại计算组的TổngThời lượng
  */
 export function recalcGroupDuration(
   group: ShotGroup,

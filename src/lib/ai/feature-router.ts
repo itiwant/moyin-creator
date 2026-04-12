@@ -234,7 +234,7 @@ export interface CallFeatureAPIOptions {
   maxTokens?: number;
   /** 强制Ghi đè模型（一般不需要，Tự động从ánh xạ dịch vụ获取） */
   modelOverride?: string;
-  /** 强制Sử dụng指定的配置（用于批量调度时指定具体模型） */
+  /** 强制Sử dụng指定的配置（用于hàng loạt调度时指定具体模型） */
   configOverride?: FeatureConfig;
   /** 关闭推理模型深度思考（智谱 GLM-4.7/4.5 等），默认 true */
   disableThinking?: boolean;

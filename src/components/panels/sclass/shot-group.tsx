@@ -119,7 +119,7 @@ export function ShotGroupCard({
     });
   }, [group.lastPrompt]);
 
-  // 重新计算实际Thời lượng
+  // lại计算实际Thời lượng
   const actualDuration = useMemo(
     () => recalcGroupDuration(group, allScenes),
     [group, allScenes],

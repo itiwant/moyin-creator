@@ -205,7 +205,7 @@ ${shotSummaries}
 }
 
 /**
- * 批量分析多场景的góc nhìn
+ * hàng loạt分析多场景的góc nhìn
  */
 export async function analyzeMultipleScenesViewpoints(
   scenesWithShots: Array<{ scene: ScriptScene; shots: Shot[] }>,

@@ -353,7 +353,7 @@ async function submitViaChatCompletions(
   console.log('[ImageGenerator] Submitting via chat completions:', { model, endpoint, isGemini, geminiImageSize: geminiHasImageSize ? normalizeResolutionForGemini(resolution) : 'N/A' });
 
   const response = await retryOperation(async () => {
-    // 每次Thử lại独立tạo AbortController，Tránh共享 controller 在Thử lại时已hết thời gian
+    // 每次Thử lạiđộc lậptạo AbortController，Tránh共享 controller 在Thử lại时已hết thời gian
     const controller = new AbortController();
     const timeoutId = setTimeout(
       () => controller.abort(new DOMException('图片Tạo请求hết thời gian（60秒），请kiểm tra网络后Thử lại', 'TimeoutError')),
@@ -569,7 +569,7 @@ async function submitImageTask(
 
   try {
     const data = await retryOperation(async () => {
-      // 每次Thử lại独立tạo AbortController，Tránh共享 controller 在Thử lại时已hết thời gian
+      // 每次Thử lạiđộc lậptạo AbortController，Tránh共享 controller 在Thử lại时已hết thời gian
       const controller = new AbortController();
       const timeoutId = setTimeout(() => controller.abort(), 60000);
 

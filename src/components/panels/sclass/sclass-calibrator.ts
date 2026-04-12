@@ -225,7 +225,7 @@ export async function runCalibration(
 }
 
 /**
- * 批量Hiệu chuẩnTất cả未Hiệu chuẩn的组
+ * Hiệu chuẩn hàng loạtTất cả未Hiệu chuẩn的组
  *
  * @returns Thành công数 / Tổng số
  */

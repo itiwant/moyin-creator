@@ -179,11 +179,11 @@ export interface ShotGroup {
 }
 
 /**
- * ống kính đơnTạo记录（保留单Ống kính独立Tạo能力）
+ * ống kính đơnTạo记录（保留单Ống kínhđộc lậpTạo能力）
  */
 export interface SingleShotOverride {
   sceneId: number;
-  /** 单Ống kính独立prompt（Ghi đèPhân cảnhgốcprompt） */
+  /** 单Ống kínhđộc lậpprompt（Ghi đèPhân cảnhgốcprompt） */
   prompt: string;
   /** @tham chiếuTài sản */
   assetRefs: AssetRef[];
@@ -212,7 +212,7 @@ export interface SClassProjectData {
   mode: SClassMode;
   /** 是否已从 director dữ liệuTự độngnhóm过 */
   hasAutoGrouped: boolean;
-  /** 最近一次lưới 9 ôTạo的gốc大图 URL（用于Tạo video时复用，Tránh重新合并） */
+  /** 最近一次lưới 9 ôTạo的gốc大图 URL（用于Tạo video时复用，Tránhlại合并） */
   lastGridImageUrl: string | null;
   /** lastGridImageUrl 对应的Phân cảnh ID  cột表（用于判断是否可复用） */
   lastGridSceneIds: number[] | null;

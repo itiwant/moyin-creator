@@ -805,7 +805,7 @@ ${scriptData.characters.map(c => `- ${c.name}: ${c.personality || ''} ${c.appear
       selectedShots.push(...sceneShots.slice(0, shotsNeededPerScene));
     }
 
-    // 截取到目标数量并重新编号
+    // 截取到目标数量并lại编号
     finalShots = selectedShots.slice(0, targetShotCount).map((s, idx) => ({
       ...s,
       id: `shot-${idx + 1}`,
