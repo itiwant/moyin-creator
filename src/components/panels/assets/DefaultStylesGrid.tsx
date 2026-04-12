@@ -4,7 +4,7 @@
 "use client";
 
 /**
- * DefaultStylesGrid - 内置Phong cách网格浏览（只读）
+ * DefaultStylesGrid - 内置Phong cáchlưới浏览（只读）
  * 按phân loạinhómHiển thị 48 预设Phong cách
  */
 

@@ -16,7 +16,7 @@ import type { Shot, ProjectBackground } from '@/types/script';
 import type { SplitScene, TrailerDuration } from '@/stores/director-store';
 import { callFeatureAPI } from '@/lib/ai/feature-router';
 
-// thời lượng对应的分镜数量
+// thời lượng对应的分镜số lượng
 const DURATION_TO_SHOT_COUNT: Record<TrailerDuration, number> = {
   10: 2,   // 10秒：2-3分镜
   30: 6,   // 30秒：5-6分镜
@@ -62,7 +62,7 @@ export async function selectTrailerShots(
 
   const targetCount = DURATION_TO_SHOT_COUNT[duration];
   
-  // 如果分镜数量少于目标数量，Trực tiếp返回Tất cả分镜
+  // 如果分镜số lượng少于目标số lượng，Trực tiếp返回Tất cả分镜
   if (shots.length <= targetCount) {
     return {
       success: true,
@@ -104,8 +104,8 @@ export async function selectTrailerShots(
 - Tránh剧透quan trọng结局
 
 【输出要求】
-请返回一 JSON 数组，包含你chọn的分镜số thứ tự（index），按预告片播放thứ tự排列。
-格式：{ "selectedIndices": [1, 5, 12, 23, 45, 60] }`;
+请返回一 JSON 数组，chứa你chọn的分镜số thứ tự（index），按预告片播放thứ tự排列。
+định dạng：{ "selectedIndices": [1, 5, 12, 23, 45, 60] }`;
 
     const userPrompt = `【项目thông tin】
 ${background?.title ? `tên phim：《${background.title}》` : ''}
@@ -121,17 +121,17 @@ ${shotSummaries.map(s =>
    情绪：${Array.isArray(s.emotionTags) ? s.emotionTags.join(', ') : '无'}`
 ).join('\n\n')}
 
-请从以上分镜đang xử lý...${targetCount} 最适合做预告片的镜头，返回 JSON 格式的số thứ tự列表。`;
+请从以上分镜đang xử lý...${targetCount} 最适合做预告片的镜头，返回 JSON định dạng的số thứ tự列表。`;
 
     // 统一从ánh xạ dịch vụ获取配置
     const result = await callFeatureAPI('script_analysis', systemPrompt, userPrompt);
 
-    // Phân tích AI 返回的 JSON - 支持多种格式
+    // Phân tích AI 返回的 JSON - 支持多种định dạng
     let selectedIndices: number[] = [];
     
     console.log('[TrailerService] AI raw response (first 1000 chars):', result.slice(0, 1000));
     
-    // 尝试Khớp { "selectedIndices": [...] } 格式
+    // 尝试Khớp { "selectedIndices": [...] } định dạng
     const jsonMatch = result.match(/\{[\s\S]*?"selectedIndices"\s*:\s*\[[\d,\s]*\][\s\S]*?\}/);
     if (jsonMatch) {
       try {
@@ -166,7 +166,7 @@ ${shotSummaries.map(s =>
     }
     
     if (selectedIndices.length === 0) {
-      throw new Error('AI 返回格式lỗi，无法Phân tíchsố thứ tự');
+      throw new Error('AI 返回định dạnglỗi，无法Phân tíchsố thứ tự');
     }
     
     console.log('[TrailerService] Parsed selectedIndices:', selectedIndices);
@@ -266,7 +266,7 @@ function selectTrailerShotsByRules(shots: Shot[], targetCount: number): Shot[] {
 }
 
 /**
- * 将chọn的 Shot 转换为 SplitScene 格式（用于 AI Đạo diễn分镜chỉnh sửa）
+ * 将chọn的 Shot chuyển đổi thành SplitScene định dạng（用于 AI Đạo diễn分镜chỉnh sửa）
  */
 export function convertShotsToSplitScenes(
   shots: Shot[],
@@ -327,7 +327,7 @@ export function convertShotsToSplitScenes(
     // 特效师
     atmosphericEffects: shot.atmosphericEffects,
     effectIntensity: shot.effectIntensity,
-    // 速度控制
+    // 速度điều khiển
     playbackSpeed: shot.playbackSpeed,
     // 连戏
     continuityRef: shot.continuityRef,

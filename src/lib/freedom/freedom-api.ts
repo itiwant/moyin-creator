@@ -214,21 +214,21 @@ function detectFreedomImageRoute(model: string, endpointTypes?: string[]): Freed
 type FreedomVideoRoute = 'openai_official' | 'unified' | 'volc' | 'wan' | 'kling' | 'replicate';
 
 const FREEDOM_VIDEO_ROUTE_MAP: Record<string, FreedomVideoRoute> = {
-  'openAI官方视频格式': 'openai_official',
-  'openAI视频格式': 'openai_official',
+  'openAI官方视频định dạng': 'openai_official',
+  'openAI视频định dạng': 'openai_official',
   '豆包视频异步': 'volc',  // doubao-seedance uses /volc/v1/contents/generations/tasks
   'async': 'wan',
   '文生视频': 'kling',
   '图生视频': 'kling',
   '视频延长': 'kling',
   'omni-video': 'kling',
-  '动作控制': 'kling',
+  '动作điều khiển': 'kling',
   'đa phương thức视频chỉnh sửa': 'kling',
   'Người ảo': 'kling',
   'ghép hình môi': 'kling',
   '视频特效': 'kling',
   'openai': 'unified', // 某些Tùy chỉnh供应商把视频模型标为通用 openai
-  '视频统一格式': 'unified',
+  '视频统一định dạng': 'unified',
   'grok视频': 'unified',
   'openai-response': 'unified',
   '海螺视频Tạo': 'unified',
@@ -246,13 +246,13 @@ const FREEDOM_VIDEO_ROUTE_MAP: Record<string, FreedomVideoRoute> = {
 };
 
 /**
- * 统一格式端点路径映射（端点类型 → 提交/luân phiên URL 路径）
+ * 统一định dạng端点路径ánh xạ（端点类型 → 提交/luân phiên URL 路径）
  * 每种端点类型Trực tiếp对应确定的 URL，不再靠 fallback 猜测
  */
 const UNIFIED_ENDPOINT_PATHS: Record<string, { submit: string; poll: (id: string) => string }> = {
   // 路径均为域名根起的绝对路径（不依赖 /v1/ 前缀拼接）
   'grok视频':     { submit: '/v1/video/create',      poll: (id) => `/v1/video/query?id=${id}` },
-  '视频统一格式': { submit: '/v1/video/create',      poll: (id) => `/v1/video/query?id=${id}` },
+  '视频统一định dạng': { submit: '/v1/video/create',      poll: (id) => `/v1/video/query?id=${id}` },
   '海螺视频Tạo': { submit: '/minimax/v1/video_generation', poll: (id) => `/minimax/v1/query/video_generation?task_id=${id}` },
   'luma视频Tạo': { submit: '/luma/generations',            poll: (id) => `/luma/generations/${id}` },
   'luma视频扩展': { submit: '/luma/generations',            poll: (id) => `/luma/generations/${id}` },
@@ -269,7 +269,7 @@ const UNIFIED_ENDPOINT_PATHS: Record<string, { submit: string; poll: (id: string
 const DEFAULT_UNIFIED_ENDPOINT = { submit: '/v1/video/generations', poll: (id: string) => `/v1/video/generations/${id}` };
 
 /**
- * 图片端点路径映射（端点类型 → 提交/luân phiên URL 路径）
+ * 图片端点路径ánh xạ（端点类型 → 提交/luân phiên URL 路径）
  * 仅用于需要Tùy chỉnh路径的端点类型，其余走默认 /v1/images/generations
  */
 const IMAGE_ENDPOINT_PATHS: Record<string, { submit: string; poll: (id: string) => string }> = {
@@ -341,7 +341,7 @@ async function _generateFreedomImageInner(
   );
   if (!config) {
     const msg = getFeatureNotConfiguredMessage('character_generation');
-    toast.error('自由板块图片Tạo未配置：请在设置đang xử lý...自由板块-图片」或「图片Tạo」ánh xạ dịch vụ');
+    toast.error('自由板块图片Tạo未配置：请在设置đang xử lý...自由板块-图片」hoặc「图片Tạo」ánh xạ dịch vụ');
     throw new Error(msg);
   }
   console.log(`[Freedom] Image config source: ${configSource}`);
@@ -349,7 +349,7 @@ async function _generateFreedomImageInner(
   const { baseUrl, model: defaultModel } = config;
   // 每次Thử lại动态取当前 key（利用 keyManager rotate 后的新 key）
   const apiKey = config.keyManager?.getCurrentKey?.() || config.apiKey;
-  // 模型 ID Trực tiếp透传：UI 选的就是供应商gốc ID，无需转换
+  // 模型 ID Trực tiếp透传：UI 选的就是供应商gốc ID，无需chuyển đổi
   const model = params.model || defaultModel;
   const normalizedBase = baseUrl.replace(/\/+$/, '');
 
@@ -646,7 +646,7 @@ async function generateViaMidjourneyEndpoint(
   const modes = mapMidjourneyMode(extra.speed);
   if (modes) requestBody.accountFilter = { modes };
   if (/niji/i.test(model)) requestBody.botType = 'NIJI_JOURNEY';
-  // 垫图：base64Array（图片引导，格式 data:image/png;base64,xxx）
+  // 垫图：base64Array（图片引导，định dạng data:image/png;base64,xxx）
   if (Array.isArray(extra.base64Array) && extra.base64Array.length > 0) {
     requestBody.base64Array = extra.base64Array;
   }
@@ -769,7 +769,7 @@ async function generateViaIdeogramEndpoint(
 
   const data = await response.json();
   const imageUrl = extractImageUrl(data);
-  if (!imageUrl) throw new Error('Ideogram 响应未包含图片 URL');
+  if (!imageUrl) throw new Error('Ideogram 响应未chứa图片 URL');
   const mediaId = saveToMediaLibrary(imageUrl, params.prompt, 'ai-image');
   return { url: imageUrl, mediaId };
 }
@@ -856,7 +856,7 @@ async function _generateFreedomVideoInner(
   );
   if (!config) {
     const msg = getFeatureNotConfiguredMessage('video_generation');
-    toast.error('自由板块视频Tạo未配置：请在设置đang xử lý...自由板块-视频」或「视频Tạo」ánh xạ dịch vụ');
+    toast.error('自由板块视频Tạo未配置：请在设置đang xử lý...自由板块-视频」hoặc「视频Tạo」ánh xạ dịch vụ');
     throw new Error(msg);
   }
   console.log(`[Freedom] Video config source: ${configSource}`);
@@ -864,7 +864,7 @@ async function _generateFreedomVideoInner(
   const { baseUrl, model: defaultModel } = config;
   // 每次Thử lại动态取当前 key（利用 keyManager rotate 后的新 key）
   const apiKey = config.keyManager?.getCurrentKey?.() || config.apiKey;
-  // 模型 ID Trực tiếp透传：UI 选的就是供应商gốc ID，无需转换
+  // 模型 ID Trực tiếp透传：UI 选的就是供应商gốc ID，无需chuyển đổi
   const model = params.model || defaultModel;
 
   const endpointTypes = useAPIConfigStore.getState().modelEndpointTypes[model];
@@ -1022,7 +1022,7 @@ async function toUploadHttpUrl(file: FreedomVideoUploadFile): Promise<string> {
 
 function dataUrlToBlob(dataUrl: string, mimeHint?: string): Blob {
   const match = dataUrl.match(/^data:(.*?);base64,(.*)$/);
-  if (!match) throw new Error('上传文件格式无效，必须是 data URL 或 http(s) URL');
+  if (!match) throw new Error('上传文件định dạng无效，必须是 data URL hoặc http(s) URL');
   const mime = match[1] || mimeHint || 'image/png';
   const b64 = match[2];
   const bytes = Uint8Array.from(atob(b64), (c) => c.charCodeAt(0));
@@ -1182,10 +1182,10 @@ async function generateVideoViaUnified(
       body.duration = isLuma ? `${params.duration}s` : params.duration;
     }
 
-    // AspectRatio 处理策略（各模型格式不同，按模型分别处理）：
-    // - Runway: metadata.ratio（像素格式 1280:720）
-    // - Grok: 顶层 aspect_ratio（xAI 官方格式，支持 16:9/9:16/4:3/3:4/3:2/2:3/1:1）
-    // - 其他统一格式模型: metadata.aspect_ratio
+    // AspectRatio 处理策略（各模型định dạng不同，按模型分别处理）：
+    // - Runway: metadata.ratio（像素định dạng 1280:720）
+    // - Grok: 顶层 aspect_ratio（xAI 官方định dạng，支持 16:9/9:16/4:3/3:4/3:2/2:3/1:1）
+    // - 其他统一định dạng模型: metadata.aspect_ratio
     if (params.aspectRatio) {
       if (isRunway) {
         metadata.ratio = toRunwayRatio(params.aspectRatio);

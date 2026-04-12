@@ -8,8 +8,8 @@
  * 
  * chức năng：
  * 1. 读取剧本元dữ liệu，理解角色成长cung
- * 2. 根据剧情阶段Tạo不同的角色形象
- * 3. Tạo的阶段可转换为角色库的 CharacterVariation
+ * 2. 根据剧情Giai đoạnTạo不同的角色形象
+ * 3. Tạo的Giai đoạn可chuyển đổi thành角色库的 CharacterVariation
  * 4. Sử dụng世界级chuyên nghiệp人设提升 AI Tạo质量
  * 
  * 注意：这是一辅助服务，不修改hiện có角色库的任何chức năng。
@@ -22,19 +22,19 @@ import type { CharacterVariation } from '@/stores/character-library-store';
 // ==================== 类型定义 ====================
 
 /**
- * 角色阶段形象
- * 一角色在不同剧情阶段可能有不同的ngoại hình/状态
+ * 角色Giai đoạn形象
+ * 一角色在不同剧情Giai đoạn可能有不同的ngoại hình/状态
  */
 export interface CharacterStageAppearance {
-  stageId: string;           // 阶段ID
-  stageName: string;         // 阶段名称（如"少年时期"、"成为大亨后"）
+  stageId: string;           // Giai đoạnID
+  stageName: string;         // Giai đoạn名称（如"少年时期"、"成为大亨后"）
   episodeRange: string;      //  tập数范围（如"1-5"、"10-20"）
-  description: string;       // 该阶段的角色Mô tả
+  description: string;       // 该Giai đoạn的角色Mô tả
   visualPromptEn: string;    // 英文Thị giác提示词
   visualPromptZh: string;    // đang xử lý...提示词
   ageDescription?: string;   // TuổiMô tả
   clothingStyle?: string;    // trang phục风格
-  keyChanges?: string;       // 与上一阶段的quan trọng变化
+  keyChanges?: string;       // 与上一Giai đoạn的quan trọng变化
 }
 
 /**
@@ -47,9 +47,9 @@ export interface CharacterDesign {
   baseDescription: string;      // 基础角色Mô tả
   baseVisualPromptEn: string;   // 基础英文提示词
   baseVisualPromptZh: string;   // 基础đang xử lý...词
-  // 多阶段形象
+  // 多Giai đoạn形象
   stages: CharacterStageAppearance[];
-  // giống性元素（Tất cả阶段共享）
+  // giống性元素（Tất cảGiai đoạn共享）
   consistencyElements: {
     facialFeatures: string;     // Khuôn mặt特征（không thay đổi）
     bodyType: string;           // 体型
@@ -71,7 +71,7 @@ export interface CharacterDesignOptions {
 // ==================== AI 角色Thiết kế服务 ====================
 
 /**
- * 为剧本角色Tạochuyên nghiệp的多阶段角色Thiết kế
+ * 为剧本角色Tạochuyên nghiệp的多Giai đoạn角色Thiết kế
  * 
  * @param characterId 剧本đang xử lý...ID
  * @param projectId 项目ID
@@ -94,7 +94,7 @@ export async function generateCharacterDesign(
     throw new Error('剧本dữ liệukhông tồn tại');
   }
   
-  // 找到目标角色
+  // Tìm thấy目标角色
   const character = scriptData.characters.find(c => c.id === characterId);
   if (!character) {
     throw new Error('角色không tồn tại');
@@ -204,11 +204,11 @@ async function callAIForCharacterDesign(
 
 你的chuyên nghiệp能力：
 - **角色Thị giácThiết kế**：能准确捕捉角色的外在形象、trang phục风格、肢体Ngôn ngữ
-- **角色成长cung**：理解角色在不同剧情阶段的形象变化（从少年到成年、从普通人到英雄等）
+- **角色成长cung**：理解角色在不同剧情Giai đoạn的形象变化（从少年到成年、从普通人到英雄等）
 - **AI图像Tạo经验**：深谙 Midjourney、DALL-E、Stable Diffusion 等 AI 绘图模型的工作原理，能写出高质量的提示词
-- **giống性保持**：知道如何Mô tảKhuôn mặt特征、体型等không thay đổi元素，确保角色在不同阶段仍可辨认
+- **giống性giữ**：知道如何Mô tảKhuôn mặt特征、体型等không thay đổi元素，确保角色在不同Giai đoạn仍可辨认
 
-你的nhiệm vụ是根据剧本thông tin，为角色Thiết kế**多阶段Thị giác形象**。
+你的nhiệm vụ是根据剧本thông tin，为角色Thiết kế**多Giai đoạnThị giác形象**。
 
 【剧本thông tin】
 tên phim：《${context.projectTitle}》
@@ -231,25 +231,25 @@ ${context.characterAppearances.length > 0
 }
 
 【nhiệm vụ要求】
-1. **分析角色成长cung**：根据剧情判断角色是否有明显的阶段变化
+1. **分析角色成长cung**：根据剧情判断角色是否有明显的Giai đoạn变化
    - Tuổi变化：小孩→少年→成年→老年
    - Danh tính变化：普通人→商业大亨、学徒→武林高手
    - 状态变化：健康→受伤、普通→修仙后形态
    
-2. **Thiết kế多阶段形象**：为每阶段Tạođộc lập的Thị giác提示词
-   - 如果角色没有明显阶段变化，只需Thiết kế1阶段
-   - 如果有变化，Thiết kế2-4阶段
+2. **Thiết kế多Giai đoạn形象**：为每Giai đoạnTạođộc lập的Thị giác提示词
+   - 如果角色没有明显Giai đoạn变化，只需Thiết kế1Giai đoạn
+   - 如果有变化，Thiết kế2-4Giai đoạn
 
-3. **保持giống性元素**：识别角色的không thay đổi特征
+3. **giữgiống性元素**：识别角色的không thay đổi特征
    - Khuôn mặt特征（眼睛形状、五官Tỷ lệ）
    - 体型特征（身高、体格）
    - 独特标记（胎记、疤痕、标志性特征）
 
 4. **提示词要求**：
    - 英文提示词：40-60词，适合AI图像Tạo
-   - đang xử lý...词：详细Mô tả，包含细节
+   - đang xử lý...词：详细Mô tả，chứa细节
 
-请以JSON格式返回：
+请以JSONđịnh dạng返回：
 {
   "characterName": "角色名",
   "baseDescription": "角色基础Mô tả（一句话）",
@@ -263,19 +263,19 @@ ${context.characterAppearances.length > 0
   "stages": [
     {
       "stageId": "stage_1",
-      "stageName": "阶段名称（如：少年时期）",
+      "stageName": "Giai đoạn名称（如：少年时期）",
       "episodeRange": "1-5",
-      "description": "该阶段角色状态Mô tả",
-      "visualPromptEn": "该阶段英文Thị giác提示词",
-      "visualPromptZh": "该阶段đang xử lý...提示词",
+      "description": "该Giai đoạn角色状态Mô tả",
+      "visualPromptEn": "该Giai đoạn英文Thị giác提示词",
+      "visualPromptZh": "该Giai đoạnđang xử lý...提示词",
       "ageDescription": "TuổiMô tả",
       "clothingStyle": "trang phục风格",
-      "keyChanges": "与上一阶段的变化（第一阶段为空）"
+      "keyChanges": "与上一Giai đoạn的变化（第一Giai đoạn为空）"
     }
   ]
 }`;
 
-  const userPrompt = `请为角色「${character.name}」Thiết kế多阶段Thị giác形象。`;
+  const userPrompt = `请为角色「${character.name}」Thiết kế多Giai đoạnThị giác形象。`;
   
   // 统一从ánh xạ dịch vụ获取配置
   const result = await callFeatureAPI('script_analysis', systemPrompt, userPrompt);
@@ -313,7 +313,7 @@ ${context.characterAppearances.length > 0
 }
 
 /**
- * 根据 tập数获取角色当前阶段的提示词
+ * 根据 tập数获取角色当前Giai đoạn的提示词
  * 
  * @param design 角色Thiết kế
  * @param episodeIndex 当前 tập数
@@ -322,11 +322,11 @@ export function getCharacterPromptForEpisode(
   design: CharacterDesign,
   episodeIndex: number
 ): { promptEn: string; promptZh: string; stageName: string } {
-  // 找到对应阶段
+  // Tìm thấy对应Giai đoạn
   for (const stage of design.stages) {
     const [start, end] = stage.episodeRange.split('-').map(Number);
     if (episodeIndex >= start && episodeIndex <= end) {
-      // 组合giống性元素和阶段提示词
+      // 组合giống性元素和Giai đoạn提示词
       const consistencyPrefix = [
         design.consistencyElements.facialFeatures,
         design.consistencyElements.bodyType,
@@ -352,7 +352,7 @@ export function getCharacterPromptForEpisode(
 }
 
 /**
- * 将角色Thiết kế转换为角色库的变体格式 (CharacterVariation)
+ * 将角色Thiết kếchuyển đổi thành角色库的变体định dạng (CharacterVariation)
  * 可Trực tiếp用于 addVariation() 方法
  * 
  * @param design 角色Thiết kế
@@ -361,7 +361,7 @@ export function getCharacterPromptForEpisode(
 export function convertDesignToVariations(design: CharacterDesign): Array<Omit<CharacterVariation, 'id'>> {
   return design.stages.map(stage => ({
     name: stage.stageName,
-    // 组合giống性元素 + 阶段提示词
+    // 组合giống性元素 + Giai đoạn提示词
     visualPrompt: [
       design.consistencyElements.facialFeatures,
       design.consistencyElements.bodyType,
@@ -376,7 +376,7 @@ export function convertDesignToVariations(design: CharacterDesign): Array<Omit<C
 
 /**
  * 为角色库đang xử lý...Tạo变体（Wardrobe System）
- * 基于角色Thiết kế的不同阶段
+ * 基于角色Thiết kế的不同Giai đoạn
  * 
  * @deprecated Sử dụng convertDesignToVariations 代替
  */

@@ -49,7 +49,7 @@ const FEATURE_PLATFORM_MAP: Partial<Record<AIFeature, string>> = {
 };
 
 /**
- * 默认模型映射：当供应商未显式绑定模型时，为特定chức năng提供默认模型
+ * 默认模型ánh xạ：当供应商未显式绑定模型时，为特定chức năng提供默认模型
  * 仅在 fallback 路径đang xử lý...người dùng显式绑定优先）
  */
 const FEATURE_DEFAULT_MODEL: Partial<Record<AIFeature, Record<string, string>>> = {
@@ -60,7 +60,7 @@ const FEATURE_DEFAULT_MODEL: Partial<Record<AIFeature, Record<string, string>>> 
 
 
 /**
- * Phân tích platform:model 格式
+ * Phân tích platform:model định dạng
  */
 function parseBindingValue(binding: string): { platform: string; model?: string } | null {
   if (binding.includes(':')) {
@@ -83,17 +83,17 @@ function getBoundPlatformAndModel(store: ReturnType<typeof useAPIConfigStore.get
   const binding = bindings[0];
   if (!binding) return null;
   
-  // 新格式: platform:model
+  // 新định dạng: platform:model
   const parsed = parseBindingValue(binding);
   if (parsed) {
     return parsed;
   }
   
-  // tương thích旧格式: provider ID
+  // tương thích旧định dạng: provider ID
   const provider = store.providers.find(p => p.id === binding);
   if (provider) return { platform: provider.platform };
   
-  // tương thích旧格式: platform name
+  // tương thích旧định dạng: platform name
   const providerByPlatform = store.providers.find(p => p.platform === binding);
   if (providerByPlatform) return { platform: providerByPlatform.platform };
   
@@ -145,7 +145,7 @@ export function getFeatureConfig(feature: AIFeature): FeatureConfig | null {
   const configs = getAllFeatureConfigs(feature);
   
   if (configs.length === 0) {
-    // Fallback: 尝试Sử dụng默认平台映射
+    // Fallback: 尝试Sử dụng默认平台ánh xạ
     const store = useAPIConfigStore.getState();
     const defaultPlatform = FEATURE_PLATFORM_MAP[feature];
     if (defaultPlatform) {
@@ -256,7 +256,7 @@ export async function callFeatureAPI(
   userPrompt: string,
   options?: CallFeatureAPIOptions
 ): Promise<string> {
-  // Sử dụng指定配置或luân phiên获取
+  // Sử dụng指定配置hoặcluân phiên获取
   const config = options?.configOverride || getFeatureConfig(feature);
   
   if (!config) {

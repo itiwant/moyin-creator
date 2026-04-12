@@ -17,18 +17,18 @@ export interface FilteredCharacterRecord {
 }
 
 /**
- * 角色阶段thông tin
+ * 角色Giai đoạnthông tin
  * 用于nhãn角色在特定 tập数范围内的形象版本
  */
 export interface CharacterStageInfo {
-  stageName: string;              // 阶段名称："青年版"、"Phiên bản trung niên"、"Khởi nghiệp ban đầu"
+  stageName: string;              // Giai đoạn名称："青年版"、"Phiên bản trung niên"、"Khởi nghiệp ban đầu"
   episodeRange: [number, number]; // 适用 tập数范围：[bắt đầu tập, kết thúc tập]
-  ageDescription?: string;        // 该阶段TuổiMô tả："25 tuổi"、"50 tuổi"
+  ageDescription?: string;        // 该Giai đoạnTuổiMô tả："25 tuổi"、"50 tuổi"
 }
 
 /**
  * 角色giống性元素
- * 用于保持同一角色不同阶段的可识别性
+ * 用于giữ同一角色不同Giai đoạn的可识别性
  */
 export interface CharacterConsistencyElements {
   facialFeatures?: string;  // Khuôn mặt特征（không thay đổi）：眼睛形状、五官Tỷ lệ
@@ -38,7 +38,7 @@ export interface CharacterConsistencyElements {
 
 /**
  * 角色Neo danh tính - khóa 6 lớp đặc trưng系统
- * 用于确保AI生图đang xử lý...色在不同场景保持giống
+ * 用于确保AI生图đang xử lý...色在不同场景giữgiống
  */
 export interface CharacterIdentityAnchors {
   // ① Lớp xương mặt - Khuôn mặt骨骼Cấu trúc
@@ -97,11 +97,11 @@ export interface ScriptCharacter {
   status?: CompletionStatus; // 角色形象Trạng thái tạo
   characterLibraryId?: string; // 关联的角色库ID
   
-  // === 多阶段角色支持 ===
-  baseCharacterId?: string;        // gốc角色ID（阶段角色指向基础角色，如"张明青年版"指向"张明"）
-  stageInfo?: CharacterStageInfo;  // 阶段thông tin（仅阶段角色有此trường）
-  stageCharacterIds?: string[];    // 派生的阶段角色ID列表（仅基础角色有此trường）
-  consistencyElements?: CharacterConsistencyElements; // giống性元素（基础角色定义，阶段角色kế thừa）
+  // === 多Giai đoạn角色支持 ===
+  baseCharacterId?: string;        // gốc角色ID（Giai đoạn角色指向基础角色，如"张明青年版"指向"张明"）
+  stageInfo?: CharacterStageInfo;  // Giai đoạnthông tin（仅Giai đoạn角色有此trường）
+  stageCharacterIds?: string[];    // 派生的Giai đoạn角色ID列表（仅基础角色有此trường）
+  consistencyElements?: CharacterConsistencyElements; // giống性元素（基础角色定义，Giai đoạn角色kế thừa）
   visualPromptEn?: string;         // 英文Thị giác提示词（用于AITạo ảnh）
   visualPromptZh?: string;         // đang xử lý...提示词
   
@@ -116,7 +116,7 @@ export interface ScriptScene {
   location: string;
   time: string;
   atmosphere: string;
-  visualPrompt?: string; // đang xử lý...Mô tả thị giác（用于场景概念图Tạo）
+  visualPrompt?: string; // đang xử lý...Mô tả thị giác（用于场景ảnh khái niệmTạo）
   tags?: string[]; // 场景标签，如: #木柱 #棂 #古建筑
   notes?: string; // 地点备注（ghi chú cốt truyện）
   status?: CompletionStatus; // 场景Trạng thái tạo
@@ -137,13 +137,13 @@ export interface ScriptScene {
   importance?: 'main' | 'secondary' | 'transition';  // 场景重要性
   
   // === Ảnh ghép đa góc nhìn（场景背景giống性）===
-  contactSheetImage?: string;   // 联合图Ảnh gốc（base64 或 URL）
-  contactSheetImageUrl?: string; // 联合图 HTTP URL
+  contactSheetImage?: string;   // ảnh ghépẢnh gốc（base64 hoặc URL）
+  contactSheetImageUrl?: string; // ảnh ghép HTTP URL
   viewpoints?: SceneViewpointData[]; // góc nhìn列表
   viewpointImages?: Record<string, {
-    imageUrl: string;           // 切割后的ảnh（base64 或 URL）
+    imageUrl: string;           // cắt后的ảnh（base64 hoặc URL）
     imageBase64?: string;       // 持久化用 base64
-    gridIndex: number;          // 在联合图đang xử lý... (0-5)
+    gridIndex: number;          // 在ảnh ghépđang xử lý... (0-5)
   }>;
 }
 
@@ -156,7 +156,7 @@ export interface SceneViewpointData {
   nameEn: string;       // Tên tiếng Anh
   shotIds: string[];    // 关联的分镜ID列表
   keyProps: string[];   // 该góc nhìn需要的đạo cụ
-  gridIndex: number;    // 在联合图đang xử lý... (0-5)
+  gridIndex: number;    // 在ảnh ghépđang xử lý... (0-5)
 }
 
 export interface ScriptParagraph {
@@ -188,7 +188,7 @@ export interface DialogueLine {
 export interface EpisodeRawScript {
   episodeIndex: number;       // 第几 tập
   title: string;              //  tập标题
-  synopsis?: string;          //  tậpđại cương/摘要（AITạo或手动chỉnh sửa）
+  synopsis?: string;          //  tậpđại cương/摘要（AITạohoặc手动chỉnh sửa）
   keyEvents?: string[];       // Tập nàySự kiện quan trọng
   rawContent: string;         // gốcđầy đủNội dung
   scenes: SceneRawContent[];  // Phân tích后的场景列表
@@ -280,7 +280,7 @@ export interface Episode {
   index: number;
   title: string;
   description?: string;
-  sceneIds: string[]; // 该 tập包含的场景ID
+  sceneIds: string[]; // 该 tậpchứa的场景ID
 }
 
 export interface ScriptData {
@@ -295,7 +295,7 @@ export interface ScriptData {
   storyParagraphs: ScriptParagraph[];
 }
 
-// ==================== video拍摄控制类型（灯光/焦点/器材/特效/Tốc độ） ====================
+// ==================== video拍摄điều khiển类型（灯光/焦点/器材/特效/Tốc độ） ====================
 
 // 灯光师 (Gaffer)
 export type LightingStyle = 
@@ -309,12 +309,12 @@ export type LightingStyle =
   | 'moonlight';    // 月光：冷蓝柔和
 
 export type LightingDirection = 
-  | 'front'         // chính diện光：平坦、无阴影
-  | 'side'          // 侧光：强调轮廓和纹理
+  | 'front'         // chính diện光：phẳng、无阴影
+  | 'side'          // 侧光：强调轮廓和kết cấu
   | 'back'          // 逆光：轮廓光/剪影
   | 'top'           // 顶光：审讯感/戏剧性
   | 'bottom'        // 底光：恐怖/不自然
-  | 'rim'           // 轮廓光：边缘发光，与背景分离
+  | 'rim'           // 轮廓光：cạnh发光，与背景分离
   | 'three-point';  // 三点布光：Tiêu chuẩn影视照明
 
 export type ColorTemperature = 
@@ -367,7 +367,7 @@ export type AtmosphericEffect =
 
 export type EffectIntensity = 'subtle' | 'moderate' | 'heavy';
 
-// Tốc độ控制 (Speed Ramping)
+// Tốc độđiều khiển (Speed Ramping)
 export type PlaybackSpeed = 
   | 'slow-motion-4x'  // 0.25x 超慢：conpopup时间
   | 'slow-motion-2x'  // 0.5x 慢动作：动作cao trào
@@ -413,8 +413,8 @@ export type PhotographyTechnique =
 
 // 场记/连戏 (Script Supervisor / Continuity)
 export interface ContinuityCharacterState {
-  position: string;      // "hình ảnh左侧站立"
-  clothing: string;      // "蓝色西装，领带松开"
+  position: string;      // "hình ảnhBên trái站立"
+  clothing: string;      // "蓝色Tây装，领带松开"
   expression: string;    // "眉头紧皱"
   props: string[];       // ["Cầm tay信封", "左手插兜"]
 }
@@ -423,8 +423,8 @@ export interface ContinuityRef {
   prevShotId: string | null;         // 上一镜头 ID
   nextShotId: string | null;         // 下一镜头 ID
   prevEndFrameUrl: string | null;    // 上一镜头khung cuối（Tự động填充）
-  characterStates: Record<string, ContinuityCharacterState>;  // charName -> 状态快照
-  lightingContinuity: string;        // "与上一镜头保持同一侧光方向"
+  characterStates: Record<string, ContinuityCharacterState>;  // charName -> 状态nhanh
+  lightingContinuity: string;        // "与上一镜头giữ同一侧光方向"
   flaggedIssues: string[];           // AI Tự động检测的穿帮风险
 }
 
@@ -459,7 +459,7 @@ export interface Shot {
   episodeId?: string;        // 所属 tậpID
   sceneRefId: string;        // Script scene id
   sceneId?: string;          // Scene store id
-  sceneViewpointId?: string; // 关联的场景góc nhìnID（联合图切割后的góc nhìn）
+  sceneViewpointId?: string; // 关联的场景góc nhìnID（ảnh ghépcắt后的góc nhìn）
   
   // === 分镜核心thông tin ===
   actionSummary: string;     // 动作Mô tả（người dùngNgôn ngữ）
@@ -499,11 +499,11 @@ export interface Shot {
   
   // === tự sựdẫn dắttrường（基于《电影Ngôn ngữ的语法》） ===
   narrativeFunction?: string;   // tự sựchức năng：铺垫/升级/cao trào/转折/chuyển tiếp/尾声
-  conflictStage?: string;       // 冲突阶段：引入/激化/对抗/转折/解决/余波/辅助
+  conflictStage?: string;       // 冲突Giai đoạn：引入/激化/对抗/转折/解决/余波/辅助
   shotPurpose?: string;         // 镜头mục đích：此镜头如何服务于故事核心
   storyAlignment?: string;      // 与Bối cảnh thế giới/故事核心的giống性：aligned/minor-deviation/needs-review
   visualFocus?: string;         // Tiêu điểm thị giác：观众应该看什么（按thứ tự）
-  cameraPosition?: string;      // 机位Mô tả：摄影机相对于nhân vật的位置
+  cameraPosition?: string;      // vị trí cameraMô tả：摄影机相对于nhân vật的位置
   characterBlocking?: string;   // nhân vậtbố cục：nhân vật在hình ảnhđang xử lý...关系
   rhythm?: string;              // Nhịp điệuMô tả：这镜头的Nhịp điệu感
 
@@ -526,7 +526,7 @@ export interface Shot {
   atmosphericEffects?: AtmosphericEffect[]; // 氛围特效（có thể chọn nhiều）
   effectIntensity?: EffectIntensity;       // 特效强度
 
-  // === Tốc độ控制 (Speed Ramping) ===
+  // === Tốc độđiều khiển (Speed Ramping) ===
   playbackSpeed?: PlaybackSpeed;           // 播放Tốc độ
 
   // === 拍摄角度 / 焦距 / 技法 ===

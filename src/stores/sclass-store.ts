@@ -7,7 +7,7 @@
  * 核心概念：
  * - ShotGroup：将 director-store đang xử lý...plitScene 按组合并，用于多Ống kínhtự sựTạo video
  * - AssetRef：@tham chiếuTài sản（ảnh/video/âm thanh），在promptđang xử lý...Image1 @Video1 @Audio1 形式tham chiếu
- * - 双chế độ：Phân cảnhchế độ（从Kịch bản流水线Nhập）+ Tự dochế độ（纯Phương tiệnTải lên）
+ * - 双chế độ：Phân cảnhchế độ（从Kịch bảnquy trìnhNhập）+ Tự dochế độ（纯Phương tiệnTải lên）
  *
  * Seedance 2.0 限制：
  * - 输入：≤9ảnh + ≤3video(≤15s) + ≤3âm thanh(MP3,≤15s) + 文本(5000ký tự) ，Tổngfile≤12
@@ -76,7 +76,7 @@ export interface AssetRef {
   type: AssetType;
   /** Tài sảnThẻ，如 @Image1, @Video2 */
   tag: string;
-  /** 本地file路径或 data URL */
+  /** cục bộfile路径hoặc data URL */
   localUrl: string;
   /** HTTP URL（Tải lên到 API 后获得） */
   httpUrl: string | null;
@@ -100,9 +100,9 @@ export interface GenerationRecord {
   videoUrl: string | null;
   status: VideoGenStatus;
   error: string | null;
-  /** Sử dụng的Tài sảntham chiếu快照 */
+  /** Sử dụng的Tài sảntham chiếunhanh */
   assetRefs: AssetRef[];
-  /** Tạo参数快照 */
+  /** Tạotham sốnhanh */
   config: {
     aspectRatio: SClassAspectRatio;
     resolution: SClassResolution;
@@ -118,7 +118,7 @@ export interface GenerationRecord {
  */
 export interface ShotGroup {
   id: string;
-  /** Tên nhóm（Tự độngTạo或người dùngTùy chỉnh） */
+  /** Tên nhóm（Tự độngTạohoặcngười dùngTùy chỉnh） */
   name: string;
   /** tham chiếu director-store đang xử lý...litScene.id  cột表 */
   sceneIds: number[];
@@ -154,7 +154,7 @@ export interface ShotGroup {
   // ---- cấp nhóm AI Hiệu chuẩn ----
   /** cấp nhómtự sựcung（AI Hiệu chuẩn产物） */
   narrativeArc?: string;
-  /** Ống kính间chuyển tiếp指令，长度 = sceneIds.length - 1 */
+  /** Ống kính间chuyển tiếp指令，độ dài = sceneIds.length - 1 */
   transitions?: string[];
   /** Thiết kế âm thanh cấp nhóm (kế hoạch toàn đoạn 15 giây) */
   groupAudioDesign?: string;
@@ -168,9 +168,9 @@ export interface ShotGroup {
   // ---- videokéo dài & videoChỉnh sửa ----
   /** 组TạoLoại：new=全新Tạo, extend=kéo dài, edit=Chỉnh sửa */
   generationType?: GroupGenerationType;
-  /** Hướng kéo dài（仅 extend 时有效） */
+  /** Hướng kéo dài（仅 extend 时hợp lệ） */
   extendDirection?: ExtendDirection;
-  /** Chỉnh sửaLoại（仅 edit 时有效） */
+  /** Chỉnh sửaLoại（仅 edit 时hợp lệ） */
   editType?: EditType;
   /** 来nhóm nguồn ID（kéo dài/Chỉnh sửa的gốcvideo组） */
   sourceGroupId?: string;

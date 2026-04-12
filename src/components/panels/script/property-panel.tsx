@@ -235,7 +235,7 @@ export function PropertyPanel({
   const handleCopyCharacterData = async () => {
     if (!character) return;
     
-    // 格式化Nhân vậtdữ liệu
+    // định dạng化Nhân vậtdữ liệu
     const lines: string[] = [];
     lines.push(`# Ảnh thiết kế nhân vật: ${character.name}`);
     lines.push('');
@@ -397,14 +397,14 @@ export function PropertyPanel({
   const handleCopyEpisodeShots = async () => {
     if (!episode || episodeShots.length === 0) return;
     
-    // 情绪ThẻTiếng Trung映射
+    // 情绪ThẻTiếng Trungánh xạ
     const emotionLabels: Record<string, string> = {
       happy: 'Vui vẻ', sad: 'Buồn bã', angry: 'Tức giận', surprised: 'Ngạc nhiên', fearful: 'Sợ hãi', calm: 'Bình tĩnh',
       tense: 'căng thẳng', excited: 'Hứng khởi', mysterious: 'bí ẩn', romantic: 'Lãng mạn', funny: 'Hài hước', touching: 'Cảm động',
       serious: 'Nghiêm túc', relaxed: 'Nhẹ nhàng', playful: 'Châm biếm', gentle: 'Dịu dàng', passionate: 'Sôi nổi', low: 'Trầm lắng'
     };
     
-    // 格式化Phân cảnhdữ liệu
+    // định dạng化Phân cảnhdữ liệu
     const lines: string[] = [];
     lines.push(`# Tập ${episode.index}: ${episode.title.replace(/^Tập\d+[：:]?/, '')}`);
     lines.push('');
@@ -495,12 +495,12 @@ export function PropertyPanel({
       shot.endFramePrompt || shot.endFramePromptZh
     );
 
-    // Kích thước cảnhTiếng Trung映射
+    // Kích thước cảnhTiếng Trungánh xạ
     const shotSizeLabels: Record<string, string> = {
       'ECU': 'Cực cận cảnh', 'CU': 'Cận cảnh', 'MCU': 'đang xử lý..., 'MS': 'đang xử lý...
       'MLS': 'đang xử lý..., 'LS': 'Viễn cảnh', 'ELS': 'Đại viễn cảnh', 'POV': 'Góc nhìn chủ quan'
     };
-    // Phân cảnh运动Tiếng Trung映射（tương thích旧值+新预设ID）
+    // Phân cảnh运动Tiếng Trungánh xạ（tương thích旧值+新预设ID）
     const cameraLabelsLegacy: Record<string, string> = {
       'Static': 'Cố định', 'Pan': 'Xoay ngang', 'Tilt': 'Nghiêng', 'Dolly': 'Kéo/đẩy',
       'Zoom': 'Zoom', 'Tracking': 'Theo dõi', 'Crane': 'Nâng hạ', 'Handheld': 'Cầm tay'
@@ -537,7 +537,7 @@ export function PropertyPanel({
     if (shot.characterNames && shot.characterNames.length > 0) {
       lines.push(`Nhân vật xuất hiện: ${shot.characterNames.join(', ')}`);
     }
-    // Thoạitrường始终显示，无Thoại时明确标注“无”，防止AIVideo模型幻觉
+    // Thoạitrườngluôn显示，无Thoại时明确标注“无”，防止AIVideo模型幻觉
     lines.push(`Thoại: ${shot.dialogue ? `「${shot.dialogue}」` : 'không'}`);
     if (shot.actionSummary) {
       lines.push(`Hành độngMô tả: ${shot.actionSummary}`);

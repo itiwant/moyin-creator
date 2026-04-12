@@ -267,7 +267,7 @@ export function allocateAngles(count: number, preselected: (string | undefined)[
 }
 
 export function buildAnchorPhrase(_styleTokens?: string[]): string {
-  // styleTokens 不再注入（Hiệu chuẩn后的 prompt 已包含Phong cáchMô tả，Tránh双重注入）
+  // styleTokens 不再注入（Hiệu chuẩn后的 prompt 已chứaPhong cáchMô tả，Tránh双重注入）
   const noTextConstraint = 'IMPORTANT: NO TEXT, NO WORDS, NO LETTERS, NO CAPTIONS, NO SPEECH BUBBLES, NO DIALOGUE BOXES, NO SUBTITLES, NO WRITING of any kind.';
   return `Keep character appearance, wardrobe and facial features consistent. Keep lighting and color grading consistent. ${noTextConstraint}`;
 }
@@ -278,7 +278,7 @@ export function composeTilePrompt(scene: SplitScene, angle: Angle, aspect: '16:9
   const vertical = aspect === '9:16' ? 'vertical composition, tighter framing, avoid letterboxing, ' : '';
   const cameraPart = `${angle}, ${shot}`;
   const anchor = buildAnchorPhrase(styleTokens);
-  // styleTokens 不再末尾追加（Hiệu chuẩn后的 imagePrompt 已包含Phong cáchMô tả）
+  // styleTokens 不再末尾追加（Hiệu chuẩn后的 imagePrompt 已chứaPhong cáchMô tả）
   
   const charCount = scene.characterIds?.length || 0;
   const charCountPhrase = charCount === 0 
@@ -352,7 +352,7 @@ export function buildGridPrompt(
     gridPromptParts.push(`Panel [row ${row}, col ${col}] ${charConstraint}: ${desc}`);
   });
   
-  // styleTokens 不再注入（Hiệu chuẩn后的各 panel prompt 已包含Phong cáchMô tả）
+  // styleTokens 不再注入（Hiệu chuẩn后的各 panel prompt 已chứaPhong cáchMô tả）
   gridPromptParts.push('Keep consistent character appearance, lighting, and color grading across all panels.');
   gridPromptParts.push('CRITICAL: NO TEXT, NO WORDS, NO LETTERS, NO CAPTIONS, NO SPEECH BUBBLES, NO DIALOGUE BOXES, NO SUBTITLES in any panel.');
   

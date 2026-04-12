@@ -69,7 +69,7 @@ export const useProjectStore = create<ProjectStore>()(
         set((state) => ({
           projects: [newProject, ...state.projects],
           // 不在这里Cài đặt activeProjectId —— 由 switchProject() 统一处理
-          // Tránh switchProject 因 ID 已相同而跳过 rehydration
+          // Tránh switchProject 因 ID 已相同而Bỏ qua rehydration
         }));
         return newProject;
       },
@@ -155,9 +155,9 @@ export const useProjectStore = create<ProjectStore>()(
  * 将未在 projects  cột表đang xử lý...项目Tự động恢复。
  * 
  * 解决以下Cảnh：
- * - thay đổi存储路径并迁移dữ liệu后，前端 store 未 reload，或 moyin-project-store.json
+ * - thay đổi存储路径并迁移dữ liệu后，前端 store 未 reload，hoặc moyin-project-store.json
  *   đang xử lý...rojects  cột表不đầy đủ（旧Phiên bản、Thủ côngSao chép等）
- * - Nhậpdữ liệu后 moyin-project-store.json thiếu或不含Dự án mới
+ * - Nhậpdữ liệu后 moyin-project-store.json thiếuhoặc不含Dự án mới
  * - 换电脑后指向旧dữ liệuthư mục，projects  cột表为空
  */
 async function discoverProjectsFromDisk(): Promise<void> {
@@ -205,7 +205,7 @@ async function discoverProjectsFromDisk(): Promise<void> {
           const parsed = JSON.parse(directorRaw);
           const state = parsed?.state ?? parsed;
           if (state?.projects?.[pid]?.screenplay) {
-            // 有Kịch bảnNội dung，说明确实是有效项目
+            // 有Kịch bảnNội dung，说明确实是hợp lệ项目
             const screenplay = state.projects[pid].screenplay;
             if (!name.includes('Dự án khôi phục')) {
               // 已经有Tên了，不Ghi đè

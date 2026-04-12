@@ -167,7 +167,7 @@ export function SettingsPanel() {
       image_understanding: `${pid}:gemini-2.5-flash`,
     };
 
-    // kiểm tra绑定是否有效
+    // kiểm tra绑定是否hợp lệ
     const isBindingValid = (b: string): boolean => {
       const idx = b.indexOf(':');
       if (idx <= 0) return false;
@@ -196,7 +196,7 @@ export function SettingsPanel() {
         continue;
       }
 
-      // 为空 或 Tất cả无效 → lại设置默认值
+      // 为空 hoặc Tất cả无效 → lại设置默认值
       const needsDefault = !cur || cur.length === 0 || !cur.some(isBindingValid);
       if (needsDefault) {
         setFeatureBindings(feature as AIFeature, [binding]);
@@ -1670,7 +1670,7 @@ export function SettingsPanel() {
           updateProvider(provider);
 
           // Chỉnh sửa memefast 时也Tự động设置默认ánh xạ dịch vụ：初始状态会预置一空 key 的 memefast，
-          // người dùng通常是“Chỉnh sửa填 key”，如果不在这里补默认映射，会导致ánh xạ dịch vụ一直是 0/6。
+          // người dùng通常是“Chỉnh sửa填 key”，如果不在这里补默认ánh xạ，会导致ánh xạ dịch vụ一直是 0/6。
           if (provider.platform === 'memefast' && parseApiKeys(provider.apiKey).length > 0) {
             const pid = provider.id;
             const MEMEFAST_DEFAULT_BINDINGS: Record<string, string> = {

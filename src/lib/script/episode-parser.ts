@@ -3,11 +3,11 @@
 // Commercial licensing available. See COMMERCIAL_LICENSE.md.
 /**
  * Episode Parser - đang xử lý...规则Phân tích器
- * Phân tíchTiêu chuẩnđang xử lý...格式，提取 tập、场景、Thoại、动作等Cấu trúc化thông tin
+ * Phân tíchTiêu chuẩnđang xử lý...định dạng，提取 tập、场景、Thoại、动作等Cấu trúc化thông tin
  * 
- * 支持的格式：
+ * 支持的định dạng：
  * -  tập标记：第X tập
- * - 场景头：**1-1日 内 沪上 张家** 或 1-1 日 内 沪上 张家
+ * - 场景头：**1-1日 内 沪上 张家** hoặc 1-1 日 内 沪上 张家
  * - nhân vật行：nhân vật：张明、张父
  * - 字幕：【字幕：2002年夏】
  * - 动作描写：△外栀子花绽放...
@@ -57,15 +57,15 @@ export function parseFullScript(fullText: string): {
   const title = titleMatch ? titleMatch[1] : '未命名剧本';
   
   // 2. 提取đại cương（从"đại cương："到"nhân vật小传："之间的内容）
-  // 支持 Markdown 格式：**đại cương：** 或 đại cương： 或 【đại cương】
+  // 支持 Markdown định dạng：**đại cương：** hoặc đại cương： hoặc 【đại cương】
   // 末尾 |$ 兜底：无nhân vật小传/无 tập标记时Khớp到文本末尾
-  const outlineMatch = fullText.match(/(?:\*{0,2}đại cương[：:]​?\*{0,2}|【đại cương】)([\s\S]*?)(?=(?:\*{0,2}nhân vật小传[：:]|【nhân vật|第[一二三四五六七八九十\d]+ tập|$))/i);
+  const outlineMatch = fullText.match(/(?:\*{0,2}đại cương[：:]​?\*{0,2}|【đại cương】)([\s\S]*?)(?=(?:\*{0,2}nhân vật小传[：:]|【nhân vật|第[一二三4五六七八九十\d]+ tập|$))/i);
   const outline = outlineMatch ? outlineMatch[1].trim() : '';
   
   // 3. 提取nhân vật小传（从"nhân vật小传："到第一 tập之前的内容）
-  // 支持 Markdown 格式：**nhân vật小传：** 或 nhân vật小传： 或 【nhân vật小传】
+  // 支持 Markdown định dạng：**nhân vật小传：** hoặc nhân vật小传： hoặc 【nhân vật小传】
   // 末尾 |$ 兜底：无 tập标记时Khớp到文本末尾
-  const characterBiosMatch = fullText.match(/(?:\*{0,2}nhân vật小传[：:]\*{0,2}|【nhân vật小传】)([\s\S]*?)(?=\*{0,2}第[一二三四五六七八九十\d]+ tập|$)/i);
+  const characterBiosMatch = fullText.match(/(?:\*{0,2}nhân vật小传[：:]\*{0,2}|【nhân vật小传】)([\s\S]*?)(?=\*{0,2}第[一二三4五六七八九十\d]+ tập|$)/i);
   const characterBios = characterBiosMatch ? characterBiosMatch[1].trim() : '';
   
   // 4. 提取thời đại背景和时间线设定
@@ -209,7 +209,7 @@ function extractTimelineInfo(outline: string, characterBios: string): {
 function detectGenre(outline: string, characterBios: string): string {
   const fullText = `${outline}\n${characterBios}`;
   
-  // 类型quan trọng词映射（按优先级排列）
+  // 类型quan trọng词ánh xạ（按优先级排列）
   const genrePatterns: Array<{ keywords: RegExp; genre: string }> = [
     { keywords: /武侠|江湖|门派|武功|剑|刀法|内力|武林/, genre: '武侠' },
     { keywords: /仙侠|修仙|灵气|渡劫|飞升|法宝|灵根/, genre: '仙侠' },
@@ -239,7 +239,7 @@ function detectGenre(outline: string, characterBios: string): string {
     }
   }
   
-  return ''; // 未检测到则Để trống，不硬编码默认值
+  return ''; // 未Phát hiện则Để trống，不硬编码默认值
 }
 
 /**
@@ -305,13 +305,13 @@ function extractThemes(outline: string, characterBios: string): string[] {
 export function parseEpisodes(text: string): EpisodeRawScript[] {
   const episodes: EpisodeRawScript[] = [];
   
-  // Khớp tập标记：第X tập 或 第X tập：标题
-  // 支持 **第X tập** 或 **第X tập：标题** 格式
+  // Khớp tập标记：第X tập hoặc 第X tập：标题
+  // 支持 **第X tập** hoặc **第X tập：标题** định dạng
   const episodeRegex = /\*{0,2}第([\u4e00\u4e8c\u4e09\u56db\u4e94\u516d\u4e03\u516b\u4e5d\u5341\u767e\u5343\d]+) tập[\uff1a:]?\s*([^\n\*]*?)\*{0,2}(?=\n|$)/g;
   const matches = [...text.matchAll(episodeRegex)];
   
   if (matches.length === 0) {
-    // 如果没有找到 tập标记，把整文本当作第一 tập
+    // 如果没有Tìm thấy tập标记，把整文本当作第一 tập
     const scenes = parseScenes(text);
     return [{
       episodeIndex: 1,
@@ -327,7 +327,7 @@ export function parseEpisodes(text: string): EpisodeRawScript[] {
     const episodeIndex = chineseToNumber(match[1]);
     // 清理标题：移除前后空格和 ** 符号
     let rawTitle = match[2]?.trim().replace(/^\*+|\*+$/g, '').trim() || '';
-    // 确保标题包含 tập号
+    // 确保标题chứa tập号
     const episodeTitle = rawTitle 
       ? `第${episodeIndex} tập：${rawTitle}` 
       : `第${episodeIndex} tập`;
@@ -362,16 +362,16 @@ export function parseEpisodes(text: string): EpisodeRawScript[] {
 export function parseScenes(episodeText: string): SceneRawContent[] {
   const scenes: SceneRawContent[] = [];
   
-  // 场景头格式Khớp：
-  // **1-1日 内 沪上 张家** 或
-  // 1-1 日 内 沪上 张家 或
+  // 场景头định dạngKhớp：
+  // **1-1日 内 沪上 张家** hoặc
+  // 1-1 日 内 沪上 张家 hoặc
   // **2-3 夜 外 码头**
   const sceneHeaderRegex = /\*{0,2}(\d+-\d+)\s*(日|夜|晨|暮|Hoàng hôn|Bình minh|清晨|傍晚)\s*(内|外|内\/外)\s+([^\*\n]+)\*{0,2}/g;
   const sceneMatches = [...episodeText.matchAll(sceneHeaderRegex)];
   
   if (sceneMatches.length === 0) {
-    // 没有找到Tiêu chuẩn场景头，尝试Lỏng lẻo的 数字-数字 格式
-    // Khớp如：1-1 规则怪谈世界， tập合广场，日  或  1-2 全球同一会议直播间，日
+    // 没有Tìm thấyTiêu chuẩn场景头，尝试Lỏng lẻo的 数字-数字 định dạng
+    // Khớp如：1-1 规则怪谈世界， tập合广场，日  hoặc  1-2 全球同一会议直播间，日
     const looseSceneRegex = /^\*{0,2}(\d+-\d+)\s+([^\*\n]+)\*{0,2}$/gm;
     const looseMatches = [...episodeText.matchAll(looseSceneRegex)];
     
@@ -410,10 +410,10 @@ export function parseScenes(episodeText: string): SceneRawContent[] {
           locationDesc = locationDesc.replace(interiorMatch[0], '').trim();
         }
         
-        // 将đang xử lý...ngăn cách的地点拼接成可读格式
+        // 将đang xử lý...ngăn cách的地点拼接成可读định dạng
         const location = locationDesc.replace(/[，,]/g, ' ').replace(/\s+/g, ' ').trim() || '未知地点';
         
-        // 构建Tiêu chuẩn格式的场景头，供下游代码Sử dụng
+        // 构建Tiêu chuẩnđịnh dạng的场景头，供下游代码Sử dụng
         const sceneHeader = interior 
           ? `${sceneNumber} ${timeOfDay} ${interior} ${location}`
           : `${sceneNumber} ${timeOfDay} ${location}`;
@@ -444,7 +444,7 @@ export function parseScenes(episodeText: string): SceneRawContent[] {
       return scenes;
     }
     
-    // Lỏng lẻo格式也没Khớp到，尝试其他备用格式
+    // Lỏng lẻođịnh dạng也没Khớp到，尝试其他备用định dạng
     return parseAlternativeSceneFormat(episodeText);
   }
   
@@ -492,15 +492,15 @@ export function parseScenes(episodeText: string): SceneRawContent[] {
 }
 
 /**
- * Phân tích备用场景格式（当Tiêu chuẩn格式不Khớp时）
+ * Phân tích备用场景định dạng（当Tiêu chuẩnđịnh dạng不Khớp时）
  */
 function parseAlternativeSceneFormat(text: string): SceneRawContent[] {
   const scenes: SceneRawContent[] = [];
   
-  // 尝试Khớp其他常见格式
-  // 格式1: 场景X 或 场景 X
-  // 格式2: [场景Mô tả]
-  // 格式3: Trực tiếp按段落分
+  // 尝试Khớp其他常见định dạng
+  // định dạng1: 场景X hoặc 场景 X
+  // định dạng2: [场景Mô tả]
+  // định dạng3: Trực tiếp按段落分
   
   const altRegex = /(?:场景\s*(\d+)|【场景[：:]?\s*([^\】]+)】)/g;
   const matches = [...text.matchAll(altRegex)];
@@ -556,7 +556,7 @@ function detectWeather(content: string, actions: string[]): string | undefined {
   if (/晴朗|艳阳|日光明媚|万里无云/.test(fullText)) return '晴';
   if (/电闪雷鸣|打雷|闪电/.test(fullText)) return '雷雨';
   
-  return undefined; // 未检测到特定天气
+  return undefined; // 未Phát hiện特定天气
 }
 
 /**
@@ -615,8 +615,8 @@ function parseCharacters(text: string): string[] {
 function parseDialogues(text: string): DialogueLine[] {
   const dialogues: DialogueLine[] = [];
   
-  // Thoại格式：角色tên:（动作）台词
-  // 或：角色tên:台词
+  // Thoạiđịnh dạng：角色tên:（动作）台词
+  // hoặc：角色tên:台词
   const dialogueRegex = /^([^：:（\(【\n△]{1,10})[：:]\s*(?:[（\(]([^）\)]+)[）\)])?\s*(.+)$/gm;
   
   const matches = [...text.matchAll(dialogueRegex)];
@@ -658,12 +658,12 @@ function parseActions(text: string): string[] {
 }
 
 /**
- * Phân tích字幕（【字幕：...】或【VO：...】等）
+ * Phân tích字幕（【字幕：...】hoặc【VO：...】等）
  */
 function parseSubtitles(text: string): string[] {
   const subtitles: string[] = [];
   
-  // 【字幕：...】或【VO：...】或【闪回】等
+  // 【字幕：...】hoặc【VO：...】hoặc【闪回】等
   const subtitleRegex = /【([^】]+)】/g;
   const matches = [...text.matchAll(subtitleRegex)];
   
@@ -684,7 +684,7 @@ function chineseToNumber(chinese: string): number {
   }
   
   const chineseNums: Record<string, number> = {
-    '零': 0, '一': 1, '二': 2, '三': 3, '四': 4,
+    '零': 0, '一': 1, '二': 2, '三': 3, '4': 4,
     '五': 5, '六': 6, '七': 7, '八': 8, '九': 9,
     '十': 10, '百': 100, '千': 1000,
   };
@@ -714,14 +714,14 @@ function chineseToNumber(chinese: string): number {
 
 /**
  * 从nhân vật小传文本đang xử lý...色thông tin
- * 支持两种格式：
- * 1. 紧凑格式：角色tên:Tuổi：XXDanh tính：... （从 Word/微信复制的无换行文本）
- * 2. Tiêu chuẩn格式：角色tên:Mô tả 或 角色名（Tuổi）：Mô tả
+ * 支持两种định dạng：
+ * 1. 紧凑định dạng：角色tên:Tuổi：XXDanh tính：... （从 Word/微信复制的无换行文本）
+ * 2. Tiêu chuẩnđịnh dạng：角色tên:Mô tả hoặc 角色名（Tuổi）：Mô tả
  */
 export function parseCharacterBios(bios: string): ScriptCharacter[] {
   if (!bios || !bios.trim()) return [];
   
-  // 检测紧凑格式：角色tên:Tuổi/年两：XX （至少2条目才认定为紧凑格式）
+  // 检测紧凑định dạng：角色tên:Tuổi/年两：XX （至少2条目才认定为紧凑định dạng）
   const compactEntryRegex = /([\u4e00-\u9fa5]{2,12})[：:]\s*(?:Tuổi|年两)[：:]\s*(\d{1,3})/g;
   const compactMatches = [...bios.matchAll(compactEntryRegex)];
   
@@ -729,12 +729,12 @@ export function parseCharacterBios(bios: string): ScriptCharacter[] {
     return parseCompactBioFormat(bios, compactMatches);
   }
   
-  // Tiêu chuẩn格式兜底
+  // Tiêu chuẩnđịnh dạng兜底
   return parseStandardBioFormat(bios);
 }
 
 /**
- * 紧凑格式Phân tích：角色tên:Tuổi：XXDanh tính：...quan trọng行为：...
+ * 紧凑định dạngPhân tích：角色tên:Tuổi：XXDanh tính：...quan trọng行为：...
  * Tự động剥离段落标记（一、核心nhân vật chính 等）提取真实角色名
  */
 function parseCompactBioFormat(bios: string, matches: RegExpMatchArray[]): ScriptCharacter[] {
@@ -756,7 +756,7 @@ function parseCompactBioFormat(bios: string, matches: RegExpMatchArray[]): Scrip
     let description = bios.slice(descStart, descEnd).trim();
     
     // 移除末尾的段落标记（如 "三、反派势力角色"）
-    description = description.replace(/\n?[一二三四五六七八九十\d]+[、.]\s*[\u4e00-\u9fa5]*$/, '').trim();
+    description = description.replace(/\n?[一二三4五六七八九十\d]+[、.]\s*[\u4e00-\u9fa5]*$/, '').trim();
     
     characters.push({
       id: `char_${index}`,
@@ -769,7 +769,7 @@ function parseCompactBioFormat(bios: string, matches: RegExpMatchArray[]): Scrip
     index++;
   }
   
-  console.log(`[parseCharacterBios] 紧凑格式检测到 ${characters.length} 角色`);
+  console.log(`[parseCharacterBios] 紧凑định dạngPhát hiện ${characters.length} 角色`);
   return characters;
 }
 
@@ -779,7 +779,7 @@ function parseCompactBioFormat(bios: string, matches: RegExpMatchArray[]): Scrip
  */
 function stripSectionKeywords(name: string): string {
   // 1. 移除开头的đang xử lý...：一、 二. 等
-  name = name.replace(/^[一二三四五六七八九十\d]+[、.]\s*/, '');
+  name = name.replace(/^[一二三4五六七八九十\d]+[、.]\s*/, '');
   // 2. 移除段落类别quan trọng词
   name = name.replace(
     /^(?:核心|主要|chính diện|反面|反派|次要|重要|quan trọng|群众|正派|其他)(?:势力)?(?:角色|nhân vật chính|nhân vật phụ|nhân vật)?/,
@@ -789,7 +789,7 @@ function stripSectionKeywords(name: string): string {
 }
 
 /**
- * Tiêu chuẩn格式Phân tích（原逻辑）：角色tên:Mô tả 或 角色名（Tuổi）：Mô tả
+ * Tiêu chuẩnđịnh dạngPhân tích（原逻辑）：角色tên:Mô tả hoặc 角色名（Tuổi）：Mô tả
  */
 function parseStandardBioFormat(bios: string): ScriptCharacter[] {
   const characters: ScriptCharacter[] = [];
@@ -803,9 +803,9 @@ function parseStandardBioFormat(bios: string): ScriptCharacter[] {
     const age = match[2]?.replace(' tuổi', '') || '';
     const description = match[3].trim();
     
-    // 跳过非角色内容
-    if (name.length > 10 || name.match(/^[第一二三四五六七八九十\d]/)) continue;
-    // 跳过thuộc tính标签和补充说明
+    // Bỏ qua非角色内容
+    if (name.length > 10 || name.match(/^[第一二三4五六七八九十\d]/)) continue;
+    // Bỏ quathuộc tính标签和补充说明
     if (/^(?:Tuổi|Danh tính|Tính cách|补充|注|备注|Đặc trưng cốt lõi|quan trọng行为)$/.test(name)) continue;
     
     characters.push({
@@ -886,18 +886,18 @@ function splitMultipleCharacters(rawName: string): string[] {
 }
 
 /**
- * kiểm tra是否为有效角色名（放宽lọc，让 AI 做thông minhHiệu chuẩn）
+ * kiểm tra是否为hợp lệ角色名（放宽lọc，让 AI 做thông minhHiệu chuẩn）
  */
 function isValidCharacterName(name: string): boolean {
-  // 跳过空名字
+  // Bỏ qua空名字
   if (!name || name.length < 1) return false;
-  // 跳过太长的名字（放宽到6字，让AI判断）
+  // Bỏ qua太长的名字（放宽到6字，让AI判断）
   if (name.length > 6) return false;
-  // 跳过纯数字
+  // Bỏ qua纯数字
   if (/^\d+$/.test(name)) return false;
-  // 跳过包含特殊符号的
+  // Bỏ quachứa特殊符号的
   if (/[\*\-\+\=\>\<\|\[\]\{\}]/.test(name)) return false;
-  // 跳过明显的非角色词（只lọc最明显的，其他交给AI）
+  // Bỏ qua明显的非角色词（只lọc最明显的，其他交给AI）
   const obviousNonCharacters = [
     'VO', '旁白', 'os', '左边', '右边', 'đang xử lý... '背影', '远处',
     '效率', '回流率', '分拣', '客户', '眼眶', '微湿', 'Cầm tay', '笔挺',
@@ -994,7 +994,7 @@ function extractCharactersFromScenes(
 }
 
 /**
- * 将Phân tích后的剧本转换为 ScriptData 格式（用于系统显示）
+ * 将Phân tích后的剧本chuyển đổi thành ScriptData định dạng（用于系统显示）
  */
 export function convertToScriptData(
   background: ProjectBackground,
@@ -1025,9 +1025,9 @@ export function convertToScriptData(
       sceneIds.push(sceneId);
       
       // Phân tích场景头获取时间和地点
-      // 支持两种格式：
-      // Tiêu chuẩn格式: "1-1 日 内 地点名" (headerParts: [number, time, interior, ...location])
-      // Lỏng lẻo格式: "1-1 日 地点名" (headerParts: [number, time, ...location])
+      // 支持两种định dạng：
+      // Tiêu chuẩnđịnh dạng: "1-1 日 内 地点名" (headerParts: [number, time, interior, ...location])
+      // Lỏng lẻođịnh dạng: "1-1 日 地点名" (headerParts: [number, time, ...location])
       const headerParts = scene.sceneHeader.split(/\s+/);
       const timeOfDay = headerParts[1] || '日';
       const hasInterior = headerParts[2] && /^(内|外|内\/外)$/.test(headerParts[2]);

@@ -12,7 +12,7 @@
  *
  * Thiết kế原则：
  *   - 按模型名查表，不按 URL — memefast 代理的模型和直连一样
- *   - prefix Khớp按长度降序 — Tránh短前缀误Khớp更具体的模型
+ *   - prefix Khớp按độ dài降序 — Tránh短前缀误Khớp更具体的模型
  *   - 仅Ghi đè text/chat 模型 — 图像/视频/音频不走 callChatAPI
  *   - 保守默认值 — 未知模型宁可多分批也不撞限制
  */
@@ -22,7 +22,7 @@
 export interface ModelLimits {
   /** 模型最大输入上下文sổ（tokens） */
   contextWindow: number;
-  /** 模型最大输出 token 数（max_tokens 参数上限） */
+  /** 模型最大输出 token 数（max_tokens tham số上限） */
   maxOutput: number;
 }
 
@@ -76,7 +76,7 @@ const STATIC_REGISTRY: Record<string, ModelLimits> = {
   'minimax-m2.1':           { contextWindow: 128000,   maxOutput: 8192   },
 
   // ==================== 通用 prefix 规则 ====================
-  // 注意：prefix Khớp按长度降序执行，长 key 优先
+  // 注意：prefix Khớp按độ dài降序执行，长 key 优先
   'deepseek-':              { contextWindow: 128000,   maxOutput: 8192   },
   'gemini-':                { contextWindow: 1048576,  maxOutput: 65536  },
   'glm-':                   { contextWindow: 128000,   maxOutput: 8192   },
@@ -119,7 +119,7 @@ export function injectDiscoveryCache(
  *
  * 3 lớp查找：
  *   1. 持久化缓存（Error-driven Discovery 学到的真实限制）
- *   2. 静态注册表（精确Khớp → prefix Khớp，prefix 按长度降序）
+ *   2. 静态注册表（精确Khớp → prefix Khớp，prefix 按độ dài降序）
  *   3. _default
  */
 export function getModelLimits(modelName: string): ModelLimits {
@@ -150,7 +150,7 @@ function lookupStatic(modelNameLower: string): ModelLimits {
     return STATIC_REGISTRY[modelNameLower];
   }
 
-  // prefix Khớp（长度降序保证最具体的先命中）
+  // prefix Khớp（độ dài降序保证最具体的先命中）
   for (const key of SORTED_KEYS) {
     if (modelNameLower.startsWith(key)) {
       return STATIC_REGISTRY[key];
@@ -166,13 +166,13 @@ function lookupStatic(modelNameLower: string): ModelLimits {
 /**
  * 从 API 400 lỗi消息đang xử lý...型限制
  *
- * Ghi đè主流 API 的lỗi格式：
+ * Ghi đè主流 API 的lỗiđịnh dạng：
  *   - DeepSeek: "Invalid max_tokens value, the valid range of max_tokens is [1, 8192]"
  *   - OpenAI:   "maximum context length is 128000 tokens ... you requested 150000 tokens"
  *   - 智谱:     "max_tokens must be less than or equal to 8192"
  *   - 通用:     "max_tokens ... 8192" 等各种变体
  *
- * @returns Phân tích出的限制（可能只有 maxOutput 或 contextWindow 或两者都有），
+ * @returns Phân tích出的限制（可能只有 maxOutput hoặc contextWindow hoặc两者都有），
  *          如果正则未Khớp到任何数值则返回 null（优雅降级，不会死循环）
  */
 export function parseModelLimitsFromError(errorText: string): Partial<DiscoveredModelLimits> | null {
@@ -252,8 +252,8 @@ export function cacheDiscoveredLimits(
  * Token 估算（保守算法）
  *
  * Sử dụng Số ký tự/1.5 作为保守上限：
- *   - đang xử lý...1 token ≈ 0.6~1.0 汉字，/1.5 相当于放大估算（偏安全）
- *   - 英文/标点/JSON: 1 token ≈ 3~4 ký tự，/1.5 也偏安全
+ *   - đang xử lý...1 token ≈ 0.6~1.0 汉字，/1.5 相当于放大估算（偏an toàn）
+ *   - 英文/标点/JSON: 1 token ≈ 3~4 ký tự，/1.5 也偏an toàn
  *   - 宁可高估 token 数（多分批），也不低估（撞限制）
  *   - 不引入 tiktoken 等重型库，Tránh前端 WASM tương thích性和体积问题
  */
@@ -262,8 +262,8 @@ export function estimateTokens(text: string): number {
 }
 
 /**
- * thông minhcắt ngắn文本，不在句子或段落đang xử lý...
- * Tránhcắt ngắn导致 JSON Cấu trúc损坏或 AI 理解混乱
+ * thông minhcắt ngắn文本，不在句子hoặc段落đang xử lý...
+ * Tránhcắt ngắn导致 JSON Cấu trúc损坏hoặc AI 理解混乱
  *
  * @param text gốc文本
  * @param maxLength 最大Số ký tự

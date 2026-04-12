@@ -125,8 +125,8 @@ const DEFAULT_PLATFORM_CAPABILITIES: Record<string, ModelCapability[]> = {
 };
 
 /**
- * Model级别能力映射
- * 精确控制每Model在ánh xạ dịch vụđang xử lý...范围
+ * Model级别能力ánh xạ
+ * 精确điều khiển每Model在ánh xạ dịch vụđang xử lý...范围
  * 未 cột出的Model将 fallback 到Nền tảng级别能力
  */
 const MODEL_CAPABILITIES: Record<string, ModelCapability[]> = {
@@ -191,7 +191,7 @@ function providerSupportsCapability(
 
 /**
  * kiểm tra特定Model是否Hỗ trợ所需能力
- * 优先级：硬编码映射 → Nền tảng元dữ liệu(model_type/tags) → ModelTên推断 → Nền tảng级别 fallback
+ * 优先级：硬编码ánh xạ → Nền tảng元dữ liệu(model_type/tags) → ModelTên推断 → Nền tảng级别 fallback
  */
 function modelSupportsCapability(
   modelName: string,
@@ -202,7 +202,7 @@ function modelSupportsCapability(
 ): boolean {
   if (!required) return true;
 
-  // 1. 硬编码映射（精确控制少量预设Model）
+  // 1. 硬编码ánh xạ（精确điều khiển少量预设Model）
   const modelCaps = MODEL_CAPABILITIES[modelName];
   if (modelCaps) {
     return modelCaps.includes(required);
@@ -219,7 +219,7 @@ function modelSupportsCapability(
         // 音video类đang xử lý...带“video”Thẻ的（排除纯âm thanh/TTS/Nhạc）
         return modelType === 'âm thanh/video' && (modelTagsList?.some(t => t.includes('video')) ?? false);
       case 'vision':
-        // nhận dạng ảnh能力跨 model_type，只看 tags 是否含“nhận dạng ảnh”或“đa phương thức”
+        // nhận dạng ảnh能力跨 model_type，只看 tags 是否含“nhận dạng ảnh”hoặc“đa phương thức”
         return modelTagsList?.some(t => t.includes('nhận dạng ảnh') || t.includes('đa phương thức')) ?? false;
       case 'embedding':
         return modelType === 'tìm kiếm';
@@ -308,13 +308,13 @@ export function FeatureBindingPanel() {
     return map;
   }, [providers, configuredProviderIds, modelTypes, modelTags]);
 
-  // 计算Đã cấu hình的chức năng数（至少有一有效绑定）
+  // 计算Đã cấu hình的chức năng数（至少有一hợp lệ绑定）
   const configuredCount = useMemo(() => {
     return FEATURE_CONFIGS.filter((feature) => {
       const bindings = getFeatureBindings(feature.key);
       if (bindings.length === 0) return false;
       
-      // kiểm tra是否至少有一有效的绑定
+      // kiểm tra是否至少有一hợp lệ的绑定
       const options = optionsByFeature[feature.key] || [];
       return bindings.some(binding => {
         const parsed = parseOptionKey(binding);
@@ -421,7 +421,7 @@ export function FeatureBindingPanel() {
             setFeatureBindings(feature.key, null);
           };
           
-          // kiểm tra有效/失效绑定（失效=Modelbị lọc、ngừng hoạt động，或Nền tảngChưa cấu hình）
+          // kiểm trahợp lệ/失效绑定（失效=Modelbị lọc、ngừng hoạt động，hoặcNền tảngChưa cấu hình）
           const validBindings: string[] = [];
           const invalidBindings: string[] = [];
           for (const binding of currentBindings) {

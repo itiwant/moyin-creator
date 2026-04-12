@@ -61,7 +61,7 @@ export function EditProviderDialog({
       return;
     }
 
-    // Phân tíchModel cột表（Hỗ trợ逗号或换 hàngngăn cách）
+    // Phân tíchModel cột表（Hỗ trợ逗号hoặc换 hàngngăn cách）
     const models = model
       .split(/[,\n]/)
       .map(m => m.trim())

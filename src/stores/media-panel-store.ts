@@ -123,7 +123,7 @@ export interface PendingCharacterData {
   // === 6层Danh tínhneo（Nhân vậtgiống性） ===
   identityAnchors?: CharacterIdentityAnchors;  // Neo danh tính - khóa 6 lớp đặc trưng
   negativePrompt?: CharacterNegativePrompt;    // Prompt phủ định
-  // === 多阶段Nhân vậtHỗ trợ ===
+  // === 多Giai đoạnNhân vậtHỗ trợ ===
   stageInfo?: {
     stageName: string;
     episodeRange: [number, number];
@@ -162,7 +162,7 @@ export interface PendingSceneData {
   keyProps?: string[];         // Đạo cụ quan trọng
   spatialLayout?: string;      // Bố cục không gian
   
-  // === 多Góc nhìn联合图dữ liệu ===
+  // === 多Góc nhìnảnh ghépdữ liệu ===
   viewpoints?: PendingViewpointData[];           // Danh sách góc nhìn
   contactSheetPrompts?: ContactSheetPromptSet[]; // Prompt ảnh tổng hợp (có thể nhiều tờ)
 }
@@ -176,16 +176,16 @@ export interface PendingViewpointData {
   shotIndexes: number[]; // Số thứ tự phân cảnh liên kết (dùng để hiển thị)
   keyProps: string[];   // Đạo cụ (tiếng Trung)
   keyPropsEn: string[]; // Đạo cụ（英文）
-  gridIndex: number;    // 在联合图đang xử lý...
-  pageIndex: number;    // 属于第几张联合图（从0Bắt đầu）
+  gridIndex: number;    // 在ảnh ghépđang xử lý...
+  pageIndex: number;    // 属于第几张ảnh ghép（从0Bắt đầu）
 }
 
-// 联合图prompt tập合（Hỗ trợ多张）
+// ảnh ghépprompt tập合（Hỗ trợ多张）
 export interface ContactSheetPromptSet {
-  pageIndex: number;          // 第几张联合图（从0Bắt đầu）
+  pageIndex: number;          // 第几张ảnh ghép（从0Bắt đầu）
   prompt: string;             // Prompt tiếng Anh
   promptZh: string;           // prompt tiếng Trung
-  viewpointIds: string[];     // 包含哪些Góc nhìnID
+  viewpointIds: string[];     // chứa哪些Góc nhìnID
   gridLayout: { rows: number; cols: number };
 }
 

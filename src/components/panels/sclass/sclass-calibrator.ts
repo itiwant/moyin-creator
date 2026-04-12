@@ -10,7 +10,7 @@
  * 2. gọi API LLM Tạocấp nhómtự sựcung、Ống kínhchuyển tiếp、âm thanhThiết kế、tối ưu prompt
  * 3. 写入 sclass-store 的 ShotGroup Hiệu chuẩntrường
  *
- * dữ liệu安全：
+ * dữ liệuan toàn：
  * - 只读 director-store，零污染gốcKịch bảndữ liệu
  * - 产物只写 sclass-store.ShotGroup 的Hiệu chuẩntrường
  */
@@ -70,7 +70,7 @@ function summarizeScene(scene: SplitScene, characters: Character[]): string {
  *
  * @param group       目标组（只读 sceneIds）
  * @param scenes      trong nhóm SplitScene[]（只读，来自 director-store）
- * @param characters  Thư viện nhân vật（用于Tên映射）
+ * @param characters  Thư viện nhân vật（用于Tênánh xạ）
  * @param sceneLibrary Thư viện cảnh（备用上下文）
  * @returns CalibrationResult
  */
@@ -151,7 +151,7 @@ calibratedPrompt phải bao gồm tất cả ${scenes.length} Ống kính, giữ
     calibratedPrompt: typeof parsed.calibratedPrompt === 'string' ? parsed.calibratedPrompt : '',
   };
 
-  // transitions 长度修正
+  // transitions độ dài修正
   const expectedLen = Math.max(scenes.length - 1, 0);
   if (result.transitions.length > expectedLen) {
     result.transitions = result.transitions.slice(0, expectedLen);
@@ -241,7 +241,7 @@ export async function runBatchCalibration(
 
   if (!projectData) return { success: 0, total: 0 };
 
-  // 筛选需要Hiệu chuẩn的组（未Hiệu chuẩn 或 Hiệu chuẩnThất bại）
+  // 筛选需要Hiệu chuẩn的组（未Hiệu chuẩn hoặc Hiệu chuẩnThất bại）
   const groups = projectData.shotGroups.filter(g =>
     !g.calibrationStatus || g.calibrationStatus === 'idle' || g.calibrationStatus === 'failed'
   );

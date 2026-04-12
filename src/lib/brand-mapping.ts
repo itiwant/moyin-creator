@@ -3,7 +3,7 @@
 // Commercial licensing available. See COMMERCIAL_LICENSE.md.
 
 /**
- * thương hiệu注册表 + 模型名 → thương hiệu映射
+ * thương hiệu注册表 + 模型名 → thương hiệuánh xạ
  * 用于ánh xạ dịch vụpanel的thương hiệuphân loạiChọn
  */
 
@@ -47,7 +47,7 @@ export const BRAND_REGISTRY: Record<string, BrandInfo> = {
 };
 
 /**
- * 模型名前缀 → thương hiệu映射规则
+ * 模型名前缀 → thương hiệuánh xạ规则
  * thứ tựQuan trọng:更具体的chế độ应放在前面
  */
 const BRAND_PATTERNS: Array<{ pattern: RegExp; brand: string }> = [
@@ -107,7 +107,7 @@ const BRAND_PATTERNS: Array<{ pattern: RegExp; brand: string }> = [
   // Vidu (生数科技)
   { pattern: /^vidu/i,                                                     brand: 'vidu' },
 
-  // Replicate (含 org/model đặt tên格式)
+  // Replicate (含 org/model đặt tênđịnh dạng)
   { pattern: /^(replicate|andreasjansson|stability-ai|cjwbw|lucataco|recraft-ai|riffusion|sujaykhandekar|prunaai)/i, brand: 'replicate' },
 
   // 百度文心 ERNIE / Embedding-V1

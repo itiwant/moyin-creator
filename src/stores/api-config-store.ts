@@ -43,7 +43,7 @@ export type AIFeature =
 /**
  * Liên kết tính năng配置
  * 每chức năng可绑定多Nhà cung cấp/Model（多选）
- * 格式: platform:model 数组，如 ['memefast:deepseek-v3.2', 'memefast:gemini-3-pro-image-preview']
+ * định dạng: platform:model 数组，如 ['memefast:deepseek-v3.2', 'memefast:gemini-3-pro-image-preview']
  */
 export type FeatureBindings = Record<AIFeature, string[] | null>;
 
@@ -58,7 +58,7 @@ export const AI_FEATURES: Array<{
   { key: 'script_analysis', name: 'Kịch bản分析', description: '将故事文本分解为Cấu trúc化Kịch bản' },
   { key: 'character_generation', name: 'Nhân vậtTạo', description: 'TạoNhân vậtẢnh tham chiếu和biến thểtrang phục' },
   { key: 'scene_generation', name: 'CTạo ảnh', description: 'TạoCảnhmôi trườngẢnh tham chiếu' },
-  { key: 'video_generation', name: 'Tạo video', description: '将ảnh转换为video' },
+  { key: 'video_generation', name: 'Tạo video', description: '将ảnhchuyển đổi thànhvideo' },
   { key: 'image_understanding', name: 'Phân tích ảnh', description: '分析ảnhNội dung' },
   { key: 'chat', name: '通用Chat', description: 'AI Chat和文本Tạo' },
   { key: 'freedom_image', name: 'Tự dopanel-ảnh', description: 'Tự dopanelđộc lập的Tạo ảnh配置' },
@@ -70,14 +70,14 @@ export const AI_FEATURES: Array<{
 
 /**
  * Nâng caoTạoTùy chọn
- * 控制Tạo video的Nâng cao hàng为
+ * điều khiểnTạo video的Nâng cao hàng为
  */
 export interface AdvancedGenerationOptions {
   /** BậtThị giác连续性：Tự động将上一Phân cảnhKhung hình cuối传递给下一Phân cảnh作为Tham chiếu */
   enableVisualContinuity: boolean;
   /** Bật断点续传：Tạo hàng loạtđang xử lý...从上次位置Tiếp tục */
   enableResumeGeneration: boolean;
-  /** BậtNội dungkiểm duyệt容错：遇到nhạy cảmNội dungTự động跳过，Tiếp tụcTạo其他Phân cảnh */
+  /** BậtNội dungkiểm duyệt容错：遇到nhạy cảmNội dungTự độngBỏ qua，Tiếp tụcTạo其他Phân cảnh */
   enableContentModeration: boolean;
   /** Bật多ModelTự độngchuyển sang：首Phân cảnhSử dụng t2v，后续Sử dụng i2v */
   enableAutoModelSwitch: boolean;
@@ -100,17 +100,17 @@ export const DEFAULT_ADVANCED_OPTIONS: AdvancedGenerationOptions = {
 export type ImageHostPlatform = 'imgbb' | 'imgurl' | 'scdn' | 'catbox' | 'cloudflare_r2' | 'custom';
 
 /**
- * Lưu trữ ảnhNhà cung cấp配置（độc lập映射）
+ * Lưu trữ ảnhNhà cung cấp配置（độc lậpánh xạ）
  */
 export interface ImageHostProvider {
   id: string;
   platform: ImageHostPlatform;
   name: string;
   baseUrl: string;
-  uploadPath: string; // 可为đầy đủ URL 或路径
+  uploadPath: string; // 可为đầy đủ URL hoặc路径
   apiKey: string; // Hỗ trợ多 Key（逗号/换 hàng），允许游客Tải lên的Nền tảng可Để trống
   enabled: boolean;
-  apiKeyParam?: string; // Query 参数名（如 key）
+  apiKeyParam?: string; // Query tham số名（如 key）
   apiKeyHeader?: string; // Header Tên(tùy chọn)
   apiKeyFormField?: string; // 表单trườngđang xử lý...ey Tên（如 userhash）
   apiKeyOptional?: boolean; // 是否允许不填 Key（游客Tải lên）
@@ -480,7 +480,7 @@ export interface APIConfigStatus {
 // ==================== Provider Info ====================
 
 /**
- * Nhà cung cấpthông tin映射
+ * Nhà cung cấpthông tinánh xạ
  * 1. memefast - MemeFast API，全chức năng AI trung gian（Đề xuất）
  * 2. runninghub - RunningHub，Chuyển góc nhìn/đa góc độTạo
  */
@@ -617,7 +617,7 @@ export const useAPIConfigStore = create<APIConfigStore>()(
             const json = await response.json();
             const data: Array<{ model_name: string; model_type?: string; tags?: string; supported_endpoint_types?: string[]; enable_groups?: string[] }> = json.data;
             if (!Array.isArray(data) || data.length === 0) {
-              return { success: false, count: 0, error: '响应格式异常' };
+              return { success: false, count: 0, error: '响应định dạng异常' };
             }
 
             console.log(`[APIConfig] Fetched ${data.length} models from pricing_new`);
@@ -792,7 +792,7 @@ export const useAPIConfigStore = create<APIConfigStore>()(
         const current = get().featureBindings[feature] || [];
         const exists = current.includes(binding);
         
-        // 同时kiểm tra legacy 格式（platform:model）是否存在
+        // 同时kiểm tra legacy định dạng（platform:model）是否存在
         // 例如 binding = "{id}:deepseek-v3" 但 current 里可能有 "memefast:deepseek-v3"
         let legacyMatch: string | null = null;
         const idx = binding.indexOf(':');
@@ -809,7 +809,7 @@ export const useAPIConfigStore = create<APIConfigStore>()(
         }
         
         if (exists || legacyMatch) {
-          // Xóa：同时xóa精确Khớp和 legacy 格式
+          // Xóa：同时xóa精确Khớp和 legacy định dạng
           const newBindings = current.filter(b => b !== binding && b !== legacyMatch);
           set((state) => ({
             featureBindings: { ...state.featureBindings, [feature]: newBindings.length > 0 ? newBindings : null },
@@ -844,7 +844,7 @@ export const useAPIConfigStore = create<APIConfigStore>()(
           if (idx <= 0) continue;
           const platformOrId = binding.slice(0, idx);
           const model = binding.slice(idx + 1);
-          // 1. 优先按 provider.id 精确Khớp（始终安全）
+          // 1. 优先按 provider.id 精确Khớp（luônan toàn）
           let provider = get().providers.find(p => p.id === platformOrId);
           // 2. Fallback: 按 platform Khớp，但仅当该 platform 下只有一Nhà cung cấp时
           //    （防止多 custom Nhà cung cấp时误选第一）

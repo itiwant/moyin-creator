@@ -7,7 +7,7 @@
  * StylePicker - 统一的Thị giác风格Chọn器
  * 
  * chức năng：
- * - 左侧：phân loại小图列表，可滚动
+ * - Bên trái：phân loại小图列表，可滚动
  * - bên phải：Di chuột/đã chọn时显示大图预览 + Mô tả
  * - 支持下拉popup出chế độ和内嵌chế độ
  */

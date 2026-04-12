@@ -27,7 +27,7 @@ export async function uploadBase64Image(imageData: string): Promise<string> {
   if (imageData.startsWith('local-image://')) {
     const converted = await readImageAsBase64(imageData);
     if (!converted) {
-      throw new Error(`无法读取本地图片: ${imageData}`);
+      throw new Error(`无法读取cục bộ图片: ${imageData}`);
     }
     base64Data = converted;
   }

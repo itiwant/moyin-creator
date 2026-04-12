@@ -26,12 +26,12 @@ Mô tả：{{prompt}}
 
 要求：
 1. Sáng tác {{scene_count}} 场景
-2. 每场景包含：场景编号、旁白、Thị giácNội dungMô tả、角色动作、镜头类型、角色ngoại hìnhMô tả
+2. 每场景chứa：场景编号、旁白、Thị giácNội dungMô tả、角色动作、镜头类型、角色ngoại hìnhMô tả
 3. visualContent/action/camera/characterDescription 用英文Mô tả
 4. narration 用中文
 5. 不要输出 mood/情绪 trường（前端不需要）
 
-输出格式为 JSON：
+输出định dạng为 JSON：
 {
   "title": "video标题",
   "scenes": [

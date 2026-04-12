@@ -2,13 +2,13 @@
 // Licensed under AGPL-3.0-or-later. See LICENSE for details.
 // Commercial licensing available. See COMMERCIAL_LICENSE.md.
 /**
- * 5阶段分镜Hiệu chuẩn模块
+ * 5Giai đoạn分镜Hiệu chuẩn模块
  * 
  * 将 30+ trường拆分为 5 độc lập AI gọi API，Tránh推理模型 token 耗尽
  * 
  * Stage 1: tự sự骨架 (9 fields) — Kích thước cảnh/运动/thời lượng + tự sự分析
  * Stage 2: Mô tả thị giác (6 fields) — đang xử lý...述 + 角色 + 音频
- * Stage 3: 拍摄控制 (15 fields) — 灯光/景深/器材/角度/焦距等
+ * Stage 3: 拍摄điều khiển (15 fields) — 灯光/景深/器材/角度/焦距等
  * Stage 4: khung đầu提示词 (3 fields) — imagePrompt + needsEndFrame
  * Stage 5: 动态+khung cuối提示词 (4 fields) — videoPrompt + endFramePrompt
  */
@@ -66,7 +66,7 @@ export interface CalibrationOptions {
 }
 
 /**
- * 5阶段分镜Hiệu chuẩn主函数
+ * 5Giai đoạn分镜Hiệu chuẩn主函数
  */
 export async function calibrateShotsMultiStage(
   shots: ShotInputData[],
@@ -114,7 +114,7 @@ export async function calibrateShotsMultiStage(
   // thời đại/Bối cảnh thế giới上下文：供 Stage 2/4/5 Thị giácTạoSử dụng（Tránh AI 产生与thời đại不符的幻觉）
   const eraContextParts = [
     contextLine,
-    era ? `⚠️ thời đại背景：${era}——Tất cảnhân vậttrang phục、Kiểu tóc、đạo cụ、建筑必须严格符合「${era}」时期，bị cấm出现其他thời đại的元素（如古装剧bị cấm西装/T恤/手机等现代vật phẩm）` : '',
+    era ? `⚠️ thời đại背景：${era}——Tất cảnhân vậttrang phục、Kiểu tóc、đạo cụ、建筑必须严格符合「${era}」时期，bị cấm出现其他thời đại的元素（如古装剧bị cấmTây装/T恤/手机等现代vật phẩm）` : '',
     worldSetting ? `Bối cảnh thế giới设定：${worldSetting.slice(0, 300)}` : '',
     characterBios ? `nhân vật造型Tham chiếu：${characterBios.slice(0, 300)}` : '',
   ].filter(Boolean);
@@ -181,7 +181,7 @@ export async function calibrateShotsMultiStage(
   onStageProgress?.(1, 5, 'tự sự骨架');
   console.log('[MultiStage] Stage 1/5: tự sự骨架');
 
-  const s1System = `你是电影tự sự分析师，精通镜头Ngôn ngữ和tự sựCấu trúc。分析每分镜的tự sựchức năng并确定镜头参数。
+  const s1System = `你是电影tự sự分析师，精通镜头Ngôn ngữ和tự sựCấu trúc。分析每分镜的tự sựchức năng并确定镜头tham số。
 
 ${contextLine}${narrativeAnchorBlock}${episodeSynopsis ? `\n\n【本 tậpđại cương】\n${episodeSynopsis}` : ''}${episodeKeyEvents?.length ? `\nSự kiện quan trọng：${episodeKeyEvents.join('、')}` : ''}
 
@@ -201,11 +201,11 @@ ${contextLine}${narrativeAnchorBlock}${episodeSynopsis ? `\n\n【本 tậpđại
 - shotPurpose: 一句话说明此镜头如何服务于故事核心（中文）
 - storyAlignment: 与Bối cảnh thế giới/故事核心的giống性（aligned/minor-deviation/needs-review）
 - visualFocus: Tiêu điểm thị giácthứ tự（用→表示）
-- cameraPosition: 机位Mô tả（中文）
+- cameraPosition: vị trí cameraMô tả（中文）
 - characterBlocking: nhân vậtbố cục（中文）
 - rhythm: Nhịp điệu感（中文）
 
-格式：{"shots":{"shot_id":{...}}}`;
+định dạng：{"shots":{"shot_id":{...}}}`;
 
   try {
     await runStage('Stage 1/5: tự sự骨架', (batch) => {
@@ -240,7 +240,7 @@ ${contextLine}${narrativeAnchorBlock}${episodeSynopsis ? `\n\n【本 tậpđại
 ${s2VisualPromptRule}
 - emotionTags Tùy chọn: happy/sad/angry/surprised/fearful/calm/tense/excited/mysterious/romantic/funny/touching/serious/relaxed/playful/gentle/passionate/low
 - ambientSound/soundEffect: 纯中文
-格式：${s2JsonFormat}`;
+định dạng：${s2JsonFormat}`;
 
   try {
     await runStage('Stage 2/5: Mô tả thị giác', (batch) => {
@@ -255,11 +255,11 @@ ${s2VisualPromptRule}
     console.error('[MultiStage] Stage 2 failed:', e);
   }
 
-  // ===================== Stage 3: 拍摄控制 =====================
-  onStageProgress?.(3, 5, '拍摄控制');
-  console.log('[MultiStage] Stage 3/5: 拍摄控制');
+  // ===================== Stage 3: 拍摄điều khiển =====================
+  onStageProgress?.(3, 5, '拍摄điều khiển');
+  console.log('[MultiStage] Stage 3/5: 拍摄điều khiển');
 
-  const s3System = `你是电影摄影指导(DP)。根据Mô tả thị giác确定chuyên nghiệp拍摄参数。${cinematographyGuidance ? `\n\n${cinematographyGuidance}` : ''}
+  const s3System = `你是电影摄影指导(DP)。根据Mô tả thị giác确定chuyên nghiệp拍摄tham số。${cinematographyGuidance ? `\n\n${cinematographyGuidance}` : ''}
 
 为每分镜输出：
 - lightingStyle: natural/high-key/low-key/silhouette/chiaroscuro/neon
@@ -278,10 +278,10 @@ ${s2VisualPromptRule}
 - focalLength: 14mm/18mm/24mm/28mm/35mm/50mm/85mm/100mm-macro/135mm/200mm
 - photographyTechnique: long-exposure/double-exposure/high-speed/timelapse-photo/tilt-shift/silhouette/reflection/bokeh (可Để trống)
 
-格式：{"shots":{"shot_id":{...}}}`;
+định dạng：{"shots":{"shot_id":{...}}}`;
 
   try {
-    await runStage('Stage 3/5: 拍摄控制', (batch) => {
+    await runStage('Stage 3/5: 拍摄điều khiển', (batch) => {
       const userShots = batch.map(s => {
         const prev = merged[s.shotId] || {};
         const artParts = [
@@ -292,7 +292,7 @@ ${s2VisualPromptRule}
         ].filter(Boolean);
         return `ID: ${s.shotId}\n场景: ${s.sceneLocation} | 时间: ${s.sceneTime}${s.sceneWeather ? ` | 天气:${s.sceneWeather}` : ''}\nKích thước cảnh: ${prev.shotSize || '?'} | 运动: ${prev.cameraMovement || '?'} | Nhịp điệu: ${prev.rhythm || '?'}\nMô tả thị giác: ${prev.visualDescription || '?'}${artParts.length ? `\n场景美术: ${artParts.join(' | ')}` : ''}`;
       }).join('\n\n---\n\n');
-      return { system: s3System, user: `请确定拍摄参数：\n\n${userShots}` };
+      return { system: s3System, user: `请确定拍摄tham số：\n\n${userShots}` };
     }, 200, 4096);
   } catch (e) {
     console.error('[MultiStage] Stage 3 failed:', e);
@@ -319,13 +319,13 @@ ${s2VisualPromptRule}
     ? '\n⚠️ imagePrompt 必须100%纯英文，bị cấm任何đang xử lý...'
     : '\n⚠️ imagePrompt 必须100%纯英文，bị cấm任何đang xử lý...\n⚠️ imagePromptZh 必须纯đang xử lý...
 
-  const s4System = `你是AI图像Tạo专家。根据Mô tả thị giác和拍摄参数，Tạokhung đầu提示词。${eraContextBlock}
+  const s4System = `你是AI图像Tạo专家。根据Mô tả thị giác和拍摄tham số，Tạokhung đầu提示词。${eraContextBlock}
 
 ${styleDesc}${mediaTypeHint}
 
-⚠️ thời đạigiống性（最重要）：nhân vật的trang phục、Kiểu tóc、配饰必须严格符合剧本设定的thời đại背景。例如古装剧đang xử lý...n vật必须穿古代服饰，bị cấm出现西装、T恤、现代Kiểu tóc等。
+⚠️ thời đạigiống性（最重要）：nhân vật的trang phục、Kiểu tóc、配饰必须严格符合剧本设定的thời đại背景。例如古装剧đang xử lý...n vật必须穿古代服饰，bị cấm出现Tây装、T恤、现代Kiểu tóc等。
 
-${s4Fields} 必须包含：
+${s4Fields} 必须chứa：
 a) 场景环境（地点+环境细节+时间氛围）
 b) 光线Thiết kế（光源+质感+氛围）
 c) nhân vậtMô tả（Tuổi+trang phục+Biểu cảm+Tư thế，每角色都写）
@@ -339,7 +339,7 @@ needsEndFrame 判断：
 - false: 纯Thoại+位置không thay đổi/仅微Biểu cảm
 - 不确定时设 true
 
-格式：${s4JsonFormat}`;
+định dạng：${s4JsonFormat}`;
 
   try {
     await runStage('Stage 4/5: khung đầu提示词', (batch) => {
@@ -384,17 +384,17 @@ needsEndFrame 判断：
 ${s5VideoFields}：
 - Mô tả视频đang xử lý...动作（nhân vật动作、物体移动、镜头运动）
 - 强调动词，Mô tả运动quá trình
-- ⚠️ Tất cảMô tả必须保持thời đạigiống性（trang phục/đạo cụ/环境不能偏离剧本设定的thời đại）
+- ⚠️ Tất cảMô tả必须giữthời đạigiống性（trang phục/đạo cụ/环境不能偏离剧本设定的thời đại）
 
 ${s5EndFields}：
 仅当 needsEndFrame=true 时Tạo，否则设为空ký tự串。
 - Mô tả动作hoàn thành后的最终画面
-- 包含与khung đầu相同的场景环境和光线
+- chứa与khung đầu相同的场景环境和光线
 - 重点Mô tả与khung đầu的差异（新位置/新Tư thế/新Biểu cảm/đạo cụ新状态）
-- 保持与khung đầu相同的画面风格和thời đại设定
+- giữ与khung đầu相同的画面风格和thời đại设定
 ${s5LangWarning}
 
-格式：${s5JsonFormat}`;
+định dạng：${s5JsonFormat}`;
 
   try {
     await runStage('Stage 5/5: 动态+khung cuối', (batch) => {
@@ -408,6 +408,6 @@ ${s5LangWarning}
     console.error('[MultiStage] Stage 5 failed:', e);
   }
 
-  console.log('[MultiStage] Tất cả 5 阶段hoàn thành，已Hiệu chuẩntrường:', Object.keys(merged[shots[0]?.shotId] || {}).length);
+  console.log('[MultiStage] Tất cả 5 Giai đoạnhoàn thành，已Hiệu chuẩntrường:', Object.keys(merged[shots[0]?.shotId] || {}).length);
   return merged;
 }

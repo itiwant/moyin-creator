@@ -5,7 +5,7 @@
  * 风格chuyển sangHiệu chuẩn lại服务
  * 
  * 当người dùng在Đạo diễn/S级panelchuyển sangThị giác风格时，将hiện có SplitScene[] lại送入
- * 5阶段Hiệu chuẩn流程（calibrateShotsMultiStage），用新风格viết lại提示词和拍摄参数，
+ * 5Giai đoạnHiệu chuẩn流程（calibrateShotsMultiStage），用新风格viết lại提示词和拍摄tham số，
  * 同时保留已Tạo的图片/视频 URL không thay đổi。
  */
 
@@ -14,8 +14,8 @@ import { useScriptStore } from '@/stores/script-store';
 import { calibrateShotsMultiStage, type ShotInputData, type GlobalContext, type CalibrationOptions } from './shot-calibration-stages';
 
 /**
- * 将 SplitScene[] 转换为 ShotInputData[] 格式
- * （复用 calibrateEpisodeShots 的映射逻辑）
+ * 将 SplitScene[] chuyển đổi thành ShotInputData[] định dạng
+ * （复用 calibrateEpisodeShots 的ánh xạ逻辑）
  */
 function toShotInputData(scenes: SplitScene[]): ShotInputData[] {
   return scenes.map(scene => {
@@ -51,7 +51,7 @@ function toShotInputData(scenes: SplitScene[]): ShotInputData[] {
 function buildGlobalContext(scriptProjectId?: string): GlobalContext {
   const store = useScriptStore.getState();
   
-  // 找到đang hoạt động的 script project
+  // Tìm thấyđang hoạt động的 script project
   const projectId = scriptProjectId || store.activeProjectId;
   const project = projectId ? store.projects[projectId] : null;
   
@@ -89,7 +89,7 @@ function buildGlobalContext(scriptProjectId?: string): GlobalContext {
 }
 
 /**
- * 将Hiệu chuẩnkết quả写回 SplitScene（对齐 full-script-service.ts:1265-1305 的映射）
+ * 将Hiệu chuẩnkết quả写回 SplitScene（对齐 full-script-service.ts:1265-1305 的ánh xạ）
  * 保留已Tạo的图片/视频 URL không thay đổi
  */
 function applyCalibrationToScene(
@@ -120,7 +120,7 @@ function applyCalibrationToScene(
     cameraPosition: calibration.cameraPosition || scene.cameraPosition,
     characterBlocking: calibration.characterBlocking || scene.characterBlocking,
     rhythm: calibration.rhythm || scene.rhythm,
-    // 拍摄控制
+    // 拍摄điều khiển
     lightingStyle: calibration.lightingStyle || scene.lightingStyle,
     lightingDirection: calibration.lightingDirection || scene.lightingDirection,
     colorTemperature: calibration.colorTemperature || scene.colorTemperature,
@@ -154,7 +154,7 @@ export interface RecalibrationResult {
  * @param scriptProjectId 可选的 script-store projectId（默认用đang hoạt động项目）
  * @param onProgress Tiến độ回调
  * @returns Hiệu chuẩn后的 SplitScene[]（gọi API方负责写入 store）
- * @throws Hiệu chuẩnthất bại时抛出异常（gọi API方负责捕获并保持原状态không thay đổi）
+ * @throws Hiệu chuẩnthất bại时抛出异常（gọi API方负责捕获并giữ原状态không thay đổi）
  */
 export async function recalibrateSplitScenes(
   newStyleId: string,
@@ -167,7 +167,7 @@ export async function recalibrateSplitScenes(
     return { scenes: [], calibratedCount: 0, totalScenes: 0 };
   }
 
-  onProgress?.(0, totalScenes, '准备Hiệu chuẩn lại...');
+  onProgress?.(0, totalScenes, 'chuẩn bịHiệu chuẩn lại...');
 
   // 1. SplitScene → ShotInputData
   const shotInputs = toShotInputData(splitScenes);
@@ -175,12 +175,12 @@ export async function recalibrateSplitScenes(
   // 2. 构建 GlobalContext
   const globalContext = buildGlobalContext(scriptProjectId);
 
-  // 3. gọi API 5 阶段Hiệu chuẩn
+  // 3. gọi API 5 Giai đoạnHiệu chuẩn
   const calibrationOptions: CalibrationOptions = {
     styleId: newStyleId,
   };
 
-  onProgress?.(0, totalScenes, '正在用新风格Hiệu chuẩn分镜...');
+  onProgress?.(0, totalScenes, 'Đang用新风格Hiệu chuẩn分镜...');
 
   const calibrations = await calibrateShotsMultiStage(
     shotInputs,

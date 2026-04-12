@@ -146,7 +146,7 @@ export function GenerationPanel({ selectedCharacter, onCharacterCreated }: Gener
   // kiểm tra是否有 AI Hiệu chuẩndữ liệu
   const hasCalibrationData = !!(identityAnchors || charNegativePrompt || visualPromptEn || visualPromptZh);
 
-  // 注意：thanh trái始终用于Tạo mớiNhân vật，不响应đang xử lý...ư viện nhân vật的Chọn
+  // 注意：thanh tráiluôn用于Tạo mớiNhân vật，不响应đang xử lý...ư viện nhân vật的Chọn
   // thanh phải用于Xem/Chỉnh sửahiện cóNhân vật的详情
 
   // Handle pending data from script panel
@@ -154,7 +154,7 @@ export function GenerationPanel({ selectedCharacter, onCharacterCreated }: Gener
     if (pendingCharacterData) {
       setName(pendingCharacterData.name || "");
       
-      // 映射Giới tính："Nam" -> "male", "Nữ" -> "female"
+      // ánh xạGiới tính："Nam" -> "male", "Nữ" -> "female"
       const genderMap: Record<string, string> = {
         'Nam': 'male', 'Nam': 'male', 'male': 'male', 'Male': 'male',
         'Nữ': 'female', 'Nữ': 'female', 'female': 'female', 'Female': 'female',
@@ -162,7 +162,7 @@ export function GenerationPanel({ selectedCharacter, onCharacterCreated }: Gener
       const mappedGender = genderMap[pendingCharacterData.gender || ''] || '';
       setGender(mappedGender);
       
-      // 映射Tuổi：根据数字范围Tự độngChọnĐộ tuổi
+      // ánh xạTuổi：根据数字范围Tự độngChọnĐộ tuổi
       const ageStr = pendingCharacterData.age || '';
       let mappedAge = '';
       if (ageStr.includes('5') && ageStr.includes('12') || ageStr.includes('Trẻ em')) {
@@ -248,9 +248,9 @@ export function GenerationPanel({ selectedCharacter, onCharacterCreated }: Gener
         }
       }
       
-      // TODO: 处理多阶段Nhân vậtbiến thể
-      // 如果有 stageInfo 或 consistencyElements，应该：
-      // 1. 在Mô tả nhân vậtđang xử lý... ýngười dùng这是多阶段Nhân vật
+      // TODO: 处理多Giai đoạnNhân vậtbiến thể
+      // 如果有 stageInfo hoặc consistencyElements，应该：
+      // 1. 在Mô tả nhân vậtđang xử lý... ýngười dùng这是多Giai đoạnNhân vật
       // 2. TạoNhân vật后Tự động为其Thêm variations
       // 注：这部分逻辑应该在 handleCreateAndGenerate 后执 hàng
 
@@ -326,7 +326,7 @@ export function GenerationPanel({ selectedCharacter, onCharacterCreated }: Gener
     setIsManuallyModified(false);
   };
 
-  // Tạo新Nhân vật并Tạo ảnh（始终Tạo mới，不会Ghi đèhiện cóNhân vật）
+  // Tạo新Nhân vật并Tạo ảnh（luônTạo mới，不会Ghi đèhiện cóNhân vật）
   const handleCreateAndGenerate = async () => {
     if (!name.trim()) {
       toast.error("NhậpTên nhân vật");
@@ -341,7 +341,7 @@ export function GenerationPanel({ selectedCharacter, onCharacterCreated }: Gener
       return;
     }
 
-    // 始终Tạo新Nhân vật
+    // luônTạo新Nhân vật
     const targetId = addCharacter({
       name: name.trim(),
       description: description.trim(),
@@ -1335,7 +1335,7 @@ function buildCharacterSheetPrompt(
         ? `chuyên nghiệpNhân vậtThiết kếẢnh tham chiếu，"${name}"，${characterDescription}`
         : `professional character design sheet for "${name}", ${characterDescription}`);
   
-  // Sử dụng SHEET_ELEMENTS 定义的 prompt，如果是真人Phong cách则转换成写实/摄影表述
+  // Sử dụng SHEET_ELEMENTS 定义的 prompt，如果是真人Phong cách则chuyển đổi成写实/摄影表述
   const contentParts = selectedElements
     .map(id => {
       const element = SHEET_ELEMENTS.find(e => e.id === id);

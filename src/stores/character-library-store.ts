@@ -39,7 +39,7 @@ export interface CharacterView {
  * 
  * Hỗ trợ两种用途：
  * 1. trang phục/Trạng tháibiến thể："Trang phục hàng ngày"、"Trang phục chiến đấu"、"Trạng thái bị thương"
- * 2. Tuổi/阶段biến thể："青年版"、"Phiên bản trung niên"、"Cao niên版"（带episodeRange）
+ * 2. Tuổi/Giai đoạnbiến thể："青年版"、"Phiên bản trung niên"、"Cao niên版"（带episodeRange）
  */
 export interface CharacterVariation {
   id: string;
@@ -50,7 +50,7 @@ export interface CharacterVariation {
   clothingReferenceImages?: string[]; // User-uploaded clothing/outfit reference images (base64)
   generatedAt?: number;
   
-  // === 阶段biến thể特有trường ===
+  // === Giai đoạnbiến thể特有trường ===
   isStageVariation?: boolean;      // Có phải biến thể theo giai đoạn (thay đổi tuổi/thời kỳ) không
   episodeRange?: [number, number]; // 适用Số tập范围：[bắt đầu tập, kết thúc tập]
   ageDescription?: string;         // Tuổi giai đoạn này: "25 tuổi"、"50 tuổi"

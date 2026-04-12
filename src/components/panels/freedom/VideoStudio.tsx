@@ -33,7 +33,7 @@ function resolveVideoCapabilityModelId(modelId: string): string {
   if (/^kling-v/i.test(modelId) || modelId === 'kling-video-o1') {
     return 'kling-video';
   }
-  // Veo Phiên bản化Model沿用家族Cơ bản能力定义，Tránh components/frames biến thể丢失参数控件
+  // Veo Phiên bản化Model沿用家族Cơ bản能力定义，Tránh components/frames biến thể丢失tham số控件
   if (/^veo_3_1/i.test(modelId)) {
     return 'veo_3_1';
   }

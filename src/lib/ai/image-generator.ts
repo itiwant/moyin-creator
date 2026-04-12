@@ -38,7 +38,7 @@ const getRootBaseUrl = (baseUrl: string): string => {
 };
 
 /**
- * 图片端点路径映射（端点类型 → 提交/luân phiên URL 路径）
+ * 图片端点路径ánh xạ（端点类型 → 提交/luân phiên URL 路径）
  * 仅用于需要Tùy chỉnh路径的端点类型，其余走默认 /v1/images/generations
  */
 const IMAGE_ENDPOINT_PATHS: Record<string, { submit: string; poll: (id: string) => string }> = {
@@ -68,7 +68,7 @@ const ASPECT_RATIO_DIMS: Record<string, { width: number; height: number }> = {
 
 /**
  * Resolution + aspect ratio → target pixel dimensions for chat completions models
- * 非 Gemini 图片模型走 prompt 文本提示；Gemini 图片模型走官方 image_size 参数。
+ * 非 Gemini 图片模型走 prompt 文本提示；Gemini 图片模型走官方 image_size tham số。
  */
 const RESOLUTION_MULTIPLIERS: Record<string, number> = {
   '1K': 1,
@@ -90,9 +90,9 @@ function getTargetDimensions(aspectRatio: string, resolution?: string): { width:
  * 判断模型是否为 Gemini 图片Tạo模型（Nano Banana 系列）
  * - Nano Banana Pro = gemini-3-pro-image-preview   → 支持 1K/2K/4K
  * - Nano Banana 2  = gemini-3.1-flash-image-preview → 支持 512/1K/2K/4K
- * - Nano Banana    = gemini-2.5-flash-image          → Cố định 1K（不支持 image_size 参数）
+ * - Nano Banana    = gemini-2.5-flash-image          → Cố định 1K（不支持 image_size tham số）
  *
- * 用于决定是否在请求体đang xử lý...方 image_size / aspect_ratio 参数
+ * 用于决定是否在请求体đang xử lý...方 image_size / aspect_ratio tham số
  */
 function isGeminiImageModel(model: string): boolean {
   const m = model.toLowerCase();
@@ -102,7 +102,7 @@ function isGeminiImageModel(model: string): boolean {
 }
 
 /**
- * 判断 Gemini 图片模型是否支持 image_size 参数（1K/2K/4K）
+ * 判断 Gemini 图片模型是否支持 image_size tham số（1K/2K/4K）
  * gemini-2.5-flash-image 只输出Cố định 1024px，不支持 image_size
  */
 function geminiSupportsImageSize(model: string): boolean {
@@ -114,7 +114,7 @@ function geminiSupportsImageSize(model: string): boolean {
 }
 
 /**
- * 规范化分辨率值为 Gemini 官方要求的格式
+ * 规范化分辨率值为 Gemini 官方要求的định dạng
  * 官方要求大写 K（例如 1K、2K、4K），小写会被từ chối
  */
 function normalizeResolutionForGemini(resolution?: string): string {
@@ -122,13 +122,13 @@ function normalizeResolutionForGemini(resolution?: string): string {
   const upper = resolution.toUpperCase();
   // 接受 '512' Trực tiếp通过（仅 3.1 Flash Image 支持）
   if (upper === '512') return '512';
-  // 确保是 '1K' / '2K' / '4K' 格式
+  // 确保是 '1K' / '2K' / '4K' định dạng
   if (['1K', '2K', '4K'].includes(upper)) return upper;
   return '2K'; // 不识别的值回退到 2K
 }
 
 /**
- * 判断模型是否需要像素尺寸格式 (如 "1024x1024") 而非Tỷ lệ格式 (如 "1:1")
+ * 判断模型是否需要像素尺寸định dạng (如 "1024x1024") 而非Tỷ lệđịnh dạng (如 "1:1")
  * doubao-seedream, cogview 等国产模型需要像素尺寸
  */
 function needsPixelSize(model: string): boolean {
@@ -172,7 +172,7 @@ async function generateImage(
   const aspectRatio = params.aspectRatio || '1:1';
   const resolution = params.resolution || '2K';
 
-  // 根据元dữ liệu决定图片Tạo API 格式
+  // 根据元dữ liệu决定图片Tạo API định dạng
   const endpointTypes = useAPIConfigStore.getState().modelEndpointTypes[model];
   const apiFormat = resolveImageApiFormat(endpointTypes, model);
 
@@ -199,12 +199,12 @@ async function generateImage(
     );
   }
 
-  // Kling image 原生端点: /kling/v1/images/generations 或 /kling/v1/images/omni-image
+  // Kling image 原生端点: /kling/v1/images/generations hoặc /kling/v1/images/omni-image
   if (apiFormat === 'kling_image') {
     return submitViaKlingImages(params, model, apiKey, baseUrl, aspectRatio, featureConfig.keyManager);
   }
 
-  // Tiêu chuẩn格式: /v1/images/generations (GPT Image, DALL-E, Flux, doubao-seedream , v.v.)
+  // Tiêu chuẩnđịnh dạng: /v1/images/generations (GPT Image, DALL-E, Flux, doubao-seedream , v.v.)
   // aigc-image / vidu生图 等走Tùy chỉnh路径
   const result = await submitImageTask(
     params.prompt,
@@ -232,8 +232,8 @@ async function generateImage(
 
 /**
  * 压缩 base64 Tham chiếu图到合理体积
- * trung gian站（new_api/one_api）在做 OpenAI → Gemini 格式转换时，
- * 超大 base64 会导致 JSON Phân tích thất bại或 body size vượt giới hạn，报 "contents is required"。
+ * trung gian站（new_api/one_api）在做 OpenAI → Gemini định dạngchuyển đổi时，
+ * 超大 base64 会导致 JSON Phân tích thất bạihoặc body size vượt giới hạn，报 "contents is required"。
  * 将Tham chiếu图缩小到 maxEdge px 并转为 JPEG 可大幅降低体积（2~4MB → ~60KB）。
  */
 function compressReferenceImage(dataUri: string, maxEdge = 768, quality = 0.8): Promise<string> {
@@ -268,7 +268,7 @@ function compressReferenceImage(dataUri: string, maxEdge = 768, quality = 0.8): 
  *
  * 分辨率处理策略：
  * - Gemini 图片模型（Nano Banana Pro / Nano Banana 2）：
- *   通过请求体 image_size + aspect_ratio 参数严格指定分辨率（trung gian站转发给 Gemini 原生 API）
+ *   通过请求体 image_size + aspect_ratio tham số严格指定分辨率（trung gian站转发给 Gemini 原生 API）
  * - 其他模型：通过 prompt 文本嵌入像素尺寸说明（软提示）
  */
 async function submitViaChatCompletions(
@@ -324,21 +324,21 @@ async function submitViaChatCompletions(
     stream: false,
   };
 
-  // Gemini 图片模型：附加官方 image_size / aspect_ratio 参数
-  // trung gian站（MemeFast / new_api / one_api 等）会将这些参数转发给 Gemini 原生 API 的
+  // Gemini 图片模型：附加官方 image_size / aspect_ratio tham số
+  // trung gian站（MemeFast / new_api / one_api 等）会将这些tham số转发给 Gemini 原生 API 的
   // generation_config.image_config
   if (isGemini) {
     const geminiResolution = geminiHasImageSize
       ? normalizeResolutionForGemini(resolution)
       : undefined; // gemini-2.5-flash-image 不支持 image_size
 
-    // 方式 1: 顶层参数（大部分trung gian站tương thích）
+    // 方式 1: 顶层tham số（大部分trung gian站tương thích）
     if (geminiResolution) {
       requestBody.image_size = geminiResolution;
     }
     requestBody.aspect_ratio = aspectRatio;
 
-    // 方式 2: lồng nhau generation_config（官方 SDK 格式，部分trung gian站支持）
+    // 方式 2: lồng nhau generation_config（官方 SDK định dạng，部分trung gian站支持）
     requestBody.generation_config = {
       response_modalities: ['TEXT', 'IMAGE'],
       image_config: {
@@ -409,7 +409,7 @@ async function submitViaChatCompletions(
 
       return resp;
     } catch (fetchErr: any) {
-      // 将 DOMException abort 转换为可读lỗithông tin
+      // 将 DOMException abort chuyển đổi thành可读lỗithông tin
       if (fetchErr instanceof DOMException && fetchErr.name === 'AbortError') {
         const reason = controller.signal.reason;
         const readableMsg = reason instanceof Error
@@ -538,7 +538,7 @@ async function submitImageTask(
   if (!baseUrl) {
     throw new Error('请先在设置đang xử lý...片Tạoánh xạ dịch vụ');
   }
-  // 根据模型决定 size 格式
+  // 根据模型决定 size định dạng
   let sizeValue: string = aspectRatio;
   if (model && needsPixelSize(model)) {
     const dims = ASPECT_RATIO_DIMS[aspectRatio];
@@ -648,7 +648,7 @@ async function submitImageTask(
     });
     console.log('[ImageGenerator] API response:', data);
 
-    // GPT Image 返回 choices 格式（MemeFast 文档确认）
+    // GPT Image 返回 choices định dạng（MemeFast 文档确认）
     if (data.choices?.[0]?.message?.content) {
       const content = data.choices[0].message.content;
       // 可能是 markdown 图片链接
@@ -662,7 +662,7 @@ async function submitImageTask(
       if (urlMatch) return { imageUrl: urlMatch[1] };
     }
 
-    // Tiêu chuẩn格式: { data: [{ url }] }
+    // Tiêu chuẩnđịnh dạng: { data: [{ url }] }
     let taskId: string | undefined;
     const dataList = data.data;
     if (Array.isArray(dataList) && dataList.length > 0) {
@@ -774,7 +774,7 @@ async function pollTaskStatus(
 /**
  * Submit a grid/quad image generation request with smart API routing.
  * Handles both chat completions (Gemini) and images/generations (standard) endpoints.
- * Used by merged generation (lưới 9 ô) and quad grid (四宫格) in director and sclass panels.
+ * Used by merged generation (lưới 9 ô) and quad grid (4宫格) in director and sclass panels.
  */
 export async function submitGridImageRequest(params: {
   model: string;
@@ -792,7 +792,7 @@ export async function submitGridImageRequest(params: {
   const { model, prompt, apiKey, baseUrl, aspectRatio, resolution, referenceImages, keyManager, signal } = params;
   const normalizedBase = baseUrl.replace(/\/+$/, '');
 
-  // 检测 API 格式（与 generateImage giống）
+  // 检测 API định dạng（与 generateImage giống）
   const endpointTypes = useAPIConfigStore.getState().modelEndpointTypes[model];
   const apiFormat = resolveImageApiFormat(endpointTypes, model);
   console.log('[GridImageAPI] format:', apiFormat, 'model:', model);
@@ -866,7 +866,7 @@ export async function submitGridImageRequest(params: {
   });
   console.log('[GridImageAPI] Response received');
 
-  // GPT Image 可能通过 images/generations 返回 choices 格式
+  // GPT Image 可能通过 images/generations 返回 choices định dạng
   if (data.choices?.[0]?.message?.content) {
     const content = data.choices[0].message.content;
     const mdMatch = content.match(/!\[.*?\]\((https?:\/\/[^)]+)\)/);
@@ -877,7 +877,7 @@ export async function submitGridImageRequest(params: {
     if (urlMatch) return { imageUrl: urlMatch[1] };
   }
 
-  // Tiêu chuẩn格式: { data: [{ url, task_id }] }
+  // Tiêu chuẩnđịnh dạng: { data: [{ url, task_id }] }
   const normalizeUrl = (url: any): string | undefined => {
     if (!url) return undefined;
     if (Array.isArray(url)) return url[0] || undefined;
@@ -919,7 +919,7 @@ export async function submitGridImageRequest(params: {
 
 /**
  * Kling image 原生端点Tạo
- * 提交到 /kling/v1/images/generations 或 /kling/v1/images/omni-image
+ * 提交到 /kling/v1/images/generations hoặc /kling/v1/images/omni-image
  * luân phiên到 /kling/v1/images/{path}/{task_id}
  */
 async function submitViaKlingImages(

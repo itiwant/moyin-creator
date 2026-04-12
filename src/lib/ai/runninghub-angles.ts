@@ -13,7 +13,7 @@ export type HorizontalDirection =
   | 'back-right-quarter' // 右后 135°
   | 'back'               // mặt sau 180°
   | 'back-left-quarter'  // 左后 225°
-  | 'left-side'          // 左侧 270°
+  | 'left-side'          // Bên trái 270°
   | 'front-left-quarter'; // 左前 315°
 
 export type ElevationAngle = 
@@ -51,7 +51,7 @@ export const HORIZONTAL_DIRECTIONS: Array<{
   { id: 'back-right-quarter', label: '右后', degrees: 135 },
   { id: 'back', label: 'Mặt sau', degrees: 180 },
   { id: 'back-left-quarter', label: '左后', degrees: 225 },
-  { id: 'left-side', label: '左侧', degrees: 270 },
+  { id: 'left-side', label: 'Bên trái', degrees: 270 },
   { id: 'front-left-quarter', label: '左前', degrees: 315 },
 ];
 
@@ -78,7 +78,7 @@ export const SHOT_SIZES: Array<{
   { id: 'wide-shot', label: 'Viễn cảnh', description: 'Wide Shot' },
 ];
 
-// 方向到提示词的精确映射
+// 方向到提示词的精确ánh xạ
 const DIRECTION_PROMPTS: Record<HorizontalDirection, string> = {
   'front': 'front view',
   'front-right-quarter': 'front-right quarter view',
@@ -90,7 +90,7 @@ const DIRECTION_PROMPTS: Record<HorizontalDirection, string> = {
   'front-left-quarter': 'front-left quarter view',
 };
 
-// 俯仰角到提示词的精确映射
+// 俯仰角到提示词的精确ánh xạ
 const ELEVATION_PROMPTS: Record<ElevationAngle, string> = {
   'low-angle': 'low-angle shot',
   'eye-level': 'eye-level shot',
@@ -98,7 +98,7 @@ const ELEVATION_PROMPTS: Record<ElevationAngle, string> = {
   'high-angle': 'high-angle shot',
 };
 
-// Kích thước cảnh到提示词的精确映射
+// Kích thước cảnh到提示词的精确ánh xạ
 const SHOT_SIZE_PROMPTS: Record<ShotSize, string> = {
   'close-up': 'close-up',
   'medium-shot': 'medium shot',
@@ -107,7 +107,7 @@ const SHOT_SIZE_PROMPTS: Record<ShotSize, string> = {
 
 /**
  * Tạo单góc nhìn的提示词
- * 精确Khớp96种Tiêu chuẩn提示词格式
+ * 精确Khớp96种Tiêu chuẩn提示词định dạng
  */
 export function generateAnglePrompt(
   direction: HorizontalDirection,

@@ -34,7 +34,7 @@ const zh = {
     generate: "Tạo",
     generating: "Tạođang xử lý...",
     loading: "加载đang xử lý...",
-    initializing: "正在初始化...",
+    initializing: "Đang初始化...",
     processing: "处理đang xử lý...",
     success: "成功",
     error: "Lỗi",

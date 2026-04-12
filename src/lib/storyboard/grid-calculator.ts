@@ -195,21 +195,21 @@ function calculatePortraitGrid(sceneCount: number, canvasWidth: number, canvasHe
 }
 
 /**
- * 预定义的最优bố cục（确保 AI Tạo和切割giống性）
+ * 预定义的最优bố cục（确保 AI Tạo和cắtgiống性）
  * quan trọng原则：Sử dụng更接近正方形的bố cục，让每格子的Tỷ lệ更接近目标
  */
 const OPTIMAL_LAYOUTS: Record<number, { landscape: { cols: number; rows: number }; portrait: { cols: number; rows: number } }> = {
-  // 4 场景: 2x2 四宫格
+  // 4 场景: 2x2 4宫格
   4: { landscape: { cols: 2, rows: 2 }, portrait: { cols: 2, rows: 2 } },
-  // 6 场景: 3x2 或 2x3
+  // 6 场景: 3x2 hoặc 2x3
   6: { landscape: { cols: 3, rows: 2 }, portrait: { cols: 2, rows: 3 } },
-  // 8 场景: 4x2 或 2x4
+  // 8 场景: 4x2 hoặc 2x4
   8: { landscape: { cols: 4, rows: 2 }, portrait: { cols: 2, rows: 4 } },
   // 9 场景: 3x3 lưới 9 ô（最优）
   9: { landscape: { cols: 3, rows: 3 }, portrait: { cols: 3, rows: 3 } },
-  // 10 场景: 5x2 或 2x5
+  // 10 场景: 5x2 hoặc 2x5
   10: { landscape: { cols: 5, rows: 2 }, portrait: { cols: 2, rows: 5 } },
-  // 12 场景: 4x3 或 3x4（quan trọng！Tránh 6x2 或 2x6）
+  // 12 场景: 4x3 hoặc 3x4（quan trọng！Tránh 6x2 hoặc 2x6）
   12: { landscape: { cols: 4, rows: 3 }, portrait: { cols: 3, rows: 4 } },
 };
 
@@ -256,7 +256,7 @@ export function calculateGrid(input: GridCalculatorInput): GridConfig {
     const layout = aspectRatio === '16:9' ? optimalLayout.landscape : optimalLayout.portrait;
     const { cols, rows } = layout;
     
-    // 计算格子尺寸（保持目标宽高比）
+    // 计算格子尺寸（giữ目标宽高比）
     let cellWidth: number, cellHeight: number;
     if (aspectRatio === '16:9') {
       cellWidth = Math.floor(canvasWidth / cols);
@@ -304,7 +304,7 @@ export function validateSceneCount(sceneCount: number, resolution: Resolution): 
     limit,
     message: isValid 
       ? '' 
-      : `场景数量vượt quá ${resolution} 分辨率上限（最多 ${limit} ）。请chuyển sang到更高分辨率或giảm场景数量。`,
+      : `场景số lượngvượt quá ${resolution} 分辨率上限（最多 ${limit} ）。请chuyển sang到更高分辨率hoặcgiảm场景số lượng。`,
   };
 }
 

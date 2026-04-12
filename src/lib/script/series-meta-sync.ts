@@ -34,7 +34,7 @@ export function populateSeriesMetaFromImport(
   importSettings?: { styleId?: string; promptLanguage?: PromptLanguage }
 ): SeriesMeta {
   // 验证标题不是 tập标题（如"第一 tập 初遇"）
-  const isEpTitle = (t: string) => /^第[一二三四五六七八九十百千\d]+ tập/.test(t);
+  const isEpTitle = (t: string) => /^第[一二三4五六七八九十百千\d]+ tập/.test(t);
   const rawTitle = background.title || scriptData.title || '';
   const safeTitle = (rawTitle && !isEpTitle(rawTitle)) ? rawTitle : '未命名';
 
@@ -63,12 +63,12 @@ export function populateSeriesMetaFromImport(
     recurringLocations: undefined,
     colorPalette: undefined,
 
-    // Cài đặt sản xuất — promptLanguage 从người dùngChọnTrực tiếp映射
+    // Cài đặt sản xuất — promptLanguage 从người dùngChọnTrực tiếpánh xạ
     language: scriptData.language || 'đang xử lý...
     promptLanguage: importSettings?.promptLanguage,
   };
 
-  // 如果 AI 分析提取了角色但 scriptData 没有（紧凑格式Phân tích thất bại的情况），用 AI 的
+  // 如果 AI 分析提取了角色但 scriptData 没有（紧凑định dạngPhân tích thất bại的情况），用 AI 的
   if (meta.characters.length === 0 && aiAnalysis?.characters?.length) {
     meta.characters = aiAnalysis.characters.map((c, i) => ({
       id: `char_${i + 1}`,
@@ -135,7 +135,7 @@ export function buildSeriesContextSummary(meta: SeriesMeta | null): string {
     parts.push(`核心冲突：${meta.centralConflict}`);
   }
 
-  // 角色列表（紧凑格式）
+  // 角色列表（紧凑định dạng）
   if (meta.characters.length > 0) {
     const charSummary = meta.characters
       .slice(0, 15) // 最多 15 Tránh过长

@@ -85,7 +85,7 @@ function findPresetToken<T extends { id: string; promptToken: string }>(
   const preset = presets.find(p => p.id === id);
   if (!preset?.promptToken) return undefined;
   const translated = translateToken(mediaType ?? 'cinematic', field, id, preset.promptToken);
-  return translated || undefined; // 空ký tự串 → undefined（跳过）
+  return translated || undefined; // 空ký tự串 → undefined（Bỏ qua）
 }
 
 // ==================== 视频 Prompt 构建配置 ====================
@@ -125,10 +125,10 @@ export function buildVideoPrompt(
   const rigToken = findPresetToken(CAMERA_RIG_PRESETS, effectiveRig, mt, 'cameraRig');
   if (rigToken) cameraDesignParts.push(rigToken);
 
-  // 1.1 判断高级机位Mô tả
+  // 1.1 判断高级vị trí cameraMô tả
   const hasCameraPosition = scene.cameraPosition?.trim();
 
-  // 1.2 bắt đầuKích thước cảnh（仅当没有高级机位Mô tả时）
+  // 1.2 bắt đầuKích thước cảnh（仅当没有高级vị trí cameraMô tả时）
   if (!hasCameraPosition && scene.shotSize) {
     const shotPreset = SHOT_SIZE_PRESETS.find(p => p.id === scene.shotSize);
     if (shotPreset) {
@@ -136,7 +136,7 @@ export function buildVideoPrompt(
     }
   }
 
-  // 1.3 机位与运动
+  // 1.3 vị trí camera与运动
   if (hasCameraPosition) {
     cameraDesignParts.push(scene.cameraPosition!.trim());
   } else if (scene.cameraMovement?.trim() && scene.cameraMovement !== 'none') {
@@ -297,25 +297,25 @@ export function buildVideoPrompt(
     promptParts.push(`Setting: ${sceneInfo}`);
   }
 
-  // Thoại：有内容且开启时包含，否则明确bị cấm
+  // Thoại：有内容且开启时chứa，否则明确bị cấm
   if (scene.audioDialogueEnabled !== false && scene.dialogue?.trim()) {
     promptParts.push(`Dialogue: "${scene.dialogue.trim()}"`);
   } else {
     promptParts.push('Dialogue: bị cấmThoại');
   }
-  // 环境音：有内容且开启时包含，否则明确bị cấm
+  // 环境音：有内容且开启时chứa，否则明确bị cấm
   if (scene.audioAmbientEnabled !== false && scene.ambientSound?.trim()) {
     promptParts.push(`Ambient: ${scene.ambientSound.trim()}`);
   } else {
     promptParts.push('Ambient: bị cấm环境音');
   }
-  // Hiệu ứng âm thanh：有内容且开启时包含，否则明确bị cấm
+  // Hiệu ứng âm thanh：有内容且开启时chứa，否则明确bị cấm
   if (scene.audioSfxEnabled !== false && scene.soundEffectText?.trim()) {
     promptParts.push(`SFX: ${scene.soundEffectText.trim()}`);
   } else {
     promptParts.push('SFX: bị cấmHiệu ứng âm thanh');
   }
-  // 背景Nhạc：有内容且开启时包含，否则明确bị cấm
+  // 背景Nhạc：有内容且开启时chứa，否则明确bị cấm
   if (scene.audioBgmEnabled === true && scene.backgroundMusic?.trim()) {
     promptParts.push(`Music: ${scene.backgroundMusic.trim()}`);
   } else {
@@ -333,7 +333,7 @@ export function buildVideoPrompt(
     promptParts.push(basePrompt.trim());
   }
 
-  // ---------- 速度控制 (Speed Ramping) —— 逐镜优先，回退摄影档案 ----------
+  // ---------- 速度điều khiển (Speed Ramping) —— 逐镜优先，回退摄影档案 ----------
   const effectivePbSpeed = scene.playbackSpeed || cinProfile?.defaultSpeed?.playbackSpeed;
   if (effectivePbSpeed && effectivePbSpeed !== 'normal') {
     const token = findPresetToken(PLAYBACK_SPEED_PRESETS, effectivePbSpeed, mt, 'playbackSpeed');

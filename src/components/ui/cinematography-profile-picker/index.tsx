@@ -7,8 +7,8 @@
  * CinematographyProfilePicker — 摄影风格档案Chọn器
  *
  * chức năng：
- * - 左侧：按phân loại显示档案列表（emoji + 名称）
- * - bên phải：Di chuột/đã chọn时显示详细Mô tả、摄影参数、Tham chiếu影片
+ * - Bên trái：按phân loại显示档案列表（emoji + 名称）
+ * - bên phải：Di chuột/đã chọn时显示详细Mô tả、摄影tham số、Tham chiếu影片
  * - 支持 Popover popup出chế độ和内嵌chế độ
  */
 
@@ -274,7 +274,7 @@ function ProfileItem({ profile, isSelected, onSelect, onHover, onLeave }: Profil
 }
 
 /**
- * 参数行
+ * tham số行
  */
 function ParamRow({ label, value }: { label: string; value: string }) {
   return (

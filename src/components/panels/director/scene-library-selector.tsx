@@ -5,7 +5,7 @@
 
 /**
  * Thư viện cảnhChọn器组件 (Scene Library Selector)
- * Hỗ trợ3 lớpChọn：父Cảnh → Góc nhìnbiến thể → 四góc nhìnconCảnh
+ * Hỗ trợ3 lớpChọn：Cảnh cha → Góc nhìnbiến thể → 4góc nhìnconCảnh
  */
 
 import React, { useState, useMemo } from "react";
@@ -65,7 +65,7 @@ export function SceneLibrarySelector({
     return libraryScenes.filter((s) => s.projectId === activeProjectId);
   }, [libraryScenes, resourceSharing.shareScenes, activeProjectId]);
   
-  // 获取Tất cả父Cảnh（非Góc nhìnbiến thể）
+  // 获取Tất cảCảnh cha（非Góc nhìnbiến thể）
   const parentScenes = useMemo(() => 
     visibleScenes.filter(s => !s.isViewpointVariant && !s.parentSceneId),
     [visibleScenes]
@@ -77,7 +77,7 @@ export function SceneLibrarySelector({
     return visibleScenes.filter(s => s.parentSceneId === selectedSceneLibraryId);
   }, [visibleScenes, selectedSceneLibraryId]);
   
-  // 根据đã chọn的Góc nhìn获取四góc nhìnconCảnh（第二层conCảnh）
+  // 根据đã chọn的Góc nhìn获取4góc nhìnconCảnh（第二层conCảnh）
   const subViewScenes = useMemo(() => {
     if (!selectedViewpointId) return [];
     return visibleScenes.filter(s => s.parentSceneId === selectedViewpointId);
@@ -106,7 +106,7 @@ export function SceneLibrarySelector({
       onChange(undefined, undefined, undefined, undefined);
       return;
     }
-    // đã chọnCảnh，Xóa tất cảGóc nhìn和四góc nhìn
+    // đã chọnCảnh，Xóa tất cảGóc nhìn和4góc nhìn
     const refImage = scene.referenceImage || scene.referenceImageBase64;
     onChange(sceneLibId, undefined, refImage, undefined);
   };
@@ -115,7 +115,7 @@ export function SceneLibrarySelector({
   const handleSelectViewpoint = (viewpointId: string) => {
     const viewpoint = visibleScenes.find(s => s.id === viewpointId);
     if (!viewpoint) {
-      // Xóa tất cảGóc nhìn，Sử dụng父Cảnh的Ảnh tham chiếu
+      // Xóa tất cảGóc nhìn，Sử dụngCảnh cha的Ảnh tham chiếu
       const parentRefImage = selectedScene?.referenceImage || selectedScene?.referenceImageBase64;
       onChange(selectedSceneLibraryId, undefined, parentRefImage, undefined);
       return;
@@ -124,11 +124,11 @@ export function SceneLibrarySelector({
     onChange(selectedSceneLibraryId, viewpointId, refImage, undefined);
   };
   
-  // Chọn四góc nhìnconCảnh
+  // Chọn4góc nhìnconCảnh
   const handleSelectSubView = (subViewId: string) => {
     const subView = visibleScenes.find(s => s.id === subViewId);
     if (!subView) {
-      // Xóa tất cả四góc nhìn，Sử dụngGóc nhìn的Ảnh tham chiếu
+      // Xóa tất cả4góc nhìn，Sử dụngGóc nhìn的Ảnh tham chiếu
       const viewpointRefImage = selectedViewpoint?.referenceImage || selectedViewpoint?.referenceImageBase64;
       onChange(selectedSceneLibraryId, selectedViewpointId, viewpointRefImage, undefined);
       return;

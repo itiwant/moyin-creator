@@ -24,13 +24,13 @@ function isViteDev(): boolean {
 }
 
 /**
- * CORS 安全的 fetch 封装
+ * CORS an toàn的 fetch 封装
  *
  * 在浏览器开发chế độ下，Tự động将请求代理到 Vite 开发服务器的
  * `/__api_proxy` đang xử lý...由服务端转发请求以绕过 CORS 限制。
  *
- * @param url    目标 URL（与原生 fetch 参数相同）
- * @param init   请求Tùy chọn（与原生 fetch 参数相同）
+ * @param url    目标 URL（与原生 fetch tham số相同）
+ * @param init   请求Tùy chọn（与原生 fetch tham số相同）
  * @returns      Response（与原生 fetch 返回值相同）
  */
 export async function corsFetch(
@@ -39,7 +39,7 @@ export async function corsFetch(
 ): Promise<Response> {
   const targetUrl = url.toString();
 
-  // Electron 或非开发môi trường：直连
+  // Electron hoặc非开发môi trường：直连
   if (isElectron() || !isViteDev()) {
     return fetch(targetUrl, init);
   }

@@ -409,7 +409,7 @@ export function ModelSelector({ type, value, onChange, className }: ModelSelecto
   const modelEndpointTypes = useAPIConfigStore((s) => s.modelEndpointTypes);
 
   // Trực tiếp从 featureBindings 读取已绑定的Model cột表
-  // 格式: ["memefast:gemini-3-pro-image-preview", "memefast:flux-dev", ...]
+  // định dạng: ["memefast:gemini-3-pro-image-preview", "memefast:flux-dev", ...]
   const models = useMemo((): SelectorModel[] => {
     const feature = type === 'image' ? 'freedom_image' : 'freedom_video';
     const bindings = getFeatureBindings(feature);

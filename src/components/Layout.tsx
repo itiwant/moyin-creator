@@ -73,7 +73,7 @@ export function Layout() {
       case "script":
         return <ScriptView />;
       case "director":
-        // 保持原有 AI Đạo diễnchức năng
+        // giữ原有 AI Đạo diễnchức năng
         return <DirectorView />;
       case "sclass":
         return <SClassView />;

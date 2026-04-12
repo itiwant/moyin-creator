@@ -31,8 +31,8 @@ export function calculateProgress(items: { status?: CompletionStatus }[]): strin
 }
 
 /**
- * Kích thước cảnh名称 → ShotSizeType 映射表
- * 用于将剧本đang xử lý...Mô tả转换为Tiêu chuẩn化 ID
+ * Kích thước cảnh名称 → ShotSizeType ánh xạ表
+ * 用于将剧本đang xử lý...Mô tảchuyển đổi thànhTiêu chuẩn化 ID
  */
 export const SHOT_SIZE_MAP: Record<string, ShotSizeType> = {
   'ECU': 'ecu', 'Extreme Close-Up': 'ecu', 'Cực cận cảnh': 'ecu',
@@ -46,7 +46,7 @@ export const SHOT_SIZE_MAP: Record<string, ShotSizeType> = {
 };
 
 /**
- * 将Kích thước cảnhký tự串转换为Tiêu chuẩn化 ShotSizeType
+ * 将Kích thước cảnhký tự串chuyển đổi thànhTiêu chuẩn化 ShotSizeType
  */
 export function normalizeShotSize(shotSize: string | undefined | null): ShotSizeType | null {
   if (!shotSize) return null;

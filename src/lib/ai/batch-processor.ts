@@ -129,7 +129,7 @@ export async function processBatched<TItem, TResult>(
   const limits = getModelLimits(modelName);
 
   const inputBudget = Math.min(Math.floor(limits.contextWindow * 0.6), HARD_CAP_TOKENS);
-  const outputBudget = Math.floor(limits.maxOutput * 0.8); // 留 20% 给 JSON 格式开销
+  const outputBudget = Math.floor(limits.maxOutput * 0.8); // 留 20% 给 JSON định dạng开销
 
   console.log(
     `[BatchProcessor] ${feature}: model=${modelName}, ` +

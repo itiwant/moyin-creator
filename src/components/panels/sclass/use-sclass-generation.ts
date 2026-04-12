@@ -210,14 +210,14 @@ export function useSClassGeneration() {
         const enableAudio = hasAnyDialogue || hasAnyAmbient || hasAnySfx;
         const enableLipSync = hasAnyDialogue;
 
-        // camerafixed: Tất cảPhân cảnhchuyển động máy为 Static 或为空 → 锁定chuyển động máy
+        // camerafixed: Tất cảPhân cảnhchuyển động máy为 Static hoặc为空 → 锁定chuyển động máy
         const allStaticCamera = groupScenes.every(s => {
           const cm = (s.cameraMovement || '').toLowerCase().trim();
           return !cm || cm === 'static' || cm === 'Cố định' || cm === 'tĩnh';
         });
 
-        // 4b. 构建ô图（合并Khung hình đầu 或 复用缓存）
-        // kéo dài/Chỉnh sửa组跳过ô图 — 它们的Khung hình đầuTham chiếu来自 sourceVideoUrl
+        // 4b. 构建ô图（合并Khung hình đầu hoặc 复用缓存）
+        // kéo dài/Chỉnh sửa组Bỏ quaô图 — 它们的Khung hình đầuTham chiếu来自 sourceVideoUrl
         let gridImageRef: AssetRef | null = null;
 
         if (!isExtendOrEdit) {
@@ -311,7 +311,7 @@ export function useSClassGeneration() {
 
         // 5b. thu thậpvideo/âm thanhtham chiếu → 转 HTTP URL（Seedance 2.0 đa phương thức输入）
         const videoRefUrls: string[] = [];
-        // nhóm trướcvideonối kết（链式Thử lại时传入）— kéo dài/Chỉnh sửa组已在 refs.videos đang xử lý...sourceVideoUrl，跳过
+        // nhóm trướcvideonối kết（链式Thử lại时传入）— kéo dài/Chỉnh sửa组已在 refs.videos đang xử lý...sourceVideoUrl，Bỏ qua
         if (!isExtendOrEdit && options?.prevVideoUrl) {
           const prevHttpUrl = await convertToHttpUrl(options.prevVideoUrl).catch(() => "");
           if (prevHttpUrl) videoRefUrls.push(prevHttpUrl);
@@ -418,7 +418,7 @@ export function useSClassGeneration() {
           throw lastVideoError || new Error("Tạo video thất bại: Không có API Key khả dụng");
         }
 
-        // 7. Lưuvideo到本地
+        // 7. Lưuvideo到cục bộ
         const localUrl = await saveVideoLocally(
           videoUrl,
           group.sceneIds[0] || 0
@@ -514,7 +514,7 @@ export function useSClassGeneration() {
         return [];
       }
 
-      // lọc需要Tạo的组（idle 或 failed）
+      // lọc需要Tạo的组（idle hoặc failed）
       const groupsToGenerate = groups.filter(
         (g) => g.videoStatus === "idle" || g.videoStatus === "failed"
       );
@@ -616,7 +616,7 @@ export function useSClassGeneration() {
       const projectId = activeProjectId;
       if (!projectId) return false;
 
-      // 从 director-store 直读共享配置（与 generateGroupVideo 保持giống）
+      // 从 director-store 直读共享配置（与 generateGroupVideo giữgiống）
       const dirState = useDirectorStore.getState();
       const dirProj = dirState.projects[dirState.activeProjectId || ''];
       const sbConfig = dirProj?.storyboardConfig;

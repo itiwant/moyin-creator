@@ -4,11 +4,11 @@
 "use client";
 
 /**
- * AngleController - Google Earth Phong cách 3D Góc nhìn控制器
+ * AngleController - Google Earth Phong cách 3D Góc nhìnđiều khiển器
  * 
  * 交互升级：
- * - 鼠标Kéo：控制Xoay（水平/俯仰）
- * - 鼠标Lăn：控制Thu phóng（Kích thước cảnh）
+ * - 鼠标Kéo：điều khiểnXoay（水平/俯仰）
+ * - 鼠标Lăn：điều khiểnThu phóng（Kích thước cảnh）
  * - 磁吸效果：接近Tiêu chuẩn角度时Tự động吸附，解决"太丝滑"问题
  */
 
@@ -41,7 +41,7 @@ export interface AngleControllerProps {
   compact?: boolean;
 }
 
-// ... (保持 CUBE_VERTICES 和 CUBE_EDGES không thay đổi)
+// ... (giữ CUBE_VERTICES 和 CUBE_EDGES không thay đổi)
 // 立方体頂8顶点的坐标（归一化）
 const CUBE_VERTICES = [
   { x: -1, y: -1, z: -1 },
@@ -75,7 +75,7 @@ export function AngleController({
   const [elevation, setElevation] = useState<ElevationAngle>(initialElevation);
   const [shotSize, setShotSize] = useState<ShotSize>(initialShotSize);
   
-  // 连续的Góc nhìn参数 (用于渲染动画)
+  // 连续的Góc nhìntham số (用于渲染动画)
   const [theta, setTheta] = useState(45); // Ngang 0-360
   const [phi, setPhi] = useState(90);    // Dọc 30-150
   
@@ -100,7 +100,7 @@ export function AngleController({
     const elevIdx = ELEVATION_ANGLES.findIndex(e => e.id === initialElevation);
     
     if (dir) setTheta(dir.degrees);
-    // 粗略映射 elevation 到 phi
+    // 粗略ánh xạ elevation 到 phi
     // low(0)->130, eye(1)->90, elevated(2)->60, high(3)->40
     if (elevIdx >= 0) {
       const targetPhi = [130, 90, 60, 40][elevIdx];
@@ -240,7 +240,7 @@ export function AngleController({
     };
   }, [isDragging, handleDrag]);
 
-  // 辅助函数：坐标转换
+  // 辅助函数：坐标chuyển đổi
   const sphericalToCartesian = (t: number, p: number, r: number) => {
     const thetaRad = (t - 90) * (Math.PI / 180);
     const phiRad = p * (Math.PI / 180);

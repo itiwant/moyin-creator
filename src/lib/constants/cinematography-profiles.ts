@@ -4,7 +4,7 @@
 /**
  * Cinematography Profile Presets — 摄影风格档案预设
  *
- * 在「画风Chọn」和「逐镜拍摄控制trường」之间，提供项目级摄影Ngôn ngữ基准。
+ * 在「画风Chọn」和「逐镜拍摄điều khiểntrường」之间，提供项目级摄影Ngôn ngữ基准。
  * AI Hiệu chuẩn时以此为默认倾向，prompt builder 在逐镜trường为空时回退到此处。
  */
 
@@ -112,7 +112,7 @@ const CINEMATIC_PROFILES: CinematographyProfile[] = [
     defaultSpeed: { playbackSpeed: 'normal' },
     defaultAngle: 'eye-level',
     defaultFocalLength: '50mm',
-    promptGuidance: '遵循经典电影语法，三点布光为基础，暖色调营造温暖质感。轨道推拉保持画面稳定流畅，景深随tự sựchức năng调整——Chat用浅景深聚焦情绪，全景用深景深交代环境。',
+    promptGuidance: '遵循经典电影语法，三点布光为基础，暖色调营造温暖质感。轨道推拉giữ画面稳定流畅，景深随tự sựchức năng调整——Chat用浅景深聚焦情绪，全景用深景深交代环境。',
     referenceFilms: ['肖申克的救赎', '阿甘正传', '教父'],
   },
   {
@@ -181,7 +181,7 @@ const CINEMATIC_PROFILES: CinematographyProfile[] = [
     defaultAngle: 'eye-level',
     defaultFocalLength: '85mm',
     defaultTechnique: 'bokeh',
-    promptGuidance: '浪漫感的核心是逆光——黄金时段的暖色逆光让nhân vật轮廓发光。极浅景深把世界虚化成光斑，斯坦尼康轻柔跟随nhân vật，仿佛在梦đang xử lý...ng走。偶尔飘落的花瓣或光束为画面增添诗意。',
+    promptGuidance: '浪漫感的核心是逆光——黄金时段的暖色逆光让nhân vật轮廓发光。极浅景深把世界虚化成光斑，斯坦尼康轻柔跟随nhân vật，仿佛在梦đang xử lý...ng走。偶尔飘落的花瓣hoặc光束为画面增添诗意。',
     referenceFilms: ['恋恋笔记本', '爱乐之城', '傲慢与偏见', '情书'],
   },
 ];
@@ -220,7 +220,7 @@ const DOCUMENTARY_PROFILES: CinematographyProfile[] = [
     defaultSpeed: { playbackSpeed: 'normal' },
     defaultAngle: 'eye-level',
     defaultFocalLength: '24mm',
-    promptGuidance: '新闻纪实以thông tin传达为第一优先——深景深确保画面Tất cả元素清晰可辨，高调光消除阴影让细节đầy đủ呈现。肩扛摄影保持灵活跟踪，但比Cầm tay更稳定。画面bố cục讲究thông tincấp độ，重要nhân vật或事件始终在Tiêu điểm thị giác。',
+    promptGuidance: '新闻纪实以thông tin传达为第一优先——深景深确保画面Tất cả元素清晰可辨，高调光消除阴影让细节đầy đủ呈现。肩扛摄影giữ灵活跟踪，但比Cầm tay更稳定。画面bố cục讲究thông tincấp độ，重要nhân vậthoặc事件luôn在Tiêu điểm thị giác。',
     referenceFilms: ['聚焦', '总统班底', '华盛顿邮报'],
   },
 ];
@@ -352,7 +352,7 @@ const GENRE_PROFILES: CinematographyProfile[] = [
     defaultSpeed: { playbackSpeed: 'normal' },
     defaultAngle: 'eye-level',
     defaultFocalLength: '50mm',
-    promptGuidance: '悬疑片的摄影核心是「控制thông tin揭示」——浅景深Chọn性地让观众只看到Đạo diễn想让他们看到的。轨道极慢推进制造压迫感，低调侧光让画面总有一半隐藏在阴影đang xử lý...是重要tự sự手法，从前景线索转焦到背景嫌疑人，或反向操作。薄雾为画面增加朦胧感，暗示真相的不确定性。',
+    promptGuidance: '悬疑片的摄影核心是「điều khiểnthông tin揭示」——浅景深Chọn性地让观众只看到Đạo diễn想让他们看到的。轨道极慢推进制造压迫感，低调侧光让画面总有一半隐藏在阴影đang xử lý...是重要tự sự手法，从前景线索转焦到背景嫌疑人，hoặc反向操作。薄雾为画面增加朦胧感，暗示真相的不确定性。',
     referenceFilms: ['消失的爱人', '七宗罪', '杀人回忆', '十二怒汉'],
   },
 ];
@@ -374,7 +374,7 @@ const ERA_PROFILES: CinematographyProfile[] = [
     defaultSpeed: { playbackSpeed: 'normal' },
     defaultAngle: 'eye-level',
     defaultFocalLength: '35mm',
-    promptGuidance: '90thập niên港片的摄影DNA是「都市霓虹+Cầm tay游走」——混合色温的霓虹灯把城市街道染成红蓝交织的梦境。Cầm tay摄影在人群đang xử lý...偶尔Sử dụng抽帧或降格制造王家卫式的虚影效果。薄霾笼罩的街头，每路人都像有故事。侧光勾勒出nhân vật忧郁的轮廓。',
+    promptGuidance: '90thập niên港片的摄影DNA是「都市霓虹+Cầm tay游走」——混合色温的霓虹灯把城市街道染成红蓝交织的梦境。Cầm tay摄影在人群đang xử lý...偶尔Sử dụng抽帧hoặc降格制造王家卫式的虚影效果。薄霾笼罩的街头，每路人都像有故事。侧光勾勒出nhân vật忧郁的轮廓。',
     referenceFilms: ['重庆森林', '堕落天使', '无间道', '英雄本色'],
   },
   {
@@ -382,7 +382,7 @@ const ERA_PROFILES: CinematographyProfile[] = [
     name: '好莱坞黄金thời đại',
     nameEn: 'Golden Age Hollywood',
     category: 'era',
-    description: '高调三点布光、暖色温、深景深、轨道优雅运动、光芒四射、端庄华丽',
+    description: '高调三点布光、暖色温、深景深、轨道优雅运动、光芒4射、端庄华丽',
     emoji: '⭐',
     defaultLighting: { style: 'high-key', direction: 'three-point', colorTemperature: 'warm' },
     defaultFocus: { depthOfField: 'deep', focusTransition: 'none' },
@@ -431,7 +431,7 @@ export const DEFAULT_CINEMATOGRAPHY_PROFILE_ID = 'classic-cinematic';
 
 /**
  * Tạo AI Hiệu chuẩn用的摄影档案指导文本
- * 注入到 system prompt đang xử lý...拍摄控制trường的默认基准
+ * 注入到 system prompt đang xử lý...拍摄điều khiểntrường的默认基准
  */
 export function buildCinematographyGuidance(profileId: string): string {
   const profile = getCinematographyProfile(profileId);
@@ -459,7 +459,7 @@ export function buildCinematographyGuidance(profileId: string): string {
     '',
     `**Tham chiếu影片：** ${profile.referenceFilms.join('、')}`,
     '',
-    '⚠️ 以上是本项mục đích摄影Ngôn ngữ基准。每Phân cảnh的拍摄控制trường应以此为默认值，但如果剧情的tự sựchức năng（如cao trào、转折）需要偏离基准，可以自由调整——quan trọng是要有tự sự理由，Không随机变化。',
+    '⚠️ 以上是本项mục đích摄影Ngôn ngữ基准。每Phân cảnh的拍摄điều khiểntrường应以此为默认值，但如果剧情的tự sựchức năng（如cao trào、转折）需要偏离基准，可以自由调整——quan trọng是要有tự sự理由，Không随机变化。',
   ].filter(Boolean);
 
   return lines.join('\n');

@@ -33,7 +33,7 @@ const ALL_SOUND_EFFECTS = [
   ...SOUND_EFFECT_PRESETS.urban,
 ];
 
-// phân loạiTên映射
+// phân loạiTênánh xạ
 const CATEGORY_LABELS: Record<keyof typeof SOUND_EFFECT_PRESETS, string> = {
   nature: "🌿 Môi trường tự nhiên",
   action: "🏃 Hành động nhân vật",

@@ -1,5 +1,5 @@
 /**
- * 模型友好名映射表
+ * 模型友好名ánh xạ表
  * API ID → người dùng可读的显示名
  *
  * dữ liệu来源: https://memefast.top/api/pricing_new (2026-02-19)
@@ -169,7 +169,7 @@ export const MODEL_DISPLAY_NAMES: Record<string, string> = {
   // --- DeepSeek ---
   'deepseek-ocr': 'DeepSeek OCR',
 
-  // --- Recraftv3 (dall-e-3 格式) ---
+  // --- Recraftv3 (dall-e-3 định dạng) ---
   'recraftv3': 'Recraft V3 (dall-e-3)',
 
   // --- Kolors ---
@@ -211,7 +211,7 @@ export const MODEL_DISPLAY_NAMES: Record<string, string> = {
   'veo2-fast-frames': 'Veo 2 Fast 首khung cuối',
   'veo2-pro': 'Veo 2 Pro',
   'veo2-pro-components': 'Veo 2 Pro 素材合成',
-  // veo_ 下划线格式（同模型不同端点）
+  // veo_ 下划线định dạng（同模型不同端点）
   'veo_3_1': 'Veo 3.1 (异步)',
   'veo_3_1-4K': 'Veo 3.1 4K (异步)',
   'veo_3_1-fast': 'Veo 3.1 Fast (异步)',
@@ -246,7 +246,7 @@ export const MODEL_DISPLAY_NAMES: Record<string, string> = {
   'kling-video': 'Kling 文生视频',
   'kling-omni-video': 'Kling Omni 视频',
   'kling-video-extend': 'Kling 视频延长',
-  'kling-motion-control': 'Kling 动作控制',
+  'kling-motion-control': 'Kling 动作điều khiển',
   'kling-multi-elements': 'Kling 多元素合成',
   'kling-avatar-image2video': 'Kling Avatar 图生视频',
   'kling-advanced-lip-sync': 'Kling 高级sổ型同步',
@@ -370,7 +370,7 @@ export const MODEL_DISPLAY_NAMES: Record<string, string> = {
 
 /**
  * 获取模型的友好显示名
- * 优先查映射表，查不到返回gốc ID
+ * 优先查ánh xạ表，查不到返回gốc ID
  */
 export function getModelDisplayName(modelId: string): string {
   return MODEL_DISPLAY_NAMES[modelId] ?? modelId;

@@ -37,10 +37,10 @@ export function isVeoModel(model: string): boolean {
 
 function resolveVeoEndpointFamily(endpointTypes?: string[]): VeoEndpointFamily {
   if (!endpointTypes || endpointTypes.length === 0) return 'unknown';
-  if (endpointTypes.includes('openAI视频格式') || endpointTypes.includes('openAI官方视频格式')) {
+  if (endpointTypes.includes('openAI视频định dạng') || endpointTypes.includes('openAI官方视频định dạng')) {
     return 'openai_videos';
   }
-  if (endpointTypes.includes('视频统一格式')) return 'unified';
+  if (endpointTypes.includes('视频统一định dạng')) return 'unified';
   return 'unknown';
 }
 

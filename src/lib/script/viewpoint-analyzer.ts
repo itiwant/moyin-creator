@@ -79,7 +79,7 @@ export async function analyzeSceneViewpoints(
     return parts.join('\n  ');
   }).join('\n\n');
   
-  // 统一处理可选参数
+  // 统一处理可选tham số
   const opts = options || {};
 
   // 构建本 tậpđại cương部分
@@ -104,7 +104,7 @@ export async function analyzeSceneViewpoints(
   const systemPrompt = `你是chuyên nghiệp的影视美术指导，擅长分析场景并确定需要的拍摄góc nhìn。
 
 ${globalContextSection}【nhiệm vụ】
-根据本 tậpđại cương、场景thông tin和分镜内容，分析该场景需要哪些不同的góc nhìn/机位来Tạo场景背景图。
+根据本 tậpđại cương、场景thông tin和分镜内容，分析该场景需要哪些不同的góc nhìn/vị trí camera来Tạo场景背景图。
 
 【重要原则】
 1. góc nhìn必须与场景类型Khớp：
@@ -117,7 +117,7 @@ ${globalContextSection}【nhiệm vụ】
 4. 每góc nhìn要有quan trọngđạo cụ（从分镜的Tiêu điểm thị giác和环境声đang xử lý...
 5. 输出4-6góc nhìn
 
-【输出格式】
+【输出định dạng】
 返回 JSON:
 {
   "viewpoints": [
@@ -148,12 +148,12 @@ ${shotSummaries}
   try {
     console.log('[analyzeSceneViewpoints] 🚀 开始gọi API AI API...');
     console.log('[analyzeSceneViewpoints] 场景:', scene.location || scene.name);
-    console.log('[analyzeSceneViewpoints] 分镜数量:', shots.length);
+    console.log('[analyzeSceneViewpoints] 分镜số lượng:', shots.length);
     
     // 统一从ánh xạ dịch vụ获取配置
     const result = await callFeatureAPI('script_analysis', systemPrompt, userPrompt);
     
-    console.log('[analyzeSceneViewpoints] ✅ AI API gọi API成功，返回内容长度:', result.length);
+    console.log('[analyzeSceneViewpoints] ✅ AI API gọi API成功，返回内容độ dài:', result.length);
     console.log('[analyzeSceneViewpoints] gốc响应前 200 ký tự:', result.slice(0, 200));
     
     // Phân tích JSON
@@ -166,7 +166,7 @@ ${shotSummaries}
     
     const parsed = JSON.parse(cleaned);
     
-    console.log('[analyzeSceneViewpoints] 🎯 JSON Phân tích成功，góc nhìn数量:', parsed.viewpoints?.length || 0);
+    console.log('[analyzeSceneViewpoints] 🎯 JSON Phân tích成功，góc nhìnsố lượng:', parsed.viewpoints?.length || 0);
     
     const viewpoints = (parsed.viewpoints || []).map((v: any, idx: number) => ({
       id: v.id || `viewpoint_${idx}`,

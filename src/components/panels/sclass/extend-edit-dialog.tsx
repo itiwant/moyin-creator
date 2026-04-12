@@ -72,11 +72,11 @@ export function ExtendEditDialog({
   onConfirm,
   isGenerating = false,
 }: ExtendEditDialogProps) {
-  // --- kéo dài参数 ---
+  // --- kéo dàitham số ---
   const [direction, setDirection] = useState<ExtendDirection>("backward");
   const [duration, setDuration] = useState(10);
 
-  // --- Chỉnh sửa参数 ---
+  // --- Chỉnh sửatham số ---
   const [editType, setEditType] = useState<EditType>("plot_change");
 
   // --- 共用 ---

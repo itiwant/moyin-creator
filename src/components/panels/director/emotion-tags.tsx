@@ -5,7 +5,7 @@
 
 /**
  * 情绪ThẻChọn组件
- * Hỗ trợ多选、有序排 cột，用于控制Tạo video的Bầu không khí和语气
+ * Hỗ trợ多选、有序排 cột，用于điều khiểnTạo video的Bầu không khí和语气
  */
 
 import { useState } from "react";

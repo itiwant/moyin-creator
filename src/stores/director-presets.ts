@@ -83,7 +83,7 @@ export type SoundEffectTag =
   | typeof SOUND_EFFECT_PRESETS.atmosphere[number]['id']
   | typeof SOUND_EFFECT_PRESETS.urban[number]['id'];
 
-// ==================== 拍摄控制预设（每Phân cảnhđộc lập） ====================
+// ==================== 拍摄điều khiển预设（每Phân cảnhđộc lập） ====================
 
 // 灯光Phong cách预设 (Gaffer)
 export const LIGHTING_STYLE_PRESETS = [

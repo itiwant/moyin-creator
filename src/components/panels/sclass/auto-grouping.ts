@@ -68,7 +68,7 @@ function genId(): string {
 /**
  * 对 SplitScene[] 执 hàngTự độngnhóm
  *
- * @returns ShotGroup[] — 每组包含 sceneIds、totalDuration 等
+ * @returns ShotGroup[] — 每组chứa sceneIds、totalDuration 等
  */
 export function autoGroupScenes(
   scenes: SplitScene[],

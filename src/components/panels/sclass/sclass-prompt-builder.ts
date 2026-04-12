@@ -90,7 +90,7 @@ export const SEEDANCE_LIMITS = {
 // ==================== Grid Image Merge ====================
 
 /**
- * 计算网格bố cục（N×N 策略）
+ * 计算lướibố cục（N×N 策略）
  */
 function calculateGridLayout(count: number): { cols: number; rows: number; paddedCount: number } {
   if (count <= 4) return { cols: 2, rows: 2, paddedCount: 4 };
@@ -103,10 +103,10 @@ function calculateGridLayout(count: number): { cols: number; rows: number; padde
  * bố cục规则（N×N 策略，与 handleMergedGenerate giống）：
  * - 1-4 张 → 2×2，不足的ôĐể trống
  * - 5-9 张 → 3×3，不足的ôĐể trống
- * Tỷ lệ khung hình：N×N 网格下，整图Tỷ lệ khung hình = 单格Tỷ lệ khung hình = 目标Tỉ lệ khung hình比
+ * Tỷ lệ khung hình：N×N lưới下，整图Tỷ lệ khung hình = 单格Tỷ lệ khung hình = 目标Tỉ lệ khung hình比
  *
  * @param imageUrls ảnh URL  cột表（base64 / http / local-image://）
- * @param aspectRatio 目标Tỷ lệ khung hình，如 '16:9' 或 '9:16'
+ * @param aspectRatio 目标Tỷ lệ khung hình，如 '16:9' hoặc '9:16'
  * @returns 合并后的 dataUrl (image/png)
  */
 export async function mergeToGridImage(
@@ -162,7 +162,7 @@ export async function mergeToGridImage(
     const dx = col * cellWidth;
     const dy = row * cellHeight;
 
-    // 计算 cover 裁剪区域
+    // 计算 cover cắt区域
     const imgAspect = img.width / img.height;
     let sx = 0, sy = 0, sw = img.width, sh = img.height;
     if (imgAspect > cellAspect) {
@@ -391,7 +391,7 @@ export function extractDialogueSegments(
     if (scene.dialogue && scene.dialogue.trim()) {
       const dialogueText = scene.dialogue.trim();
 
-      // 检测Thoại文本是否已包含说话人格式（如 "村民：妹con" 或 "村民（操着方言）：妹con"）
+      // 检测Thoại文本是否已chứa说话人định dạng（如 "村民：妹con" hoặc "村民（操着方言）：妹con"）
       const speakerMatch = dialogueText.match(/^([^\uff1a:]{1,20})[\uff1a:](.+)$/s);
 
       let characterName: string;
@@ -460,7 +460,7 @@ function buildShotSegment(
   if (isValid(scene.photographyTechnique)) parts.push(scene.photographyTechnique);
   if (isValid(scene.specialTechnique)) parts.push(scene.specialTechnique);
 
-  // ===== 机位Mô tả =====
+  // ===== vị trí cameraMô tả =====
   if (scene.cameraPosition?.trim()) parts.push(`camera: ${scene.cameraPosition.trim()}`);
 
   // ===== Hành độngMô tả（优先videoprompt，其次Hành động摘要） =====
@@ -560,14 +560,14 @@ const EDIT_TYPE_TEMPLATE: Record<EditType, string> = {
 /**
  * 构建cấp nhóm prompt — Hạng S核心函数
  *
- * 输出格式（đang xử lý...）：
+ * 输出định dạng（đang xử lý...）：
  * ```
  * 多Ống kínhtự sựvideo（共3Ống kính，TổngThời lượng14s）：
  *
  * Ống kính1 [0s-5s]「Cảnh名」：[chuyển động máy], [Hành động]
  * Ống kính2 [5s-9s]「Cảnh名」：[chuyển động máy], [Hành động]
  *
- * Nhân vậtTham chiếu：@ảnh4（Nhân vậtA）保持Nhân vậtngoại hìnhgiống
+ * Nhân vậtTham chiếu：@ảnh4（Nhân vậtA）giữNhân vậtngoại hìnhgiống
  * CảnhTham chiếu：@ảnh6 作为CảnhTham chiếu
  *
  * Thoại与sổ型同步：
@@ -594,7 +594,7 @@ export function buildGroupPrompt(options: BuildGroupPromptOptions): GroupPromptR
     return buildExtendEditPrompt(group, scenes, characters, sceneLibrary, styleTokens);
   }
 
-  // 1. thu thậpTất cả @tham chiếu（ô图chế độ或旧版chế độ）
+  // 1. thu thậpTất cả @tham chiếu（ô图chế độhoặc旧版chế độ）
   const refs = collectAllRefs(group, scenes, characters, sceneLibrary, gridImageRef);
 
   // 2. 构建各Ống kínhđoạn
@@ -731,7 +731,7 @@ export function buildGroupPrompt(options: BuildGroupPromptOptions): GroupPromptR
     promptParts.push(dialoguePart);
   }
 
-  // Phong cách（不再注入：Hiệu chuẩn后的各Ống kính prompt 已包含Phong cáchMô tả）
+  // Phong cách（不再注入：Hiệu chuẩn后的各Ống kính prompt 已chứaPhong cáchMô tả）
 
   // Tỷ lệ khung hìnhGợi ý
   if (aspectRatio) {
@@ -849,7 +849,7 @@ function buildExtendEditPrompt(
     }
   }
 
-  // Phong cách（不再注入：Hiệu chuẩn后的各Ống kính prompt 已包含Phong cáchMô tả）
+  // Phong cách（不再注入：Hiệu chuẩn后的各Ống kính prompt 已chứaPhong cáchMô tả）
 
   const prompt = promptParts.join('\n');
 
@@ -864,7 +864,7 @@ function buildExtendEditPrompt(
 }
 
 /**
- * nhanh预估一组的 @tham chiếu数量（不执 hàngđầy đủ构建）
+ * nhanh预估一组的 @tham chiếusố lượng（不执 hàngđầy đủ构建）
  */
 export function estimateGroupRefs(
   group: ShotGroup,

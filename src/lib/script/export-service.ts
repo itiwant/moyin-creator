@@ -46,7 +46,7 @@ export interface ExportManifest {
     // 音频Thiết kế
     ambientSound?: string;
     soundEffect?: string;
-    // 拍摄控制
+    // 拍摄điều khiển
     lightingStyle?: string;
     lightingDirection?: string;
     colorTemperature?: string;
@@ -179,7 +179,7 @@ function buildManifest(config: ExportConfig): ExportManifest {
       // 音频Thiết kế
       ambientSound: shot.ambientSound,
       soundEffect: shot.soundEffect,
-      // 拍摄控制
+      // 拍摄điều khiển
       lightingStyle: shot.lightingStyle,
       lightingDirection: shot.lightingDirection,
       colorTemperature: shot.colorTemperature,

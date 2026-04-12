@@ -147,7 +147,7 @@ export function SceneGallery({ onSceneSelect, selectedSceneId }: SceneGalleryPro
     // 根Cảnh：没有 parentSceneId 的Cảnh
     const roots = items.filter(s => !s.parentSceneId);
     
-    // 构建父con关系映射（Hỗ trợ多层lồng nhau）
+    // 构建父con关系ánh xạ（Hỗ trợ多层lồng nhau）
     const childMap = new Map<string, Scene[]>();
     items.forEach(s => {
       if (s.parentSceneId) {
@@ -173,7 +173,7 @@ export function SceneGallery({ onSceneSelect, selectedSceneId }: SceneGalleryPro
   // Mở rộng/Thu gọnTrạng thái
   const [expandedScenes, setExpandedScenes] = useState<Set<string>>(new Set());
   
-  // 联合图nhiệm vụhoàn thành后Tự độngMở rộng父Cảnh（让người dùng看到切割后的conCảnh）
+  // ảnh ghépnhiệm vụhoàn thành后Tự độngMở rộngCảnh cha（让người dùng看到cắt后的conCảnh）
   useEffect(() => {
     if (!contactSheetTasks) return;
     for (const [sceneId, task] of Object.entries(contactSheetTasks)) {

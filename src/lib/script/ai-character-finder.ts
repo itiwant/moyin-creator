@@ -18,7 +18,7 @@ import { callFeatureAPI } from '@/lib/ai/feature-router';
 // ==================== 类型定义 ====================
 
 export interface CharacterSearchResult {
-  /** 是否找到角色 */
+  /** 是否Tìm thấy角色 */
   found: boolean;
   /** 角色名 */
   name: string;
@@ -26,7 +26,7 @@ export interface CharacterSearchResult {
   confidence: number;
   /** 出现的 tập数 */
   episodeNumbers: number[];
-  /** 找到的上下文（Thoại、场景等） */
+  /** Tìm thấy的上下文（Thoại、场景等） */
   contexts: string[];
   /** AI Tạo的đầy đủ角色dữ liệu */
   character?: ScriptCharacter;
@@ -255,7 +255,7 @@ async function generateCharacterData(
       const era = background.era || background.timelineSetting || '古代';
       return `【${era}trang phục指导】
 请根据剧本设定的历史thời đạiThiết kếtrang phục：
-- 如果是客梨或武侠：古代汉服、侠客服饰、布衣草鞋
+- 如果是客梨hoặc武侠：古代汉服、侠客服饰、布衣草鞋
 - 如果是宫廷：宫装、朝服、官服
 - 如果是仙侠/玄幻：仙侠风格的服饰、飘逸长袍
 请根据角色Danh tính（平民/贵族/侠客/官员）Thiết kế合适的古代trang phục。`;
@@ -266,7 +266,7 @@ async function generateCharacterData(
       return `【未来/科幻trang phục指导】
 请根据剧本设定Thiết kế未来风格trang phục：
 - 科技感服饰、chức năng性装备、thông minh穿戴
-- 根据设定可以是乌托邦风格或反乌托邦风格
+- 根据设定可以是乌托邦风格hoặc反乌托邦风格
 - 注意角色Danh tính（平民/科学家/军人/机械师）`;
     }
     
@@ -277,22 +277,22 @@ async function generateCharacterData(
       if (startYear >= 2020) {
         return `【${startYear}thập niêntrang phục指导】
 - 年轻人：休闲时尚、运动风、潮牌元素，常穿卫衣、牵仔裤、运动鞋
-- đang xử lý...商务休闲、简约现代，常穿Polo衫、休闲西装、卡其裤
-- 老年人：舒适休闲，常穿开衫、单子衫、布鞋或运动鞋`;
+- đang xử lý...商务休闲、简约现代，常穿Polo衫、休闲Tây装、卡其裤
+- 老年人：舒适休闲，常穿开衫、单子衫、布鞋hoặc运动鞋`;
       } else if (startYear >= 2010) {
         return `【${startYear}thập niêntrang phục指导】
 - 年轻人：韩系时尚、小清新风格，常穿T恤、牵仔裤、帆布鞋
-- đang xử lý...商务正装或商务休闲，常穿西装、衬衫、皮鞋
+- đang xử lý...商务正装hoặc商务休闲，常穿Tây装、衬衫、皮鞋
 - 老年人：传统休闲，常穿开衫、布鞋`;
       } else if (startYear >= 2000) {
         return `【${startYear}thập niêntrang phục指导】
 - 年轻人：thiên niên kỷ时尚，常穿紧身裤、Lỏng lẻo外套、板鞋
-- đang xử lý...正式商务装，常穿西装套装、领带、皮鞋
+- đang xử lý...正式商务装，常穿Tây装套装、领带、皮鞋
 - 老年人：đang xử lý...简单开衫、布鞋`;
       } else if (startYear >= 1990) {
         return `【${startYear}thập niêntrang phục指导】
-- 年轻人：喇叭裤、的确良外套、大肩垫西装
-- đang xử lý...đang xử lý...西装，解放鞋或简单皮鞋
+- 年轻人：喇叭裤、的确良外套、大肩垫Tây装
+- đang xử lý...đang xử lý...Tây装，解放鞋hoặc简单皮鞋
 - 老年人：đang xử lý...棉袄、布鞋`;
       } else {
         return `【${startYear}thập niêntrang phục指导】
@@ -331,12 +331,12 @@ ${eraFashionGuidance}
 
 trang phục必须与剧本thời đại背景giống，不要混淆不同thời đại的trang phục风格。
 
-【输出格式】
-请返回JSON格式，包含以下trường：
+【输出định dạng】
+请返回JSONđịnh dạng，chứa以下trường：
 {
   "name": "角色名",
   "gender": "男/女",
-  "age": "TuổiMô tả，如 '30 tuổi左右' 或 'đang xử lý...,
+  "age": "TuổiMô tả，如 '30 tuổi左右' hoặc 'đang xử lý...,
   "personality": "Tính cách特点，2-3词",
   "role": "角色Danh tính/职业/在剧đang xử lý...",
   "appearance": "Đặc điểm ngoại hìnhMô tả（trang phục必须符合thập niên）",
@@ -389,11 +389,11 @@ ${dialogueSamples.join('\n')}
       if (val === null || val === undefined) return undefined;
       if (typeof val === 'string') return val;
       if (typeof val === 'object') {
-        // 如果是对象，尝试转换为ký tự串
+        // 如果是对象，尝试chuyển đổi thànhký tự串
         if (Array.isArray(val)) {
           return val.join(', ');
         }
-        // 对象转换为键值对ký tự串
+        // 对象chuyển đổi thành键值对ký tự串
         return Object.entries(val)
           .map(([k, v]) => `${k}: ${v}`)
           .join('; ');
@@ -447,7 +447,7 @@ export async function findCharacterByDescription(
       confidence: 0,
       episodeNumbers: [],
       contexts: [],
-      message: '无法识别角色名。请用类似"缺第10 tập的王大哥"或"Thêm张小宝这角色"的方式Mô tả。',
+      message: '无法识别角色名。请用类似"缺第10 tập的王大哥"hoặc"Thêm张小宝这角色"的方式Mô tả。',
     };
   }
   
@@ -474,7 +474,7 @@ export async function findCharacterByDescription(
   const searchResult = searchCharacterInScripts(name, episodeScripts, episodeNumber || undefined);
   
   if (!searchResult.found) {
-    // 没找到但可以让người dùng确认是否tạo
+    // 没Tìm thấy但可以让người dùng确认是否tạo
     return {
       found: false,
       name,
@@ -488,7 +488,7 @@ export async function findCharacterByDescription(
   }
   
   // 4. Sử dụng AI Tạođầy đủ角色dữ liệu
-  console.log('[findCharacterByDescription] 正在Tạo角色dữ liệu...');
+  console.log('[findCharacterByDescription] ĐangTạo角色dữ liệu...');
   
   const character = await generateCharacterData(
     name,
@@ -509,7 +509,7 @@ export async function findCharacterByDescription(
     confidence,
     episodeNumbers: searchResult.episodeNumbers,
     contexts: searchResult.contexts,
-    message: `找到角色「${character.name}」，出现在第 ${searchResult.episodeNumbers.join(', ')}  tập。`,
+    message: `Tìm thấy角色「${character.name}」，出现在第 ${searchResult.episodeNumbers.join(', ')}  tập。`,
     character,
   };
 }
@@ -549,7 +549,7 @@ export function quickSearchCharacter(
     return {
       name,
       found: true,
-      message: `找到「${name}」，出现在第 ${searchResult.episodeNumbers.join(', ')}  tập`,
+      message: `Tìm thấy「${name}」，出现在第 ${searchResult.episodeNumbers.join(', ')}  tập`,
     };
   }
   

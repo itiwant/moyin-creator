@@ -2,7 +2,7 @@
 // Licensed under AGPL-3.0-or-later. See LICENSE for details.
 // Commercial licensing available. See COMMERCIAL_LICENSE.md.
 /**
- * Media-Type Tokens — 摄影参数 × 媒介类型翻译层
+ * Media-Type Tokens — 摄影tham số × 媒介类型翻译层
  *
  * 核心职责：根据Thị giác风格的 mediaType，将物理摄影 promptToken 翻译为
  * 该媒介能驾驭的等效表达。
@@ -11,7 +11,7 @@
  * - cinematic  → 直通，保留Tất cả物理摄影词汇
  * - animation  → 虚拟摄像机语义适配（轨道→视差平移、景深→cấp độ模糊）
  * - stop-motion → 微缩实拍约束（轨道→微型滑轨、景深→微距镜头）
- * - graphic    → 跳过物理参数，灯光→色彩/情绪/Nhịp điệuMô tả
+ * - graphic    → Bỏ qua物理tham số，灯光→色彩/情绪/Nhịp điệuMô tả
  */
 
 import type { MediaType } from '@/lib/constants/visual-styles';
@@ -39,14 +39,14 @@ export type CinematographyField =
 /**
  * 每种非-cinematic 媒介的trường级翻译表。
  * - key = preset id
- * - value = 替换后的 promptToken（空ký tự串 = 静默跳过）
+ * - value = 替换后的 promptToken（空ký tự串 = 静默Bỏ qua）
  *
  * 不在表đang xử lý...reset id → 沿用gốc token（tương thích未来新增预设）
  */
 type FieldOverrides = Record<string, string>;
 
 /**
- * 'skip' 表示该trường在该媒介下整体跳过（返回空ký tự串）
+ * 'skip' 表示该trường在该媒介下整体Bỏ qua（返回空ký tự串）
  */
 type FieldStrategy = FieldOverrides | 'skip';
 
@@ -123,7 +123,7 @@ const STOP_MOTION_TABLE: MediaTranslationTable = {
 // ---------- graphic ----------
 
 const GRAPHIC_TABLE: MediaTranslationTable = {
-  // 物理摄影参数 → Tất cả跳过
+  // 物理摄影tham số → Tất cảBỏ qua
   cameraRig:       'skip',
   movementSpeed:   'skip',
   depthOfField:    'skip',
@@ -174,13 +174,13 @@ const TRANSLATION_TABLES: Partial<Record<MediaType, MediaTranslationTable>> = {
 // ==================== 核心函数 ====================
 
 /**
- * 将摄影参数 token 翻译为当前媒介类型的等效表达。
+ * 将摄影tham số token 翻译为当前媒介类型的等效表达。
  *
  * @param mediaType   - 当前Thị giác风格的媒介类型
- * @param field       - 摄影参数维度
+ * @param field       - 摄影tham số维度
  * @param presetId    - 预设 ID（如 'dolly', 'shallow'）
  * @param originalToken - gốc promptToken（来自预设dữ liệu）
- * @returns 翻译后的 token；空ký tự串表示该参数在此媒介下不适用
+ * @returns 翻译后的 token；空ký tự串表示该tham số在此媒介下不适用
  */
 export function translateToken(
   mediaType: MediaType,
@@ -199,7 +199,7 @@ export function translateToken(
   // 该trường无特殊处理 → 沿用gốc token
   if (strategy === undefined) return originalToken;
 
-  // 整体跳过
+  // 整体Bỏ qua
   if (strategy === 'skip') return '';
 
   // 查表替换
@@ -208,7 +208,7 @@ export function translateToken(
 }
 
 /**
- * 判断某trường在当前媒介下是否被跳过（UI 可用此决定是否显示灰色）
+ * 判断某trường在当前媒介下是否被Bỏ qua（UI 可用此决定是否显示灰色）
  */
 export function isFieldSkipped(mediaType: MediaType, field: CinematographyField): boolean {
   if (mediaType === 'cinematic') return false;

@@ -5,14 +5,14 @@
  * Visual Style Presets - Thị giác风格预设
  * 
  * 统一的Thị giác风格定义，Tất cả板块（剧本、角色、场景、AIĐạo diễn）共用
- * 来源：纳米漫剧流水线 - 风格库
+ * 来源：纳米漫剧quy trình - 风格库
  */
 
 // 风格分类
 export type StyleCategory = '3d' | '2d' | 'real' | 'stop_motion';
 
 /**
- * 媒介类型 — 决定 prompt-builder 如何翻译摄影参数
+ * 媒介类型 — 决定 prompt-builder 如何翻译摄影tham số
  * - cinematic: đầy đủ物理摄影词汇（真人/写实3D）
  * - animation: 动画chuyển động máy适配（2D动画/风格化3D）
  * - stop-motion: 微缩实拍约束（定格动画）
@@ -285,7 +285,7 @@ const STYLES_2D: StylePreset[] = [
     mediaType: 'animation',
     prompt: '(best quality, masterpiece, 8k:1.2), (Detective Conan style:1.3), (Gosho Aoyama:1.2), (distinctive sharp nose and ears:1.1), (mystery atmosphere:1.1), 90s anime aesthetic',
     negativePrompt: '(worst quality, low quality:1.4), (modern detailed eye), (3D, realistic), (fantasy), ugly',
-    description: '名侦探柯南/青山刚昌风格',
+    description: '名侦探柯Nam/青山刚昌风格',
     thumbnail: '2d_detective.png',
   },
   {
@@ -564,7 +564,7 @@ let _customStyleLookup: ((id: string) => StylePreset | undefined) | null = null;
 
 /**
  * 注册Tùy chỉnh风格查找函数（由 custom-style-store gọi API）
- * Tùy chỉnh风格是người dùng人资产，不包含在内置预设中
+ * Tùy chỉnh风格是người dùng人资产，不chứa在内置预设中
  */
 export function registerCustomStyleLookup(fn: (id: string) => StylePreset | undefined) {
   _customStyleLookup = fn;
@@ -660,7 +660,7 @@ export function getStyleDescription(styleId: string): string {
 
 /**
  * 根据风格 ID 获取媒介类型
- * @returns Khớp的 MediaType，未找到时默认返回 'cinematic'（直通，最安全默认值）
+ * @returns Khớp的 MediaType，未Tìm thấy时默认返回 'cinematic'（直通，最an toàn默认值）
  */
 export function getMediaType(styleId: string | null | undefined): MediaType {
   if (!styleId) return 'cinematic';

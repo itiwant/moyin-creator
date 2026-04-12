@@ -4,7 +4,7 @@
 "use client";
 
 /**
- * CustomStylesGrid - Tùy chỉnhPhong cách网格
+ * CustomStylesGrid - Tùy chỉnhPhong cáchlưới
  * Hiển thịngười dùngTạo的Phong cách，Hỗ trợTạo mới/Chỉnh sửa/Xóa/Sao chép
  */
 
@@ -33,7 +33,7 @@ export function CustomStylesGrid() {
     duplicateStyle,
   } = useCustomStyleStore();
 
-  // 正在Chỉnh sửa → HiệnChỉnh sửa器
+  // ĐangChỉnh sửa → HiệnChỉnh sửa器
   if (editingStyleId !== null) {
     return (
       <StyleEditor

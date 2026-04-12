@@ -359,7 +359,7 @@ export function MediaView() {
     }
   };
 
-  // AI Đạo diễnchức năng - Cắt thông minh（Trực tiếp进入切割Trạng thái）
+  // AI Đạo diễnchức năng - Cắt thông minh（Trực tiếp进入cắtTrạng thái）
   const handleSmartSplit = (item: MediaFile) => {
     if (item.type !== 'image' || !item.url) return;
     
@@ -368,7 +368,7 @@ export function MediaView() {
       setProjectFolderId(item.folderId);
     }
     
-    // Cài đặt故事板ảnh并进入Xem trướcTrạng thái（等待người dùngNhấp切割）
+    // Cài đặt故事板ảnh并进入Xem trướcTrạng thái（等待người dùngNhấpcắt）
     setStoryboardImage(item.url, item.id);
     setStoryboardStatus('preview');
     
@@ -398,7 +398,7 @@ export function MediaView() {
       storyPrompt: item.name,
     });
     
-    // Tạophân cảnh đơn（包含Tất cả必需thuộc tính）
+    // Tạophân cảnh đơn（chứaTất cả必需thuộc tính）
     setSplitScenes([{
       id: 0,
       // Thông tin cảnh
@@ -440,7 +440,7 @@ export function MediaView() {
       actionSummary: '',
       cameraMovement: '',
       soundEffectText: '',
-      // video参数
+      // videotham số
       shotSize: null,
       duration: 5,
       ambientSound: '',

@@ -123,7 +123,7 @@ export async function extractStyleTokens(
   const baseUrl = config.baseUrl?.replace(/\/+$/, '');
   const model = config.model || config.models?.[0];
   if (!baseUrl || !model) {
-    throw new Error('图片理解服务缺少 Base URL 或模型配置');
+    throw new Error('图片理解服务缺少 Base URL hoặc模型配置');
   }
 
   const contentParts: Array<{ type: string; text?: string; image_url?: { url: string } }> = [];
@@ -203,7 +203,7 @@ export async function extractStyleTokens(
     parsed = JSON.parse(cleanContent);
   } catch {
     console.error('[StyleExtractor] Failed to parse JSON:', content);
-    throw new Error('AI 返回的格式无法Phân tích');
+    throw new Error('AI 返回的định dạng无法Phân tích');
   }
 
   const result: StyleExtractionResult = {

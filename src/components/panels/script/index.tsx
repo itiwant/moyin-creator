@@ -287,7 +287,7 @@ export function ScriptView() {
   const shots = scriptProject?.shots || [];
   const promptLanguage = scriptProject?.promptLanguage || 'zh';
 
-  // 当前 tập作用域：从 activeEpisodeIndex 映射到 episodeId
+  // 当前 tập作用域：从 activeEpisodeIndex ánh xạ到 episodeId
   const activeEpisodeId = activeEpisodeIndex != null
     ? scriptData?.episodes.find(ep => ep.index === activeEpisodeIndex)?.id ?? undefined
     : undefined;
@@ -406,7 +406,7 @@ export function ScriptView() {
       ? shots.find((s) => s.id === selectedItemId)
       : undefined;
   
-  // 获取đã chọn的 tậpdữ liệu（包含đại cương）
+  // 获取đã chọn的 tậpdữ liệu（chứađại cương）
   const selectedEpisode = selectedItemType === "episode" && selectedItemId
     ? (() => {
         const epIndex = parseInt(selectedItemId.replace('episode_', ''));
@@ -595,7 +595,7 @@ export function ScriptView() {
             { promptLanguage }
           );
           
-          // 转换并更新Danh sách nhân vật
+          // chuyển đổi并更新Danh sách nhân vật
           const sortedChars = sortByImportance(calibResult.characters);
           const currentProject = useScriptStore.getState().projects[projectId];
           const currentScriptData = currentProject?.scriptData;
@@ -820,7 +820,7 @@ export function ScriptView() {
       return;
     }
 
-    // 找到Cảnh所属的 tập
+    // Tìm thấyCảnh所属的 tập
     const episode = scriptData?.episodes.find(ep => ep.sceneIds.includes(sceneId));
     if (!episode) {
       toast.error('Không tìm thấy tập của cảnh');
@@ -961,7 +961,7 @@ export function ScriptView() {
     }
   }, [projectId, episodeRawScripts.length]);
 
-  // 手动触发 AI Nhân vậtHiệu chuẩn（包含多giai đoạnbiến thểTự độngTạo）
+  // 手动触发 AI Nhân vậtHiệu chuẩn（chứa多giai đoạnbiến thểTự độngTạo）
   // 注意：Nhân vậtHiệu chuẩn是độc lập步骤，不依赖góc nhìnphân tích，可随时根据最新dữ liệu执 hàng
   const handleCalibrateCharacters = useCallback(async () => {
     const featureConfig = getFeatureConfig('script_analysis');
@@ -1036,7 +1036,7 @@ export function ScriptView() {
         { previousCharacters: existingCalibrated, promptLanguage, strictness: scriptProject?.calibrationStrictness || 'normal' }
       );
       
-      // 转换并更新Danh sách nhân vật（保留gốcdữ liệu）
+      // chuyển đổi并更新Danh sách nhân vật（保留gốcdữ liệu）
       const sortedChars = sortByImportance(calibResult.characters);
       
       // 不再硬编码lọc，由 calibrator 根据严格度统一处理
@@ -1319,7 +1319,7 @@ export function ScriptView() {
   }, [importStatus, scriptProject?.projectBackground?.outline, episodeRawScripts.length]);
 
   // Generate script from idea (Sáng tácchế độ)
-  // AIphân tíchngười dùng输入，TạoTiêu chuẩn格式剧本，rồi走Nhập流程
+  // AIphân tíchngười dùng输入，TạoTiêu chuẩnđịnh dạng剧本，rồi走Nhập流程
   const handleGenerateFromIdea = useCallback(async (idea: string) => {
     if (!idea.trim()) {
       toast.error("Vui lòng Nhập ý tưởng câu chuyện");
@@ -1350,7 +1350,7 @@ export function ScriptView() {
 
       console.log(`[ScriptView] Generating script from idea with ${featureConfig.allApiKeys.length} API keys`);
 
-      // 第一步：AI Tạo kịch bản文本（符合Nhập格式）
+      // 第一步：AI Tạo kịch bản文本（符合Nhậpđịnh dạng）
       const generatedScript = await generateScriptFromIdea(idea, {
         apiKey: allKeysString,
         provider: provider as string,
@@ -1582,7 +1582,7 @@ export function ScriptView() {
         return;
       }
 
-      // 传递Nhân vậtdữ liệu到Thư viện nhân vậtTạoconsole（包含世界级大师Tạo的Prompt thị giác）
+      // 传递Nhân vậtdữ liệu到Thư viện nhân vậtTạoconsole（chứa世界级大师Tạo的Prompt thị giác）
       // 获取剧本元dữ liệuđang xử lý...thông tin
       const background = scriptProject?.projectBackground;
       
@@ -1629,7 +1629,7 @@ export function ScriptView() {
     return getStyleTokens(currentStyleId);
   }, []);
 
-  // 跳转到Cảnh库（Sử dụng AI phân tích的đầy đủdữ liệu，或基础Thông tin cảnh）
+  // 跳转到Cảnh库（Sử dụng AI phân tích的đầy đủdữ liệu，hoặc基础Thông tin cảnh）
   const handleGoToSceneLibrary = useCallback(
     (sceneId: string) => {
       // 查找Cảnhdữ liệu
@@ -1644,7 +1644,7 @@ export function ScriptView() {
       const hasCalibrationData = scene.architectureStyle || scene.keyProps?.length || scene.lightingDesign;
 
       if (hasViewpoints) {
-        // 【đầy đủ路径】有 AI góc nhìnphân tíchkết quả，构建联合图dữ liệu
+        // 【đầy đủ路径】有 AI góc nhìnphân tíchkết quả，构建ảnh ghépdữ liệu
         const invalidViewpoints = scene.viewpoints!.filter(vp => !vp.name || !vp.id);
         if (invalidViewpoints.length > 0) {
           console.warn('[handleGoToSceneLibrary] Phát hiện viewpoints không đầy đủ:', invalidViewpoints);
@@ -1699,7 +1699,7 @@ export function ScriptView() {
           `✔ ${viewpointCount} góc nhìn AI phân tích đã tải`
         );
       } else {
-        // 【简单路径】无góc nhìnphân tích（Sáng tácchế độ或未Hiệu chuẩn），传递基础Thông tin cảnh
+        // 【简单路径】无góc nhìnphân tích（Sáng tácchế độhoặc未Hiệu chuẩn），传递基础Thông tin cảnh
         goToSceneWithData({
           name: scene.name || scene.location,
           location: scene.location,
@@ -2046,7 +2046,7 @@ export function ScriptView() {
       // 【nhẹchế độ】只更新美术Thiết kếtrường
       // calibrateScenes 已经按 currentScenes 的thứ tự返回，只需hợp nhất美术trường
       const newScenes = currentScenes.map((orig, i) => {
-        // 找到Kết quả hiệu chỉnhđang xử lý...Cảnh
+        // Tìm thấyKết quả hiệu chỉnhđang xử lý...Cảnh
         const calibrated = result.scenes.find(cs => cs.id === orig.id);
         
         if (!calibrated) {
@@ -2071,7 +2071,7 @@ export function ScriptView() {
           // Prompt thị giác
           visualPrompt: promptLanguage === 'en' ? undefined : nextVisualPromptZh,
           visualPromptEn: promptLanguage === 'zh' ? undefined : nextVisualPromptEn,
-          // viewpoints 保持không thay đổi（已通过 ...orig 保留）
+          // viewpoints giữkhông thay đổi（已通过 ...orig 保留）
         };
       });
       
@@ -2154,7 +2154,7 @@ export function ScriptView() {
         }
       );
       
-      // 转换并更新Danh sách cảnh
+      // chuyển đổi并更新Danh sách cảnh
       const newCalibratedScenes = convertToScriptScenes(result.scenes, currentScenes, promptLanguage);
       
       // hợp nhất：保留其他 tập的Cảnh，替换该 tập的Cảnh
@@ -2221,7 +2221,7 @@ export function ScriptView() {
       
       if (result.success) {
         // 计算新Phân cảnh的bắt đầu ID
-        // Quan trọng:必须Sử dụng directorProject 的最新快照，而不是 useCallback 缓存的值
+        // Quan trọng:必须Sử dụng directorProject 的最新nhanh，而不是 useCallback 缓存的值
         const latestSplitScenes = directorProject?.splitScenes || [];
         const startId = latestSplitScenes.length > 0 
           ? Math.max(...latestSplitScenes.map(s => s.id)) + 1 
@@ -2233,7 +2233,7 @@ export function ScriptView() {
           calculatedStartId: startId,
         });
         
-        // 将chọn的 Shot 转换为 addScenesFromScript 需要的格式，并追加到 splitScenes
+        // 将chọn的 Shot chuyển đổi thành addScenesFromScript 需要的định dạng，并追加到 splitScenes
         const scenesToAdd = result.selectedShots.map((shot, idx) => ({
           promptZh: shot.visualDescription || shot.actionSummary || `TrailerPhân cảnh`,
           promptEn: shot.imagePrompt || shot.visualPrompt || '',
@@ -2261,7 +2261,7 @@ export function ScriptView() {
           characterBlocking: (shot as any).characterBlocking || '',
           rhythm: (shot as any).rhythm || '',
           visualDescription: shot.visualDescription || '',
-          // 拍摄控制（灯光/焦点/器材/特效/Tốc độ）
+          // 拍摄điều khiển（灯光/焦点/器材/特效/Tốc độ）
           lightingStyle: shot.lightingStyle,
           lightingDirection: shot.lightingDirection,
           colorTemperature: shot.colorTemperature,

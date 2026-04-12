@@ -114,17 +114,17 @@ export function classifyModelByName(modelName: string): ModelCapability[] {
 // ==================== Endpoint Routing ====================
 
 /**
- * 模型 API gọi API格式
+ * 模型 API gọi APIđịnh dạng
  * 基于 MemeFast 等平台 /v1/models 返回的 supported_endpoint_types trường
  */
 export type ModelApiFormat =
   | 'openai_chat'        // /v1/chat/completions （文本/Chat，也用于 Gemini ảnhTạo）
   | 'openai_images'      // /v1/images/generations （Tiêu chuẩnảnhTạo）
   | 'openai_video'       // /v1/videos/generations （Tiêu chuẩnvideoTạo）
-  | 'kling_image'        // /kling/v1/images/generations 或 /kling/v1/images/omni-image
-  | 'unsupported';       // 不支持的端点格式
+  | 'kling_image'        // /kling/v1/images/generations hoặc /kling/v1/images/omni-image
+  | 'unsupported';       // 不支持的端点định dạng
 
-// MemeFast supported_endpoint_types 值 → 我们的ảnh API 格式
+// MemeFast supported_endpoint_types 值 → 我们的ảnh API định dạng
 const IMAGE_ENDPOINT_MAP: Record<string, ModelApiFormat> = {
   'image-generation': 'openai_images',
   'dall-e-3': 'openai_images',  // z-image-turbo, qwen-image-max 等走 /v1/images/generations
@@ -132,12 +132,12 @@ const IMAGE_ENDPOINT_MAP: Record<string, ModelApiFormat> = {
   'openai': 'openai_chat',  // 如 gpt-image-1-all 通过 chat completions 生图
 };
 
-// MemeFast supported_endpoint_types 值 → 我们的video API 格式能力phân loại
-// 注意：这里统一映射为 'openai_video' 仅表示「videoTạo能力」，实际 API 路由由 use-video-generation.ts đang xử lý...IDEO_FORMAT_MAP 决定
+// MemeFast supported_endpoint_types 值 → 我们的video API định dạng能力phân loại
+// 注意：这里统一ánh xạ为 'openai_video' 仅表示「videoTạo能力」，实际 API 路由由 use-video-generation.ts đang xử lý...IDEO_FORMAT_MAP 决定
 const VIDEO_ENDPOINT_MAP: Record<string, ModelApiFormat> = {
-  'video统一格式': 'openai_video',
-  'openAIvideo格式': 'openai_video',
-  'openAI官方video格式': 'openai_video',
+  'video统一định dạng': 'openai_video',
+  'openAIvideođịnh dạng': 'openai_video',
+  'openAI官方videođịnh dạng': 'openai_video',
   '异步': 'openai_video',            // wan 系列
   '豆包video异步': 'openai_video',    // doubao-seedance 系列
   'grokvideo': 'openai_video',          // grok-video
@@ -154,7 +154,7 @@ const VIDEO_ENDPOINT_MAP: Record<string, ModelApiFormat> = {
 };
 
 /**
- * 根据模型的 supported_endpoint_types Xác nhậnảnhTạo应用的 API 格式
+ * 根据模型的 supported_endpoint_types Xác nhậnảnhTạo应用的 API định dạng
  * 当端点元dữ liệukhông khả dụng时，根据模型名称推断
  */
 export function resolveImageApiFormat(endpointTypes: string[] | undefined, modelName?: string): ModelApiFormat {
@@ -171,7 +171,7 @@ export function resolveImageApiFormat(endpointTypes: string[] | undefined, model
     return 'unsupported';
   }
 
-  // 2. Fallback: 根据模型名称推断 API 格式
+  // 2. Fallback: 根据模型名称推断 API định dạng
   if (modelName) {
     const name = modelName.toLowerCase();
     // Kling image models → native /kling/v1/images/* endpoint
@@ -196,7 +196,7 @@ export function resolveImageApiFormat(endpointTypes: string[] | undefined, model
 }
 
 /**
- * 根据模型的 supported_endpoint_types Xác nhậnvideoTạo应用的 API 格式
+ * 根据模型的 supported_endpoint_types Xác nhậnvideoTạo应用的 API định dạng
  */
 export function resolveVideoApiFormat(endpointTypes: string[] | undefined): ModelApiFormat {
   if (!endpointTypes || endpointTypes.length === 0) return 'openai_video'; // fallback

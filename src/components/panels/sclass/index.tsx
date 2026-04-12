@@ -10,7 +10,7 @@
  * 以「nhóm」为核心thực hiện多Ống kính合并tự sựTạo video。
  * 
  * 两种chế độ：
- * - Phân cảnhchế độ：从Kịch bản流水线Nhập的Phân cảnh，按组Tạo video
+ * - Phân cảnhchế độ：从Kịch bảnquy trìnhNhập的Phân cảnh，按组Tạo video
  * - Tự dochế độ：纯Phương tiệnTải lên + prompt（后续实现）
  */
 

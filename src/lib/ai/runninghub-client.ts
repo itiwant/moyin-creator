@@ -13,7 +13,7 @@ import { generateAnglePrompt } from './runninghub-angles';
 const normalizeBaseUrl = (baseUrl: string) => baseUrl.replace(/\/+$/, '');
 
 export interface RunningHubSubmitParams {
-  referenceImage: string;  // Ảnh gốcURL或base64
+  referenceImage: string;  // Ảnh gốcURLhoặcbase64
   anglePrompt: string;     // góc nhìn提示词
   apiKey: string;
   baseUrl: string;

@@ -2,12 +2,12 @@
 // Licensed under AGPL-3.0-or-later. See LICENSE for details.
 // Commercial licensing available. See COMMERCIAL_LICENSE.md.
 /**
- * 错开启动的并发控制执行器
+ * 错开启动的并发điều khiển执行器
  *
  * 行为：
  * - 每新nhiệm vụ在前一nhiệm vụ启动后至少等待 staggerMs 才启动
  * - 同时最多运行 maxConcurrent nhiệm vụ
- * - 当đang hoạt độngnhiệm vụ数达到上限时，等待有nhiệm vụhoàn thành后才启动下一（仍保持 staggerMs 间隔）
+ * - 当đang hoạt độngnhiệm vụ数达到上限时，等待有nhiệm vụhoàn thành后才启动下一（仍giữ staggerMs 间隔）
  *
  * 例如 maxConcurrent=3, staggerMs=5000, 每nhiệm vụ耗时20秒：
  *   t=0s:  启动nhiệm vụ1
@@ -20,7 +20,7 @@
  * 例如 maxConcurrent=1, staggerMs=5000, 每nhiệm vụ耗时2秒：
  *   t=0s:  启动nhiệm vụ1
  *   t=2s:  nhiệm vụ1hoàn thành
- *   t=5s:  stagger 到期 → 启动nhiệm vụ2（严格保持5秒间隔）
+ *   t=5s:  stagger 到期 → 启动nhiệm vụ2（严格giữ5秒间隔）
  *   t=7s:  nhiệm vụ2hoàn thành
  *   t=10s: 启动nhiệm vụ3
  */
@@ -33,7 +33,7 @@ export async function runStaggered<T>(
 
   const results: PromiseSettledResult<T>[] = new Array(tasks.length);
 
-  // 信号量：控制最大并发数
+  // 信号量：điều khiển最大并发数
   let activeCount = 0;
   const waiters: (() => void)[] = [];
 

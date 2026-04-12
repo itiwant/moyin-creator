@@ -150,7 +150,7 @@ export function DirectorContextPanel() {
     return characters.filter((c) => c.projectId === activeProjectId);
   }, [characters, resourceSharing.shareCharacters, activeProjectId]);
   
-  // 将Kịch bảnNhân vậtID或Tên nhân vật映射到Thư viện nhân vậtID
+  // 将Kịch bảnNhân vậtIDhoặcTên nhân vậtánh xạ到Thư viện nhân vậtID
   const mapScriptCharacterIdsToLibraryIds = (scriptCharIds: string[], characterNames?: string[]): string[] => {
     const libraryIds: string[] = [];
     const addedIds = new Set<string>(); // tránh trùng lặp
@@ -162,7 +162,7 @@ export function DirectorContextPanel() {
         const scriptChar = scriptData.characters.find(c => c.id === scriptCharId);
         if (!scriptChar) continue;
         
-        // 优先Sử dụng已关联的Thư viện nhân vậtID（需校验该ID在当前可见Thư viện nhân vậtđang xử lý...）
+        // 优先Sử dụng已关联的Thư viện nhân vậtID（需校验该ID在当前có thể nhìn thấyThư viện nhân vậtđang xử lý...）
         if (scriptChar.characterLibraryId && !addedIds.has(scriptChar.characterLibraryId)) {
           const linkedLibraryChar = libraryCharacters.find(c => c.id === scriptChar.characterLibraryId);
           if (linkedLibraryChar) {
@@ -190,7 +190,7 @@ export function DirectorContextPanel() {
         // 精确Khớp
         let libraryChar = libraryCharacters.find(c => c.name === charName);
         
-        // 模糊Khớp：Thư viện nhân vậtTên包含Phân cảnhNhân vật名，或Phân cảnhNhân vật名包含Thư viện nhân vậtTên
+        // 模糊Khớp：Thư viện nhân vậtTênchứaPhân cảnhNhân vật名，hoặcPhân cảnhNhân vật名chứaThư viện nhân vậtTên
         if (!libraryChar) {
           libraryChar = libraryCharacters.find(c => 
             c.name.includes(charName) || charName.includes(c.name)
@@ -213,7 +213,7 @@ export function DirectorContextPanel() {
   const findMatchingSceneAndViewpointQuick = (shot: Shot, scene: ScriptScene, shotIndexInScene?: number): ViewpointMatchResult | null => {
     const sceneName = scene.name || '';
     
-    // 找到Thư viện cảnhđang xử lý...父Cảnh
+    // Tìm thấyThư viện cảnhđang xử lý...Cảnh cha
     const parentScene = sceneLibraryScenes.find(s => 
       !s.parentSceneId && !s.isViewpointVariant &&
       (s.name.includes(sceneName) || sceneName.includes(s.name))
@@ -224,7 +224,7 @@ export function DirectorContextPanel() {
       return null;
     }
     
-    // 获取该父Cảnh的Tất cảGóc nhìnbiến thể，按TạoThời gian排序
+    // 获取该Cảnh cha的Tất cảGóc nhìnbiến thể，按TạoThời gian排序
     const variants = sceneLibraryScenes
       .filter(s => s.parentSceneId === parentScene.id)
       .sort((a, b) => a.createdAt - b.createdAt);
@@ -232,7 +232,7 @@ export function DirectorContextPanel() {
     console.log(`[findMatchingSceneAndViewpointQuick] Cảnh "${sceneName}" có ${variants.length} biến thể Góc nhìn`);
     
     if (variants.length === 0) {
-      // 没有Góc nhìnbiến thể，Quay lại父Cảnh
+      // 没有Góc nhìnbiến thể，Quay lạiCảnh cha
       return {
         sceneLibraryId: parentScene.id,
         viewpointId: undefined,
@@ -243,7 +243,7 @@ export function DirectorContextPanel() {
       };
     }
     
-    // 方案一：优先kiểm traThư viện cảnhGóc nhìnbiến thể的shotIds（切割时Lưu的）
+    // 方案一：优先kiểm traThư viện cảnhGóc nhìnbiến thể的shotIds（cắt时Lưu的）
     const variantWithShot = variants.find(v => v.shotIds?.includes(shot.id));
     if (variantWithShot) {
       console.log(`[findMatchingSceneAndViewpointQuick] Khớp qua shotIds Thư viện cảnh: Phân cảnh${shot.id} -> Góc nhìn "${variantWith
@@ -306,7 +306,7 @@ export function DirectorContextPanel() {
     console.log(`[findViewpointInLibrary] Tìm Cảnh: "${sceneName}", Góc nhìn: "${viewpointName}"`);
     console.log(`[findViewpointInLibrary] Thư viện cảnhTổng số: ${sceneLibraryScenes.length}`);
     
-    // 找到Khớp的父Cảnh
+    // Tìm thấyKhớp的Cảnh cha
     const parentScenes = sceneLibraryScenes.filter(s => 
       !s.parentSceneId && !s.isViewpointVariant &&
       (s.name.includes(sceneName) || sceneName.includes(s.name))
@@ -316,7 +316,7 @@ export function DirectorContextPanel() {
     
     if (parentScenes.length === 0) return null;
     
-    // 在父Cảnh的Góc nhìnbiến thểđang xử lý...配的Góc nhìn
+    // 在Cảnh cha的Góc nhìnbiến thểđang xử lý...配的Góc nhìn
     for (const parent of parentScenes) {
       const variants = sceneLibraryScenes.filter(s => s.parentSceneId === parent.id);
       console.log(`[findViewpointInLibrary] Số biến thể Góc nhìn của Cảnh cha "${parent.name}": ${variants.length}`, 
@@ -349,7 +349,7 @@ export function DirectorContextPanel() {
     }
     
     console.log(`[findViewpointInLibrary] ❌ Không tìm thấy Góc nhìn, Quay lại Cảnh cha`);
-    // 没找到Góc nhìn，Quay lại父Cảnh
+    // 没Tìm thấyGóc nhìn，Quay lạiCảnh cha
     const bestParent = parentScenes[0];
     return {
       sceneLibraryId: bestParent.id,
@@ -389,7 +389,7 @@ export function DirectorContextPanel() {
       promptZh = parts.join(' - ');
     }
     
-    // 将Kịch bảnNhân vậtID/Tên映射到Thư viện nhân vậtID
+    // 将Kịch bảnNhân vậtID/Tênánh xạ到Thư viện nhân vậtID
     const characterLibraryIds = mapScriptCharacterIdsToLibraryIds(shot.characterIds || [], shot.characterNames);
     
     // 获取Phân cảnh在Cảnh内的số thứ tự
@@ -446,7 +446,7 @@ export function DirectorContextPanel() {
       characterBlocking: (shot as any).characterBlocking || '',
       rhythm: (shot as any).rhythm || '',
       visualDescription: (shot as any).visualDescription || '',
-      // 拍摄控制（灯光/焦点/器材/特效/Tốc độ）
+      // 拍摄điều khiển（灯光/焦点/器材/特效/Tốc độ）
       lightingStyle: shot.lightingStyle,
       lightingDirection: shot.lightingDirection,
       colorTemperature: shot.colorTemperature,
@@ -531,7 +531,7 @@ export function DirectorContextPanel() {
         promptZh = parts.join(' - ');
       }
       
-      // 将Kịch bảnNhân vậtID/Tên映射到Thư viện nhân vậtID
+      // 将Kịch bảnNhân vậtID/Tênánh xạ到Thư viện nhân vậtID
       const characterLibraryIds = mapScriptCharacterIdsToLibraryIds(shot.characterIds || [], shot.characterNames);
       
       // Tự độngKhớpThư viện cảnhđang xử lý...nh和Góc nhìn（优先Sử dụnghiện có的Góc nhìn关联，保底用số thứ tự）
@@ -585,7 +585,7 @@ export function DirectorContextPanel() {
         characterBlocking: (shot as any).characterBlocking || '',
         rhythm: (shot as any).rhythm || '',
         visualDescription: (shot as any).visualDescription || '',
-        // 拍摄控制（灯光/焦点/器材/特效/Tốc độ）
+        // 拍摄điều khiển（灯光/焦点/器材/特效/Tốc độ）
         lightingStyle: shot.lightingStyle,
         lightingDirection: shot.lightingDirection,
         colorTemperature: shot.colorTemperature,

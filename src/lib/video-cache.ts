@@ -9,7 +9,7 @@ import {
   VideoSample,
 } from "mediabunny";
 
-// 包装类型，包含渲染好的 canvas 和gốc VideoSample
+// 包装类型，chứa渲染好的 canvas 和gốc VideoSample
 interface CachedFrame {
   canvas: HTMLCanvasElement;
   sample: VideoSample;
@@ -60,7 +60,7 @@ export class VideoCache {
   
   // 从 VideoSample 渲染到 canvas
   private renderSampleToCanvas(sample: VideoSample, sinkData: VideoSinkData): CachedFrame {
-    // 获取或tạo canvas
+    // 获取hoặctạo canvas
     let canvas = sinkData.canvasPool.pop();
     if (!canvas) {
       canvas = document.createElement("canvas");

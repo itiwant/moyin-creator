@@ -22,9 +22,9 @@ export interface ViewpointMatchResult {
   confidence: number; // 0-1
 }
 
-// ==================== quan trọng词映射 ====================
+// ==================== quan trọng词ánh xạ ====================
 
-// góc nhìnquan trọng词映射（用于nhanhKhớp）
+// góc nhìnquan trọng词ánh xạ（用于nhanhKhớp）
 const VIEWPOINT_KEYWORDS: Record<string, string[]> = {
   // 餐桌/用餐相关
   'dining': [
@@ -170,7 +170,7 @@ ${viewpointList}
     const data = await response.json();
     const result = data.content?.trim().toLowerCase();
     
-    // 验证返回的是有效的góc nhìnID
+    // 验证返回的是hợp lệ的góc nhìnID
     const viewpointId = availableViewpoints.find(v => v.id === result)?.id || null;
     
     // 缓存kết quả
@@ -237,7 +237,7 @@ function matchByViewpointNameKeywords(
     // 将名称分词（按常见ngăn cách符和đang xử lý...拆分）
     const keywords = extractKeywords(cleanedName);
     
-    // kiểm tra动作Mô tả是否包含这些quan trọng词
+    // kiểm tra动作Mô tả是否chứa这些quan trọng词
     for (const keyword of keywords) {
       if (keyword.length >= 2 && actionSummary.includes(keyword)) {
         console.log(`[ViewpointMatcher] Matched viewpoint "${viewpointName}" by keyword "${keyword}"`);

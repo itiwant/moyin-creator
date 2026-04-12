@@ -487,11 +487,11 @@ Return a RAW JSON array (no markdown code block). BILINGUAL output required.
       parsed = JSON.parse(cleanContent);
     } catch (e) {
       console.error('[ScenePromptGenerator] Failed to parse JSON:', content);
-      throw new Error('AI 响应不是有效的 JSON 格式');
+      throw new Error('AI 响应不是hợp lệ的 JSON định dạng');
     }
 
     if (!Array.isArray(parsed)) {
-      throw new Error('AI 响应不是数组格式');
+      throw new Error('AI 响应不是数组định dạng');
     }
 
     // Validate and map to three-tier prompt result

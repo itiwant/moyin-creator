@@ -5,7 +5,7 @@
  * Scene Viewpoint Generator
  * 
  * 从场景Hiệu chuẩndữ liệu和分镜动作描写đang xử lý...角需求，
- * TạoẢnh ghép đa góc nhìn提示词，用于Tạo 6 格联合图。
+ * TạoẢnh ghép đa góc nhìn提示词，用于Tạo 6 格ảnh ghép。
  */
 
 import type { ScriptScene, Shot } from '@/types/script';
@@ -24,11 +24,11 @@ export interface SceneViewpoint {
   keyPropsEn: string[]; // 该góc nhìn需要的đạo cụ（英文）
   description: string;  // góc nhìnMô tả（中文）
   descriptionEn: string; // góc nhìnMô tả（英文）
-  gridIndex: number;    // 在联合图đang xử lý... (0-5)
+  gridIndex: number;    // 在ảnh ghépđang xử lý... (0-5)
 }
 
 /**
- * 联合图Tạo配置
+ * ảnh ghépTạo配置
  */
 export interface ContactSheetConfig {
   scene: ScriptScene;
@@ -39,7 +39,7 @@ export interface ContactSheetConfig {
 }
 
 /**
- * 联合图Tạokết quả
+ * ảnh ghépTạokết quả
  */
 export interface ContactSheetPromptResult {
   prompt: string;           // 英文提示词
@@ -76,7 +76,7 @@ const ENVIRONMENT_KEYWORDS: Record<SceneEnvironmentType, string[]> = {
   ancient_indoor: [
     // 宫廷/皇家
     '宫殿', '宫', '殿', '皇宫', '宫门', '内廷', '御书房', '御花园', '太和殿', '乾清宫',
-    '坐厉宫', '冷宫', '东宫', '西宫', '后宫',
+    '坐厉宫', '冷宫', 'Đông宫', 'Tây宫', '后宫',
     // 府邸/民居
     '府邸', '府', '宅', '宅院', '大宅', '老宅', '内宅', '外宅',
     '堂屋', '正堂', '大堂', '厅堂', '厅',
@@ -92,12 +92,12 @@ const ENVIRONMENT_KEYWORDS: Record<SceneEnvironmentType, string[]> = {
   ancient_outdoor: [
     // 城市
     '城门', '城墙', '城楼', '城外', '城内', '皇城',
-    ' tập市', ' tập', '市 tập', '庙会', '夜市', '东市', '西市',
+    ' tập市', ' tập', '市 tập', '庙会', '夜市', 'Đông市', 'Tây市',
     '街', '长街', '巷', '巷子', '巷sổ',
     '牌坊', '广场', '点将台', '校场',
     // 道路/旅途
     '官道', '驿站', '驿道', '山路', '山道', '古道', '商道', '街道',
-    '模到', '南道', '北道',
+    '模到', 'Nam道', 'Bắc道',
     // 自然/庭院
     '庭院', '庭', '院', '前院', '后院', '内院', '外院',
     '花园', '后花园', '御花园', '池塘', '荷塘', '亝子',
@@ -187,7 +187,7 @@ export function detectEnvironmentType(location: string): SceneEnvironmentType {
   return 'unknown';
 }
 
-// ==================== góc nhìnquan trọng词映射 ====================
+// ==================== góc nhìnquan trọng词ánh xạ ====================
 
 /**
  * góc nhìn配置（带环境tương thích性）
@@ -203,11 +203,11 @@ interface ViewpointConfig {
 }
 
 /**
- * 动作quan trọng词 -> góc nhìn映射
+ * 动作quan trọng词 -> góc nhìnánh xạ
  * 从分镜动作描写đang xử lý...要的góc nhìn
  * 扩展quan trọng词以Ghi đè更多场景
  * 
- * 【重要】environments trường控制该góc nhìn适用于哪些环境类型
+ * 【重要】environments trườngđiều khiển该góc nhìn适用于哪些环境类型
  * - 空数组 [] 表示通用góc nhìn，适用于Tất cả环境
  * - 指定环境类型列表表示仅在这些环境中Khớp
  */
@@ -378,7 +378,7 @@ const VIEWPOINT_KEYWORDS: Record<string, ViewpointConfig> = {
   '文件': { id: 'study', name: '书房/书桌', nameEn: 'Study Area', propsZh: ['书桌', '文件'], propsEn: ['desk', 'documents'], environments: ['indoor_home', 'indoor_work'] },
   '书架': { id: 'study', name: '书房/书桌', nameEn: 'Study Area', propsZh: ['书架', '书籍'], propsEn: ['bookshelf', 'books'], environments: ['indoor_home', 'indoor_work', 'indoor_public'] },
   
-  // 卧室相关 - 必须明确提到床或卧室
+  // 卧室相关 - 必须明确提到床hoặc卧室
   '卧室': { id: 'bedroom', name: '卧室', nameEn: 'Bedroom', propsZh: ['床', '床头柜'], propsEn: ['bed', 'nightstand'], environments: ['indoor_home'] },
   '床上': { id: 'bedroom', name: '卧室', nameEn: 'Bedroom', propsZh: ['床'], propsEn: ['bed'], environments: ['indoor_home'] },
   '起床': { id: 'bedroom', name: '卧室', nameEn: 'Bedroom', propsZh: ['床', '床头柜'], propsEn: ['bed', 'nightstand'], environments: ['indoor_home'] },
@@ -471,7 +471,7 @@ export function extractViewpointsFromShots(
     .sort((a, b) => b.shotIds.length - a.shotIds.length)
     .slice(0, maxViewpoints);
   
-  // lại分配 gridIndex
+  // lạiphân bổ gridIndex
   viewpoints.forEach((v, i) => { v.gridIndex = i; });
   
   // 如果góc nhìn不足 6 ，补充默认góc nhìn
@@ -495,7 +495,7 @@ export function extractViewpointsFromShots(
 }
 
 /**
- * Tạo联合图提示词
+ * Tạoảnh ghép提示词
  * 优先Sử dụng AI 分析的góc nhìn，如果没有则回退到quan trọng词提取
  */
 export function generateContactSheetPrompt(config: ContactSheetConfig): ContactSheetPromptResult {
@@ -526,7 +526,7 @@ export function generateContactSheetPrompt(config: ContactSheetConfig): ContactS
     viewpoints = extractViewpointsFromShots(shots, maxViewpoints);
   }
   
-  // 确定网格bố cục - 强制Sử dụng NxN bố cục (2x2 或 3x3)
+  // 确定lướibố cục - 强制Sử dụng NxN bố cục (2x2 hoặc 3x3)
   const vpCount = viewpoints.length;
   const gridLayout = vpCount <= 4 
     ? { rows: 2, cols: 2 }
@@ -549,7 +549,7 @@ export function generateContactSheetPrompt(config: ContactSheetConfig): ContactS
   
   // 为每góc nhìnTạoMô tả
   viewpoints.forEach((vp, index) => {
-    const propsZh = vp.keyProps.length > 0 ? `，包含${vp.keyProps.join('、')}` : '';
+    const propsZh = vp.keyProps.length > 0 ? `，chứa${vp.keyProps.join('、')}` : '';
     const propsEn = vp.keyPropsEn.length > 0 ? ` with ${vp.keyPropsEn.join(', ')}` : '';
     
     vp.description = `${vp.name}góc nhìn${propsZh}`;
@@ -623,13 +623,13 @@ export function generateContactSheetPrompt(config: ContactSheetConfig): ContactS
     
     const viewpointSource = isAIAnalyzed ? '（AI 分析）' : '（quan trọng词提取）';
   
-  const promptZh = `一张${gridLayout.rows}x${gridLayout.cols}网格联合图，Hiển thị同一「${scene.name || scene.location}」场景的${viewpoints.length}不同机位góc nhìn${viewpointSource}。
+  const promptZh = `一张${gridLayout.rows}x${gridLayout.cols}lướiảnh ghép，Hiển thị同一「${scene.name || scene.location}」场景的${viewpoints.length}不同vị trí cameragóc nhìn${viewpointSource}。
 ${sceneDescZh}
 
-网格bố cục（从左到右，从上到下）：
+lướibố cục（从左到右，从上到下）：
 ${gridItemsZh}
 
-风格：${styleTokens.length > 0 ? styleTokens.join('、') : '动画风格，柔和色彩，细节丰富'}，${viewpoints.length}格子保持giống的透视和光照。每格子用细白线ngăn cách。只有背景，没有nhân vật。`;
+风格：${styleTokens.length > 0 ? styleTokens.join('、') : '动画风格，柔和色彩，细节丰富'}，${viewpoints.length}格子giữgiống的透视和光照。每格子用细白线ngăn cách。只有背景，没有nhân vật。`;
 
   return {
     prompt,
@@ -640,8 +640,8 @@ ${gridItemsZh}
 }
 
 /**
- * 根据切割kết quả关联góc nhìn
- * 将切割后的图片分配给对应的góc nhìn
+ * 根据cắtkết quả关联góc nhìn
+ * 将cắt后的图片phân bổ给对应的góc nhìn
  */
 export function assignViewpointImages(
   viewpoints: SceneViewpoint[],
@@ -656,12 +656,12 @@ export function assignViewpointImages(
   const result = new Map<string, { imageUrl: string; gridIndex: number }>();
   
   for (const vp of viewpoints) {
-    // 计算该góc nhìn在切割kết quảđang xử lý...
+    // 计算该góc nhìn在cắtkết quảđang xử lý...
     const gridIndex = vp.gridIndex;
     const row = Math.floor(gridIndex / gridLayout.cols);
     const col = gridIndex % gridLayout.cols;
     
-    // 查找Khớp的切割kết quả
+    // 查找Khớp的cắtkết quả
     const splitResult = splitResults.find(sr => sr.row === row && sr.col === col);
     
     if (splitResult) {
@@ -706,7 +706,7 @@ export function matchShotToViewpoint(
   return overviewVp?.id || viewpoints[0]?.id || null;
 }
 
-// ==================== 动态góc nhìn和分页支持 ====================
+// ==================== 动态góc nhìn和phân trang支持 ====================
 
 import type { 
   PendingViewpointData, 
@@ -836,7 +836,7 @@ function isViewpointCompatibleWithEnvironment(
 }
 
 /**
- * 提取góc nhìn（不限数量）
+ * 提取góc nhìn（不限số lượng）
  * 返回Tất cả识别到的góc nhìn，不再限制为6
  * 
  * góc nhìn是从分镜内容đang xử lý...，不做环境lọc
@@ -948,7 +948,7 @@ export function extractAllViewpointsFromShots(
 }
 
 /**
- * 将góc nhìnnhóm为联合图页
+ * 将góc nhìnnhóm为ảnh ghép页
  * 每页最多 6 góc nhìn
  */
 export function groupViewpointsIntoPages(
@@ -959,7 +959,7 @@ export function groupViewpointsIntoPages(
   
   for (let i = 0; i < viewpoints.length; i += viewpointsPerPage) {
     const page = viewpoints.slice(i, i + viewpointsPerPage);
-    // lại分配页内 gridIndex (0-5)
+    // lạiphân bổ页内 gridIndex (0-5)
     page.forEach((v, idx) => { v.gridIndex = idx; });
     pages.push(page);
   }
@@ -968,11 +968,11 @@ export function groupViewpointsIntoPages(
 }
 
 /**
- * Tạo联合图的提示词
+ * Tạoảnh ghép的提示词
  * 返回 PendingViewpointData 和 ContactSheetPromptSet 用于传递给场景库
  * 
  * bố cụcChọn逻辑：
- * - góc nhìn ≤ 6：Sử dụng 2x3 或 3x2（1 张图）
+ * - góc nhìn ≤ 6：Sử dụng 2x3 hoặc 3x2（1 张图）
  * - góc nhìn 7-9：Sử dụng 3x3（1 张图）
  * - góc nhìn > 9：分多张图
  */
@@ -989,8 +989,8 @@ export function generateMultiPageContactSheetData(
   const sceneLocation = scene.location || scene.name || '';
   const allViewpoints = extractAllViewpointsFromShots(config.shots, sceneLocation);
   
-  // 根据góc nhìn数量和宽高比Tự độngChọn最优bố cục
-  // 强制Sử dụng NxN bố cục (2x2 或 3x3) 以保证宽高比giống性，与 Director panel保持giống
+  // 根据góc nhìnsố lượng和宽高比Tự độngChọn最优bố cục
+  // 强制Sử dụng NxN bố cục (2x2 hoặc 3x3) 以保证宽高比giống性，与 Director panelgiữgiống
   let gridLayout: { rows: number; cols: number };
   let viewpointsPerPage: number;
   
@@ -1008,7 +1008,7 @@ export function generateMultiPageContactSheetData(
   
   console.log('[ContactSheet] bố cụcChọn:', { vpCount, aspectRatio, gridLayout, viewpointsPerPage });
   
-  // 分页
+  // phân trang
   const pages = groupViewpointsIntoPages(allViewpoints, viewpointsPerPage);
   
   // 构建场景基础Mô tả
@@ -1030,7 +1030,7 @@ export function generateMultiPageContactSheetData(
     ? styleTokens.join(', ') 
     : 'anime style, soft colors, detailed background';
   
-  // 构建分镜 ID 到số thứ tự的映射
+  // 构建分镜 ID 到số thứ tự的ánh xạ
   const shotIdToIndex = new Map<string, number>();
   shots.forEach(shot => {
     shotIdToIndex.set(shot.id, shot.index);
@@ -1042,7 +1042,7 @@ export function generateMultiPageContactSheetData(
   pages.forEach((pageViewpoints, pageIndex) => {
     pageViewpoints.forEach((vp, idx) => {
       // Tạogóc nhìnMô tả
-      const propsZh = vp.keyProps.length > 0 ? `，包含${vp.keyProps.join('、')}` : '';
+      const propsZh = vp.keyProps.length > 0 ? `，chứa${vp.keyProps.join('、')}` : '';
       const propsEn = vp.keyPropsEn.length > 0 ? ` with ${vp.keyPropsEn.join(', ')}` : '';
       vp.description = `${vp.name}góc nhìn${propsZh}`;
       vp.descriptionEn = `${vp.nameEn} angle${propsEn}`;
@@ -1141,7 +1141,7 @@ export function generateMultiPageContactSheetData(
       `[${i + 1}] ${vp.name}：${vp.description}`
     ).join('\n');
     
-    const promptZh = `一张精确的 ${gridLayout.rows}行${gridLayout.cols}列 网格图（共 ${totalCells} 格子），Hiển thị同一「${scene.name || scene.location}」场景的不同góc nhìn。
+    const promptZh = `一张精确的 ${gridLayout.rows}行${gridLayout.cols}列 lưới图（共 ${totalCells} 格子），Hiển thị同一「${scene.name || scene.location}」场景的不同góc nhìn。
 ${sceneDescZh}
 
 ${totalCells} 格子分别Hiển thị：${gridItemsZh}。
@@ -1149,7 +1149,7 @@ ${totalCells} 格子分别Hiển thị：${gridItemsZh}。
 Quan trọng:
 - 必须精确Tạo ${gridLayout.rows} 行 ${gridLayout.cols} 列，不能多也不能少。
 - 这是一张干净的Tham chiếu图，图片上不要Thêm任何văn bảnGhi đè。
-- 不要Thêm标签、标题、说明văn bản、hình mờ或任何类型的văn bản。
+- 不要Thêm标签、标题、说明văn bản、hình mờhoặc任何类型的văn bản。
 
 风格：${styleTokens.length > 0 ? styleTokens.join('、') : '动画风格，柔和色彩，细节丰富'}，Tất cả格子光照giống，格子之间用细白边框ngăn cách，只有背景，没有nhân vật。`;
     
@@ -1169,7 +1169,7 @@ Quan trọng:
 }
 
 /**
- * 从hiện có的 viewpoints dữ liệu构建联合图dữ liệu
+ * 从hiện có的 viewpoints dữ liệu构建ảnh ghépdữ liệu
  * 用于从剧本panel跳转到场景库时，Trực tiếpSử dụng AI 分析的góc nhìn
  * 
  * @param viewpoints - 来自 ScriptScene.viewpoints 的góc nhìndữ liệu
@@ -1195,7 +1195,7 @@ export function buildContactSheetDataFromViewpoints(
   viewpoints: PendingViewpointData[];
   contactSheetPrompts: ContactSheetPromptSet[];
 } {
-  // 根据góc nhìn数量Chọnbố cục
+  // 根据góc nhìnsố lượngChọnbố cục
   const vpCount = viewpoints.length;
   let gridLayout: { rows: number; cols: number };
   let viewpointsPerPage: number;
@@ -1208,7 +1208,7 @@ export function buildContactSheetDataFromViewpoints(
     viewpointsPerPage = 9;
   }
   
-  console.log('[buildContactSheetDataFromViewpoints] Sử dụng AI góc nhìn构建联合图dữ liệu:', {
+  console.log('[buildContactSheetDataFromViewpoints] Sử dụng AI góc nhìn构建ảnh ghépdữ liệu:', {
     vpCount,
     gridLayout,
     viewpointsPerPage,
@@ -1223,11 +1223,11 @@ export function buildContactSheetDataFromViewpoints(
     },
   });
   
-  // 分页
+  // phân trang
   const pages: typeof viewpoints[] = [];
   for (let i = 0; i < viewpoints.length; i += viewpointsPerPage) {
     const page = viewpoints.slice(i, i + viewpointsPerPage);
-    // lại分配页内 gridIndex (0-based)
+    // lạiphân bổ页内 gridIndex (0-based)
     page.forEach((v, idx) => { (v as any).gridIndex = idx; });
     pages.push(page);
   }
@@ -1262,7 +1262,7 @@ export function buildContactSheetDataFromViewpoints(
     ? styleTokens.join(', ') 
     : 'anime style, soft colors, detailed background';
   
-  // 构建分镜 ID 到số thứ tự的映射
+  // 构建分镜 ID 到số thứ tự的ánh xạ
   const shotIdToIndex = new Map<string, number>();
   shots.forEach(shot => {
     shotIdToIndex.set(shot.id, shot.index);
@@ -1360,7 +1360,7 @@ export function buildContactSheetDataFromViewpoints(
       return `[${i + 1}] ${vp.name}：${content}`;
     }).join('\n');
     
-    const promptZh = `一张精确的 ${gridLayout.rows}行${gridLayout.cols}列 网格图（共 ${totalCells} 格子），Hiển thị同一「${scene.name || scene.location}」场景的不同góc nhìn。
+    const promptZh = `一张精确的 ${gridLayout.rows}行${gridLayout.cols}列 lưới图（共 ${totalCells} 格子），Hiển thị同一「${scene.name || scene.location}」场景的不同góc nhìn。
 ${sceneDescZh}${visualPromptZh ? `\n场景氛围：${visualPromptZh}` : ''}
 
 ${totalCells} 格子分别Hiển thị：
@@ -1369,7 +1369,7 @@ ${gridItemsZh}
 Quan trọng:
 - 必须精确Tạo ${gridLayout.rows} 行 ${gridLayout.cols} 列，不能多也不能少。
 - 这是一张干净的Tham chiếu图，图片上不要Thêm任何văn bảnGhi đè。
-- 不要Thêm标签、标题、说明văn bản、hình mờ或任何类型的văn bản。
+- 不要Thêm标签、标题、说明văn bản、hình mờhoặc任何类型的văn bản。
 
 风格：${styleTokens.length > 0 ? styleTokens.join('、') : '动画风格，柔和色彩，细节丰富'}，Tất cả格子光照giống，格子之间用细白边框ngăn cách，只有背景，没有nhân vật。`;
     

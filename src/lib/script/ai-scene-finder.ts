@@ -18,7 +18,7 @@ import { callFeatureAPI } from '@/lib/ai/feature-router';
 // ==================== 类型定义 ====================
 
 export interface SceneSearchResult {
-  /** 是否找到场景 */
+  /** 是否Tìm thấy场景 */
   found: boolean;
   /** 场景名/地点 */
   name: string;
@@ -26,7 +26,7 @@ export interface SceneSearchResult {
   confidence: number;
   /** 出现的 tập数 */
   episodeNumbers: number[];
-  /** 找到的上下文（场景内容等） */
+  /** Tìm thấy的上下文（场景内容等） */
   contexts: string[];
   /** AI Tạo的đầy đủ场景dữ liệu */
   scene?: ScriptScene;
@@ -124,7 +124,7 @@ function searchSceneInScripts(
     for (const scene of ep.scenes) {
       if (!scene) continue;
       
-      // kiểm tra场景头是否Khớp（场景头通常包含地点thông tin）
+      // kiểm tra场景头是否Khớp（场景头通常chứa地点thông tin）
       const sceneHeader = scene.sceneHeader || '';
       const isMatch = 
         sceneHeader.includes(name) || 
@@ -179,8 +179,8 @@ async function generateSceneData(
 
 请根据提供的剧本thông tin和场景上下文，Tạođầy đủ的场景dữ liệu。
 
-【输出格式】
-请返回JSON格式，包含以下trường：
+【输出định dạng】
+请返回JSONđịnh dạng，chứa以下trường：
 {
   "name": "场景名称（简短）",
   "location": "地点详细Mô tả",
@@ -306,7 +306,7 @@ export async function findSceneByDescription(
       confidence: 0,
       episodeNumbers: [],
       contexts: [],
-      message: '无法识别场景名。请用类似"缺第5 tập的张家客厅"或"Thêm医院走廊这场景"的方式Mô tả。',
+      message: '无法识别场景名。请用类似"缺第5 tập的张家客厅"hoặc"Thêm医院走廊这场景"的方式Mô tả。',
     };
   }
   
@@ -337,7 +337,7 @@ export async function findSceneByDescription(
   const searchResult = searchSceneInScripts(name, episodeScripts, episodeNumber || undefined);
   
   if (!searchResult.found) {
-    // 没找到但可以让người dùng确认是否tạo
+    // 没Tìm thấy但可以让người dùng确认是否tạo
     return {
       found: false,
       name,
@@ -351,7 +351,7 @@ export async function findSceneByDescription(
   }
   
   // 4. Sử dụng AI Tạođầy đủ场景dữ liệu
-  console.log('[findSceneByDescription] 正在Tạo场景dữ liệu...');
+  console.log('[findSceneByDescription] ĐangTạo场景dữ liệu...');
   
   const scene = await generateSceneData(
     name,
@@ -372,7 +372,7 @@ export async function findSceneByDescription(
     confidence,
     episodeNumbers: searchResult.episodeNumbers,
     contexts: searchResult.contexts,
-    message: `找到场景「${scene.name || scene.location}」，出现在第 ${searchResult.episodeNumbers.join(', ')}  tập。`,
+    message: `Tìm thấy场景「${scene.name || scene.location}」，出现在第 ${searchResult.episodeNumbers.join(', ')}  tập。`,
     scene,
   };
 }
@@ -416,7 +416,7 @@ export function quickSearchScene(
     return {
       name,
       found: true,
-      message: `找到「${name}」，出现在第 ${searchResult.episodeNumbers.join(', ')}  tập`,
+      message: `Tìm thấy「${name}」，出现在第 ${searchResult.episodeNumbers.join(', ')}  tập`,
     };
   }
   

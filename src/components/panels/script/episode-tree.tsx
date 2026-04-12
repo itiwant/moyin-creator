@@ -262,7 +262,7 @@ export function EpisodeTree({
   // bị lọcNhân vậtXemPopup
   const [filteredCharsDialogOpen, setFilteredCharsDialogOpen] = useState(false);
   
-  // Hiệu chuẩnXác nhậnPopup的本地chỉnh sửa状态
+  // Hiệu chuẩnXác nhậnPopup的cục bộchỉnh sửa状态
   const [localKeptCharacters, setLocalKeptCharacters] = useState<ScriptCharacter[]>([]);
   const [localFilteredCharacters, setLocalFilteredCharacters] = useState<FilteredCharacterRecord[]>([]);
   // 缓存Người dùng thủ công xóa的Nhân vậtđầy đủdữ liệu，便于恢复时不丢失 AI Tạo的trường
@@ -435,7 +435,7 @@ export function EpisodeTree({
       const result = await onAIFindScene(sceneAiQuery);
       setSceneAiResult(result);
       
-      // 如果找到Cảnh，Tự động填充表单
+      // 如果Tìm thấyCảnh，Tự động填充表单
       if (result.scene) {
         setFormData({
           name: result.scene.name || "",
@@ -455,7 +455,7 @@ export function EpisodeTree({
     }
   }, [sceneAiQuery, onAIFindScene]);
 
-  // Xác nhậnThêm AI 查找到的Cảnh
+  // Xác nhậnThêm AI 查Tìm thấy的Cảnh
   const handleConfirmAIScene = useCallback(() => {
     if (!sceneAiResult?.scene) return;
     onAddScene?.(sceneAiResult.scene, targetEpisodeId || undefined);
@@ -518,7 +518,7 @@ export function EpisodeTree({
       const result = await onAIFindCharacter(aiQuery);
       setAiResult(result);
       
-      // 如果找到Nhân vật，Tự động填充表单
+      // 如果Tìm thấyNhân vật，Tự động填充表单
       if (result.character) {
         setFormData({
           name: result.character.name || "",
@@ -540,7 +540,7 @@ export function EpisodeTree({
     }
   }, [aiQuery, onAIFindCharacter]);
 
-  // Xác nhậnThêm AI 查找到的Nhân vật
+  // Xác nhậnThêm AI 查Tìm thấy的Nhân vật
   const handleConfirmAICharacter = useCallback(() => {
     if (!aiResult?.character) return;
     onAddCharacter?.(aiResult.character);

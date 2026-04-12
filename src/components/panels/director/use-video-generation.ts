@@ -155,11 +155,11 @@ export async function buildImageWithRoles(
 // ==================== Model路由检测 ====================
 
 /**
- * MemeFast supported_endpoint_types → 内部video路由格式
+ * MemeFast supported_endpoint_types → 内部video路由định dạng
  * 基于 /api/pricing_new Quay lại的元dữ liệu，而非Model名猜测
  */
 const VIDEO_FORMAT_MAP: Record<string, 'openai_official' | 'unified' | 'volc' | 'wan' | 'kling' | 'replicate'> = {
-  // OpenAI 官方video格式 (sora-2): /v1/videos
+  // OpenAI 官方videođịnh dạng (sora-2): /v1/videos
   'openAI định dạng video chính thức': 'openai_official',
   'openVideo AI định dạng': 'openai_official',
   // 豆包/Seedance: /volc/v1/contents/generations/tasks
@@ -176,7 +176,7 @@ const VIDEO_FORMAT_MAP: Record<string, 'openai_official' | 'unified' | 'volc' | 
   'Người ảo': 'kling',
   'ghép hình môi': 'kling',
   'hiệu ứng video': 'kling',
-  // 统一格式: /v1/video/generations
+  // 统一định dạng: /v1/video/generations
   'openai': 'unified', // Một số Nhà cung cấp Tùy chỉnh đánh dấu Model video là openai thống nhất
   'video định dạng thống nhất': 'unified',
   'grokvideo': 'unified',
@@ -196,7 +196,7 @@ const VIDEO_FORMAT_MAP: Record<string, 'openai_official' | 'unified' | 'volc' | 
 };
 
 /**
- * 统一格式端点路径映射（端点Loại → Gửi/luân phiên URL 路径）
+ * 统一định dạng端点路径ánh xạ（端点Loại → Gửi/luân phiên URL 路径）
  * 每种端点LoạiTrực tiếp对应Xác nhận的 URL，不再靠 fallback 猜测
  */
 const UNIFIED_ENDPOINT_PATHS: Record<string, { submit: string; poll: (id: string) => string }> = {
@@ -229,7 +229,7 @@ function getUnifiedEndpointPaths(endpointTypes: string[]): { submit: string; pol
 }
 
 /**
- * 根据Model的 supported_endpoint_types 元dữ liệu检测应Sử dụng的video API 格式
+ * 根据Model的 supported_endpoint_types 元dữ liệu检测应Sử dụng的video API định dạng
  * 优先Sử dụng MemeFast /api/pricing_new 同步的元dữ liệu，fallback 到Model名推断
  */
 function detectVideoApiFormat(model: string): 'openai_official' | 'unified' | 'volc' | 'wan' | 'kling' | 'replicate' {
@@ -272,7 +272,7 @@ function detectVideoApiFormat(model: string): 'openai_official' | 'unified' | 'v
         return 'unified';
       }
     }
-    // 有元dữ liệu但没Khớp到已知格式
+    // 有元dữ liệu但没Khớp到已知định dạng
     console.warn(`[VideoGen] Unknown endpoint types for ${model}:`, endpointTypes, '→ fallback to name-based');
   }
 
@@ -280,7 +280,7 @@ function detectVideoApiFormat(model: string): 'openai_official' | 'unified' | 'v
   const m = model.toLowerCase();
   if (m.includes('sora-2')) return 'openai_official';
   if (m.includes('kling')) return 'kling';
-  // doubao-seedance 走 volc 格式（/volc/v1/contents/generations/tasks）
+  // doubao-seedance 走 volc định dạng（/volc/v1/contents/generations/tasks）
   if (m.includes('doubao') || m.includes('seedance') || m.includes('seedream')) return 'volc';
   if (m.includes('wan')) return 'wan';
   return 'unified';
@@ -324,10 +324,10 @@ function handleVideoSubmitError(
 
 /**
  * Tạo video API 通常要求输入ảnh满足最小尺寸（如 Seedance 要求宽度 ≥ 300px）。
- * 当lưới 9 ô切割后的ảnh尺寸过小时，Tự động放大到满足最低要求后lạiTải lên。
+ * 当lưới 9 ôcắt后的ảnh尺寸过小时，Tự động放大到满足最低要求后lạiTải lên。
  * @param imageUrl  HTTP URL ảnh地址
  * @param minDimension  宽高的最小像素值（Mặc định 300，Khớp Seedance 等Model要求）
- * @returns gốc URL（尺寸达标）或放大后lạiTải lên的新 URL
+ * @returns gốc URL（尺寸达标）hoặc放大后lạiTải lên的新 URL
  */
 async function ensureMinImageSize(
   imageUrl: string,
@@ -415,7 +415,7 @@ function sleepOrAbort(ms: number, signal?: AbortSignal): Promise<void> {
   });
 }
 
-// Call video generation API — 根据ModelTự động路由到正确的 MemeFast API 格式
+// Call video generation API — 根据ModelTự động路由到正确的 MemeFast API định dạng
 export async function callVideoGenerationApi(
   apiKey: string,
   prompt: string,
@@ -459,7 +459,7 @@ export async function callVideoGenerationApi(
     }))
   );
 
-  // 根据元dữ liệu/Model名检测 API 格式并路由，包裹Thử lại（Ghi đè 429/503/529 等）
+  // 根据元dữ liệu/Model名检测 API định dạng并路由，包裹Thử lại（Ghi đè 429/503/529 等）
   const format = detectVideoApiFormat(model);
   console.log('[VideoGen] Detected API format:', { model, format, platform: resolvedPlatform });
 
@@ -481,7 +481,7 @@ export async function callVideoGenerationApi(
       case 'replicate':
         return callReplicateVideoApi(currentApiKey, prompt, videoBaseUrl, model, aspectRatio, processedImages, duration, videoResolution, onProgress, keyManager, signal);
       default:
-        // 统一格式: grok, veo, luma, runway, 海螺, 即梦, wan2.6, vidu 等
+        // 统一định dạng: grok, veo, luma, runway, 海螺, 即梦, wan2.6, vidu 等
         return callUnifiedVideoApi(currentApiKey, prompt, videoBaseUrl, model, aspectRatio, processedImages, videoResolution, duration, onProgress, keyManager, signal);
     }
   }, {
@@ -495,7 +495,7 @@ export async function callVideoGenerationApi(
   });
 }
 
-// ==================== video统一格式 (grok/veo/luma/runway/海螺/即梦/doubao-seedance/wan2.6/vidu , v.v.) ====================
+// ==================== video统一định dạng (grok/veo/luma/runway/海螺/即梦/doubao-seedance/wan2.6/vidu , v.v.) ====================
 // MemeFast 文档: POST /v1/video/generations (primary) + /v1/video/create (fallback)
 //             GET  /v1/video/generations/{id} (primary) + /v1/video/query?id= (fallback)
 
@@ -560,10 +560,10 @@ async function callUnifiedVideoApi(
     body.duration = isLuma ? `${duration}s` : duration;
   }
 
-  // AspectRatio 处理策略（各Model格式不同，按Model分别处理）：
-  // - Runway: metadata.ratio（像素格式 1280:720）
-  // - Grok: 顶层 aspect_ratio（xAI 官方格式，Hỗ trợ 16:9/9:16/4:3/3:4/3:2/2:3/1:1）
-  // - 其他统一格式Model: metadata.aspect_ratio
+  // AspectRatio 处理策略（各Modelđịnh dạng不同，按Model分别处理）：
+  // - Runway: metadata.ratio（像素định dạng 1280:720）
+  // - Grok: 顶层 aspect_ratio（xAI 官方định dạng，Hỗ trợ 16:9/9:16/4:3/3:4/3:2/2:3/1:1）
+  // - 其他统一định dạngModel: metadata.aspect_ratio
   if (aspectRatio) {
     if (isRunway) {
       metadata.ratio = toRunwayRatio(aspectRatio);
@@ -620,7 +620,7 @@ async function callUnifiedVideoApi(
 
   console.log('[VideoGen] Unified submit response:', submitData);
 
-  // 提取nhiệm vụ ID（Ghi đè各Nền tảng的lồng nhau响应格式）
+  // 提取nhiệm vụ ID（Ghi đè各Nền tảng的lồng nhau响应định dạng）
   const taskId = (
     submitData.task_id ||
     submitData.id ||
@@ -682,7 +682,7 @@ async function callUnifiedVideoApi(
   throw new Error('Tạo video quá thời gian chờ');
 }
 
-// ==================== Volcengine 豆包/Seedance 格式 ====================
+// ==================== Volcengine 豆包/Seedance định dạng ====================
 // MemeFast 文档: POST /volc/v1/contents/generations/tasks + GET /volc/v1/contents/generations/tasks/{taskId}
 // 火山方舟文档: https://www.volcengine.com/docs/82379/1520757
 
@@ -704,10 +704,10 @@ async function callVolcVideoApi(
   audioRefs?: string[],
   signal?: AbortSignal,
 ): Promise<string> {
-  // 构建 content 数组（Volcengine 格式: text + image_url）
+  // 构建 content 数组（Volcengine định dạng: text + image_url）
   const content: Array<Record<string, unknown>> = [];
 
-  // 文本Nội dung：prompt + 内联参数（--rs, --rt, --dur, --cf）
+  // 文本Nội dung：prompt + 内联tham số（--rs, --rt, --dur, --cf）
   let textContent = prompt;
   const resolution = (videoResolution || '720p').toLowerCase();
   textContent += ` --rs ${resolution}`;
@@ -792,9 +792,9 @@ async function callVolcVideoApi(
     handleVideoSubmitError(inferredStatus, JSON.stringify(submitData), keyManager);
   }
 
-  // 提取nhiệm vụ ID（tương thích多种响应格式）
+  // 提取nhiệm vụ ID（tương thích多种响应định dạng）
   // MemeFast trung gian: { id: "cgt-..." }  /  原生火山方舟: { id: "01973..." }
-  // 也tương thích response.* / result.* lồng nhau格式
+  // 也tương thích response.* / result.* lồng nhauđịnh dạng
   const taskId = (
     submitData.id ||
     submitData.task_id ||
@@ -850,7 +850,7 @@ async function callVolcVideoApi(
     const status = (statusData.status ?? 'unknown').toString().toLowerCase();
 
     if (status === 'succeeded') {
-      // tương thích多种响应格式提取video URL
+      // tương thích多种响应định dạng提取video URL
       const videoUrl =
         normalizeUrl(statusData.content?.video_url) ||      // Định dạng trung gian MemeFast
         normalizeUrl(statusData.output?.video_url) ||       // Định dạng gốc Huoshan Ark
@@ -876,7 +876,7 @@ async function callVolcVideoApi(
   throw new Error('Tạo video quá thời gian chờ');
 }
 
-// ==================== 通义万象 wan 格式 ====================
+// ==================== 通义万象 wan định dạng ====================
 // MemeFast 文档:
 //   Tạo: POST /alibailian/api/v1/services/aigc/video-generation/video-synthesis
 //   查询: GET  /alibailian/api/v1/tasks/{task_id}
@@ -981,7 +981,7 @@ async function callWanVideoApi(
   throw new Error('Tạo video quá thời gian chờ');
 }
 
-// ==================== Kling 可灵全系 cột格式 ====================
+// ==================== Kling 可灵全系 cộtđịnh dạng ====================
 // MemeFast: POST /kling/v1/videos/{path} + GET /kling/v1/videos/{path}/{task_id}
 
 /**
@@ -1115,7 +1115,7 @@ async function callKlingVideoApi(
   throw new Error('Tạo video quá thời gian chờ');
 }
 
-// ==================== OpenAI 官方video格式 (sora-2) ====================
+// ==================== OpenAI 官方videođịnh dạng (sora-2) ====================
 // MemeFast: POST /v1/videos (FormData) + GET /v1/videos/{taskId}
 
 /**
@@ -1204,7 +1204,7 @@ async function callOpenAIOfficialVideoApi(
   throw new Error('Tạo Sora hết thời gian');
 }
 
-// ==================== Replicate video格式 ====================
+// ==================== Replicate videođịnh dạng ====================
 // MemeFast: POST /replicate/v1/predictions + GET /replicate/v1/predictions/{id}
 
 async function callReplicateVideoApi(
@@ -1321,7 +1321,7 @@ export async function extractLastFrameFromVideo(
   seekOffset: number = 0.1
 ): Promise<string | null> {
   // local-image:// 是 Electron 注册的Tùy chỉnh协议，可以Trực tiếpSử dụng
-  // 不需要转换为 file://
+  // 不需要chuyển đổi thành file://
   const resolvedUrl = videoUrl;
   console.log('[VideoGen] Loading video for frame extraction:', resolvedUrl);
   
@@ -1363,7 +1363,7 @@ export async function extractLastFrameFromVideo(
     const captureFrame = () => {
       if (hasResolved) return;
       
-      // 确保video尺寸有效
+      // 确保video尺寸hợp lệ
       if (video.videoWidth === 0 || video.videoHeight === 0) {
         console.warn('[VideoGen] Video dimensions not ready, waiting...');
         setTimeout(captureFrame, 100);

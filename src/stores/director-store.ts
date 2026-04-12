@@ -92,7 +92,7 @@ export {
 // 3. 瑙嗛鎻愮ず璇?(videoPrompt) - 鍔ㄦ€佸姩浣滄弿杩帮紝鐢ㄤ簬鐢熸垚瑙嗛
 export interface SplitScene {
   id: number;
-  // 鍦烘櫙鍚嶇О锛堝锛氬北鏉戝鏍★級
+  // 鍦烘櫙鍚嶇О锛堝锛氬Bắc鏉戝鏍★級
   sceneName: string;
   // 鍦烘櫙鍦扮偣锛堝锛氭暀瀹ゅ唴閮級
   sceneLocation: string;
