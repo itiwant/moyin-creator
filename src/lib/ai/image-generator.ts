@@ -395,11 +395,11 @@ async function submitViaChatCompletions(
 
         // 401 专项提示：引导用户检查 API Key
         if (resp.status === 401) {
-          msg = `API Key 无效或已hết hạn，请前往「设置」检查图片Tạo服务的 API Key 配置（gốc信息：${msg}）`;
+          msg = `API Key 无效或已hết hạn，请前往「设置」检查图片Tạo服务的 API Key 配置（gốcthông tin：${msg}）`;
         }
         // 502 专项提示：上游服务临时không khả dụng
         if (resp.status === 502) {
-          msg = `API 上游服务暂时không khả dụng（502），将Tự độngThử lại（gốc信息：${msg}）`;
+          msg = `API 上游服务暂时không khả dụng（502），将Tự độngThử lại（gốcthông tin：${msg}）`;
         }
 
         const err = new Error(msg) as Error & { status?: number };
@@ -409,7 +409,7 @@ async function submitViaChatCompletions(
 
       return resp;
     } catch (fetchErr: any) {
-      // 将 DOMException abort 转换为可读lỗi信息
+      // 将 DOMException abort 转换为可读lỗithông tin
       if (fetchErr instanceof DOMException && fetchErr.name === 'AbortError') {
         const reason = controller.signal.reason;
         const readableMsg = reason instanceof Error

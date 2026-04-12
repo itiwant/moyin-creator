@@ -41,7 +41,7 @@ export interface TrailerGenerationResult {
  * AI chọn预告片分镜
  * 
  * @param shots Tất cả可用的分镜
- * @param background 项目背景信息
+ * @param background 项目背景thông tin
  * @param duration 预告片thời lượng
  * @param options API 配置
  */
@@ -107,7 +107,7 @@ export async function selectTrailerShots(
 请返回一 JSON 数组，包含你chọn的分镜số thứ tự（index），按预告片播放thứ tự排列。
 格式：{ "selectedIndices": [1, 5, 12, 23, 45, 60] }`;
 
-    const userPrompt = `【项目信息】
+    const userPrompt = `【项目thông tin】
 ${background?.title ? `tên phim：《${background.title}》` : ''}
 ${background?.outline ? `đại cương：${background.outline.slice(0, 500)}` : ''}
 

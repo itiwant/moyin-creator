@@ -144,7 +144,7 @@ const ENVIRONMENT_KEYWORDS: Record<SceneEnvironmentType, string[]> = {
 };
 
 /**
- * 清理场景地点字符串，移除nhân vật信息等无关内容
+ * 清理场景地点字符串，移除nhân vậtthông tin等无关内容
  */
 function cleanLocationString(location: string): string {
   // 移除 "nhân vật：XXX" 部分
@@ -585,7 +585,7 @@ export function generateContactSheetPrompt(config: ContactSheetConfig): ContactS
   // 2. bố cụcMô tả
   promptParts.push(`Layout: ${gridLayout.rows} rows, ${gridLayout.cols} columns, reading order left-to-right, top-to-bottom.`);
   
-  // 3. 场景信息
+  // 3. 场景thông tin
   if (sceneDescEn) {
     promptParts.push(`Scene Context: ${sceneDescEn}`);
   }
@@ -1101,7 +1101,7 @@ export function generateMultiPageContactSheetData(
     // 2. bố cụcMô tả
     promptParts.push(`Layout: ${gridLayout.rows} rows, ${gridLayout.cols} columns, reading order left-to-right, top-to-bottom.`);
     
-    // 3. 场景信息
+    // 3. 场景thông tin
     if (sceneDescEn) {
       promptParts.push(`Scene Context: ${sceneDescEn}`);
     }
@@ -1173,7 +1173,7 @@ Quan trọng:
  * 用于从剧本panel跳转到场景库时，Trực tiếpSử dụng AI 分析的góc nhìn
  * 
  * @param viewpoints - 来自 ScriptScene.viewpoints 的góc nhìndữ liệu
- * @param scene - 场景信息（用于Tạo提示词）
+ * @param scene - 场景thông tin（用于Tạo提示词）
  * @param shots - 分镜列表（用于获取分镜số thứ tự）
  * @param styleTokens - 风格标记
  * @param aspectRatio - 宽高比

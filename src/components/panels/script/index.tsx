@@ -1298,7 +1298,7 @@ export function ScriptView() {
 
   // Nhập kịch bản后检测是否需要多Nhân vật giai đoạn（仅用于显示Gợi ý）
   const handleAnalyzeCharacterStages = useCallback(async () => {
-    // 已整合到 handleCalibrateCharacters đang xử lý...gọi API即可
+    // 已tích hợp到 handleCalibrateCharacters đang xử lý...gọi API即可
     await handleCalibrateCharacters();
   }, [handleCalibrateCharacters]);
 
@@ -1583,7 +1583,7 @@ export function ScriptView() {
       }
 
       // 传递Nhân vậtdữ liệu到Thư viện nhân vậtTạoconsole（包含世界级大师Tạo的Prompt thị giác）
-      // 获取剧本元dữ liệuđang xử lý...信息
+      // 获取剧本元dữ liệuđang xử lý...thông tin
       const background = scriptProject?.projectBackground;
       
       goToCharacterWithData({

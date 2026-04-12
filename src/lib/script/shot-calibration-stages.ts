@@ -388,7 +388,7 @@ ${s5VideoFields}：
 
 ${s5EndFields}：
 仅当 needsEndFrame=true 时Tạo，否则设为空字符串。
-- Mô tả动作完成后的最终画面
+- Mô tả动作hoàn thành后的最终画面
 - 包含与khung đầu相同的场景环境和光线
 - 重点Mô tả与khung đầu的差异（新位置/新Tư thế/新Biểu cảm/道具新状态）
 - 保持与khung đầu相同的画面风格和thời đại设定
@@ -408,6 +408,6 @@ ${s5LangWarning}
     console.error('[MultiStage] Stage 5 failed:', e);
   }
 
-  console.log('[MultiStage] Tất cả 5 阶段完成，已Hiệu chuẩntrường:', Object.keys(merged[shots[0]?.shotId] || {}).length);
+  console.log('[MultiStage] Tất cả 5 阶段hoàn thành，已Hiệu chuẩntrường:', Object.keys(merged[shots[0]?.shotId] || {}).length);
   return merged;
 }

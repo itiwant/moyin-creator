@@ -91,7 +91,7 @@ export async function analyzeCharacterStages(
 
 请以JSON格式返回分析kết quả。`;
 
-  const userPrompt = `【剧本信息】
+  const userPrompt = `【剧本thông tin】
 tên phim：《${background.title}》
 总 tập数：${totalEpisodes} tập
 类型：${background.genre || '未知'}

@@ -6,7 +6,7 @@
  *
  * 1. populateSeriesMetaFromImport: 首次Nhập时从Phân tíchkết quả + AI 分析构建 SeriesMeta
  * 2. buildSeriesContextSummary: 从 SeriesMeta 构建紧凑的 AI 注入上下文摘要
- * 3. syncToSeriesMeta: Hiệu chuẩn完成后回写丰富dữ liệu到 SeriesMeta
+ * 3. syncToSeriesMeta: Hiệu chuẩnhoàn thành后回写丰富dữ liệu到 SeriesMeta
  */
 
 import type {
@@ -82,7 +82,7 @@ export function populateSeriesMetaFromImport(
     console.log(`[populateSeriesMeta] AI 角色作为主dữ liệu源: ${meta.characters.length} `);
   }
 
-  // 如果 AI 提取了phe phái信息但角色没有 faction tag，补充 faction
+  // 如果 AI 提取了phe pháithông tin但角色没有 faction tag，补充 faction
   if (!meta.factions?.length && aiAnalysis?.characters?.length) {
     const factionMap = new Map<string, string[]>();
     for (const c of aiAnalysis.characters) {
@@ -121,7 +121,7 @@ export function buildSeriesContextSummary(meta: SeriesMeta | null): string {
 
   const parts: string[] = [];
 
-  // 基本信息行
+  // 基本thông tin行
   const infoLine = [
     `作品《${meta.title}》`,
     meta.era || '',
@@ -188,7 +188,7 @@ export function buildSeriesContextSummary(meta: SeriesMeta | null): string {
 export type CalibrationSyncType = 'character' | 'scene' | 'shot';
 
 /**
- * Hiệu chuẩn完成后回写dữ liệu到 SeriesMeta
+ * Hiệu chuẩnhoàn thành后回写dữ liệu到 SeriesMeta
  *
  * @param meta 当前 SeriesMeta
  * @param syncType Hiệu chuẩn类型

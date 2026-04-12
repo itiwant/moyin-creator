@@ -3,7 +3,7 @@
 // Commercial licensing available. See COMMERCIAL_LICENSE.md.
 /**
  * Episode Parser - đang xử lý...规则Phân tích器
- * Phân tích标准đang xử lý...格式，提取 tập、场景、Thoại、动作等Cấu trúc化信息
+ * Phân tích标准đang xử lý...格式，提取 tập、场景、Thoại、动作等Cấu trúc化thông tin
  * 
  * 支持的格式：
  * -  tập标记：第X tập
@@ -28,7 +28,7 @@ import type {
 } from "@/types/script";
 
 /**
- * 清理场景地点字符串，移除nhân vật信息等无关内容
+ * 清理场景地点字符串，移除nhân vậtthông tin等无关内容
  * 如 "乡村公路/大巴车 nhân vật：沈星晴、村民" -> "乡村公路/大巴车"
  */
 function cleanLocationString(location: string): string {
@@ -44,7 +44,7 @@ function cleanLocationString(location: string): string {
 }
 
 /**
- * Phân tíchđầy đủ剧本文本，提取背景信息和各 tập内容
+ * Phân tíchđầy đủ剧本文本，提取背景thông tin和各 tập内容
  */
 export function parseFullScript(fullText: string): {
   background: ProjectBackground;
@@ -101,7 +101,7 @@ export function parseFullScript(fullText: string): {
 }
 
 /**
- * 从đại cương和nhân vật小传đang xử lý...间线信息
+ * 从đại cương和nhân vật小传đang xử lý...间线thông tin
  */
 function extractTimelineInfo(outline: string, characterBios: string): {
   era: string;
@@ -565,7 +565,7 @@ function detectWeather(content: string, actions: string[]): string | undefined {
 function extractSeasonFromScenes(scenes: SceneRawContent[]): string | undefined {
   for (const scene of scenes) {
     for (const subtitle of scene.subtitles) {
-      // Khớp字幕đang xử lý...信息，如【字幕：2002年夏】
+      // Khớp字幕đang xử lý...thông tin，如【字幕：2002年夏】
       const seasonMatch = subtitle.match(/(春天?|夏天?|秋天?|冬天?|初春|仲夏|深秋|隆冬|盛夏|暖春|寒冬)/);
       if (seasonMatch) {
         const s = seasonMatch[1];
@@ -713,7 +713,7 @@ function chineseToNumber(chinese: string): number {
 }
 
 /**
- * 从nhân vật小传文本đang xử lý...色信息
+ * 从nhân vật小传文本đang xử lý...色thông tin
  * 支持两种格式：
  * 1. 紧凑格式：角色tên:Tuổi：XXDanh tính：... （从 Word/微信复制的无换行文本）
  * 2. 标准格式：角色tên:Mô tả 或 角色名（Tuổi）：Mô tả
@@ -1034,7 +1034,7 @@ export function convertToScriptData(
       const locationStartIndex = hasInterior ? 3 : 2;
       let rawLocation = headerParts.slice(locationStartIndex).join(' ') || headerParts[headerParts.length - 1] || '未知';
       
-      // 清理 location，移除nhân vật信息等无关内容
+      // 清理 location，移除nhân vậtthông tin等无关内容
       const location = cleanLocationString(rawLocation);
       
       scenes.push({

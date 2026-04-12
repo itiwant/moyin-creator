@@ -14,7 +14,7 @@ export type StyleCategory = '3d' | '2d' | 'real' | 'stop_motion';
 /**
  * 媒介类型 — 决定 prompt-builder 如何翻译摄影参数
  * - cinematic: đầy đủ物理摄影词汇（真人/写实3D）
- * - animation: 动画运镜适配（2D动画/风格化3D）
+ * - animation: 动画chuyển động máy适配（2D动画/风格化3D）
  * - stop-motion: 微缩实拍约束（定格动画）
  * - graphic: 仅色彩/情绪/Nhịp điệu（像素/水彩/简笔画等高度抽象风格）
  */
@@ -576,7 +576,7 @@ function _findStyle(styleId: string): StylePreset | undefined {
     || _customStyleLookup?.(styleId);
 }
 
-/** 分类信息 */
+/** 分类thông tin */
 export const STYLE_CATEGORIES: { id: StyleCategory; name: string; styles: readonly StylePreset[] }[] = [
   { id: '3d', name: '3D风格', styles: STYLES_3D },
   { id: '2d', name: '2D动画', styles: STYLES_2D },
@@ -671,7 +671,7 @@ export function getMediaType(styleId: string | null | undefined): MediaType {
 /** 媒介类型đang xử lý... */
 export const MEDIA_TYPE_LABELS: Record<MediaType, string> = {
   'cinematic': '电影摄影',
-  'animation': '动画运镜',
+  'animation': '动画chuyển động máy',
   'stop-motion': '定格微缩',
   'graphic': '图形色彩',
 };

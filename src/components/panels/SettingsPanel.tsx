@@ -524,7 +524,7 @@ export function SettingsPanel() {
       }
       
       toast.success("Nhập dữ liệu thành công, đang làm mới...");
-      // 延迟刷新页面以确保缓存清理完成
+      // 延迟刷新页面以确保缓存清理hoàn thành
       setTimeout(() => window.location.reload(), 500);
     } else {
       toast.error(`Nhập thất bại: ${result.error || "Lỗi không xác định"}`);

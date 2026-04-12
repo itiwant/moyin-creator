@@ -452,7 +452,7 @@ function buildShotSegment(
   const isValid = (v?: string | null): v is string =>
     !!v && !['none', 'null', '无', '无技法', 'Mặc định'].includes(v.toLowerCase().trim());
 
-  // ===== Ống kínhNgôn ngữ（运镜 + Kích thước cảnh + 角度 + Tiêu cự + 摄影技法） =====
+  // ===== Ống kínhNgôn ngữ（chuyển động máy + Kích thước cảnh + 角度 + Tiêu cự + 摄影技法） =====
   if (isValid(scene.cameraMovement)) parts.push(scene.cameraMovement);
   if (isValid(scene.shotSize)) parts.push(scene.shotSize);
   if (isValid(scene.cameraAngle)) parts.push(scene.cameraAngle);
@@ -544,7 +544,7 @@ const PURPOSE_PROMPT_MAP: Record<AssetPurpose, string> = {
   bgm: '作为背景NhạcTham chiếu',
   voice_ref: '作为语音Tham chiếu',
   prev_video: '接续前段video，保持Nhân vật和Cảnh一致',
-  video_extend: '作为被kéo dài的video，平滑衔接',
+  video_extend: '作为被kéo dài的video，平滑nối kết',
   video_edit_src: '作为被Chỉnh sửa的源video',
   general: '作为Tham chiếu',
 };
@@ -564,8 +564,8 @@ const EDIT_TYPE_TEMPLATE: Record<EditType, string> = {
  * ```
  * 多Ống kínhtự sựvideo（共3Ống kính，TổngThời lượng14s）：
  *
- * Ống kính1 [0s-5s]「Cảnh名」：[运镜], [Hành động]
- * Ống kính2 [5s-9s]「Cảnh名」：[运镜], [Hành động]
+ * Ống kính1 [0s-5s]「Cảnh名」：[chuyển động máy], [Hành động]
+ * Ống kính2 [5s-9s]「Cảnh名」：[chuyển động máy], [Hành động]
  *
  * Nhân vậtTham chiếu：@ảnh4（Nhân vậtA）保持Nhân vậtngoại hình一致
  * CảnhTham chiếu：@ảnh6 作为CảnhTham chiếu

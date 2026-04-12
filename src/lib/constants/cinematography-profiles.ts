@@ -83,7 +83,7 @@ export interface CinematographyProfile {
   referenceFilms: string[];
 }
 
-// ==================== 分类信息 ====================
+// ==================== 分类thông tin ====================
 
 export const CINEMATOGRAPHY_CATEGORIES: { id: CinematographyCategory; name: string; emoji: string }[] = [
   { id: 'cinematic', name: '电影类', emoji: '🎬' },
@@ -103,7 +103,7 @@ const CINEMATIC_PROFILES: CinematographyProfile[] = [
     name: '经典电影',
     nameEn: 'Classic Cinematic',
     category: 'cinematic',
-    description: '标准院线电影质感，三点布光，自然色温，匀速轨道运镜，画面端正大气',
+    description: '标准院线电影质感，三点布光，自然色温，匀速轨道chuyển động máy，画面端正大气',
     emoji: '🎞️',
     defaultLighting: { style: 'natural', direction: 'three-point', colorTemperature: 'warm' },
     defaultFocus: { depthOfField: 'medium', focusTransition: 'rack-between' },
@@ -211,7 +211,7 @@ const DOCUMENTARY_PROFILES: CinematographyProfile[] = [
     name: '新闻纪实',
     nameEn: 'News Report',
     category: 'documentary',
-    description: '肩扛、高调光、深景深、đang xử lý...、信息优先、画面清晰锐利',
+    description: '肩扛、高调光、深景深、đang xử lý...、thông tin优先、画面清晰锐利',
     emoji: '📡',
     defaultLighting: { style: 'high-key', direction: 'front', colorTemperature: 'neutral' },
     defaultFocus: { depthOfField: 'deep', focusTransition: 'none' },
@@ -220,7 +220,7 @@ const DOCUMENTARY_PROFILES: CinematographyProfile[] = [
     defaultSpeed: { playbackSpeed: 'normal' },
     defaultAngle: 'eye-level',
     defaultFocalLength: '24mm',
-    promptGuidance: '新闻纪实以信息传达为第一优先——深景深确保画面Tất cả元素清晰可辨，高调光消除阴影让细节đầy đủ呈现。肩扛摄影保持灵活跟踪，但比Cầm tay更稳定。画面bố cục讲究信息层次，重要nhân vật或事件始终在Tiêu điểm thị giác。',
+    promptGuidance: '新闻纪实以thông tin传达为第一优先——深景深确保画面Tất cả元素清晰可辨，高调光消除阴影让细节đầy đủ呈现。肩扛摄影保持灵活跟踪，但比Cầm tay更稳定。画面bố cục讲究thông tin层次，重要nhân vật或事件始终在Tiêu điểm thị giác。',
     referenceFilms: ['聚焦', '总统班底', '华盛顿邮报'],
   },
 ];
@@ -352,7 +352,7 @@ const GENRE_PROFILES: CinematographyProfile[] = [
     defaultSpeed: { playbackSpeed: 'normal' },
     defaultAngle: 'eye-level',
     defaultFocalLength: '50mm',
-    promptGuidance: '悬疑片的摄影核心是「控制信息揭示」——浅景深Chọn性地让观众只看到Đạo diễn想让他们看到的。轨道极慢推进制造压迫感，低调侧光让画面总有一半隐藏在阴影đang xử lý...是重要tự sự手法，从前景线索转焦到背景嫌疑人，或反向操作。薄雾为画面增加朦胧感，暗示真相的不确定性。',
+    promptGuidance: '悬疑片的摄影核心是「控制thông tin揭示」——浅景深Chọn性地让观众只看到Đạo diễn想让他们看到的。轨道极慢推进制造压迫感，低调侧光让画面总有一半隐藏在阴影đang xử lý...是重要tự sự手法，从前景线索转焦到背景嫌疑人，或反向操作。薄雾为画面增加朦胧感，暗示真相的不确定性。',
     referenceFilms: ['消失的爱人', '七宗罪', '杀人回忆', '十二怒汉'],
   },
 ];

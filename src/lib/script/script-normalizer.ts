@@ -5,7 +5,7 @@
  * Script Format Normalizer - 剧本格式归一化器
  * 
  * 在 parseFullScript 之前Tự động检测非标准格式并插入Cấu trúc标记，
- * 使Phân tích器能正确提取标题、đại cương、nhân vật小传、 tập数等信息。
+ * 使Phân tích器能正确提取标题、đại cương、nhân vật小传、 tập数等thông tin。
  * 
  * 双层架构：
  * 1. AI 检测（优先）：gọi API LLM 理解内容语义，精准识别Cấu trúc + bổ sungthiếuđại cương

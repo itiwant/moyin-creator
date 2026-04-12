@@ -8,7 +8,7 @@
  * 
  * chức năng：
  * 1. Phân tích用户输入（如 "缺第10 tập的王大哥这角色"）
- * 2. 搜索剧本đang xử lý...信息
+ * 2. 搜索剧本đang xử lý...thông tin
  * 3. AI Tạođầy đủ角色dữ liệu（包括视觉提示词）
  */
 
@@ -44,7 +44,7 @@ export interface FinderOptions {
 // ==================== 核心函数 ====================
 
 /**
- * Phân tích用户输入，提取角色名和 tập数信息
+ * Phân tích用户输入，提取角色名和 tập数thông tin
  */
 function parseUserQuery(query: string): { name: string | null; episodeNumber: number | null } {
   let name: string | null = null;
@@ -152,7 +152,7 @@ function searchCharacterInScripts(
           foundInEpisode = true;
         }
         
-        // 收 tập场景信息
+        // 收 tập场景thông tin
         if (sceneSamples.length < 3) {
           sceneSamples.push(`第${ep.episodeIndex} tập - ${scene.sceneHeader || '场景'}`);
         }
@@ -322,9 +322,9 @@ async function generateCharacterData(
   const eraInfo = getEraInfo();
   const eraFashionGuidance = getEraFashionGuidance();
   
-  const systemPrompt = `你是chuyên nghiệp的影góc nhìn色Thiết kế师，擅长从剧本信息đang xử lý...色特征并Tạochuyên nghiệp的角色dữ liệu。
+  const systemPrompt = `你是chuyên nghiệp的影góc nhìn色Thiết kế师，擅长从剧本thông tinđang xử lý...色特征并Tạochuyên nghiệp的角色dữ liệu。
 
-请根据提供的剧本信息和角色上下文，Tạođầy đủ的角色dữ liệu。
+请根据提供的剧本thông tin和角色上下文，Tạođầy đủ的角色dữ liệu。
 
 【trang phụcThiết kế要求】
 ${eraFashionGuidance}
@@ -346,7 +346,7 @@ trang phục必须与剧本thời đại背景一致，不要混淆不同thời 
   "importance": "protagonist/supporting/minor"
 }`;
 
-  const userPrompt = `【剧本信息】
+  const userPrompt = `【剧本thông tin】
 tên phim：《${background.title}》
 类型：${background.genre || '剧情'}
 ${eraInfo}
@@ -366,7 +366,7 @@ ${contexts.slice(0, 3).join('\n\n')}
 【角色Thoại样本】
 ${dialogueSamples.join('\n')}
 
-请基于以上信息，Tạo角色「${name}」的đầy đủdữ liệu。
+请基于以上thông tin，Tạo角色「${name}」的đầy đủdữ liệu。
 
 【重要】trang phục必须符合故事thời đại背景（${eraInfo}）！`;
 

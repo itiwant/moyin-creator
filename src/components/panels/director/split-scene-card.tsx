@@ -5,7 +5,7 @@
 
 /**
  * Phân cảnh卡片组件 (Split Scene Card Component)
- * Hiệnphân cảnh đơn的Tất cả信息，包括Khung hình đầu/Khung hình cuốiảnh、videoXem trước、promptChỉnh sửa等
+ * Hiệnphân cảnh đơn的Tất cảthông tin，包括Khung hình đầu/Khung hình cuốiảnh、videoXem trước、promptChỉnh sửa等
  * 用于 SplitScene Loại（与 scene-card.tsx đang xử lý...IScene Loại不同）
  */
 

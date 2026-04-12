@@ -78,7 +78,7 @@ import {
 
 type FilterType = "all" | "pending" | "completed";
 
-// 计算完成状态图标
+// 计算hoàn thành状态图标
 function StatusIcon({ status }: { status?: CompletionStatus }) {
   switch (status) {
     case "completed":

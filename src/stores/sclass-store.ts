@@ -29,7 +29,7 @@ export type AssetPurpose =
   | 'scene_ref'         // CảnhTham chiếu
   | 'first_frame'       // Khung hình đầu
   | 'grid_image'        // ô图
-  | 'camera_replicate'  // 运镜复刻
+  | 'camera_replicate'  // chuyển động máy复刻
   | 'action_replicate'  // Hành động复刻
   | 'effect_replicate'  // 特效复刻
   | 'beat_sync'         // Nhạc卡点
@@ -140,7 +140,7 @@ export interface ShotGroup {
   videoStatus: VideoGenStatus;
   /** TạoTiến độ 0-100 */
   videoProgress: number;
-  /** lỗi信息 */
+  /** lỗithông tin */
   videoError: string | null;
   /** Tạo历史 */
   history: GenerationRecord[];
@@ -162,7 +162,7 @@ export interface ShotGroup {
   calibratedPrompt?: string;
   /** Hiệu chuẩnTrạng thái */
   calibrationStatus?: 'idle' | 'calibrating' | 'done' | 'failed';
-  /** Hiệu chuẩnlỗi信息 */
+  /** Hiệu chuẩnlỗithông tin */
   calibrationError?: string | null;
 
   // ---- videokéo dài & videoChỉnh sửa ----

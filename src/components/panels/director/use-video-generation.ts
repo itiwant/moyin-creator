@@ -29,7 +29,7 @@ const CONTENT_MODERATION_KEYWORDS = [
   'prohibited',
   'not_allowed',
   'unsafe',
-  'Nội dung审核',
+  'Nội dungkiểm duyệt',
   '违规',
   '敏感',
   '禁止',
@@ -377,7 +377,7 @@ async function ensureMinImageSize(
     ctx.imageSmoothingEnabled = true;
     ctx.imageSmoothingQuality = 'high';
     ctx.drawImage(img, 0, 0, newWidth, newHeight);
-    URL.revokeObjectURL(objectUrl); // drawImage 完成后释放
+    URL.revokeObjectURL(objectUrl); // drawImage hoàn thành后释放
     objectUrl = undefined;
     const upscaledDataUrl = canvas.toDataURL('image/png');
 
@@ -426,13 +426,13 @@ export async function callVideoGenerationApi(
   keyManager?: { getCurrentKey?: () => string | null; handleError: (status: number, errorText?: string) => boolean; getAvailableKeyCount: () => number; getTotalKeyCount: () => number },
   platform?: string,
   videoResolution?: '480p' | '720p' | '1080p',
-  /** Seedance 2.0: videotham chiếu URL  cột表 (运镜/Hành động复刻) */
+  /** Seedance 2.0: videotham chiếu URL  cột表 (chuyển động máy/Hành động复刻) */
   videoRefs?: string[],
   /** Seedance 2.0: âm thanhtham chiếu URL  cột表 (Nhịp điệu/BGM) */
   audioRefs?: string[],
   /** Seedance 2.0: 是否Tạoâm thanh（Mặc định true） */
   enableAudio?: boolean,
-  /** Seedance 2.0: 是否锁定运镜（Mặc định false） */
+  /** Seedance 2.0: 是否锁定chuyển động máy（Mặc định false） */
   cameraFixed?: boolean,
   /** 外部đang xử lý...，用于Dừng tạo时真正Hủy网络请求 */
   signal?: AbortSignal,
@@ -670,7 +670,7 @@ async function callUnifiedVideoApi(
 
     if (status === 'completed' || status === 'succeeded' || status === 'success') {
       const videoUrl = extractVideoUrl(statusData);
-      if (!videoUrl) throw new Error('任务完成但没有video URL');
+      if (!videoUrl) throw new Error('任务hoàn thành但没有video URL');
       return videoUrl;
     }
 
@@ -728,7 +728,7 @@ async function callVolcVideoApi(
     }
   }
 
-  // Seedance 2.0 多模态：videotham chiếu（kéo dài/Chỉnh sửa/运镜复刻等）
+  // Seedance 2.0 多模态：videotham chiếu（kéo dài/Chỉnh sửa/chuyển động máy复刻等）
   if (videoRefs && videoRefs.length > 0) {
     for (const vUrl of videoRefs) {
       if (vUrl) {
@@ -782,11 +782,11 @@ async function callVolcVideoApi(
   console.log('[VideoGen] Volc submit response:', JSON.stringify(submitData).substring(0, 500));
 
   // 检测代理包装的业务级lỗi（HTTP 200 但 body.status 为 failed/error）
-  // 典型Cảnh：MemeFast trung gian将上游 451（Nội dung审核）等lỗi包装为 {status: "failed", message: "..."}
+  // 典型Cảnh：MemeFast trung gian将上游 451（Nội dungkiểm duyệt）等lỗi包装为 {status: "failed", message: "..."}
   if (submitData.status === 'failed' || submitData.status === 'error') {
     const proxyMsg = submitData.message || submitData.error?.message || 'videoGửiThất bại（代理Quay lại业务lỗi）';
     console.error('[VideoGen] Volc: proxy-wrapped business error:', proxyMsg);
-    // 尝试从lỗi信息đang xử lý...始 HTTP Trạng thái码
+    // 尝试从lỗithông tinđang xử lý...始 HTTP Trạng thái码
     const statusMatch = proxyMsg.match(/status\s+(\d+)/);
     const inferredStatus = statusMatch ? parseInt(statusMatch[1]) : 400;
     handleVideoSubmitError(inferredStatus, JSON.stringify(submitData), keyManager);
@@ -811,7 +811,7 @@ async function callVolcVideoApi(
 
   if (!taskId) {
     console.error('[VideoGen] Volc: cannot extract taskId. Full response:', JSON.stringify(submitData));
-    // 兜底：将代理Quay lại的lỗi信息（如有）附加到异常đang xử lý...信息丢失
+    // 兜底：将代理Quay lại的lỗithông tin（如有）附加到异常đang xử lý...thông tin丢失
     const detail = submitData.message || submitData.error?.message || '';
     throw new Error(detail || `doubao-seedance Quay lại空的任务 ID（响应格式未识别，请检查console日志）`);
   }
@@ -860,7 +860,7 @@ async function callVolcVideoApi(
         extractVideoUrl(statusData);
       if (!videoUrl) {
         console.error('[VideoGen] Volc: task succeeded but no video URL. statusData:', JSON.stringify(statusData));
-        throw new Error('任务完成但没有video URL');
+        throw new Error('任务hoàn thành但没有video URL');
       }
       return videoUrl;
     }
@@ -968,7 +968,7 @@ async function callWanVideoApi(
 
     if (taskStatus === 'SUCCEEDED') {
       const videoUrl = normalizeUrl(statusData.output?.video_url);
-      if (!videoUrl) throw new Error('任务完成但没有video URL');
+      if (!videoUrl) throw new Error('任务hoàn thành但没有video URL');
       return videoUrl;
     }
 
@@ -1104,7 +1104,7 @@ async function callKlingVideoApi(
         normalizeUrl(statusData.data?.task_result?.videos?.[0]?.url) ||
         normalizeUrl(statusData.data?.task_result?.video_url) ||
         extractVideoUrl(statusData);
-      if (!videoUrl) throw new Error('任务完成但没有video URL');
+      if (!videoUrl) throw new Error('任务hoàn thành但没有video URL');
       return videoUrl;
     }
 
@@ -1193,7 +1193,7 @@ async function callOpenAIOfficialVideoApi(
 
     if (status === 'completed' || status === 'succeeded' || status === 'success') {
       const videoUrl = extractVideoUrl(statusData) || normalizeUrl(`${baseUrl}/v1/videos/${taskId}/content`);
-      if (!videoUrl) throw new Error('Sora 任务完成但没有video URL');
+      if (!videoUrl) throw new Error('Sora 任务hoàn thành但没有video URL');
       return videoUrl;
     }
 
@@ -1439,7 +1439,7 @@ export async function extractLastFrameFromVideo(
       }
     };
     
-    // 当 seek 完成时捕获
+    // 当 seek hoàn thành时捕获
     video.onseeked = () => {
       if (hasResolved || targetTime < 0) return;
       console.log('[VideoGen] onseeked fired, currentTime:', video.currentTime, 'target:', targetTime);
@@ -1460,7 +1460,7 @@ export async function extractLastFrameFromVideo(
       }
     };
     
-    // 当videodữ liệu加载完成时尝试 seek
+    // 当videodữ liệu加载hoàn thành时尝试 seek
     video.onloadeddata = () => {
       if (hasResolved) return;
       console.log('[VideoGen] onloadeddata, readyState:', video.readyState, 'duration:', video.duration);
@@ -1645,7 +1645,7 @@ export async function callJuxinVideoGenerationApi(
       const videoUrl = statusData.video_url || statusData.result_url || statusData.url;
       
       if (!videoUrl) {
-        throw new Error('任务完成但没有video URL');
+        throw new Error('任务hoàn thành但没有video URL');
       }
       
       console.log('[VideoGen] Grok video completed:', videoUrl);

@@ -138,7 +138,7 @@ export interface PendingCharacterData {
 
 // Data passed from script panel to scene library
 export interface PendingSceneData {
-  // === Cơ bản信息 ===
+  // === Cơ bảnthông tin ===
   name: string;
   location: string;
   time?: string;

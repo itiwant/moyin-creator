@@ -48,7 +48,7 @@ export type AIFeature =
 export type FeatureBindings = Record<AIFeature, string[] | null>;
 
 /**
- * chức năng信息定义
+ * chức năngthông tin定义
  */
 export const AI_FEATURES: Array<{
   key: AIFeature;
@@ -77,7 +77,7 @@ export interface AdvancedGenerationOptions {
   enableVisualContinuity: boolean;
   /** Bật断点续传：Tạo hàng loạtđang xử lý...从上次位置Tiếp tục */
   enableResumeGeneration: boolean;
-  /** BậtNội dung审核容错：遇到敏感Nội dungTự động跳过，Tiếp tụcTạo其他Phân cảnh */
+  /** BậtNội dungkiểm duyệt容错：遇到敏感Nội dungTự động跳过，Tiếp tụcTạo其他Phân cảnh */
   enableContentModeration: boolean;
   /** Bật多ModelTự động切换：首Phân cảnhSử dụng t2v，后续Sử dụng i2v */
   enableAutoModelSwitch: boolean;
@@ -480,7 +480,7 @@ export interface APIConfigStatus {
 // ==================== Provider Info ====================
 
 /**
- * Nhà cung cấp信息映射
+ * Nhà cung cấpthông tin映射
  * 1. memefast - MemeFast API，全chức năng AI trung gian（Đề xuất）
  * 2. runninghub - RunningHub，Chuyển góc nhìn/đa góc độTạo
  */

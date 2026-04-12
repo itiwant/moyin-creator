@@ -266,7 +266,7 @@ export async function exportProjectFiles(
   onProgress?.({
     current: filesToDownload.length,
     total: filesToDownload.length,
-    message: '导出完成',
+    message: '导出hoàn thành',
   });
 }
 
@@ -362,7 +362,7 @@ export async function exportProjectToFolder(
       }
     }
 
-    onProgress?.({ current: totalFiles, total: totalFiles, message: '导出完成' });
+    onProgress?.({ current: totalFiles, total: totalFiles, message: '导出hoàn thành' });
     return true;
   } catch (error) {
     // User cancelled or API error
@@ -582,7 +582,7 @@ export async function exportDirectorToFolder(
       }
     }
 
-    onProgress?.({ current: totalFiles, total: totalFiles, message: '导出完成' });
+    onProgress?.({ current: totalFiles, total: totalFiles, message: '导出hoàn thành' });
     return true;
   } catch (error) {
     if ((error as Error).name === 'AbortError') {
@@ -665,6 +665,6 @@ export async function exportDirectorFiles(
   onProgress?.({
     current: filesToDownload.length,
     total: filesToDownload.length,
-    message: '导出完成',
+    message: '导出hoàn thành',
   });
 }

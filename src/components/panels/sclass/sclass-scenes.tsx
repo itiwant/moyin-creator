@@ -1670,17 +1670,17 @@ export function SClassScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
       const err = error as Error;
       console.error(`[SplitScenes] Scene ${sceneId} video generation failed:`, err);
       
-      // 检测是否为Nội dung审核lỗi
+      // 检测是否为Nội dungkiểm duyệtlỗi
       const isModerationError = isContentModerationError(err);
       
       if (isModerationError) {
-        // Nội dung审核lỗi，用 MODERATION_SKIPPED: 前缀标记
+        // Nội dungkiểm duyệtlỗi，用 MODERATION_SKIPPED: 前缀标记
         updateSplitSceneVideo(sceneId, {
           videoStatus: 'failed',
           videoProgress: 0,
           videoError: `MODERATION_SKIPPED:${err.message}`,
         });
-        toast.warning(`Phân cảnh ${sceneId + 1} 因Nội dung审核跳过`);
+        toast.warning(`Phân cảnh ${sceneId + 1} 因Nội dungkiểm duyệt跳过`);
         console.log(`[SplitScenes] Scene ${sceneId} skipped due to content moderation`);
       } else {
         // 普通lỗi
@@ -2055,7 +2055,7 @@ export function SClassScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
     // 任务Loại定义
     type GridTask = { scene: SplitScene; type: 'first' | 'end' };
     
-    // Quan trọng:videođã tạo的Phân cảnh视为完成，不需要再TạoKhung hình đầu或Khung hình cuối
+    // Quan trọng:videođã tạo的Phân cảnh视为hoàn thành，不需要再TạoKhung hình đầu或Khung hình cuối
     const isSceneCompleted = (s: SplitScene) => s.videoUrl || s.videoStatus === 'completed';
 
     // 构建任务 cột表（根据用户Chọn的 mode）
@@ -2076,12 +2076,12 @@ export function SClassScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
 
     // 检查是否有需要Tạo的
     if (tasks.length === 0) {
-      toast.info('Tất cảPhân cảnhđã tạo完成，无需重复Tạo');
+      toast.info('Tất cảPhân cảnhđã tạohoàn thành，无需重复Tạo');
       setIsMergedRunning(false);
       return;
     }
 
-    // 统计信息
+    // 统计thông tin
     const firstCount = tasks.filter(t => t.type === 'first').length;
     const endCount = tasks.filter(t => t.type === 'end').length;
     const parts: string[] = [];
@@ -2433,7 +2433,7 @@ export function SClassScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
       if (!gridImageUrl) {
         console.error('[MergedGen] Không lấy được ảnh URL, apiResult:', apiResult);
         if (taskId) {
-          throw new Error(`lưới 9 ôTạo超时（任务 ${taskId} 在 3  phút内未完成），API 服务可能繁忙，请稍后Thử lại`);
+          throw new Error(`lưới 9 ôTạo超时（任务 ${taskId} 在 3  phút内未hoàn thành），API 服务可能繁忙，请稍后Thử lại`);
         }
         throw new Error('Không lấy được ảnh URL lưới 9 ô, vui lòng kiểm tra phản hồi API');
       }
@@ -2540,7 +2540,7 @@ export function SClassScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
         await generateGridAndSlice(pageTasks, refs);
         succeededCount++;
         if (!mergedAbortRef.current) {
-          toast.success(`第 ${p + 1}/${taskPages.length} 页完成（${pageInfo}）`);
+          toast.success(`第 ${p + 1}/${taskPages.length} 页hoàn thành（${pageInfo}）`);
         }
       } catch (e: any) {
         const errorMsg = e.message || String(e);
@@ -2587,9 +2587,9 @@ export function SClassScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
     const totalPages = taskPages.length;
     if (!mergedAbortRef.current) {
       if (succeededCount === totalPages) {
-        toast.success('lưới 9 ô合并Tạo tất cả完成！');
+        toast.success('lưới 9 ô合并Tạo tất cảhoàn thành！');
       } else if (succeededCount > 0) {
-        toast.warning(`合并Tạo部分完成：${succeededCount}/${totalPages} 页Thành công，${totalPages - succeededCount} 页Thất bại`);
+        toast.warning(`合并Tạo部分hoàn thành：${succeededCount}/${totalPages} 页Thành công，${totalPages - succeededCount} 页Thất bại`);
       } else {
         toast.error(`合并Tạo tất cảThất bại（${totalPages} 页），请检查 API 服务后Thử lại`);
       }
@@ -2842,7 +2842,7 @@ export function SClassScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
           folderId,
           projectId: mediaProjectId,
         });
-        toast.success(`Phân cảnh ${sceneId + 1} Khung hình cuốiTạo完成，đã lưu到Thư viện phương tiện`);
+        toast.success(`Phân cảnh ${sceneId + 1} Khung hình cuốiTạohoàn thành，đã lưu到Thư viện phương tiện`);
         setIsGenerating(false);
         return;
       }
@@ -2901,7 +2901,7 @@ export function SClassScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
               folderId,
               projectId: mediaProjectId,
             });
-            toast.success(`Phân cảnh ${sceneId + 1} Khung hình cuốiTạo完成，đã lưu到Thư viện phương tiện`);
+            toast.success(`Phân cảnh ${sceneId + 1} Khung hình cuốiTạohoàn thành，đã lưu到Thư viện phương tiện`);
             setIsGenerating(false);
             return;
           }
@@ -3382,10 +3382,10 @@ export function SClassScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
         </div>
       </div>
 
-      {/* Row 1.5: Seedance 2.0 âm thanh/运镜Gợi ý（实际控制复用每Phân cảnh的 per-scene âm thanh开关） */}
+      {/* Row 1.5: Seedance 2.0 âm thanh/chuyển động máyGợi ý（实际控制复用每Phân cảnh的 per-scene âm thanh开关） */}
       <div className="flex flex-wrap items-center gap-3 p-2 rounded-lg bg-muted/20 border">
         <Music className="h-3.5 w-3.5 text-muted-foreground" />
-        <span className="text-xs text-muted-foreground">âm thanh/运镜: 复用每Phân cảnh的独立开关（Thoại / Hiệu ứng âm thanh / môi trường声 / 运镜）Tự động聚合</span>
+        <span className="text-xs text-muted-foreground">âm thanh/chuyển động máy: 复用每Phân cảnh的独立开关（Thoại / Hiệu ứng âm thanh / môi trường声 / chuyển động máy）Tự động聚合</span>
         <span className="text-xs text-muted-foreground/60">Thời lượng上限 15s · Seedance 2.0</span>
       </div>
 
@@ -3507,7 +3507,7 @@ export function SClassScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
                 if (total === 0) {
                   toast.info('没有需要Hiệu chuẩn的组');
                 } else {
-                  toast.success(`批量Hiệu chuẩn完成：${success}/${total} 组Thành công`);
+                  toast.success(`批量Hiệu chuẩnhoàn thành：${success}/${total} 组Thành công`);
                 }
               }}
             >
@@ -3551,7 +3551,7 @@ export function SClassScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
                     ?.sceneIds.map(id => sceneMap.get(id)).filter(Boolean) as SplitScene[] || [];
                   runCalibration(groupId, groupScenes, allCharacters, sceneLibrary)
                     .then(ok => {
-                      if (ok) toast.success('AI Hiệu chuẩn完成');
+                      if (ok) toast.success('AI Hiệu chuẩnhoàn thành');
                       else toast.error('AI Hiệu chuẩnThất bại');
                     });
                 }}

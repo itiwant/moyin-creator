@@ -88,7 +88,7 @@ export async function importFullScript(
     if (aiAnalysis) {
       // AI 检测成功：基于 AI kết quả插入标记 + bổ sungđại cương
       normalizeResult = applyAIAnalysis(processedText, aiAnalysis);
-      console.log('[importFullScript] AI Cấu trúc检测完成:', normalizeResult.changes);
+      console.log('[importFullScript] AI Cấu trúc检测hoàn thành:', normalizeResult.changes);
     } else {
       // AI không khả dụng或thất bại：降级到正则兗底
       normalizeResult = normalizeScriptFormat(processedText);
@@ -268,7 +268,7 @@ export async function importSingleEpisodeContent(
       console.log(`${TAG} 清理旧 shot: ${project.shots.length - remainingShots.length} `);
     }
 
-    console.log(`${TAG} Cấu trúcbổ sung完成: ${newScenes.length} 场景`);
+    console.log(`${TAG} Cấu trúcbổ sunghoàn thành: ${newScenes.length} 场景`);
 
     // === 4. 轻量 AI 标题+đại cương（后台不阻塞） ===
     generateSingleEpisodeTitleAndSynopsis(projectId, episodeIndex).catch(e => {
@@ -522,7 +522,7 @@ export async function generateEpisodeShots(
           
           console.log(`[generateEpisodeShots] 🔄 gọi API analyzeSceneViewpoints for "${scene.location}"...`);
           const result = await analyzeSceneViewpoints(scene, sceneShots, viewpointOptions);
-          console.log(`[generateEpisodeShots] ✅ AI 分析完成，返回 ${result.viewpoints.length} góc nhìn:`, 
+          console.log(`[generateEpisodeShots] ✅ AI 分析hoàn thành，返回 ${result.viewpoints.length} góc nhìn:`, 
             result.viewpoints.map(v => v.name).join(', '));
           console.log(`[generateEpisodeShots] 📝 analysisNote: ${result.analysisNote}`);
           
@@ -652,7 +652,7 @@ export async function generateEpisodeShots(
           viewpointSkippedReason = '无分镜';
         }
         
-        onProgress?.(`AI góc nhìn分析完成（${viewpointCount} góc nhìn）`);
+        onProgress?.(`AI góc nhìn分析hoàn thành（${viewpointCount} góc nhìn）`);
       } catch (e) {
         const err = e as Error;
         console.error('\n============================================');
@@ -671,7 +671,7 @@ export async function generateEpisodeShots(
       lastGeneratedAt: Date.now(),
     });
     
-    onProgress?.(`第 ${episodeIndex}  tập分镜Tạo完成！共 ${newShots.length} 分镜`);
+    onProgress?.(`第 ${episodeIndex}  tập分镜Tạohoàn thành！共 ${newShots.length} 分镜`);
     
     return { shots: newShots, viewpointAnalyzed, viewpointSkippedReason };
   } catch (error) {
@@ -1078,7 +1078,7 @@ function extractEpisodeSummary(episode: EpisodeRawScript): string {
   // 取前3场景的内容摘要
   const scenesToUse = episode.scenes.slice(0, 3);
   for (const scene of scenesToUse) {
-    // 场景信息（Sử dụng sceneHeader 代替 location）
+    // 场景thông tin（Sử dụng sceneHeader 代替 location）
     if (scene.sceneHeader) {
       parts.push(`场景：${scene.sceneHeader}`);
     }
@@ -1131,7 +1131,7 @@ export async function calibrateEpisodeTitles(
   
   onProgress?.(0, totalMissing, `找到 ${totalMissing}  tậpthiếu标题，开始Hiệu chuẩn...`);
   
-  // 获取全局背景信息
+  // 获取全局背景thông tin
   const background = project.projectBackground;
   const globalContext = {
     title: background?.title || project.scriptData?.title || '未命名剧本',
@@ -1165,7 +1165,7 @@ export async function calibrateEpisodeTitles(
 
 你的任务是根据剧本的全局背景和每 tập内容，为每 tậpTạo简短有吸引力的标题。
 ${seriesCtx ? `\n【剧级知识Tham chiếu】\n${seriesCtx}\n` : ''}
-【剧本信息】
+【剧本thông tin】
 tên phim：${title}
 总 tập数：${totalEpisodes} tập
 
@@ -1179,7 +1179,7 @@ ${characterBios.slice(0, 1000)}
 1. 标题要能概括该 tập的主要内容或转折点
 2. 标题长度控制在6-15字
 3. 风格要符合剧本类型（如商战剧用商战术语，武侠剧用江湖气息）
-4. 标题之间要有连贯性，体现剧情发展
+4. 标题之间要有liên mạch性，体现剧情发展
 
 请以JSON格式返回，格式为：
 {
@@ -1366,7 +1366,7 @@ export async function calibrateEpisodeShots(
   
   onProgress?.(0, totalShots, `开始Hiệu chuẩn第 ${episodeIndex}  tập的 ${totalShots} 分镜...`);
   
-  // 获取全局背景信息
+  // 获取全局背景thông tin
   const background = project.projectBackground;
   const episodeScript = project.episodeRawScripts.find(ep => ep.episodeIndex === episodeIndex);
   
@@ -1483,7 +1483,7 @@ export async function calibrateEpisodeShots(
               }
             );
             completedBatches++;
-            console.log(`[calibrateShots] ✅ 批次 ${batchNum} 完成，Tiến độ: ${completedBatches}/${totalBatches}`);
+            console.log(`[calibrateShots] ✅ 批次 ${batchNum} hoàn thành，Tiến độ: ${completedBatches}/${totalBatches}`);
             return { batch, calibrations, success: true as const };
           } catch (err) {
             retryCount++;
@@ -1620,7 +1620,7 @@ export async function calibrateSingleShot(
   const episode = scriptData.episodes.find(ep => ep.id === shot.episodeId);
   const episodeIndex = episode?.index || 1;
   
-  // 获取全局背景信息
+  // 获取全局背景thông tin
   const background = project.projectBackground;
   const episodeScript = project.episodeRawScripts.find(ep => ep.episodeIndex === episodeIndex);
   const episodeRawContent = episodeScript?.rawContent || '';
@@ -1738,7 +1738,7 @@ export async function calibrateSingleShot(
     });
     
     store.setShots(projectId, updatedShots);
-    onProgress?.(`分镜Hiệu chuẩn完成`);
+    onProgress?.(`分镜Hiệu chuẩnhoàn thành`);
     
     return {
       success: true,
@@ -1860,7 +1860,7 @@ async function callAIForShotCalibration(
     ? buildCinematographyGuidance(cinematographyProfileId)
     : '';
   
-  // 构建更đầy đủ的上下文信息
+  // 构建更đầy đủ的上下文thông tin
   const contextInfo = [
     `tên phim：《${title}》`,
     genre ? `类型：${genre}` : '',
@@ -1881,9 +1881,9 @@ async function callAIForShotCalibration(
 - 动态捕捉：能准确判断镜头的bắt đầu状态和kết thúc状态是否有显著差异
 - AI视频Tạo经验：深谙 Seedance、Sora、Runway 等 AI 视频模型的工作原理
 
-你的任务是根据剧本全局背景和分镜信息，为每分镜Tạochuyên nghiệp的Mô tả thị giác和3 lớp提示词。
+你的任务是根据剧本全局背景和分镜thông tin，为每分镜Tạochuyên nghiệp的Mô tả thị giác和3 lớp提示词。
 
-【剧本信息】
+【剧本thông tin】
 ${contextInfo}
 ${episodeSynopsis ? `
 本 tậpđại cương：${episodeSynopsis}` : ''}
@@ -1912,11 +1912,11 @@ ${characterBios ? `
    - Mô tả thị giác必须包含原文đang xử lý...Tất cảquan trọng元素（nhân vật、动作、道具、场景）
    - 不得Thêm原文đang xử lý...内容
    - 不得混入其他分镜的内容
-   - 不得遗漏原文đang xử lý...信息
+   - 不得bỏ sót原文đang xử lý...thông tin
 
 3. **角色đầy đủ识别**：出场角色必须đầy đủ来自原文，按出现thứ tự列出
    - 例：原文"张明与父母吃着饭" → characterNames: ["张明", "张父", "张母"]
-   - 禁止遗漏角色，禁止新增原文đang xử lý...角色
+   - 禁止bỏ sót角色，禁止新增原文đang xử lý...角色
 
 3. **đang xử lý...离**：
    - **đang xử lý...ường**（visualDescription, ambientSound, soundEffect, imagePromptZh, videoPromptZh, endFramePromptZh）：必须是纯中文
@@ -2026,10 +2026,10 @@ ${characterBios ? `
     
     b) **光线Thiết kế**：与khung đầu保持一致（除非剧情有时间变化）
     
-    c) **nhân vậtMô tả**（重点！Mô tả动作完成后的状态）：
+    c) **nhân vậtMô tả**（重点！Mô tả动作hoàn thành后的状态）：
        - 同样包含Tuổi、trang phục
-       - **新的Biểu cảm神态**（动作完成后的情绪）
-       - **新的Tư thế位置**（动作完成后的位置）
+       - **新的Biểu cảm神态**（动作hoàn thành后的情绪）
+       - **新的Tư thế位置**（动作hoàn thành后的位置）
        - 道具的新状态
     
     d) **bố cục与Kích thước cảnh**：
@@ -2057,7 +2057,7 @@ ${characterBios ? `
     - 仅Biểu cảm微小变化
     - 完全静态镜头
     
-    **不确定时设为 true**（宁可多Tạo不要遗漏）
+    **不确定时设为 true**（宁可多Tạo不要bỏ sót）
 
 【情绪标签Tùy chọn】
 基础情绪: happy, sad, angry, surprised, fearful, calm
@@ -2146,7 +2146,7 @@ ${getMediaTypeGuidance(mt)}
     const flashbackNote = hasFlashback 
       ? `\n⚠️ 注意：原文包含闪回/叠画内容，但主场景vẫn是「${shot.sceneLocation}」，不要Mô tả成另一场景！`
       : '';
-    // 构建场景美术Thiết kế信息（如果有）
+    // 构建场景美术Thiết kếthông tin（如果有）
     const artDesignParts = [
       shot.architectureStyle ? `Phong cách kiến trúc: ${shot.architectureStyle}` : '',
       shot.colorPalette ? `色彩基调: ${shot.colorPalette}` : '',
@@ -2160,7 +2160,7 @@ ${getMediaTypeGuidance(mt)}
 【⭐ 主场景（绝对不可thay đổi）】: ${shot.sceneLocation}${flashbackNote}${artDesignSection}
 【gốc剧本文本】
 ${sourceText}
-【已Phân tích信息】
+【已Phân tíchthông tin】
 动作: ${shot.actionSummary}
 Thoại: ${shot.dialogue || '无'}
 当前角色: ${chars}
@@ -2175,7 +2175,7 @@ Thoại: ${shot.dialogue || '无'}
 
 ⚠️ 重要提醒（必须遵守）：
 1. **场景归属绝对Cố định**：每分镜的【主场景】已经标注，即使原文提到闪回/叠画/回忆，主场景仍không thay đổi
-2. 不要遗漏原文đang xử lý...quan trọng信息（nhân vật、动作、道具、环境）
+2. 不要bỏ sót原文đang xử lý...quan trọngthông tin（nhân vật、动作、道具、环境）
 3. 不要Thêm原文đang xử lý...内容
 4. **đang xử lý...ường必须是纯đang xử lý...：visualDescription, ambientSound, soundEffect, imagePromptZh, videoPromptZh
 5. **英文trường必须是纯英文**：visualPrompt, imagePrompt, videoPrompt, endFramePrompt
@@ -2217,7 +2217,7 @@ ${shotDescriptions}`;
     console.error('[calibrateShots] Failed to parse AI response:', result);
     console.error('[calibrateShots] Parse error:', e);
     
-    // 尝试部分Phân tích：提取已完成的分镜
+    // 尝试部分Phân tích：提取已hoàn thành的分镜
     try {
       const partialResult: Record<string, any> = {};
       // Khớp每 shot 的đầy đủ JSON 对象
@@ -2319,7 +2319,7 @@ export async function generateEpisodeSynopses(
 
 你的任务是根据剧本全局背景和每 tập内容，为每 tậpTạo简洁的đại cương和Sự kiện quan trọng。
 ${seriesCtx ? `\n【剧级知识Tham chiếu】\n${seriesCtx}\n` : ''}
-【剧本信息】
+【剧本thông tin】
 tên phim：${title}
 类型：${genre || '未知'}
 ${era ? `thời đại背景：${era}` : ''}
@@ -2341,7 +2341,7 @@ ${characterBios.slice(0, 800)}
 注意：
 - đại cương要突出本 tập的核心冲突和转折
 - Sự kiện quan trọng要具体、可视觉化
-- 保持前后 tập的连贯性
+- 保持前后 tập的liên mạch性
 
 请以JSON格式返回：
 {
@@ -2399,7 +2399,7 @@ ${characterBios.slice(0, 800)}
     
     onProgress?.(generatedCount, totalEpisodes, `已Tạo ${generatedCount}/${totalEpisodes}  tậpđại cương`);
     
-    // đại cươngTạo完成后，更Dự án mới元dữ liệu MD
+    // đại cươngTạohoàn thành后，更Dự án mới元dữ liệu MD
     const updatedMetadata = exportProjectMetadata(projectId);
     store.setMetadataMarkdown(projectId, updatedMetadata);
     console.log('[generateSynopses] 元dữ liệu已更新，包含新Tạo的đại cương');
@@ -2446,8 +2446,8 @@ export function exportProjectMetadata(projectId: string): string {
   sections.push(`# 《${title}》`);
   sections.push('');
   
-  // 基本信息
-  sections.push('## 基本信息');
+  // 基本thông tin
+  sections.push('## 基本thông tin');
   const genre = meta?.genre || background?.genre;
   const era = meta?.era || background?.era;
   if (genre) sections.push(`- **类型**：${genre}`);

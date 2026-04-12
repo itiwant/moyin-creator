@@ -435,7 +435,7 @@ export function MediaView() {
       // Nhân vật与情绪
       characterIds: [],
       emotionTags: [],
-      // Kịch bản信息
+      // Kịch bảnthông tin
       dialogue: '',
       actionSummary: '',
       cameraMovement: '',

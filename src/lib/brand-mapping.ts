@@ -152,7 +152,7 @@ export function extractBrandFromModel(modelName: string): string {
 }
 
 /**
- * 获取thương hiệu信息（含 fallback）
+ * 获取thương hiệuthông tin（含 fallback）
  */
 export function getBrandInfo(brandId: string): BrandInfo {
   return BRAND_REGISTRY[brandId] || BRAND_REGISTRY['other'];

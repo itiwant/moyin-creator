@@ -1,7 +1,7 @@
 // Copyright (c) 2025 hotflow2024
 // Licensed under AGPL-3.0-or-later. See LICENSE for details.
 // Commercial licensing available. See COMMERCIAL_LICENSE.md.
-// 完成状态
+// hoàn thành状态
 export type CompletionStatus = 'pending' | 'in_progress' | 'completed';
 
 // 提示词Ngôn ngữTùy chọn
@@ -17,7 +17,7 @@ export interface FilteredCharacterRecord {
 }
 
 /**
- * 角色阶段信息
+ * 角色阶段thông tin
  * 用于nhãn角色在特定 tập数范围内的形象版本
  */
 export interface CharacterStageInfo {
@@ -99,7 +99,7 @@ export interface ScriptCharacter {
   
   // === 多阶段角色支持 ===
   baseCharacterId?: string;        // gốc角色ID（阶段角色指向基础角色，如"张明青年版"指向"张明"）
-  stageInfo?: CharacterStageInfo;  // 阶段信息（仅阶段角色有此trường）
+  stageInfo?: CharacterStageInfo;  // 阶段thông tin（仅阶段角色有此trường）
   stageCharacterIds?: string[];    // 派生的阶段角色ID列表（仅基础角色有此trường）
   consistencyElements?: CharacterConsistencyElements; // 一致性元素（基础角色定义，阶段角色kế thừa）
   visualPromptEn?: string;         // 英文视觉提示词（用于AITạo ảnh）
@@ -198,7 +198,7 @@ export interface EpisodeRawScript {
   season?: string;            // 季节（春/夏/秋/冬，从字幕提取）
 }
 
-// mục目背景信息
+// mục目背景thông tin
 export interface ProjectBackground {
   title: string;              // tên phim
   genre?: string;             // 类型（商战/武侠/爱情等）
@@ -461,7 +461,7 @@ export interface Shot {
   sceneId?: string;          // Scene store id
   sceneViewpointId?: string; // 关联的场景góc nhìnID（联合图切割后的góc nhìn）
   
-  // === 分镜核心信息 ===
+  // === 分镜核心thông tin ===
   actionSummary: string;     // 动作Mô tả（用户Ngôn ngữ）
   visualDescription?: string; // 详细的hình ảnhMô tả（用户Ngôn ngữ，如：“法坛全景，黑暗đang xử lý...芒笼罩...”）
   completionStatus?: CompletionStatus;
@@ -489,7 +489,7 @@ export interface Shot {
   ambientSound?: string;     // môi trường声（如：“沉重的风声伴随空旷堂内回响”）
   soundEffect?: string;      // Hiệu ứng âm thanh（如：“远处悠长的钟声”）
   
-  // === 角色信息 ===
+  // === 角色thông tin ===
   characterNames?: string[];
   characterIds: string[];
   characterVariations: Record<string, string>; // charId -> variationId

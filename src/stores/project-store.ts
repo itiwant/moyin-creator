@@ -140,7 +140,7 @@ export const useProjectStore = create<ProjectStore>()(
         state.activeProjectId = project?.id || null;
         state.activeProject = project;
 
-        // 异步扫描磁盘上 _p/ thư mục，将遗漏的项目恢复到 cột表中
+        // 异步扫描磁盘上 _p/ thư mục，将bỏ sót的项目恢复到 cột表中
         // 解决路径切换/Nhập/迁移后项目 cột表为空的问题
         discoverProjectsFromDisk().catch((err) =>
           console.warn('[ProjectStore] Disk discovery failed:', err)
@@ -179,7 +179,7 @@ async function discoverProjectsFromDisk(): Promise<void> {
       missingIds.map((id) => id.substring(0, 8))
     );
 
-    // 尝试从每遗漏项mục đích director / script store fileđang xử lý...目名
+    // 尝试从每bỏ sót项mục đích director / script store fileđang xử lý...目名
     const recoveredProjects: Project[] = [];
     for (const pid of missingIds) {
       let name = `Dự án khôi phục (${pid.substring(0, 8)})`;
@@ -191,14 +191,14 @@ async function discoverProjectsFromDisk(): Promise<void> {
         if (scriptRaw) {
           const parsed = JSON.parse(scriptRaw);
           const state = parsed?.state ?? parsed;
-          // script-store 的 projects trườngđang xử lý...项目信息
+          // script-store 的 projects trườngđang xử lý...项目thông tin
           if (state?.projects?.[pid]?.title) {
             name = state.projects[pid].title;
           }
         }
       } catch { /* ignore */ }
 
-      // 尝试从 director store 获取TạoThời gian等信息
+      // 尝试从 director store 获取TạoThời gian等thông tin
       try {
         const directorRaw = await window.fileStorage.getItem(`_p/${pid}/director-store`);
         if (directorRaw) {

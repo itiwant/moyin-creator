@@ -95,7 +95,7 @@ export interface ProcessBatchedResult<TResult> {
 /**
  * 自适应批处理 AI gọi API
  *
- * Tự động完成：
+ * Tự độnghoàn thành：
  *   1. 从 Registry 查出模型的 contextWindow 和 maxOutput
  *   2. 双重约束贪心nhóm（input + output）
  *   3. 通过 runStaggered 并发执行
@@ -170,7 +170,7 @@ export async function processBatched<TItem, TResult>(
       const result = await executeBatchWithRetry(
         batches[0], feature, buildPrompts, parseResult, apiOptions,
       );
-      onProgress?.(1, 1, '完成');
+      onProgress?.(1, 1, 'hoàn thành');
       return { results: result, failedBatches: 0, totalBatches: 1 };
     } catch (err) {
       console.error('[BatchProcessor] 唯一批次thất bại:', err);
@@ -190,7 +190,7 @@ export async function processBatched<TItem, TResult>(
         batch, feature, buildPrompts, parseResult, apiOptions,
       );
       completedCount++;
-      onProgress?.(completedCount, batches.length, `批次 ${idx + 1} 完成`);
+      onProgress?.(completedCount, batches.length, `批次 ${idx + 1} hoàn thành`);
       return result;
     };
   });
@@ -227,7 +227,7 @@ export async function processBatched<TItem, TResult>(
     }
   }
 
-  onProgress?.(batches.length, batches.length, `完成 (${failedBatches > 0 ? `${failedBatches} 批thất bại` : 'Tất cả成功'})`);
+  onProgress?.(batches.length, batches.length, `hoàn thành (${failedBatches > 0 ? `${failedBatches} 批thất bại` : 'Tất cả成功'})`);
 
   return { results: finalResults, failedBatches, totalBatches: batches.length };
 }

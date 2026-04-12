@@ -100,7 +100,7 @@ export async function generateCharacterDesign(
     throw new Error('角色không tồn tại');
   }
   
-  // 收 tập角色相关的上下文信息
+  // 收 tập角色相关的上下文thông tin
   const context = buildCharacterContext(project, character);
   
   // gọi API AI Tạo角色Thiết kế
@@ -113,7 +113,7 @@ export async function generateCharacterDesign(
 }
 
 /**
- * 构建角色上下文信息
+ * 构建角色上下文thông tin
  */
 function buildCharacterContext(project: any, character: any): {
   projectTitle: string;
@@ -134,7 +134,7 @@ function buildCharacterContext(project: any, character: any): {
   const episodes = project.episodeRawScripts || [];
   const shots = project.shots || [];
   
-  // 收 tập角色在各 tậpđang xử lý...信息
+  // 收 tập角色在各 tậpđang xử lý...thông tin
   const characterAppearances: Array<{
     episodeIndex: number;
     episodeTitle: string;
@@ -208,9 +208,9 @@ async function callAIForCharacterDesign(
 - **AI图像Tạo经验**：深谙 Midjourney、DALL-E、Stable Diffusion 等 AI 绘图模型的工作原理，能写出高质量的提示词
 - **一致性保持**：知道如何Mô tảKhuôn mặt特征、体型等không thay đổi元素，确保角色在不同阶段仍可辨认
 
-你的任务是根据剧本信息，为角色Thiết kế**多阶段视觉形象**。
+你的任务是根据剧本thông tin，为角色Thiết kế**多阶段视觉形象**。
 
-【剧本信息】
+【剧本thông tin】
 tên phim：《${context.projectTitle}》
 类型：${context.genre || '未知'}
 thời đại：${context.era || '现代'}
@@ -219,7 +219,7 @@ thời đại：${context.era || '现代'}
 【故事đại cương】
 ${context.outline?.slice(0, 800) || '无'}
 
-【角色信息】
+【角色thông tin】
 ${context.characterBio}
 
 【角色出场统计】

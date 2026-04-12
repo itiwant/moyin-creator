@@ -10,7 +10,7 @@
  * 1. 统计每场景的出场次数、出现 tập数
  * 2. AI 分析识别重要场景 vs chuyển tiếp场景
  * 3. AI 合并相同地点的变体（张家客厅 = 张明家客厅）
- * 4. AI 补充场景信息（Phong cách kiến trúc、光影、道具等）
+ * 4. AI 补充场景thông tin（Phong cách kiến trúc、光影、道具等）
  * 5. 大师级场景视觉Thiết kế（chuyên nghiệp提示词Tạo）
  */
 
@@ -229,7 +229,7 @@ function normalizeLocation(location: string): string {
 }
 
 /**
- * 清理场景地点字符串，移除nhân vật信息等无关内容
+ * 清理场景地点字符串，移除nhân vậtthông tin等无关内容
  */
 function cleanLocationString(location: string): string {
   if (!location) return '';
@@ -248,7 +248,7 @@ function cleanLocationString(location: string): string {
 /**
  * AI Hiệu chuẩnTất cả场景（nhẹchế độ）
  * 
- * 【重要】此函数只补充hiện có场景的美术Thiết kế信息，不改变：
+ * 【重要】此函数只补充hiện có场景的美术Thiết kếthông tin，不改变：
  * - 场景列表（不新增、不删除、不合并）
  * - 场景thứ tự
  * - viewpoints（多góc nhìn联合图dữ liệu）
@@ -276,7 +276,7 @@ export async function calibrateScenes(
   // 1. 收 tập场景的动作描写样本（用于推断道具）
   const stats = collectSceneStats(episodeScripts);
   
-  // 2. 准备场景批处理 items（每场景带上统计信息）
+  // 2. 准备场景批处理 items（每场景带上统计thông tin）
   const batchItems = currentScenes.map((scene) => {
     const normalizedLoc = scene.location?.replace(/\s+/g, '').toLowerCase() || '';
     let sceneStat: SceneStats | undefined;
@@ -310,7 +310,7 @@ export async function calibrateScenes(
   const systemPrompt = `你是chuyên nghiệp的影视美术指导和场景Thiết kế师，擅长为hiện có场景补充chuyên nghiệp的视觉Thiết kế方案。${seriesCtxBlock}
 
 【核心任务】
-为以下场景补充美术Thiết kế信息，用于Tạo场景概念图。
+为以下场景补充美术Thiết kếthông tin，用于Tạo场景概念图。
 
 【重要约束】
 1. **不新增场景** - 只处理列表đang xử lý...
@@ -351,7 +351,7 @@ export async function calibrateScenes(
           return `${i + 1}. [sceneId: ${s.sceneId}] ${s.name}\n   地点: ${s.location} [出场${s.appearCount}次,  tập数${s.episodes}]\n   角色: ${s.characters}${actionInfo}${dialogueInfo}`;
         }).join('\n\n');
         
-        const user = `【剧本信息】
+        const user = `【剧本thông tin】
 tên phim：《${background.title}》
 ${background.genre ? `类型：${background.genre}` : ''}
 ${background.era ? `thời đại：${background.era}` : ''}
@@ -569,7 +569,7 @@ async function enrichScenesWithVisualPrompts(
 - **AI图像Tạo**：深谙 Midjourney、DALL-E 等 AI 绘图模型的最佳提示词写法
 - **电影Ngôn ngữ**：理解场景如何为tự sự服务
 
-【剧本信息】
+【剧本thông tin】
 tên phim：《${background.title}》
 类型：${background.genre || '未知类型'}
 thời đại：${background.era || '未知'}

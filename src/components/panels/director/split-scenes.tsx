@@ -1827,11 +1827,11 @@ export function SplitScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
 
       console.error(`[SplitScenes] Scene ${sceneId} video generation failed:`, err);
 
-      // 检测是否为Nội dung审核lỗi
+      // 检测是否为Nội dungkiểm duyệtlỗi
       const isModerationError = isContentModerationError(err);
       
       if (isModerationError) {
-        // Nội dung审核lỗi，用 MODERATION_SKIPPED: 前缀标记
+        // Nội dungkiểm duyệtlỗi，用 MODERATION_SKIPPED: 前缀标记
         updateSplitSceneVideo(sceneId, {
           videoStatus: 'failed',
           videoProgress: 0,
@@ -2321,7 +2321,7 @@ export function SplitScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
     // 任务Loại定义
     type GridTask = { scene: SplitScene; type: 'first' | 'end' };
     
-    // Quan trọng:videođã tạo的Phân cảnh视为完成，不需要再TạoKhung hình đầu或Khung hình cuối
+    // Quan trọng:videođã tạo的Phân cảnh视为hoàn thành，不需要再TạoKhung hình đầu或Khung hình cuối
     const isSceneCompleted = (s: SplitScene) => s.videoUrl || s.videoStatus === 'completed';
 
     // 构建任务 cột表（根据用户Chọn的 mode）
@@ -2347,7 +2347,7 @@ export function SplitScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
       return;
     }
 
-    // 统计信息
+    // 统计thông tin
     const firstCount = tasks.filter(t => t.type === 'first').length;
     const endCount = tasks.filter(t => t.type === 'end').length;
     const parts: string[] = [];

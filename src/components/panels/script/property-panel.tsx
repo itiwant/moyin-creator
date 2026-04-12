@@ -79,7 +79,7 @@ function StatusBadge({ status }: { status?: CompletionStatus }) {
   );
 }
 
-//  tập的详细信息
+//  tập的详细thông tin
 interface EpisodeDetail extends Episode {
   synopsis?: string;
   keyEvents?: string[];
@@ -231,7 +231,7 @@ export function PropertyPanel({
     }
   };
 
-  // 复制Nhân vậtdữ liệu
+  // Sao chép dữ liệu Nhân vật
   const handleCopyCharacterData = async () => {
     if (!character) return;
     
@@ -240,7 +240,7 @@ export function PropertyPanel({
     lines.push(`# Ảnh thiết kế nhân vật: ${character.name}`);
     lines.push('');
     
-    // 基本信息（优先显示）
+    // 基本thông tin（优先显示）
     if (character.gender || character.age) {
       lines.push(`## Thông tin cơ bản`);
       const basicInfo: string[] = [];
@@ -953,7 +953,7 @@ export function PropertyPanel({
                 </div>
               )}
               
-              {/* Prompt thị giác（世界级大师Tạo） */}
+              {/* Prompt thị giác (Tạo theo phong cách đại sư thế giới) */}
               {((promptLanguage !== 'en' && character.visualPromptZh) || (promptLanguage !== 'zh' && character.visualPromptEn)) && (
                 <div className="bg-gradient-to-r from-purple-500/10 to-transparent p-2 rounded-lg border-l-2 border-purple-500/30">
                   <div className="text-xs text-purple-600 dark:text-purple-400 mb-1">🎨 Prompt thị giác</div>
@@ -974,7 +974,7 @@ export function PropertyPanel({
               )}
               {(character.gender || character.age) && (
                 <div>
-                  <div className="text-xs text-muted-foreground mb-1">基本信息</div>
+                  <div className="text-xs text-muted-foreground mb-1">Thông tin cơ bản</div>
                   <div className="text-sm">
                     {[character.gender, character.age].filter(Boolean).join(" · ")}
                   </div>
@@ -1000,7 +1000,7 @@ export function PropertyPanel({
               )}
               {character.keyActions && (
                 <div>
-                  <div className="text-xs text-muted-foreground mb-1">quan trọng hàng为/事迹</div>
+                  <div className="text-xs text-muted-foreground mb-1">Hành vi/Thành tích quan trọng</div>
                   <div className="text-sm whitespace-pre-wrap">{character.keyActions}</div>
                 </div>
               )}
@@ -1041,25 +1041,25 @@ export function PropertyPanel({
 
           {/* thao tác */}
           <div className="space-y-2">
-            {/* Nhân vật cha（有Nhân vật giai đoạn）：显示Gợi ý，不显示Tạonút */}
+            {/* Nhân vật cha (có Nhân vật giai đoạn): hiển thị Gợi ý, không hiển thị nút Tạo */}
             {character.stageCharacterIds && character.stageCharacterIds.length > 0 ? (
               <div className="p-3 bg-blue-500/10 border border-blue-500/20 rounded-lg space-y-2">
                 <div className="text-xs text-blue-600 dark:text-blue-400 flex items-center gap-1 font-medium">
                   <CheckCircle2 className="h-3 w-3" />
-                  已tạo {character.stageCharacterIds.length} giai đoạn版本
+                  Đã tạo {character.stageCharacterIds.length} phiên bản giai đoạn
                 </div>
                 <div className="text-xs text-muted-foreground">
-                  请在đang xử lý...ấp各giai đoạn版本（如「{character.name}（青年版）」），rồi去Thư viện nhân vậtTạo形象
+                  Vui lòng tạo từng phiên bản giai đoạn (ví dụ「{character.name} (Bản trẻ)」), rồi đến Thư viện nhân vật để Tạo hình ảnh
                 </div>
               </div>
             ) : (
-              /* 普通Nhân vật或Nhân vật giai đoạn：显示Tạonút */
+              /* Nhân vật thường hoặc Nhân vật giai đoạn: hiển thị nút Tạo */
               <Button
                 className="w-full"
                 onClick={() => onGoToCharacterLibrary?.(character.id)}
               >
                 <ArrowRight className="h-4 w-4 mr-2" />
-                {character.characterLibraryId ? 'XemThư viện nhân vật形象' : '去Thư viện nhân vậtTạo形象'}
+                {character.characterLibraryId ? 'Xem hình ảnh Thư viện nhân vật' : 'Đến Thư viện nhân vật Tạo hình ảnh'}
               </Button>
             )}
             
@@ -1076,7 +1076,7 @@ export function PropertyPanel({
               ) : (
                 <>
                   <Copy className="h-4 w-4 mr-2" />
-                  复制Nhân vậtdữ liệu
+                  Sao chép dữ liệu Nhân vật
                 </>
               )}
             </Button>
@@ -1095,7 +1095,7 @@ export function PropertyPanel({
           <AlertDialogContent>
             <AlertDialogHeader>
               <AlertDialogTitle>Xác nhậnXóa</AlertDialogTitle>
-              <AlertDialogDescription>Xác nhận要XóaNhân vật「{character.name}」?</AlertDialogDescription>
+              <AlertDialogDescription>Xác nhận Xóa Nhân vật「{character.name}」?</AlertDialogDescription>
             </AlertDialogHeader>
             <AlertDialogFooter>
               <AlertDialogCancel>Hủy</AlertDialogCancel>
@@ -1483,7 +1483,7 @@ export function PropertyPanel({
             </div>
           ) : (
             <div className="space-y-3">
-              {/* Phân cảnh信息：Kích thước cảnh + 运动 + thời lượng */}
+              {/* Phân cảnhthông tin：Kích thước cảnh + 运动 + thời lượng */}
               <div className="flex items-center gap-2 flex-wrap">
                 {shot.shotSize && (
                   <span className="px-2 py-0.5 bg-primary/10 text-primary rounded text-xs font-medium">

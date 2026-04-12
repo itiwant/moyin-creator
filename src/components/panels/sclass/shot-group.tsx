@@ -6,7 +6,7 @@
 /**
  * ShotGroupCard — Hạng Snhóm容器组件
  *
- * Hiện一组Ống kính的聚合信息：
+ * Hiện一组Ống kính的聚合thông tin：
  * - Đầu nhóm：Tên nhóm + Ống kính数 + TổngThời lượng预算条
  * - cấp nhómthao tác：Tạo video / Mở rộngthu gọn
  * - Mở rộng后渲染内部的 SceneCard  cột表

@@ -202,7 +202,7 @@ export function useSClassGeneration() {
       });
 
       try {
-      // 4. 从trong nhómPhân cảnh聚合âm thanh/运镜Cài đặt
+      // 4. 从trong nhómPhân cảnh聚合âm thanh/chuyển động máyCài đặt
         const isExtendOrEdit = group.generationType === 'extend' || group.generationType === 'edit';
         const hasAnyDialogue = groupScenes.some(s => s.audioDialogueEnabled !== false && s.dialogue?.trim());
         const hasAnyAmbient = groupScenes.some(s => s.audioAmbientEnabled !== false);
@@ -210,7 +210,7 @@ export function useSClassGeneration() {
         const enableAudio = hasAnyDialogue || hasAnyAmbient || hasAnySfx;
         const enableLipSync = hasAnyDialogue;
 
-        // camerafixed: Tất cảPhân cảnh运镜为 Static 或为空 → 锁定运镜
+        // camerafixed: Tất cảPhân cảnhchuyển động máy为 Static 或为空 → 锁定chuyển động máy
         const allStaticCamera = groupScenes.every(s => {
           const cm = (s.cameraMovement || '').toLowerCase().trim();
           return !cm || cm === 'static' || cm === 'Cố định' || cm === 'tĩnh';
@@ -311,7 +311,7 @@ export function useSClassGeneration() {
 
         // 5b. 收 tậpvideo/âm thanhtham chiếu → 转 HTTP URL（Seedance 2.0 多模态输入）
         const videoRefUrls: string[] = [];
-        // nhóm trướcvideo衔接（链式Thử lại时传入）— kéo dài/Chỉnh sửa组已在 refs.videos đang xử lý...sourceVideoUrl，跳过
+        // nhóm trướcvideonối kết（链式Thử lại时传入）— kéo dài/Chỉnh sửa组已在 refs.videos đang xử lý...sourceVideoUrl，跳过
         if (!isExtendOrEdit && options?.prevVideoUrl) {
           const prevHttpUrl = await convertToHttpUrl(options.prevVideoUrl).catch(() => "");
           if (prevHttpUrl) videoRefUrls.push(prevHttpUrl);
@@ -415,7 +415,7 @@ export function useSClassGeneration() {
         }
 
         if (!videoUrl) {
-          throw lastVideoError || new Error("Tạo video thất bại：没有Khả dụng API Key");
+          throw lastVideoError || new Error("Tạo video thất bại: Không có API Key khả dụng");
         }
 
         // 7. Lưuvideo到本地
@@ -424,7 +424,7 @@ export function useSClassGeneration() {
           group.sceneIds[0] || 0
         );
 
-        // 8. 更新Trạng thái → 完成
+        // 8. 更新Trạng thái → hoàn thành
         updateGroupVideoStatus(group.id, {
           videoStatus: "completed",
           videoProgress: 100,
@@ -469,7 +469,7 @@ export function useSClassGeneration() {
         updateGroupVideoStatus(group.id, {
           videoStatus: "failed",
           videoProgress: 0,
-          videoError: isModeration ? `Nội dung审核未通过: ${errorMsg}` : errorMsg,
+          videoError: isModeration ? `Nội dungkiểm duyệt未通过: ${errorMsg}` : errorMsg,
         });
 
         return {
@@ -502,7 +502,7 @@ export function useSClassGeneration() {
     ): Promise<GroupGenerationResult[]> => {
       const projectId = activeProjectId;
       if (!projectId) {
-        toast.error("无đang hoạt động项目");
+        toast.error("Không có dự án đang hoạt động");
         return [];
       }
 
@@ -510,7 +510,7 @@ export function useSClassGeneration() {
       const groups = projectData.shotGroups;
 
       if (groups.length === 0) {
-        toast.error("没有Ống kính组");
+        toast.error("Không có nhóm Ống kính");
         return [];
       }
 
@@ -520,7 +520,7 @@ export function useSClassGeneration() {
       );
 
       if (groupsToGenerate.length === 0) {
-        toast.info("Tất cảỐng kính组đã tạo或đang tạo");
+        toast.info("Tất cả nhóm Ống kính đã tạo hoặc đang tạo");
         return [];
       }
 
@@ -528,12 +528,12 @@ export function useSClassGeneration() {
       const results: GroupGenerationResult[] = [];
 
       toast.info(
-        `Bắt đầu逐组Tạo ${groupsToGenerate.length} Ống kính组video...`
+        `Bắt đầu Tạo video ${groupsToGenerate.length} nhóm Ống kính từng nhóm một...`
       );
 
       for (let i = 0; i < groupsToGenerate.length; i++) {
         if (abortRef.current) {
-          toast.warning("已đang xử lý...o hàng loạt");
+          toast.warning("Đã đang xử lý tạo hàng loạt");
           break;
         }
 
@@ -561,11 +561,11 @@ export function useSClassGeneration() {
 
         if (result.success) {
           toast.success(
-            `组 ${i + 1}/${groupsToGenerate.length} 「${group.name}」Tạo完成`
+            `Nhóm ${i + 1}/${groupsToGenerate.length} 「${group.name}」Tạo hoàn thành`
           );
         } else {
           toast.error(
-            `组 ${i + 1}/${groupsToGenerate.length} 「${group.name}」Thất bại: ${result.error}`
+            `Nhóm ${i + 1}/${groupsToGenerate.length} 「${group.name}」Thất bại: ${result.error}`
           );
         }
       }
@@ -580,7 +580,7 @@ export function useSClassGeneration() {
       const successCount = results.filter((r) => r.success).length;
       const failCount = results.filter((r) => !r.success).length;
       if (failCount === 0) {
-        toast.success(`Tất cả ${successCount} Ống kính组Tạo完成 🎬`);
+        toast.success(`Tất cả ${successCount} nhóm Ống kính Tạo hoàn thành 🎬`);
       } else {
         toast.warning(
           `Tạohoàn tất：${successCount} Thành công，${failCount} Thất bại`
@@ -598,7 +598,7 @@ export function useSClassGeneration() {
     async (sceneId: number): Promise<boolean> => {
       const scene = splitScenes.find((s: SplitScene) => s.id === sceneId);
       if (!scene) {
-        toast.error("未找到Phân cảnh");
+        toast.error("Không tìm thấy Phân cảnh");
         return false;
       }
 
@@ -701,7 +701,7 @@ export function useSClassGeneration() {
         }
 
         if (!videoUrl) {
-          throw lastVideoError || new Error("Tạo video thất bại：没有Khả dụng API Key");
+          throw lastVideoError || new Error("Tạo video thất bại: Không có API Key khả dụng");
         }
 
         const localUrl = await saveVideoLocally(videoUrl, sceneId);
@@ -713,7 +713,7 @@ export function useSClassGeneration() {
           videoError: null,
         });
 
-        toast.success(`Phân cảnh ${sceneId + 1} Tạo完成`);
+        toast.success(`Phân cảnh ${sceneId + 1} Tạohoàn thành`);
         return true;
       } catch (error) {
         const err = error as Error;
@@ -759,7 +759,7 @@ export function useSClassGeneration() {
         videoError: null,
       });
 
-      // 查找nhóm trước的 videoUrl（链式衔接）
+      // 查找nhóm trước的 videoUrl（链式nối kết）
       let prevVideoUrl: string | undefined;
       const allGroups = projectData.shotGroups;
       const idx = allGroups.findIndex(g => g.id === groupId);

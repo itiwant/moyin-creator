@@ -4,7 +4,7 @@
 /**
  * Prompt Builder — 统一视频提示词组装模块
  *
- * 核心原则：整合为语义层次，Tránh碎片化堆叠导致信号稀释
+ * 核心原则：tích hợp为语义层次，Tránh碎片化堆叠导致信号稀释
  * Layer 1: 镜头Thiết kế (Camera) - 最高优先级
  * Layer 1.5: 灯光Thiết kế (Lighting)
  * Layer 2: 内容焦点 (Subject) - 次高优先级

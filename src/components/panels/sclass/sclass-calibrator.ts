@@ -39,7 +39,7 @@ export interface CalibrationResult {
 // ==================== 内部工具 ====================
 
 /**
- * 从 SplitScene 提取摘要信息（用于构建 AI 输入，不泄漏多余trường）
+ * 从 SplitScene 提取摘要thông tin（用于构建 AI 输入，不泄漏多余trường）
  */
 function summarizeScene(scene: SplitScene, characters: Character[]): string {
   const charNames = (scene.characterIds || [])
@@ -95,14 +95,14 @@ export async function calibrateGroup(
 
 【核心约束 — 严格执 hàng】
 1. 严格基于以下Ống kínhdữ liệu，不得ThêmKịch bảnđang xử lý...的Nhân vật、Cảnh或Thoại。
-2. 只做tự sự连贯tối ưu和chuyển tiếpThiết kế，不改变各Ống kính的核心Nội dung和情绪基调。
-3. 保留每Ống kính的原有运镜和Hành độngThiết kế，只在Ống kính衔接处增加chuyển tiếp指令。
-4. âm thanhThiết kế必须基于各Ống kínhhiện có的Âm thanh môi trường/Hiệu ứng âm thanh信息，不凭空创造新音源。
-5. calibratedPrompt 是对Tất cảỐng kính的整合重写，必须包含每Ống kính的核心信息，不遗漏。
+2. 只做tự sựliên mạchtối ưu和chuyển tiếpThiết kế，不改变各Ống kính的核心Nội dung和情绪基调。
+3. 保留每Ống kính的原有chuyển động máy和Hành độngThiết kế，只在Ống kínhnối kết处增加chuyển tiếp指令。
+4. âm thanhThiết kế必须基于各Ống kínhhiện có的Âm thanh môi trường/Hiệu ứng âm thanhthông tin，不tự tạo ra创造新音源。
+5. calibratedPrompt 是对Tất cảỐng kính的tích hợpviết lại，必须包含每Ống kính的核心thông tin，不bỏ sót。
 
 请以 JSON 格式Quay lại，Không有任何解释文字。`;
 
-  const userPrompt = `【组信息】
+  const userPrompt = `【组thông tin】
 Tên nhóm：${group.name}
 Ống kính数：${scenes.length}
 TổngThời lượng：${totalDuration}s
@@ -111,12 +111,12 @@ ${sceneSummaries}
 
 请输出以下 JSON：
 {
-  "narrativeArc": "用一句话Mô tả这组Ống kính的tự sựcung（起承转合）",
+  "narrativeArc": "Mô tả bằng một câu về cung tự sự của nhóm Ống kính này (mở đầu-phát triển-chuyển-kết)",
   "transitions": [
-    "Ống kính1→Ống kính2 的chuyển tiếp指令（如：hình ảnh溶解、硬切、声桥chuyển tiếp等）"
+    "Lệnh chuyển tiếp Ống kính1→Ống kính2 (ví dụ: hòa tan hình ảnh, cắt cứng, chuyển tiếp âm thanh...)"
   ],
   "groupAudioDesign": "整段 ${totalDuration}s 的âm thanhThiết kế规划（Âm thanh môi trường层次、Hiệu ứng âm thanh时机、情绪曲线）",
-  "calibratedPrompt": "整合tối ưu后的đầy đủcấp nhómprompt，đang xử lý...于 Seedance 2.0 多Ống kínhtự sựTạo video"
+  "calibratedPrompt": "tích hợptối ưu后的đầy đủcấp nhómprompt，đang xử lý...于 Seedance 2.0 多Ống kínhtự sựTạo video"
 }
 
 transitions 数组长度必须为 ${scenes.length - 1}（每两相邻Ống kính之间一条）。
@@ -209,7 +209,7 @@ export async function runCalibration(
       calibrationError: null,
     });
 
-    console.log(`[SClassCalibrator] ✅ 组「${group.name}」Hiệu chuẩn完成`);
+    console.log(`[SClassCalibrator] ✅ 组「${group.name}」Hiệu chuẩnhoàn thành`);
     return true;
   } catch (error) {
     const errMsg = error instanceof Error ? error.message : String(error);

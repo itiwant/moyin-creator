@@ -8,7 +8,7 @@
  * 
  * chức năng：
  * 1. Phân tích用户输入（如 "缺第5 tập的张家客厅"）
- * 2. 搜索剧本đang xử lý...信息
+ * 2. 搜索剧本đang xử lý...thông tin
  * 3. AI Tạođầy đủ场景dữ liệu（包括视觉提示词）
  */
 
@@ -44,7 +44,7 @@ export interface SceneFinderOptions {
 // ==================== 核心函数 ====================
 
 /**
- * Phân tích用户输入，提取场景名和 tập数信息
+ * Phân tích用户输入，提取场景名和 tập数thông tin
  */
 function parseSceneQuery(query: string): { name: string | null; episodeNumber: number | null } {
   let name: string | null = null;
@@ -124,7 +124,7 @@ function searchSceneInScripts(
     for (const scene of ep.scenes) {
       if (!scene) continue;
       
-      // 检查场景头是否Khớp（场景头通常包含地点信息）
+      // 检查场景头是否Khớp（场景头通常包含地点thông tin）
       const sceneHeader = scene.sceneHeader || '';
       const isMatch = 
         sceneHeader.includes(name) || 
@@ -175,9 +175,9 @@ async function generateSceneData(
   const allActions = matchedScenes.flatMap(s => s.scene.actions || []).slice(0, 5);
   const allCharacters = [...new Set(matchedScenes.flatMap(s => s.scene.characters || []))];
   
-  const systemPrompt = `你是chuyên nghiệp的影视场景Thiết kế师，擅长从剧本信息đang xử lý...景特征并Tạochuyên nghiệp的场景dữ liệu。
+  const systemPrompt = `你是chuyên nghiệp的影视场景Thiết kế师，擅长从剧本thông tinđang xử lý...景特征并Tạochuyên nghiệp的场景dữ liệu。
 
-请根据提供的剧本信息和场景上下文，Tạođầy đủ的场景dữ liệu。
+请根据提供的剧本thông tin和场景上下文，Tạođầy đủ的场景dữ liệu。
 
 【输出格式】
 请返回JSON格式，包含以下trường：
@@ -192,7 +192,7 @@ async function generateSceneData(
   "notes": "场景备注（剧情作用）"
 }`;
 
-  const userPrompt = `【剧本信息】
+  const userPrompt = `【剧本thông tin】
 tên phim：《${background.title}》
 类型：${background.genre || '剧情'}
 thời đại：${background.era || '现代'}
@@ -218,7 +218,7 @@ ${allCharacters.join(', ')}
 【场景上下文】
 ${contexts.slice(0, 3).join('\n\n')}
 
-请基于以上信息，Tạo场景「${name}」的đầy đủdữ liệu。如果信息不足，请根据剧本类型和thời đại背景合理推断。`;
+请基于以上thông tin，Tạo场景「${name}」的đầy đủdữ liệu。如果thông tin不足，请根据剧本类型和thời đại背景合理推断。`;
 
   try {
     // 统一从ánh xạ dịch vụ获取配置

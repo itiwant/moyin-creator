@@ -991,7 +991,7 @@ export function GenerationPanel({ selectedCharacter, onCharacterCreated }: Gener
                 // 构建Nhân vậtdữ liệu文本
                 const lines: string[] = [];
                 
-                // 基本信息
+                // 基本thông tin
                 lines.push(`Tên nhân vật: ${name || '(chưa điền)'}`);
                 const genderLabel = GENDER_PRESETS.find(g => g.id === gender)?.label;
                 if (genderLabel) lines.push(`Giới tính: ${genderLabel}`);
@@ -1006,7 +1006,7 @@ export function GenerationPanel({ selectedCharacter, onCharacterCreated }: Gener
                   lines.push(description);
                 }
                 
-                // AI Hiệu chuẩn信息
+                // AI Hiệu chuẩnthông tin
                 if (hasCalibrationData) {
                   lines.push('');
                   lines.push(`Thông tin AI Hiệu chuẩn: ${isManuallyModified ? 'Đã sửa' : 'Đã Hiệu chuẩn'}`);

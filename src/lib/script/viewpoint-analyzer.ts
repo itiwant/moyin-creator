@@ -44,7 +44,7 @@ export interface ViewpointAnalysisOptions {
 
 /**
  * AI 分析场景góc nhìn
- * 根据场景信息和分镜内容，thông minhTạo该场景需要的góc nhìn列表
+ * 根据场景thông tin和分镜内容，thông minhTạo该场景需要的góc nhìn列表
  */
 export async function analyzeSceneViewpoints(
   scene: ScriptScene,
@@ -98,13 +98,13 @@ export async function analyzeSceneViewpoints(
     opts.worldSetting ? `Bối cảnh thế giới：${opts.worldSetting.slice(0, 200)}` : '',
   ].filter(Boolean);
   const globalContextSection = globalContextParts.length > 0
-    ? `【剧本信息】\n${globalContextParts.join('\n')}\n\n`
+    ? `【剧本thông tin】\n${globalContextParts.join('\n')}\n\n`
     : '';
 
   const systemPrompt = `你是chuyên nghiệp的影视美术指导，擅长分析场景并确定需要的拍摄góc nhìn。
 
 ${globalContextSection}【任务】
-根据本 tậpđại cương、场景信息和分镜内容，分析该场景需要哪些不同的góc nhìn/机位来Tạo场景背景图。
+根据本 tậpđại cương、场景thông tin和分镜内容，分析该场景需要哪些不同的góc nhìn/机位来Tạo场景背景图。
 
 【重要原则】
 1. góc nhìn必须与场景类型Khớp：
@@ -135,7 +135,7 @@ ${globalContextSection}【任务】
   "analysisNote": "分析说明"
 }`;
 
-  const userPrompt = `${synopsisPart}${keyEventsPart}【场景信息】
+  const userPrompt = `${synopsisPart}${keyEventsPart}【场景thông tin】
 地点: ${scene.location || scene.name}
 时间: ${scene.time || '日'}
 氛围: ${scene.atmosphere || 'Bình tĩnh'}

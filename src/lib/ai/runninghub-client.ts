@@ -178,7 +178,7 @@ export async function queryTaskStatus(
 }
 
 /**
- * 轮询任务直到完成
+ * 轮询任务直到hoàn thành
  */
 export async function pollTaskUntilComplete(
   taskId: string,
