@@ -10,7 +10,7 @@
  * - 浏览器生产chế độ   → Trực tiếp fetch()（需后端/Nginx 提供反向代理）
  */
 
-/** 检测是否在 Electron môi trườngđang xử lý...*/
+/** Kiểm tra có đang trong môi trường Electron không */
 function isElectron(): boolean {
   return !!(
     typeof window !== 'undefined' &&
@@ -18,7 +18,7 @@ function isElectron(): boolean {
   );
 }
 
-/** 检测是否在 Vite 开发服务器đang xử lý...*/
+/** Kiểm tra có đang trong máy chủ phát triển Vite không */
 function isViteDev(): boolean {
   return import.meta.env?.DEV === true;
 }

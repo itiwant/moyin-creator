@@ -165,7 +165,7 @@ class StorageService {
         this.deleteProjectTimeline({ projectId: id }),
       ]);
     } catch (err) {
-      console.warn(`[StorageService] 清理项目 ${id} 关联dữ liệuthất bại:`, err);
+      console.warn(`[StorageService] Dọn dẹp dữ liệu liên kết dự án ${id} thất bại:`, err);
       // 即使清理thất bại也继续删除项目元dữ liệu，Tránh阻塞người dùng操作
     }
     await this.projectsAdapter.remove(id);
@@ -363,7 +363,7 @@ class StorageService {
         )
       );
     } catch (err) {
-      console.warn('[StorageService] 清理关联dữ liệuthất bại:', err);
+      console.warn('[StorageService] Dọn dẹp dữ liệu liên kết thất bại:', err);
     }
     // 最后清除项目元dữ liệu
     await this.projectsAdapter.clear();

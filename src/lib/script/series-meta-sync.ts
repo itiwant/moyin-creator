@@ -36,7 +36,7 @@ export function populateSeriesMetaFromImport(
   // 验证标题不是 tập标题（如"第一 tập 初遇"）
   const isEpTitle = (t: string) => /^第[一二三4五六七八九十百千\d]+ tập/.test(t);
   const rawTitle = background.title || scriptData.title || '';
-  const safeTitle = (rawTitle && !isEpTitle(rawTitle)) ? rawTitle : '未命名';
+  const safeTitle = (rawTitle && !isEpTitle(rawTitle)) ? rawTitle : 'Chưa đặt tên';
 
   const meta: SeriesMeta = {
     // 故事核心

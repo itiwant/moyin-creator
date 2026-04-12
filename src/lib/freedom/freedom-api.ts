@@ -94,12 +94,12 @@ function isRetryableError(error: unknown): boolean {
     message.includes('temporarily unavailable') ||
     message.includes('internal server error') ||
     message.includes('overloaded') ||
-    message.includes('上游负载') ||
-    message.includes('上游服务') ||
-    message.includes('饱和') ||
-    message.includes('负载已满') ||
-    message.includes('暂时không khả dụng') ||
-    message.includes('服务暂时không khả dụng') ||
+    message.includes('thượng nguồntải') ||
+    message.includes('thượng nguồn服务') ||
+    message.includes('bão hòa') ||
+    message.includes('tải已满') ||
+    message.includes('tạmkhông khả dụng') ||
+    message.includes('服务tạmkhông khả dụng') ||
     message.includes('无可用渠道') ||
     message.includes('no available channel') ||
     message.includes('server error')

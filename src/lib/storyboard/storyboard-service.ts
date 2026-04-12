@@ -129,7 +129,7 @@ async function submitImageGenTask(
           response.status === 401 || response.status === 403
             ? 'API Key không hợp lệ hoặc đãhết hạn，请kiểm tra配置'
             : response.status >= 500
-              ? '图片Tạo服务暂时không khả dụng，请稍后再试'
+              ? '图片Tạo服务tạmkhông khả dụng，请稍后再试'
               : errorMessage
         ) as Error & { status?: number };
         error.status = response.status;

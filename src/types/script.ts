@@ -21,7 +21,7 @@ export interface FilteredCharacterRecord {
  * 用于nhãn角色在特定 tập数范围内的形象版本
  */
 export interface CharacterStageInfo {
-  stageName: string;              // Giai đoạn名称："青年版"、"Phiên bản trung niên"、"Khởi nghiệp ban đầu"
+  stageName: string;              // Giai đoạn名称："Phiên bản trẻ"、"Phiên bản trung niên"、"Khởi nghiệp ban đầu"
   episodeRange: [number, number]; // 适用 tập数范围：[bắt đầu tập, kết thúc tập]
   ageDescription?: string;        // 该Giai đoạnTuổiMô tả："25 tuổi"、"50 tuổi"
 }
@@ -156,7 +156,7 @@ export interface SceneViewpointData {
   nameEn: string;       // Tên tiếng Anh
   shotIds: string[];    // 关联的分镜ID列表
   keyProps: string[];   // 该góc nhìn需要的đạo cụ
-  gridIndex: number;    // 在ảnh ghépđang xử lý... (0-5)
+  gridIndex: number;    // Chỉ mục trong ảnh ghép (0-5)
 }
 
 export interface ScriptParagraph {
@@ -320,7 +320,7 @@ export type LightingDirection =
 export type ColorTemperature = 
   | 'warm'          // 暖色 3200K：烛光/钨丝灯
   | 'neutral'       // đang xử lý...500K：日光
-  | 'cool'          // 冷色 7000K：阴天/月光
+  | 'cool'          // 冷色 7000K：Trời nhiều mây/月光
   | 'golden-hour'   // 黄金时段：日出日落
   | 'blue-hour'     // 蓝调时分：日落后
   | 'mixed';        // 混合色温：冷暖交织
@@ -523,7 +523,7 @@ export interface Shot {
   movementSpeed?: MovementSpeed;           // 运动Tốc độ
 
   // === 特效师 (On-set SFX) ===
-  atmosphericEffects?: AtmosphericEffect[]; // 氛围特效（có thể chọn nhiều）
+  atmosphericEffects?: AtmosphericEffect[]; // Bầu không khí特效（có thể chọn nhiều）
   effectIntensity?: EffectIntensity;       // 特效强度
 
   // === Tốc độđiều khiển (Speed Ramping) ===

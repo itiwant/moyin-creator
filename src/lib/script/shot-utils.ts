@@ -40,9 +40,9 @@ export const SHOT_SIZE_MAP: Record<string, ShotSizeType> = {
   'MCU': 'mcu', 'Medium Close-Up': 'mcu', 'đang xử lý...: 'mcu',
   'MS': 'ms', 'Medium Shot': 'ms', 'đang xử lý... 'ms',
   'MLS': 'mls', 'Medium Long Shot': 'mls', 'đang xử lý...: 'mls',
-  'LS': 'ls', 'Long Shot': 'ls', '全景': 'ls',
+  'LS': 'ls', 'Long Shot': 'ls', 'toàn cảnh': 'ls',
   'WS': 'ws', 'Wide Shot': 'ws', 'Viễn cảnh': 'ws',
-  'POV': 'pov', 'POV Shot': 'pov', '主观镜头': 'pov',
+  'POV': 'pov', 'POV Shot': 'pov', 'ống kính chủ quan': 'pov',
 };
 
 /**

@@ -315,7 +315,7 @@ const STYLES_2D: StylePreset[] = [
     mediaType: 'animation',
     prompt: '(best quality, masterpiece, 8k, high detailed:1.2), (Death Note style:1.3), (Takeshi Obata:1.2), (gothic dark atmosphere:1.1), (intricate cross-hatching, sharp features:1.1), serious, mystery',
     negativePrompt: '(worst quality, low quality:1.4), (cute, happy, bright colors), (chibi), (thick lines), (3D), ugly',
-    description: '死亡笔记/小畑健风格，哥特，暗黑氛围',
+    description: '死亡笔记/小畑健风格，哥特，暗黑Bầu không khí',
     thumbnail: '2d_deathnote.png',
   },
   {

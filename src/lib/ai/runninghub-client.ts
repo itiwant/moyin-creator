@@ -14,11 +14,11 @@ const normalizeBaseUrl = (baseUrl: string) => baseUrl.replace(/\/+$/, '');
 
 export interface RunningHubSubmitParams {
   referenceImage: string;  // Ảnh gốcURLhoặcbase64
-  anglePrompt: string;     // góc nhìn提示词
+  anglePrompt: string;     // prompt góc nhìn
   apiKey: string;
   baseUrl: string;
   appId: string;
-  instanceType?: 'default' | 'plus';  // default: 24G显存, plus: 48G显存
+  instanceType?: 'default' | 'plus';  // default: 24G VRAM, plus: 48G VRAM
   usePersonalQueue?: boolean;
 }
 
@@ -38,10 +38,10 @@ export async function submitAngleSwitchTask(
 ): Promise<string> {
   const { referenceImage, anglePrompt, apiKey, baseUrl, appId, instanceType = 'default', usePersonalQueue = false } = params;
   if (!baseUrl) {
-    throw new Error('RunningHub Base URL 未配置');
+    throw new Error('RunningHub Base URL chưa cấu hình');
   }
   if (!appId) {
-    throw new Error('RunningHub App ID 未配置');
+    throw new Error('RunningHub App ID chưa cấu hình');
   }
 
   console.log('[RunningHub] Submitting angle switch task:', {
@@ -94,7 +94,7 @@ export async function submitAngleSwitchTask(
           response.status === 401 || response.status === 403
             ? 'API Key không hợp lệ hoặc đãhết hạn'
             : response.status >= 500
-              ? 'RunningHub 服务暂时không khả dụng'
+              ? 'RunningHub dịch vụ tạm không khả dụng'
               : errorMessage
         ) as Error & { status?: number };
         error.status = response.status;
@@ -135,7 +135,7 @@ export async function queryTaskStatus(
 ): Promise<RunningHubTaskResult> {
   try {
     if (!baseUrl) {
-      throw new Error('RunningHub Base URL 未配置');
+      throw new Error('RunningHub Base URL chưa cấu hình');
     }
     const response = await fetch(`${normalizeBaseUrl(baseUrl)}/query`, {
       method: 'POST',

@@ -304,7 +304,7 @@ export function validateSceneCount(sceneCount: number, resolution: Resolution): 
     limit,
     message: isValid 
       ? '' 
-      : `场景số lượngvượt quá ${resolution} 分辨率上限（tối đa ${limit} ）。请chuyển sang到更高分辨率hoặcgiảm场景số lượng。`,
+      : `Số lượng cảnh vượt quá giới hạn ${resolution} độ phân giải (tối đa ${limit}). Vui lòng chuyển sang độ phân giải cao hơn hoặc giảm số lượng cảnh.`,
   };
 }
 

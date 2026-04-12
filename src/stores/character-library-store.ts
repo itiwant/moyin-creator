@@ -39,11 +39,11 @@ export interface CharacterView {
  * 
  * Hỗ trợ两种用途：
  * 1. trang phục/Trạng tháibiến thể："Trang phục hàng ngày"、"Trang phục chiến đấu"、"Trạng thái bị thương"
- * 2. Tuổi/Giai đoạnbiến thể："青年版"、"Phiên bản trung niên"、"Cao niên版"（带episodeRange）
+ * 2. Tuổi/Giai đoạnbiến thể："Phiên bản trẻ"、"Phiên bản trung niên"、"Cao niên版"（带episodeRange）
  */
 export interface CharacterVariation {
   id: string;
-  name: string;           // "Trang phục hàng ngày", "Trang phục chiến đấu", "青年版", "Phiên bản trung niên" etc.
+  name: string;           // "Trang phục hàng ngày", "Trang phục chiến đấu", "Phiên bản trẻ", "Phiên bản trung niên" etc.
   visualPrompt: string;   // Prompt describing this variation
   visualPromptZh?: string; // prompt tiếng Trung
   referenceImage?: string; // Generated reference image for this variation
@@ -52,7 +52,7 @@ export interface CharacterVariation {
   
   // === Giai đoạnbiến thể特有trường ===
   isStageVariation?: boolean;      // Có phải biến thể theo giai đoạn (thay đổi tuổi/thời kỳ) không
-  episodeRange?: [number, number]; // 适用Số tập范围：[bắt đầu tập, kết thúc tập]
+  episodeRange?: [number, number]; // Phạm vi Số tập áp dụng: [bắt đầu tập, kết thúc tập]
   ageDescription?: string;         // Tuổi giai đoạn này: "25 tuổi"、"50 tuổi"
   stageDescription?: string;       // Mô tả giai đoạn: "Khởi nghiệp ban đầu"、"Đỉnh sự nghiệp"
 }
@@ -81,7 +81,7 @@ export interface Character {
   variations: CharacterVariation[];
   thumbnailUrl?: string; // Main preview image (Base Look)
   // Enhanced fields (AniKuku inspired)
-  tags?: string[];        // Thẻ nhân vật 如 #武侠 #男主 #剑客
+  tags?: string[];        // Thẻ nhân vật ví dụ #võ hiệp #nam chính #kiếm sĩ
   notes?: string;         // Ghi chú nhân vật (ghi chú cốt truyện)
   status?: 'draft' | 'linked'; // Trạng thái: draft=Bản nháp, linked=Đã liên kết kịch bản
   linkedEpisodeId?: string;    // ID tập đã liên kết

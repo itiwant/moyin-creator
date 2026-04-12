@@ -38,12 +38,12 @@ export function isRateLimitError(error: unknown): boolean {
     message.includes("service unavailable") ||
     message.includes("temporarily unavailable") ||
     message.includes("internal server error") ||
-    message.includes("上游负载") ||
-    message.includes("上游服务") ||
-    message.includes("饱和") ||
-    message.includes("负载已满") ||
-    message.includes("暂时không khả dụng") ||
-    message.includes("服务暂时không khả dụng") ||
+    message.includes("lỗi tải ngược") ||
+    message.includes("dịch vụ tải") ||
+    message.includes("bão hòa") ||
+    message.includes("tải đã đầy") ||
+    message.includes("tạm không khả dụng") ||
+    message.includes("服务tạmkhông khả dụng") ||
     message.includes("无可用渠道") ||
     message.includes("no available channel") ||
     message.includes("server error")

@@ -532,7 +532,7 @@ export async function splitStoryboardImage(
   const expectedCols = options.expectedCols || gridConfig.cols;
   const expectedRows = options.expectedRows || gridConfig.rows;
 
-  console.log('[ImageSplitter] Using FIXED UNIFORM GRID (方案 D)', {
+  console.log('[ImageSplitter] Using FIXED UNIFORM GRID (phương án D)', {
     imageSize: `${totalWidth}x${totalHeight}`,
     grid: `${expectedRows}x${expectedCols}`,
     sceneCount,

@@ -175,17 +175,17 @@ export interface PendingViewpointData {
   shotIds: string[];    // ID phân cảnh liên kết
   shotIndexes: number[]; // Số thứ tự phân cảnh liên kết (dùng để hiển thị)
   keyProps: string[];   // Đạo cụ (tiếng Trung)
-  keyPropsEn: string[]; // Đạo cụ（英文）
-  gridIndex: number;    // 在ảnh ghépđang xử lý...
-  pageIndex: number;    // 属于第几张ảnh ghép（从0Bắt đầu）
+  keyPropsEn: string[]; // Đạo cụ (tiếng Anh)
+  gridIndex: number;    // Chỉ mục trong ảnh ghép
+  pageIndex: number;    // Thuộc ảnh ghép thứ mấy (bắt đầu từ 0)
 }
 
 // ảnh ghépprompt tập合（Hỗ trợ多张）
 export interface ContactSheetPromptSet {
-  pageIndex: number;          // 第几张ảnh ghép（从0Bắt đầu）
+  pageIndex: number;          // Ảnh ghép thứ mấy (bắt đầu từ 0)
   prompt: string;             // Prompt tiếng Anh
   promptZh: string;           // prompt tiếng Trung
-  viewpointIds: string[];     // chứa哪些Góc nhìnID
+  viewpointIds: string[];     // chứa các ID Góc nhìn nào
   gridLayout: { rows: number; cols: number };
 }
 

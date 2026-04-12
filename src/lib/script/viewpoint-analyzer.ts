@@ -138,7 +138,7 @@ ${globalContextSection}【nhiệm vụ】
   const userPrompt = `${synopsisPart}${keyEventsPart}【场景thông tin】
 地点: ${scene.location || scene.name}
 时间: ${scene.time || '日'}
-氛围: ${scene.atmosphere || 'Bình tĩnh'}
+Bầu không khí: ${scene.atmosphere || 'Bình tĩnh'}
 
 【分镜内容（共 ${shots.length} 分镜）】
 ${shotSummaries}
@@ -170,7 +170,7 @@ ${shotSummaries}
     
     const viewpoints = (parsed.viewpoints || []).map((v: any, idx: number) => ({
       id: v.id || `viewpoint_${idx}`,
-      name: v.name || '未命名góc nhìn',
+      name: v.name || 'Chưa đặt têngóc nhìn',
       nameEn: v.nameEn || 'Unnamed Viewpoint',
       description: v.description || '',
       descriptionEn: v.descriptionEn || '',

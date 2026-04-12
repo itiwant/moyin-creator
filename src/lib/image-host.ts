@@ -118,7 +118,7 @@ async function toUploadFile(imageData: string, name?: string): Promise<{ blob: B
   if (isHttpUrl(imageData)) {
     const response = await fetch(imageData);
     if (!response.ok) {
-      throw new Error(`下载ảnhthất bại: ${response.status}`);
+      throw new Error(`Tải ảnh về thất bại: ${response.status}`);
     }
     blob = await response.blob();
   } else if (imageData.startsWith('data:')) {
@@ -179,7 +179,7 @@ async function uploadWithProvider(
     }
     const uploadUrl = resolveUploadUrl(provider);
     if (!uploadUrl) {
-      return { success: false, error: '图床tải lên地址未配置' };
+      return { success: false, error: 'Địa chỉ tải lên dịch vụ lưu trữ ảnh chưa cấu hình' };
     }
 
     const fieldName = provider.imageField || 'image';
@@ -241,7 +241,7 @@ async function uploadWithProvider(
         : typeof messageField === 'string'
           ? messageField
           : text || `tải lênthất bại: ${response.status}`;
-      return { success: false, error: `图床 ${provider.name} tải lênthất bại：${message}` };
+      return { success: false, error: `Dịch vụ lưu trữ ảnh ${provider.name} tải lên thất bại: ${message}` };
     }
 
     const urlField = getByPath(data, provider.responseUrlField || 'url');
@@ -265,10 +265,10 @@ async function uploadWithProvider(
       platform: provider.platform,
       responsePreview: trimmedText.substring(0, 200),
     });
-    return { success: false, error: `图床 ${provider.name} tải lên成功但未返回 URL` };
+    return { success: false, error: `Dịch vụ lưu trữ ảnh ${provider.name} tải lên thành công nhưng chưa trả về URL` };
   } catch (error) {
     const message = error instanceof Error ? error.message : 'tải lênthất bại';
-    return { success: false, error: `图床 ${provider.name} 请求thất bại：${message}` };
+    return { success: false, error: `Dịch vụ lưu trữ ảnh ${provider.name} yêu cầu thất bại: ${message}` };
   }
 }
 
@@ -312,7 +312,7 @@ export async function uploadToImageHost(
     : store.getEnabledImageHostProviders();
 
   if (!providers || providers.length === 0) {
-    return { success: false, error: '图床未配置' };
+    return { success: false, error: 'dịch vụ lưu trữ ảnh未配置' };
   }
 
   const orderedProviders = getRotatedProviders(providers);
@@ -334,7 +334,7 @@ export async function uploadToImageHost(
         }
         continue;
       }
-      lastError = `图床 ${provider.name} 未配置 API Key`;
+      lastError = `dịch vụ lưu trữ ảnh ${provider.name} 未配置 API Key`;
       continue;
     }
 
@@ -344,7 +344,7 @@ export async function uploadToImageHost(
     for (let i = 0; i < maxRetries; i++) {
       const apiKey = keyManager.getCurrentKey();
       if (!apiKey) {
-        lastError = 'Tất cả API Key 暂时không khả dụng';
+        lastError = 'Tất cả API Key tạmkhông khả dụng';
         break;
       }
 

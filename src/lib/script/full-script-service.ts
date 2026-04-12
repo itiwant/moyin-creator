@@ -310,7 +310,7 @@ async function generateSingleEpisodeTitleAndSynopsis(
   const contentSummary = epRaw.rawContent.slice(0, 800);
 
   const system = `你是剧本Cấu trúc分析专家。根据剧本全局背景和单 tập内容，Tạo该 tập的标题和đại cương。
-${seriesCtx ? `\n【剧级知识Tham chiếu】\n${seriesCtx}\n` : ''}tên phim：${background?.title || project.scriptData?.title || '未命名'}
+${seriesCtx ? `\n【剧级知识Tham chiếu】\n${seriesCtx}\n` : ''}tên phim：${background?.title || project.scriptData?.title || 'Chưa đặt tên'}
 类型：${background?.genre || '未知'}
 ${background?.era ? `thời đại：${background.era}` : ''}
 
@@ -766,7 +766,7 @@ function generateShotsFromSceneContent(
       const dialogueText = dialogueMatch[3].trim();
       
       // Bỏ qua非Thoại
-      if (charName.match(/^[字幕旁白场景nhân vật]/)) continue;
+      if (charName.match(/^[字幕lời dẫn chuyện场景nhân vật]/)) continue;
       
       const charId = characters.find(c => c.name === charName)?.id || '';
       
@@ -854,7 +854,7 @@ function generateShotsFromSceneContent(
       episodeId,
       sceneRefId: scene.id,
       actionSummary: `${scene.name || scene.location} 建立镜头`,
-      visualDescription: `${scene.location}，${scene.atmosphere}的氛围`,
+      visualDescription: `${scene.location}，${scene.atmosphere}的Bầu không khí`,
       characterNames: [],
       characterIds: [],
       shotSize: 'WS',
@@ -1134,7 +1134,7 @@ export async function calibrateEpisodeTitles(
   // 获取全局背景thông tin
   const background = project.projectBackground;
   const globalContext = {
-    title: background?.title || project.scriptData?.title || '未命名剧本',
+    title: background?.title || project.scriptData?.title || 'Chưa đặt tên剧本',
     outline: background?.outline || project.scriptData?.logline || '',
     characterBios: background?.characterBios || '',
     totalEpisodes: project.episodeRawScripts.length,
@@ -1377,7 +1377,7 @@ export async function calibrateEpisodeShots(
   const seriesContextSummary = buildSeriesContextSummary(project.seriesMeta || null);
   
   const globalContext = {
-    title: background?.title || project.scriptData?.title || '未命名剧本',
+    title: background?.title || project.scriptData?.title || 'Chưa đặt tên剧本',
     genre: background?.genre || '',
     era: background?.era || '',
     outline: background?.outline || '',
@@ -1626,7 +1626,7 @@ export async function calibrateSingleShot(
   const episodeRawContent = episodeScript?.rawContent || '';
   
   const globalContext = {
-    title: background?.title || scriptData?.title || '未命名剧本',
+    title: background?.title || scriptData?.title || 'Kịch bản chưa đặt tên',
     genre: background?.genre || '',
     era: background?.era || '',
     outline: background?.outline || '',
@@ -1981,12 +1981,12 @@ ${characterBios ? `
     a) **场景环境**：
        - 地点类型（家庭餐厅/办公室/街道等）
        - 环境细节（外景色、室内陈设、đạo cụ布置）
-       - 时间氛围（ban ngày/傍晚/ban đêm、季节感）
+       - 时间Bầu không khí（ban ngày/傍晚/ban đêm、季节感）
     
     b) **光线Thiết kế**：
        - 光源类型（自然光/灯光/混合光）
        - 光线质感（柔和/硬朗/漫射）
-       - 光影氛围（温暖/冷色调/明暗对比）
+       - 光影Bầu không khí（温暖/冷色调/明暗对比）
     
     c) **nhân vậtMô tả**（每出场nhân vật都要写）：
        - Độ tuổi（青年/đang xử lý...年）
@@ -2061,7 +2061,7 @@ ${characterBios ? `
 
 【情绪标签Tùy chọn】
 基础情绪: happy, sad, angry, surprised, fearful, calm
-氛围情绪: tense, excited, mysterious, romantic, funny, touching
+Bầu không khí情绪: tense, excited, mysterious, romantic, funny, touching
 语气情绪: serious, relaxed, playful, gentle, passionate, low
 
 【风格要求】
@@ -2102,7 +2102,7 @@ ${getMediaTypeGuidance(mt)}
       "ambientSound": "餐厅环境音，碗筷轻碰声",
       "soundEffect": "",
       "narrativeFunction": "铺垫",
-      "shotPurpose": "建立家庭表面和谐但暗藏sức căng的氛围，用毕业证书暗示父亲对儿子的期望",
+      "shotPurpose": "建立家庭表面和谐但暗藏sức căng的Bầu không khí，用毕业证书暗示父亲对儿子的期望",
       "visualFocus": "外栀子花 → 张明căng thẳng的脸 → 父亲手đang xử lý...",
       "cameraPosition": "张明侧后方45°，có thể nhìn thấy三人关系",
       "characterBlocking": "张明(đang xử lý...s 父母(两侧)，形成包围感",
@@ -2164,7 +2164,7 @@ ${sourceText}
 动作: ${shot.actionSummary}
 Thoại: ${shot.dialogue || '无'}
 当前角色: ${chars}
-氛围: ${shot.sceneAtmosphere}
+Bầu không khí: ${shot.sceneAtmosphere}
 时间: ${shot.sceneTime}${shot.sceneWeather ? `
 天气: ${shot.sceneWeather}` : ''}
 当前Kích thước cảnh: ${shot.currentShotSize || '待定'}
@@ -2280,7 +2280,7 @@ export async function generateEpisodeSynopses(
   // 获取全局背景
   const background = project.projectBackground;
   const globalContext = {
-    title: background?.title || project.scriptData?.title || '未命名剧本',
+    title: background?.title || project.scriptData?.title || 'Chưa đặt tên剧本',
     genre: background?.genre || '',
     era: background?.era || '',
     worldSetting: background?.worldSetting || '',
@@ -2442,7 +2442,7 @@ export function exportProjectMetadata(projectId: string): string {
   const sections: string[] = [];
   
   // 标题
-  const title = meta?.title || background?.title || scriptData?.title || '未命名剧本';
+  const title = meta?.title || background?.title || scriptData?.title || 'Chưa đặt tên剧本';
   sections.push(`# 《${title}》`);
   sections.push('');
   

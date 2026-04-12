@@ -270,16 +270,16 @@ function isModelIncompatibleError(errorText?: string): boolean {
 }
 
 /**
- * 检测 HTTP 500 响应体đang xử lý...含上游负载饱和相关quan trọng词。
- * MemeFast 有时用 500 而非 503/529 返回负载饱和lỗi。
+ * 检测 HTTP 500 响应体đang xử lý...含thượng nguồntảibão hòa相关quan trọng词。
+ * MemeFast 有时用 500 而非 503/529 返回tảibão hòalỗi。
  */
 function isUpstreamOverloadError(errorText?: string): boolean {
   if (!errorText) return false;
   const text = errorText.toLowerCase();
   return (
-    text.includes('上游负载') ||
-    text.includes('负载已饱和') ||
-    text.includes('负载饱和') ||
+    text.includes('thượng nguồntải') ||
+    text.includes('tải已bão hòa') ||
+    text.includes('tảibão hòa') ||
     text.includes('overloaded') ||
     text.includes('无可用渠道') ||
     text.includes('no available channel')

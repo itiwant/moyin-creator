@@ -397,9 +397,9 @@ async function submitViaChatCompletions(
         if (resp.status === 401) {
           msg = `API Key không hợp lệ hoặc đãhết hạn，请前往「设置」kiểm tra图片Tạo服务的 API Key 配置（gốcthông tin：${msg}）`;
         }
-        // 502 专项提示：上游服务临时không khả dụng
+        // 502 专项提示：thượng nguồn服务临时không khả dụng
         if (resp.status === 502) {
-          msg = `API 上游服务暂时không khả dụng（502），将Tự độngThử lại（gốcthông tin：${msg}）`;
+          msg = `API thượng nguồn服务tạmkhông khả dụng（502），将Tự độngThử lại（gốcthông tin：${msg}）`;
         }
 
         const err = new Error(msg) as Error & { status?: number };
@@ -609,12 +609,12 @@ async function submitImageTask(
           if (response.status === 401 || response.status === 403) {
             throw new Error('API Key không hợp lệ hoặc đã hết hạn');
           } else if (response.status === 529 || response.status === 503) {
-            // 上游负载饱和/服务không khả dụng，需要触发Thử lại
-            const err = new Error(errorMessage || `上游服务暂时不Khả dụng (${response.status})`) as Error & { status?: number };
+            // thượng nguồntảibão hòa/服务không khả dụng，需要触发Thử lại
+            const err = new Error(errorMessage || `thượng nguồn服务tạm不Khả dụng (${response.status})`) as Error & { status?: number };
             err.status = response.status;
             throw err;
           } else if (response.status >= 500) {
-            const err = new Error(errorMessage || '图片Tạo服务暂时không khả dụng') as Error & { status?: number };
+            const err = new Error(errorMessage || '图片Tạo服务tạmkhông khả dụng') as Error & { status?: number };
             err.status = response.status;
             throw err;
           }

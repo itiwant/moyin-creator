@@ -72,7 +72,7 @@ async function resolveImageUrl(src: string): Promise<string> {
 }
 
 function extractErrorMessage(status: number, errorText: string): string {
-  let message = `API 请求thất bại: ${status}`;
+  let message = `Yêu cầu API thất bại: ${status}`;
 
   try {
     const errorJson = JSON.parse(errorText);
@@ -84,11 +84,11 @@ function extractErrorMessage(status: number, errorText: string): string {
   }
 
   if (status === 401 || status === 403) {
-    return 'API Key không hợp lệ hoặc đãhết hạn，请kiểm tra“图片理解”服务的 Key 配置';
+    return 'API Key không hợp lệ hoặc đãhết hạn，请kiểm tra“nhận dạng ảnh”服务的 Key 配置';
   }
 
   if (status >= 500) {
-    return message || `上游服务暂时不Khả dụng (${status})`;
+    return message || `Dịch vụ thượng nguồn tạm không Khả dụng (${status})`;
   }
 
   return message;
@@ -123,7 +123,7 @@ export async function extractStyleTokens(
   const baseUrl = config.baseUrl?.replace(/\/+$/, '');
   const model = config.model || config.models?.[0];
   if (!baseUrl || !model) {
-    throw new Error('图片理解服务缺少 Base URL hoặc模型配置');
+    throw new Error('Dịch vụ nhận dạng ảnh thiếu cấu hình Base URL hoặc Model');
   }
 
   const contentParts: Array<{ type: string; text?: string; image_url?: { url: string } }> = [];

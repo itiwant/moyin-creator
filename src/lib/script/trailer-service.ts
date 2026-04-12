@@ -91,7 +91,7 @@ export async function selectTrailerShots(
 你的nhiệm vụ是从给定的分镜列表đang xử lý...最适合做预告片的 ${targetCount} 分镜。
 
 【预告片Cấu trúc原则】
-1. **开场**：建立氛围，吸引注意（1-2镜头）
+1. **开场**：建立Bầu không khí，吸引注意（1-2镜头）
 2. **冲突升级**：Hiển thị故事的核心冲突（2-4镜头）
 3. **cao trào悬念**：最具sức căng的画面，留下悬念（1-2镜头）
 

@@ -27,7 +27,7 @@ export interface BaseModel {
   endpoint?: string;
   category?: 'premium' | 'open-source' | 'fast' | 'latest';
   inputs: Record<string, ModelInput>;
-  /** 供应商侧的模型 ID 别名列表（用于Khớp供应商实际拥有的模型）。省略时以 id 本身做 fallback。 */
+  /** Danh sách bí danh ID model phía nhà cung cấp (dùng để Khớp các model nhà cung cấp thực sự có). Khi bỏ qua thì dùng id làm fallback. */
   providerAliases?: string[];
 }
 

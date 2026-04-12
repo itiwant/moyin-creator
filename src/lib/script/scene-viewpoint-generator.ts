@@ -24,7 +24,7 @@ export interface SceneViewpoint {
   keyPropsEn: string[]; // 该góc nhìn需要的đạo cụ（英文）
   description: string;  // góc nhìnMô tả（中文）
   descriptionEn: string; // góc nhìnMô tả（英文）
-  gridIndex: number;    // 在ảnh ghépđang xử lý... (0-5)
+  gridIndex: number;    // Chỉ mục trong ảnh ghép (0-5)
 }
 
 /**
@@ -510,7 +510,7 @@ export function generateContactSheetPrompt(config: ContactSheetConfig): ContactS
     console.log(`[generateContactSheetPrompt] Sử dụng AI 分析góc nhìn: ${scene.viewpoints.length} `);
     viewpoints = scene.viewpoints.slice(0, maxViewpoints).map((v: any, idx: number) => ({
       id: v.id || `viewpoint_${idx}`,
-      name: v.name || '未命名góc nhìn',
+      name: v.name || 'Chưa đặt têngóc nhìn',
       nameEn: v.nameEn || 'Unnamed Viewpoint',
       shotIds: v.shotIds || [],
       keyProps: v.keyProps || [],
@@ -1361,7 +1361,7 @@ export function buildContactSheetDataFromViewpoints(
     }).join('\n');
     
     const promptZh = `一张chính xác ${gridLayout.rows}行${gridLayout.cols}列 lưới图（共 ${totalCells} 格子），Hiển thị同一「${scene.name || scene.location}」场景的不同góc nhìn。
-${sceneDescZh}${visualPromptZh ? `\n场景氛围：${visualPromptZh}` : ''}
+${sceneDescZh}${visualPromptZh ? `\n场景Bầu không khí：${visualPromptZh}` : ''}
 
 ${totalCells} 格子分别Hiển thị：
 ${gridItemsZh}

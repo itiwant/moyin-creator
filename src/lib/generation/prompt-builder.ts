@@ -8,7 +8,7 @@
  * Layer 1: 镜头Thiết kế (Camera) - 最高优先级
  * Layer 1.5: 灯光Thiết kế (Lighting)
  * Layer 2: 内容焦点 (Subject) - 次高优先级
- * Layer 3: 氛围修饰 (Mood) - 辅助
+ * Layer 3: Bầu không khí修饰 (Mood) - 辅助
  * Layer 4: 场景音频 (Setting & Audio)
  * Layer 5: Thị giác风格 (Style)
  * Base: người dùng提示词
@@ -43,7 +43,7 @@ import { translateToken, type CinematographyField } from '@/lib/generation/media
 // ==================== 辅助函数 ====================
 
 /**
- * 根据情绪标签构建氛围Mô tả文本
+ * 根据情绪标签构建Bầu không khíMô tả文本
  */
 export function buildEmotionDescription(emotionTags: EmotionTag[]): string {
   if (!emotionTags || emotionTags.length === 0) return '';
@@ -60,12 +60,12 @@ export function buildEmotionDescription(emotionTags: EmotionTag[]): string {
   });
 
   if (labels.length === 1) {
-    return `氛围${labels[0]}，`;
+    return `Bầu không khí ${labels[0]}, `;
   } else if (labels.length === 2) {
-    return `氛围从${labels[0]}转为${labels[1]}，`;
+    return `Bầu không khí chuyển từ ${labels[0]} sang ${labels[1]}, `;
   } else {
     const progression = labels.slice(0, -1).join('、') + 'rồi' + labels[labels.length - 1];
-    return `氛围依次${progression}，`;
+    return `Bầu không khí lần lượt ${progression}, `;
   }
 }
 
@@ -85,13 +85,13 @@ function findPresetToken<T extends { id: string; promptToken: string }>(
   const preset = presets.find(p => p.id === id);
   if (!preset?.promptToken) return undefined;
   const translated = translateToken(mediaType ?? 'cinematic', field, id, preset.promptToken);
-  return translated || undefined; // 空ký tự串 → undefined（Bỏ qua）
+  return translated || undefined; // Chuỗi rỗng → undefined (Bỏ qua)
 }
 
 // ==================== 视频 Prompt 构建配置 ====================
 
 export interface VideoPromptConfig {
-  /** Thị giác风格 tokens */
+  /** Tokens phong cách Thị giác */
   styleTokens?: string[];
   /** 画面Tỷ lệ (仅作为上下文Tham chiếu) */
   aspectRatio?: '16:9' | '9:16';
@@ -244,7 +244,7 @@ export function buildVideoPrompt(
     promptParts.push(`Subject: ${subjectParts.join(', ')}`);
   }
 
-  // ---------- Layer 3: 氛围修饰 (Mood & Narrative) ----------
+  // ---------- Layer 3: Bầu không khí修饰 (Mood & Narrative) ----------
   const emotionDesc = buildEmotionDescription(scene.emotionTags || []);
   if (emotionDesc) {
     promptParts.push(`Mood: ${emotionDesc}`);
@@ -257,7 +257,7 @@ export function buildVideoPrompt(
     promptParts.push(`Shot intent: ${scene.shotPurpose.trim()}`);
   }
 
-  // 3.4 氛围特效 —— 逐镜优先，回退摄影档案
+  // 3.4 Bầu không khí特效 —— 逐镜优先，回退摄影档案
   const effectiveAtmo = (scene.atmosphericEffects && scene.atmosphericEffects.length > 0)
     ? scene.atmosphericEffects
     : cinProfile?.defaultAtmosphere?.effects;

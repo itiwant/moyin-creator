@@ -37,10 +37,10 @@ export function isVeoModel(model: string): boolean {
 
 function resolveVeoEndpointFamily(endpointTypes?: string[]): VeoEndpointFamily {
   if (!endpointTypes || endpointTypes.length === 0) return 'unknown';
-  if (endpointTypes.includes('openAI视频định dạng') || endpointTypes.includes('openAI官方视频định dạng')) {
+  if (endpointTypes.includes('openAI định dạng video') || endpointTypes.includes('openAI định dạng video chính thức')) {
     return 'openai_videos';
   }
-  if (endpointTypes.includes('视频统一định dạng')) return 'unified';
+  if (endpointTypes.includes('video định dạng thống nhất')) return 'unified';
   return 'unknown';
 }
 
@@ -65,9 +65,9 @@ export function resolveVeoUploadCapability(
       minFiles: 1,
       maxFiles: 3,
       slots: [
-        { key: 'reference', label: 'Tham chiếu图 1', required: true },
-        { key: 'reference', label: 'Tham chiếu图 2', required: false },
-        { key: 'reference', label: 'Tham chiếu图 3', required: false },
+        { key: 'reference', label: 'Ảnh tham chiếu 1', required: true },
+        { key: 'reference', label: 'Ảnh tham chiếu 2', required: false },
+        { key: 'reference', label: 'Ảnh tham chiếu 3', required: false },
       ],
     };
   }

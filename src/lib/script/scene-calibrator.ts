@@ -199,7 +199,7 @@ export function collectSceneStats(
  * 如 "1-1 日 内 沪上 张家" → "沪上 张家"
  */
 function extractLocationFromHeader(header: string): string {
-  // 去除场景编号和时间/内外标记
+  // 去除số thứ tự Cảnh和时间/内外标记
   const parts = header.split(/\s+/);
   // Bỏ qua "1-1", "日/夜", "内/外"
   const locationParts = parts.filter(p => 
@@ -385,7 +385,7 @@ ${sceneList}
       "keyProps": ["đạo cụ1", "đạo cụ2"],
       "spatialLayout": "Bố cục không gian",
       "eraDetails": "thời đại特征",
-      "atmosphere": "氛围"
+      "atmosphere": "Bầu không khí"
     }
   ],
   "mergeRecords": [],
@@ -590,7 +590,7 @@ ${keyScenes.map((s, i) => `${i+1}. ${s.name}
 
 【输出要求】
 为每场景Tạo：
-${promptLanguage !== 'en' ? '- đang xử lý...Mô tả（100-150字，chứa空间感、氛围、细节）' : ''}
+${promptLanguage !== 'en' ? '- đang xử lý...Mô tả（100-150字，chứa空间感、Bầu không khí、细节）' : ''}
 ${promptLanguage !== 'zh' ? '- 英文Thị giác提示词（50-80词，适合AI图像Tạo，chứa风格、光影、bố cục）' : ''}
 
 请返回JSONđịnh dạng：

@@ -211,7 +211,7 @@ ${contextLine}${narrativeAnchorBlock}${episodeSynopsis ? `\n\n【本 tậpđại
     await runStage('Stage 1/5: tự sự骨架', (batch) => {
       const userShots = batch.map(s => {
         const chars = s.characterNames?.join('、') || '无';
-        return `ID: ${s.shotId}\n场景: ${s.sceneLocation} | 时间: ${s.sceneTime}${s.sceneWeather ? ` | 天气: ${s.sceneWeather}` : ''}\n原文: ${s.sourceText || s.actionSummary}${s.dialogue ? `\nThoại: 「${s.dialogue}」` : ''}\n角色: ${chars} | 氛围: ${s.sceneAtmosphere}\n当前: Kích thước cảnh=${s.currentShotSize || '?'} 运动=${s.currentCameraMovement || '?'}`;
+        return `ID: ${s.shotId}\n场景: ${s.sceneLocation} | 时间: ${s.sceneTime}${s.sceneWeather ? ` | 天气: ${s.sceneWeather}` : ''}\n原文: ${s.sourceText || s.actionSummary}${s.dialogue ? `\nThoại: 「${s.dialogue}」` : ''}\n角色: ${chars} | Bầu không khí: ${s.sceneAtmosphere}\n当前: Kích thước cảnh=${s.currentShotSize || '?'} 运动=${s.currentCameraMovement || '?'}`;
       }).join('\n\n---\n\n');
       return { system: s1System, user: `分析以下分镜：\n\n${userShots}` };
     }, 200, 4096);
@@ -326,8 +326,8 @@ ${styleDesc}${mediaTypeHint}
 ⚠️ thời đạigiống性（最重要）：nhân vật的trang phục、Kiểu tóc、配饰必须严格符合剧本设定的thời đại背景。例如古装剧đang xử lý...n vật必须穿古代服饰，bị cấm出现Tây装、T恤、现代Kiểu tóc等。
 
 ${s4Fields} 必须chứa：
-a) 场景环境（地点+环境细节+时间氛围）
-b) 光线Thiết kế（光源+质感+氛围）
+a) 场景环境（地点+环境细节+时间Bầu không khí）
+b) 光线Thiết kế（光源+质感+Bầu không khí）
 c) nhân vậtMô tả（Tuổi+trang phục+Biểu cảm+Tư thế，每角色都写）
 d) bố cục与Kích thước cảnh（Kích thước cảnh+nhân vật位置关系+焦点）
 e) 重要đạo cụ（quan trọngđạo cụ+状态）

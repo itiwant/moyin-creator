@@ -173,7 +173,7 @@ async function handleGenerateScreenplay(command: GenerateScreenplayCommand): Pro
     
     // Only require API key if not in mock mode
     if (!apiKey && !mockMode) {
-      throw new Error('未配置 API Key，请在设置đang xử lý...bật Mock chế độ');
+      throw new Error('Chưa cấu hình API Key, vui lòng bật chế độ Mock trong cài đặt');
     }
     
     // Call the backend API with correct schema
@@ -234,7 +234,7 @@ async function generateImage(
   const provider = (config as any).imageProvider || 'memefast';
   
   if (!apiKey) {
-    throw new Error('未配置ảnhTạo API Key');
+    throw new Error('Chưa cấu hình API Key Tạo ảnh');
   }
   
   // Submit image generation task
@@ -290,7 +290,7 @@ async function generateVideo(
   const provider = (config as any).videoProvider || 'memefast';
   
   if (!apiKey) {
-    throw new Error('未配置videoTạo API Key');
+    throw new Error('Chưa cấu hình API Key Tạo video');
   }
   
   // Submit video generation task
@@ -418,7 +418,7 @@ async function fetchAsBlob(url: string): Promise<Blob> {
 
 async function handleExecuteScene(command: ExecuteSceneCommand): Promise<void> {
   const { screenplayId, scene, config, characterBible, characterReferenceImages } = command.payload;
-  cancelled = false; // 新thao tác启动时重置取消标志
+  cancelled = false; // Đặt lại cờ hủy khi thao tác mới bắt đầu
 
   console.log(`[AI Worker] Executing scene ${scene.sceneId} for screenplay ${screenplayId}`);
   
@@ -574,7 +574,7 @@ function reportSceneFailed(
  */
 async function handleExecuteScreenplay(command: { type: string; payload: { screenplay: AIScreenplay; config: GenerationConfig } }): Promise<void> {
   const { screenplay, config } = command.payload;
-  cancelled = false; // 新thao tác启动时重置取消标志
+  cancelled = false; // Đặt lại cờ hủy khi thao tác mới bắt đầu
 
   console.log(`[AI Worker] Executing screenplay ${screenplay.id} with ${screenplay.scenes.length} scenes`);
   
@@ -655,7 +655,7 @@ async function handleExecuteScreenplay(command: { type: string; payload: { scree
  */
 async function handleExecuteScreenplayImages(command: { type: string; payload: { screenplay: AIScreenplay; config: GenerationConfig } }): Promise<void> {
   const { screenplay, config } = command.payload;
-  cancelled = false; // 新thao tác启动时重置取消标志
+  cancelled = false; // Đặt lại cờ hủy khi thao tác mới bắt đầu
 
   console.log(`[AI Worker] Generating images for screenplay ${screenplay.id} with ${screenplay.scenes.length} scenes`);
   
@@ -758,7 +758,7 @@ async function handleExecuteScreenplayImages(command: { type: string; payload: {
  */
 async function handleExecuteScreenplayVideos(command: { type: string; payload: { screenplay: AIScreenplay; config: GenerationConfig } }): Promise<void> {
   const { screenplay, config } = command.payload;
-  cancelled = false; // 新thao tác启动时重置取消标志
+  cancelled = false; // Đặt lại cờ hủy khi thao tác mới bắt đầu
 
   console.log(`[AI Worker] Generating videos for screenplay ${screenplay.id} with ${screenplay.scenes.length} scenes`);
   

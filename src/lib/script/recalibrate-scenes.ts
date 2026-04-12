@@ -28,7 +28,7 @@ function toShotInputData(scenes: SplitScene[]): ShotInputData[] {
       sourceText,
       actionSummary: scene.actionSummary || '',
       dialogue: scene.dialogue || '',
-      characterNames: [],  // SplitScene 没有 characterNames，但有 characterIds
+      characterNames: [],  // SplitScene không có characterNames, nhưng có characterIds
       sceneLocation: scene.sceneLocation || '',
       sceneAtmosphere: '',
       sceneTime: 'day',
@@ -58,7 +58,7 @@ function buildGlobalContext(scriptProjectId?: string): GlobalContext {
   if (!project) {
     // 兜底：返回最小化的 context
     return {
-      title: '未命名项目',
+      title: 'Dự án chưa đặt tên',
       outline: '',
       characterBios: '',
       episodeTitle: '',
@@ -66,12 +66,12 @@ function buildGlobalContext(scriptProjectId?: string): GlobalContext {
   }
 
   const background = project.projectBackground;
-  const episodeScript = project.episodeRawScripts[0]; // 默认取第一 tập
+  const episodeScript = project.episodeRawScripts[0]; // Mặc định lấy tập đầu tiên
   const scriptData = project.scriptData;
   const episode = scriptData?.episodes?.[0];
 
   return {
-    title: background?.title || scriptData?.title || '未命名剧本',
+    title: background?.title || scriptData?.title || 'Kịch bản chưa đặt tên',
     genre: background?.genre || '',
     era: background?.era || '',
     outline: background?.outline || '',
@@ -180,7 +180,7 @@ export async function recalibrateSplitScenes(
     styleId: newStyleId,
   };
 
-  onProgress?.(0, totalScenes, 'Đang用新风格Hiệu chuẩn分镜...');
+  onProgress?.(0, totalScenes, 'Đang Hiệu chuẩn phân cảnh với phong cách mới...');
 
   const calibrations = await calibrateShotsMultiStage(
     shotInputs,

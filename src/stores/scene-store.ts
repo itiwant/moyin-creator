@@ -29,17 +29,17 @@ export interface Scene {
   id: string;
   name: string;           // Tên cảnh
   location: string;       // Địa điểmMô tả
-  time: string;           // Thời gian设定 (ban ngày/ban đêm/Hoàng hôn, v.v.)
+  time: string;           // Thiết lập Thời gian (ban ngày/ban đêm/Hoàng hôn, v.v.)
   atmosphere: string;     // Bầu không khíMô tả (căng thẳng/ấm cúng/bí ẩn, v.v.)
   projectId?: string;     // Associated project (optional)
-  visualPrompt?: string;  // đầy đủ的Prompt thị giác
+  visualPrompt?: string;  // Prompt thị giác đầy đủ
   referenceImage?: string; // URL ảnh concept cảnh đã tạo
   referenceImageBase64?: string; // Base64 for persistence
   styleId?: string;       // Visual style preset ID
   folderId?: string | null; // Folder ID for organization
   // Enhanced fields (inspired by AniKuku)
   tags?: string[];        // Thẻ môi trường, ví dụ #cột gỗ #song cửa #kiến trúc cổ
-  notes?: string;         // Địa điểmGhi chú (ghi chú cốt truyện，与location分开)
+  notes?: string;         // Ghi chú Địa điểm (ghi chú cốt truyện, tách biệt với location)
   status?: 'draft' | 'linked'; // Trạng thái: draft=Bản nháp, linked=Đã liên kết kịch bản
   linkedEpisodeId?: string;    // ID tập đã liên kết
   createdAt: number;
@@ -532,8 +532,8 @@ export const TIME_PRESETS = [
   { id: 'night', label: 'ban đêm', prompt: 'nighttime, moonlight, stars' },
   { id: 'dawn', label: 'Bình minh', prompt: 'dawn, early morning light, soft orange glow' },
   { id: 'dusk', label: 'Hoàng hôn', prompt: 'dusk, golden hour, sunset colors' },
-  { id: 'overcast', label: '阴天', prompt: 'overcast sky, soft diffused light' },
-  { id: 'storm', label: '暴风雨', prompt: 'stormy weather, dark clouds, dramatic lighting' },
+  { id: 'overcast', label: 'Trời nhiều mây', prompt: 'overcast sky, soft diffused light' },
+  { id: 'storm', label: 'Bão', prompt: 'stormy weather, dark clouds, dramatic lighting' },
 ] as const;
 
 // ==================== Preset Atmosphere Options ====================

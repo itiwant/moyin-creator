@@ -782,7 +782,7 @@ async function callVolcVideoApi(
   console.log('[VideoGen] Volc submit response:', JSON.stringify(submitData).substring(0, 500));
 
   // 检测代理包装的业务级lỗi（HTTP 200 但 body.status 为 failed/error）
-  // 典型Cảnh：MemeFast trung gian将上游 451（Nội dungkiểm duyệt）等lỗi包装为 {status: "failed", message: "..."}
+  // 典型Cảnh：MemeFast trung gian将thượng nguồn 451（Nội dungkiểm duyệt）等lỗi包装为 {status: "failed", message: "..."}
   if (submitData.status === 'failed' || submitData.status === 'error') {
     const proxyMsg = submitData.message || submitData.error?.message || 'Gửi video thất bại (proxy trả về lỗi nghiệp vụ)';
     console.error('[VideoGen] Volc: proxy-wrapped business error:', proxyMsg);

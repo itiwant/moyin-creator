@@ -185,7 +185,7 @@ async function generateSceneData(
   "name": "场景名称（简短）",
   "location": "地点详细Mô tả",
   "time": "时间（如 'ban ngày'、'ban đêm'、'Hoàng hôn'、'清晨'）",
-  "atmosphere": "氛围Mô tả（如 'căng thẳng'、'ấm cúng'、'压抑'、'热闹'）",
+  "atmosphere": "Bầu không khíMô tả（如 'căng thẳng'、'ấm cúng'、'压抑'、'热闹'）",
   "visualPrompt": "英文Thị giác提示词，用于AI图像Tạo，Mô tả场景环境、光线、色调、Phong cách kiến trúc等",
   "visualPromptZh": "đang xử lý...Mô tả",
   "tags": ["标签1", "标签2"],

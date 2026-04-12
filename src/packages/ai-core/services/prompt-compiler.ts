@@ -20,14 +20,14 @@ const DEFAULT_TEMPLATES: PromptTemplateConfig = {
   sceneImage: `{{style_tokens}}, {{character_description}}, {{visual_content}}, {{camera}}, {{quality_tokens}}`,
   sceneVideo: `{{character_description}}, {{visual_content}}, {{action}}, {{camera}}`,
   negative: `blurry, low quality, watermark, text, logo, signature, bad anatomy, deformed, mutated`,
-  screenplay: `你是一chuyên nghiệp的video剧本Sáng tác者。请根据以下Mô tảSáng tác一短video剧本：
+  screenplay: `Bạn là một nhà Sáng tác kịch bản video chuyên nghiệp. Hãy Sáng tác một kịch bản video ngắn dựa trên Mô tả sau:
 
 Mô tả：{{prompt}}
 
-要求：
-1. Sáng tác {{scene_count}} 场景
-2. 每场景chứa：场景编号、旁白、Thị giácNội dungMô tả、角色动作、镜头类型、角色ngoại hìnhMô tả
-3. visualContent/action/camera/characterDescription 用英文Mô tả
+Yêu cầu:
+1. Sáng tác {{scene_count}} Cảnh
+2. Mỗi Cảnh chứa: số thứ tự Cảnh, lời dẫn chuyện, Mô tả Nội dung Thị giác, hành động nhân vật, loại ống kính, Mô tả ngoại hình nhân vật
+3. Mô tả visualContent/action/camera/characterDescription bằng tiếng Anh
 4. narration 用中文
 5. 不要输出 mood/情绪 trường（前端不需要）
 

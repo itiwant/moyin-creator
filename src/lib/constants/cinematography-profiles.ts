@@ -60,7 +60,7 @@ export interface CinematographyProfile {
     movementSpeed: MovementSpeed;
   };
 
-  // ---- 氛围默认 (On-set SFX) ----
+  // ---- Bầu không khí默认 (On-set SFX) ----
   defaultAtmosphere: {
     effects: AtmosphericEffect[];
     intensity: EffectIntensity;
@@ -448,8 +448,8 @@ export function buildCinematographyGuidance(profileId: string): string {
     `焦点：${defaultFocus.depthOfField} 景深 + ${defaultFocus.focusTransition} 转焦`,
     `器材：${defaultRig.cameraRig} + ${defaultRig.movementSpeed} 速度`,
     defaultAtmosphere.effects.length > 0
-      ? `氛围：${defaultAtmosphere.effects.join('+')} (${defaultAtmosphere.intensity})`
-      : '氛围：无特殊氛围效果',
+      ? `Bầu không khí：${defaultAtmosphere.effects.join('+')} (${defaultAtmosphere.intensity})`
+      : 'Bầu không khí：无特殊Bầu không khí效果',
     `速度：${defaultSpeed.playbackSpeed}`,
     profile.defaultAngle ? `拍摄角度：${profile.defaultAngle}` : '',
     profile.defaultFocalLength ? `镜头焦距：${profile.defaultFocalLength}` : '',

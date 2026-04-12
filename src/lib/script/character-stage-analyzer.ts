@@ -31,7 +31,7 @@ export interface CharacterStageAnalysis {
 }
 
 export interface StageVariationData {
-  name: string;                     // "青年版"、"đang xử lý...
+  name: string;                     // "Phiên bản trẻ"、"đang xử lý...
   episodeRange: [number, number];   // [1, 15]
   ageDescription: string;           // "25 tuổi"
   stageDescription: string;         // "Khởi nghiệp ban đầu，意气风发"
@@ -119,7 +119,7 @@ Danh tính：${c.role || '未知'}
       "reason": "时间跨度25年，从青年到đang xử lý....",
       "stages": [
         {
-          "name": "青年版",
+          "name": "Phiên bản trẻ",
           "episodeRange": [1, 15],
           "ageDescription": "25 tuổi",
           "stageDescription": "985毕业生，意气风发，白衬衫",

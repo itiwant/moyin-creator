@@ -182,7 +182,7 @@ function buildCharacterContext(project: any, character: any): {
   ].filter(Boolean).join('\n');
   
   return {
-    projectTitle: background?.title || project.scriptData?.title || '未命名剧本',
+    projectTitle: background?.title || project.scriptData?.title || 'Chưa đặt tên剧本',
     genre: background?.genre || '',
     era: background?.era || '',
     outline: background?.outline || '',

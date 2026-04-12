@@ -13,7 +13,7 @@
  * - 动作描写：△外栀子花绽放...
  * - Thoại：张父：（喝酒）我们明明真是太有出息了！
  * - 闪回：【闪回】...【闪回kết thúc】
- * - 旁白/VO：【VO：...】
+ * - lời dẫn chuyện/VO：【VO：...】
  */
 
 import type {
@@ -54,7 +54,7 @@ export function parseFullScript(fullText: string): {
   
   // 1. 提取标题
   const titleMatch = fullText.match(/[《「]([^》」]+)[》」]/);
-  const title = titleMatch ? titleMatch[1] : '未命名剧本';
+  const title = titleMatch ? titleMatch[1] : 'Chưa đặt tên剧本';
   
   // 2. 提取đại cương（从"đại cương："到"nhân vật小传："之间的内容）
   // 支持 Markdown định dạng：**đại cương：** hoặc đại cương： hoặc 【đại cương】
@@ -552,7 +552,7 @@ function detectWeather(content: string, actions: string[]): string | undefined {
   if (/雾|薄雾|雾气/.test(fullText)) return '雾';
   if (/狂风|阵风|暴风/.test(fullText)) return '狂风';
   if (/风|微风|清风/.test(fullText)) return '微风';
-  if (/阴天|乌云|阴沉沉/.test(fullText)) return '阴';
+  if (/Trời nhiều mây|乌云|阴沉沉/.test(fullText)) return '阴';
   if (/晴朗|艳阳|日光明媚|万里无云/.test(fullText)) return '晴';
   if (/电闪雷鸣|打雷|闪电/.test(fullText)) return '雷雨';
   
@@ -601,7 +601,7 @@ function parseCharacters(text: string): string[] {
   dialogueMatches.forEach(m => {
     const name = m[1].trim();
     // lọc掉非人名的内容
-    if (name && !name.match(/^[△【字幕旁白VO场景]/)) {
+    if (name && !name.match(/^[△【字幕lời dẫn chuyệnVO场景]/)) {
       characters.add(name);
     }
   });
@@ -627,7 +627,7 @@ function parseDialogues(text: string): DialogueLine[] {
     const line = match[3]?.trim();
     
     // lọc掉非Thoại内容
-    if (character && line && !character.match(/^[字幕旁白场景nhân vật]/)) {
+    if (character && line && !character.match(/^[字幕lời dẫn chuyện场景nhân vật]/)) {
       dialogues.push({
         character,
         parenthetical,
@@ -899,7 +899,7 @@ function isValidCharacterName(name: string): boolean {
   if (/[\*\-\+\=\>\<\|\[\]\{\}]/.test(name)) return false;
   // Bỏ qua明显的非角色词（只lọc最明显的，其他交给AI）
   const obviousNonCharacters = [
-    'VO', '旁白', 'os', '左边', '右边', 'đang xử lý... '背影', '远处',
+    'VO', 'lời dẫn chuyện', 'os', '左边', '右边', 'đang xử lý... '背影', '远处',
     '效率', '回流率', '分拣', '客户', '眼眶', '微湿', 'Cầm tay', '笔挺',
     '上市文件', '眼神', '声音', '电视', '电话'
   ];
@@ -1087,7 +1087,7 @@ function normalizeTime(time: string): string {
 }
 
 /**
- * 检测场景氛围
+ * 检测场景Bầu không khí
  */
 function detectAtmosphere(content: string): string {
   if (content.match(/căng thẳng|危险|冲突|打斗|怒/)) return 'căng thẳng';
