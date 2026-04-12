@@ -103,7 +103,7 @@ const CINEMATIC_PROFILES: CinematographyProfile[] = [
     name: '经典电影',
     nameEn: 'Classic Cinematic',
     category: 'cinematic',
-    description: '标准院线电影质感，三点布光，自然色温，匀速轨道chuyển động máy，画面端正大气',
+    description: 'Tiêu chuẩn院线电影质感，三点布光，自然色温，匀速轨道chuyển động máy，画面端正大气',
     emoji: '🎞️',
     defaultLighting: { style: 'natural', direction: 'three-point', colorTemperature: 'warm' },
     defaultFocus: { depthOfField: 'medium', focusTransition: 'rack-between' },
@@ -146,7 +146,7 @@ const CINEMATIC_PROFILES: CinematographyProfile[] = [
     defaultSpeed: { playbackSpeed: 'normal' },
     defaultAngle: 'eye-level',
     defaultFocalLength: '24mm',
-    promptGuidance: '史诗感来自空间纵深——用深景深和摇臂大幅Nâng hạHiển thị宏大场面。chính diện高调光让画面明亮壮观，适当加入镜头光晕和尘埃粒子增加电影感。战斗场面可切换肩扛Cầm tay增加冲击力。',
+    promptGuidance: '史诗感来自空间纵深——用深景深和摇臂大幅Nâng hạHiển thị宏大场面。chính diện高调光让画面明亮壮观，适当加入镜头光晕和尘埃粒子增加电影感。战斗场面可chuyển sang肩扛Cầm tay增加冲击力。',
     referenceFilms: ['指环王', '角斗士', '勇敢的心', '天国王朝'],
   },
   {

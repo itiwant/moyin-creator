@@ -124,7 +124,7 @@ function searchSceneInScripts(
     for (const scene of ep.scenes) {
       if (!scene) continue;
       
-      // 检查场景头是否Khớp（场景头通常包含地点thông tin）
+      // kiểm tra场景头是否Khớp（场景头通常包含地点thông tin）
       const sceneHeader = scene.sceneHeader || '';
       const isMatch = 
         sceneHeader.includes(name) || 
@@ -312,7 +312,7 @@ export async function findSceneByDescription(
   
   console.log('[findSceneByDescription] Phân tíchkết quả:', { name, episodeNumber });
   
-  // 2. 检查是否已存在
+  // 2. kiểm tra是否已存在
   const existing = existingScenes.find(s => 
     s.name === name || 
     s.location === name || 
@@ -391,7 +391,7 @@ export function quickSearchScene(
     return { name: null, found: false, message: '请输入场景名' };
   }
   
-  // 检查已存在
+  // kiểm tra已存在
   const existing = existingScenes.find(s => 
     s.name === name || 
     s.location === name ||

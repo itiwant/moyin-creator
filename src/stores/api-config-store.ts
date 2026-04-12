@@ -79,7 +79,7 @@ export interface AdvancedGenerationOptions {
   enableResumeGeneration: boolean;
   /** BậtNội dungkiểm duyệt容错：遇到nhạy cảmNội dungTự động跳过，Tiếp tụcTạo其他Phân cảnh */
   enableContentModeration: boolean;
-  /** Bật多ModelTự động切换：首Phân cảnhSử dụng t2v，后续Sử dụng i2v */
+  /** Bật多ModelTự độngchuyển sang：首Phân cảnhSử dụng t2v，后续Sử dụng i2v */
   enableAutoModelSwitch: boolean;
 }
 
@@ -596,7 +596,7 @@ export const useAPIConfigStore = create<APIConfigStore>()(
         if (!baseUrl) return { success: false, count: 0, error: 'Base URL Chưa cấu hình' };
 
         try {
-          // 用 Set thu thậpTất cả key 的Model，Tự động去重
+          // 用 Set thu thậpTất cả key 的Model，Tự độngkhử trùng
           const allModelIds = new Set<string>();
           const isMemefast = provider.platform === 'memefast';
           const memefastTypes: Record<string, string> = {};
@@ -680,7 +680,7 @@ export const useAPIConfigStore = create<APIConfigStore>()(
               }
             }
           } else {
-            // Standard OpenAI-compatible: 遍历每 key 查 /v1/models，合并去重
+            // Standard OpenAI-compatible: 遍历每 key 查 /v1/models，合并khử trùng
             const modelsUrl = /\/v\d+$/.test(baseUrl)
               ? `${baseUrl}/models`
               : `${baseUrl}/v1/models`;
@@ -773,7 +773,7 @@ export const useAPIConfigStore = create<APIConfigStore>()(
           return { success: true, count: modelIds.length };
         } catch (error) {
           console.error('[APIConfig] Model sync failed:', error);
-          return { success: false, count: 0, error: '网络请求Thất bại，请检查网络' };
+          return { success: false, count: 0, error: '网络请求Thất bại，请kiểm tra网络' };
         }
       },
 
@@ -787,12 +787,12 @@ export const useAPIConfigStore = create<APIConfigStore>()(
         console.log(`[APIConfig] Set ${feature} -> [${bindings?.join(', ') || '无'}]`);
       },
       
-      // 切换单绑定（Thêm/xóa）
+      // chuyển sang单绑定（Thêm/xóa）
       toggleFeatureBinding: (feature, binding) => {
         const current = get().featureBindings[feature] || [];
         const exists = current.includes(binding);
         
-        // 同时检查 legacy 格式（platform:model）是否存在
+        // 同时kiểm tra legacy 格式（platform:model）是否存在
         // 例如 binding = "{id}:deepseek-v3" 但 current 里可能有 "memefast:deepseek-v3"
         let legacyMatch: string | null = null;
         const idx = binding.indexOf(':');

@@ -299,7 +299,7 @@ export function PropertyPanel({
       lines.push('');
     }
     
-    // === 6层Danh tínhneo（Nhân vật一致性）===
+    // === 6层Danh tínhneo（Nhân vậtgiống性）===
     if (character.identityAnchors) {
       const anchors = character.identityAnchors;
       lines.push(`## 6 lớp neo nhận dạng`);

@@ -190,7 +190,7 @@ function providerSupportsCapability(
 }
 
 /**
- * 检查特定Model是否Hỗ trợ所需能力
+ * kiểm tra特定Model是否Hỗ trợ所需能力
  * 优先级：硬编码映射 → Nền tảng元dữ liệu(model_type/tags) → ModelTên推断 → Nền tảng级别 fallback
  */
 function modelSupportsCapability(
@@ -257,7 +257,7 @@ export function FeatureBindingPanel() {
     for (const p of providers) {
       if (parseApiKeys(p.apiKey).length > 0) {
         set.add(p.id);
-        // 也把 platform 加进去，以tương thích旧dữ liệu检查
+        // 也把 platform 加进去，以tương thích旧dữ liệukiểm tra
         set.add(p.platform);
       }
     }
@@ -314,7 +314,7 @@ export function FeatureBindingPanel() {
       const bindings = getFeatureBindings(feature.key);
       if (bindings.length === 0) return false;
       
-      // 检查是否至少有一有效的绑定
+      // kiểm tra是否至少有一有效的绑定
       const options = optionsByFeature[feature.key] || [];
       return bindings.some(binding => {
         const parsed = parseOptionKey(binding);
@@ -325,14 +325,14 @@ export function FeatureBindingPanel() {
     }).length;
   }, [optionsByFeature, configuredProviderIds, getFeatureBindings]);
 
-  // 切换单Model的đã chọnTrạng thái
+  // chuyển sang单Model的đã chọnTrạng thái
   const handleToggleBinding = (feature: FeatureMeta, optionKey: string) => {
     const parsed = parseOptionKey(optionKey);
     if (!parsed) return;
     toggleFeatureBinding(feature.key, optionKey);
   };
   
-  // 切换Mở rộng/thu gọn
+  // chuyển sangMở rộng/thu gọn
   const toggleExpanded = (feature: AIFeature) => {
     setExpandedFeatures(prev => {
       const newSet = new Set(prev);
@@ -421,7 +421,7 @@ export function FeatureBindingPanel() {
             setFeatureBindings(feature.key, null);
           };
           
-          // 检查有效/失效绑定（失效=Modelbị lọc、ngừng hoạt động，或Nền tảngChưa cấu hình）
+          // kiểm tra有效/失效绑定（失效=Modelbị lọc、ngừng hoạt động，或Nền tảngChưa cấu hình）
           const validBindings: string[] = [];
           const invalidBindings: string[] = [];
           for (const binding of currentBindings) {

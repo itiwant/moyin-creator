@@ -184,19 +184,19 @@ export function GroupRefManager({
       for (let i = 0; i < files.length; i++) {
         const file = files[i];
 
-        // hạn mức检查（单Loại）
+        // hạn mứckiểm tra（单Loại）
         if (limits.current + i >= limits.max) {
           toast.error(`Tham chiếu ${type === "video" ? "video" : "âm thanh"} đã đạt giới hạn ${limits.max}`);
           break;
         }
 
-        // hạn mức检查（Tổngfile数）
+        // hạn mứckiểm tra（Tổngfile数）
         if (totalFiles + i >= SEEDANCE_LIMITS.maxTotalFiles) {
           toast.error(`Tổng số file đã đạt giới hạn ${SEEDANCE_LIMITS.maxTotalFiles}`);
           break;
         }
 
-        // fileLoại检查
+        // fileLoạikiểm tra
         if (!limits.accept.some((t) => file.type.startsWith(t.split("/")[0]))) {
           toast.error(`Loại file không được hỗ trợ: ${file.name}`);
           continue;
@@ -205,7 +205,7 @@ export function GroupRefManager({
         // 读取为 data URL
         const dataUrl = await readFileAsDataUrl(file);
 
-        // 检查Thời lượng（video/âm thanh都需 ≤15s）
+        // kiểm traThời lượng（video/âm thanh都需 ≤15s）
         const duration = await getMediaDuration(dataUrl, type);
         if (duration > SEEDANCE_LIMITS.maxDuration) {
           toast.error(`${file.name} thời lượng ${Math.round(duration)}s vượt quá giới hạn ${SEEDANCE_LIMITS.maxDuration}s`);

@@ -1103,7 +1103,7 @@ export function EpisodeTree({
 
           {/* Danh sách nhân vật - chia thành nhóm nhân vật chính và nhóm quần chúng nhân vật phụ */}
           {(() => {
-            // lọc掉Nhân vật cha，并去重
+            // lọc掉Nhân vật cha，并khử trùng
             const seenIds = new Set<string>();
             const allCharacters = scriptData.characters
               .filter(c => !c.stageCharacterIds || c.stageCharacterIds.length === 0)

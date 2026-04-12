@@ -8,7 +8,7 @@
  *
  * chức năng：
  * - 左侧：按phân loại显示档案列表（emoji + 名称）
- * - bên phải：悬停/đã chọn时显示详细Mô tả、摄影参数、Tham chiếu影片
+ * - bên phải：Di chuột/đã chọn时显示详细Mô tả、摄影参数、Tham chiếu影片
  * - 支持 Popover popup出chế độ和内嵌chế độ
  */
 
@@ -68,7 +68,7 @@ export function CinematographyProfilePicker({
   // 获取Đang chọn的档案
   const selectedProfile = useMemo(() => getCinematographyProfile(value), [value]);
 
-  // 预览的档案（悬停优先，否则显示đã chọn的，兆底第一）
+  // 预览的档案（Di chuột优先，否则显示đã chọn的，兆底第一）
   const previewProfile = hoveredProfile || selectedProfile || CINEMATOGRAPHY_PROFILES[0];
 
   // 媒介类型适配提示

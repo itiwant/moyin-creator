@@ -1444,7 +1444,7 @@ export async function extractLastFrameFromVideo(
       if (hasResolved || targetTime < 0) return;
       console.log('[VideoGen] onseeked fired, currentTime:', video.currentTime, 'target:', targetTime);
       
-      // 检查是否真的 seek 到了目标位置
+      // kiểm tra是否真的 seek 到了目标位置
       if (Math.abs(video.currentTime - targetTime) < 0.5) {
         // seek Thành công，等待一下再捕获
         setTimeout(captureFrame, 200);

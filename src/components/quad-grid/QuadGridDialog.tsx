@@ -5,7 +5,7 @@
 
 /**
  * Quad Grid Dialog - Lưới 4 ôTạoChat框
- * 基于Ảnh neoTạo2x2一致性biến thể
+ * 基于Ảnh neoTạo2x2giống性biến thể
  */
 
 import { useState } from "react";

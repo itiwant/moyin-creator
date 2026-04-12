@@ -430,7 +430,7 @@ export function extractViewpointsFromShots(
   for (const shot of shots) {
     const actionText = shot.actionSummary || '';
     
-    // 检查每quan trọng词
+    // kiểm tra每quan trọng词
     for (const [keyword, config] of Object.entries(VIEWPOINT_KEYWORDS)) {
       if (actionText.includes(keyword)) {
         if (!viewpointMap.has(config.id)) {
@@ -566,7 +566,7 @@ export function generateContactSheetPrompt(config: ContactSheetConfig): ContactS
   // 构建增强版提示词 — 对齐Đạo diễnpanel generateGridAndSlice 的3 lớp风格夹击Cấu trúc
   const promptParts: string[] = [];
   
-  // 1. 核心指令区 (Instruction Block) — Sử dụng与Đạo diễnpanel一致的 storyboard grid 术语
+  // 1. 核心指令区 (Instruction Block) — Sử dụng与Đạo diễnpanelgiống的 storyboard grid 术语
   promptParts.push('<instruction>');
   promptParts.push(`Generate a clean ${gridLayout.rows}x${gridLayout.cols} storyboard grid with exactly ${paddedCount} equal-sized panels.`);
   promptParts.push(`Overall Image Aspect Ratio: ${aspectRatio}.`);
@@ -629,7 +629,7 @@ ${sceneDescZh}
 网格bố cục（从左到右，从上到下）：
 ${gridItemsZh}
 
-风格：${styleTokens.length > 0 ? styleTokens.join('、') : '动画风格，柔和色彩，细节丰富'}，${viewpoints.length}格子保持一致的透视和光照。每格子用细白线ngăn cách。只有背景，没有nhân vật。`;
+风格：${styleTokens.length > 0 ? styleTokens.join('、') : '动画风格，柔和色彩，细节丰富'}，${viewpoints.length}格子保持giống的透视和光照。每格子用细白线ngăn cách。只有背景，没有nhân vật。`;
 
   return {
     prompt,
@@ -684,7 +684,7 @@ export function matchShotToViewpoint(
 ): string | null {
   const actionText = shot.actionSummary || '';
   
-  // 检查分镜是否已关联到某góc nhìn
+  // kiểm tra分镜是否已关联到某góc nhìn
   for (const vp of viewpoints) {
     if (vp.shotIds.includes(shot.id)) {
       return vp.id;
@@ -817,7 +817,7 @@ function getDefaultViewpointsForEnvironment(
 }
 
 /**
- * 检查góc nhìn配置是否与环境类型tương thích
+ * kiểm tragóc nhìn配置是否与环境类型tương thích
  */
 function isViewpointCompatibleWithEnvironment(
   config: ViewpointConfig,
@@ -831,7 +831,7 @@ function isViewpointCompatibleWithEnvironment(
   if (envType === 'unknown') {
     return true;
   }
-  // 检查环境是否在tương thích列表中
+  // kiểm tra环境是否在tương thích列表中
   return config.environments.includes(envType);
 }
 
@@ -990,7 +990,7 @@ export function generateMultiPageContactSheetData(
   const allViewpoints = extractAllViewpointsFromShots(config.shots, sceneLocation);
   
   // 根据góc nhìn数量和宽高比Tự độngChọn最优bố cục
-  // 强制Sử dụng NxN bố cục (2x2 或 3x3) 以保证宽高比一致性，与 Director panel保持一致
+  // 强制Sử dụng NxN bố cục (2x2 或 3x3) 以保证宽高比giống性，与 Director panel保持giống
   let gridLayout: { rows: number; cols: number };
   let viewpointsPerPage: number;
   
@@ -1079,7 +1079,7 @@ export function generateMultiPageContactSheetData(
     // 构建增强版提示词 — 对齐Đạo diễnpanel generateGridAndSlice 的3 lớp风格夹击Cấu trúc
     const promptParts: string[] = [];
     
-    // 1. 核心指令区 (Instruction Block) — Sử dụng与Đạo diễnpanel一致的 storyboard grid 术语
+    // 1. 核心指令区 (Instruction Block) — Sử dụng与Đạo diễnpanelgiống的 storyboard grid 术语
     promptParts.push('<instruction>');
     promptParts.push(`Generate a clean ${gridLayout.rows}x${gridLayout.cols} storyboard grid with exactly ${paddedCount} equal-sized panels.`);
     promptParts.push(`Overall Image Aspect Ratio: ${aspectRatio}.`);
@@ -1151,7 +1151,7 @@ Quan trọng:
 - 这是一张干净的Tham chiếu图，图片上不要Thêm任何văn bảnGhi đè。
 - 不要Thêm标签、标题、说明văn bản、hình mờ或任何类型的văn bản。
 
-风格：${styleTokens.length > 0 ? styleTokens.join('、') : '动画风格，柔和色彩，细节丰富'}，Tất cả格子光照一致，格子之间用细白边框ngăn cách，只有背景，没有nhân vật。`;
+风格：${styleTokens.length > 0 ? styleTokens.join('、') : '动画风格，柔和色彩，细节丰富'}，Tất cả格子光照giống，格子之间用细白边框ngăn cách，只有背景，没有nhân vật。`;
     
     return {
       pageIndex,
@@ -1371,7 +1371,7 @@ Quan trọng:
 - 这是一张干净的Tham chiếu图，图片上不要Thêm任何văn bảnGhi đè。
 - 不要Thêm标签、标题、说明văn bản、hình mờ或任何类型的văn bản。
 
-风格：${styleTokens.length > 0 ? styleTokens.join('、') : '动画风格，柔和色彩，细节丰富'}，Tất cả格子光照一致，格子之间用细白边框ngăn cách，只有背景，没有nhân vật。`;
+风格：${styleTokens.length > 0 ? styleTokens.join('、') : '动画风格，柔和色彩，细节丰富'}，Tất cả格子光照giống，格子之间用细白边框ngăn cách，只有背景，没有nhân vật。`;
     
     return {
       pageIndex,

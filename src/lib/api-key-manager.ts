@@ -35,7 +35,7 @@ export interface IProvider {
  * 
  * 核心供应商：
  * 1. MemeFast API (memefast) - 全chức năng AI trung gian（推荐），支持文本/ảnh/video/nhận dạng ảnh
- * 2. RunningHub - góc nhìn切换/đa góc độTạo
+ * 2. RunningHub - góc nhìnchuyển sang/đa góc độTạo
  */
 export const DEFAULT_PROVIDERS: Omit<IProvider, 'id' | 'apiKey'>[] = [
   {
@@ -119,8 +119,8 @@ export function classifyModelByName(modelName: string): ModelCapability[] {
  */
 export type ModelApiFormat =
   | 'openai_chat'        // /v1/chat/completions （文本/Chat，也用于 Gemini ảnhTạo）
-  | 'openai_images'      // /v1/images/generations （标准ảnhTạo）
-  | 'openai_video'       // /v1/videos/generations （标准videoTạo）
+  | 'openai_images'      // /v1/images/generations （Tiêu chuẩnảnhTạo）
+  | 'openai_video'       // /v1/videos/generations （Tiêu chuẩnvideoTạo）
   | 'kling_image'        // /kling/v1/images/generations 或 /kling/v1/images/omni-image
   | 'unsupported';       // 不支持的端点格式
 

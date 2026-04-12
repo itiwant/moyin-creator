@@ -112,7 +112,7 @@ export interface SplitSceneCardProps {
   onUploadImage?: (sceneId: number, imageDataUrl: string) => void;
   // 通用trường更新回调（用于双击Chỉnh sửa）
   onUpdateField?: (sceneId: number, field: keyof SplitScene, value: any) => void;
-  // 角度切换回调
+  // 角度chuyển sang回调
   onAngleSwitch?: (sceneId: number, type: "start" | "end") => void;
   // Lưới 4 ô回调
   onQuadGrid?: (sceneId: number, type: "start" | "end") => void;

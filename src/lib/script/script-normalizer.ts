@@ -4,7 +4,7 @@
 /**
  * Script Format Normalizer - 剧本格式归一化器
  * 
- * 在 parseFullScript 之前Tự động检测非标准格式并插入Cấu trúc标记，
+ * 在 parseFullScript 之前Tự động检测非Tiêu chuẩn格式并插入Cấu trúc标记，
  * 使Phân tích器能正确提取标题、đại cương、nhân vật小传、 tập数等thông tin。
  * 
  * 双层架构：
@@ -14,7 +14,7 @@
  * 核心原则：
  * - 只插入Cấu trúc标记（《》、đại cương：、nhân vật小传：）+ AI Tạo的đại cương
  * - 不修改、不删除任何gốc内容
- * - 幂等：hiện có标准格式的文本不受影响
+ * - 幂等：hiện cóTiêu chuẩn格式的文本不受影响
  */
 
 import { callFeatureAPI } from '@/lib/ai/feature-router';
@@ -117,17 +117,17 @@ export interface NormalizationResult {
 
 /**
  * 正则兜底归一化（无 AI 时Sử dụng）
- * 检测非标准格式并插入Cấu trúc标记，原文内容一字不差
+ * 检测非Tiêu chuẩn格式并插入Cấu trúc标记，原文内容一字不差
  */
 export function normalizeScriptFormat(text: string): NormalizationResult {
   const changes: string[] = [];
   
-  // 检查hiện có标准标记
+  // kiểm trahiện cóTiêu chuẩn标记
   const hasTitle = /[《「][^》」]+[》」]/.test(text);
   const hasOutline = /(?:\*{0,2}đại cương[：:]\*{0,2}|【đại cương】)/i.test(text);
   const hasCharBios = /(?:\*{0,2}nhân vật小传[：:]\*{0,2}|【nhân vật小传】)/i.test(text);
   
-  // Tất cả标准，无需归一化
+  // Tất cảTiêu chuẩn，无需归一化
   if (hasTitle && hasOutline && hasCharBios) {
     return { normalized: text, changes: [] };
   }
@@ -205,7 +205,7 @@ export interface ScriptStructureAnalysis {
  * @returns 分析kết quả，AI không khả dụng或gọi APIthất bại时返回 null
  */
 export async function analyzeScriptStructureWithAI(text: string): Promise<ScriptStructureAnalysis | null> {
-  // 检查 AI 是否可用
+  // kiểm tra AI 是否可用
   const config = getFeatureConfig('script_analysis');
   if (!config) {
     console.log('[scriptNormalizer] 无 AI 配置，跳过Cấu trúc检测');
@@ -373,7 +373,7 @@ export function applyAIAnalysis(text: string, analysis: ScriptStructureAnalysis)
   const hasOutlineNow = /(?:\*{0,2}đại cương[：:]\*{0,2}|【đại cương】)/i.test(normalized);
   if (!hasOutlineNow) {
     if (!hasOutline && analysis.outlineSectionKeyword) {
-      // 原文有đại cương内容但没有标准标记
+      // 原文有đại cương内容但没有Tiêu chuẩn标记
       const outlinePos = normalized.indexOf(analysis.outlineSectionKeyword);
       if (outlinePos !== -1) {
         normalized = normalized.substring(0, outlinePos)
@@ -590,7 +590,7 @@ function normalizeEpisodeMarkers(text: string, changes: string[]): string {
   );
   
   if (changed) {
-    changes.push(' tập标记: 非标准 tập标记已归一化为"第X tập"格式');
+    changes.push(' tập标记: 非Tiêu chuẩn tập标记已归一化为"第X tập"格式');
   }
   
   return normalized;

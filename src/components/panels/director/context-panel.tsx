@@ -243,7 +243,7 @@ export function DirectorContextPanel() {
       };
     }
     
-    // 方案一：优先检查Thư viện cảnhGóc nhìnbiến thể的shotIds（切割时Lưu的）
+    // 方案一：优先kiểm traThư viện cảnhGóc nhìnbiến thể的shotIds（切割时Lưu的）
     const variantWithShot = variants.find(v => v.shotIds?.includes(shot.id));
     if (variantWithShot) {
       console.log(`[findMatchingSceneAndViewpointQuick] Khớp qua shotIds Thư viện cảnh: Phân cảnh${shot.id} -> Góc nhìn "${variantWith
@@ -257,7 +257,7 @@ export function DirectorContextPanel() {
       };
     }
     
-    // 方案二：检查Kịch bảnscene.viewpoints的shotIds（AI分析时Lưu的）
+    // 方案二：kiểm traKịch bảnscene.viewpoints的shotIds（AI分析时Lưu的）
     if (scene.viewpoints && scene.viewpoints.length > 0) {
       const matchedViewpoint = scene.viewpoints.find(v => v.shotIds?.includes(shot.id));
       if (matchedViewpoint) {
@@ -368,7 +368,7 @@ export function DirectorContextPanel() {
 
   // Thêmphân cảnh đơn到Phân cảnhChỉnh sửa（chế độ二）
   const handleAddShotToSplitScenes = (shot: Shot, scene: ScriptScene) => {
-    // Debug: 检查 Shot đang xử lý...promptdữ liệu
+    // Debug: kiểm tra Shot đang xử lý...promptdữ liệu
     console.log('[ContextPanel] Adding shot to split scenes:', {
       shotId: shot.id,
       imagePrompt: shot.imagePrompt?.substring(0, 50),

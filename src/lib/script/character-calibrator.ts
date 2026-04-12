@@ -67,7 +67,7 @@ export interface CalibratedCharacter {
   /** trang phục风格 */
   clothingStyle?: string;
   
-  // === 6层Danh tínhneo（角色一致性）===
+  // === 6层Danh tínhneo（角色giống性）===
   /** Neo danh tính - khóa 6 lớp đặc trưng */
   identityAnchors?: CharacterIdentityAnchors;
   /** 负面提示词 */
@@ -173,7 +173,7 @@ export function collectCharacterStats(
 ): Map<string, CharacterStats> {
   const stats = new Map<string, CharacterStats>();
   
-  // 防御性检查
+  // 防御性kiểm tra
   if (!characterNames || !Array.isArray(characterNames)) {
     console.warn('[collectCharacterStats] characterNames 无效');
     return stats;
@@ -206,7 +206,7 @@ export function collectCharacterStats(
     for (const scene of ep.scenes) {
       if (!scene) continue;
       
-      // 检查场景nhân vật
+      // kiểm tra场景nhân vật
       const sceneChars = scene.characters || [];
       for (const charName of sceneChars) {
         if (!charName) continue;
@@ -229,7 +229,7 @@ export function collectCharacterStats(
         }
       }
       
-      // 检查Thoại
+      // kiểm traThoại
       const dialogues = scene.dialogues || [];
       for (const dialogue of dialogues) {
         if (!dialogue || !dialogue.character) continue;
@@ -356,7 +356,7 @@ export async function calibrateCharacters(
 - 几乎不lọc，保留Tất cả能识别的角色
 - 包括Quần chúng、低频角色、只有称呼的角色（如"学习委员"、"戴眼镜的男生"）
 - 只lọc纯Mô tả词（如"眼框微湿"、"干练优雅"）和非nhân vật词（如"全体员工"、"核心团队"）`
-    : `【筛选chế độ：标准】
+    : `【筛选chế độ：Tiêu chuẩn】
 - 有名字或称呼的角色Tất cả保留
 - 只lọc纯Quần chúng、群体、非角色词`;
   
@@ -621,7 +621,7 @@ ${batchDialogues.slice(0, 100).join('\n')}
     };
   }
     
-  // === 第二步：转换为标准格式并ThêmID ===
+  // === 第二步：转换为Tiêu chuẩn格式并ThêmID ===
   const characters: CalibratedCharacter[] = (parsed.characters || []).map((c: any, i: number) => ({
     id: `char_${i + 1}`,
     name: c.name,
@@ -729,7 +729,7 @@ function collectCharacterContexts(
   // 遍历剧本，thu thập角色出现的场景和Thoại
   for (const ep of episodeScripts.slice(0, 5)) { // 只取前5 tập作为样本
     for (const scene of ep.scenes.slice(0, 10)) { // 每 tập最多10场景
-      // 检查场景đang xử lý...我们关注的角色
+      // kiểm tra场景đang xử lý...我们关注的角色
       const relevantChars = scene.characters.filter(c => 
         characterNames.has(c) || characters.some(char => c.includes(char.name))
       );
@@ -786,7 +786,7 @@ export function convertToScriptCharacters(
       appearance: c.facialFeatures || c.uniqueMarks || c.clothingStyle 
         ? [c.facialFeatures, c.uniqueMarks, c.clothingStyle].filter(Boolean).join(', ')
         : original?.appearance,
-      // === 6层Danh tínhneo（角色一致性）===
+      // === 6层Danh tínhneo（角色giống性）===
       identityAnchors: c.identityAnchors || original?.identityAnchors,
       negativePrompt: c.negativePrompt || original?.negativePrompt,
       // 标记重要性，便于UIHiển thị
@@ -796,7 +796,7 @@ export function convertToScriptCharacters(
 }
 
 /**
- * 角色恢复兜底：优先保留带名字的角色，并去重
+ * 角色恢复兜底：优先保留带名字的角色，并khử trùng
  */
 function cloneScriptCharactersForRecovery(
   characters: ScriptCharacter[] | undefined,
@@ -993,7 +993,7 @@ async function enrichCharactersWithVisualPrompts(
     // 科幻/未来
     if (/科幻|未来|星际|太空/.test(timeline)) {
       return `【${timeline}trang phục指导】
-- 可以Thiết kế未来感/科技感trang phục，但需保持内部一致性
+- 可以Thiết kế未来感/科技感trang phục，但需保持内部giống性
 - bị cấm出现与Bối cảnh thế giới不符的trang phục元素`;
     }
 
@@ -1012,7 +1012,7 @@ async function enrichCharactersWithVisualPrompts(
 - **角色Thị giácThiết kế**：能准确捕捉角色的外在形象、trang phục风格、肢体Ngôn ngữ
 - **thập niêntrang phục专家**：精通不同thập niên的đang xử lý...潮流，能准确还原历史时期的trang phục特征
 - **AI图像Tạo专家**：深谙 Midjourney、DALL-E、Stable Diffusion 等 AI 绘图模型
-- **角色一致性专家**：掌握"6层特征锁定"技术，确保同一角色在不同场景保持一致
+- **角色giống性专家**：掌握"6层特征锁定"技术，确保同一角色在不同场景保持giống
 
 【剧本thông tin】
 tên phim：《${background.title}》
@@ -1031,7 +1031,7 @@ ${background.outline?.slice(0, 1200) || '无'}
 ${background.characterBios?.slice(0, 1200) || '无'}
 
 ${promptLanguage === 'zh' ? `【核心输出：6层Danh tínhneo】
-这是AI生图đang xử lý...色一致性的quan trọng技术，必须用đang xử lý...填写：
+这是AI生图đang xử lý...色giống性的quan trọng技术，必须用đang xử lý...填写：
 
 ① Lớp xương mặt（Khuôn mặt骨骼Cấu trúc）
    - faceShape: Hình mặt（鹅蛋形/方形/心形/tròn/菱形/长tròn）
@@ -1066,7 +1066,7 @@ ${promptLanguage === 'zh' ? `【核心输出：6层Danh tínhneo】
 为角色TạonegativePrompt，排除不符合设定的特征，用đang xử lý...：
 - avoid: 要Tránh的特征（如đang xử lý...色应Tránh 金色头发、蓝色眼睛）
 - styleExclusions: 风格排除（如 动漫风、卡通风、油画风）` : `【核心输出：6层Danh tínhneo】
-这是AI生图đang xử lý...色一致性的quan trọng技术，必须详细填写：
+这是AI生图đang xử lý...色giống性的quan trọng技术，必须详细填写：
 
 ① Lớp xương mặt（Khuôn mặt骨骼Cấu trúc）
    - faceShape: Hình mặt（oval/square/heart/round/diamond/oblong）

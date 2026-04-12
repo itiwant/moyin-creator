@@ -9,7 +9,7 @@
  * 交互升级：
  * - 鼠标Kéo：控制Xoay（水平/俯仰）
  * - 鼠标Lăn：控制Thu phóng（Kích thước cảnh）
- * - 磁吸效果：接近标准角度时Tự động吸附，解决"太丝滑"问题
+ * - 磁吸效果：接近Tiêu chuẩn角度时Tự động吸附，解决"太丝滑"问题
  */
 
 import React, { useState, useCallback, useEffect, useMemo, useRef } from "react";
@@ -120,7 +120,7 @@ export function AngleController({
     };
   }, []);
 
-  // 核心逻辑：吸附到最近的标准角度 (Snapping)
+  // 核心逻辑：吸附到最近的Tiêu chuẩn角度 (Snapping)
   const snapToGrid = useCallback((t: number, p: number, sSize: ShotSize) => {
     // 1. 水平方向吸附 (每45度)
     const normalizedTheta = ((t % 360) + 360) % 360;

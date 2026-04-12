@@ -7,7 +7,7 @@
  * 将 director-store đang xử lý...plitScene[] Tự động分为 ShotGroup[]。
  * 策略：
  *   1. 按thứ tự贪心填装，每组TổngThời lượng ≤ maxDuration（Mặc định15s）
- *   2. Cảnh切换优先断开（不同 sceneName 的Ống kính优先不在同一组）
+ *   2. Cảnhchuyển sang优先断开（不同 sceneName 的Ống kính优先不在同一组）
  *   3. Nhân vật重叠度高的Ống kính优先同组（characterIds 交 tập）
  *   4. 每组 2~maxPerGroup Ống kính
  */
@@ -122,7 +122,7 @@ export function autoGroupScenes(
       // 加入后超Thời lượng上限
       shouldBreak = true;
     } else if (currentSceneIds.length > 0) {
-      // Cảnh切换检测：不同Cảnh优先断开
+      // Cảnhchuyển sang检测：不同Cảnh优先断开
       const prevScene = scenes[i - 1];
       if (prevScene && !isSameScene(prevScene, scene)) {
         // 不同Cảnh —— 如果当nhóm trướchiện có ≥ minPerGroup Ống kính，断开

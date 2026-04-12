@@ -167,7 +167,7 @@ export function SettingsPanel() {
       image_understanding: `${pid}:gemini-2.5-flash`,
     };
 
-    // 检查绑定是否有效
+    // kiểm tra绑定是否有效
     const isBindingValid = (b: string): boolean => {
       const idx = b.indexOf(':');
       if (idx <= 0) return false;

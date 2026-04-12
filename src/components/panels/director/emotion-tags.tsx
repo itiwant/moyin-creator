@@ -50,7 +50,7 @@ export function EmotionTags({ value, onChange, disabled }: EmotionTagsProps) {
     onChange(value.filter(t => t !== tagId));
   };
 
-  // 检查是否Đã chọn
+  // kiểm tra是否Đã chọn
   const isSelected = (tagId: EmotionTag) => value.includes(tagId);
 
   // 渲染Thẻphân loại

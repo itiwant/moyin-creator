@@ -154,7 +154,7 @@ export function ScriptView() {
   const calibrationStatus = calibrationState?.titleCalibrationStatus || 'idle';
   const [missingTitleCount, setMissingTitleCount] = useState(0);
 
-  // Nhập/Tạo đại cương状态持久化到 store，panel切换后可恢复
+  // Nhập/Tạo đại cương状态持久化到 store，panelchuyển sang后可恢复
   const importStatus = calibrationState?.importStatus || 'idle';
   const setImportStatus = useCallback((status: 'idle' | 'importing' | 'ready' | 'error') => {
     if (!activeProjectId) return;
@@ -303,7 +303,7 @@ export function ScriptView() {
     }
   }, [activeEpisodeIndex, scriptData?.episodes]);
 
-  // 优先检查新的ánh xạ dịch vụ
+  // 优先kiểm tra新的ánh xạ dịch vụ
   const chatConfigured = isFeatureConfigured('script_analysis') || checkChatKeys().isAllConfigured;
   const episodeRawScripts = scriptProject?.episodeRawScripts || [];
 
@@ -343,7 +343,7 @@ export function ScriptView() {
     const prev = prevEpisodeRef.current;
     const currentLen = effectiveRawScript.length;
 
-    //  tập切换 → 只更新 ref
+    //  tậpchuyển sang → 只更新 ref
     if (prev.index !== (activeEpisodeIndex ?? null)) {
       prevEpisodeRef.current = { index: activeEpisodeIndex ?? null, rawLen: currentLen };
       return;
@@ -977,7 +977,7 @@ export function ScriptView() {
       return;
     }
     
-    // 检查 episodeRawScripts 是否存在
+    // kiểm tra episodeRawScripts 是否存在
     if (!episodeRawScripts || episodeRawScripts.length === 0) {
       toast.error('Thiếu dữ liệu kịch bản phân tập, vui lòng nhập lại kịch bản hoặc sử dụng tính năng nhập phiên bản mới');
       console.error('[handleCalibrateCharacters] episodeRawScripts trống hoặc không tồn tại');
@@ -1009,7 +1009,7 @@ export function ScriptView() {
     
     try {
       // === 第一步：AI Hiệu chuẩnNhân vật ===
-      // 保留上次Hiệu chuẩn的Nhân vật，防止 AI 每次kết quả不一致导致Nhân vật丢失
+      // 保留上次Hiệu chuẩn的Nhân vật，防止 AI 每次kết quả不giống导致Nhân vật丢失
       const existingCalibrated = scriptData?.characters?.map(c => ({
         id: c.id,
         name: c.name,
@@ -1319,7 +1319,7 @@ export function ScriptView() {
   }, [importStatus, scriptProject?.projectBackground?.outline, episodeRawScripts.length]);
 
   // Generate script from idea (Sáng tácchế độ)
-  // AIphân tíchngười dùng输入，Tạo标准格式剧本，rồi走Nhập流程
+  // AIphân tíchngười dùng输入，TạoTiêu chuẩn格式剧本，rồi走Nhập流程
   const handleGenerateFromIdea = useCallback(async (idea: string) => {
     if (!idea.trim()) {
       toast.error("Vui lòng Nhập ý tưởng câu chuyện");
@@ -1573,7 +1573,7 @@ export function ScriptView() {
         return;
       }
 
-      // 检查是否已关联Thư viện nhân vật
+      // kiểm tra是否已关联Thư viện nhân vật
       if (character.characterLibraryId) {
         // 已关联，Trực tiếp跳转并đã chọn
         selectLibraryCharacter(character.characterLibraryId);
@@ -1605,7 +1605,7 @@ export function ScriptView() {
         // === chuyên nghiệpNhân vậtThiết kếtrường（世界级大师Tạo）===
         visualPromptEn: character.visualPromptEn,
         visualPromptZh: character.visualPromptZh,
-        // === 6层Danh tínhneo（Nhân vật一致性）===
+        // === 6层Danh tínhneo（Nhân vậtgiống性）===
         identityAnchors: character.identityAnchors,
         negativePrompt: character.negativePrompt,
         // === 多Nhân vật giai đoạn支持 ===

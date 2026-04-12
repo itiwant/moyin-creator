@@ -23,7 +23,7 @@ export interface CharacterStageAnalysis {
   needsMultiStage: boolean;        // 是否需要多阶段
   reason: string;                   // 判断理由
   stages: StageVariationData[];     // 阶段列表
-  consistencyElements: {            // 一致性元素
+  consistencyElements: {            // giống性元素
     facialFeatures: string;
     bodyType: string;
     uniqueMarks: string;
@@ -72,7 +72,7 @@ export async function analyzeCharacterStages(
 
 你的nhiệm vụ是分析剧本đại cương，判断每主要角色是否需要多阶段的形象变体。
 
-【判断标准】
+【判断Tiêu chuẩn】
 角色需要多阶段形象的情况：
 1. 时间跨度大（如从25 tuổi到50 tuổi）
 2. Danh tính地位变化（从普通人到成功企业家）
@@ -87,7 +87,7 @@ export async function analyzeCharacterStages(
 【阶段划分原则】
 - 根据总 tập数合理划分，每阶段至少10 tập
 - 阶段之间要有明显的形象区分
-- 保持Khuôn mặt特征、体型等一致性元素
+- 保持Khuôn mặt特征、体型等giống性元素
 
 请以JSON格式返回分析kết quả。`;
 

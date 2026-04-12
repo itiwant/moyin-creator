@@ -219,7 +219,7 @@ function extractTimeFromHeader(header: string): string {
 }
 
 /**
- * 标准化地点名称用于Khớp
+ * Tiêu chuẩn化地点名称用于Khớp
  */
 function normalizeLocation(location: string): string {
   return cleanLocationString(location)
@@ -367,7 +367,7 @@ ${outlineContext || '无'}
 ${sceneList}
 
 【输出规则】
-1. 必须返回每场景的 sceneId（与输入完全一致）
+1. 必须返回每场景的 sceneId（与输入完全giống）
 2. keyProps 必须从动作描写中提取
 3. 合并gợi ý放在 mergeRecords
 

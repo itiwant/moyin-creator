@@ -136,12 +136,12 @@ function searchCharacterInScripts(
     for (const scene of ep.scenes) {
       if (!scene) continue;
       
-      // 检查场景nhân vật列表
+      // kiểm tra场景nhân vật列表
       const hasInCharacters = scene.characters?.some(c => 
         c === name || c.includes(name) || name.includes(c)
       );
       
-      // 检查Thoại
+      // kiểm traThoại
       const relevantDialogues = scene.dialogues?.filter(d => 
         d.character === name || d.character.includes(name) || name.includes(d.character)
       ) || [];
@@ -329,7 +329,7 @@ async function generateCharacterData(
 【trang phụcThiết kế要求】
 ${eraFashionGuidance}
 
-trang phục必须与剧本thời đại背景一致，不要混淆不同thời đại的trang phục风格。
+trang phục必须与剧本thời đại背景giống，不要混淆不同thời đại的trang phục风格。
 
 【输出格式】
 请返回JSON格式，包含以下trường：
@@ -453,7 +453,7 @@ export async function findCharacterByDescription(
   
   console.log('[findCharacterByDescription] Phân tíchkết quả:', { name, episodeNumber });
   
-  // 2. 检查是否已存在
+  // 2. kiểm tra是否已存在
   const existing = existingCharacters.find(c => 
     c.name === name || c.name.includes(name) || name.includes(c.name)
   );
@@ -528,7 +528,7 @@ export function quickSearchCharacter(
     return { name: null, found: false, message: '请输入角色名' };
   }
   
-  // 检查已存在
+  // kiểm tra已存在
   const existing = existingCharacters.find(c => 
     c.name === name || c.name.includes(name) || name.includes(c.name)
   );

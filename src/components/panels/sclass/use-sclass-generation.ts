@@ -223,7 +223,7 @@ export function useSClassGeneration() {
         if (!isExtendOrEdit) {
           const sceneIds = group.sceneIds;
 
-          // 检查是否可复用缓存的lưới 9 ô图
+          // kiểm tra是否可复用缓存的lưới 9 ô图
           const cachedGridUrl = sclassProjectData.lastGridImageUrl;
           const cachedSceneIds = sclassProjectData.lastGridSceneIds;
           const canReuseGrid = cachedGridUrl &&
@@ -616,7 +616,7 @@ export function useSClassGeneration() {
       const projectId = activeProjectId;
       if (!projectId) return false;
 
-      // 从 director-store 直读共享配置（与 generateGroupVideo 保持一致）
+      // 从 director-store 直读共享配置（与 generateGroupVideo 保持giống）
       const dirState = useDirectorStore.getState();
       const dirProj = dirState.projects[dirState.activeProjectId || ''];
       const sbConfig = dirProj?.storyboardConfig;

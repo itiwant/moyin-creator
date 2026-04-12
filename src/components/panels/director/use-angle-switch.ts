@@ -53,7 +53,7 @@ export function useAngleSwitch({
   updateSplitSceneImage,
   updateSplitSceneEndFrame,
 }: UseAngleSwitchOptions): UseAngleSwitchReturn {
-  // 角度切换Trạng thái
+  // 角度chuyển sangTrạng thái
   const [angleSwitchOpen, setAngleSwitchOpen] = useState(false);
   const [angleSwitchResultOpen, setAngleSwitchResultOpen] = useState(false);
   const [angleSwitchTarget, setAngleSwitchTarget] = useState<AngleSwitchTarget | null>(null);

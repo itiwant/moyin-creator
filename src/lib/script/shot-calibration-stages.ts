@@ -185,7 +185,7 @@ export async function calibrateShotsMultiStage(
 
 ${contextLine}${narrativeAnchorBlock}${episodeSynopsis ? `\n\n【本 tậpđại cương】\n${episodeSynopsis}` : ''}${episodeKeyEvents?.length ? `\nSự kiện quan trọng：${episodeKeyEvents.join('、')}` : ''}
 
-【⚠️ tự sự一致性校验 — 必须执行】
+【⚠️ tự sựgiống性校验 — 必须执行】
 每分镜必须回答：
 1. 此镜头如何推动本 tập核心冲突的发展？（铺垫→升级→cao trào→转折→尾声）
 2. 此镜头是否违反Bối cảnh thế giới设定？（如有违反，在 storyAlignment đang xử lý...
@@ -199,7 +199,7 @@ ${contextLine}${narrativeAnchorBlock}${episodeSynopsis ? `\n\n【本 tậpđại
 - narrativeFunction: 铺垫/升级/cao trào/转折/chuyển tiếp/尾声
 - conflictStage: 此镜头在本 tập核心冲突đang xử lý...（引入/激化/对抗/转折/解决/余波，无关填"辅助"）
 - shotPurpose: 一句话说明此镜头如何服务于故事核心（中文）
-- storyAlignment: 与Bối cảnh thế giới/故事核心的一致性（aligned/minor-deviation/needs-review）
+- storyAlignment: 与Bối cảnh thế giới/故事核心的giống性（aligned/minor-deviation/needs-review）
 - visualFocus: Tiêu điểm thị giácthứ tự（用→表示）
 - cameraPosition: 机位Mô tả（中文）
 - characterBlocking: nhân vậtbố cục（中文）
@@ -235,7 +235,7 @@ ${contextLine}${narrativeAnchorBlock}${episodeSynopsis ? `\n\n【本 tậpđại
 ⚠️ 规则：
 - 场景归属绝对Cố định：主场景不可thay đổi，闪回用"画面叠加"Mô tả
 - 角色列表必须đầy đủ来自原文，不增不减
-- **thời đại一致性**：nhân vậttrang phục、Kiểu tóc、đạo cụ、环境细节必须严格符合剧本设定的thời đại背景，bị cấm混入其他thời đại元素
+- **thời đạigiống性**：nhân vậttrang phục、Kiểu tóc、đạo cụ、环境细节必须严格符合剧本设定的thời đại背景，bị cấm混入其他thời đại元素
 - visualDescription: 纯đang xử lý...细画面Mô tả（trang phục/đạo cụ必须符合thời đại）
 ${s2VisualPromptRule}
 - emotionTags Tùy chọn: happy/sad/angry/surprised/fearful/calm/tense/excited/mysterious/romantic/funny/touching/serious/relaxed/playful/gentle/passionate/low
@@ -323,7 +323,7 @@ ${s2VisualPromptRule}
 
 ${styleDesc}${mediaTypeHint}
 
-⚠️ thời đại一致性（最重要）：nhân vật的trang phục、Kiểu tóc、配饰必须严格符合剧本设定的thời đại背景。例如古装剧đang xử lý...n vật必须穿古代服饰，bị cấm出现西装、T恤、现代Kiểu tóc等。
+⚠️ thời đạigiống性（最重要）：nhân vật的trang phục、Kiểu tóc、配饰必须严格符合剧本设定的thời đại背景。例如古装剧đang xử lý...n vật必须穿古代服饰，bị cấm出现西装、T恤、现代Kiểu tóc等。
 
 ${s4Fields} 必须包含：
 a) 场景环境（地点+环境细节+时间氛围）
@@ -384,7 +384,7 @@ needsEndFrame 判断：
 ${s5VideoFields}：
 - Mô tả视频đang xử lý...动作（nhân vật动作、物体移动、镜头运动）
 - 强调动词，Mô tả运动quá trình
-- ⚠️ Tất cảMô tả必须保持thời đại一致性（trang phục/đạo cụ/环境不能偏离剧本设定的thời đại）
+- ⚠️ Tất cảMô tả必须保持thời đạigiống性（trang phục/đạo cụ/环境不能偏离剧本设定的thời đại）
 
 ${s5EndFields}：
 仅当 needsEndFrame=true 时Tạo，否则设为空ký tự串。

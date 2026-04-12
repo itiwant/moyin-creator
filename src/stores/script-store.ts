@@ -38,7 +38,7 @@ export interface ScriptCalibrationState {
   calibrationDialogOpen: boolean;
   pendingCalibrationCharacters: ScriptCharacter[] | null;
   pendingFilteredCharacters: FilteredCharacterRecord[];
-  // panel切换后需恢复的Nhập/đại cươngTạoTrạng thái
+  // panelchuyển sang后需恢复的Nhập/đại cươngTạoTrạng thái
   importStatus: ScriptImportStatus;
   synopsisStatus: ScriptSynopsisStatus;
 }

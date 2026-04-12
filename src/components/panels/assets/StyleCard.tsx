@@ -12,7 +12,7 @@ import { cn } from "@/lib/utils";
 import { LocalImage } from "@/components/ui/local-image";
 import type { StyleCategory } from "@/lib/constants/visual-styles";
 
-// Phong cáchphân loại色块（与 StylePicker 一致）
+// Phong cáchphân loại色块（与 StylePicker giống）
 const CATEGORY_COLORS: Record<string, string> = {
   '3d': 'bg-blue-500/20 text-blue-600',
   '2d': 'bg-green-500/20 text-green-600',

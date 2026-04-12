@@ -106,7 +106,7 @@ export async function importFullScript(
         background: null,
         episodes: [],
         scriptData: null,
-        error: "未能Phân tích出任何 tập数，请检查剧本格式",
+        error: "未能Phân tích出任何 tập数，请kiểm tra剧本格式",
       };
     }
     
@@ -556,7 +556,7 @@ export async function generateEpisodeShots(
                 gridIndex: idx,
               }));
               
-              // 检查是否有未分配的分镜，并将它们分配到合适的góc nhìn
+              // kiểm tra是否有未分配的分镜，并将它们分配到合适的góc nhìn
               const allAssignedShotIds = new Set(viewpointsData.flatMap((v: any) => v.shotIds));
               const unassignedShots = sceneShots.filter((s: any) => !allAssignedShotIds.has(s.id));
               
@@ -1044,8 +1044,8 @@ export interface CalibrationResult {
 }
 
 /**
- * 检查 tập数是否thiếu标题
- * thiếu标题的判断标准：标题为空，或只有"第X tập"没有冒号后的内容
+ * kiểm tra tập数是否thiếu标题
+ * thiếu标题的判断Tiêu chuẩn：标题为空，或只有"第X tập"没有冒号后的内容
  */
 function isMissingTitle(title: string): boolean {
   if (!title || title.trim() === '') return true;
@@ -1275,7 +1275,7 @@ export interface ShotCalibrationResult {
 }
 
 /**
- * 根据người dùngChọn的提示词Ngôn ngữ，清理/保留分镜提示词trường，TránhNgôn ngữ切换后残留旧trường
+ * 根据người dùngChọn的提示词Ngôn ngữ，清理/保留分镜提示词trường，TránhNgôn ngữchuyển sang后残留旧trường
  */
 function applyPromptLanguageToShotPrompts(
   existingShot: Shot,
@@ -1818,7 +1818,7 @@ async function callAIForShotCalibration(
   narrativeFunction: string;  // tự sựchức năng：铺垫/升级/cao trào/转折/chuyển tiếp/尾声
   conflictStage?: string;     // 冲突阶段
   shotPurpose: string;        // 镜头mục đích：为什么用这镜头
-  storyAlignment?: string;    // 与整体tự sự的一致性
+  storyAlignment?: string;    // 与整体tự sự的giống性
   visualFocus: string;        // Tiêu điểm thị giác：观众应该看什么
   cameraPosition: string;     // 机位Mô tả
   characterBlocking: string;  // nhân vậtbố cục
@@ -1903,7 +1903,7 @@ ${characterBios ? `
 1. **场景归属绝对Cố định**（最重要！）：
    - 每分镜都有一【主场景】（由 sceneLocation trường指定），这是**绝对不可thay đổi的**
    - 即使分镜Mô tảđang xử lý...其他场景（如闪回、叠画、回忆画面、穿插镜头），**主场景vẫn是 sceneLocation**
-   - 闪回/叠画是「当前主场景内的Thị giác表现手法」，不是场景切换
+   - 闪回/叠画是「当前主场景内的Thị giác表现手法」，不是场景chuyển sang
    - 你Tạo的Tất cảMô tả（visualDescription、imagePrompt 等）都必须以**主场景为背景**
    - 如果原文包含闪回/叠画内容，用「画面叠加」「画đang xử lý...主观回忆」等方式Mô tả，而不是Mô tả成另一场景
    - 例：主场景是"张家客厅"，原文提到"闪回台球厅"，应Mô tả为"张家客厅đang xử lý...叠加台球厅的回忆画面"
@@ -2022,9 +2022,9 @@ ${characterBios ? `
     
     **与khung đầu同等重要！必须包含以下Tất cả元素**（缺一不可）：
     
-    a) **场景环境**：保持与khung đầu一致的场景，但反映变化后的状态
+    a) **场景环境**：保持与khung đầugiống的场景，但反映变化后的状态
     
-    b) **光线Thiết kế**：与khung đầu保持一致（除非剧情有时间变化）
+    b) **光线Thiết kế**：与khung đầu保持giống（除非剧情有时间变化）
     
     c) **nhân vậtMô tả**（重点！Mô tả动作hoàn thành后的状态）：
        - 同样包含Tuổi、trang phục
@@ -2039,7 +2039,7 @@ ${characterBios ? `
     e) **变化对比**（核心！）：
        - 明确Mô tả与khung đầu的差异（位置/动作/Biểu cảm/đạo cụ状态）
     
-    f) **画面风格**：与khung đầu保持一致
+    f) **画面风格**：与khung đầu保持giống
     
     - endFramePromptZh: 纯đang xử lý...0-100字，包含以上Tất cả元素
     - endFramePrompt: 纯英文，60-80词，对应đang xử lý...的đầy đủ翻译
@@ -2080,7 +2080,7 @@ ${getMediaTypeGuidance(mt)}
 - 情感Thoại、内心活动: CU/ECU Cận cảnhCực cận cảnh
 - 动作场面、追逐: MS/WS + Tracking跟随
 - 场景建立、chuyển tiếp: WS/FS Viễn cảnh
-- căng thẳng对峙: nhanh切换Kích thước cảnh
+- căng thẳng对峙: nhanhchuyển sangKích thước cảnh
 - 重要物件/细节: ECUCực cận cảnh
 
 **Quan trọng:đang xử lý...rường必须严格分离！**

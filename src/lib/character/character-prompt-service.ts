@@ -49,7 +49,7 @@ export interface CharacterDesign {
   baseVisualPromptZh: string;   // 基础đang xử lý...词
   // 多阶段形象
   stages: CharacterStageAppearance[];
-  // 一致性元素（Tất cả阶段共享）
+  // giống性元素（Tất cả阶段共享）
   consistencyElements: {
     facialFeatures: string;     // Khuôn mặt特征（không thay đổi）
     bodyType: string;           // 体型
@@ -206,7 +206,7 @@ async function callAIForCharacterDesign(
 - **角色Thị giácThiết kế**：能准确捕捉角色的外在形象、trang phục风格、肢体Ngôn ngữ
 - **角色成长cung**：理解角色在不同剧情阶段的形象变化（从少年到成年、从普通人到英雄等）
 - **AI图像Tạo经验**：深谙 Midjourney、DALL-E、Stable Diffusion 等 AI 绘图模型的工作原理，能写出高质量的提示词
-- **一致性保持**：知道如何Mô tảKhuôn mặt特征、体型等không thay đổi元素，确保角色在不同阶段仍可辨认
+- **giống性保持**：知道如何Mô tảKhuôn mặt特征、体型等không thay đổi元素，确保角色在不同阶段仍可辨认
 
 你的nhiệm vụ是根据剧本thông tin，为角色Thiết kế**多阶段Thị giác形象**。
 
@@ -240,7 +240,7 @@ ${context.characterAppearances.length > 0
    - 如果角色没有明显阶段变化，只需Thiết kế1阶段
    - 如果有变化，Thiết kế2-4阶段
 
-3. **保持一致性元素**：识别角色的không thay đổi特征
+3. **保持giống性元素**：识别角色的không thay đổi特征
    - Khuôn mặt特征（眼睛形状、五官Tỷ lệ）
    - 体型特征（身高、体格）
    - 独特标记（胎记、疤痕、标志性特征）
@@ -326,7 +326,7 @@ export function getCharacterPromptForEpisode(
   for (const stage of design.stages) {
     const [start, end] = stage.episodeRange.split('-').map(Number);
     if (episodeIndex >= start && episodeIndex <= end) {
-      // 组合一致性元素和阶段提示词
+      // 组合giống性元素和阶段提示词
       const consistencyPrefix = [
         design.consistencyElements.facialFeatures,
         design.consistencyElements.bodyType,
@@ -361,7 +361,7 @@ export function getCharacterPromptForEpisode(
 export function convertDesignToVariations(design: CharacterDesign): Array<Omit<CharacterVariation, 'id'>> {
   return design.stages.map(stage => ({
     name: stage.stageName,
-    // 组合一致性元素 + 阶段提示词
+    // 组合giống性元素 + 阶段提示词
     visualPrompt: [
       design.consistencyElements.facialFeatures,
       design.consistencyElements.bodyType,

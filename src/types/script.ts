@@ -27,7 +27,7 @@ export interface CharacterStageInfo {
 }
 
 /**
- * 角色一致性元素
+ * 角色giống性元素
  * 用于保持同一角色不同阶段的可识别性
  */
 export interface CharacterConsistencyElements {
@@ -38,7 +38,7 @@ export interface CharacterConsistencyElements {
 
 /**
  * 角色Neo danh tính - khóa 6 lớp đặc trưng系统
- * 用于确保AI生图đang xử lý...色在不同场景保持一致
+ * 用于确保AI生图đang xử lý...色在不同场景保持giống
  */
 export interface CharacterIdentityAnchors {
   // ① Lớp xương mặt - Khuôn mặt骨骼Cấu trúc
@@ -101,12 +101,12 @@ export interface ScriptCharacter {
   baseCharacterId?: string;        // gốc角色ID（阶段角色指向基础角色，如"张明青年版"指向"张明"）
   stageInfo?: CharacterStageInfo;  // 阶段thông tin（仅阶段角色有此trường）
   stageCharacterIds?: string[];    // 派生的阶段角色ID列表（仅基础角色有此trường）
-  consistencyElements?: CharacterConsistencyElements; // 一致性元素（基础角色定义，阶段角色kế thừa）
+  consistencyElements?: CharacterConsistencyElements; // giống性元素（基础角色定义，阶段角色kế thừa）
   visualPromptEn?: string;         // 英文Thị giác提示词（用于AITạo ảnh）
   visualPromptZh?: string;         // đang xử lý...提示词
   
   // === 6层Danh tínhneo（AIHiệu chuẩn时填充）===
-  identityAnchors?: CharacterIdentityAnchors;  // Danh tínhneo（用于角色一致性）
+  identityAnchors?: CharacterIdentityAnchors;  // Danh tínhneo（用于角色giống性）
   negativePrompt?: CharacterNegativePrompt;    // 负面提示词（排除不符合的特征）
 }
 
@@ -136,7 +136,7 @@ export interface ScriptScene {
   appearanceCount?: number;     // 出场次数
   importance?: 'main' | 'secondary' | 'transition';  // 场景重要性
   
-  // === Ảnh ghép đa góc nhìn（场景背景一致性）===
+  // === Ảnh ghép đa góc nhìn（场景背景giống性）===
   contactSheetImage?: string;   // 联合图Ảnh gốc（base64 或 URL）
   contactSheetImageUrl?: string; // 联合图 HTTP URL
   viewpoints?: SceneViewpointData[]; // góc nhìn列表
@@ -315,7 +315,7 @@ export type LightingDirection =
   | 'top'           // 顶光：审讯感/戏剧性
   | 'bottom'        // 底光：恐怖/不自然
   | 'rim'           // 轮廓光：边缘发光，与背景分离
-  | 'three-point';  // 三点布光：标准影视照明
+  | 'three-point';  // 三点布光：Tiêu chuẩn影视照明
 
 export type ColorTemperature = 
   | 'warm'          // 暖色 3200K：烛光/钨丝灯
@@ -392,8 +392,8 @@ export type FocalLength =
   | '8mm'    // 鱼眼：极端桶形畸变
   | '14mm'   // 超广角：强烈透视感
   | '24mm'   // 广角：môi trường上下文
-  | '35mm'   // 标准广角：街拍/纪实感
-  | '50mm'   // 标准：接近人眼góc nhìn
+  | '35mm'   // Tiêu chuẩn广角：街拍/纪实感
+  | '50mm'   // Tiêu chuẩn：接近人眼góc nhìn
   | '85mm'   // Chân dung：脸部Tỷ lệ舒适
   | '105mm'  // đang xử lý...和背景压缩
   | '135mm'  // 长焦：强背景压缩
@@ -501,7 +501,7 @@ export interface Shot {
   narrativeFunction?: string;   // tự sựchức năng：铺垫/升级/cao trào/转折/chuyển tiếp/尾声
   conflictStage?: string;       // 冲突阶段：引入/激化/对抗/转折/解决/余波/辅助
   shotPurpose?: string;         // 镜头mục đích：此镜头如何服务于故事核心
-  storyAlignment?: string;      // 与Bối cảnh thế giới/故事核心的一致性：aligned/minor-deviation/needs-review
+  storyAlignment?: string;      // 与Bối cảnh thế giới/故事核心的giống性：aligned/minor-deviation/needs-review
   visualFocus?: string;         // Tiêu điểm thị giác：观众应该看什么（按thứ tự）
   cameraPosition?: string;      // 机位Mô tả：摄影机相对于nhân vật的位置
   characterBlocking?: string;   // nhân vậtbố cục：nhân vật在hình ảnhđang xử lý...关系

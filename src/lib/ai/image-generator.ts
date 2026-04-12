@@ -204,7 +204,7 @@ async function generateImage(
     return submitViaKlingImages(params, model, apiKey, baseUrl, aspectRatio, featureConfig.keyManager);
   }
 
-  // 标准格式: /v1/images/generations (GPT Image, DALL-E, Flux, doubao-seedream , v.v.)
+  // Tiêu chuẩn格式: /v1/images/generations (GPT Image, DALL-E, Flux, doubao-seedream , v.v.)
   // aigc-image / vidu生图 等走Tùy chỉnh路径
   const result = await submitImageTask(
     params.prompt,
@@ -356,7 +356,7 @@ async function submitViaChatCompletions(
     // 每次Thử lại独立tạo AbortController，Tránh共享 controller 在Thử lại时已hết thời gian
     const controller = new AbortController();
     const timeoutId = setTimeout(
-      () => controller.abort(new DOMException('图片Tạo请求hết thời gian（60秒），请检查网络后Thử lại', 'TimeoutError')),
+      () => controller.abort(new DOMException('图片Tạo请求hết thời gian（60秒），请kiểm tra网络后Thử lại', 'TimeoutError')),
       60000
     );
 
@@ -393,9 +393,9 @@ async function submitViaChatCompletions(
         let msg = `图片Tạo API Lỗi: ${resp.status}`;
         try { const j = JSON.parse(errorText); msg = j.error?.message || msg; } catch {}
 
-        // 401 专项提示：引导người dùng检查 API Key
+        // 401 专项提示：引导người dùngkiểm tra API Key
         if (resp.status === 401) {
-          msg = `API Key không hợp lệ hoặc đãhết hạn，请前往「设置」检查图片Tạo服务的 API Key 配置（gốcthông tin：${msg}）`;
+          msg = `API Key không hợp lệ hoặc đãhết hạn，请前往「设置」kiểm tra图片Tạo服务的 API Key 配置（gốcthông tin：${msg}）`;
         }
         // 502 专项提示：上游服务临时không khả dụng
         if (resp.status === 502) {
@@ -662,7 +662,7 @@ async function submitImageTask(
       if (urlMatch) return { imageUrl: urlMatch[1] };
     }
 
-    // 标准格式: { data: [{ url }] }
+    // Tiêu chuẩn格式: { data: [{ url }] }
     let taskId: string | undefined;
     const dataList = data.data;
     if (Array.isArray(dataList) && dataList.length > 0) {
@@ -792,7 +792,7 @@ export async function submitGridImageRequest(params: {
   const { model, prompt, apiKey, baseUrl, aspectRatio, resolution, referenceImages, keyManager, signal } = params;
   const normalizedBase = baseUrl.replace(/\/+$/, '');
 
-  // 检测 API 格式（与 generateImage 一致）
+  // 检测 API 格式（与 generateImage giống）
   const endpointTypes = useAPIConfigStore.getState().modelEndpointTypes[model];
   const apiFormat = resolveImageApiFormat(endpointTypes, model);
   console.log('[GridImageAPI] format:', apiFormat, 'model:', model);
@@ -808,7 +808,7 @@ export async function submitGridImageRequest(params: {
     return { imageUrl: result.imageUrl, taskId: result.taskId };
   }
 
-  // 标准 images/generations 端点（aigc-image / vidu生图 走Tùy chỉnh路径）
+  // Tiêu chuẩn images/generations 端点（aigc-image / vidu生图 走Tùy chỉnh路径）
   const imagePaths = getImageEndpointPaths(endpointTypes || []);
   const rootBase = getRootBaseUrl(normalizedBase);
   const endpoint = `${rootBase}${imagePaths.submit}`;
@@ -877,7 +877,7 @@ export async function submitGridImageRequest(params: {
     if (urlMatch) return { imageUrl: urlMatch[1] };
   }
 
-  // 标准格式: { data: [{ url, task_id }] }
+  // Tiêu chuẩn格式: { data: [{ url, task_id }] }
   const normalizeUrl = (url: any): string | undefined => {
     if (!url) return undefined;
     if (Array.isArray(url)) return url[0] || undefined;
@@ -900,7 +900,7 @@ export async function submitGridImageRequest(params: {
     || data.task_id?.toString()
     || data.id?.toString();
 
-  // 如果只有 taskId 没有 imageUrl，Tự độngluân phiên获取kết quả（与 generateImage 行为一致）
+  // 如果只有 taskId 没有 imageUrl，Tự độngluân phiên获取kết quả（与 generateImage 行为giống）
   if (!imageUrl && taskId) {
     console.log('[GridImageAPI] Got taskId without imageUrl, polling...', taskId);
     const pollUrl = `${rootBase}${imagePaths.poll(taskId)}`;

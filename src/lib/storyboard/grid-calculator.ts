@@ -195,7 +195,7 @@ function calculatePortraitGrid(sceneCount: number, canvasWidth: number, canvasHe
 }
 
 /**
- * 预定义的最优bố cục（确保 AI Tạo和切割一致性）
+ * 预定义的最优bố cục（确保 AI Tạo和切割giống性）
  * quan trọng原则：Sử dụng更接近正方形的bố cục，让每格子的Tỷ lệ更接近目标
  */
 const OPTIMAL_LAYOUTS: Record<number, { landscape: { cols: number; rows: number }; portrait: { cols: number; rows: number } }> = {
@@ -250,7 +250,7 @@ export function calculateGrid(input: GridCalculatorInput): GridConfig {
     };
   }
   
-  // 检查是否有预定义的最优bố cục
+  // kiểm tra是否有预定义的最优bố cục
   const optimalLayout = OPTIMAL_LAYOUTS[sceneCount];
   if (optimalLayout) {
     const layout = aspectRatio === '16:9' ? optimalLayout.landscape : optimalLayout.portrait;
@@ -304,7 +304,7 @@ export function validateSceneCount(sceneCount: number, resolution: Resolution): 
     limit,
     message: isValid 
       ? '' 
-      : `场景数量vượt quá ${resolution} 分辨率上限（最多 ${limit} ）。请切换到更高分辨率或giảm场景数量。`,
+      : `场景数量vượt quá ${resolution} 分辨率上限（最多 ${limit} ）。请chuyển sang到更高分辨率或giảm场景数量。`,
   };
 }
 

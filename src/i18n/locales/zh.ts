@@ -126,8 +126,8 @@ const zh = {
     back_to_projects: "返回项目列表",
     theme_light: "浅色",
     theme_dark: "深色",
-    switch_to_light: "切换到浅色chế độ",
-    switch_to_dark: "切换到深色chế độ",
+    switch_to_light: "chuyển sang到浅色chế độ",
+    switch_to_dark: "chuyển sang到深色chế độ",
     language: "Ngôn ngữ",
   },
 

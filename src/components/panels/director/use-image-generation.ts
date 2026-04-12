@@ -142,7 +142,7 @@ export async function callImageGenerationApi(
     const maxAttempts = 60;
 
     for (let attempt = 0; attempt < maxAttempts; attempt++) {
-      // 检查外部đang xử lý...
+      // kiểm tra外部đang xử lý...
       if (signal?.aborted) throw new Error('Người dùng đã hủy');
 
       const progress = Math.min(Math.floor((attempt / maxAttempts) * 100), 99);

@@ -2,9 +2,9 @@
 // Licensed under AGPL-3.0-or-later. See LICENSE for details.
 // Commercial licensing available. See COMMERCIAL_LICENSE.md.
 /**
- * 风格切换Hiệu chuẩn lại服务
+ * 风格chuyển sangHiệu chuẩn lại服务
  * 
- * 当người dùng在Đạo diễn/S级panel切换Thị giác风格时，将hiện có SplitScene[] 重新送入
+ * 当người dùng在Đạo diễn/S级panelchuyển sangThị giác风格时，将hiện có SplitScene[] 重新送入
  * 5阶段Hiệu chuẩn流程（calibrateShotsMultiStage），用新风格viết lại提示词和拍摄参数，
  * 同时保留已Tạo的图片/视频 URL không thay đổi。
  */

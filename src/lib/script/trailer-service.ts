@@ -5,7 +5,7 @@
  * Trailer Service - AI 预告片分镜chọn服务
  * 
  * chức năng：从hiện có的分镜đang xử lý...选quan trọng分镜，Tạo预告片
- * chọn标准：
+ * chọnTiêu chuẩn：
  * - tự sựchức năng为"cao trào/转折"的优先
  * - 有强烈情绪标签的优先
  * - 有Thị giác冲击的场景优先
@@ -95,7 +95,7 @@ export async function selectTrailerShots(
 2. **冲突升级**：Hiển thị故事的核心冲突（2-4镜头）
 3. **cao trào悬念**：最具sức căng的画面，留下悬念（1-2镜头）
 
-【chọn标准】
+【chọnTiêu chuẩn】
 - 优先Chọntự sựchức năng为"cao trào"、"转折"、"冲突"的镜头
 - 优先Chọn有强烈情绪（tense, excited, mysterious）的镜头
 - 优先Chọn有Thị giác冲击力的画面（动作场面、Cực cận cảnh、对峙）

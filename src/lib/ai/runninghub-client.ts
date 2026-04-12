@@ -3,7 +3,7 @@
 // Commercial licensing available. See COMMERCIAL_LICENSE.md.
 /**
  * RunningHub API Client
- * góc nhìn切换chức năng的API客户端
+ * góc nhìnchuyển sangchức năng的API客户端
  */
 
 import { retryOperation } from '@/lib/utils/retry';
@@ -31,7 +31,7 @@ export interface RunningHubTaskResult {
 }
 
 /**
- * 提交góc nhìn切换nhiệm vụ
+ * 提交góc nhìnchuyển sangnhiệm vụ
  */
 export async function submitAngleSwitchTask(
   params: RunningHubSubmitParams
@@ -221,11 +221,11 @@ export async function pollTaskUntilComplete(
     }
   }
 
-  throw new Error('góc nhìn切换hết thời gian，请Thử lại');
+  throw new Error('góc nhìnchuyển sanghết thời gian，请Thử lại');
 }
 
 /**
- * 一键Tạogóc nhìn切换（组合函数）
+ * 一键Tạogóc nhìnchuyển sang（组合函数）
  */
 export async function generateAngleSwitch(params: {
   referenceImage: string;

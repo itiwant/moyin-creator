@@ -283,27 +283,27 @@ const buildSceneCharacterCastLine = (contexts: SceneCharacterContext[]): string 
 };
 
 export function SplitScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
-  // ========== 合并Tạo（lưới 9 ô）本地 UI Trạng thái ==========
+  // ========== Tạo hợp nhất（lưới 9 ô）本地 UI Trạng thái ==========
   const [imageGenMode, setImageGenMode] = useState<'single' | 'merged'>('merged');
   const [frameMode, setFrameMode] = useState<'first' | 'last' | 'both'>('first');
   const [isMergedRunning, setIsMergedRunning] = useState(false);
   const [refStrategy, setRefStrategy] = useState<'cluster'|'minimal'|'none'>('cluster');
   const [useExemplar, setUseExemplar] = useState(true);
   const PAGE_CONCURRENCY = 2; // per-page concurrency cluster limit
-  // 合并TạoDừng控制
+  // Tạo hợp nhấtDừng控制
   const mergedAbortRef = useRef(false);
   // Khung hình đầu/video/Khung hình cuốiTạo的 AbortController（用于真正Hủy底层 fetch 和luân phiên）
   const imageAbortRef = useRef<AbortController | null>(null);
   const videoAbortRef = useRef<AbortController | null>(null);
   const endFrameAbortRef = useRef<AbortController | null>(null);
-  // 合并Tạo控件将在 JSX đang xử lý...染，Tránh闭包tham chiếu问题
+  // Tạo hợp nhất控件将在 JSX đang xử lý...染，Tránh闭包tham chiếu问题
   const [isGenerating, setIsGenerating] = useState(false);
   const [isGeneratingPrompts, setIsGeneratingPrompts] = useState(false);
   const [currentGeneratingId, setCurrentGeneratingId] = useState<number | null>(null);
   // Tab Trạng thái: Phân cảnhChỉnh sửa vs Trailer
   const [activeTab, setActiveTab] = useState<"editing" | "trailer">("editing");
 
-  // 角度切换Trạng thái
+  // 角度chuyển sangTrạng thái
   const [angleSwitchOpen, setAngleSwitchOpen] = useState(false);
   const [angleSwitchResultOpen, setAngleSwitchResultOpen] = useState(false);
   const [angleSwitchTarget, setAngleSwitchTarget] = useState<{ sceneId: number; type: "start" | "end" } | null>(null);
@@ -342,7 +342,7 @@ export function SplitScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
     storyPrompt: '',
   };
   const projectFolderId = projectData?.projectFolderId || null;
-  // Trailerdữ liệu - Trực tiếp从 splitScenes 筛选，保证chức năng一致
+  // Trailerdữ liệu - Trực tiếp从 splitScenes 筛选，保证chức nănggiống
   const trailerConfig = projectData?.trailerConfig || null;
   const trailerShotIds = trailerConfig?.shotIds || [];
   
@@ -432,7 +432,7 @@ export function SplitScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
   // 读取当前Phong cách quay phim档案（未Cài đặt时Sử dụngMặc địnhCổ điển电影Phong cách quay phim）
   const currentCinProfileId = projectData?.cinematographyProfileId || DEFAULT_CINEMATOGRAPHY_PROFILE_ID;
 
-  // 切换Phong cách quay phim档案
+  // chuyển sangPhong cách quay phim档案
   const handleCinProfileChange = useCallback((profileId: string) => {
     setCinematographyProfileId(profileId || undefined);
     toast.success('Phong cách quay phim đã được cập nhật');
@@ -592,7 +592,7 @@ export function SplitScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
       return;
     }
 
-    // 检查是否有下一Phân cảnh
+    // kiểm tra是否有下一Phân cảnh
     const nextScene = splitScenes[sceneIndex + 1];
     if (!nextScene) {
       toast.error('Đây là phân cảnh cuối cùng, không thể chèn vào phân cảnh tiếp theo');
@@ -666,7 +666,7 @@ export function SplitScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
     toast.info(`Đã dừng tạo khung hình cuối phân cảnh ${sceneId + 1}`);
   }, [updateSplitSceneEndFrameStatus]);
 
-  // Dừng合并Tạo
+  // DừngTạo hợp nhất
   const handleStopMergedGeneration = useCallback(() => {
     mergedAbortRef.current = true;
     setIsMergedRunning(false);
@@ -1035,7 +1035,7 @@ export function SplitScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
             : `EXACTLY ${charCount} distinct people in each panel, no more no less, each person appears only ONCE.`;
       }
 
-      // === Dọcbố cục约束（与lưới 9 ô一致） ===
+      // === Dọcbố cục约束（与lưới 9 ôgiống） ===
       const verticalConstraint = aspect === '9:16' ? 'vertical composition, tighter framing, avoid letterboxing, ' : '';
 
       // === Hành độngMô tả（对时刻biến thể重要） ===
@@ -1044,7 +1044,7 @@ export function SplitScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
         ? `Action sequence context: ${actionDesc}. ` 
         : '';
 
-      // === 情绪Bầu không khí（保持一致性） ===
+      // === 情绪Bầu không khí（保持giống性） ===
       const emotionDesc = buildEmotionDescription(scene.emotionTags || []);
       const moodContext = emotionDesc ? `Mood across all panels: ${emotionDesc} ` : '';
 
@@ -1073,7 +1073,7 @@ export function SplitScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
       if (moodContext) gridPromptParts.push(moodContext);
       if (styleStr) gridPromptParts.push(styleStr);
       
-      // === 一致性键字组（与 buildAnchorPhrase 一致） ===
+      // === giống性键字组（与 buildAnchorPhrase giống） ===
       gridPromptParts.push('Keep character appearance, wardrobe and facial features consistent across all 4 panels.');
       gridPromptParts.push('Keep lighting and color grading consistent across all 4 panels.');
       gridPromptParts.push('IMPORTANT: NO TEXT, NO WORDS, NO LETTERS, NO CAPTIONS, NO SPEECH BUBBLES, NO DIALOGUE BOXES, NO SUBTITLES, NO WRITING of any kind in any panel.');
@@ -2183,7 +2183,7 @@ export function SplitScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
     processReferenceImagesForApi,
   ]);
 
-  // ===== Utilities for 合并Tạo（lưới 9 ô） =====
+  // ===== Utilities for Tạo hợp nhất（lưới 9 ô） =====
   type Angle = 'Back View' | 'Over-the-Shoulder (OTS)' | 'POV' | 'Low Angle (Heroic)' | 'High Angle (Vulnerable)' | 'Dutch Angle (Tilted)';
 
   const allowedShotFromSize = (shot?: ShotSizeType | null): string => {
@@ -2329,18 +2329,18 @@ export function SplitScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
     for (const scene of splitScenes) {
       if (isSceneCompleted(scene)) continue; // Video đã hoàn thành, bỏ qua
       
-      // 仅Khung hình đầu 或 首+尾：检查是否需要Khung hình đầu
+      // 仅Khung hình đầu 或 首+尾：kiểm tra是否需要Khung hình đầu
       if ((mode === 'first' || mode === 'both') && !scene.imageDataUrl) {
         tasks.push({ scene, type: 'first' });
       }
       
-      // 仅Khung hình cuối 或 首+尾：检查是否Bắt buộc Khung hình cuối
+      // 仅Khung hình cuối 或 首+尾：kiểm tra是否Bắt buộc Khung hình cuối
       if ((mode === 'last' || mode === 'both') && scene.needsEndFrame && !scene.endFrameImageUrl) {
         tasks.push({ scene, type: 'end' });
       }
     }
 
-    // 检查是否有需要Tạo的
+    // kiểm tra是否有需要Tạo的
     if (tasks.length === 0) {
       toast.info('Tất cả phân cảnh đã tạo hoàn tất, không cần tạo lại');
       setIsMergedRunning(false);
@@ -2376,11 +2376,11 @@ export function SplitScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
           refs.push(...getCharacterReferenceImages(task.scene.characterIds, task.scene.characterVariationMap));
         }
       }
-      // 去重并限制数量（API 限制 14 张）
+      // khử trùng并限制数量（API 限制 14 张）
       return dedup(refs).slice(0, strategy === 'minimal' ? 2 : 14);
     };
 
-    // 根据Phân cảnh数量计算最优网格bố cục（强制 N x N 以保证Tỷ lệ一致性）
+    // 根据Phân cảnh数量计算最优网格bố cục（强制 N x N 以保证Tỷ lệgiống性）
     const collectOptimizedRefsFromTasks = (pageTasks: GridTask[]): string[] => {
       if (strategy === 'none') return [];
 
@@ -2617,7 +2617,7 @@ export function SplitScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
         gridPromptParts.push(`Panel [row ${row}, col ${col}]: empty placeholder, solid gray background`);
       }
       
-      // 5. 全局Phong cách（尾部再次强调，首尾夹击确保Phong cách一致性）
+      // 5. 全局Phong cách（尾部再次强调，首尾夹击确保Phong cáchgiống性）
       if (fullStylePrompt) {
         gridPromptParts.push(`IMPORTANT - Apply this EXACT style uniformly to every panel: ${fullStylePrompt}`);
       }
@@ -2784,14 +2784,14 @@ export function SplitScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
         const s = task.scene;
         const slicedImage = slicedImages[i];
         if (slicedImage) {
-          // 持久化到本地 + Lưu trữ ảnh（与单图Tạo一致）
+          // 持久化到本地 + Lưu trữ ảnh（与单图Tạogiống）
           const frameType = task.type === 'end' ? 'end' as const : 'first' as const;
           const persistResultLoop = await persistSceneImage(slicedImage, s.id, frameType);
           const httpUrl = persistResultLoop.httpUrl || undefined;
           const localPath = persistResultLoop.localPath;
           
           if (httpUrl) {
-            console.log(`[MergedGen] Phân cảnh ${s.id + 1} ${task.type === 'end' ? 'Khung hình cuối' : 'Khung hình đầu'} đã tải lên到Lưu trữ ảnh:`, httpUrl.substring(0, 60));
+            console.log(`[MergedGen] Phân cảnh ${s.id + 1} ${task.type === 'end' ? 'Khung hình cuối' : 'Khung hình đầu'} đã tải lênLưu trữ ảnh:`, httpUrl.substring(0, 60));
           }
           
           if (task.type === 'end') {
@@ -2896,10 +2896,10 @@ export function SplitScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
           toast.success(`Trang ${fp.index + 1} thử lại thành công (${pageInfo})`);
         } catch (retryErr: any) {
           const retryMsg = retryErr.message || String(retryErr);
-          console.error(`[MergedGen] 第 ${fp.index + 1} 页Thử lạivẫnThất bại:`, retryMsg);
+          console.error(`[MergedGen] Trang ${fp.index + 1} Thử lại vẫn Thất bại:`, retryMsg);
           // 再次Đặt lại为 error Trạng thái
           resetPageTasksToError(fp.pageTasks, `Thử lạiThất bại: ${retryMsg}`);
-          toast.error(`第 ${fp.index + 1} 页Thử lạiThất bại: ${retryMsg.substring(0, 80)}`);
+          toast.error(`Trang ${fp.index + 1} Thử lại Thất bại: ${retryMsg.substring(0, 80)}`);
         }
       }
     }
@@ -2908,11 +2908,11 @@ export function SplitScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
     const totalPages = taskPages.length;
     if (!mergedAbortRef.current) {
       if (succeededCount === totalPages) {
-        toast.success('lưới 9 ô合并TạoTất cảHoàn thành！');
+        toast.success('Tất cả ảnh lưới 9 ô hợp nhất Tạo Hoàn thành!');
       } else if (succeededCount > 0) {
-        toast.warning(`合并Tạo部分Hoàn thành：${succeededCount}/${totalPages} 页Thành công，${totalPages - succeededCount} 页Thất bại`);
+        toast.warning(`Hợp nhất Tạo một phần Hoàn thành: ${succeededCount}/${totalPages} trang Thành công, ${totalPages - succeededCount} trang Thất bại`);
       } else {
-        toast.error(`合并TạoTất cảThất bại（${totalPages} 页），请检查 API 服务后Thử lại`);
+        toast.error(`Hợp nhất Tạo Tất cả Thất bại (${totalPages} trang), vui lòng kiểm tra dịch vụ API rồi Thử lại`);
       }
     }
     setIsMergedRunning(false);
@@ -2934,7 +2934,7 @@ export function SplitScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
   ]);
 
   // 复用单图Tạo的 API 路径，封装为通用函数（Hỗ trợKhung hình đầu/Khung hình cuối）
-  // 合并Tạo专用：Sử dụngước tính算Tham chiếu cột表；不降级到单图通道
+  // Tạo hợp nhất专用：Sử dụngước tính算Tham chiếu cột表；不降级到单图通道
   const generateImageForSceneMerged = async (
     sceneId: number,
     prompt: string,
@@ -3005,7 +3005,7 @@ export function SplitScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
     if (!directUrl && taskId) {
       const pollInterval = 2000, maxAttempts = 60;
       for (let attempt = 0; attempt < maxAttempts; attempt++) {
-        // 检查合并Tạo是否已被người dùngDừng
+        // kiểm traTạo hợp nhất是否已被người dùngDừng
         if (mergedAbortRef.current) {
           console.log(`[MergedGen] Scene ${sceneId} polling cancelled by user`);
           return;
@@ -3053,7 +3053,7 @@ export function SplitScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
     // Must have end frame prompt
     const promptToUse = scene.endFramePromptZh?.trim() || scene.endFramePrompt?.trim() || '';
     if (!promptToUse) {
-      toast.warning("请先填写Gợi ý khung hình cuối后再Tạo");
+      toast.warning("Vui lòng điền Gợi ý khung hình cuối trước khi Tạo");
       return;
     }
 
@@ -3121,7 +3121,7 @@ export function SplitScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
         console.log('[SplitScenes] Using first frame scene background for end frame');
       }
       
-      // 2. Khung hình đầuảnh作为Phong cách一致性Tham chiếu
+      // 2. Khung hình đầuảnh作为Phong cáchgiống性Tham chiếu
       if (scene.imageDataUrl) {
         referenceImages.push(scene.imageDataUrl);
       }
@@ -3202,7 +3202,7 @@ export function SplitScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
           folderId,
           projectId: mediaProjectId,
         });
-        toast.success(`Phân cảnh ${sceneId + 1} Khung hình cuốiTạoHoàn thành，đã lưu到Thư viện phương tiện`);
+        toast.success(`Phân cảnh ${sceneId + 1} Khung hình cuối Tạo Hoàn thành, đã lưu vào Thư viện phương tiện`);
         setIsGenerating(false);
         return;
       }
@@ -3262,7 +3262,7 @@ export function SplitScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
               folderId,
               projectId: mediaProjectId,
             });
-            toast.success(`Phân cảnh ${sceneId + 1} Khung hình cuốiTạoHoàn thành，đã lưu到Thư viện phương tiện`);
+            toast.success(`Phân cảnh ${sceneId + 1} Khung hình cuối Tạo Hoàn thành, đã lưu vào Thư viện phương tiện`);
             setIsGenerating(false);
             return;
           }
@@ -3320,7 +3320,7 @@ export function SplitScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
     try {
       if (type === 'video') {
         if (!scene.videoUrl) {
-          toast.error("没有可Lưu的video");
+          toast.error("Không có video để Lưu");
           return;
         }
         const folderId = getVideoFolderId();
@@ -3334,10 +3334,10 @@ export function SplitScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
           folderId,
           projectId: mediaProjectId,
         });
-        toast.success(`Phân cảnh ${scene.id + 1} videođã lưu到Thư viện phương tiện`);
+        toast.success(`Video Phân cảnh ${scene.id + 1} đã lưu vào Thư viện phương tiện`);
       } else {
         if (!scene.imageDataUrl) {
-          toast.error("没有可Lưu的ảnh");
+          toast.error("Không có ảnh để Lưu");
           return;
         }
         const folderId = getImageFolderId();
@@ -3349,7 +3349,7 @@ export function SplitScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
           folderId,
           projectId: mediaProjectId,
         });
-        toast.success(`Phân cảnh ${scene.id + 1} ảnhđã lưu到Thư viện phương tiện`);
+        toast.success(`Ảnh Phân cảnh ${scene.id + 1} đã lưu vào Thư viện phương tiện`);
       }
     } catch (error) {
       const err = error as Error;
@@ -3364,7 +3364,7 @@ export function SplitScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
         <div className="w-16 h-16 rounded-full bg-muted flex items-center justify-center">
           <ImageIcon className="h-8 w-8 text-muted-foreground" />
         </div>
-        <p className="text-sm text-muted-foreground">Chưa có切割的Phân cảnh</p>
+        <p className="text-sm text-muted-foreground">Chưa có Phân cảnh được cắt</p>
       </div>
     );
   }
@@ -3393,19 +3393,19 @@ export function SplitScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
         </Tabs>
       </div>
 
-      {/* Trailer Tab Nội dung - 完全复用Phân cảnhChỉnh sửa的chức năng */}
+      {/* Nội dung Tab Trailer - tái sử dụng hoàn toàn chức năng Chỉnh sửa Phân cảnh */}
       {activeTab === "trailer" && (
         <>
           {trailerScenes.length === 0 ? (
             <div className="text-center text-muted-foreground text-sm py-8">
               <Clapperboard className="h-8 w-8 mx-auto mb-2 opacity-50" />
               <p>Trailerchức năng</p>
-              <p className="text-xs mt-1">请在左侧「Kịch bản」panelđang xử lý...railer」Thẻ页TạoTrailer</p>
-              <p className="text-xs mt-1">chọn的Phân cảnh将在此Hiện并可thực hiệnảnh/Tạo video</p>
+              <p className="text-xs mt-1">Vui lòng đến Tab「Trailer」của panel「Kịch bản」ở bên trái để Tạo Trailer</p>
+              <p className="text-xs mt-1">Phân cảnh đã chọn sẽ hiện ở đây và có thể thực hiện Tạo ảnh/video</p>
             </div>
           ) : (
             <>
-              {/* Header - 与Phân cảnhChỉnh sửa一致 */}
+              {/* Header - giống với Phân cảnh Chỉnh sửa */}
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
                   <span className="text-sm font-medium">TrailerPhân cảnh</span>
@@ -3413,7 +3413,7 @@ export function SplitScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
                     {trailerScenes.length} Phân cảnh
                   </span>
                   <span className="text-xs text-muted-foreground">
-                    ước tính {trailerScenes.reduce((sum, s) => sum + (s.duration || 5), 0)} 秒
+                    ước tính {trailerScenes.reduce((sum, s) => sum + (s.duration || 5), 0)} giây
                   </span>
                 </div>
                 <div className="flex items-center gap-2">
@@ -3429,9 +3429,9 @@ export function SplitScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
                     ) : (
                       <Sparkles className="h-3 w-3 mr-1 text-yellow-500" />
                     )}
-                    AI Tự động填写Gợi ý
+                    AI Tự động điền Gợi ý
                   </Button>
-                  {/* 一键Xóa tất cảTrailerPhân cảnh */}
+                  {/* Xóa tất cả Trailer Phân cảnh một lần */}
                   <AlertDialog>
                     <AlertDialogTrigger asChild>
                       <Button
@@ -3448,7 +3448,7 @@ export function SplitScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
                       <AlertDialogHeader>
                         <AlertDialogTitle>Xác nhậnXóa tất cảTrailerPhân cảnh</AlertDialogTitle>
                         <AlertDialogDescription>
-                          这将XóaTất cả {trailerScenes.length} TrailerPhân cảnh（包括Đã tạo的ảnh和video）。Hành động này không thể hoàn tác。
+                          Thao tác này sẽ Xóa Tất cả {trailerScenes.length} Trailer Phân cảnh (bao gồm ảnh và video Đã tạo). Hành động này không thể hoàn tác.
                         </AlertDialogDescription>
                       </AlertDialogHeader>
                       <AlertDialogFooter>
@@ -3461,7 +3461,7 @@ export function SplitScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
                             });
                             // Xóa tất cảTrailer配置
                             clearTrailer();
-                            toast.success(`已Xóa tất cả ${trailerScenes.length} TrailerPhân cảnh`);
+                            toast.success(`Đã Xóa tất cả ${trailerScenes.length} Trailer Phân cảnh`);
                           }}
                           className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
                         >
@@ -3473,7 +3473,7 @@ export function SplitScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
                 </div>
               </div>
 
-              {/* Global style and aspect ratio config - 与Phân cảnhChỉnh sửa一致 */}
+              {/* Cấu hình phong cách và tỉ lệ khung hình toàn cục - giống với Phân cảnh Chỉnh sửa */}
               <div className="flex flex-wrap items-center gap-3 p-3 rounded-lg bg-muted/30 border">
                 <div className="flex items-center gap-2">
                   <span className="text-xs text-muted-foreground whitespace-nowrap">Phong cách hình ảnh:</span>
@@ -3517,16 +3517,16 @@ export function SplitScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
                   value={storyboardConfig.resolution || '2K'}
                   onValueChange={(v: '1K' | '2K' | '4K') => {
                     setStoryboardConfig({ resolution: v });
-                    toast.success(`ảnhĐộ phân giải已切换为 ${v}`);
+                    toast.success(`Độ phân giải ảnh đã chuyển sang ${v}`);
                   }}
                 >
                   <SelectTrigger className="w-[130px] h-8 text-xs">
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="1K" className="text-xs">标准 (1K)</SelectItem>
-                    <SelectItem value="2K" className="text-xs">高清 (2K)</SelectItem>
-                    <SelectItem value="4K" className="text-xs">超清 (4K)</SelectItem>
+                    <SelectItem value="1K" className="text-xs">Tiêu chuẩn (1K)</SelectItem>
+                    <SelectItem value="2K" className="text-xs">Độ nét cao (2K)</SelectItem>
+                    <SelectItem value="4K" className="text-xs">Siêu nét (4K)</SelectItem>
                   </SelectContent>
                 </Select>
 
@@ -3535,16 +3535,16 @@ export function SplitScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
                   value={storyboardConfig.videoResolution || '480p'}
                   onValueChange={(v: '480p' | '720p' | '1080p') => {
                     setStoryboardConfig({ videoResolution: v });
-                    toast.success(`videoĐộ phân giải已切换为 ${v}`);
+                    toast.success(`Độ phân giải video đã chuyển sang ${v}`);
                   }}
                 >
                   <SelectTrigger className="w-[140px] h-8 text-xs">
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="480p" className="text-xs">标准 (480P)</SelectItem>
-                    <SelectItem value="720p" className="text-xs">高清 (720P)</SelectItem>
-                    <SelectItem value="1080p" className="text-xs">高品质 (1080P)</SelectItem>
+                    <SelectItem value="480p" className="text-xs">Tiêu chuẩn (480P)</SelectItem>
+                    <SelectItem value="720p" className="text-xs">Độ nét cao (720P)</SelectItem>
+                    <SelectItem value="1080p" className="text-xs">Chất lượng cao (1080P)</SelectItem>
                   </SelectContent>
                 </Select>
 
@@ -3553,7 +3553,7 @@ export function SplitScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
                 </div>
               </div>
 
-              {/* Scene list - 完全复用Phân cảnhChỉnh sửa的 SceneCard */}
+              {/* Danh sách Cảnh - tái sử dụng hoàn toàn SceneCard của Phân cảnh Chỉnh sửa */}
               <div className="flex flex-col gap-3">
                 {trailerScenes.map((scene) => (
                   <SceneCard
@@ -3596,7 +3596,7 @@ export function SplitScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
                 ))}
               </div>
 
-              {/* Action buttons - 与Phân cảnhChỉnh sửa一致 */}
+              {/* Nút hành động - giống với Phân cảnh Chỉnh sửa */}
               <div className="flex gap-2 pt-2">
                 <TooltipProvider>
                   <Tooltip>
@@ -3630,7 +3630,7 @@ export function SplitScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
                       </Button>
                     </TooltipTrigger>
                     <TooltipContent>
-                      <p>为TrailerPhân cTạo ảnhvideo</p>
+                      <p>Tạo ảnh và video cho Trailer Phân cảnh</p>
                     </TooltipContent>
                   </Tooltip>
                 </TooltipProvider>
@@ -3638,7 +3638,7 @@ export function SplitScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
 
               {/* Tips */}
               <div className="text-xs text-muted-foreground bg-muted/50 rounded-md p-2">
-                <p>💡 TrailerPhân cảnh与主Phân cảnh共享dữ liệu，修改会同步。Nhấp每Phân cảnh下方的văn bản区域可Chỉnh sửaGợi ý。</p>
+                <p>💡 Trailer Phân cảnh chia sẻ dữ liệu với Phân cảnh chính, sửa đổi sẽ đồng bộ. Nhấp vào vùng văn bản dưới mỗi Phân cảnh để Chỉnh sửa Gợi ý.</p>
               </div>
             </>
           )}
@@ -3669,7 +3669,7 @@ export function SplitScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
             ) : (
               <Sparkles className="h-3 w-3 mr-1 text-yellow-500" />
             )}
-            AI Tự động填写Gợi ý
+            AI Tự động điền Gợi ý
           </Button>
           <Button
             variant="text"
@@ -3683,7 +3683,7 @@ export function SplitScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
         </div>
       </div>
 
-      {/* Row 1: Cơ bản配置 - Phong cách hình ảnh / Tỷ lệ khung hình / Tạo方式 */}
+      {/* Hàng 1: Cấu hình Cơ bản - Phong cách hình ảnh / Tỷ lệ khung hình / Phương thức Tạo */}
       <div className="flex flex-wrap items-center gap-3 p-3 rounded-lg bg-muted/30 border">
         {/* Visual Style Selector */}
         <div className="flex items-center gap-2">
@@ -3742,16 +3742,16 @@ export function SplitScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
           value={storyboardConfig.resolution || '2K'}
           onValueChange={(v: '1K' | '2K' | '4K') => {
             setStoryboardConfig({ resolution: v });
-            toast.success(`ảnhĐộ phân giải已切换为 ${v}`);
+            toast.success(`Độ phân giải ảnh đã chuyển sang ${v}`);
           }}
         >
           <SelectTrigger className="w-[130px] h-8 text-xs">
             <SelectValue />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="1K" className="text-xs">标准 (1K)</SelectItem>
-            <SelectItem value="2K" className="text-xs">高清 (2K)</SelectItem>
-            <SelectItem value="4K" className="text-xs">超清 (4K)</SelectItem>
+            <SelectItem value="1K" className="text-xs">Tiêu chuẩn (1K)</SelectItem>
+            <SelectItem value="2K" className="text-xs">Độ nét cao (2K)</SelectItem>
+            <SelectItem value="4K" className="text-xs">Siêu nét (4K)</SelectItem>
           </SelectContent>
         </Select>
 
@@ -3760,22 +3760,22 @@ export function SplitScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
           value={storyboardConfig.videoResolution || '480p'}
           onValueChange={(v: '480p' | '720p' | '1080p') => {
             setStoryboardConfig({ videoResolution: v });
-            toast.success(`videoĐộ phân giải已切换为 ${v}`);
+            toast.success(`Độ phân giải video đã chuyển sang ${v}`);
           }}
         >
           <SelectTrigger className="w-[140px] h-8 text-xs">
             <SelectValue />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="480p" className="text-xs">标准 (480P)</SelectItem>
-            <SelectItem value="720p" className="text-xs">高清 (720P)</SelectItem>
-            <SelectItem value="1080p" className="text-xs">高品质 (1080P)</SelectItem>
+            <SelectItem value="480p" className="text-xs">Tiêu chuẩn (480P)</SelectItem>
+            <SelectItem value="720p" className="text-xs">Độ nét cao (720P)</SelectItem>
+            <SelectItem value="1080p" className="text-xs">Chất lượng cao (1080P)</SelectItem>
           </SelectContent>
         </Select>
 
         {/* Image generation mode toggle */}
         <div className="flex items-center gap-2">
-          <span className="text-xs text-muted-foreground whitespace-nowrap">Tạo ảnh方式:</span>
+          <span className="text-xs text-muted-foreground whitespace-nowrap">Phương thức Tạo ảnh:</span>
           <div className="flex rounded-md border overflow-hidden">
             <button
               onClick={() => setImageGenMode('single')}
@@ -3783,14 +3783,14 @@ export function SplitScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
                 "px-3 py-1.5 text-xs",
                 imageGenMode === 'single' ? 'bg-primary text-primary-foreground' : 'bg-background hover:bg-muted'
               )}
-            >单图Tạo</button>
+            >Tạo đơn ảnh</button>
             <button
               onClick={() => setImageGenMode('merged')}
               className={cn(
                 "px-3 py-1.5 text-xs border-l",
                 imageGenMode === 'merged' ? 'bg-primary text-primary-foreground' : 'bg-background hover:bg-muted'
               )}
-            >合并Tạo</button>
+            >Tạo hợp nhất</button>
           </div>
         </div>
 
@@ -3800,12 +3800,12 @@ export function SplitScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
         </div>
       </div>
 
-      {/* Row 2: 合并TạoTùy chọn（仅在合并chế độ下Hiện） */}
+      {/* Hàng 2: Tùy chọn Tạo hợp nhất (chỉ hiện trong chế độ hợp nhất) */}
       {imageGenMode === 'merged' && (
         <div className="flex flex-wrap items-center gap-3 p-3 rounded-lg bg-primary/5 border border-primary/20">
-          {/* 首/Khung hình cuốichế độ */}
+          {/* Chế độ Khung hình đầu/cuối */}
           <div className="flex items-center gap-2">
-            <span className="text-xs text-muted-foreground whitespace-nowrap">首/Khung hình cuối:</span>
+            <span className="text-xs text-muted-foreground whitespace-nowrap">Khung đầu/cuối:</span>
             <div className="flex rounded-md border overflow-hidden">
               <button
                 onClick={() => setFrameMode('first')}
@@ -3813,55 +3813,55 @@ export function SplitScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
                   "px-3 py-1.5 text-xs",
                   frameMode === 'first' ? 'bg-primary text-primary-foreground' : 'bg-background hover:bg-muted'
                 )}
-              >仅Khung hình đầu</button>
+              >Chỉ Khung hình đầu</button>
               <button
                 onClick={() => setFrameMode('last')}
                 className={cn(
                   "px-3 py-1.5 text-xs border-l",
                   frameMode === 'last' ? 'bg-primary text-primary-foreground' : 'bg-background hover:bg-muted'
                 )}
-              >仅Khung hình cuối</button>
+              >Chỉ Khung hình cuối</button>
               <button
                 onClick={() => setFrameMode('both')}
                 className={cn(
                   "px-3 py-1.5 text-xs border-l",
                   frameMode === 'both' ? 'bg-primary text-primary-foreground' : 'bg-background hover:bg-muted'
                 )}
-              >首+尾</button>
+              >Đầu+Cuối</button>
             </div>
           </div>
 
-          {/* Ảnh tham chiếu策略 */}
+          {/* Chiến lược Ảnh tham chiếu */}
           <div className="flex items-center gap-2">
-            <span className="text-xs text-muted-foreground whitespace-nowrap">Ảnh tham chiếu策略:</span>
+            <span className="text-xs text-muted-foreground whitespace-nowrap">Chiến lược Ảnh tham chiếu:</span>
             <Select value={refStrategy} onValueChange={v => setRefStrategy(v as any)}>
               <SelectTrigger className="w-[120px] h-8 text-xs">
-                <SelectValue placeholder="Chọn策略" />
+                <SelectValue placeholder="Chọn chiến lược" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="cluster" className="text-xs">Cluster（聚类去重）</SelectItem>
-                <SelectItem value="minimal" className="text-xs">Minimal（单Tham chiếu）</SelectItem>
-                <SelectItem value="none" className="text-xs">None（无Tham chiếu）</SelectItem>
+                <SelectItem value="cluster" className="text-xs">Cluster (phân cụm khử trùng)</SelectItem>
+                <SelectItem value="minimal" className="text-xs">Minimal (một Tham chiếu)</SelectItem>
+                <SelectItem value="none" className="text-xs">None (không Tham chiếu)</SelectItem>
               </SelectContent>
             </Select>
             <button
               onClick={() => setUseExemplar(!useExemplar)}
               className={cn("px-2 py-1 text-xs rounded border", useExemplar ? 'bg-primary text-primary-foreground' : 'bg-background hover:bg-muted')}
-              title="同组格tham chiếuĐã tạo的范例成片作为neo"
-            >范例锚图 {useExemplar ? '开' : '关'}</button>
+              title="Sử dụng ảnh mẫu đã tạo cùng nhóm làm neo tham chiếu"
+            >Ảnh neo mẫu {useExemplar ? 'Bật' : 'Tắt'}</button>
           </div>
 
-          {/* 执 hàng合并Tạo - 突出Hiện */}
+          {/* Thực hiện Tạo hợp nhất - nổi bật */}
           <div className="ml-auto flex items-center gap-2">
             <Button
               className="h-8 px-4 text-xs font-medium"
               disabled={isGenerating || isMergedRunning || splitScenes.length === 0}
               onClick={() => {
-                console.log('[MergedGenControls] 执 hàng合并TạonútNhấp, frameMode:', frameMode, 'refStrategy:', refStrategy, 'useExemplar:', useExemplar);
+                console.log('[MergedGenControls] Nhấp nút Tạo hợp nhất, frameMode:', frameMode, 'refStrategy:', refStrategy, 'useExemplar:', useExemplar);
                 handleMergedGenerate(frameMode, refStrategy, useExemplar);
               }}
             >
-              {isMergedRunning ? (<><Loader2 className="h-3.5 w-3.5 mr-1.5 animate-spin" />合并Đang tạo...</>) : (<><Sparkles className="h-3.5 w-3.5 mr-1.5" />执 hàng合并Tạo</>)}
+              {isMergedRunning ? (<><Loader2 className="h-3.5 w-3.5 mr-1.5 animate-spin" />Đang tạo hợp nhất...</>) : (<><Sparkles className="h-3.5 w-3.5 mr-1.5" />Thực hiện Tạo hợp nhất</>)}
             </Button>
             {isMergedRunning && (
               <Button
@@ -3881,7 +3881,7 @@ export function SplitScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
         <div className="flex items-start gap-2 p-2 rounded-md bg-yellow-500/10 border border-yellow-500/20">
           <AlertCircle className="h-4 w-4 text-yellow-500 mt-0.5 shrink-0" />
           <div className="text-xs text-yellow-600 dark:text-yellow-400">
-            <p>部分Phân cảnh缺少Gợi ý，NhấpPhân cảnh下方的văn bản区域可Chỉnh sửa。</p>
+            <p>Một số Phân cảnh thiếu Gợi ý, Nhấp vào vùng văn bản bên dưới Phân cảnh để Chỉnh sửa.</p>
           </div>
         </div>
       )}
@@ -3928,7 +3928,7 @@ export function SplitScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
           />
         ))}
 
-        {/* Thêm空白Phân cảnhnút */}
+        {/* Nút Thêm Phân cảnh trống */}
         <button
           type="button"
           onClick={addBlankSplitScene}
@@ -3942,7 +3942,7 @@ export function SplitScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
           )}
         >
           <Plus className="h-5 w-5" />
-          <span>Thêm空白Phân cảnh</span>
+          <span>Thêm Phân cảnh trống</span>
         </button>
       </div>
 
@@ -3977,9 +3977,9 @@ export function SplitScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
                 </TooltipTrigger>
                 <TooltipContent>
                   {noImages ? (
-                    <p>请先为Phân cTạo ảnhảnh，再Tạovideo</p>
+                    <p>Vui lòng Tạo ảnh cho Phân cảnh trước, rồi mới Tạo video</p>
                   ) : (
-                    <p>{scenesWithImages} Phân cảnhhiện cóảnh，{scenesNeedVideo} 待Tạovideo</p>
+                    <p>{scenesWithImages} Phân cảnh đã có ảnh, {scenesNeedVideo} đang chờ Tạo video</p>
                   )}
                 </TooltipContent>
               </Tooltip>
@@ -3990,7 +3990,7 @@ export function SplitScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
 
       {/* Tips */}
       <div className="text-xs text-muted-foreground bg-muted/50 rounded-md p-2">
-        <p>💡 Nhấp每Phân cảnh下方的văn bản区域可Chỉnh sửaTạo videoGợi ý。悬停在Phân cảnh上可以Xóa不Cần的Phân cảnh。</p>
+        <p>💡 Nhấp vào vùng văn bản bên dưới mỗi Phân cảnh để Chỉnh sửa Gợi ý Tạo video. Di chuột lên Phân cảnh để Xóa Phân cảnh không Cần.</p>
       </div>
       </>
       )}

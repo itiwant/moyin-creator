@@ -143,7 +143,7 @@ export function GenerationPanel({ selectedCharacter, onCharacterCreated }: Gener
 
   const isGenerating = generationStatus === 'generating';
   
-  // 检查是否有 AI Hiệu chuẩndữ liệu
+  // kiểm tra是否有 AI Hiệu chuẩndữ liệu
   const hasCalibrationData = !!(identityAnchors || charNegativePrompt || visualPromptEn || visualPromptZh);
 
   // 注意：thanh trái始终用于Tạo mớiNhân vật，不响应đang xử lý...ư viện nhân vật的Chọn
@@ -362,7 +362,7 @@ export function GenerationPanel({ selectedCharacter, onCharacterCreated }: Gener
       views: [],
       folderId: currentFolderId,
       projectId: activeProjectId || undefined,
-      // === 6层Danh tínhneo（Nhân vật一致性）===
+      // === 6层Danh tínhneo（Nhân vậtgiống性）===
       identityAnchors: identityAnchors,
       negativePrompt: charNegativePrompt,
       // ===  tập作用域 ===

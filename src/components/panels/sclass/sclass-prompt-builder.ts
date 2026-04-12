@@ -10,7 +10,7 @@
  * 3. Tự động从 splitScene.dialogue 提取Thoại → 唇形同步指令
  * 4. 合并trong nhóm各Ống kính的3 lớpprompt为「Ống kính1→Ống kính2→Ống kính3」Cấu trúc
  * 5. thu thậpngười dùngTải lên的 @Video / @Audio tham chiếu
- * 6. 检查 Seedance 2.0 限制（≤9图 + ≤3video + ≤3âm thanh，Tổng≤12，prompt≤5000ký tự）
+ * 6. kiểm tra Seedance 2.0 限制（≤9图 + ≤3video + ≤3âm thanh，Tổng≤12，prompt≤5000ký tự）
  */
 
 import type { SplitScene } from '@/stores/director-store';
@@ -100,7 +100,7 @@ function calculateGridLayout(count: number): { cols: number; rows: number; padde
 /**
  * 将多张Khung hình đầuảnh合并为一张ô图（Canvas 拼接）
  *
- * bố cục规则（N×N 策略，与 handleMergedGenerate 一致）：
+ * bố cục规则（N×N 策略，与 handleMergedGenerate giống）：
  * - 1-4 张 → 2×2，不足的ôĐể trống
  * - 5-9 张 → 3×3，不足的ôĐể trống
  * Tỷ lệ khung hình：N×N 网格下，整图Tỷ lệ khung hình = 单格Tỷ lệ khung hình = 目标Tỉ lệ khung hình比
@@ -315,7 +315,7 @@ export function collectAllRefs(
   sceneLibrary: Scene[],
   gridImageRef?: AssetRef | null,
 ): CollectedRefs {
-  // 1. thu thậpNhân vậtẢnh tham chiếu（去重：trong nhómTất cảỐng kính的 characterIds 合并）
+  // 1. thu thậpNhân vậtẢnh tham chiếu（khử trùng：trong nhómTất cảỐng kính的 characterIds 合并）
   const allCharIds = Array.from(
     new Set(scenes.flatMap(s => s.characterIds || []))
   );
@@ -567,7 +567,7 @@ const EDIT_TYPE_TEMPLATE: Record<EditType, string> = {
  * Ống kính1 [0s-5s]「Cảnh名」：[chuyển động máy], [Hành động]
  * Ống kính2 [5s-9s]「Cảnh名」：[chuyển động máy], [Hành động]
  *
- * Nhân vậtTham chiếu：@ảnh4（Nhân vậtA）保持Nhân vậtngoại hình一致
+ * Nhân vậtTham chiếu：@ảnh4（Nhân vậtA）保持Nhân vậtngoại hìnhgiống
  * CảnhTham chiếu：@ảnh6 作为CảnhTham chiếu
  *
  * Thoại与sổ型同步：
@@ -738,7 +738,7 @@ export function buildGroupPrompt(options: BuildGroupPromptOptions): GroupPromptR
     promptParts.push(`Tỉ lệ khung hình: ${aspectRatio}`);
   }
 
-  // 一致性约束
+  // giống性约束
   promptParts.push('');
   promptParts.push('Tất cả Ống kính giữ ngoại hình Nhân vật nhất quán, chuyển tiếp mượt mà giữa các Ống kính, không xuất hiện văn bản hoặc hình mờ.');
 

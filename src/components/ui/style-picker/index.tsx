@@ -8,7 +8,7 @@
  * 
  * chức năng：
  * - 左侧：phân loại小图列表，可滚动
- * - bên phải：悬停/đã chọn时显示大图预览 + Mô tả
+ * - bên phải：Di chuột/đã chọn时显示大图预览 + Mô tả
  * - 支持下拉popup出chế độ和内嵌chế độ
  */
 
@@ -89,7 +89,7 @@ export function StylePicker({
   // 获取Đang chọn的风格（内置 + Tùy chỉnh）
   const selectedStyle = useMemo(() => getStyleById(value), [value]);
 
-  // 预览的风格（悬停优先，否则显示đã chọn的）
+  // 预览的风格（Di chuột优先，否则显示đã chọn的）
   const previewStyle = hoveredStyle || selectedStyle || VISUAL_STYLE_PRESETS[0];
 
   // 处理Chọn

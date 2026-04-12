@@ -3,7 +3,7 @@
 // Commercial licensing available. See COMMERCIAL_LICENSE.md.
 /**
  * Quad Grid Components - Lưới 4 ô组件
- * 基于Ảnh neoTạo一致性biến thể
+ * 基于Ảnh neoTạogiống性biến thể
  */
 
 export { QuadGridDialog } from "./QuadGridDialog";

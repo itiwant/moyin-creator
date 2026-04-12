@@ -3,7 +3,7 @@
 // Commercial licensing available. See COMMERCIAL_LICENSE.md.
 /**
  * Episode Parser - đang xử lý...规则Phân tích器
- * Phân tích标准đang xử lý...格式，提取 tập、场景、Thoại、动作等Cấu trúc化thông tin
+ * Phân tíchTiêu chuẩnđang xử lý...格式，提取 tập、场景、Thoại、动作等Cấu trúc化thông tin
  * 
  * 支持的格式：
  * -  tập标记：第X tập
@@ -370,7 +370,7 @@ export function parseScenes(episodeText: string): SceneRawContent[] {
   const sceneMatches = [...episodeText.matchAll(sceneHeaderRegex)];
   
   if (sceneMatches.length === 0) {
-    // 没有找到标准场景头，尝试Lỏng lẻo的 数字-数字 格式
+    // 没有找到Tiêu chuẩn场景头，尝试Lỏng lẻo的 数字-数字 格式
     // Khớp如：1-1 规则怪谈世界， tập合广场，日  或  1-2 全球同一会议直播间，日
     const looseSceneRegex = /^\*{0,2}(\d+-\d+)\s+([^\*\n]+)\*{0,2}$/gm;
     const looseMatches = [...episodeText.matchAll(looseSceneRegex)];
@@ -386,7 +386,7 @@ export function parseScenes(episodeText: string): SceneRawContent[] {
         let timeOfDay = '日'; // 默认值
         let locationDesc = rawDesc;
         
-        // 检查Mô tả末尾是否以时间词结尾（可能用逗号、空格ngăn cách）
+        // kiểm traMô tả末尾是否以时间词结尾（可能用逗号、空格ngăn cách）
         for (const tw of timeWords) {
           const endPattern = new RegExp(`[，,\\s]${tw}\\s*$`);
           if (endPattern.test(rawDesc)) {
@@ -413,7 +413,7 @@ export function parseScenes(episodeText: string): SceneRawContent[] {
         // 将đang xử lý...ngăn cách的地点拼接成可读格式
         const location = locationDesc.replace(/[，,]/g, ' ').replace(/\s+/g, ' ').trim() || '未知地点';
         
-        // 构建标准格式的场景头，供下游代码Sử dụng
+        // 构建Tiêu chuẩn格式的场景头，供下游代码Sử dụng
         const sceneHeader = interior 
           ? `${sceneNumber} ${timeOfDay} ${interior} ${location}`
           : `${sceneNumber} ${timeOfDay} ${location}`;
@@ -492,7 +492,7 @@ export function parseScenes(episodeText: string): SceneRawContent[] {
 }
 
 /**
- * Phân tích备用场景格式（当标准格式不Khớp时）
+ * Phân tích备用场景格式（当Tiêu chuẩn格式不Khớp时）
  */
 function parseAlternativeSceneFormat(text: string): SceneRawContent[] {
   const scenes: SceneRawContent[] = [];
@@ -716,7 +716,7 @@ function chineseToNumber(chinese: string): number {
  * 从nhân vật小传文本đang xử lý...色thông tin
  * 支持两种格式：
  * 1. 紧凑格式：角色tên:Tuổi：XXDanh tính：... （从 Word/微信复制的无换行文本）
- * 2. 标准格式：角色tên:Mô tả 或 角色名（Tuổi）：Mô tả
+ * 2. Tiêu chuẩn格式：角色tên:Mô tả 或 角色名（Tuổi）：Mô tả
  */
 export function parseCharacterBios(bios: string): ScriptCharacter[] {
   if (!bios || !bios.trim()) return [];
@@ -729,7 +729,7 @@ export function parseCharacterBios(bios: string): ScriptCharacter[] {
     return parseCompactBioFormat(bios, compactMatches);
   }
   
-  // 标准格式兜底
+  // Tiêu chuẩn格式兜底
   return parseStandardBioFormat(bios);
 }
 
@@ -789,7 +789,7 @@ function stripSectionKeywords(name: string): string {
 }
 
 /**
- * 标准格式Phân tích（原逻辑）：角色tên:Mô tả 或 角色名（Tuổi）：Mô tả
+ * Tiêu chuẩn格式Phân tích（原逻辑）：角色tên:Mô tả 或 角色名（Tuổi）：Mô tả
  */
 function parseStandardBioFormat(bios: string): ScriptCharacter[] {
   const characters: ScriptCharacter[] = [];
@@ -886,7 +886,7 @@ function splitMultipleCharacters(rawName: string): string[] {
 }
 
 /**
- * 检查是否为有效角色名（放宽lọc，让 AI 做thông minhHiệu chuẩn）
+ * kiểm tra是否为有效角色名（放宽lọc，让 AI 做thông minhHiệu chuẩn）
  */
 function isValidCharacterName(name: string): boolean {
   // 跳过空名字
@@ -1026,7 +1026,7 @@ export function convertToScriptData(
       
       // Phân tích场景头获取时间和地点
       // 支持两种格式：
-      // 标准格式: "1-1 日 内 地点名" (headerParts: [number, time, interior, ...location])
+      // Tiêu chuẩn格式: "1-1 日 内 地点名" (headerParts: [number, time, interior, ...location])
       // Lỏng lẻo格式: "1-1 日 地点名" (headerParts: [number, time, ...location])
       const headerParts = scene.sceneHeader.split(/\s+/);
       const timeOfDay = headerParts[1] || '日';
@@ -1070,7 +1070,7 @@ export function convertToScriptData(
 }
 
 /**
- * 标准化时间
+ * Tiêu chuẩn化时间
  */
 function normalizeTime(time: string): string {
   const timeMap: Record<string, string> = {

@@ -145,7 +145,7 @@ const STYLES_2D: StylePreset[] = [
     mediaType: 'animation',
     prompt: '(best quality, masterpiece, 8k, high detailed:1.2), (standard Japanese anime style:1.3), (clean lineart, flat color:1.2), (anime character design:1.1), vibrant, detailed eyes',
     negativePrompt: '(worst quality, low quality:1.4), (3D, realistic, photorealistic, cgi:1.3), (sketch, messy), ugly, bad anatomy',
-    description: '标准日式2D动画风格',
+    description: 'Tiêu chuẩn日式2D动画风格',
     thumbnail: '2d_animation.png',
   },
   {

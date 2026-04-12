@@ -110,7 +110,7 @@ async function matchByAI(
   actionSummary: string,
   availableViewpoints: Array<{ id: string; name: string }>
 ): Promise<string | null> {
-  // 检查缓存
+  // kiểm tra缓存
   const cacheKey = `${actionSummary}:${availableViewpoints.map(v => v.id).join(',')}`;
   const cached = aiMatchCache.get(cacheKey);
   if (cached && Date.now() - cached.timestamp < CACHE_TTL) {
@@ -223,7 +223,7 @@ function matchByViewpointNameKeywords(
 ): Scene | null {
   if (!actionSummary || viewpointVariants.length === 0) return null;
   
-  // 对每góc nhìn变体，提取名称đang xử lý...an trọng词并检查是否出现在动作Mô tả中
+  // 对每góc nhìn变体，提取名称đang xử lý...an trọng词并kiểm tra是否出现在动作Mô tả中
   for (const variant of viewpointVariants) {
     const viewpointName = variant.viewpointName || variant.name || '';
     
@@ -237,7 +237,7 @@ function matchByViewpointNameKeywords(
     // 将名称分词（按常见ngăn cách符和đang xử lý...拆分）
     const keywords = extractKeywords(cleanedName);
     
-    // 检查动作Mô tả是否包含这些quan trọng词
+    // kiểm tra动作Mô tả是否包含这些quan trọng词
     for (const keyword of keywords) {
       if (keyword.length >= 2 && actionSummary.includes(keyword)) {
         console.log(`[ViewpointMatcher] Matched viewpoint "${viewpointName}" by keyword "${keyword}"`);
@@ -287,7 +287,7 @@ function extractKeywords(name: string): string[] {
     }
   }
   
-  return [...new Set(keywords)]; // 去重
+  return [...new Set(keywords)]; // khử trùng
 }
 
 // ==================== 主入sổ ====================

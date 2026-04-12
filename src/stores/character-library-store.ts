@@ -86,7 +86,7 @@ export interface Character {
   status?: 'draft' | 'linked'; // Trạng thái: draft=Bản nháp, linked=Đã liên kết kịch bản
   linkedEpisodeId?: string;    // ID tập đã liên kết
   
-  // === 6层Danh tínhneo（Nhân vật一致性）===
+  // === 6层Danh tínhneo（Nhân vậtgiống性）===
   identityAnchors?: CharacterIdentityAnchors;  // Neo danh tính - khóa 6 lớp đặc trưng
   negativePrompt?: CharacterNegativePrompt;    // Prompt phủ định
   

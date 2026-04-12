@@ -46,7 +46,7 @@ export function CharacterSelector({
       : !activeProjectId
         ? []
         : characters.filter((c) => c.projectId === activeProjectId);
-    // 按 id 去重（项目Sao chép会产生同 id Nhân vật，保留首次出现的）
+    // 按 id khử trùng（项目Sao chép会产生同 id Nhân vật，保留首次出现的）
     const seen = new Set<string>();
     return list.filter((c) => {
       if (seen.has(c.id)) return false;
