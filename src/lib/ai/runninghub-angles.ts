@@ -23,9 +23,9 @@ export type ElevationAngle =
   | 'high-angle';  // 大俯视
 
 export type ShotSize = 
-  | 'close-up'      // 特写
+  | 'close-up'      // Cực cận cảnh
   | 'medium-shot'   // 中景
-  | 'wide-shot';    // 远景
+  | 'wide-shot';    // Viễn cảnh
 
 export interface AnglePreset {
   id: string;
@@ -73,9 +73,9 @@ export const SHOT_SIZES: Array<{
   label: string;
   description: string;
 }> = [
-  { id: 'close-up', label: '特写', description: 'Close-up' },
+  { id: 'close-up', label: 'Cực cận cảnh', description: 'Close-up' },
   { id: 'medium-shot', label: 'đang xử lý... description: 'Medium Shot' },
-  { id: 'wide-shot', label: '远景', description: 'Wide Shot' },
+  { id: 'wide-shot', label: 'Viễn cảnh', description: 'Wide Shot' },
 ];
 
 // 方向到提示词的精确映射
@@ -106,7 +106,7 @@ const SHOT_SIZE_PROMPTS: Record<ShotSize, string> = {
 };
 
 /**
- * 生成单视角的提示词
+ * Tạo单视角的提示词
  * 精确匹配96种标准提示词格式
  */
 export function generateAnglePrompt(
@@ -122,7 +122,7 @@ export function generateAnglePrompt(
 }
 
 /**
- * 生成Tất cả96种视角预设
+ * TạoTất cả96种视角预设
  */
 export function generateAllAnglePresets(): AnglePreset[] {
   const presets: AnglePreset[] = [];

@@ -104,32 +104,32 @@ export const LIGHTING_DIRECTION_PRESETS = [
   { id: 'back' as const, label: 'Ngược sáng', labelEn: 'Back', emoji: '⬇️', promptToken: 'backlit,' },
   { id: 'top' as const, label: 'Ánh sáng từ trên', labelEn: 'Top', emoji: '🔽', promptToken: 'overhead top lighting,' },
   { id: 'bottom' as const, label: 'Ánh sáng từ dưới', labelEn: 'Bottom', emoji: '🔼', promptToken: 'underlighting, eerie,' },
-  { id: 'rim' as const, label: '轮廓光', labelEn: 'Rim', emoji: '💫', promptToken: 'rim light, edge glow separating subject from background,' },
-  { id: 'three-point' as const, label: '三点布光', labelEn: 'Three-Point', emoji: '🔺', promptToken: 'three-point lighting setup,' },
+  { id: 'rim' as const, label: 'Ánh sáng viền', labelEn: 'Rim', emoji: '💫', promptToken: 'rim light, edge glow separating subject from background,' },
+  { id: 'three-point' as const, label: 'Bố cục ba điểm sáng', labelEn: 'Three-Point', emoji: '🔺', promptToken: 'three-point lighting setup,' },
 ] as const;
 
 // 色温预设
 export const COLOR_TEMPERATURE_PRESETS = [
-  { id: 'warm' as const, label: '暖色 3200K', labelEn: 'Warm', emoji: '🟠', promptToken: 'warm color temperature 3200K,' },
+  { id: 'warm' as const, label: 'Màu ấm 3200K', labelEn: 'Warm', emoji: '🟠', promptToken: 'warm color temperature 3200K,' },
   { id: 'neutral' as const, label: 'đang xử lý...500K', labelEn: 'Neutral', emoji: '⚪', promptToken: 'neutral daylight 5500K,' },
-  { id: 'cool' as const, label: '冷色 7000K', labelEn: 'Cool', emoji: '🔵', promptToken: 'cool blue color temperature,' },
-  { id: 'golden-hour' as const, label: '黄金时段', labelEn: 'Golden Hour', emoji: '🌇', promptToken: 'golden hour warm sunlight,' },
-  { id: 'blue-hour' as const, label: '蓝调时分', labelEn: 'Blue Hour', emoji: '🌆', promptToken: 'blue hour twilight tones,' },
-  { id: 'mixed' as const, label: '混合色温', labelEn: 'Mixed', emoji: '🎭', promptToken: 'mixed warm and cool lighting,' },
+  { id: 'cool' as const, label: 'Màu lạnh 7000K', labelEn: 'Cool', emoji: '🔵', promptToken: 'cool blue color temperature,' },
+  { id: 'golden-hour' as const, label: 'Giờ vàng', labelEn: 'Golden Hour', emoji: '🌇', promptToken: 'golden hour warm sunlight,' },
+  { id: 'blue-hour' as const, label: 'Giờ xanh', labelEn: 'Blue Hour', emoji: '🌆', promptToken: 'blue hour twilight tones,' },
+  { id: 'mixed' as const, label: 'Nhiệt độ màu hỗn hợp', labelEn: 'Mixed', emoji: '🎭', promptToken: 'mixed warm and cool lighting,' },
 ] as const;
 
 // Độ sâu trường ảnh预设 (Focus Puller)
 export const DEPTH_OF_FIELD_PRESETS = [
-  { id: 'ultra-shallow' as const, label: '极浅 f/1.4', labelEn: 'Ultra Shallow', emoji: '🔍', promptToken: 'extremely shallow depth of field, f/1.4, dreamy bokeh,' },
-  { id: 'shallow' as const, label: '浅Độ sâu trường ảnh f/2.8', labelEn: 'Shallow', emoji: '👤', promptToken: 'shallow depth of field, soft background bokeh,' },
+  { id: 'ultra-shallow' as const, label: 'Cực nông f/1.4', labelEn: 'Ultra Shallow', emoji: '🔍', promptToken: 'extremely shallow depth of field, f/1.4, dreamy bokeh,' },
+  { id: 'shallow' as const, label: 'Nông f/2.8', labelEn: 'Shallow', emoji: '👤', promptToken: 'shallow depth of field, soft background bokeh,' },
   { id: 'medium' as const, label: 'đang xử lý.../5.6', labelEn: 'Medium', emoji: '👥', promptToken: 'medium depth of field,' },
-  { id: 'deep' as const, label: '深Độ sâu trường ảnh f/11', labelEn: 'Deep', emoji: '🏔️', promptToken: 'deep focus, everything sharp,' },
-  { id: 'split-diopter' as const, label: '分屈光镜', labelEn: 'Split Diopter', emoji: '🪞', promptToken: 'split diopter lens, foreground and background both in focus,' },
+  { id: 'deep' as const, label: 'Sâu f/11', labelEn: 'Deep', emoji: '🏔️', promptToken: 'deep focus, everything sharp,' },
+  { id: 'split-diopter' as const, label: 'Chia diopter', labelEn: 'Split Diopter', emoji: '🪞', promptToken: 'split diopter lens, foreground and background both in focus,' },
 ] as const;
 
 // 转焦预设
 export const FOCUS_TRANSITION_PRESETS = [
-  { id: 'none' as const, label: '固定焦点', labelEn: 'None', promptToken: '' },
+  { id: 'none' as const, label: 'Tiêu cự cố định', labelEn: 'None', promptToken: '' },
   { id: 'rack-to-fg' as const, label: '转焦到前景', labelEn: 'Rack to FG', promptToken: 'rack focus to foreground,' },
   { id: 'rack-to-bg' as const, label: '转焦到背景', labelEn: 'Rack to BG', promptToken: 'rack focus to background,' },
   { id: 'rack-between' as const, label: 'nhân vật间转焦', labelEn: 'Rack Between', promptToken: 'rack focus between characters,' },
@@ -139,7 +139,7 @@ export const FOCUS_TRANSITION_PRESETS = [
 // 器材预设 (Camera Rig)
 export const CAMERA_RIG_PRESETS = [
   { id: 'tripod' as const, label: '三脚架', labelEn: 'Tripod', emoji: '📐', promptToken: 'static tripod shot,' },
-  { id: 'handheld' as const, label: '手持', labelEn: 'Handheld', emoji: '🤲', promptToken: 'handheld camera, slight shake, documentary feel,' },
+  { id: 'handheld' as const, label: 'Cầm tay', labelEn: 'Handheld', emoji: '🤲', promptToken: 'handheld camera, slight shake, documentary feel,' },
   { id: 'steadicam' as const, label: '斯坦尼康', labelEn: 'Steadicam', emoji: '🎥', promptToken: 'smooth steadicam shot,' },
   { id: 'dolly' as const, label: '轨道', labelEn: 'Dolly', emoji: '🛤️', promptToken: 'dolly tracking shot, smooth rail movement,' },
   { id: 'crane' as const, label: '摇臂', labelEn: 'Crane', emoji: '🏗️', promptToken: 'crane shot, sweeping vertical movement,' },
@@ -205,11 +205,11 @@ export const PLAYBACK_SPEED_PRESETS = [
 
 export const CAMERA_MOVEMENT_PRESETS = [
   { id: 'none' as const, label: '无', labelEn: 'None', promptToken: '' },
-  { id: 'static' as const, label: '固定机位', labelEn: 'Static', promptToken: 'static camera, locked off,' },
-  { id: 'tracking' as const, label: '跟拍', labelEn: 'Tracking', promptToken: 'tracking shot, following subject,' },
+  { id: 'static' as const, label: 'Cố định机位', labelEn: 'Static', promptToken: 'static camera, locked off,' },
+  { id: 'tracking' as const, label: 'Theo dõi', labelEn: 'Tracking', promptToken: 'tracking shot, following subject,' },
   { id: 'orbit' as const, label: '环绕', labelEn: 'Orbit', promptToken: 'orbiting around subject, circular camera movement,' },
-  { id: 'zoom-in' as const, label: '变焦拉近', labelEn: 'Zoom In', promptToken: 'zoom in, lens zooming closer,' },
-  { id: 'zoom-out' as const, label: '变焦拉远', labelEn: 'Zoom Out', promptToken: 'zoom out, lens zooming wider,' },
+  { id: 'zoom-in' as const, label: 'Zoom拉近', labelEn: 'Zoom In', promptToken: 'zoom in, lens zooming closer,' },
+  { id: 'zoom-out' as const, label: 'Zoom拉远', labelEn: 'Zoom Out', promptToken: 'zoom out, lens zooming wider,' },
   { id: 'pan-left' as const, label: 'Ống kính左摇', labelEn: 'Pan Left', promptToken: 'pan left, horizontal camera rotation left,' },
   { id: 'pan-right' as const, label: 'Ống kính右摇', labelEn: 'Pan Right', promptToken: 'pan right, horizontal camera rotation right,' },
   { id: 'tilt-up' as const, label: 'Ống kính上仰', labelEn: 'Tilt Up', promptToken: 'tilt up, camera tilting upward,' },
@@ -230,7 +230,7 @@ export type CameraMovementType = typeof CAMERA_MOVEMENT_PRESETS[number]['id'];
 
 export const SPECIAL_TECHNIQUE_PRESETS = [
   { id: 'none' as const, label: '无', labelEn: 'None', promptToken: '' },
-  { id: 'hitchcock-zoom' as const, label: '希区柯克变焦', labelEn: 'Hitchcock Zoom', promptToken: 'dolly zoom, vertigo effect, Hitchcock zoom,' },
+  { id: 'hitchcock-zoom' as const, label: '希区柯克Zoom', labelEn: 'Hitchcock Zoom', promptToken: 'dolly zoom, vertigo effect, Hitchcock zoom,' },
   { id: 'timelapse' as const, label: '延时摄影', labelEn: 'Timelapse', promptToken: 'timelapse, time passing rapidly,' },
   { id: 'crash-zoom-in' as const, label: '急推Ống kính', labelEn: 'Crash Zoom In', promptToken: 'crash zoom in, sudden rapid zoom,' },
   { id: 'crash-zoom-out' as const, label: '急拉Ống kính', labelEn: 'Crash Zoom Out', promptToken: 'crash zoom out, sudden rapid pull back,' },
@@ -251,30 +251,30 @@ export type SpecialTechniqueType = typeof SPECIAL_TECHNIQUE_PRESETS[number]['id'
 export const EMOTION_PRESETS = {
   // Cơ bản情绪
   basic: [
-    { id: 'happy', label: '开心', emoji: '😊' },
-    { id: 'sad', label: '悲伤', emoji: '😢' },
-    { id: 'angry', label: '愤怒', emoji: '😠' },
-    { id: 'surprised', label: '惊讶', emoji: '😲' },
-    { id: 'fearful', label: '恐惧', emoji: '😨' },
-    { id: 'calm', label: '平静', emoji: '😐' },
+    { id: 'happy', label: 'Vui vẻ', emoji: '😊' },
+    { id: 'sad', label: 'Buồn bã', emoji: '😢' },
+    { id: 'angry', label: 'Tức giận', emoji: '😠' },
+    { id: 'surprised', label: 'Ngạc nhiên', emoji: '😲' },
+    { id: 'fearful', label: 'Sợ hãi', emoji: '😨' },
+    { id: 'calm', label: 'Bình tĩnh', emoji: '😐' },
   ],
   // Bầu không khí情绪
   atmosphere: [
     { id: 'tense', label: 'Căng thẳng', emoji: '😰' },
-    { id: 'excited', label: '兴奋', emoji: '🤩' },
+    { id: 'excited', label: 'Hứng khởi', emoji: '🤩' },
     { id: 'mysterious', label: 'bí ẩn', emoji: '🤔' },
-    { id: 'romantic', label: '浪漫', emoji: '🥰' },
-    { id: 'funny', label: '搞笑', emoji: '😂' },
-    { id: 'touching', label: '感动', emoji: '🥹' },
+    { id: 'romantic', label: 'Lãng mạn', emoji: '🥰' },
+    { id: 'funny', label: 'Hài hước', emoji: '😂' },
+    { id: 'touching', label: 'Cảm động', emoji: '🥹' },
   ],
   // 语气情绪
   tone: [
-    { id: 'serious', label: '严肃', emoji: '😑' },
-    { id: 'relaxed', label: '轻松', emoji: '😌' },
-    { id: 'playful', label: '调侃', emoji: '😜' },
-    { id: 'gentle', label: '温柔', emoji: '😇' },
-    { id: 'passionate', label: '激昂', emoji: '🔥' },
-    { id: 'low', label: '低沉', emoji: '😔' },
+    { id: 'serious', label: 'Nghiêm túc', emoji: '😑' },
+    { id: 'relaxed', label: 'Nhẹ nhàng', emoji: '😌' },
+    { id: 'playful', label: 'Châm biếm', emoji: '😜' },
+    { id: 'gentle', label: 'Dịu dàng', emoji: '😇' },
+    { id: 'passionate', label: 'Sôi nổi', emoji: '🔥' },
+    { id: 'low', label: 'Trầm lắng', emoji: '😔' },
   ],
 } as const;
 

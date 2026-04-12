@@ -24,10 +24,10 @@ export const MODEL_DISPLAY_NAMES: Record<string, string> = {
   'gpt-image-1-all': 'GPT Image 1 (逆向)',
   'gpt-image-1-mini': 'GPT Image 1 Mini',
   'gpt-4o-image-vip': 'GPT-4o Image VIP',
-  'sora_image': 'Sora 图片生成',
+  'sora_image': 'Sora 图片Tạo',
 
   // --- Qwen / 通义千问 ---
-  'qwen-image-edit-2509': 'Qwen 图像编辑',
+  'qwen-image-edit-2509': 'Qwen 图像chỉnh sửa',
   'qwen-image-max': '通义万相 Max',
   'qwen-image-max-2025-12-30': '通义万相 Max (2025-12-30)',
   'qwen-image-plus': '通义万相 Plus',
@@ -81,7 +81,7 @@ export const MODEL_DISPLAY_NAMES: Record<string, string> = {
   'mj-video': 'Midjourney 视频',
   'mj-video-extend': 'Midjourney 视频延长',
   'mj-video-upscale': 'Midjourney 视频放大',
-  'mj-editor': 'Midjourney 编辑',
+  'mj-editor': 'Midjourney chỉnh sửa',
   'mj-inpaint': 'Midjourney 局部重绘',
   'mj-outpaint': 'Midjourney 外扩',
   'mj-pan': 'Midjourney 平移扩展',
@@ -103,9 +103,9 @@ export const MODEL_DISPLAY_NAMES: Record<string, string> = {
   'ideogram_generate_V_1_TURBO': 'Ideogram V1 Turbo',
   'ideogram_generate_V_2': 'Ideogram V2',
   'ideogram_generate_V_3_TURBO': 'Ideogram V3 Turbo',
-  'ideogram_edit_V_3_DEFAULT': 'Ideogram V3 编辑',
-  'ideogram_edit_V_3_QUALITY': 'Ideogram V3 编辑 Quality',
-  'ideogram_edit_V_3_TURBO': 'Ideogram V3 编辑 Turbo',
+  'ideogram_edit_V_3_DEFAULT': 'Ideogram V3 chỉnh sửa',
+  'ideogram_edit_V_3_QUALITY': 'Ideogram V3 chỉnh sửa Quality',
+  'ideogram_edit_V_3_TURBO': 'Ideogram V3 chỉnh sửa Turbo',
   'ideogram_remix_V_1': 'Ideogram V1 Remix',
   'ideogram_remix_V_1_TURBO': 'Ideogram V1 Remix Turbo',
   'ideogram_remix_V_2': 'Ideogram V2 Remix',
@@ -136,7 +136,7 @@ export const MODEL_DISPLAY_NAMES: Record<string, string> = {
   'doubao-seededit-3-0-i2i-250628': 'SeedEdit 3.0 (Ảnh từ ảnh)',
 
   // --- Kling / 可灵 ---
-  'kling-image': 'Kling 图片生成',
+  'kling-image': 'Kling 图片Tạo',
   'kling-omni-image': 'Kling Omni 图片',
   'kling-image-recognize': 'Kling 图像识别',
   // Kling 图片模型版本 (MemeFast model_version)
@@ -164,7 +164,7 @@ export const MODEL_DISPLAY_NAMES: Record<string, string> = {
   'hidream-i1-fast': 'HiDream I1 Fast',
 
   // --- Leonardo ---
-  'leonardo-image': 'Leonardo 图片生成',
+  'leonardo-image': 'Leonardo 图片Tạo',
 
   // --- DeepSeek ---
   'deepseek-ocr': 'DeepSeek OCR',
@@ -251,9 +251,9 @@ export const MODEL_DISPLAY_NAMES: Record<string, string> = {
   'kling-avatar-image2video': 'Kling Avatar 图生视频',
   'kling-advanced-lip-sync': 'Kling 高级sổ型同步',
   'kling-effects': 'Kling 特效',
-  'kling-audio': 'Kling 音频生成',
-  'kling-custom-voices': 'Kling 自定义音色',
-  'kling-custom-elements': 'Kling 自定义主体',
+  'kling-audio': 'Kling 音频Tạo',
+  'kling-custom-voices': 'Kling Tùy chỉnh音色',
+  'kling-custom-elements': 'Kling Tùy chỉnh主体',
   // Kling 视频模型版本 (MemeFast model_version)
   'kling-v1': 'Kling V1',
   'kling-v1-5': 'Kling V1.5',
@@ -285,7 +285,7 @@ export const MODEL_DISPLAY_NAMES: Record<string, string> = {
   'viduq2-turbo': 'Vidu Q2 Turbo',
   'viduq3-pro': 'Vidu Q3 Pro',
   'aigc-video-vidu': 'Vidu（AIGC 聚合）',
-  'vidu-video': 'Vidu 视频生成',
+  'vidu-video': 'Vidu 视频Tạo',
   'vidu-video-ref': 'Vidu Tham chiếu视频',
   'vidu-video-character': 'Vidu 角色视频',
   'vidu-video-character-ref': 'Vidu 角色Tham chiếu视频',
@@ -328,14 +328,14 @@ export const MODEL_DISPLAY_NAMES: Record<string, string> = {
   'ltx-video-i2v': 'LTX Video 图生视频',
 
   // --- Luma ---
-  'luma_video_api': 'Luma 视频生成',
+  'luma_video_api': 'Luma 视频Tạo',
   'luma_video_extend_api': 'Luma 视频延长',
-  'luma-video': 'Luma 视频生成',
+  'luma-video': 'Luma 视频Tạo',
   'luma-video-ray2': 'Luma Ray 2',
   'luma-video-ray2-flash': 'Luma Ray 2 Flash',
 
   // --- Pika ---
-  'pika-video': 'Pika 视频生成',
+  'pika-video': 'Pika 视频Tạo',
   'pika-video-2.2': 'Pika 2.2',
 
   // --- Hunyuan / 混元 ---
@@ -362,8 +362,8 @@ export const MODEL_DISPLAY_NAMES: Record<string, string> = {
   'whisper-1': 'Whisper 语音转文字',
 
   // --- SunoAI ---
-  'suno_music': 'Suno 音乐生成',
-  'suno_lyrics': 'Suno 歌词生成',
+  'suno_music': 'Suno 音乐Tạo',
+  'suno_lyrics': 'Suno 歌词Tạo',
   'suno_upload': 'Suno 音频上传',
   'suno_fetch': 'Suno 任务查询',
 };

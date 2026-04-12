@@ -4,7 +4,7 @@
 /**
  * Adaptive Batch Processor — AI 调度đang xử lý...组件 3
  *
- * 职责：将大量 items 自动分批发给 AI，同时满足 input 和 output token 约束。
+ * 职责：将大量 items Tự động分批发给 AI，同时满足 input 和 output token 约束。
  *
  * 核心特性：
  *   - 双重约束分批（input token + output token）
@@ -54,7 +54,7 @@ export interface ProcessBatchedOptions<TItem, TResult> {
   parseResult: (raw: string, batch: TItem[]) => Map<string, TResult>;
 
   /**
-   * 可选：自定义合并逻辑。默认简单合并（后者覆盖前者）
+   * 可选：Tùy chỉnh合并逻辑。默认简单合并（后者覆盖前者）
    */
   mergeResults?: (all: Map<string, TResult>[]) => Map<string, TResult>;
 
@@ -95,7 +95,7 @@ export interface ProcessBatchedResult<TResult> {
 /**
  * 自适应批处理 AI gọi API
  *
- * 自动完成：
+ * Tự động完成：
  *   1. 从 Registry 查出模型的 contextWindow 和 maxOutput
  *   2. 双重约束贪心分组（input + output）
  *   3. 通过 runStaggered 并发执行

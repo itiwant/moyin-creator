@@ -5,7 +5,7 @@
 
 /**
  * AssetSidebar - Tài sản面板Điều hướng trái树
- * 可插拔设计，后续可扩展Thư viện phương tiện、作品库等con模块
+ * 可插拔Thiết kế，后续可扩展Thư viện phương tiện、作品库等con模块
  */
 
 import { cn } from "@/lib/utils";

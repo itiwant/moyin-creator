@@ -543,7 +543,7 @@ export async function splitStoryboardImage(
   const cellWidth = Math.floor(totalWidth / expectedCols);
   const cellHeight = Math.floor(totalHeight / expectedRows);
   
-  // === 动态居đang xử lý...正（学习自合并生成的切割方法）===
+  // === 动态居đang xử lý...正（学习自合并Tạo的切割方法）===
   // 计算目标宽高比
   const targetAspectW = aspectRatio === '16:9' ? 16 : 9;
   const targetAspectH = aspectRatio === '16:9' ? 9 : 16;

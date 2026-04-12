@@ -217,7 +217,7 @@ export function isFieldSkipped(mediaType: MediaType, field: CinematographyField)
 }
 
 /**
- * 获取媒介类型的简要指导说明（用于 AI 校准 system prompt）
+ * 获取媒介类型的简要指导说明（用于 AI Hiệu chuẩn system prompt）
  */
 export function getMediaTypeGuidance(mediaType: MediaType): string {
   switch (mediaType) {

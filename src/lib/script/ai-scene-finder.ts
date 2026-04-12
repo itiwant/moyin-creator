@@ -4,12 +4,12 @@
 /**
  * AI Scene Finder
  * 
- * 根据用户自然Ngôn ngữ描述，从剧本đang xử lý...景并生成专业场景数据
+ * 根据用户自然Ngôn ngữ描述，从剧本đang xử lý...景并Tạo专业场景数据
  * 
  * 功能：
  * 1. 解析用户输入（如 "缺第5 tập的张家客厅"）
  * 2. 搜索剧本đang xử lý...信息
- * 3. AI 生成đầy đủ场景数据（包括视觉提示词）
+ * 3. AI Tạođầy đủ场景数据（包括视觉提示词）
  */
 
 import type { ScriptScene, ProjectBackground, EpisodeRawScript, SceneRawContent } from '@/types/script';
@@ -28,13 +28,13 @@ export interface SceneSearchResult {
   episodeNumbers: number[];
   /** 找到的上下文（场景内容等） */
   contexts: string[];
-  /** AI 生成的đầy đủ场景数据 */
+  /** AI Tạo的đầy đủ场景数据 */
   scene?: ScriptScene;
   /** 搜索说明 */
   message: string;
 }
 
-/** @deprecated 不再需要手动传递，自动从ánh xạ dịch vụ获取 */
+/** @deprecated 不再需要手动传递，Tự động从ánh xạ dịch vụ获取 */
 export interface SceneFinderOptions {
   apiKey?: string;
   provider?: string;
@@ -161,7 +161,7 @@ function searchSceneInScripts(
 }
 
 /**
- * 使用 AI 生成đầy đủ场景数据
+ * 使用 AI Tạođầy đủ场景数据
  */
 async function generateSceneData(
   name: string,
@@ -175,9 +175,9 @@ async function generateSceneData(
   const allActions = matchedScenes.flatMap(s => s.scene.actions || []).slice(0, 5);
   const allCharacters = [...new Set(matchedScenes.flatMap(s => s.scene.characters || []))];
   
-  const systemPrompt = `你是专业的影视场景设计师，擅长从剧本信息đang xử lý...景特征并生成专业的场景数据。
+  const systemPrompt = `你是专业的影视场景Thiết kế师，擅长从剧本信息đang xử lý...景特征并Tạo专业的场景数据。
 
-请根据提供的剧本信息和场景上下文，生成đầy đủ的场景数据。
+请根据提供的剧本信息和场景上下文，Tạođầy đủ的场景数据。
 
 【输出格式】
 请返回JSON格式，包含以下trường：
@@ -186,7 +186,7 @@ async function generateSceneData(
   "location": "地点详细描述",
   "time": "时间（如 'ban ngày'、'ban đêm'、'Hoàng hôn'、'清晨'）",
   "atmosphere": "氛围描述（如 'căng thẳng'、'ấm cúng'、'压抑'、'热闹'）",
-  "visualPrompt": "英文视觉提示词，用于AI图像生成，描述场景环境、光线、色调、建筑风格等",
+  "visualPrompt": "英文视觉提示词，用于AI图像Tạo，描述场景环境、光线、色调、Phong cách kiến trúc等",
   "visualPromptZh": "đang xử lý...描述",
   "tags": ["标签1", "标签2"],
   "notes": "场景备注（剧情作用）"
@@ -218,7 +218,7 @@ ${allCharacters.join(', ')}
 【场景上下文】
 ${contexts.slice(0, 3).join('\n\n')}
 
-请基于以上信息，生成场景「${name}」的đầy đủ数据。如果信息不足，请根据剧本类型和thời đại背景合理推断。`;
+请基于以上信息，Tạo场景「${name}」的đầy đủ数据。如果信息不足，请根据剧本类型和thời đại背景合理推断。`;
 
   try {
     // 统一从ánh xạ dịch vụ获取配置
@@ -272,7 +272,7 @@ ${contexts.slice(0, 3).join('\n\n')}
       notes: ensureString(parsed.notes),
     };
   } catch (error) {
-    console.error('[generateSceneData] AI生成失败:', error);
+    console.error('[generateSceneData] AITạo失败:', error);
     // 返回基础数据
     return {
       id: `scene_${Date.now()}`,
@@ -285,7 +285,7 @@ ${contexts.slice(0, 3).join('\n\n')}
 }
 
 /**
- * 主函数：根据用户描述查找并生成场景
+ * 主函数：根据用户描述查找并Tạo场景
  */
 export async function findSceneByDescription(
   userQuery: string,
@@ -350,8 +350,8 @@ export async function findSceneByDescription(
     };
   }
   
-  // 4. 使用 AI 生成đầy đủ场景数据
-  console.log('[findSceneByDescription] 正在生成场景数据...');
+  // 4. 使用 AI Tạođầy đủ场景数据
+  console.log('[findSceneByDescription] 正在Tạo场景数据...');
   
   const scene = await generateSceneData(
     name,

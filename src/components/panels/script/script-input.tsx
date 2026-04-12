@@ -48,15 +48,15 @@ const PROMPT_LANGUAGE_OPTIONS = [
 ];
 
 const DURATION_OPTIONS = [
-  { value: "auto", label: "自动" },
+  { value: "auto", label: "Tự động" },
   { value: "10s", label: "10 giây" },
-  { value: "15s", label: "15秒" },
-  { value: "20s", label: "20秒" },
+  { value: "15s", label: "15 giây" },
+  { value: "20s", label: "20 giây" },
   { value: "30s", label: "30 giây" },
-  { value: "60s", label: "1分钟" },
-  { value: "90s", label: "1分30 giây" },
-  { value: "120s", label: "2分钟" },
-  { value: "180s", label: "3分钟" },
+  { value: "60s", label: "1 phút" },
+  { value: "90s", label: "1 phút 30 giây" },
+  { value: "120s", label: "2 phút" },
+  { value: "180s", label: "3 phút" },
 ];
 
 const SCENE_COUNT_OPTIONS = [
@@ -78,7 +78,7 @@ const SHOT_COUNT_OPTIONS = [
   { value: "8", label: "8Phân cảnh" },
   { value: "10", label: "10Phân cảnh" },
   { value: "12", label: "12Phân cảnh" },
-  { value: "custom", label: "自定义..." },
+  { value: "custom", label: "Tùy chỉnh..." },
 ];
 
 interface ScriptInputProps {
@@ -99,11 +99,11 @@ interface ScriptInputProps {
   onShotCountChange?: (value: string) => void;
   onParse: () => void;
   onGenerateFromIdea?: (idea: string) => void;
-  // đầy đủ剧本导入
+  // đầy đủ剧本Nhập
   onImportFullScript?: (text: string) => Promise<void>;
   importStatus?: 'idle' | 'importing' | 'ready' | 'error';
   importError?: string;
-  // AI校准
+  // AIHiệu chuẩn
   onCalibrate?: () => Promise<void>;
   calibrationStatus?: 'idle' | 'calibrating' | 'completed' | 'error';
   missingTitleCount?: number;
@@ -111,13 +111,13 @@ interface ScriptInputProps {
   onGenerateSynopses?: () => Promise<void>;
   synopsisStatus?: 'idle' | 'generating' | 'completed' | 'error';
   missingSynopsisCount?: number;
-  // Phân cảnh生成状态
+  // Trạng thái tạo phân cảnh
   viewpointAnalysisStatus?: 'idle' | 'analyzing' | 'completed' | 'error';
-  // Nhân vật校准状态
+  // Nhân vậtHiệu chuẩn状态
   characterCalibrationStatus?: 'idle' | 'calibrating' | 'completed' | 'error';
-  // Cảnh校准状态
+  // CảnhHiệu chuẩn状态
   sceneCalibrationStatus?: 'idle' | 'calibrating' | 'completed' | 'error';
-  // 二次校准追踪（đang xử lý...nút触发）
+  // 二次Hiệu chuẩn追踪（đang xử lý...nút触发）
   secondPassTypes?: Set<string>;
   // promptNgôn ngữ
   promptLanguage?: PromptLanguage;
@@ -231,24 +231,24 @@ export function ScriptInput({
 
   return (
     <div className="h-full flex flex-col p-3 space-y-3">
-      {/* chế độ切换 */}
+      {/* Chuyển chế độ */}
       <Tabs value={mode} onValueChange={(v) => setMode(v as "import" | "create")}>
         <TabsList className="grid w-full grid-cols-2">
           <TabsTrigger value="import" className="text-xs">
             <FileText className="h-3 w-3 mr-1" />
-            导入
+            Nhập
           </TabsTrigger>
           <TabsTrigger value="create" className="text-xs">
             <Sparkles className="h-3 w-3 mr-1" />
-            创作
+            Sáng tác
           </TabsTrigger>
         </TabsList>
 
-        {/* 导入chế độ */}
+        {/* Chế độ nhập */}
         <TabsContent value="import" className="flex-1 mt-3 overflow-y-auto">
           <div className="space-y-2">
             <Label className="text-xs text-muted-foreground">
-              Dán kịch bản đầy đủ（包含đại cương、nhân vật小传、各 tậpNội dung）
+              Dán kịch bản đầy đủ(bao gồm đại cương, tiểu sử nhân vật, nội dung từng tập)
             </Label>
             <Textarea
               placeholder="支持的格式：\n• 第X tập（ tập标记）\n• **1-1日 内 Địa điểm**（Cảnh头）\n• nhân vật：Nhân vậtA、Nhân vậtB\n• Nhân vật名：（Hành động）Hội thoại\n• △Hành động描写\n• 【字幕】【闪回】等"
@@ -257,13 +257,13 @@ export function ScriptInput({
               className="min-h-[200px] max-h-[40vh] resize-none text-sm overflow-y-auto"
               disabled={parseStatus === "parsing" || isImporting}
             />
-            {/* 导入状态Gợi ý */}
+            {/* Nhập状态Gợi ý */}
             {importStatus === "ready" && (
               <div className="space-y-1">
-                <p className="text-xs text-green-600">✓ 导入成功！可在右侧Nhấp tập名生成Phân cảnh</p>
+                <p className="text-xs text-green-600">✓ Nhập thành công! Có thể nhấp tên tập ở bên phải để Tạo phân cảnh</p>
                 {(missingTitleCount ?? 0) > 0 && (
                   <p className="text-xs text-amber-600">
-                    ⚠ {missingTitleCount}  tập缺少tiêu đề，可使用AI校准生成
+                    ⚠ {missingTitleCount} tập thiếu tiêu đề, có thể dùng AI Hiệu chuẩn để tạo
                   </p>
                 )}
               </div>
@@ -272,7 +272,7 @@ export function ScriptInput({
               <p className="text-xs text-destructive">Nhập thất bại：{importError}</p>
             )}
             
-            {/* 持久进度状态显示 - 在执 hàngquá trìnhđang xử lý...见 */}
+            {/* Hiển thị trạng thái tiến độ - thấy trong quá trình thực hiện */}
             {(importStatus === 'importing' || 
               calibrationStatus === 'calibrating' || 
               synopsisStatus === 'generating' || 
@@ -280,18 +280,18 @@ export function ScriptInput({
               characterCalibrationStatus === 'calibrating' ||
               sceneCalibrationStatus === 'calibrating') && (
               <div className="p-4 rounded-xl bg-primary/10 border-2 border-primary/30 space-y-3 shadow-lg">
-                {/* tiêu đề：根据是否二次校准显示不同文案 */}
+                {/* Tiêu đề: hiển thị nội dung khác nhau tùy có phải hiệu chuẩn lần 2 không */}
                 <div className="flex items-center gap-3 text-primary">
                   <Loader2 className="h-6 w-6 animate-spin" />
                   <span className="text-lg font-bold">
-                    {secondPassTypes && secondPassTypes.size > 0 ? '🔄 二次校准đang xử lý...' : '正在处理đang xử lý...'}
+                    {secondPassTypes && secondPassTypes.size > 0 ? '🔄 Đang hiệu chuẩn lần 2...' : 'Đang xử lý...'}
                   </span>
                 </div>
                 <div className="space-y-2">
-                  {/* === 二次校准chế độ：只显示相关步骤 === */}
+                  {/* === Chế độ hiệu chuẩn lần 2: chỉ hiển thị các bước liên quan === */}
                   {secondPassTypes && secondPassTypes.size > 0 ? (
                     <>
-                      {/* Phân cảnh校准（二次） */}
+                      {/* Hiệu chuẩn phân cảnh (lần 2) */}
                       {secondPassTypes.has('shots') && (
                         <div className={`flex items-center gap-3 py-1 ${viewpointAnalysisStatus === 'analyzing' ? 'text-primary font-bold' : viewpointAnalysisStatus === 'completed' ? 'text-green-600 font-medium' : 'text-muted-foreground'}`}>
                           {viewpointAnalysisStatus === 'analyzing' ? (
@@ -301,12 +301,12 @@ export function ScriptInput({
                           ) : (
                             <span className="w-5 h-5 rounded-full border-2 border-current" />
                           )}
-                          <span className="text-base">AI 校准Phân cảnh</span>
-                          <span className="text-xs px-1.5 py-0.5 rounded bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400">二次</span>
+                          <span className="text-base">AI Hiệu chuẩn phân cảnh</span>
+                          <span className="text-xs px-1.5 py-0.5 rounded bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400">Lần 2</span>
                         </div>
                       )}
                       
-                      {/* Nhân vật校准（二次） */}
+                      {/* Hiệu chuẩn nhân vật (lần 2) */}
                       {secondPassTypes.has('characters') && (
                         <div className={`flex items-center gap-3 py-1 ${characterCalibrationStatus === 'calibrating' ? 'text-primary font-bold' : characterCalibrationStatus === 'completed' ? 'text-green-600 font-medium' : 'text-muted-foreground'}`}>
                           {characterCalibrationStatus === 'calibrating' ? (
@@ -316,12 +316,12 @@ export function ScriptInput({
                           ) : (
                             <span className="w-5 h-5 rounded-full border-2 border-current" />
                           )}
-                          <span className="text-base">AI Nhân vật校准</span>
-                          <span className="text-xs px-1.5 py-0.5 rounded bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400">二次</span>
+                          <span className="text-base">AI Nhân vậtHiệu chuẩn</span>
+                          <span className="text-xs px-1.5 py-0.5 rounded bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400">Lần 2</span>
                         </div>
                       )}
                       
-                      {/* Cảnh校准（二次） */}
+                      {/* Hiệu chuẩn cảnh (lần 2) */}
                       {secondPassTypes.has('scenes') && (
                         <div className={`flex items-center gap-3 py-1 ${sceneCalibrationStatus === 'calibrating' ? 'text-primary font-bold' : sceneCalibrationStatus === 'completed' ? 'text-green-600 font-medium' : 'text-muted-foreground'}`}>
                           {sceneCalibrationStatus === 'calibrating' ? (
@@ -331,13 +331,13 @@ export function ScriptInput({
                           ) : (
                             <span className="w-5 h-5 rounded-full border-2 border-current" />
                           )}
-                          <span className="text-base">AI Cảnh校准</span>
-                          <span className="text-xs px-1.5 py-0.5 rounded bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400">二次</span>
+                          <span className="text-base">AI CảnhHiệu chuẩn</span>
+                          <span className="text-xs px-1.5 py-0.5 rounded bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400">Lần 2</span>
                         </div>
                       )}
                     </>
                   ) : (
-                    /* === 首次 pipeline chế độ：đầy đủ 6 步骤 === */
+                    /* === Chế độ pipeline lần đầu: đầy đủ 6 bước === */
                     <>
                       {/* Nhập kịch bản */}
                       <div className={`flex items-center gap-3 py-1 ${importStatus === 'importing' ? 'text-primary font-bold' : importStatus === 'ready' ? 'text-green-600 font-medium' : 'text-muted-foreground'}`}>
@@ -375,7 +375,7 @@ export function ScriptInput({
                         <span className="text-base">AI Tạo đại cương</span>
                       </div>
                       
-                      {/* Phân cảnh校准 */}
+                      {/* Phân cảnhHiệu chuẩn */}
                       <div className={`flex items-center gap-3 py-1 ${viewpointAnalysisStatus === 'analyzing' ? 'text-primary font-bold' : viewpointAnalysisStatus === 'completed' ? 'text-green-600 font-medium' : 'text-muted-foreground'}`}>
                         {viewpointAnalysisStatus === 'analyzing' ? (
                           <Loader2 className="h-5 w-5 animate-spin" />
@@ -384,10 +384,10 @@ export function ScriptInput({
                         ) : (
                           <span className="w-5 h-5 rounded-full border-2 border-current" />
                         )}
-                        <span className="text-base">AI Phân cảnh校准</span>
+                        <span className="text-base">AI Phân cảnhHiệu chuẩn</span>
                       </div>
                       
-                      {/* Nhân vật校准 */}
+                      {/* Nhân vậtHiệu chuẩn */}
                       <div className={`flex items-center gap-3 py-1 ${characterCalibrationStatus === 'calibrating' ? 'text-primary font-bold' : characterCalibrationStatus === 'completed' ? 'text-green-600 font-medium' : 'text-muted-foreground'}`}>
                         {characterCalibrationStatus === 'calibrating' ? (
                           <Loader2 className="h-5 w-5 animate-spin" />
@@ -396,10 +396,10 @@ export function ScriptInput({
                         ) : (
                           <span className="w-5 h-5 rounded-full border-2 border-current" />
                         )}
-                        <span className="text-base">AI Nhân vật校准</span>
+                        <span className="text-base">AI Nhân vậtHiệu chuẩn</span>
                       </div>
                       
-                      {/* Cảnh校准 */}
+                      {/* CảnhHiệu chuẩn */}
                       <div className={`flex items-center gap-3 py-1 ${sceneCalibrationStatus === 'calibrating' ? 'text-primary font-bold' : sceneCalibrationStatus === 'completed' ? 'text-green-600 font-medium' : 'text-muted-foreground'}`}>
                         {sceneCalibrationStatus === 'calibrating' ? (
                           <Loader2 className="h-5 w-5 animate-spin" />
@@ -408,7 +408,7 @@ export function ScriptInput({
                         ) : (
                           <span className="w-5 h-5 rounded-full border-2 border-current" />
                         )}
-                        <span className="text-base">AI Cảnh校准</span>
+                        <span className="text-base">AI CảnhHiệu chuẩn</span>
                       </div>
                     </>
                   )}
@@ -418,15 +418,15 @@ export function ScriptInput({
           </div>
         </TabsContent>
 
-        {/* 创作chế độ */}
+        {/* Sáng tácchế độ */}
         <TabsContent value="create" className="flex-1 mt-3">
           <div className="space-y-3">
             <div className="space-y-2">
               <Label className="text-xs text-muted-foreground">
-                Nhập câu chuyện创意，AI帮你Tạo kịch bản
+                Nhập ý tưởng câu chuyện, AI giúp bạn Tạo kịch bản
               </Label>
               <Textarea
-                placeholder="例如：一内向程序员在咖啡店邂逅开朗女孩的温暖故事..."
+                placeholder="Ví dụ: Câu chuyện ấm lòng về một lập trình viên nội tâm gặp cô gái vui vẻ tại quán cà phê..."
                 value={idea}
                 onChange={(e) => setIdea(e.target.value)}
                 className="min-h-[100px] resize-none text-sm"
@@ -452,11 +452,11 @@ export function ScriptInput({
               )}
             </Button>
 
-            {/* 生成后的剧本预览 */}
+            {/* Xem trước kịch bản sau khi tạo */}
             {rawScript && (
               <div className="space-y-2">
                 <Label className="text-xs text-muted-foreground">
-                  生成的剧本（可编辑）
+                  Kịch bản đã tạo (có thể chỉnh sửa)
                 </Label>
                 <Textarea
                   value={rawScript}
@@ -467,18 +467,18 @@ export function ScriptInput({
               </div>
             )}
 
-            {/* 创作chế độ工作流引导 */}
+            {/* Sáng tácchế độ工作流引导 */}
             {parseStatus === "ready" && (
               <div className="p-3 rounded-lg bg-primary/5 border border-primary/20 space-y-2">
-                <div className="text-xs font-medium text-primary">✨ 剧本已生成，Bước tiếp theo</div>
+                <div className="text-xs font-medium text-primary">✨ 剧本已Tạo，Bước tiếp theo</div>
                 <div className="space-y-1.5 text-xs text-muted-foreground">
                   <div className="flex items-center gap-2">
                     <span className="w-4 h-4 rounded-full bg-primary/10 text-primary flex items-center justify-center text-[10px] font-bold">1</span>
-                    <span>在đang xử lý...Cảnh → 右栏点「去Cảnh库生成nền」</span>
+                    <span>在đang xử lý...Cảnh → 右栏点「去Cảnh库Tạonền」</span>
                   </div>
                   <div className="flex items-center gap-2">
                     <span className="w-4 h-4 rounded-full bg-primary/10 text-primary flex items-center justify-center text-[10px] font-bold">2</span>
-                    <span>ChọnNhân vật → 右栏点「去Thư viện nhân vật生成形象」</span>
+                    <span>ChọnNhân vật → 右栏点「去Thư viện nhân vậtTạo形象」</span>
                   </div>
                   <div className="flex items-center gap-2">
                     <span className="w-4 h-4 rounded-full bg-primary/10 text-primary flex items-center justify-center text-[10px] font-bold">3</span>
@@ -493,7 +493,7 @@ export function ScriptInput({
 
       {/* 设置区域 - 根据chế độ显示不同Tùy chọn */}
       <div className="space-y-3 pt-2 border-t">
-        {/* 导入chế độ：显示Ngôn ngữ、Cảnh数量、Phân cảnh数量 */}
+        {/* Chế độ nhập：显示Ngôn ngữ、Cảnh数量、Phân cảnh数量 */}
         {mode === "import" && (
           <div className="space-y-3">
             <div className="space-y-1">
@@ -533,7 +533,7 @@ export function ScriptInput({
                 </SelectContent>
               </Select>
               <p className="text-[10px] text-muted-foreground">
-                控制AI校准生成đang xử lý...prompt，默认Chỉ tiếng Trung可减少生成压力
+                控制AIHiệu chuẩnTạođang xử lý...prompt，默认Chỉ tiếng Trung可减少Tạo压力
               </p>
             </div>
 
@@ -546,10 +546,10 @@ export function ScriptInput({
                   disabled={parseStatus === "parsing"}
                 >
                   <SelectTrigger className="h-8 text-xs">
-                    <SelectValue placeholder="自动" />
+                    <SelectValue placeholder="Tự động" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="auto">自动</SelectItem>
+                    <SelectItem value="auto">Tự động</SelectItem>
                     {SCENE_COUNT_OPTIONS.map((opt) => (
                       <SelectItem key={opt.value} value={opt.value}>
                         {opt.label}
@@ -609,10 +609,10 @@ export function ScriptInput({
                     disabled={parseStatus === "parsing"}
                   >
                     <SelectTrigger className="h-8 text-xs">
-                      <SelectValue placeholder="自动" />
+                      <SelectValue placeholder="Tự động" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="auto">自动</SelectItem>
+                      <SelectItem value="auto">Tự động</SelectItem>
                       {SHOT_COUNT_OPTIONS.map((opt) => (
                         <SelectItem key={opt.value} value={opt.value}>
                           {opt.label}
@@ -624,7 +624,7 @@ export function ScriptInput({
               </div>
             </div>
 
-            {/* Phong cách thị giác - 导入chế độ也可以Chọn */}
+            {/* Phong cách thị giác - Chế độ nhập也可以Chọn */}
             <div className="space-y-1">
               <Label className="text-xs flex items-center gap-1">
                 <Palette className="h-3 w-3" />
@@ -636,13 +636,13 @@ export function ScriptInput({
                 disabled={parseStatus === "parsing"}
               />
               <p className="text-[10px] text-muted-foreground">
-                此风格将用于Hiệu chuẩn phân cảnh AI时生成视觉描述
+                此风格将用于Hiệu chuẩn phân cảnh AI时Tạo视觉描述
               </p>
             </div>
           </div>
         )}
 
-        {/* 创作chế độ：显示Ngôn ngữ、时长、风格、Cảnh数量、Phân cảnh数量 */}
+        {/* Sáng tácchế độ：显示Ngôn ngữ、时长、风格、Cảnh数量、Phân cảnh数量 */}
         {mode === "create" && (
           <div className="space-y-3">
             <div className="space-y-1">
@@ -664,7 +664,7 @@ export function ScriptInput({
                 </SelectContent>
               </Select>
               <p className="text-[10px] text-muted-foreground">
-                控制AI生成đang xử lý...prompt，默认Chỉ tiếng Trung可减少生成压力
+                控制AITạođang xử lý...prompt，默认Chỉ tiếng Trung可减少Tạo压力
               </p>
             </div>
             <div className="grid grid-cols-3 gap-2">
@@ -725,10 +725,10 @@ export function ScriptInput({
                   disabled={parseStatus === "parsing"}
                 >
                   <SelectTrigger className="h-8 text-xs">
-                    <SelectValue placeholder="自动" />
+                    <SelectValue placeholder="Tự động" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="auto">自动</SelectItem>
+                    <SelectItem value="auto">Tự động</SelectItem>
                     {SCENE_COUNT_OPTIONS.map((opt) => (
                       <SelectItem key={opt.value} value={opt.value}>
                         {opt.label}
@@ -788,10 +788,10 @@ export function ScriptInput({
                     disabled={parseStatus === "parsing"}
                   >
                     <SelectTrigger className="h-8 text-xs">
-                      <SelectValue placeholder="自动" />
+                      <SelectValue placeholder="Tự động" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="auto">自动</SelectItem>
+                      <SelectItem value="auto">Tự động</SelectItem>
                       {SHOT_COUNT_OPTIONS.map((opt) => (
                         <SelectItem key={opt.value} value={opt.value}>
                           {opt.label}
@@ -816,9 +816,9 @@ export function ScriptInput({
           </div>
         )}
 
-        {/* 导入/解析nút */}
+        {/* Nhập/解析nút */}
         <div className="space-y-2">
-          {/* đầy đủ剧本导入nút（不需要AI，用规则解析） */}
+          {/* đầy đủ剧本Nhậpnút（不需要AI，用规则解析） */}
           {mode === "import" && onImportFullScript && (
             <Button
               onClick={handleImportFullScript}
@@ -829,18 +829,18 @@ export function ScriptInput({
               {isImporting ? (
                 <>
                   <Loader2 className="h-4 w-4 mr-2 animate-spin" />
-                  导入đang xử lý...
+                  Nhậpđang xử lý...
                 </>
               ) : (
                 <>
                   <FileText className="h-4 w-4 mr-2" />
-                  导入đầy đủ剧本
+                  Nhậpđầy đủ剧本
                 </>
               )}
             </Button>
           )}
           
-          {/* AI校准nút - 导入成功且有缺失tiêu đề时显示 */}
+          {/* AIHiệu chuẩnnút - Nhập成功且有缺失tiêu đề时显示 */}
           {mode === "import" && importStatus === "ready" && (missingTitleCount ?? 0) > 0 && onCalibrate && (
             <Button
               onClick={handleCalibrate}
@@ -851,18 +851,18 @@ export function ScriptInput({
               {isCalibrating || calibrationStatus === 'calibrating' ? (
                 <>
                   <Loader2 className="h-4 w-4 mr-2 animate-spin" />
-                  AI校准đang xử lý...
+                  AIHiệu chuẩnđang xử lý...
                 </>
               ) : (
                 <>
                   <RefreshCw className="h-4 w-4 mr-2" />
-                  AI校准（生成{missingTitleCount} tậptiêu đề）
+                  AIHiệu chuẩn（Tạo{missingTitleCount} tậptiêu đề）
                 </>
               )}
             </Button>
           )}
           
-          {/* 生成đại cươngnút - 导入成功后显示 */}
+          {/* Tạođại cươngnút - Nhập成功后显示 */}
           {mode === "import" && importStatus === "ready" && onGenerateSynopses && (
             <Button
               onClick={handleGenerateSynopses}
@@ -873,13 +873,13 @@ export function ScriptInput({
               {isGeneratingSynopsis || synopsisStatus === 'generating' ? (
                 <>
                   <Loader2 className="h-4 w-4 mr-2 animate-spin" />
-                  生成đại cươngđang xử lý...
+                  Tạođại cươngđang xử lý...
                 </>
               ) : (
                 <>
                   <BookOpen className="h-4 w-4 mr-2" />
                   {(missingSynopsisCount ?? 0) > 0 
-                    ? `生成đại cương（${missingSynopsisCount} tập缺失）`
+                    ? `Tạođại cương（${missingSynopsisCount} tập缺失）`
                     : 'Tạo lạiđại cương'
                   }
                 </>
@@ -887,7 +887,7 @@ export function ScriptInput({
             </Button>
           )}
           
-          {/* AI解析nút - 仅在导入chế độ显示 */}
+          {/* AI解析nút - 仅在Chế độ nhập显示 */}
           {mode === "import" && (
             <Button
               onClick={onParse}

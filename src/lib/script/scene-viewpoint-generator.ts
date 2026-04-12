@@ -4,8 +4,8 @@
 /**
  * Scene Viewpoint Generator
  * 
- * 从场景校准数据和分镜动作描写đang xử lý...角需求，
- * 生成多视角联合图提示词，用于生成 6 格联合图。
+ * 从场景Hiệu chuẩn数据和分镜动作描写đang xử lý...角需求，
+ * Tạo多视角联合图提示词，用于Tạo 6 格联合图。
  */
 
 import type { ScriptScene, Shot } from '@/types/script';
@@ -28,7 +28,7 @@ export interface SceneViewpoint {
 }
 
 /**
- * 联合图生成配置
+ * 联合图Tạo配置
  */
 export interface ContactSheetConfig {
   scene: ScriptScene;
@@ -39,7 +39,7 @@ export interface ContactSheetConfig {
 }
 
 /**
- * 联合图生成结果
+ * 联合图Tạo结果
  */
 export interface ContactSheetPromptResult {
   prompt: string;           // 英文提示词
@@ -392,18 +392,18 @@ const VIEWPOINT_KEYWORDS: Record<string, ViewpointConfig> = {
   '说话': { id: 'conversation', name: 'Chat区', nameEn: 'Conversation Area', propsZh: [], propsEn: [], environments: [] },
   '争吵': { id: 'conversation', name: 'Chat区', nameEn: 'Conversation Area', propsZh: [], propsEn: [], environments: [] },
   '吵架': { id: 'conversation', name: 'Chat区', nameEn: 'Conversation Area', propsZh: [], propsEn: [], environments: [] },
-  '哭泣': { id: 'emotion', name: '情感特写', nameEn: 'Emotional Close-up', propsZh: [], propsEn: [], environments: [] },
-  '流泪': { id: 'emotion', name: '情感特写', nameEn: 'Emotional Close-up', propsZh: [], propsEn: [], environments: [] },
-  '微笑': { id: 'emotion', name: '情感特写', nameEn: 'Emotional Close-up', propsZh: [], propsEn: [], environments: [] },
-  '拥抱': { id: 'emotion', name: '情感特写', nameEn: 'Emotional Close-up', propsZh: [], propsEn: [], environments: [] },
+  '哭泣': { id: 'emotion', name: '情感Cực cận cảnh', nameEn: 'Emotional Close-up', propsZh: [], propsEn: [], environments: [] },
+  '流泪': { id: 'emotion', name: '情感Cực cận cảnh', nameEn: 'Emotional Close-up', propsZh: [], propsEn: [], environments: [] },
+  '微笑': { id: 'emotion', name: '情感Cực cận cảnh', nameEn: 'Emotional Close-up', propsZh: [], propsEn: [], environments: [] },
+  '拥抱': { id: 'emotion', name: '情感Cực cận cảnh', nameEn: 'Emotional Close-up', propsZh: [], propsEn: [], environments: [] },
   
-  // 特写镜头 - 通用
-  '手': { id: 'detail', name: '细节特写', nameEn: 'Detail Close-up', propsZh: [], propsEn: [], environments: [] },
-  '握着': { id: 'detail', name: '细节特写', nameEn: 'Detail Close-up', propsZh: [], propsEn: [], environments: [] },
-  '拿起': { id: 'detail', name: '细节特写', nameEn: 'Detail Close-up', propsZh: [], propsEn: [], environments: [] },
-  '放下': { id: 'detail', name: '细节特写', nameEn: 'Detail Close-up', propsZh: [], propsEn: [], environments: [] },
-  '特写': { id: 'detail', name: '细节特写', nameEn: 'Detail Close-up', propsZh: [], propsEn: [], environments: [] },
-  '近景': { id: 'detail', name: '细节特写', nameEn: 'Detail Close-up', propsZh: [], propsEn: [], environments: [] },
+  // Cực cận cảnh镜头 - 通用
+  '手': { id: 'detail', name: '细节Cực cận cảnh', nameEn: 'Detail Close-up', propsZh: [], propsEn: [], environments: [] },
+  '握着': { id: 'detail', name: '细节Cực cận cảnh', nameEn: 'Detail Close-up', propsZh: [], propsEn: [], environments: [] },
+  '拿起': { id: 'detail', name: '细节Cực cận cảnh', nameEn: 'Detail Close-up', propsZh: [], propsEn: [], environments: [] },
+  '放下': { id: 'detail', name: '细节Cực cận cảnh', nameEn: 'Detail Close-up', propsZh: [], propsEn: [], environments: [] },
+  'Cực cận cảnh': { id: 'detail', name: '细节Cực cận cảnh', nameEn: 'Detail Close-up', propsZh: [], propsEn: [], environments: [] },
+  'Cận cảnh': { id: 'detail', name: '细节Cực cận cảnh', nameEn: 'Detail Close-up', propsZh: [], propsEn: [], environments: [] },
   
   // 观看/类泛用动作 - 通用
   '望向': { id: 'looking', name: '观看视角', nameEn: 'Looking View', propsZh: [], propsEn: [], environments: [] },
@@ -477,7 +477,7 @@ export function extractViewpointsFromShots(
   // 如果视角不足 6 ，补充默认视角
   const defaultViewpoints: Array<Omit<SceneViewpoint, 'shotIds' | 'gridIndex'>> = [
     { id: 'overview', name: '全景', nameEn: 'Overview', keyProps: [], keyPropsEn: [], description: '整体Bố cục không gian', descriptionEn: 'Overall spatial layout' },
-    { id: 'detail', name: '细节', nameEn: 'Detail View', keyProps: [], keyPropsEn: [], description: '装饰细节特写', descriptionEn: 'Decorative details close-up' },
+    { id: 'detail', name: '细节', nameEn: 'Detail View', keyProps: [], keyPropsEn: [], description: '装饰细节Cực cận cảnh', descriptionEn: 'Decorative details close-up' },
   ];
   
   while (viewpoints.length < maxViewpoints && defaultViewpoints.length > 0) {
@@ -495,7 +495,7 @@ export function extractViewpointsFromShots(
 }
 
 /**
- * 生成联合图提示词
+ * Tạo联合图提示词
  * 优先使用 AI 分析的视角，如果没有则回退到quan trọng词提取
  */
 export function generateContactSheetPrompt(config: ContactSheetConfig): ContactSheetPromptResult {
@@ -534,10 +534,10 @@ export function generateContactSheetPrompt(config: ContactSheetConfig): ContactS
   
   // 构建场景基础描述
   const sceneDescZh = [
-    scene.architectureStyle && `建筑风格：${scene.architectureStyle}`,
+    scene.architectureStyle && `Phong cách kiến trúc: ${scene.architectureStyle}`,
     scene.colorPalette && `色彩基调：${scene.colorPalette}`,
     scene.eraDetails && `thời đại特征：${scene.eraDetails}`,
-    scene.lightingDesign && `光影设计：${scene.lightingDesign}`,
+    scene.lightingDesign && `光影Thiết kế：${scene.lightingDesign}`,
   ].filter(Boolean).join('，');
   
   const sceneDescEn = [
@@ -547,7 +547,7 @@ export function generateContactSheetPrompt(config: ContactSheetConfig): ContactS
     scene.lightingDesign && `Lighting: ${scene.lightingDesign}`,
   ].filter(Boolean).join('. ');
   
-  // 为每视角生成描述
+  // 为每视角Tạo描述
   viewpoints.forEach((vp, index) => {
     const propsZh = vp.keyProps.length > 0 ? `，包含${vp.keyProps.join('、')}` : '';
     const propsEn = vp.keyPropsEn.length > 0 ? ` with ${vp.keyPropsEn.join(', ')}` : '';
@@ -676,7 +676,7 @@ export function assignViewpointImages(
 }
 
 /**
- * 根据分镜动作自动匹配最佳视角
+ * 根据分镜动作Tự động匹配最佳视角
  */
 export function matchShotToViewpoint(
   shot: Shot,
@@ -737,7 +737,7 @@ function getDefaultViewpointsForEnvironment(
   // 通用默认视角
   const commonDefaults: Array<Omit<SceneViewpoint, 'shotIds' | 'gridIndex'>> = [
     { id: 'overview', name: '全景', nameEn: 'Overview', keyProps: [], keyPropsEn: [], description: '整体Bố cục không gian', descriptionEn: 'Overall spatial layout' },
-    { id: 'detail', name: '细节', nameEn: 'Detail View', keyProps: [], keyPropsEn: [], description: '细节特写', descriptionEn: 'Detail close-up' },
+    { id: 'detail', name: '细节', nameEn: 'Detail View', keyProps: [], keyPropsEn: [], description: '细节Cực cận cảnh', descriptionEn: 'Detail close-up' },
   ];
   
   // 根据环境类型返回特定默认视角
@@ -928,7 +928,7 @@ export function extractAllViewpointsFromShots(
   // 补充默认视角（全景和细节）
   const defaultViewpoints = [
     { id: 'overview', name: '全景', nameEn: 'Overview', keyProps: [] as string[], keyPropsEn: [] as string[], description: '整体Bố cục không gian', descriptionEn: 'Overall spatial layout' },
-    { id: 'detail', name: '细节', nameEn: 'Detail View', keyProps: [] as string[], keyPropsEn: [] as string[], description: '细节特写', descriptionEn: 'Detail close-up' },
+    { id: 'detail', name: '细节', nameEn: 'Detail View', keyProps: [] as string[], keyPropsEn: [] as string[], description: '细节Cực cận cảnh', descriptionEn: 'Detail close-up' },
   ];
   
   while (viewpoints.length < 6 && defaultViewpoints.length > 0) {
@@ -968,7 +968,7 @@ export function groupViewpointsIntoPages(
 }
 
 /**
- * 生成联合图的提示词
+ * Tạo联合图的提示词
  * 返回 PendingViewpointData 和 ContactSheetPromptSet 用于传递给场景库
  * 
  * 布局Chọn逻辑：
@@ -989,7 +989,7 @@ export function generateMultiPageContactSheetData(
   const sceneLocation = scene.location || scene.name || '';
   const allViewpoints = extractAllViewpointsFromShots(config.shots, sceneLocation);
   
-  // 根据视角数量和宽高比自动Chọn最优布局
+  // 根据视角数量和宽高比Tự độngChọn最优布局
   // 强制使用 NxN 布局 (2x2 或 3x3) 以保证宽高比一致性，与 Director 面板保持一致
   let gridLayout: { rows: number; cols: number };
   let viewpointsPerPage: number;
@@ -1020,10 +1020,10 @@ export function generateMultiPageContactSheetData(
   ].filter(Boolean).join('. ');
   
   const sceneDescZh = [
-    scene.architectureStyle && `建筑风格：${scene.architectureStyle}`,
+    scene.architectureStyle && `Phong cách kiến trúc: ${scene.architectureStyle}`,
     scene.colorPalette && `色彩基调：${scene.colorPalette}`,
     scene.eraDetails && `thời đại特征：${scene.eraDetails}`,
-    scene.lightingDesign && `光影设计：${scene.lightingDesign}`,
+    scene.lightingDesign && `光影Thiết kế：${scene.lightingDesign}`,
   ].filter(Boolean).join('，');
   
   const styleStr = styleTokens.length > 0 
@@ -1036,12 +1036,12 @@ export function generateMultiPageContactSheetData(
     shotIdToIndex.set(shot.id, shot.index);
   });
   
-  // 生成 PendingViewpointData
+  // Tạo PendingViewpointData
   const pendingViewpoints: PendingViewpointData[] = [];
   
   pages.forEach((pageViewpoints, pageIndex) => {
     pageViewpoints.forEach((vp, idx) => {
-      // 生成视角描述
+      // Tạo视角描述
       const propsZh = vp.keyProps.length > 0 ? `，包含${vp.keyProps.join('、')}` : '';
       const propsEn = vp.keyPropsEn.length > 0 ? ` with ${vp.keyPropsEn.join(', ')}` : '';
       vp.description = `${vp.name}视角${propsZh}`;
@@ -1070,7 +1070,7 @@ export function generateMultiPageContactSheetData(
     });
   });
   
-  // 生成每页的 ContactSheetPromptSet
+  // Tạo每页的 ContactSheetPromptSet
   const contactSheetPrompts: ContactSheetPromptSet[] = pages.map((pageViewpoints, pageIndex) => {
     const totalCells = gridLayout.rows * gridLayout.cols;
     const paddedCount = totalCells;
@@ -1147,7 +1147,7 @@ ${sceneDescZh}
 ${totalCells} 格子分别Hiển thị：${gridItemsZh}。
 
 重要：
-- 必须精确生成 ${gridLayout.rows} 行 ${gridLayout.cols} 列，不能多也不能少。
+- 必须精确Tạo ${gridLayout.rows} 行 ${gridLayout.cols} 列，不能多也不能少。
 - 这是一张干净的Tham chiếu图，图片上不要添加任何文字覆盖。
 - 不要添加标签、标题、说明文字、水印或任何类型的文字。
 
@@ -1173,7 +1173,7 @@ ${totalCells} 格子分别Hiển thị：${gridItemsZh}。
  * 用于从剧本面板跳转到场景库时，Trực tiếp使用 AI 分析的视角
  * 
  * @param viewpoints - 来自 ScriptScene.viewpoints 的视角数据
- * @param scene - 场景信息（用于生成提示词）
+ * @param scene - 场景信息（用于Tạo提示词）
  * @param shots - 分镜列表（用于获取分镜序号）
  * @param styleTokens - 风格标记
  * @param aspectRatio - 宽高比
@@ -1212,7 +1212,7 @@ export function buildContactSheetDataFromViewpoints(
     vpCount,
     gridLayout,
     viewpointsPerPage,
-    // 调试：场景美术设计trường
+    // 调试：场景美术Thiết kếtrường
     sceneFields: {
       name: scene.name,
       location: scene.location,
@@ -1232,7 +1232,7 @@ export function buildContactSheetDataFromViewpoints(
     pages.push(page);
   }
   
-  // 构建场景描述（美术设计trường）
+  // 构建场景描述（美术Thiết kếtrường）
   const sceneDescEn = [
     scene.architectureStyle && `Architecture: ${scene.architectureStyle}`,
     scene.colorPalette && `Color palette: ${scene.colorPalette}`,
@@ -1241,13 +1241,13 @@ export function buildContactSheetDataFromViewpoints(
   ].filter(Boolean).join('. ');
   
   const sceneDescZh = [
-    scene.architectureStyle && `建筑风格：${scene.architectureStyle}`,
+    scene.architectureStyle && `Phong cách kiến trúc: ${scene.architectureStyle}`,
     scene.colorPalette && `色彩基调：${scene.colorPalette}`,
     scene.eraDetails && `thời đại特征：${scene.eraDetails}`,
-    scene.lightingDesign && `光影设计：${scene.lightingDesign}`,
+    scene.lightingDesign && `光影Thiết kế：${scene.lightingDesign}`,
   ].filter(Boolean).join('，');
   
-  // 视觉提示词（AI 场景校准生成的详细场景描述）
+  // 视觉提示词（AI 场景Hiệu chuẩnTạo的详细场景描述）
   const visualPromptZh = scene.visualPrompt || '';
   const visualPromptEn = scene.visualPromptEn || '';
   
@@ -1268,7 +1268,7 @@ export function buildContactSheetDataFromViewpoints(
     shotIdToIndex.set(shot.id, shot.index);
   });
   
-  // 生成 PendingViewpointData
+  // Tạo PendingViewpointData
   const pendingViewpoints: PendingViewpointData[] = [];
   
   pages.forEach((pageViewpoints, pageIndex) => {
@@ -1293,7 +1293,7 @@ export function buildContactSheetDataFromViewpoints(
     });
   });
   
-  // 生成每页的 ContactSheetPromptSet
+  // Tạo每页的 ContactSheetPromptSet
   const contactSheetPrompts: ContactSheetPromptSet[] = pages.map((pageViewpoints, pageIndex) => {
     const totalCells = gridLayout.rows * gridLayout.cols;
     const paddedCount = totalCells;
@@ -1367,7 +1367,7 @@ ${totalCells} 格子分别Hiển thị：
 ${gridItemsZh}
 
 重要：
-- 必须精确生成 ${gridLayout.rows} 行 ${gridLayout.cols} 列，不能多也不能少。
+- 必须精确Tạo ${gridLayout.rows} 行 ${gridLayout.cols} 列，不能多也不能少。
 - 这是一张干净的Tham chiếu图，图片上不要添加任何文字覆盖。
 - 不要添加标签、标题、说明文字、水印或任何类型的文字。
 

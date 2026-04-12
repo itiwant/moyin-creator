@@ -40,10 +40,10 @@ export interface ExportManifest {
     endFramePrompt?: string;
     endFramePromptZh?: string;
     needsEndFrame?: boolean;
-    // 叙事驱动
+    // tự sự驱动
     narrativeFunction?: string;
     shotPurpose?: string;
-    // 音频设计
+    // 音频Thiết kế
     ambientSound?: string;
     soundEffect?: string;
     // 拍摄控制
@@ -173,10 +173,10 @@ function buildManifest(config: ExportConfig): ExportManifest {
       endFramePrompt: shot.endFramePrompt,
       endFramePromptZh: shot.endFramePromptZh,
       needsEndFrame: shot.needsEndFrame,
-      // 叙事驱动
+      // tự sự驱动
       narrativeFunction: shot.narrativeFunction,
       shotPurpose: shot.shotPurpose,
-      // 音频设计
+      // 音频Thiết kế
       ambientSound: shot.ambientSound,
       soundEffect: shot.soundEffect,
       // 拍摄控制

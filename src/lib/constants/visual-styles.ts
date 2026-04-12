@@ -24,15 +24,15 @@ export interface StylePreset {
   id: string;
   name: string;
   category: StyleCategory;
-  /** 媒介类型 — 控制摄影参数翻译策略 */
+  /** Loại phương tiện - kiểm soát chiến lược dịch tham số chụp ảnh */
   mediaType: MediaType;
-  /** 英文prompt */
+  /** Prompt tiếng Anh */
   prompt: string;
   /** Prompt phủ định */
   negativePrompt: string;
   /** đang xử lý... */
   description: string;
-  /** 缩略图文件名 */
+  /** Tên file thumbnail */
   thumbnail: string;
 }
 
@@ -43,47 +43,47 @@ export interface StylePreset {
 const STYLES_3D: StylePreset[] = [
   {
     id: '3d_xuanhuan',
-    name: '3D玄幻',
+    name: '3D Huyền ảo',
     category: '3d',
     mediaType: 'cinematic',
     prompt: '(best quality, masterpiece, 8k, high detailed:1.2), (stunning stylized 3D Chinese animation character render:1.3), (Unreal Engine 5 style:1.2), (cinematic lighting, soft volumetric fog:1.1), (smooth porcelain skin texture:1.1), (intricate traditional Chinese fabric details, fine embroidery, flowing robes:1.1), ethereal atmosphere, glowing spiritual energy, beautiful facial features, (delicate body proportions), sharp focus, detailed background',
     negativePrompt: '(worst quality, low quality, bad quality:1.4), (blurry, fuzzy, distorted, out of focus:1.3), (2D, flat, drawing, painting, sketch, anime, cartoon:1.2), (realistic, photo, real life, photography:1.1), (western style, modern clothing), (extra limbs, missing limbs, mutated hands, distorted body), ugly, watermark, signature, text, easynegative, bad-hands-5',
-    description: 'đang xử lý...幻，仙侠，虚幻引擎渲染，光效华丽',
+    description: 'Huyền ảo, tiên hiệp, render Unreal Engine, hiệu ứng ánh sáng lộng lẫy',
     thumbnail: '3d_xuanhuan.png',
   },
   {
     id: '3d_american',
-    name: '3D美式',
+    name: '3D Mỹ',
     category: '3d',
     mediaType: 'animation',
     prompt: '(best quality, masterpiece, 8k, high detailed:1.2), (Disney Pixar style 3D animation:1.3), (expressive character design, large eyes:1.2), (subsurface scattering skin:1.1), (vibrant colors, warm lighting:1.1), cute, 3d render, cgsociety, detailed background, soft edges',
     negativePrompt: '(worst quality, low quality, bad quality:1.4), (blurry, fuzzy:1.3), (2D, flat, sketch, anime:1.2), (gloomy, dark, gritty), (realistic, photo), ugly, distorted',
-    description: '迪士尼/皮克斯风格，美式3D动画，色彩鲜艳，角色可爱',
+    description: 'Phong cách Disney/Pixar, hoạt hình 3D Mỹ, màu sắc tươi sáng, nhân vật dễ thương',
     thumbnail: '3d_american.png',
   },
   {
     id: '3d_q_version',
-    name: '3DQ版',
+    name: '3D Q-version',
     category: '3d',
     mediaType: 'animation',
     prompt: '(best quality, masterpiece, 8k, high detailed:1.2), (Pop Mart blind box style:1.3), (chibi 3d rendering:1.2), (Oc render:1.2), (soft studio lighting, rim light:1.1), (plastic material, smooth texture:1.1), cute, super deformed, clean background, c4d render',
     negativePrompt: '(worst quality, low quality:1.4), (rough surface), (realistic skin texture), (2D, flat), dark, scary, ugly',
-    description: '盲盒/潮玩风格，Q版三维，C4D渲染，软光',
+    description: 'Phong cách blind box/đồ chơi fashion, 3D Q-version, render C4D, ánh sáng mềm',
     thumbnail: '3d_q_version.png',
   },
   {
     id: '3d_realistic',
-    name: '3D写实',
+    name: '3D Thực tế',
     category: '3d',
     mediaType: 'cinematic',
     prompt: '(best quality, masterpiece, 8k, high detailed:1.2), (photorealistic 3D render:1.3), (hyperrealistic details:1.2), (Unreal Engine 5:1.2), (cinematic lighting, ray tracing:1.1), (highly detailed texture, pores, imperfections:1.1), sharp focus, depth of field',
     negativePrompt: '(worst quality, low quality:1.4), (cartoon, anime, painting, sketch:1.3), (stylized, 2D, flat), blurry, low res, plastic skin',
-    description: '超写实3D，电影级光照，8K分辨率，纹理细节丰富',
+    description: 'Siêu thực tế 3D, ánh sáng điện ảnh, độ phân giải 8K, chi tiết kết cấu phong phú',
     thumbnail: '3d_realistic.png',
   },
   {
     id: '3d_block',
-    name: '3D块面',
+    name: '3D Khối mặt',
     category: '3d',
     mediaType: 'animation',
     prompt: '(best quality, masterpiece, 8k:1.2), (low poly art style:1.3), (minimalist 3D:1.2), (sharp edges, geometric shapes:1.2), (flat shading, simple colors:1.1), polygon art, clean composition',
@@ -557,20 +557,20 @@ export const VISUAL_STYLE_PRESETS: readonly StylePreset[] = [
 ] as const;
 
 // ============================================================
-// 自定义风格查找回调（用户数据，存储在 localStorage）
+// Tùy chỉnh风格查找回调（用户数据，存储在 localStorage）
 // 通过回调避免常量文件Trực tiếp依赖 zustand store
 // ============================================================
 let _customStyleLookup: ((id: string) => StylePreset | undefined) | null = null;
 
 /**
- * 注册自定义风格查找函数（由 custom-style-store gọi API）
- * 自定义风格是用户人资产，不包含在内置预设中
+ * 注册Tùy chỉnh风格查找函数（由 custom-style-store gọi API）
+ * Tùy chỉnh风格是用户人资产，不包含在内置预设中
  */
 export function registerCustomStyleLookup(fn: (id: string) => StylePreset | undefined) {
   _customStyleLookup = fn;
 }
 
-/** 内部：先查内置，再查自定义 */
+/** 内部：先查内置，再查Tùy chỉnh */
 function _findStyle(styleId: string): StylePreset | undefined {
   return VISUAL_STYLE_PRESETS.find(s => s.id === styleId)
     || _customStyleLookup?.(styleId);
@@ -584,7 +584,7 @@ export const STYLE_CATEGORIES: { id: StyleCategory; name: string; styles: readon
   { id: 'stop_motion', name: '定格动画', styles: STYLES_STOP_MOTION },
 ];
 
-/** 根据 ID 获取风格（内置 + 自定义） */
+/** 根据 ID 获取风格（内置 + Tùy chỉnh） */
 export function getStyleById(styleId: string): StylePreset | undefined {
   return _findStyle(styleId);
 }

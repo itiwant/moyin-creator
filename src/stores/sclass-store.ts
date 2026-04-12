@@ -2,10 +2,10 @@
 // Licensed under AGPL-3.0-or-later. See LICENSE for details.
 // Commercial licensing available. See COMMERCIAL_LICENSE.md.
 /**
- * Hạng S Store — Seedance 2.0 多模态创作panelTrạng tháiQuản lý
+ * Hạng S Store — Seedance 2.0 多模态Sáng tácpanelTrạng tháiQuản lý
  *
  * 核心概念：
- * - ShotGroup：将 director-store đang xử lý...plitScene 按组合并，用于多Ống kính叙事Tạo video
+ * - ShotGroup：将 director-store đang xử lý...plitScene 按组合并，用于多Ống kínhtự sựTạo video
  * - AssetRef：@tham chiếuTài sản（ảnh/video/âm thanh），在promptđang xử lý...Image1 @Video1 @Audio1 形式tham chiếu
  * - 双chế độ：Phân cảnhchế độ（从Kịch bản流水线Nhập）+ Tự dochế độ（纯Phương tiệnTải lên）
  *
@@ -53,7 +53,7 @@ export type SClassResolution = '480p' | '720p' | '1080p';
 /** 输出videoThời lượng（秒） */
 export type SClassDuration = 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15;
 
-/** 创作chế độ */
+/** Sáng tácchế độ */
 export type SClassMode = 'storyboard' | 'free';
 
 /** 组TạoLoại */
@@ -114,7 +114,7 @@ export interface GenerationRecord {
  * Ống kính组 — Hạng S核心数据Cấu trúc
  *
  * 将 director-store đang xử lý...SplitScene 编为一组，
- * 合并它们的Khung hình đầuảnh、prompt，Tạo一段多Ống kính叙事video。
+ * 合并它们的Khung hình đầuảnh、prompt，Tạo一段多Ống kínhtự sựvideo。
  */
 export interface ShotGroup {
   id: string;
@@ -151,18 +151,18 @@ export interface ShotGroup {
   /** 最近一次Tạo使用的đầy đủ prompt（用于Sao chép核对） */
   lastPrompt: string | null;
 
-  // ---- 组级 AI 校准 ----
-  /** 组级叙事弧线（AI 校准产物） */
+  // ---- 组级 AI Hiệu chuẩn ----
+  /** 组级tự sự弧线（AI Hiệu chuẩn产物） */
   narrativeArc?: string;
   /** Ống kính间过渡指令，长度 = sceneIds.length - 1 */
   transitions?: string[];
-  /** 组级âm thanh设计（整段 15s 规划） */
+  /** 组级âm thanhThiết kế（整段 15s 规划） */
   groupAudioDesign?: string;
-  /** AI 校准后的组级 prompt（优先级：mergedPrompt > calibratedPrompt > Tự động拼接） */
+  /** AI Hiệu chuẩn后的组级 prompt（优先级：mergedPrompt > calibratedPrompt > Tự động拼接） */
   calibratedPrompt?: string;
-  /** 校准Trạng thái */
+  /** Hiệu chuẩnTrạng thái */
   calibrationStatus?: 'idle' | 'calibrating' | 'done' | 'failed';
-  /** 校准错误信息 */
+  /** Hiệu chuẩn错误信息 */
   calibrationError?: string | null;
 
   // ---- videokéo dài & videoChỉnh sửa ----

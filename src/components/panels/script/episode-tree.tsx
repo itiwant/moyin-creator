@@ -93,7 +93,7 @@ function StatusIcon({ status }: { status?: CompletionStatus }) {
 interface EpisodeTreeProps {
   scriptData: ScriptData | null;
   shots: Shot[];
-  shotStatus?: "idle" | "generating" | "ready" | "error"; // Phân cảnh生成状态
+  shotStatus?: "idle" | "generating" | "ready" | "error"; // Trạng thái tạo phân cảnh
   selectedItemId: string | null;
   selectedItemType: "character" | "scene" | "shot" | "episode" | null;
   onSelectItem: (id: string, type: "character" | "scene" | "shot" | "episode") => void;
@@ -108,14 +108,14 @@ interface EpisodeTreeProps {
   onUpdateCharacter?: (id: string, updates: Partial<ScriptCharacter>) => void;
   onDeleteCharacter?: (id: string) => void;
   onDeleteShot?: (id: string) => void;
-  // Phân cảnh生成 callbacks
+  // Phân cảnhTạo callbacks
   onGenerateEpisodeShots?: (episodeIndex: number) => void;
   onRegenerateAllShots?: () => void;
   episodeGenerationStatus?: Record<number, 'idle' | 'generating' | 'completed' | 'error'>;
-  // Phân cảnh校准 callback
+  // Phân cảnhHiệu chuẩn callback
   onCalibrateShots?: (episodeIndex: number) => void;
   onCalibrateScenesShots?: (sceneId: string) => void;
-  // Nhân vật校准 callback
+  // Nhân vậtHiệu chuẩn callback
   onCalibrateCharacters?: () => void;
   characterCalibrationStatus?: 'idle' | 'calibrating' | 'completed' | 'error';
   // AI Nhân vật查找相关
@@ -134,24 +134,24 @@ interface EpisodeTreeProps {
     message: string;
     scene?: ScriptScene;
   }>;
-  // Cảnh校准相关
-  onCalibrateScenes?: () => void;  // 全局校准Tất cảCảnh
-  onCalibrateEpisodeScenes?: (episodeIndex: number) => void;  // 校准单 tậpCảnh
+  // CảnhHiệu chuẩn相关
+  onCalibrateScenes?: () => void;  // Hiệu chuẩn toàn bộ cảnh
+  onCalibrateEpisodeScenes?: (episodeIndex: number) => void;  // Hiệu chuẩn cảnh một tập
   sceneCalibrationStatus?: 'idle' | 'calibrating' | 'completed' | 'error';
   // Trailer相关
   trailerConfig?: TrailerConfig | null;
   onGenerateTrailer?: (duration: TrailerDuration) => void;
   onClearTrailer?: () => void;
   trailerApiOptions?: TrailerGenerationOptions | null;
-  // 单Phân cảnh校准 callback
+  // 单Phân cảnhHiệu chuẩn callback
   onCalibrateSingleShot?: (shotId: string) => void;
   singleShotCalibrationStatus?: Record<string, 'idle' | 'calibrating' | 'completed' | 'error'>;
-  // 校准严格度相关
+  // Hiệu chuẩn严格度相关
   calibrationStrictness?: CalibrationStrictness;
   onCalibrationStrictnessChange?: (strictness: CalibrationStrictness) => void;
   lastFilteredCharacters?: FilteredCharacterRecord[];
   onRestoreFilteredCharacter?: (characterName: string) => void;
-  // 校准Xác nhậnPopup
+  // Hiệu chuẩnXác nhậnPopup
   calibrationDialogOpen?: boolean;
   pendingCalibrationCharacters?: ScriptCharacter[] | null;
   pendingFilteredCharacters?: FilteredCharacterRecord[];
@@ -190,7 +190,7 @@ export function EpisodeTree({
   aiFindingStatus,
   // AI Cảnh查找相关
   onAIFindScene,
-  // Cảnh校准相关
+  // CảnhHiệu chuẩn相关
   onCalibrateScenes,
   onCalibrateEpisodeScenes,
   sceneCalibrationStatus,
@@ -199,15 +199,15 @@ export function EpisodeTree({
   onGenerateTrailer,
   onClearTrailer,
   trailerApiOptions,
-  // 单Phân cảnh校准
+  // 单Phân cảnhHiệu chuẩn
   onCalibrateSingleShot,
   singleShotCalibrationStatus,
-  // 校准严格度相关
+  // Hiệu chuẩn严格度相关
   calibrationStrictness,
   onCalibrationStrictnessChange,
   lastFilteredCharacters,
   onRestoreFilteredCharacter,
-  // 校准Xác nhậnPopup
+  // Hiệu chuẩnXác nhậnPopup
   calibrationDialogOpen,
   pendingCalibrationCharacters,
   pendingFilteredCharacters,
@@ -219,11 +219,11 @@ export function EpisodeTree({
   const [filter, setFilter] = useState<FilterType>("all");
   // Nhân vật分组折叠状态
   const [extrasExpanded, setExtrasExpanded] = useState(false);
-  // Tab 状态: 剧 tậpCấu trúc vs Trailer
+  // Tab 状态: Cấu trúc tập phim vs Trailer
   const [activeTab, setActiveTab] = useState<"structure" | "trailer">("structure");
   // Trailer时长Chọn
   const [selectedTrailerDuration, setSelectedTrailerDuration] = useState<TrailerDuration>(30);
-  // Trailer生成状态
+  // TrailerTrạng thái tạo
   const [trailerGenerating, setTrailerGenerating] = useState(false);
 
   // Dialog states
@@ -262,10 +262,10 @@ export function EpisodeTree({
   // 被lọcNhân vật查看Popup
   const [filteredCharsDialogOpen, setFilteredCharsDialogOpen] = useState(false);
   
-  // 校准Xác nhậnPopup的本地编辑状态
+  // Hiệu chuẩnXác nhậnPopup的本地chỉnh sửa状态
   const [localKeptCharacters, setLocalKeptCharacters] = useState<ScriptCharacter[]>([]);
   const [localFilteredCharacters, setLocalFilteredCharacters] = useState<FilteredCharacterRecord[]>([]);
-  // 缓存用户手动xóa的Nhân vậtđầy đủ数据，便于恢复时不丢失 AI 生成的trường
+  // 缓存Người dùng thủ công xóa的Nhân vậtđầy đủ数据，便于恢复时不丢失 AI Tạo的trường
   const [removedCharactersCache, setRemovedCharactersCache] = useState<Map<string, ScriptCharacter>>(new Map());
   
   // 当Xác nhậnPopup打开时，从 props 同步
@@ -287,13 +287,13 @@ export function EpisodeTree({
       return next;
     });
     setLocalKeptCharacters(prev => prev.filter(c => c.id !== charId));
-    setLocalFilteredCharacters(prev => [...prev, { name: char.name, reason: '用户手动xóa' }]);
+    setLocalFilteredCharacters(prev => [...prev, { name: char.name, reason: 'Người dùng thủ công xóa' }]);
   }, [localKeptCharacters]);
   
   // 从lọc cột表恢复Nhân vật到保留 cột表
   const handleRestoreToKept = useCallback((characterName: string) => {
     setLocalFilteredCharacters(prev => prev.filter(fc => fc.name !== characterName));
-    // 优先从缓存恢复đầy đủNhân vật数据，避免丢失 AI 生成的trường
+    // 优先从缓存恢复đầy đủNhân vật数据，避免丢失 AI Tạo的trường
     const cachedChar = removedCharactersCache.get(characterName);
     if (cachedChar) {
       setLocalKeptCharacters(prev => [...prev, cachedChar]);
@@ -336,7 +336,7 @@ export function EpisodeTree({
     return [{
       id: "default",
       index: 1,
-      title: scriptData.title || "第1 tập",
+      title: scriptData.title || "Tập 1",
       sceneIds: scriptData.scenes.map((s) => s.id),
     }];
   }, [scriptData]);
@@ -384,7 +384,7 @@ export function EpisodeTree({
   // CRUD handlers
   const handleAddEpisode = () => {
     setEditingItem(null);
-    setFormData({ title: `第${episodes.length + 1} tập`, description: "" });
+    setFormData({ title: `Tập ${episodes.length + 1}`, description: "" });
     setEpisodeDialogOpen(true);
   };
 
@@ -401,7 +401,7 @@ export function EpisodeTree({
         onUpdateEpisodeBundle?.(ep.index, { title: formData.title, synopsis: formData.description });
       }
     } else {
-      onAddEpisodeBundle?.(formData.title || `第${episodes.length + 1} tập`, formData.description || '');
+      onAddEpisodeBundle?.(formData.title || `Tập ${episodes.length + 1}`, formData.description || '');
     }
     setEpisodeDialogOpen(false);
     setFormData({});
@@ -435,7 +435,7 @@ export function EpisodeTree({
       const result = await onAIFindScene(sceneAiQuery);
       setSceneAiResult(result);
       
-      // 如果找到Cảnh，自动填充表单
+      // 如果找到Cảnh，Tự động填充表单
       if (result.scene) {
         setFormData({
           name: result.scene.name || "",
@@ -445,10 +445,10 @@ export function EpisodeTree({
         });
       }
     } catch (error) {
-      console.error('[handleSceneAISearch] 错误:', error);
+      console.error('[handleSceneAISearch] Lỗi:', error);
       setSceneAiResult({
         found: false,
-        message: '查找失败，请Thử lại',
+        message: 'Tìm kiếm thất bại, vui lòng thử lại',
       });
     } finally {
       setSceneAiSearching(false);
@@ -470,14 +470,14 @@ export function EpisodeTree({
     if (editingItem?.type === "scene") {
       onUpdateScene?.(editingItem.id, { name: formData.name, location: formData.location, time: formData.time, atmosphere: formData.atmosphere });
     } else {
-      // 如果有 AI 结果，使用 AI 生成的đầy đủCảnh数据
+      // 如果有 AI 结果，使用 AI Tạo的đầy đủCảnh数据
       if (sceneAiResult?.scene) {
         onAddScene?.(sceneAiResult.scene, targetEpisodeId || undefined);
       } else {
         const newScene: ScriptScene = {
           id: `scene_${Date.now()}`,
-          name: formData.name || "新Cảnh",
-          location: formData.location || "未知Địa điểm",
+          name: formData.name || "Cảnh mới",
+          location: formData.location || "Địa điểm chưa xác định",
           time: formData.time || "ban ngày",
           atmosphere: formData.atmosphere,
         };
@@ -518,7 +518,7 @@ export function EpisodeTree({
       const result = await onAIFindCharacter(aiQuery);
       setAiResult(result);
       
-      // 如果找到Nhân vật，自动填充表单
+      // 如果找到Nhân vật，Tự động填充表单
       if (result.character) {
         setFormData({
           name: result.character.name || "",
@@ -529,11 +529,11 @@ export function EpisodeTree({
         });
       }
     } catch (error) {
-      console.error('[handleAISearch] 错误:', error);
+      console.error('[handleAISearch] Lỗi:', error);
       setAiResult({
         found: false,
         name: "",
-        message: '查找失败，请Thử lại',
+        message: 'Tìm kiếm thất bại, vui lòng thử lại',
       });
     } finally {
       setAiSearching(false);
@@ -554,13 +554,13 @@ export function EpisodeTree({
     if (editingItem?.type === "character") {
       onUpdateCharacter?.(editingItem.id, { name: formData.name, gender: formData.gender, age: formData.age, personality: formData.personality });
     } else {
-      // 如果有 AI 结果，使用 AI 生成的đầy đủNhân vật数据
+      // 如果有 AI 结果，使用 AI Tạo的đầy đủNhân vật数据
       if (aiResult?.character) {
         onAddCharacter?.(aiResult.character);
       } else {
         const newChar: ScriptCharacter = {
           id: `char_${Date.now()}`,
-          name: formData.name || "新Nhân vật",
+          name: formData.name || "Nhân vật mới",
           gender: formData.gender,
           age: formData.age,
           personality: formData.personality,
@@ -609,7 +609,7 @@ export function EpisodeTree({
     );
   }, [shots, scriptData]);
 
-  // 处理Trailer生成
+  // 处理TrailerTạo
   const handleGenerateTrailer = useCallback(async () => {
     if (!trailerApiOptions || trailerGenerating) return;
     
@@ -632,14 +632,14 @@ export function EpisodeTree({
   if (!scriptData) {
     return (
       <div className="h-full flex items-center justify-center text-muted-foreground text-sm">
-        Phân tích kịch bản后显示Cấu trúc
+        Phân tích kịch bản xong sẽ hiển thị cấu trúc
       </div>
     );
   }
 
   return (
     <div className="h-full flex flex-col overflow-hidden">
-      {/* 顶部 Tab 切换 */}
+      {/* Chuyển Tab đầu trang */}
       <div className="border-b">
         <Tabs value={activeTab} onValueChange={(v) => setActiveTab(v as "structure" | "trailer")} className="w-full">
           <TabsList className="w-full justify-start h-9 rounded-none bg-transparent border-b-0 p-0">
@@ -648,7 +648,7 @@ export function EpisodeTree({
               className="rounded-none border-b-2 border-transparent data-[state=active]:border-primary data-[state=active]:bg-transparent h-9 px-4"
             >
               <Film className="h-3 w-3 mr-1" />
-              剧 tậpCấu trúc
+              Cấu trúc tập phim
             </TabsTrigger>
             <TabsTrigger 
               value="trailer" 
@@ -661,7 +661,7 @@ export function EpisodeTree({
         </Tabs>
       </div>
 
-      {/* tiêu đề和进度 - 仅在剧 tậpCấu trúc Tab 显示 */}
+      {/* tiêu đề和进度 - 仅在Cấu trúc tập phim Tab 显示 */}
       {activeTab === "structure" && (
         <div className="p-3 border-b">
           <div className="flex items-center justify-between">
@@ -672,13 +672,13 @@ export function EpisodeTree({
               )}
             </div>
             <span className="text-xs text-muted-foreground">
-              进度: {overallProgress}
+              Tiến độ: {overallProgress}
             </span>
           </div>
         </div>
       )}
 
-      {/* 筛选 + 新建nút - 仅在剧 tậpCấu trúc Tab 显示 */}
+      {/* 筛选 + 新建nút - 仅在Cấu trúc tập phim Tab 显示 */}
       {activeTab === "structure" && (
         <div className="px-3 py-2 border-b flex items-center justify-between">
           <div className="flex items-center gap-1">
@@ -692,7 +692,7 @@ export function EpisodeTree({
                   className="h-6 text-xs px-2"
                   onClick={() => setFilter(f)}
                 >
-                  {f === "all" ? "Tất cả" : f === "pending" ? "未完成" : "Đã hoàn thành"}
+                  {f === "all" ? "Tất cả" : f === "pending" ? "Chưa hoàn thành" : "Đã hoàn thành"}
                 </Button>
               ))}
             </div>
@@ -707,7 +707,7 @@ export function EpisodeTree({
                 disabled={sceneCalibrationStatus === 'calibrating'}
               >
                 {sceneCalibrationStatus === 'calibrating' ? (
-                  <><Loader2 className="h-3 w-3 mr-1 animate-spin" />校准đang xử lý...</>
+                  <><Loader2 className="h-3 w-3 mr-1 animate-spin" />Hiệu chuẩnđang xử lý...</>
                 ) : (
                   <><Wand2 className="h-3 w-3 mr-1" />Hiệu chuẩn cảnh AI</>
                 )}
@@ -733,10 +733,10 @@ export function EpisodeTree({
       {/* Trailer Tab Nội dung */}
       {activeTab === "trailer" && (
         <div className="flex-1 flex flex-col overflow-hidden">
-          {/* Trailer设置区 */}
+          {/* Khu vực cài đặt Trailer */}
           <div className="p-3 border-b space-y-3">
             <div className="flex items-center justify-between">
-              <Label className="text-sm font-medium">Trailer时长</Label>
+              <Label className="text-sm font-medium">Thời lượng Trailer</Label>
               <div className="flex gap-1">
                 {([10, 30, 60] as TrailerDuration[]).map((d) => (
                   <Button
@@ -747,7 +747,7 @@ export function EpisodeTree({
                     onClick={() => setSelectedTrailerDuration(d)}
                   >
                     <Timer className="h-3 w-3 mr-1" />
-                    {d === 60 ? "1分钟" : `${d}秒`}
+                    {d === 60 ? "1 phút" : `${d} giây`}
                   </Button>
                 ))}
               </div>
@@ -762,7 +762,7 @@ export function EpisodeTree({
                 {trailerGenerating || trailerConfig?.status === 'generating' ? (
                   <><Loader2 className="h-4 w-4 mr-2 animate-spin" />AI phân tíchđang xử lý...</>
                 ) : (
-                  <><Sparkles className="h-4 w-4 mr-2" />AI 智能挑选Phân cảnh</>
+                  <><Sparkles className="h-4 w-4 mr-2" />AI Chọn thông minh Phân cảnh</>
                 )}
               </Button>
               {trailerConfig?.shotIds && trailerConfig.shotIds.length > 0 && (
@@ -777,10 +777,10 @@ export function EpisodeTree({
               )}
             </div>
             {!trailerApiOptions && (
-              <p className="text-xs text-amber-500">请先在设置đang xử lý...AI API 密钥</p>
+              <p className="text-xs text-amber-500">Vui lòng cài đặt API key AI trong cài đặt</p>
             )}
             {shots.length === 0 && (
-              <p className="text-xs text-amber-500">请先生成Phân cảnh</p>
+              <p className="text-xs text-amber-500">Vui lòng Tạo phân cảnh trước</p>
             )}
           </div>
 
@@ -795,7 +795,7 @@ export function EpisodeTree({
               {trailerShots.length > 0 ? (
                 <>
                   <div className="text-xs text-muted-foreground mb-2">
-                    已Chọn {trailerShots.length} Phân cảnh，预计时长 {trailerShots.reduce((sum, s) => sum + (s.duration || 5), 0)} 秒
+                    Đã chọn {trailerShots.length} phân cảnh, ước tính thời lượng {trailerShots.reduce((sum, s) => sum + (s.duration || 5), 0)} giây
                   </div>
                   {trailerShots.map((shot, index) => {
                     const calibrationStatus = singleShotCalibrationStatus?.[shot.id] || 'idle';
@@ -819,7 +819,7 @@ export function EpisodeTree({
                           <span className="text-xs text-muted-foreground">
                             {shot.duration || 5}s
                           </span>
-                          {/* AI 校准nút */}
+                          {/* AI Hiệu chuẩnnút */}
                           {onCalibrateSingleShot && (
                             <Button
                               variant="ghost"
@@ -830,7 +830,7 @@ export function EpisodeTree({
                                 onCalibrateSingleShot(shot.id);
                               }}
                               disabled={calibrationStatus === 'calibrating'}
-                              title="AI 校准Phân cảnh"
+                              title="AI Hiệu chuẩn phân cảnh"
                             >
                               {calibrationStatus === 'calibrating' ? (
                                 <Loader2 className="h-3 w-3 animate-spin" />
@@ -855,13 +855,13 @@ export function EpisodeTree({
                 </>
               ) : trailerConfig?.status === 'completed' ? (
                 <div className="text-center text-muted-foreground text-sm py-8">
-                  暂无挑选的Phân cảnh
+                  Chưa có phân cảnh nào được chọn
                 </div>
               ) : (
                 <div className="text-center text-muted-foreground text-sm py-8">
                   <Clapperboard className="h-8 w-8 mx-auto mb-2 opacity-50" />
-                  <p>Chọn时长后Nhấp「AI 智能挑选Phân cảnh」</p>
-                  <p className="text-xs mt-1">AI 将根据叙事功能和情感张力自动挑选</p>
+                  <p>Chọn thời lượng rồi Nhấp「AI Chọn thông minh Phân cảnh」</p>
+                  <p className="text-xs mt-1">AI sẽ tự động chọn dựa trên chức năng tự sự và sức mạnh cảm xúc</p>
                 </div>
               )}
             </div>
@@ -869,7 +869,7 @@ export function EpisodeTree({
         </div>
       )}
 
-      {/* 剧 tậpCấu trúc Tab Nội dung - 树形Cấu trúc */}
+      {/* Cấu trúc tập phim Tab Nội dung - 树形Cấu trúc */}
       {activeTab === "structure" && (
       <ScrollArea className="flex-1">
         <div className="p-2 pb-20 space-y-1">
@@ -934,7 +934,7 @@ export function EpisodeTree({
                           ) : episodeGenerationStatus?.[episode.index] === 'completed' ? (
                             <><RefreshCw className="h-3 w-3 mr-2" />更新Phân cảnh</>
                           ) : (
-                            <><Wand2 className="h-3 w-3 mr-2" />生成Phân cảnh</>
+                            <><Wand2 className="h-3 w-3 mr-2" />Tạo phân cảnh</>
                           )}
                         </DropdownMenuItem>
                       )}
@@ -951,9 +951,9 @@ export function EpisodeTree({
                           disabled={sceneCalibrationStatus === 'calibrating'}
                         >
                           {sceneCalibrationStatus === 'calibrating' ? (
-                            <><Loader2 className="h-3 w-3 mr-2 animate-spin" />校准đang xử lý...</>
+                            <><Loader2 className="h-3 w-3 mr-2 animate-spin" />Hiệu chuẩnđang xử lý...</>
                           ) : (
-                            <><MapPin className="h-3 w-3 mr-2" />校准Tập nàyCảnh</>
+                            <><MapPin className="h-3 w-3 mr-2" />Hiệu chuẩnTập nàyCảnh</>
                           )}
                         </DropdownMenuItem>
                       )}
@@ -961,7 +961,7 @@ export function EpisodeTree({
                         <Plus className="h-3 w-3 mr-2" />新建Cảnh
                       </DropdownMenuItem>
                       <DropdownMenuItem onClick={() => handleEditEpisode(episode)}>
-                        <Pencil className="h-3 w-3 mr-2" />编辑
+                        <Pencil className="h-3 w-3 mr-2" />chỉnh sửa
                       </DropdownMenuItem>
                       <DropdownMenuItem className="text-destructive" onClick={() => handleDelete("episode", episode.id, episode.title)}>
                         <Trash2 className="h-3 w-3 mr-2" />Xóa
@@ -1001,7 +1001,7 @@ export function EpisodeTree({
                               ) : (
                                 <span className="w-3" />
                               )}
-                              {/* Phân cảnh生成状态chỉ thị器 */}
+                              {/* Trạng thái tạo phân cảnhchỉ thị器 */}
                               {shotStatus === "generating" && sceneShots.length === 0 ? (
                                 <Loader2 className="h-3 w-3 text-primary animate-spin" />
                               ) : (
@@ -1036,7 +1036,7 @@ export function EpisodeTree({
                                   </DropdownMenuItem>
                                 )}
                                 <DropdownMenuItem onClick={() => handleEditScene(scene)}>
-                                  <Pencil className="h-3 w-3 mr-2" />编辑
+                                  <Pencil className="h-3 w-3 mr-2" />chỉnh sửa
                                 </DropdownMenuItem>
                                 <DropdownMenuItem className="text-destructive" onClick={() => handleDelete("scene", scene.id, scene.name || scene.location)}>
                                   <Trash2 className="h-3 w-3 mr-2" />Xóa
@@ -1145,7 +1145,7 @@ export function EpisodeTree({
                   </DropdownMenuTrigger>
                   <DropdownMenuContent align="end">
                     <DropdownMenuItem onClick={() => handleEditCharacter(char)}>
-                      <Pencil className="h-3 w-3 mr-2" />编辑
+                      <Pencil className="h-3 w-3 mr-2" />chỉnh sửa
                     </DropdownMenuItem>
                     <DropdownMenuItem className="text-destructive" onClick={() => handleDelete("character", char.id, char.name)}>
                       <Trash2 className="h-3 w-3 mr-2" />Xóa
@@ -1188,7 +1188,7 @@ export function EpisodeTree({
                             <DropdownMenuSeparator />
                             <DropdownMenuSub>
                               <DropdownMenuSubTrigger className="text-xs">
-                                <Wand2 className="h-3 w-3 mr-2" />校准严格度
+                                <Wand2 className="h-3 w-3 mr-2" />Hiệu chuẩn严格度
                               </DropdownMenuSubTrigger>
                               <DropdownMenuSubContent>
                                 <DropdownMenuRadioGroup
@@ -1251,7 +1251,7 @@ export function EpisodeTree({
       <Dialog open={episodeDialogOpen} onOpenChange={setEpisodeDialogOpen}>
         <DialogContent className="sm:max-w-md">
           <DialogHeader>
-            <DialogTitle>{editingItem?.type === "episode" ? "编辑 tập" : "新建 tập"}</DialogTitle>
+            <DialogTitle>{editingItem?.type === "episode" ? "chỉnh sửa tập" : "新建 tập"}</DialogTitle>
           </DialogHeader>
           <div className="space-y-4 py-4">
             <div className="space-y-2">
@@ -1283,14 +1283,14 @@ export function EpisodeTree({
           <DialogHeader>
             <DialogTitle className="flex items-center gap-2">
               {editingItem?.type === "scene" ? (
-                <><Pencil className="h-4 w-4" />编辑Cảnh</>
+                <><Pencil className="h-4 w-4" />chỉnh sửaCảnh</>
               ) : (
-                <><Sparkles className="h-4 w-4 text-primary" />AI 智能添加Cảnh</>
+                <><Sparkles className="h-4 w-4 text-primary" />AI thông minh添加Cảnh</>
               )}
             </DialogTitle>
           </DialogHeader>
           
-          {/* 编辑chế độ：显示普通表单 */}
+          {/* chỉnh sửachế độ：显示普通表单 */}
           {editingItem?.type === "scene" ? (
             <div className="space-y-4 py-4">
               <div className="space-y-2">
@@ -1452,14 +1452,14 @@ export function EpisodeTree({
           <DialogHeader>
             <DialogTitle className="flex items-center gap-2">
               {editingItem?.type === "character" ? (
-                <><Pencil className="h-4 w-4" />编辑Nhân vật</>
+                <><Pencil className="h-4 w-4" />chỉnh sửaNhân vật</>
               ) : (
-                <><Sparkles className="h-4 w-4 text-primary" />AI 智能添加Nhân vật</>
+                <><Sparkles className="h-4 w-4 text-primary" />AI thông minh添加Nhân vật</>
               )}
             </DialogTitle>
           </DialogHeader>
           
-          {/* 编辑chế độ：显示普通表单 */}
+          {/* chỉnh sửachế độ：显示普通表单 */}
           {editingItem?.type === "character" ? (
             <div className="space-y-4 py-4">
               <div className="space-y-2">
@@ -1625,7 +1625,7 @@ export function EpisodeTree({
         </AlertDialogContent>
       </AlertDialog>
 
-      {/* Nhân vật校准Xác nhậnPopup */}
+      {/* Nhân vậtHiệu chuẩnXác nhậnPopup */}
       <Dialog open={calibrationDialogOpen} onOpenChange={(open) => { if (!open) onCancelCalibration?.(); }}>
         <DialogContent className="sm:max-w-2xl max-h-[80vh] overflow-y-auto">
           <DialogHeader>

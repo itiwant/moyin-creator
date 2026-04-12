@@ -117,7 +117,7 @@ export interface PendingCharacterData {
   era?: string;        // Mô tả bối cảnh thời đại
   // === promptNgôn ngữ偏好（从Kịch bản面板透传）===
   promptLanguage?: import('@/types/script').PromptLanguage;  // 'vi' | 'en' | 'vi+en'
-  // === 专业Nhân vật设计trường（世界级大师Tạo） ===
+  // === 专业Nhân vậtThiết kếtrường（世界级大师Tạo） ===
   visualPromptEn?: string;  // 英文Prompt thị giác
   visualPromptZh?: string;  // đang xử lý...ompt thị giác
   // === 6层身份neo（Nhân vật一致性） ===
@@ -152,7 +152,7 @@ export interface PendingSceneData {
   // promptNgôn ngữ偏好
   promptLanguage?: import('@/types/script').PromptLanguage;
   
-  // === 专业Cảnh设计（đầy đủ传递）===
+  // === 专业CảnhThiết kế（đầy đủ传递）===
   visualPrompt?: string;       // Mô tả thị giác tiếng Trung
   visualPromptEn?: string;     // Mô tả thị giác tiếng Anh
   architectureStyle?: string;  // Phong cách kiến trúc
@@ -183,7 +183,7 @@ export interface PendingViewpointData {
 // 联合图prompt tập合（Hỗ trợ多张）
 export interface ContactSheetPromptSet {
   pageIndex: number;          // 第几张联合图（从0Bắt đầu）
-  prompt: string;             // 英文prompt
+  prompt: string;             // Prompt tiếng Anh
   promptZh: string;           // prompt tiếng Trung
   viewpointIds: string[];     // 包含哪些Góc nhìnID
   gridLayout: { rows: number; cols: number };

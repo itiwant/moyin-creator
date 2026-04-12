@@ -213,7 +213,7 @@ export function useSClassGeneration() {
         // camerafixed: Tất cảPhân cảnh运镜为 Static 或为空 → 锁定运镜
         const allStaticCamera = groupScenes.every(s => {
           const cm = (s.cameraMovement || '').toLowerCase().trim();
-          return !cm || cm === 'static' || cm === '固定' || cm === '静止';
+          return !cm || cm === 'static' || cm === 'Cố định' || cm === '静止';
         });
 
         // 4b. 构建ô图（合并Khung hình đầu 或 复用缓存）

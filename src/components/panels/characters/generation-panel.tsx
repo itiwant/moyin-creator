@@ -114,7 +114,7 @@ export function GenerationPanel({ selectedCharacter, onCharacterCreated }: Gener
   const [relationships, setRelationships] = useState(""); // mối quan hệ nhân vật
   const [tags, setTags] = useState<string[]>([]);  // Thẻ nhân vật
   const [notes, setNotes] = useState("");           // Ghi chú nhân vật
-  // === 专业Nhân vật设计trường（世界级大师Tạo）===
+  // === 专业Nhân vậtThiết kếtrường（世界级大师Tạo）===
   const [visualPromptEn, setVisualPromptEn] = useState(""); // 英文Prompt thị giác
   const [visualPromptZh, setVisualPromptZh] = useState(""); // đang xử lý...ompt thị giác
   // === 6层身份neo ===
@@ -137,13 +137,13 @@ export function GenerationPanel({ selectedCharacter, onCharacterCreated }: Gener
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const [previewCharacterId, setPreviewCharacterId] = useState<string | null>(null);
   
-  // AI 校准信息折叠区Trạng thái：有数据时Mặc địnhMở rộng
+  // AI Hiệu chuẩn信息折叠区Trạng thái：有数据时Mặc địnhMở rộng
   const [calibrationExpanded, setCalibrationExpanded] = useState(true);
   const [isManuallyModified, setIsManuallyModified] = useState(false);
 
   const isGenerating = generationStatus === 'generating';
   
-  // 检查是否有 AI 校准数据
+  // 检查是否有 AI Hiệu chuẩn数据
   const hasCalibrationData = !!(identityAnchors || charNegativePrompt || visualPromptEn || visualPromptZh);
 
   // 注意：thanh trái始终用于Tạo mớiNhân vật，不响应đang xử lý...ư viện nhân vật的Chọn
@@ -321,7 +321,7 @@ export function GenerationPanel({ selectedCharacter, onCharacterCreated }: Gener
     setSelectedElements(SHEET_ELEMENTS.filter(e => e.default).map(e => e.id));
     setPreviewUrl(null);
     setPreviewCharacterId(null);
-    // === Đặt lại AI 校准Trạng thái ===
+    // === Đặt lại AI Hiệu chuẩnTrạng thái ===
     setCalibrationExpanded(false);
     setIsManuallyModified(false);
   };
@@ -588,10 +588,10 @@ export function GenerationPanel({ selectedCharacter, onCharacterCreated }: Gener
             />
           </div>
 
-          {/* AI 校准信息折叠区 */}
+          {/* AI Hiệu chuẩn信息折叠区 */}
           {hasCalibrationData && (
             <div className="border rounded-lg overflow-hidden">
-              {/* 折叠区头部 */}
+              {/* 折叠区Đầu */}
               <button
                 type="button"
                 className="w-full flex items-center justify-between p-2 hover:bg-muted/50 transition-colors"
@@ -604,7 +604,7 @@ export function GenerationPanel({ selectedCharacter, onCharacterCreated }: Gener
                   ) : (
                     <ChevronRight className="h-4 w-4 text-muted-foreground" />
                   )}
-                  <span className="text-xs font-medium">AI 校准信息</span>
+                  <span className="text-xs font-medium">AI Hiệu chuẩn信息</span>
                 </div>
                 <div className="flex items-center gap-1">
                   {isManuallyModified ? (
@@ -615,7 +615,7 @@ export function GenerationPanel({ selectedCharacter, onCharacterCreated }: Gener
                   ) : (
                     <>
                       <CheckCircle2 className="h-3 w-3 text-green-500" />
-                      <span className="text-[10px] text-green-500">已校准</span>
+                      <span className="text-[10px] text-green-500">已Hiệu chuẩn</span>
                     </>
                   )}
                 </div>
@@ -1006,10 +1006,10 @@ export function GenerationPanel({ selectedCharacter, onCharacterCreated }: Gener
                   lines.push(description);
                 }
                 
-                // AI 校准信息
+                // AI Hiệu chuẩn信息
                 if (hasCalibrationData) {
                   lines.push('');
-                  lines.push(`AI 校准信息: ${isManuallyModified ? '已修改' : '已校准'}`);
+                  lines.push(`AI Hiệu chuẩn信息: ${isManuallyModified ? '已修改' : '已Hiệu chuẩn'}`);
                   
                   // 6层身份neo
                   if (identityAnchors) {
@@ -1332,7 +1332,7 @@ function buildCharacterSheetPrompt(
         ? `专业Nhân vậtẢnh tham chiếu，"${name}"，${characterDescription}，真人写实`
         : `professional character reference for "${name}", ${characterDescription}, real person`)
     : (isZh
-        ? `专业Nhân vật设计Ảnh tham chiếu，"${name}"，${characterDescription}`
+        ? `专业Nhân vậtThiết kếẢnh tham chiếu，"${name}"，${characterDescription}`
         : `professional character design sheet for "${name}", ${characterDescription}`);
   
   // 使用 SHEET_ELEMENTS 定义的 prompt，如果是真人Phong cách则转换成写实/摄影表述

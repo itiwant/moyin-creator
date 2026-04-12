@@ -234,7 +234,7 @@ async function generateImage(
   const provider = (config as any).imageProvider || 'memefast';
   
   if (!apiKey) {
-    throw new Error('未配置ảnh生成 API Key');
+    throw new Error('未配置ảnhTạo API Key');
   }
   
   // Submit image generation task
@@ -290,7 +290,7 @@ async function generateVideo(
   const provider = (config as any).videoProvider || 'memefast';
   
   if (!apiKey) {
-    throw new Error('未配置video生成 API Key');
+    throw new Error('未配置videoTạo API Key');
   }
   
   // Submit video generation task
@@ -685,12 +685,12 @@ async function handleExecuteScreenplayImages(command: { type: string; payload: {
         completedCount: 0,
         failedCount: screenplay.scenes.length,
         totalCount: screenplay.scenes.length,
-        error: '未配置ảnh生成 API Key，请在ánh xạ dịch vụđang xử lý...,
+        error: '未配置ảnhTạo API Key，请在ánh xạ dịch vụđang xử lý...,
       },
     });
     // Also report failure for each scene
     for (const scene of screenplay.scenes) {
-      reportSceneFailed(screenplay.id, scene.sceneId, '未配置ảnh生成 API Key', false);
+      reportSceneFailed(screenplay.id, scene.sceneId, '未配置ảnhTạo API Key', false);
     }
     return;
   }
@@ -1194,7 +1194,7 @@ async function executeSceneInternal(
 function handleCancel(command: CancelCommand): void {
   console.log('[AI Worker] Cancelling operations');
   cancelled = true;
-  // 不自动重置 cancelled 标志，由新的生成thao tác启动时重置
+  // 不Tự động重置 cancelled 标志，由新的Tạothao tác启动时重置
 }
 
 // ==================== Helpers ====================

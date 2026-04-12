@@ -562,7 +562,7 @@ const EDIT_TYPE_TEMPLATE: Record<EditType, string> = {
  *
  * 输出格式（đang xử lý...）：
  * ```
- * 多Ống kính叙事video（共3Ống kính，TổngThời lượng14s）：
+ * 多Ống kínhtự sựvideo（共3Ống kính，TổngThời lượng14s）：
  *
  * Ống kính1 [0s-5s]「Cảnh名」：[运镜], [Hành động]
  * Ống kính2 [5s-9s]「Cảnh名」：[运镜], [Hành động]
@@ -619,7 +619,7 @@ export function buildGroupPrompt(options: BuildGroupPromptOptions): GroupPromptR
     };
   }
 
-  // 4.5 AI 校准后的 prompt 优先级在Thủ côngChỉnh sửa之下、Tự động拼接之上
+  // 4.5 AI Hiệu chuẩn后的 prompt 优先级在Thủ côngChỉnh sửa之下、Tự động拼接之上
   if (group.calibratedPrompt && group.calibrationStatus === 'done') {
     const dialogueSegs = enableLipSync ? extractDialogueSegments(scenes, characters) : [];
     return {
@@ -638,11 +638,11 @@ export function buildGroupPrompt(options: BuildGroupPromptOptions): GroupPromptR
   // tiêu đề hàng
   if (gridImageRef) {
     promptParts.push(
-      `多Ống kính叙事video，Tham chiếu @ảnh1 ô图（共${scenes.length}Ống kính，TổngThời lượng${totalDuration}s）：`
+      `多Ống kínhtự sựvideo，Tham chiếu @ảnh1 ô图（共${scenes.length}Ống kính，TổngThời lượng${totalDuration}s）：`
     );
   } else {
     promptParts.push(
-      `多Ống kính叙事video（共${scenes.length}Ống kính，TổngThời lượng${totalDuration}s）：`
+      `多Ống kínhtự sựvideo（共${scenes.length}Ống kính，TổngThời lượng${totalDuration}s）：`
     );
   }
   promptParts.push('');
@@ -699,7 +699,7 @@ export function buildGroupPrompt(options: BuildGroupPromptOptions): GroupPromptR
     promptParts.push(`âm thanhTham chiếu：${audioRefLines.join('；')}`);
   }
 
-  // âm thanh设计（môi trường音 + 音效，按Ống kính cột出）
+  // âm thanhThiết kế（môi trường音 + 音效，按Ống kính cột出）
   const audioDesignLines: string[] = [];
   for (let i = 0; i < scenes.length; i++) {
     const s = scenes[i];
@@ -718,7 +718,7 @@ export function buildGroupPrompt(options: BuildGroupPromptOptions): GroupPromptR
   }
   if (audioDesignLines.length > 0) {
     promptParts.push('');
-    promptParts.push('âm thanh设计：');
+    promptParts.push('âm thanhThiết kế：');
     promptParts.push(...audioDesignLines);
   }
 
@@ -731,7 +731,7 @@ export function buildGroupPrompt(options: BuildGroupPromptOptions): GroupPromptR
     promptParts.push(dialoguePart);
   }
 
-  // Phong cách（不再注入：校准后的各Ống kính prompt 已包含Phong cáchMô tả）
+  // Phong cách（不再注入：Hiệu chuẩn后的各Ống kính prompt 已包含Phong cáchMô tả）
 
   // Tỷ lệ khung hìnhGợi ý
   if (aspectRatio) {
@@ -759,7 +759,7 @@ export function buildGroupPrompt(options: BuildGroupPromptOptions): GroupPromptR
 /**
  * kéo dài/Chỉnh sửachế độ的 prompt 构建器
  *
- * 与常规多Ống kính叙事不同：
+ * 与常规多Ống kínhtự sự不同：
  * - 不建ô图
  * - source video Tự động占据 @video1 位
  * - prompt 使用kéo dài/Chỉnh sửa专用模板
@@ -849,7 +849,7 @@ function buildExtendEditPrompt(
     }
   }
 
-  // Phong cách（不再注入：校准后的各Ống kính prompt 已包含Phong cáchMô tả）
+  // Phong cách（不再注入：Hiệu chuẩn后的各Ống kính prompt 已包含Phong cáchMô tả）
 
   const prompt = promptParts.join('\n');
 

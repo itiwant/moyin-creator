@@ -243,7 +243,7 @@ registerCustomStyleLookup((id: string): StylePreset | undefined => {
   const style = useCustomStyleStore.getState().styles.find(s => s.id === id);
   if (!style) return undefined;
 
-  // 智能推断 category/mediaType（用户Chỉnh sửa器目前无这两trường）
+  // thông minh推断 category/mediaType（用户Chỉnh sửa器目前无这两trường）
   const effectivePrompt = style.prompt || '';
   const category = inferCategoryFromPrompt(effectivePrompt);
   const mediaType = inferMediaType(category);

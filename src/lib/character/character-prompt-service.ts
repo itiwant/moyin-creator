@@ -4,13 +4,13 @@
 /**
  * Character Prompt Generation Service
  * 
- * 专业角色设计服务，与现有角色库(character-library-store)对齐。
+ * 专业角色Thiết kế服务，与现有角色库(character-library-store)对齐。
  * 
  * 功能：
  * 1. 读取剧本元数据，理解角色成长弧线
- * 2. 根据剧情阶段生成不同的角色形象
- * 3. 生成的阶段可转换为角色库的 CharacterVariation
- * 4. 使用世界级专业人设提升 AI 生成质量
+ * 2. 根据剧情阶段Tạo不同的角色形象
+ * 3. Tạo的阶段可转换为角色库的 CharacterVariation
+ * 4. 使用世界级专业人设提升 AI Tạo质量
  * 
  * 注意：这是一辅助服务，不修改现有角色库的任何功能。
  */
@@ -38,12 +38,12 @@ export interface CharacterStageAppearance {
 }
 
 /**
- * đầy đủ角色设计
+ * đầy đủ角色Thiết kế
  */
 export interface CharacterDesign {
   characterId: string;
   characterName: string;
-  // 基础信息
+  // Thông tin cơ bản
   baseDescription: string;      // 基础角色描述
   baseVisualPromptEn: string;   // 基础英文提示词
   baseVisualPromptZh: string;   // 基础đang xử lý...词
@@ -60,7 +60,7 @@ export interface CharacterDesign {
   sourceProjectId: string;
 }
 
-/** @deprecated 不再需要手动传递，自动从ánh xạ dịch vụ获取 */
+/** @deprecated 不再需要手动传递，Tự động从ánh xạ dịch vụ获取 */
 export interface CharacterDesignOptions {
   apiKey?: string;
   provider?: string;
@@ -68,10 +68,10 @@ export interface CharacterDesignOptions {
   styleId?: string;
 }
 
-// ==================== AI 角色设计服务 ====================
+// ==================== AI 角色Thiết kế服务 ====================
 
 /**
- * 为剧本角色生成专业的多阶段角色设计
+ * 为剧本角色Tạo专业的多阶段角色Thiết kế
  * 
  * @param characterId 剧本đang xử lý...ID
  * @param projectId 项目ID
@@ -103,7 +103,7 @@ export async function generateCharacterDesign(
   // 收 tập角色相关的上下文信息
   const context = buildCharacterContext(project, character);
   
-  // gọi API AI 生成角色设计
+  // gọi API AI Tạo角色Thiết kế
   const design = await callAIForCharacterDesign(
     character,
     context
@@ -193,22 +193,22 @@ function buildCharacterContext(project: any, character: any): {
 }
 
 /**
- * gọi API AI 生成角色设计
+ * gọi API AI Tạo角色Thiết kế
  */
 async function callAIForCharacterDesign(
   character: any,
   context: any
 ): Promise<CharacterDesign> {
   
-  const systemPrompt = `你是好莱坞顶级角色设计大师，曾为漫威、迪士尼、皮克斯设计过无数经典角色。
+  const systemPrompt = `你是好莱坞顶级角色Thiết kế大师，曾为漫威、迪士尼、皮克斯Thiết kế过无数经典角色。
 
 你的专业能力：
-- **角色视觉设计**：能准确捕捉角色的外在形象、服装风格、肢体Ngôn ngữ
+- **角色视觉Thiết kế**：能准确捕捉角色的外在形象、服装风格、肢体Ngôn ngữ
 - **角色成长弧线**：理解角色在不同剧情阶段的形象变化（从少年到成年、从普通人到英雄等）
-- **AI图像生成经验**：深谙 Midjourney、DALL-E、Stable Diffusion 等 AI 绘图模型的工作原理，能写出高质量的提示词
+- **AI图像Tạo经验**：深谙 Midjourney、DALL-E、Stable Diffusion 等 AI 绘图模型的工作原理，能写出高质量的提示词
 - **一致性保持**：知道如何描述Khuôn mặt特征、体型等không thay đổi元素，确保角色在不同阶段仍可辨认
 
-你的任务是根据剧本信息，为角色设计**多阶段视觉形象**。
+你的任务是根据剧本信息，为角色Thiết kế**多阶段视觉形象**。
 
 【剧本信息】
 tên phim：《${context.projectTitle}》
@@ -236,9 +236,9 @@ ${context.characterAppearances.length > 0
    - 身份变化：普通人→商业大亨、学徒→武林高手
    - 状态变化：健康→受伤、普通→修仙后形态
    
-2. **设计多阶段形象**：为每阶段生成独立的视觉提示词
-   - 如果角色没有明显阶段变化，只需设计1阶段
-   - 如果有变化，设计2-4阶段
+2. **Thiết kế多阶段形象**：为每阶段Tạo独立的视觉提示词
+   - 如果角色没有明显阶段变化，只需Thiết kế1阶段
+   - 如果有变化，Thiết kế2-4阶段
 
 3. **保持一致性元素**：识别角色的không thay đổi特征
    - Khuôn mặt特征（眼睛形状、五官Tỷ lệ）
@@ -246,7 +246,7 @@ ${context.characterAppearances.length > 0
    - 独特标记（胎记、疤痕、标志性特征）
 
 4. **提示词要求**：
-   - 英文提示词：40-60词，适合AI图像生成
+   - 英文提示词：40-60词，适合AI图像Tạo
    - đang xử lý...词：详细描述，包含细节
 
 请以JSON格式返回：
@@ -275,7 +275,7 @@ ${context.characterAppearances.length > 0
   ]
 }`;
 
-  const userPrompt = `请为角色「${character.name}」设计多阶段视觉形象。`;
+  const userPrompt = `请为角色「${character.name}」Thiết kế多阶段视觉形象。`;
   
   // 统一从ánh xạ dịch vụ获取配置
   const result = await callFeatureAPI('script_analysis', systemPrompt, userPrompt);
@@ -308,14 +308,14 @@ ${context.characterAppearances.length > 0
     };
   } catch (e) {
     console.error('[CharacterDesign] Failed to parse AI response:', result);
-    throw new Error('解析角色设计失败');
+    throw new Error('解析角色Thiết kế失败');
   }
 }
 
 /**
  * 根据 tập数获取角色当前阶段的提示词
  * 
- * @param design 角色设计
+ * @param design 角色Thiết kế
  * @param episodeIndex 当前 tập数
  */
 export function getCharacterPromptForEpisode(
@@ -352,10 +352,10 @@ export function getCharacterPromptForEpisode(
 }
 
 /**
- * 将角色设计转换为角色库的变体格式 (CharacterVariation)
+ * 将角色Thiết kế转换为角色库的变体格式 (CharacterVariation)
  * 可Trực tiếp用于 addVariation() 方法
  * 
- * @param design 角色设计
+ * @param design 角色Thiết kế
  * @returns 可Trực tiếp添加到角色库的变体数组
  */
 export function convertDesignToVariations(design: CharacterDesign): Array<Omit<CharacterVariation, 'id'>> {
@@ -368,15 +368,15 @@ export function convertDesignToVariations(design: CharacterDesign): Array<Omit<C
       design.consistencyElements.uniqueMarks,
       stage.visualPromptEn,
     ].filter(Boolean).join(', '),
-    // referenceImage Để trống，等待用户生成
+    // referenceImage Để trống，等待用户Tạo
     referenceImage: undefined,
     generatedAt: undefined,
   }));
 }
 
 /**
- * 为角色库đang xử lý...生成变体（Wardrobe System）
- * 基于角色设计的不同阶段
+ * 为角色库đang xử lý...Tạo变体（Wardrobe System）
+ * 基于角色Thiết kế的不同阶段
  * 
  * @deprecated 使用 convertDesignToVariations 代替
  */
@@ -393,7 +393,7 @@ export function generateVariationsFromDesign(design: CharacterDesign): Array<{
 /**
  * 为角色库的角色更新基础描述和Đặc điểm thị giác
  * 
- * @param design 角色设计
+ * @param design 角色Thiết kế
  * @returns 可用于 updateCharacter() 的更新对象
  */
 export function getCharacterUpdatesFromDesign(design: CharacterDesign): {

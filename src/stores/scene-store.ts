@@ -52,7 +52,7 @@ export interface Scene {
   shotIds?: string[];         // Danh sách ID phân cảnh liên kết
   isViewpointVariant?: boolean; // Có phải biến thể góc nhìn không
   
-  // === 专业Cảnh设计trường ===
+  // === 专业CảnhThiết kếtrường ===
   architectureStyle?: string;  // Phong cách kiến trúc
   colorPalette?: string;       // Bảng màu sắc
   eraDetails?: string;         // Đặc trưng thời đại
@@ -541,7 +541,7 @@ export const TIME_PRESETS = [
 export const ATMOSPHERE_PRESETS = [
   { id: 'peaceful', label: 'Bình yên', prompt: 'peaceful, serene, calm atmosphere' },
   { id: 'tense', label: 'Căng thẳng', prompt: 'tense, suspenseful, uneasy atmosphere' },
-  { id: 'romantic', label: '浪漫', prompt: 'romantic, warm, intimate atmosphere' },
+  { id: 'romantic', label: 'Lãng mạn', prompt: 'romantic, warm, intimate atmosphere' },
   { id: 'mysterious', label: 'bí ẩn', prompt: 'mysterious, enigmatic, foggy atmosphere' },
   { id: 'cheerful', label: '欢快', prompt: 'cheerful, lively, vibrant atmosphere' },
   { id: 'melancholic', label: '忧郁', prompt: 'melancholic, sad, somber atmosphere' },

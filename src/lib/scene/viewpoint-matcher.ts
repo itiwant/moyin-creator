@@ -4,7 +4,7 @@
 /**
  * Viewpoint Matcher Service
  * 
- * 根据分镜动作描述智能匹配场景库đang xử lý...变体
+ * 根据分镜动作描述thông minh匹配场景库đang xử lý...变体
  * 策略：先用quan trọng词快速匹配，匹配不到才gọi API AI
  */
 
@@ -87,7 +87,7 @@ for (const [viewpointId, keywords] of Object.entries(VIEWPOINT_KEYWORDS)) {
 
 // AI 匹配结果缓存（tránh trùng lặpgọi API）
 const aiMatchCache = new Map<string, { viewpointId: string | null; timestamp: number }>();
-const CACHE_TTL = 1000 * 60 * 30; // 30分钟缓存
+const CACHE_TTL = 1000 * 60 * 30; // 30 phút缓存
 
 // ==================== 核心函数 ====================
 
@@ -215,7 +215,7 @@ function getViewpointVariants(
 
 /**
  * 使用视角名称的quan trọng词模糊匹配动作描述
- * 用于自定义视角名称（如"大巴车视角"）与动作描述的匹配
+ * 用于Tùy chỉnh视角名称（如"大巴车视角"）与动作描述的匹配
  */
 function matchByViewpointNameKeywords(
   actionSummary: string,
@@ -293,7 +293,7 @@ function extractKeywords(name: string): string[] {
 // ==================== 主入sổ ====================
 
 /**
- * 智能匹配场景库đang xử lý...和视角
+ * thông minh匹配场景库đang xử lý...和视角
  * 
  * @param sceneName 剧本场景名（如"张家客厅"）
  * @param actionSummary 分镜动作描述（如"饭桌上，张明与父母吃饭"）
@@ -334,7 +334,7 @@ export async function matchSceneAndViewpoint(
     }
   }
 
-  // 2.5 尝试用自定义视角名称的quan trọng词匹配
+  // 2.5 尝试用Tùy chỉnh视角名称的quan trọng词匹配
   for (const parent of parentScenes) {
     const variants = getViewpointVariants(parent.id, sceneLibraryScenes);
     if (variants.length > 0) {
@@ -431,7 +431,7 @@ export function matchSceneAndViewpointSync(
     }
   }
 
-  // 2.5 尝试用自定义视角名称的quan trọng词匹配
+  // 2.5 尝试用Tùy chỉnh视角名称的quan trọng词匹配
   for (const parent of parentScenes) {
     const variants = getViewpointVariants(parent.id, sceneLibraryScenes);
     if (variants.length > 0) {

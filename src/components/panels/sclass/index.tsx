@@ -4,10 +4,10 @@
 "use client";
 
 /**
- * Hạng S面板 — Seedance 2.0 多模态创作panel
+ * Hạng S面板 — Seedance 2.0 多模态Sáng tácpanel
  * 
  * 复用 director-store 的Phân cảnh数据（SplitScene[]），
- * 以「分组」为核心thực hiện多Ống kính合并叙事Tạo video。
+ * 以「分组」为核心thực hiện多Ống kính合并tự sựTạo video。
  * 
  * 两种chế độ：
  * - Phân cảnhchế độ：从Kịch bản流水线Nhập的Phân cảnh，按组Tạo video
@@ -56,7 +56,7 @@ export function SClassView() {
       <div>
         <h3 className="font-medium text-sm mb-1">Hạng S · Seedance 2.0 Sáng tạo đa phương thức</h3>
         <p className="text-xs text-muted-foreground max-w-[280px]">
-          Vui lòng nhấp <span className="text-green-500 font-medium">+</span> Thêm phân cảnh vào panel này, hệ thống sẽ tự động phân nhómân nhómkính合并叙事Tạo video。
+          Vui lòng nhấp <span className="text-green-500 font-medium">+</span> Thêm phân cảnh vào panel này, hệ thống sẽ tự động phân nhómân nhómkính合并tự sựTạo video。
         </p>
         <p className="text-xs text-muted-foreground/60 mt-2 max-w-[280px]">
           Nếu chưa thấy cấu trúc kịch bản ở bên phải, vui lòng nhập và phân tích kịch bản trong panel "Kịch bản" trước.

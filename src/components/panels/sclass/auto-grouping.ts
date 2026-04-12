@@ -2,7 +2,7 @@
 // Licensed under AGPL-3.0-or-later. See LICENSE for details.
 // Commercial licensing available. See COMMERCIAL_LICENSE.md.
 /**
- * auto-grouping.ts — Hạng S智能分组算法
+ * auto-grouping.ts — Hạng Sthông minh分组算法
  *
  * 将 director-store đang xử lý...plitScene[] Tự động分为 ShotGroup[]。
  * 策略：

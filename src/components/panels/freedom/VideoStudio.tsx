@@ -629,7 +629,7 @@ export function VideoStudio() {
         {videoGenerating ? (
           <div className="flex flex-col items-center gap-4">
             <Loader2 className="h-12 w-12 animate-spin text-primary" />
-            <p className="text-sm text-muted-foreground">videoĐang tạo，请稍候（可能需要 1-4 分钟）...</p>
+            <p className="text-sm text-muted-foreground">videoĐang tạo，请稍候（可能需要 1-4  phút）...</p>
           </div>
         ) : videoResult ? (
           <div className="max-w-full max-h-full relative group">

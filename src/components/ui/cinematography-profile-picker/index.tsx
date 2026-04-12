@@ -37,9 +37,9 @@ interface CinematographyProfilePickerProps {
   onChange: (profileId: string) => void;
   /** 是否使用下拉popup出chế độ（默认 true） */
   popover?: boolean;
-  /** 自定义触发器（仅 popover chế độ） */
+  /** Tùy chỉnh触发器（仅 popover chế độ） */
   trigger?: React.ReactNode;
-  /** 自定义类名 */
+  /** Tùy chỉnh类名 */
   className?: string;
   /** 禁用状态 */
   disabled?: boolean;
@@ -132,7 +132,7 @@ export function CinematographyProfilePicker({
         {/* 媒介适配提示 */}
         {showAdaptHint && (
           <div className="text-xs mb-3 px-2 py-1.5 rounded bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20">
-            ⓘ 当前视觉风格为「{MEDIA_TYPE_LABELS[mediaType]}」媒介，摄影参数将自动适配
+            ⓘ 当前视觉风格为「{MEDIA_TYPE_LABELS[mediaType]}」媒介，摄影参数将Tự động适配
             {isFieldSkipped(mediaType, 'cameraRig') && '（器材/景深/转焦将被跳过）'}
           </div>
         )}

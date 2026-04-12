@@ -2,11 +2,11 @@
 // Licensed under AGPL-3.0-or-later. See LICENSE for details.
 // Commercial licensing available. See COMMERCIAL_LICENSE.md.
 /**
- * 5阶段分镜校准模块
+ * 5阶段分镜Hiệu chuẩn模块
  * 
  * 将 30+ trường拆分为 5 独立 AI gọi API，避免推理模型 token 耗尽
  * 
- * Stage 1: 叙事骨架 (9 fields) — 景别/运动/时长 + 叙事分析
+ * Stage 1: tự sự骨架 (9 fields) — 景别/运动/时长 + tự sự分析
  * Stage 2: 视觉描述 (6 fields) — đang xử lý...述 + 角色 + 音频
  * Stage 3: 拍摄控制 (15 fields) — 灯光/景深/器材/角度/焦距等
  * Stage 4: 首帧提示词 (3 fields) — imagePrompt + needsEndFrame
@@ -55,7 +55,7 @@ export interface GlobalContext {
   episodeSeason?: string;
   totalEpisodes?: number;
   currentEpisode?: number;
-  /** 剧级上下文摘要（由 buildSeriesContextSummary 生成） */
+  /** 剧级上下文摘要（由 buildSeriesContextSummary Tạo） */
   seriesContextSummary?: string;
 }
 
@@ -66,7 +66,7 @@ export interface CalibrationOptions {
 }
 
 /**
- * 5阶段分镜校准主函数
+ * 5阶段分镜Hiệu chuẩn主函数
  */
 export async function calibrateShotsMultiStage(
   shots: ShotInputData[],
@@ -95,7 +95,7 @@ export async function calibrateShotsMultiStage(
   // 剧级上下文摘要：来自 SeriesMeta
   const seriesCtx = globalContext.seriesContextSummary || '';
 
-  // 叙事neo：故事核心 + Bối cảnh thế giới + 核心冲突（截断避免过长）
+  // tự sựneo：故事核心 + Bối cảnh thế giới + 核心冲突（截断避免过长）
   const narrativeAnchorParts = [
     seriesCtx ? `【剧级知识】\n${seriesCtx}` : '',
     outline ? `【故事核心】\n${outline.slice(0, 600)}` : '',
@@ -111,7 +111,7 @@ export async function calibrateShotsMultiStage(
   const mt = getMediaType(styleId || 'cinematic');
   const mediaTypeHint = mt !== 'cinematic' ? `\n【媒介类型】${getMediaTypeGuidance(mt)}` : '';
 
-  // thời đại/Bối cảnh thế giới上下文：供 Stage 2/4/5 视觉生成使用（避免 AI 产生与thời đại不符的幻觉）
+  // thời đại/Bối cảnh thế giới上下文：供 Stage 2/4/5 视觉Tạo使用（避免 AI 产生与thời đại不符的幻觉）
   const eraContextParts = [
     contextLine,
     era ? `⚠️ thời đại背景：${era}——Tất cảnhân vật服装、发型、道具、建筑必须严格符合「${era}」时期，禁止出现其他thời đại的元素（如古装剧禁止西装/T恤/手机等现代vật phẩm）` : '',
@@ -119,7 +119,7 @@ export async function calibrateShotsMultiStage(
     characterBios ? `nhân vật造型Tham chiếu：${characterBios.slice(0, 300)}` : '',
   ].filter(Boolean);
   const eraContextBlock = eraContextParts.length > 0
-    ? `\n\n【⚠️ 剧本背景 — 视觉生成必须严格遵循】\n${eraContextParts.join('\n')}`
+    ? `\n\n【⚠️ 剧本背景 — 视觉Tạo必须严格遵循】\n${eraContextParts.join('\n')}`
     : '';
 
   // JSON 解析辅助
@@ -134,7 +134,7 @@ export async function calibrateShotsMultiStage(
     return parsed.shots || parsed || {};
   }
 
-  // 通用 Stage 执行器：使用 processBatched 自动分批（30+ shots 时自动拆分 sub-batch）
+  // 通用 Stage 执行器：使用 processBatched Tự động分批（30+ shots 时Tự động拆分 sub-batch）
   async function runStage(
     stageName: string,
     buildPrompts: (batch: ShotInputData[]) => { system: string; user: string },
@@ -177,15 +177,15 @@ export async function calibrateShotsMultiStage(
     merged[shot.shotId] = {};
   }
 
-  // ===================== Stage 1: 叙事骨架 =====================
-  onStageProgress?.(1, 5, '叙事骨架');
-  console.log('[MultiStage] Stage 1/5: 叙事骨架');
+  // ===================== Stage 1: tự sự骨架 =====================
+  onStageProgress?.(1, 5, 'tự sự骨架');
+  console.log('[MultiStage] Stage 1/5: tự sự骨架');
 
-  const s1System = `你是电影叙事分析师，精通镜头Ngôn ngữ和叙事Cấu trúc。分析每分镜的叙事功能并确定镜头参数。
+  const s1System = `你是电影tự sự分析师，精通镜头Ngôn ngữ和tự sựCấu trúc。分析每分镜的tự sự功能并确定镜头参数。
 
-${contextLine}${narrativeAnchorBlock}${episodeSynopsis ? `\n\n【本 tậpđại cương】\n${episodeSynopsis}` : ''}${episodeKeyEvents?.length ? `\nquan trọng事件：${episodeKeyEvents.join('、')}` : ''}
+${contextLine}${narrativeAnchorBlock}${episodeSynopsis ? `\n\n【本 tậpđại cương】\n${episodeSynopsis}` : ''}${episodeKeyEvents?.length ? `\nSự kiện quan trọng：${episodeKeyEvents.join('、')}` : ''}
 
-【⚠️ 叙事一致性校验 — 必须执行】
+【⚠️ tự sự一致性校验 — 必须执行】
 每分镜必须回答：
 1. 此镜头如何推动本 tập核心冲突的发展？（铺垫→升级→cao trào→转折→尾声）
 2. 此镜头是否违反Bối cảnh thế giới设定？（如有违反，在 storyAlignment đang xử lý...
@@ -208,7 +208,7 @@ ${contextLine}${narrativeAnchorBlock}${episodeSynopsis ? `\n\n【本 tậpđại
 格式：{"shots":{"shot_id":{...}}}`;
 
   try {
-    await runStage('Stage 1/5: 叙事骨架', (batch) => {
+    await runStage('Stage 1/5: tự sự骨架', (batch) => {
       const userShots = batch.map(s => {
         const chars = s.characterNames?.join('、') || '无';
         return `ID: ${s.shotId}\n场景: ${s.sceneLocation} | 时间: ${s.sceneTime}${s.sceneWeather ? ` | 天气: ${s.sceneWeather}` : ''}\n原文: ${s.sourceText || s.actionSummary}${s.dialogue ? `\n对白: 「${s.dialogue}」` : ''}\n角色: ${chars} | 氛围: ${s.sceneAtmosphere}\n当前: 景别=${s.currentShotSize || '?'} 运动=${s.currentCameraMovement || '?'}`;
@@ -230,10 +230,10 @@ ${contextLine}${narrativeAnchorBlock}${episodeSynopsis ? `\n\n【本 tậpđại
     ? '{"shots":{"shot_id":{"visualDescription":"","visualPrompt":"","characterNames":[],"emotionTags":[],"ambientSound":"","soundEffect":""}}}'
     : '{"shots":{"shot_id":{"visualDescription":"","characterNames":[],"emotionTags":[],"ambientSound":"","soundEffect":""}}}';
 
-  const s2System = `你是影视视觉描述师。基于gốc剧本文本和叙事分析，生成视觉描述和音频设计。${eraContextBlock}
+  const s2System = `你是影视视觉描述师。基于gốc剧本文本和tự sự分析，Tạo视觉描述和音频Thiết kế。${eraContextBlock}
 
 ⚠️ 规则：
-- 场景归属绝对固定：主场景不可thay đổi，闪回用"画面叠加"描述
+- 场景归属绝对Cố định：主场景不可thay đổi，闪回用"画面叠加"描述
 - 角色列表必须đầy đủ来自原文，不增不减
 - **thời đại一致性**：nhân vật服装、发型、道具、环境细节必须严格符合剧本设定的thời đại背景，禁止混入其他thời đại元素
 - visualDescription: 纯đang xử lý...细画面描述（服装/道具必须符合thời đại）
@@ -247,9 +247,9 @@ ${s2VisualPromptRule}
       const userShots = batch.map(s => {
         const prev = merged[s.shotId] || {};
         const hasFlashback = /闪回|叠画|回忆|穿插/.test(s.sourceText || '');
-        return `ID: ${s.shotId}\n【主场景（不可thay đổi）】: ${s.sceneLocation}${hasFlashback ? ' ⚠️含闪回，主场景không thay đổi！' : ''}\n原文: ${s.sourceText || s.actionSummary}${s.dialogue ? `\n对白: 「${s.dialogue}」` : ''}\n角色: ${s.characterNames?.join('、') || '无'}\n叙事: 景别=${prev.shotSize || '?'} | 功能=${prev.narrativeFunction || '?'} | 目的=${prev.shotPurpose || '?'}\n焦点: ${prev.visualFocus || '?'} | 布局: ${prev.characterBlocking || '?'}`;
+        return `ID: ${s.shotId}\n【主场景（不可thay đổi）】: ${s.sceneLocation}${hasFlashback ? ' ⚠️含闪回，主场景không thay đổi！' : ''}\n原文: ${s.sourceText || s.actionSummary}${s.dialogue ? `\n对白: 「${s.dialogue}」` : ''}\n角色: ${s.characterNames?.join('、') || '无'}\ntự sự: 景别=${prev.shotSize || '?'} | 功能=${prev.narrativeFunction || '?'} | 目的=${prev.shotPurpose || '?'}\n焦点: ${prev.visualFocus || '?'} | 布局: ${prev.characterBlocking || '?'}`;
       }).join('\n\n---\n\n');
-      return { system: s2System, user: `请生成视觉描述：\n\n${userShots}` };
+      return { system: s2System, user: `请Tạo视觉描述：\n\n${userShots}` };
     }, 200, 4096);
   } catch (e) {
     console.error('[MultiStage] Stage 2 failed:', e);
@@ -319,7 +319,7 @@ ${s2VisualPromptRule}
     ? '\n⚠️ imagePrompt 必须100%纯英文，禁止任何đang xử lý...'
     : '\n⚠️ imagePrompt 必须100%纯英文，禁止任何đang xử lý...\n⚠️ imagePromptZh 必须纯đang xử lý...
 
-  const s4System = `你是AI图像生成专家。根据视觉描述和拍摄参数，生成首帧提示词。${eraContextBlock}
+  const s4System = `你是AI图像Tạo专家。根据视觉描述和拍摄参数，Tạo首帧提示词。${eraContextBlock}
 
 ${styleDesc}${mediaTypeHint}
 
@@ -327,7 +327,7 @@ ${styleDesc}${mediaTypeHint}
 
 ${s4Fields} 必须包含：
 a) 场景环境（地点+环境细节+时间氛围）
-b) 光线设计（光源+质感+氛围）
+b) 光线Thiết kế（光源+质感+氛围）
 c) nhân vật描述（年龄+服装+Biểu cảm+Tư thế，每角色都写）
 d) bố cục与景别（景别+nhân vật位置关系+焦点）
 e) 重要道具（quan trọng道具+状态）
@@ -347,7 +347,7 @@ needsEndFrame 判断：
         const prev = merged[s.shotId] || {};
         return `ID: ${s.shotId}\n景别: ${prev.shotSize || '?'} | 角度: ${prev.cameraAngle || '?'} | 焦距: ${prev.focalLength || '?'}\n运动: ${prev.cameraMovement || '?'}\n视觉描述: ${prev.visualDescription || '?'}\n角色: ${(prev.characterNames || s.characterNames || []).join('、')}\n灯光: ${prev.lightingStyle || '?'}, ${prev.lightingDirection || '?'}, ${prev.colorTemperature || '?'}\n景深: ${prev.depthOfField || '?'} | 焦点: ${prev.focusTarget || '?'}\n大气: ${(prev.atmosphericEffects || []).join(',')}${prev.lightingNotes ? `\n灯光备注: ${prev.lightingNotes}` : ''}`;
       }).join('\n\n---\n\n');
-      return { system: s4System, user: `请生成首帧提示词：\n\n${userShots}` };
+      return { system: s4System, user: `请Tạo首帧提示词：\n\n${userShots}` };
     }, 400, 8192);
   } catch (e) {
     console.error('[MultiStage] Stage 4 failed:', e);
@@ -379,7 +379,7 @@ needsEndFrame 判断：
     ? '\n⚠️ 英文trường必须100%纯英文'
     : '\n⚠️ 英文trường100%纯英文，đang xử lý...ường纯đang xử lý...
 
-  const s5System = `你是AI视频生成专家。根据首帧画面，生成视频动作描述和尾帧画面。${eraContextBlock}
+  const s5System = `你是AI视频Tạo专家。根据首帧画面，Tạo视频动作描述和尾帧画面。${eraContextBlock}
 
 ${s5VideoFields}：
 - 描述视频đang xử lý...动作（nhân vật动作、物体移动、镜头运动）
@@ -387,7 +387,7 @@ ${s5VideoFields}：
 - ⚠️ Tất cả描述必须保持thời đại一致性（服装/道具/环境不能偏离剧本设定的thời đại）
 
 ${s5EndFields}：
-仅当 needsEndFrame=true 时生成，否则设为空字符串。
+仅当 needsEndFrame=true 时Tạo，否则设为空字符串。
 - 描述动作完成后的最终画面
 - 包含与首帧相同的场景环境和光线
 - 重点描述与首帧的差异（新位置/新Tư thế/新Biểu cảm/道具新状态）
@@ -402,12 +402,12 @@ ${s5LangWarning}
         const prev = merged[s.shotId] || {};
         return `ID: ${s.shotId}\n时长: ${prev.duration || '?'}秒 | 运动: ${prev.cameraMovement || '?'}\nneedsEndFrame: ${prev.needsEndFrame ?? true}\n动作: ${s.actionSummary || '?'}${s.dialogue ? `\n对白: 「${s.dialogue}」` : ''}\n首帧(EN): ${prev.imagePrompt || '?'}\n首帧(ZH): ${prev.imagePromptZh || '?'}`;
       }).join('\n\n---\n\n');
-      return { system: s5System, user: `请生成视频和尾帧提示词：\n\n${userShots}` };
+      return { system: s5System, user: `请Tạo视频和尾帧提示词：\n\n${userShots}` };
     }, 400, 8192);
   } catch (e) {
     console.error('[MultiStage] Stage 5 failed:', e);
   }
 
-  console.log('[MultiStage] Tất cả 5 阶段完成，已校准trường:', Object.keys(merged[shots[0]?.shotId] || {}).length);
+  console.log('[MultiStage] Tất cả 5 阶段完成，已Hiệu chuẩntrường:', Object.keys(merged[shots[0]?.shotId] || {}).length);
   return merged;
 }

@@ -5,7 +5,7 @@
  * Cinematography Profile Presets — 摄影风格档案预设
  *
  * 在「画风Chọn」和「逐镜拍摄控制trường」之间，提供项目级摄影Ngôn ngữ基准。
- * AI 校准时以此为默认倾向，prompt builder 在逐镜trường为空时回退到此处。
+ * AI Hiệu chuẩn时以此为默认倾向，prompt builder 在逐镜trường为空时回退到此处。
  */
 
 import type {
@@ -112,7 +112,7 @@ const CINEMATIC_PROFILES: CinematographyProfile[] = [
     defaultSpeed: { playbackSpeed: 'normal' },
     defaultAngle: 'eye-level',
     defaultFocalLength: '50mm',
-    promptGuidance: '遵循经典电影语法，三点布光为基础，暖色调营造温暖质感。轨道推拉保持画面稳定流畅，景深随叙事功能调整——Chat用浅景深聚焦情绪，全景用深景深交代环境。',
+    promptGuidance: '遵循经典电影语法，三点布光为基础，暖色调营造温暖质感。轨道推拉保持画面稳定流畅，景深随tự sự功能调整——Chat用浅景深聚焦情绪，全景用深景深交代环境。',
     referenceFilms: ['肖申克的救赎', '阿甘正传', '教父'],
   },
   {
@@ -120,7 +120,7 @@ const CINEMATIC_PROFILES: CinematographyProfile[] = [
     name: '黑色电影',
     nameEn: 'Film Noir',
     category: 'cinematic',
-    description: '低调布光、强烈明暗对比、侧光为主、冷色调、雾气弥漫、手持呼吸感',
+    description: '低调布光、强烈明暗对比、侧光为主、冷色调、雾气弥漫、Cầm tay呼吸感',
     emoji: '🖤',
     defaultLighting: { style: 'low-key', direction: 'side', colorTemperature: 'cool' },
     defaultFocus: { depthOfField: 'shallow', focusTransition: 'rack-to-fg' },
@@ -129,7 +129,7 @@ const CINEMATIC_PROFILES: CinematographyProfile[] = [
     defaultSpeed: { playbackSpeed: 'normal' },
     defaultAngle: 'low-angle',
     defaultFocalLength: '35mm',
-    promptGuidance: '黑色电影的灵魂是光影——大面积阴影đang xử lý...束侧光照亮nhân vật。冷色调配合雾气营造不安感，手持微晃增加真实的căng thẳng感。尽量让nhân vật半脸在黑暗đang xử lý...角色的双面性。',
+    promptGuidance: '黑色电影的灵魂是光影——大面积阴影đang xử lý...束侧光照亮nhân vật。冷色调配合雾气营造不安感，Cầm tay微晃增加真实的căng thẳng感。尽量让nhân vật半脸在黑暗đang xử lý...角色的双面性。',
     referenceFilms: ['银翼杀手', '唐人街', '第三人', '罪恶之城'],
   },
   {
@@ -146,7 +146,7 @@ const CINEMATIC_PROFILES: CinematographyProfile[] = [
     defaultSpeed: { playbackSpeed: 'normal' },
     defaultAngle: 'eye-level',
     defaultFocalLength: '24mm',
-    promptGuidance: '史诗感来自空间纵深——用深景深和摇臂大幅升降Hiển thị宏大场面。chính diện高调光让画面明亮壮观，适当加入镜头光晕和尘埃粒子增加电影感。战斗场面可切换肩扛手持增加冲击力。',
+    promptGuidance: '史诗感来自空间纵深——用深景深和摇臂大幅Nâng hạHiển thị宏大场面。chính diện高调光让画面明亮壮观，适当加入镜头光晕和尘埃粒子增加电影感。战斗场面可切换肩扛Cầm tay增加冲击力。',
     referenceFilms: ['指环王', '角斗士', '勇敢的心', '天国王朝'],
   },
   {
@@ -191,10 +191,10 @@ const CINEMATIC_PROFILES: CinematographyProfile[] = [
 const DOCUMENTARY_PROFILES: CinematographyProfile[] = [
   {
     id: 'documentary-raw',
-    name: '纪实手持',
+    name: '纪实Cầm tay',
     nameEn: 'Raw Documentary',
     category: 'documentary',
-    description: '手持呼吸感、自然光、đang xử lý...、chính diện光、无修饰、真实粗粝',
+    description: 'Cầm tay呼吸感、自然光、đang xử lý...、chính diện光、无修饰、真实粗粝',
     emoji: '📹',
     defaultLighting: { style: 'natural', direction: 'front', colorTemperature: 'neutral' },
     defaultFocus: { depthOfField: 'medium', focusTransition: 'pull-focus' },
@@ -203,7 +203,7 @@ const DOCUMENTARY_PROFILES: CinematographyProfile[] = [
     defaultSpeed: { playbackSpeed: 'normal' },
     defaultAngle: 'eye-level',
     defaultFocalLength: '35mm',
-    promptGuidance: '纪实风格追求「在场感」——手持摄影的轻微晃动让观众感觉身临其境。完全使用自然光，不做任何人工修饰。跟焦跟随nhân vật运动，允许偶尔的焦点偏移，这种不完美反而增加真实感。',
+    promptGuidance: '纪实风格追求「在场感」——Cầm tay摄影的轻微晃动让观众感觉身临其境。完全使用自然光，不做任何人工修饰。跟焦跟随nhân vật运动，允许偶尔的焦点偏移，这种不完美反而增加真实感。',
     referenceFilms: ['人生果实', '海豚湾', '徒手攀岩'],
   },
   {
@@ -220,7 +220,7 @@ const DOCUMENTARY_PROFILES: CinematographyProfile[] = [
     defaultSpeed: { playbackSpeed: 'normal' },
     defaultAngle: 'eye-level',
     defaultFocalLength: '24mm',
-    promptGuidance: '新闻纪实以信息传达为第一优先——深景深确保画面Tất cả元素清晰可辨，高调光消除阴影让细节đầy đủ呈现。肩扛摄影保持灵活跟踪，但比手持更稳定。画面bố cục讲究信息层次，重要nhân vật或事件始终在视觉焦点。',
+    promptGuidance: '新闻纪实以信息传达为第一优先——深景深确保画面Tất cả元素清晰可辨，高调光消除阴影让细节đầy đủ呈现。肩扛摄影保持灵活跟踪，但比Cầm tay更稳定。画面bố cục讲究信息层次，重要nhân vật或事件始终在视觉焦点。',
     referenceFilms: ['聚焦', '总统班底', '华盛顿邮报'],
   },
 ];
@@ -251,7 +251,7 @@ const STYLIZED_PROFILES: CinematographyProfile[] = [
     name: '古典武侠',
     nameEn: 'Classic Wuxia',
     category: 'stylized',
-    description: '自然侧光、暖色温、đang xử lý...摇臂升降、薄雾飘渺、古韵悠然',
+    description: '自然侧光、暖色温、đang xử lý...摇臂Nâng hạ、薄雾飘渺、古韵悠然',
     emoji: '🗡️',
     defaultLighting: { style: 'natural', direction: 'side', colorTemperature: 'warm' },
     defaultFocus: { depthOfField: 'medium', focusTransition: 'rack-between' },
@@ -268,7 +268,7 @@ const STYLIZED_PROFILES: CinematographyProfile[] = [
     name: '恐怖惊悚',
     nameEn: 'Horror Thriller',
     category: 'stylized',
-    description: '低调布光、底光不安感、冷色调、浅景深、手持颤抖、浓雾遮蔽',
+    description: '低调布光、底光不安感、冷色调、浅景深、Cầm tay颤抖、浓雾遮蔽',
     emoji: '👻',
     defaultLighting: { style: 'low-key', direction: 'bottom', colorTemperature: 'cool' },
     defaultFocus: { depthOfField: 'shallow', focusTransition: 'rack-to-bg' },
@@ -277,7 +277,7 @@ const STYLIZED_PROFILES: CinematographyProfile[] = [
     defaultSpeed: { playbackSpeed: 'normal' },
     defaultAngle: 'low-angle',
     defaultFocalLength: '24mm',
-    promptGuidance: '恐怖片的摄影原则是「隐藏比Hiển thị更可怕」——浅景深让背景模糊成未知的威胁，浓雾遮蔽视野制造不安。底光让Khuôn mặt出现不自然的阴影，手持极慢移动制造潜 hàng感。quan trọng时刻突然快速甩镜，打破之前的缓慢节奏。',
+    promptGuidance: '恐怖片的摄影原则是「隐藏比Hiển thị更可怕」——浅景深让背景模糊成未知的威胁，浓雾遮蔽视野制造不安。底光让Khuôn mặt出现不自然的阴影，Cầm tay极慢移动制造潜 hàng感。quan trọng时刻突然快速甩镜，打破之前的缓慢节奏。',
     referenceFilms: ['闪灵', '遗传厄运', '招魂', '午夜凶铃'],
   },
   {
@@ -325,7 +325,7 @@ const GENRE_PROFILES: CinematographyProfile[] = [
     name: '动作激烈',
     nameEn: 'Intense Action',
     category: 'genre',
-    description: '高调侧光、đang xử lý...、đang xử lý...肩扛快速跟拍、尘土飞扬',
+    description: '高调侧光、đang xử lý...、đang xử lý...肩扛快速Theo dõi、尘土飞扬',
     emoji: '💥',
     defaultLighting: { style: 'high-key', direction: 'side', colorTemperature: 'neutral' },
     defaultFocus: { depthOfField: 'medium', focusTransition: 'pull-focus' },
@@ -335,7 +335,7 @@ const GENRE_PROFILES: CinematographyProfile[] = [
     defaultAngle: 'eye-level',
     defaultFocalLength: '24mm',
     defaultTechnique: 'high-speed',
-    promptGuidance: '动作戏的摄影追求「动能传递」——肩扛快速跟拍让观众感受冲击力，侧光强化肌肉轮廓和动作线条。đang xử lý...证主体清晰但背景有适度虚化。quan trọng动作瞬间（出拳、爆炸）可使用慢放0.5x突出力量感，随后立刻恢复正常速度。尘土和火花增加物理碰撞的真实感。',
+    promptGuidance: '动作戏的摄影追求「动能传递」——肩扛快速Theo dõi让观众感受冲击力，侧光强化肌肉轮廓和动作线条。đang xử lý...证主体清晰但背景有适度虚化。quan trọng动作瞬间（出拳、爆炸）可使用慢放0.5x突出力量感，随后立刻恢复正常速度。尘土和火花增加物理碰撞的真实感。',
     referenceFilms: ['疯狂的麦克斯', '谍影重重', '突袭', '碟đang xử lý...,
   },
   {
@@ -352,7 +352,7 @@ const GENRE_PROFILES: CinematographyProfile[] = [
     defaultSpeed: { playbackSpeed: 'normal' },
     defaultAngle: 'eye-level',
     defaultFocalLength: '50mm',
-    promptGuidance: '悬疑片的摄影核心是「控制信息揭示」——浅景深Chọn性地让观众只看到导演想让他们看到的。轨道极慢推进制造压迫感，低调侧光让画面总有一半隐藏在阴影đang xử lý...是重要叙事手法，从前景线索转焦到背景嫌疑人，或反向操作。薄雾为画面增加朦胧感，暗示真相的不确定性。',
+    promptGuidance: '悬疑片的摄影核心是「控制信息揭示」——浅景深Chọn性地让观众只看到导演想让他们看到的。轨道极慢推进制造压迫感，低调侧光让画面总有一半隐藏在阴影đang xử lý...是重要tự sự手法，从前景线索转焦到背景嫌疑人，或反向操作。薄雾为画面增加朦胧感，暗示真相的不确定性。',
     referenceFilms: ['消失的爱人', '七宗罪', '杀人回忆', '十二怒汉'],
   },
 ];
@@ -365,7 +365,7 @@ const ERA_PROFILES: CinematographyProfile[] = [
     name: '90s港片',
     nameEn: '90s Hong Kong',
     category: 'era',
-    description: '霓虹侧光、混合色温、đang xử lý...手持晃动、薄霾弥漫、王家卫式忧郁',
+    description: '霓虹侧光、混合色温、đang xử lý...Cầm tay晃动、薄霾弥漫、王家卫式忧郁',
     emoji: '🌙',
     defaultLighting: { style: 'neon', direction: 'side', colorTemperature: 'mixed' },
     defaultFocus: { depthOfField: 'medium', focusTransition: 'rack-between' },
@@ -374,7 +374,7 @@ const ERA_PROFILES: CinematographyProfile[] = [
     defaultSpeed: { playbackSpeed: 'normal' },
     defaultAngle: 'eye-level',
     defaultFocalLength: '35mm',
-    promptGuidance: '90年代港片的摄影DNA是「都市霓虹+手持游走」——混合色温的霓虹灯把城市街道染成红蓝交织的梦境。手持摄影在人群đang xử lý...偶尔使用抽帧或降格制造王家卫式的虚影效果。薄霾笼罩的街头，每路人都像有故事。侧光勾勒出nhân vật忧郁的轮廓。',
+    promptGuidance: '90年代港片的摄影DNA是「都市霓虹+Cầm tay游走」——混合色温的霓虹灯把城市街道染成红蓝交织的梦境。Cầm tay摄影在人群đang xử lý...偶尔使用抽帧或降格制造王家卫式的虚影效果。薄霾笼罩的街头，每路人都像有故事。侧光勾勒出nhân vật忧郁的轮廓。',
     referenceFilms: ['重庆森林', '堕落天使', '无间道', '英雄本色'],
   },
   {
@@ -430,7 +430,7 @@ export function getCinematographyProfile(profileId: string): CinematographyProfi
 export const DEFAULT_CINEMATOGRAPHY_PROFILE_ID = 'classic-cinematic';
 
 /**
- * 生成 AI 校准用的摄影档案指导文本
+ * Tạo AI Hiệu chuẩn用的摄影档案指导文本
  * 注入到 system prompt đang xử lý...拍摄控制trường的默认基准
  */
 export function buildCinematographyGuidance(profileId: string): string {
@@ -459,7 +459,7 @@ export function buildCinematographyGuidance(profileId: string): string {
     '',
     `**Tham chiếu影片：** ${profile.referenceFilms.join('、')}`,
     '',
-    '⚠️ 以上是本项目的摄影Ngôn ngữ基准。每Phân cảnh的拍摄控制trường应以此为默认值，但如果剧情的叙事功能（如cao trào、转折）需要偏离基准，可以自由调整——quan trọng是要有叙事理由，Không随机变化。',
+    '⚠️ 以上是本项目的摄影Ngôn ngữ基准。每Phân cảnh的拍摄控制trường应以此为默认值，但如果剧情的tự sự功能（如cao trào、转折）需要偏离基准，可以自由调整——quan trọng是要有tự sự理由，Không随机变化。',
   ].filter(Boolean);
 
   return lines.join('\n');

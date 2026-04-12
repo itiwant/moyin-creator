@@ -249,7 +249,7 @@ export function ShotGroupCard({
             <Paperclip className="h-3 w-3 mr-1" />
             @tham chiếu
           </Button>
-          {/* AI 校准nút */}
+          {/* AI Hiệu chuẩnnút */}
           <TooltipProvider>
             <Tooltip>
               <TooltipTrigger asChild>
@@ -268,13 +268,13 @@ export function ShotGroupCard({
                   ) : (
                     <Sparkles className="h-3 w-3 mr-1" />
                   )}
-                  {isCalibrating ? '校准đang xử lý... isCalibrated ? '已校准' : 'AI校准'}
+                  {isCalibrating ? 'Hiệu chuẩnđang xử lý... isCalibrated ? '已Hiệu chuẩn' : 'AIHiệu chuẩn'}
                 </Button>
               </TooltipTrigger>
               <TooltipContent>
                 {isCalibrated
-                  ? <p>Đã hoàn thành AI 校准，Nhấp重新校准</p>
-                  : <p>AI 分析组内Ống kính，Tạo叙事弧线、过渡设计、优化 prompt</p>
+                  ? <p>Đã hoàn thành AI Hiệu chuẩn，Nhấp重新Hiệu chuẩn</p>
+                  : <p>AI 分析组内Ống kính，Tạotự sự弧线、过渡Thiết kế、优化 prompt</p>
                 }
               </TooltipContent>
             </Tooltip>
@@ -402,14 +402,14 @@ export function ShotGroupCard({
         </div>
       </div>
 
-      {/* ========== AI 校准结果Xem trước ========== */}
+      {/* ========== AI Hiệu chuẩn结果Xem trước ========== */}
       {(isCalibrated || isCalibrationFailed) && (
         <div className="px-3 py-2 border-t bg-purple-500/5 space-y-1.5">
           {isCalibrated && group.narrativeArc && (
             <div className="flex items-start gap-1.5">
               <Sparkles className="h-3 w-3 text-purple-500 mt-0.5 shrink-0" />
               <div>
-                <span className="text-[10px] font-medium text-purple-600 dark:text-purple-400">叙事弧线</span>
+                <span className="text-[10px] font-medium text-purple-600 dark:text-purple-400">tự sự弧线</span>
                 <p className="text-xs text-muted-foreground mt-0.5">{group.narrativeArc}</p>
               </div>
             </div>
@@ -418,7 +418,7 @@ export function ShotGroupCard({
             <div className="flex items-start gap-1.5">
               <ChevronRight className="h-3 w-3 text-purple-400 mt-0.5 shrink-0" />
               <div>
-                <span className="text-[10px] font-medium text-purple-600 dark:text-purple-400">过渡设计</span>
+                <span className="text-[10px] font-medium text-purple-600 dark:text-purple-400">过渡Thiết kế</span>
                 <p className="text-xs text-muted-foreground mt-0.5">
                   {group.transitions.map((t, i) => `${i + 1}→${i + 2}: ${t}`).join('；')}
                 </p>
@@ -428,7 +428,7 @@ export function ShotGroupCard({
           {isCalibrationFailed && group.calibrationError && (
             <div className="flex items-start gap-1.5">
               <AlertCircle className="h-3 w-3 text-red-500 mt-0.5 shrink-0" />
-              <span className="text-xs text-red-500">校准Thất bại：{group.calibrationError}</span>
+              <span className="text-xs text-red-500">Hiệu chuẩnThất bại：{group.calibrationError}</span>
             </div>
           )}
         </div>

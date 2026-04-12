@@ -39,7 +39,7 @@ const getRootBaseUrl = (baseUrl: string): string => {
 
 /**
  * 图片端点路径映射（端点类型 → 提交/轮询 URL 路径）
- * 仅用于需要自定义路径的端点类型，其余走默认 /v1/images/generations
+ * 仅用于需要Tùy chỉnh路径的端点类型，其余走默认 /v1/images/generations
  */
 const IMAGE_ENDPOINT_PATHS: Record<string, { submit: string; poll: (id: string) => string }> = {
   'aigc-image': { submit: '/tencent-vod/v1/aigc-image', poll: (id) => `/tencent-vod/v1/aigc-image/${id}` },
@@ -87,10 +87,10 @@ function getTargetDimensions(aspectRatio: string, resolution?: string): { width:
 }
 
 /**
- * 判断模型是否为 Gemini 图片生成模型（Nano Banana 系列）
+ * 判断模型是否为 Gemini 图片Tạo模型（Nano Banana 系列）
  * - Nano Banana Pro = gemini-3-pro-image-preview   → 支持 1K/2K/4K
  * - Nano Banana 2  = gemini-3.1-flash-image-preview → 支持 512/1K/2K/4K
- * - Nano Banana    = gemini-2.5-flash-image          → 固定 1K（不支持 image_size 参数）
+ * - Nano Banana    = gemini-2.5-flash-image          → Cố định 1K（不支持 image_size 参数）
  *
  * 用于决定是否在请求体đang xử lý...方 image_size / aspect_ratio 参数
  */
@@ -103,13 +103,13 @@ function isGeminiImageModel(model: string): boolean {
 
 /**
  * 判断 Gemini 图片模型是否支持 image_size 参数（1K/2K/4K）
- * gemini-2.5-flash-image 只输出固定 1024px，不支持 image_size
+ * gemini-2.5-flash-image 只输出Cố định 1024px，不支持 image_size
  */
 function geminiSupportsImageSize(model: string): boolean {
   const m = model.toLowerCase();
   // gemini-3-pro-image / gemini-3.1-flash-image 支持 1K/2K/4K
   if (m.includes('gemini-3') && m.includes('image')) return true;
-  // gemini-2.5-flash-image 不支持 image_size，固定 1K
+  // gemini-2.5-flash-image 不支持 image_size，Cố định 1K
   return false;
 }
 
@@ -172,7 +172,7 @@ async function generateImage(
   const aspectRatio = params.aspectRatio || '1:1';
   const resolution = params.resolution || '2K';
 
-  // 根据元数据决定图片生成 API 格式
+  // 根据元数据决定图片Tạo API 格式
   const endpointTypes = useAPIConfigStore.getState().modelEndpointTypes[model];
   const apiFormat = resolveImageApiFormat(endpointTypes, model);
 
@@ -205,7 +205,7 @@ async function generateImage(
   }
 
   // 标准格式: /v1/images/generations (GPT Image, DALL-E, Flux, doubao-seedream , v.v.)
-  // aigc-image / vidu生图 等走自定义路径
+  // aigc-image / vidu生图 等走Tùy chỉnh路径
   const result = await submitImageTask(
     params.prompt,
     aspectRatio,
@@ -356,7 +356,7 @@ async function submitViaChatCompletions(
     // 每次Thử lại独立创建 AbortController，避免共享 controller 在Thử lại时已超时
     const controller = new AbortController();
     const timeoutId = setTimeout(
-      () => controller.abort(new DOMException('图片生成请求超时（60秒），请检查网络后Thử lại', 'TimeoutError')),
+      () => controller.abort(new DOMException('图片Tạo请求超时（60秒），请检查网络后Thử lại', 'TimeoutError')),
       60000
     );
 
@@ -390,16 +390,16 @@ async function submitViaChatCompletions(
           keyManager.handleError(resp.status, errorText);
         }
 
-        let msg = `图片生成 API 错误: ${resp.status}`;
+        let msg = `图片Tạo API Lỗi: ${resp.status}`;
         try { const j = JSON.parse(errorText); msg = j.error?.message || msg; } catch {}
 
         // 401 专项提示：引导用户检查 API Key
         if (resp.status === 401) {
-          msg = `API Key 无效或已hết hạn，请前往「设置」检查图片生成服务的 API Key 配置（gốc信息：${msg}）`;
+          msg = `API Key 无效或已hết hạn，请前往「设置」检查图片Tạo服务的 API Key 配置（gốc信息：${msg}）`;
         }
         // 502 专项提示：上游服务临时不可用
         if (resp.status === 502) {
-          msg = `API 上游服务暂时不可用（502），将自动Thử lại（gốc信息：${msg}）`;
+          msg = `API 上游服务暂时不可用（502），将Tự độngThử lại（gốc信息：${msg}）`;
         }
 
         const err = new Error(msg) as Error & { status?: number };
@@ -536,7 +536,7 @@ async function submitImageTask(
   endpointTypes?: string[],
 ): Promise<{ taskId?: string; imageUrl?: string; pollUrl?: string }> {
   if (!baseUrl) {
-    throw new Error('请先在设置đang xử lý...片生成ánh xạ dịch vụ');
+    throw new Error('请先在设置đang xử lý...片Tạoánh xạ dịch vụ');
   }
   // 根据模型决定 size 格式
   let sizeValue: string = aspectRatio;
@@ -598,7 +598,7 @@ async function submitImageTask(
             keyManager.handleError(response.status, errorText);
           }
 
-          let errorMessage = `图片生成 API 错误: ${response.status}`;
+          let errorMessage = `图片Tạo API Lỗi: ${response.status}`;
           try {
             const errorJson = JSON.parse(errorText);
             errorMessage = errorJson.error?.message || errorJson.message || errorJson.msg || errorMessage;
@@ -614,7 +614,7 @@ async function submitImageTask(
             err.status = response.status;
             throw err;
           } else if (response.status >= 500) {
-            const err = new Error(errorMessage || '图片生成服务暂时不可用') as Error & { status?: number };
+            const err = new Error(errorMessage || '图片Tạo服务暂时不可用') as Error & { status?: number };
             err.status = response.status;
             throw err;
           }
@@ -678,7 +678,7 @@ async function submitImageTask(
       throw new Error('No task_id or image URL in response');
     }
 
-    // 返回 pollUrl 供gọi API方使用自定义轮询路径
+    // 返回 pollUrl 供gọi API方使用Tùy chỉnh轮询路径
     const imagePaths = getImageEndpointPaths(endpointTypes || []);
     const rootBase = getRootBaseUrl(baseUrl);
     const pollUrl = `${rootBase}${imagePaths.poll(taskId)}`;
@@ -688,7 +688,7 @@ async function submitImageTask(
       if (error.name === 'AbortError') throw new Error('API 请求超时');
       throw error;
     }
-    throw new Error('gọi API图片生成 API 时发生未知错误');
+    throw new Error('gọi API图片Tạo API 时发生未知错误');
   }
 }
 
@@ -768,7 +768,7 @@ async function pollTaskStatus(
     }
   }
 
-  throw new Error('图片生成超时');
+  throw new Error('图片Tạo超时');
 }
 
 /**
@@ -784,9 +784,9 @@ export async function submitGridImageRequest(params: {
   aspectRatio: string;
   resolution?: string;
   referenceImages?: string[];
-  /** 可选：传入 keyManager 后，Thử lại时自动用xoay vòng后的新 key */
+  /** 可选：传入 keyManager 后，Thử lại时Tự động用xoay vòng后的新 key */
   keyManager?: { getCurrentKey: () => string | null; handleError: (status: number, errorText?: string) => boolean };
-  /** 外部đang xử lý...，用于停止生成时真正取消网络请求 */
+  /** 外部đang xử lý...，用于停止Tạo时真正取消网络请求 */
   signal?: AbortSignal;
 }): Promise<{ imageUrl?: string; taskId?: string; pollUrl?: string }> {
   const { model, prompt, apiKey, baseUrl, aspectRatio, resolution, referenceImages, keyManager, signal } = params;
@@ -808,7 +808,7 @@ export async function submitGridImageRequest(params: {
     return { imageUrl: result.imageUrl, taskId: result.taskId };
   }
 
-  // 标准 images/generations 端点（aigc-image / vidu生图 走自定义路径）
+  // 标准 images/generations 端点（aigc-image / vidu生图 走Tùy chỉnh路径）
   const imagePaths = getImageEndpointPaths(endpointTypes || []);
   const rootBase = getRootBaseUrl(normalizedBase);
   const endpoint = `${rootBase}${imagePaths.submit}`;
@@ -900,7 +900,7 @@ export async function submitGridImageRequest(params: {
     || data.task_id?.toString()
     || data.id?.toString();
 
-  // 如果只有 taskId 没有 imageUrl，自动轮询获取结果（与 generateImage 行为一致）
+  // 如果只有 taskId 没有 imageUrl，Tự động轮询获取结果（与 generateImage 行为一致）
   if (!imageUrl && taskId) {
     console.log('[GridImageAPI] Got taskId without imageUrl, polling...', taskId);
     const pollUrl = `${rootBase}${imagePaths.poll(taskId)}`;
@@ -918,7 +918,7 @@ export async function submitGridImageRequest(params: {
 }
 
 /**
- * Kling image 原生端点生成
+ * Kling image 原生端点Tạo
  * 提交到 /kling/v1/images/generations 或 /kling/v1/images/omni-image
  * 轮询到 /kling/v1/images/{path}/{task_id}
  */
@@ -954,7 +954,7 @@ async function submitViaKlingImages(
       if (keyManager?.handleError) {
         keyManager.handleError(response.status, errText);
       }
-      const err = new Error(`Kling image API 错误: ${response.status} ${errText}`) as Error & { status?: number };
+      const err = new Error(`Kling image API Lỗi: ${response.status} ${errText}`) as Error & { status?: number };
       err.status = response.status;
       throw err;
     }
@@ -994,10 +994,10 @@ async function submitViaKlingImages(
       return { imageUrl, taskId: String(taskId) };
     }
     if (status === 'failed' || status === 'error') {
-      throw new Error(pollData.data?.task_status_msg || 'Kling image 生成失败');
+      throw new Error(pollData.data?.task_status_msg || 'Kling image Tạo失败');
     }
   }
-  throw new Error('Kling image 生成超时');
+  throw new Error('Kling image Tạo超时');
 }
 
 /**

@@ -182,7 +182,7 @@ export function DirectorContextPanel() {
       }
     }
     
-    // 2. 再通过 characterNames 补充匹配（AI校准的Phân cảnh可能只有Tên）
+    // 2. 再通过 characterNames 补充匹配（AIHiệu chuẩn的Phân cảnh可能只有Tên）
     if (characterNames && characterNames.length > 0) {
       for (const charName of characterNames) {
         if (!charName) continue;
@@ -416,7 +416,7 @@ export function DirectorContextPanel() {
       needsEndFrame: shot.needsEndFrame || false,
       // Nhân vật（使用Thư viện nhân vậtID）
       characterIds: characterLibraryIds,
-      // 情绪Thẻ（AI校准产出）
+      // 情绪Thẻ（AIHiệu chuẩn产出）
       emotionTags: (shot.emotionTags || []) as any,
       // 景别
       shotSize: shot.shotSize ? (SHOT_SIZE_MAP[shot.shotSize] || null) as any : null,
@@ -438,7 +438,7 @@ export function DirectorContextPanel() {
       sceneLibraryId: sceneMatch?.sceneLibraryId,
       viewpointId: sceneMatch?.viewpointId,
       sceneReferenceImage: sceneMatch?.sceneReferenceImage,
-      // 叙事驱动设计（基于《电影Ngôn ngữ的语法》）
+      // tự sự驱动Thiết kế（基于《电影Ngôn ngữ的语法》）
       narrativeFunction: (shot as any).narrativeFunction || '',
       shotPurpose: (shot as any).shotPurpose || '',
       visualFocus: (shot as any).visualFocus || '',
@@ -555,7 +555,7 @@ export function DirectorContextPanel() {
         needsEndFrame: shot.needsEndFrame || false,
         // Nhân vật（使用Thư viện nhân vậtID）
         characterIds: characterLibraryIds,
-        // 情绪Thẻ（AI校准产出）
+        // 情绪Thẻ（AIHiệu chuẩn产出）
         emotionTags: (shot.emotionTags || []) as any,
         // 景别
         shotSize: shot.shotSize ? (SHOT_SIZE_MAP[shot.shotSize] || null) as any : null,
@@ -577,7 +577,7 @@ export function DirectorContextPanel() {
         sceneLibraryId: sceneMatch?.sceneLibraryId,
         viewpointId: sceneMatch?.viewpointId,
         sceneReferenceImage: sceneMatch?.sceneReferenceImage,
-        // 叙事驱动设计（基于《电影Ngôn ngữ的语法》）
+        // tự sự驱动Thiết kế（基于《电影Ngôn ngữ的语法》）
         narrativeFunction: (shot as any).narrativeFunction || '',
         shotPurpose: (shot as any).shotPurpose || '',
         visualFocus: (shot as any).visualFocus || '',

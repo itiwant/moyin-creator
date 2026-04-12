@@ -35,7 +35,7 @@ export interface IProvider {
  * 
  * 核心供应商：
  * 1. 魔因API (memefast) - 全功能 AI trung gian（推荐），支持文本/ảnh/video/识图
- * 2. RunningHub - 视角切换/đa góc độ生成
+ * 2. RunningHub - 视角切换/đa góc độTạo
  */
 export const DEFAULT_PROVIDERS: Omit<IProvider, 'id' | 'apiKey'>[] = [
   {
@@ -70,12 +70,12 @@ export const DEFAULT_PROVIDERS: Omit<IProvider, 'id' | 'apiKey'>[] = [
 
 /**
  * 根据模型名称chế độ推断模型能力
- * 用于动态同步的 552+ 模型自动phân loại
+ * 用于动态同步的 552+ 模型Tự độngphân loại
  */
 export function classifyModelByName(modelName: string): ModelCapability[] {
   const name = modelName.toLowerCase();
 
-  // ---- video生成模型 ----
+  // ---- videoTạo模型 ----
   const videoPatterns = [
     'veo', 'sora', 'wan', 'kling', 'runway', 'luma', 'seedance',
     'cogvideo', 'hunyuan-video', 'minimax-video', 'hailuo', 'pika',
@@ -85,7 +85,7 @@ export function classifyModelByName(modelName: string): ModelCapability[] {
   if (/grok[- ]?video/.test(name)) return ['video_generation'];
   if (videoPatterns.some(p => name.includes(p))) return ['video_generation'];
 
-  // ---- ảnh生成模型 ----
+  // ---- ảnhTạo模型 ----
   const imageGenPatterns = [
     'dall-e', 'dalle', 'flux', 'midjourney', 'niji', 'imagen', 'cogview',
     'gpt-image', 'ideogram', 'sd3', 'stable-diffusion', 'sdxl',
@@ -118,9 +118,9 @@ export function classifyModelByName(modelName: string): ModelCapability[] {
  * 基于 MemeFast 等平台 /v1/models 返回的 supported_endpoint_types trường
  */
 export type ModelApiFormat =
-  | 'openai_chat'        // /v1/chat/completions （文本/Chat，也用于 Gemini ảnh生成）
-  | 'openai_images'      // /v1/images/generations （标准ảnh生成）
-  | 'openai_video'       // /v1/videos/generations （标准video生成）
+  | 'openai_chat'        // /v1/chat/completions （文本/Chat，也用于 Gemini ảnhTạo）
+  | 'openai_images'      // /v1/images/generations （标准ảnhTạo）
+  | 'openai_video'       // /v1/videos/generations （标准videoTạo）
   | 'kling_image'        // /kling/v1/images/generations 或 /kling/v1/images/omni-image
   | 'unsupported';       // 不支持的端点格式
 
@@ -133,7 +133,7 @@ const IMAGE_ENDPOINT_MAP: Record<string, ModelApiFormat> = {
 };
 
 // MemeFast supported_endpoint_types 值 → 我们的video API 格式能力phân loại
-// 注意：这里统一映射为 'openai_video' 仅表示「video生成能力」，实际 API 路由由 use-video-generation.ts đang xử lý...IDEO_FORMAT_MAP 决定
+// 注意：这里统一映射为 'openai_video' 仅表示「videoTạo能力」，实际 API 路由由 use-video-generation.ts đang xử lý...IDEO_FORMAT_MAP 决定
 const VIDEO_ENDPOINT_MAP: Record<string, ModelApiFormat> = {
   'video统一格式': 'openai_video',
   'openAIvideo格式': 'openai_video',
@@ -144,8 +144,8 @@ const VIDEO_ENDPOINT_MAP: Record<string, ModelApiFormat> = {
   'Tạo video từ văn bản': 'openai_video',          // kling Tạo video từ văn bản
   'Tạo video từ ảnh': 'openai_video',          // kling Tạo video từ ảnh
   'videokéo dài': 'openai_video',          // kling videokéo dài
-  '海螺video生成': 'openai_video',    // MiniMax-Hailuo
-  'lumavideo生成': 'openai_video',     // luma_video_api
+  '海螺videoTạo': 'openai_video',    // MiniMax-Hailuo
+  'lumavideoTạo': 'openai_video',     // luma_video_api
   'lumavideo扩展': 'openai_video',     // luma_video_extend
   'runwayTạo video từ ảnh': 'openai_video',   // runwayml
   'aigc-video': 'openai_video',       // aigc-video-hailuo/kling/vidu
@@ -154,7 +154,7 @@ const VIDEO_ENDPOINT_MAP: Record<string, ModelApiFormat> = {
 };
 
 /**
- * 根据模型的 supported_endpoint_types Xác nhậnảnh生成应用的 API 格式
+ * 根据模型的 supported_endpoint_types Xác nhậnảnhTạo应用的 API 格式
  * 当端点元数据不可用时，根据模型名称推断
  */
 export function resolveImageApiFormat(endpointTypes: string[] | undefined, modelName?: string): ModelApiFormat {
@@ -196,7 +196,7 @@ export function resolveImageApiFormat(endpointTypes: string[] | undefined, model
 }
 
 /**
- * 根据模型的 supported_endpoint_types Xác nhậnvideo生成应用的 API 格式
+ * 根据模型的 supported_endpoint_types Xác nhậnvideoTạo应用的 API 格式
  */
 export function resolveVideoApiFormat(endpointTypes: string[] | undefined): ModelApiFormat {
   if (!endpointTypes || endpointTypes.length === 0) return 'openai_video'; // fallback

@@ -4,7 +4,7 @@
 /**
  * AI Viewpoint Analyzer
  * 
- * 使用 AI 分析场景和分镜内容，智能生成合适的视角列表
+ * 使用 AI 分析场景和分镜内容，thông minhTạo合适的视角列表
  * 替代原有的硬编码quan trọng词匹配
  */
 
@@ -30,7 +30,7 @@ export interface ViewpointAnalysisResult {
 export interface ViewpointAnalysisOptions {
   /** 本 tậpđại cương/剧情摘要 */
   episodeSynopsis?: string;
-  /** 本 tậpquan trọng事件 */
+  /** 本 tậpSự kiện quan trọng */
   keyEvents?: string[];
   /** tên phim */
   title?: string;
@@ -44,7 +44,7 @@ export interface ViewpointAnalysisOptions {
 
 /**
  * AI 分析场景视角
- * 根据场景信息和分镜内容，智能生成该场景需要的视角列表
+ * 根据场景信息和分镜内容，thông minhTạo该场景需要的视角列表
  */
 export async function analyzeSceneViewpoints(
   scene: ScriptScene,
@@ -57,7 +57,7 @@ export async function analyzeSceneViewpoints(
     return {
       viewpoints: [
         { id: 'overview', name: '全景', nameEn: 'Overview', description: '整体空间', descriptionEn: 'Overall space', keyProps: [], keyPropsEn: [], shotIndexes: [] },
-        { id: 'detail', name: '细节', nameEn: 'Detail', description: '细节特写', descriptionEn: 'Detail close-up', keyProps: [], keyPropsEn: [], shotIndexes: [] },
+        { id: 'detail', name: '细节', nameEn: 'Detail', description: '细节Cực cận cảnh', descriptionEn: 'Detail close-up', keyProps: [], keyPropsEn: [], shotIndexes: [] },
       ],
       analysisNote: '无分镜，使用默认视角',
     };
@@ -87,7 +87,7 @@ export async function analyzeSceneViewpoints(
     ? `【本 tậpđại cương】\n${opts.episodeSynopsis}\n`
     : '';
   const keyEventsPart = opts.keyEvents && opts.keyEvents.length > 0
-    ? `【本 tậpquan trọng事件】\n${opts.keyEvents.map((e, i) => `${i + 1}. ${e}`).join('\n')}\n`
+    ? `【本 tậpSự kiện quan trọng】\n${opts.keyEvents.map((e, i) => `${i + 1}. ${e}`).join('\n')}\n`
     : '';
 
   // 构建全局故事上下文
@@ -104,16 +104,16 @@ export async function analyzeSceneViewpoints(
   const systemPrompt = `你是专业的影视美术指导，擅长分析场景并确定需要的拍摄视角。
 
 ${globalContextSection}【任务】
-根据本 tậpđại cương、场景信息和分镜内容，分析该场景需要哪些不同的视角/机位来生成场景背景图。
+根据本 tậpđại cương、场景信息和分镜内容，分析该场景需要哪些不同的视角/机位来Tạo场景背景图。
 
 【重要原则】
 1. 视角必须与场景类型匹配：
    - 大巴车/xe hơi场景：车、座位区、过道、驾驶位等
    - 室内家居：客厅、卧室、厨房、边等
-   - 户外场景：全景、近景、特定地标等
+   - 户外场景：全景、Cận cảnh、特定地标等
    - 古代场景：堂屋、庭院、案几等
 2. 从分镜动作和画面描述đang xử lý...际需要的视角
-3. 结合本 tậpđại cương理解场景的叙事功能，确定哪些视角是核心的
+3. 结合本 tậpđại cương理解场景的tự sự功能，确定哪些视角是核心的
 4. 每视角要有quan trọng道具（从分镜的视觉焦点和环境声đang xử lý...
 5. 输出4-6视角
 
@@ -138,7 +138,7 @@ ${globalContextSection}【任务】
   const userPrompt = `${synopsisPart}${keyEventsPart}【场景信息】
 地点: ${scene.location || scene.name}
 时间: ${scene.time || '日'}
-氛围: ${scene.atmosphere || '平静'}
+氛围: ${scene.atmosphere || 'Bình tĩnh'}
 
 【分镜内容（共 ${shots.length} 分镜）】
 ${shotSummaries}
@@ -197,7 +197,7 @@ ${shotSummaries}
       viewpoints: [
         { id: 'overview', name: '全景', nameEn: 'Overview', description: '整体Bố cục không gian', descriptionEn: 'Overall spatial layout', keyProps: [], keyPropsEn: [], shotIndexes: [] },
         { id: 'medium', name: 'đang xử lý... nameEn: 'Medium Shot', description: 'đang xử lý...', descriptionEn: 'Medium view', keyProps: [], keyPropsEn: [], shotIndexes: [] },
-        { id: 'detail', name: '细节', nameEn: 'Detail', description: '细节特写', descriptionEn: 'Detail close-up', keyProps: [], keyPropsEn: [], shotIndexes: [] },
+        { id: 'detail', name: '细节', nameEn: 'Detail', description: '细节Cực cận cảnh', descriptionEn: 'Detail close-up', keyProps: [], keyPropsEn: [], shotIndexes: [] },
       ],
       analysisNote: 'AI 分析失败，使用默认视角',
     };

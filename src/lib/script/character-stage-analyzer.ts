@@ -4,12 +4,12 @@
 /**
  * Character Stage Analyzer
  * 
- * 分析剧本đại cương，自动识别主要角色的阶段变化，生成多阶段变体。
+ * 分析剧本đại cương，Tự động识别主要角色的阶段变化，Tạo多阶段变体。
  * 
  * 功能：
  * 1. 分析đại cươngđang xử lý...跨度和角色成长轨迹
- * 2. 为主要角色生成阶段变体（青年版、đang xử lý...）
- * 3. 每变体包含 tập数范围，供分镜时自动gọi API
+ * 2. 为主要角色Tạo阶段变体（青年版、đang xử lý...）
+ * 3. 每变体包含 tập数范围，供分镜时Tự độnggọi API
  */
 
 import type { ProjectBackground, ScriptCharacter, PromptLanguage } from '@/types/script';
@@ -68,7 +68,7 @@ export async function analyzeCharacterStages(
     return [];
   }
   
-  const systemPrompt = `你是专业的影视角色设计顾问，擅长分析角色在长篇剧 tậpđang xử lý...变化。
+  const systemPrompt = `你是专业的影视角色Thiết kế顾问，擅长分析角色在长篇剧 tậpđang xử lý...变化。
 
 你的任务是分析剧本đại cương，判断每主要角色是否需要多阶段的形象变体。
 
@@ -108,7 +108,7 @@ ${mainCharacters.map(c => `
 外貌：${c.appearance || '未知'}
 `).join('\n')}
 
-请为每角色分析是否需要多阶段形象，并生成阶段变体数据。
+请为每角色分析是否需要多阶段形象，并Tạo阶段变体数据。
 
 返回JSON格式：
 {
@@ -216,7 +216,7 @@ export function getVariationForEpisode(
 
 /**
  * 快速检测đại cương是否包含多阶段线索
- * 用于在导入剧本时提示用户
+ * 用于在Nhập剧本时提示用户
  */
 export function detectMultiStageHints(outline: string, totalEpisodes: number): {
   hasTimeSpan: boolean;

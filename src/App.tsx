@@ -38,7 +38,7 @@ function App() {
     })();
   }, []);
 
-  // 启动时自动同步Tất cả已配置 API Key 的供应商模型元数据
+  // 启动时Tự động同步Tất cả已配置 API Key 的供应商模型元数据
   useEffect(() => {
     if (isMigrating) return;
     let cancelled = false;

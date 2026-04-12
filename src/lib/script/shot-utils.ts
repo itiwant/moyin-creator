@@ -35,13 +35,13 @@ export function calculateProgress(items: { status?: CompletionStatus }[]): strin
  * 用于将剧本đang xử lý...描述转换为标准化 ID
  */
 export const SHOT_SIZE_MAP: Record<string, ShotSizeType> = {
-  'ECU': 'ecu', 'Extreme Close-Up': 'ecu', '特写': 'ecu',
-  'CU': 'cu', 'Close-Up': 'cu', '近景': 'cu',
+  'ECU': 'ecu', 'Extreme Close-Up': 'ecu', 'Cực cận cảnh': 'ecu',
+  'CU': 'cu', 'Close-Up': 'cu', 'Cận cảnh': 'cu',
   'MCU': 'mcu', 'Medium Close-Up': 'mcu', 'đang xử lý...: 'mcu',
   'MS': 'ms', 'Medium Shot': 'ms', 'đang xử lý... 'ms',
   'MLS': 'mls', 'Medium Long Shot': 'mls', 'đang xử lý...: 'mls',
   'LS': 'ls', 'Long Shot': 'ls', '全景': 'ls',
-  'WS': 'ws', 'Wide Shot': 'ws', '远景': 'ws',
+  'WS': 'ws', 'Wide Shot': 'ws', 'Viễn cảnh': 'ws',
   'POV': 'pov', 'POV Shot': 'pov', '主观镜头': 'pov',
 };
 

@@ -129,7 +129,7 @@ async function submitImageGenTask(
           response.status === 401 || response.status === 403
             ? 'API Key 无效或已hết hạn，请检查配置'
             : response.status >= 500
-              ? '图片生成服务暂时不可用，请稍后再试'
+              ? '图片Tạo服务暂时不可用，请稍后再试'
               : errorMessage
         ) as Error & { status?: number };
         error.status = response.status;
@@ -178,7 +178,7 @@ async function submitImageGenTask(
       }
       throw error;
     }
-    throw new Error('gọi API图片生成 API 时发生未知错误');
+    throw new Error('gọi API图片Tạo API 时发生未知错误');
   }
 }
 

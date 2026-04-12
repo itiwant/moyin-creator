@@ -3,16 +3,16 @@
 // Commercial licensing available. See COMMERCIAL_LICENSE.md.
 
 /**
- * Hạng S「组级 AI 校准」核心模块
+ * Hạng S「组级 AI Hiệu chuẩn」核心模块
  *
  * 功能：
  * 1. 读取组内各 SplitScene 数据（只读，不修改 director-store）
- * 2. gọi API LLM Tạo组级叙事弧线、Ống kính过渡、âm thanh设计、优化 prompt
- * 3. 写入 sclass-store 的 ShotGroup 校准trường
+ * 2. gọi API LLM Tạo组级tự sự弧线、Ống kính过渡、âm thanhThiết kế、优化 prompt
+ * 3. 写入 sclass-store 的 ShotGroup Hiệu chuẩntrường
  *
  * 数据安全：
  * - 只读 director-store，零污染gốcKịch bản数据
- * - 产物只写 sclass-store.ShotGroup 的校准trường
+ * - 产物只写 sclass-store.ShotGroup 的Hiệu chuẩntrường
  */
 
 import type { SplitScene } from '@/stores/director-store';
@@ -24,13 +24,13 @@ import { useSClassStore } from '@/stores/sclass-store';
 
 // ==================== Loại定义 ====================
 
-/** 校准产物（AI 输出的 4 mục组级优化数据） */
+/** Hiệu chuẩn产物（AI 输出的 4 mục组级优化数据） */
 export interface CalibrationResult {
-  /** 组级叙事弧线Mô tả */
+  /** 组级tự sự弧线Mô tả */
   narrativeArc: string;
   /** Ống kính间过渡指令（长度 = scenes.length - 1） */
   transitions: string[];
-  /** 组级âm thanh设计（整段 15s 规划） */
+  /** 组级âm thanhThiết kế（整段 15s 规划） */
   groupAudioDesign: string;
   /** AI 优化后的组级 prompt */
   calibratedPrompt: string;
@@ -58,7 +58,7 @@ function summarizeScene(scene: SplitScene, characters: Character[]): string {
   if (scene.ambientSound) parts.push(`môi trường音：${scene.ambientSound}`);
   if (scene.soundEffectText) parts.push(`音效：${scene.soundEffectText}`);
   if (scene.emotionTags?.length) parts.push(`情绪：${scene.emotionTags.join('、')}`);
-  if (scene.narrativeFunction) parts.push(`叙事功能：${scene.narrativeFunction}`);
+  if (scene.narrativeFunction) parts.push(`tự sự功能：${scene.narrativeFunction}`);
 
   return parts.join('\n  ');
 }
@@ -66,7 +66,7 @@ function summarizeScene(scene: SplitScene, characters: Character[]): string {
 // ==================== 核心函数 ====================
 
 /**
- * 校准单组
+ * Hiệu chuẩn单组
  *
  * @param group       目标组（只读 sceneIds）
  * @param scenes      组内 SplitScene[]（只读，来自 director-store）
@@ -81,7 +81,7 @@ export async function calibrateGroup(
   _sceneLibrary: Scene[],
 ): Promise<CalibrationResult> {
   if (scenes.length === 0) {
-    throw new Error('组内无Ống kính，无法校准');
+    throw new Error('组内无Ống kính，无法Hiệu chuẩn');
   }
 
   const totalDuration = scenes.reduce((sum, s) => sum + (s.duration || 5), 0);
@@ -91,13 +91,13 @@ export async function calibrateGroup(
     `【Ống kính${i + 1}】\n  ${summarizeScene(s, characters)}`
   ).join('\n\n');
 
-  const systemPrompt = `你是一位资深电影Đạo diễn兼剪辑师，擅长多Ống kính叙事video的节奏把控和叙事连贯性优化。
+  const systemPrompt = `你是一位资深电影Đạo diễn兼剪辑师，擅长多Ống kínhtự sựvideo的节奏把控和tự sự连贯性优化。
 
 【核心约束 — 严格执 hàng】
 1. 严格基于以下Ống kính数据，不得ThêmKịch bảnđang xử lý...的Nhân vật、Cảnh或对白。
-2. 只做叙事连贯优化和过渡设计，不改变各Ống kính的核心Nội dung和情绪基调。
-3. 保留每Ống kính的原有运镜和Hành động设计，只在Ống kính衔接处增加过渡指令。
-4. âm thanh设计必须基于各Ống kính已有的môi trường音/音效信息，不凭空创造新音源。
+2. 只做tự sự连贯优化和过渡Thiết kế，不改变各Ống kính的核心Nội dung和情绪基调。
+3. 保留每Ống kính的原有运镜和Hành độngThiết kế，只在Ống kính衔接处增加过渡指令。
+4. âm thanhThiết kế必须基于各Ống kính已有的môi trường音/音效信息，不凭空创造新音源。
 5. calibratedPrompt 是对Tất cảỐng kính的整合重写，必须包含每Ống kính的核心信息，不遗漏。
 
 请以 JSON 格式Quay lại，Không有任何解释文字。`;
@@ -111,12 +111,12 @@ ${sceneSummaries}
 
 请输出以下 JSON：
 {
-  "narrativeArc": "用一句话Mô tả这组Ống kính的叙事弧线（起承转合）",
+  "narrativeArc": "用一句话Mô tả这组Ống kính的tự sự弧线（起承转合）",
   "transitions": [
     "Ống kính1→Ống kính2 的过渡指令（如：hình ảnh溶解、硬切、声桥过渡等）"
   ],
-  "groupAudioDesign": "整段 ${totalDuration}s 的âm thanh设计规划（môi trường音层次、音效时机、情绪曲线）",
-  "calibratedPrompt": "整合优化后的đầy đủ组级prompt，đang xử lý...于 Seedance 2.0 多Ống kính叙事Tạo video"
+  "groupAudioDesign": "整段 ${totalDuration}s 的âm thanhThiết kế规划（môi trường音层次、音效时机、情绪曲线）",
+  "calibratedPrompt": "整合优化后的đầy đủ组级prompt，đang xử lý...于 Seedance 2.0 多Ống kínhtự sựTạo video"
 }
 
 transitions 数组长度必须为 ${scenes.length - 1}（每两相邻Ống kính之间一条）。
@@ -170,7 +170,7 @@ calibratedPrompt 必须覆盖Tất cả ${scenes.length} Ống kính，保持Ố
 // ==================== Store 写入 ====================
 
 /**
- * 执 hàng校准并写入 store
+ * 执 hàngHiệu chuẩn并写入 store
  *
  * 这是 UI 层应该gọi API的入sổ。处理Trạng thái更新和错误。
  */
@@ -190,7 +190,7 @@ export async function runCalibration(
     return false;
   }
 
-  // 标记校准中
+  // 标记Hiệu chuẩn中
   store.updateShotGroup(groupId, {
     calibrationStatus: 'calibrating',
     calibrationError: null,
@@ -199,7 +199,7 @@ export async function runCalibration(
   try {
     const result = await calibrateGroup(group, scenes, characters, sceneLibrary);
 
-    // 写入校准产物
+    // 写入Hiệu chuẩn产物
     store.updateShotGroup(groupId, {
       narrativeArc: result.narrativeArc,
       transitions: result.transitions,
@@ -209,11 +209,11 @@ export async function runCalibration(
       calibrationError: null,
     });
 
-    console.log(`[SClassCalibrator] ✅ 组「${group.name}」校准完成`);
+    console.log(`[SClassCalibrator] ✅ 组「${group.name}」Hiệu chuẩn完成`);
     return true;
   } catch (error) {
     const errMsg = error instanceof Error ? error.message : String(error);
-    console.error(`[SClassCalibrator] ❌ 组「${group.name}」校准Thất bại:`, errMsg);
+    console.error(`[SClassCalibrator] ❌ 组「${group.name}」Hiệu chuẩnThất bại:`, errMsg);
 
     store.updateShotGroup(groupId, {
       calibrationStatus: 'failed',
@@ -225,7 +225,7 @@ export async function runCalibration(
 }
 
 /**
- * 批量校准Tất cả未校准的组
+ * 批量Hiệu chuẩnTất cả未Hiệu chuẩn的组
  *
  * @returns Thành công数 / Tổng数
  */
@@ -241,7 +241,7 @@ export async function runBatchCalibration(
 
   if (!projectData) return { success: 0, total: 0 };
 
-  // 筛选需要校准的组（未校准 或 校准Thất bại）
+  // 筛选需要Hiệu chuẩn的组（未Hiệu chuẩn 或 Hiệu chuẩnThất bại）
   const groups = projectData.shotGroups.filter(g =>
     !g.calibrationStatus || g.calibrationStatus === 'idle' || g.calibrationStatus === 'failed'
   );

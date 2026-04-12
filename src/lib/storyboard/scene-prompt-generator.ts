@@ -99,7 +99,7 @@ function inferNeedsEndFrame(scene: ScenePromptRequest['scenes'][0]): { needs: bo
   // Keywords indicating large movement
   const movementKeywords = ['走', '跑', '冲', '离开', '进入', '走进', '走出', '冲向', '奔向', 'walk', 'run', 'enter', 'exit', 'move', 'rush'];
   const transformKeywords = ['变', '转变', '蜕变', '化为', 'transform', 'change'];
-  const cameraKeywords = ['360', '环绕', '推进', '拉远', '航拍', '穿梭', '变焦', '摇臂', '升降', '左移', '右移', '左摇', '右摇', '上仰', '下俯', 'dolly', 'pan', 'tilt', 'rotate', 'orbit', 'zoom', 'truck', 'crane', 'drone', 'fpv', 'tracking'];
+  const cameraKeywords = ['360', '环绕', '推进', '拉远', '航拍', '穿梭', 'Zoom', '摇臂', 'Nâng hạ', '左移', '右移', '左摇', '右摇', '上仰', '下俯', 'dolly', 'pan', 'tilt', 'rotate', 'orbit', 'zoom', 'truck', 'crane', 'drone', 'fpv', 'tracking'];
   
   for (const kw of movementKeywords) {
     if (action.includes(kw)) {

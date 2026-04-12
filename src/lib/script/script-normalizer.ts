@@ -4,7 +4,7 @@
 /**
  * Script Format Normalizer - 剧本格式归一化器
  * 
- * 在 parseFullScript 之前自动检测非标准格式并插入Cấu trúc标记，
+ * 在 parseFullScript 之前Tự động检测非标准格式并插入Cấu trúc标记，
  * 使解析器能正确提取标题、đại cương、nhân vật小传、 tập数等信息。
  * 
  * 双层架构：
@@ -12,7 +12,7 @@
  * 2. 正则兜底（降级）：无 AI 配置或 AI gọi API失败时使用硬编码chế độ匹配
  * 
  * 核心原则：
- * - 只插入Cấu trúc标记（《》、đại cương：、nhân vật小传：）+ AI 生成的đại cương
+ * - 只插入Cấu trúc标记（《》、đại cương：、nhân vật小传：）+ AI Tạo的đại cương
  * - 不修改、不删除任何gốc内容
  * - 幂等：已有标准格式的文本不受影响
  */
@@ -21,7 +21,7 @@ import { callFeatureAPI } from '@/lib/ai/feature-router';
 import { getFeatureConfig } from '@/lib/ai/feature-router';
 
 /**
- * 预处理：为缺少换行的文本自动在Cấu trúc标记前插入换行
+ * 预处理：为缺少换行的文本Tự động在Cấu trúc标记前插入换行
  * 
  * 用户从 Word/微信/网页复制的剧本经常丢失换行，变成一整段文字。
  * 本函数在quan trọngCấu trúc标记前插入 \n，使后续的行首正则能正常匹配。
@@ -170,7 +170,7 @@ export interface ScriptStructureAnalysis {
   genre: string;
   /** 原文đang xử lý...有đại cương/故事概述 */
   hasOutline: boolean;
-  /** AI 生成的đại cương（仅当 hasOutline=false 时填充） */
+  /** AI Tạo的đại cương（仅当 hasOutline=false 时填充） */
   generatedOutline: string;
   /** nhân vật/角色描述区域bắt đầu文本（精确复制原文前30字符） */
   characterSectionKeyword: string;
@@ -227,7 +227,7 @@ export async function analyzeScriptStructureWithAI(text: string): Promise<Script
   "era": "thời đại背景（古代/现代/民国/清末/未来/当代等）",
   "genre": "类型（武侠/商战/爱情/悬疑/科幻/仙侠/军旅/家庭等）",
   "hasOutline": false,
-  "generatedOutline": "如果文本đang xử lý...纲/故事概述区域，基于全文内容生成一段简洁đại cương（100-200字）；如果已有đại cương则Để trống字符串",
+  "generatedOutline": "如果文本đang xử lý...纲/故事概述区域，基于全文内容Tạo一段简洁đại cương（100-200字）；如果已有đại cương则Để trống字符串",
   "characterSectionKeyword": "nhân vật/角色描述区域开始处的原文文本（精确复制前30字符），找不到则Để trống",
   "outlineSectionKeyword": "đại cương/故事概述区域开始处的原文文本（精确复制前30字符），找不到则Để trống",
   "logline": "一句话概括整故事（比如：被驱逐的侠客为救百姓重返雁城）",
@@ -246,7 +246,7 @@ export async function analyzeScriptStructureWithAI(text: string): Promise<Script
 2. era：必须根据内容语境判断，不要默认为现代（如有城主/剑法/江湖等当判为古代）
 3. genre：根据内容đang xử lý...判断
 4. hasOutline：原文đang xử lý...有“đại cương”“故事简介”“故事背景”等明确的概述性段落
-5. generatedOutline：仅当 hasOutline=false 时生成
+5. generatedOutline：仅当 hasOutline=false 时Tạo
 6. characterSectionKeyword：必须是原文đang xử lý...在的文本đoạn
 7. characters：从nhân vật小传/角色描述đang xử lý...ất cả角色，包含名字、年龄、身份、phe phái、性格、quan trọng行为
 8. factions：从「一、核心nhân vật chính」「二、chính diện势力角色」「三、反派势力角色」等分类đang xử lý...营
@@ -332,7 +332,7 @@ export async function analyzeScriptStructureWithAI(text: string): Promise<Script
 
 /**
  * 基于 AI 分析结果插入Cấu trúc标记
- * 原文内容一字不差，只插入标记 + AI 生成的đại cương
+ * 原文内容一字不差，只插入标记 + AI Tạo的đại cương
  */
 export function applyAIAnalysis(text: string, analysis: ScriptStructureAnalysis): NormalizationResult {
   const changes: string[] = [];
@@ -382,7 +382,7 @@ export function applyAIAnalysis(text: string, analysis: ScriptStructureAnalysis)
         changes.push(`[AI] đại cương标记: 在"${analysis.outlineSectionKeyword.substring(0, 20)}..."前插入`);
       }
     } else {
-      // 原文无đại cương → 插入 AI 生成的đại cương
+      // 原文无đại cương → 插入 AI Tạo的đại cương
       const charBiosPos = normalized.search(/(?:\*{0,2}nhân vật小传[：:]\*{0,2}|【nhân vật小传】)/i);
       let outlineContent = (!analysis.hasOutline && analysis.generatedOutline)
         ? analysis.generatedOutline
@@ -402,7 +402,7 @@ export function applyAIAnalysis(text: string, analysis: ScriptStructureAnalysis)
           + `đại cương：\n${outlineContent}\n\n`
           + normalized.substring(charBiosPos);
         changes.push(outlineContent
-          ? `[AI] đại cương: AI 生成đại cương（${outlineContent.length}字）`
+          ? `[AI] đại cương: AI Tạođại cương（${outlineContent.length}字）`
           : '[AI] đại cương标记: 插入空đại cương');
       }
     }

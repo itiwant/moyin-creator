@@ -298,7 +298,7 @@ function handleVideoSubmitError(
     const keyHint = nextKey ? `${nextKey.substring(0, 8)}…` : '(none)';
     console.log(`[VideoGen] Rotated to next key: ${keyHint} (due to ${status})`);
   }
-  let errorMessage = `video API 错误: ${status}`;
+  let errorMessage = `video API Lỗi: ${status}`;
   try {
     const errorJson = JSON.parse(errorText);
     errorMessage = errorJson.error?.message || errorJson.message || errorMessage;
@@ -818,7 +818,7 @@ async function callVolcVideoApi(
 
   // 轮询: GET /volc/v1/contents/generations/tasks/{taskId}
   const pollInterval = 5000;
-  const maxAttempts = 180; // 15分钟
+  const maxAttempts = 180; // 15 phút
 
   for (let attempt = 0; attempt < maxAttempts; attempt++) {
     onProgress?.(Math.min(20 + Math.floor((attempt / maxAttempts) * 80), 99));

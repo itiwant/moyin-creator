@@ -4,9 +4,9 @@
 /**
  * Series Meta Sync — 剧级元数据工具模块
  *
- * 1. populateSeriesMetaFromImport: 首次导入时从解析结果 + AI 分析构建 SeriesMeta
+ * 1. populateSeriesMetaFromImport: 首次Nhập时从解析结果 + AI 分析构建 SeriesMeta
  * 2. buildSeriesContextSummary: 从 SeriesMeta 构建紧凑的 AI 注入上下文摘要
- * 3. syncToSeriesMeta: 校准完成后回写丰富数据到 SeriesMeta
+ * 3. syncToSeriesMeta: Hiệu chuẩn完成后回写丰富数据到 SeriesMeta
  */
 
 import type {
@@ -21,10 +21,10 @@ import type {
 } from '@/types/script';
 import type { ScriptStructureAnalysis } from './script-normalizer';
 
-// ==================== 1. 首次导入填充 ====================
+// ==================== 1. 首次Nhập填充 ====================
 
 /**
- * 从导入结果构建 SeriesMeta
+ * 从Nhập结果构建 SeriesMeta
  * 优先使用 AI 分析结果，不足时从 background + scriptData 补全
  */
 export function populateSeriesMetaFromImport(
@@ -54,11 +54,11 @@ export function populateSeriesMetaFromImport(
     keyItems: aiAnalysis?.keyItems?.map(i => ({ name: i.name, desc: i.description })) || undefined,
     worldNotes: background.worldSetting || undefined,
 
-    // 角色hệ thống — 优先用 scriptData.characters（已过正则解析+校准），AI 的 characters 作为补充
+    // 角色hệ thống — 优先用 scriptData.characters（已过正则解析+Hiệu chuẩn），AI 的 characters 作为补充
     characters: scriptData.characters || [],
     factions: aiAnalysis?.factions || undefined,
 
-    // 视觉系统 — Trực tiếp使用用户在导入面板Chọn的风格
+    // 视觉系统 — Trực tiếp使用用户在Nhập面板Chọn的风格
     styleId: importSettings?.styleId,
     recurringLocations: undefined,
     colorPalette: undefined,
@@ -183,16 +183,16 @@ export function buildSeriesContextSummary(meta: SeriesMeta | null): string {
   return parts.join('\n');
 }
 
-// ==================== 3. 校准回写 ====================
+// ==================== 3. Hiệu chuẩn回写 ====================
 
 export type CalibrationSyncType = 'character' | 'scene' | 'shot';
 
 /**
- * 校准完成后回写数据到 SeriesMeta
+ * Hiệu chuẩn完成后回写数据到 SeriesMeta
  *
  * @param meta 当前 SeriesMeta
- * @param syncType 校准类型
- * @param results 校准结果数据
+ * @param syncType Hiệu chuẩn类型
+ * @param results Hiệu chuẩn结果数据
  * @returns 更新后的 partial SeriesMeta（用于 updateSeriesMeta）
  */
 export function syncToSeriesMeta(
@@ -208,7 +208,7 @@ export function syncToSeriesMeta(
 
   switch (syncType) {
     case 'character': {
-      // 角色校准后：回写 identityAnchors, visualPrompt, negativePrompt, consistencyElements
+      // 角色Hiệu chuẩn后：回写 identityAnchors, visualPrompt, negativePrompt, consistencyElements
       if (results.characters?.length) {
         const updatedChars = meta.characters.map(existing => {
           const calibrated = results.characters!.find(c =>
@@ -217,7 +217,7 @@ export function syncToSeriesMeta(
           );
           if (!calibrated) return existing;
 
-          // 只回写 AI 校准产出的trường，不覆盖用户手动编辑的
+          // 只回写 AI Hiệu chuẩn产出的trường，不覆盖用户手动chỉnh sửa的
           return {
             ...existing,
             identityAnchors: calibrated.identityAnchors || existing.identityAnchors,
@@ -232,13 +232,13 @@ export function syncToSeriesMeta(
           };
         });
         updates.characters = updatedChars;
-        console.log(`[syncToSeriesMeta:character] 回写 ${results.characters.length} 角色校准结果`);
+        console.log(`[syncToSeriesMeta:character] 回写 ${results.characters.length} 角色Hiệu chuẩn结果`);
       }
       break;
     }
 
     case 'scene': {
-      // 场景校准后：识别常驻场景（≥2 tập出现），更新địa lý
+      // 场景Hiệu chuẩn后：识别常驻场景（≥2 tập出现），更新địa lý
       if (results.scenes?.length) {
         // 常驻场景：episodeNumbers >= 2
         const recurring = results.scenes.filter(s =>
@@ -281,7 +281,7 @@ export function syncToSeriesMeta(
     }
 
     case 'shot': {
-      // 分镜校准后：追加新Vật phẩm quan trọng（只追加不覆盖）
+      // 分镜Hiệu chuẩn后：追加新Vật phẩm quan trọng（只追加不覆盖）
       if (results.keyItems?.length) {
         const existingItemNames = new Set(
           (meta.keyItems || []).map(i => i.name)

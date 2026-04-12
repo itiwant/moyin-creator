@@ -10,7 +10,7 @@
  * Usage:
  *   const config = getFeatureConfig('character_generation');
  *   if (!config) {
- *     toast.error('请先在设置đang xử lý...色生成的 API 供应商');
+ *     toast.error('请先在设置đang xử lý...色Tạo的 API 供应商');
  *     return;
  *   }
  *   // Use config.apiKey and config.provider in API call
@@ -228,11 +228,11 @@ export function getFeatureNotConfiguredMessage(feature: AIFeature): string {
 import { callChatAPI } from '@/lib/script/script-parser';
 
 export interface CallFeatureAPIOptions {
-  /** 自定义温度，默认 0.7 */
+  /** Tùy chỉnh温度，默认 0.7 */
   temperature?: number;
-  /** 自定义最大输出 token 数（默认 4096，推理模型建议设置更高） */
+  /** Tùy chỉnh最大输出 token 数（默认 4096，推理模型建议设置更高） */
   maxTokens?: number;
-  /** 强制覆盖模型（一般不需要，自动从ánh xạ dịch vụ获取） */
+  /** 强制覆盖模型（一般不需要，Tự động从ánh xạ dịch vụ获取） */
   modelOverride?: string;
   /** 强制使用指定的配置（用于批量调度时指定具体模型） */
   configOverride?: FeatureConfig;
@@ -241,14 +241,14 @@ export interface CallFeatureAPIOptions {
 }
 
 /**
- * 统一的 AI gọi API入sổ - 自动从ánh xạ dịch vụ获取配置
+ * 统一的 AI gọi API入sổ - Tự động从ánh xạ dịch vụ获取配置
  * 
  * v2: 支持多模型轮询
  * 
  * 用法：
  *   const result = await callFeatureAPI('script_analysis', systemPrompt, userPrompt);
  * 
- * 不需要手动传 apiKey、baseUrl、model，Tất cả从ánh xạ dịch vụ自动获取
+ * 不需要手动传 apiKey、baseUrl、model，Tất cả从ánh xạ dịch vụTự động获取
  */
 export async function callFeatureAPI(
   feature: AIFeature,

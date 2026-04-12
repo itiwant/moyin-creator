@@ -4,12 +4,12 @@
 /**
  * AI Character Finder
  * 
- * 根据用户自然Ngôn ngữ描述，从剧本đang xử lý...色并生成专业角色数据
+ * 根据用户自然Ngôn ngữ描述，从剧本đang xử lý...色并Tạo专业角色数据
  * 
  * 功能：
  * 1. 解析用户输入（如 "缺第10 tập的王大哥这角色"）
  * 2. 搜索剧本đang xử lý...信息
- * 3. AI 生成đầy đủ角色数据（包括视觉提示词）
+ * 3. AI Tạođầy đủ角色数据（包括视觉提示词）
  */
 
 import type { ScriptCharacter, ProjectBackground, EpisodeRawScript } from '@/types/script';
@@ -28,13 +28,13 @@ export interface CharacterSearchResult {
   episodeNumbers: number[];
   /** 找到的上下文（对白、场景等） */
   contexts: string[];
-  /** AI 生成的đầy đủ角色数据 */
+  /** AI Tạo的đầy đủ角色数据 */
   character?: ScriptCharacter;
   /** 搜索说明 */
   message: string;
 }
 
-/** @deprecated 不再需要手动传递，自动从ánh xạ dịch vụ获取 */
+/** @deprecated 不再需要手动传递，Tự động从ánh xạ dịch vụ获取 */
 export interface FinderOptions {
   apiKey?: string;
   provider?: string;
@@ -187,7 +187,7 @@ function searchCharacterInScripts(
 }
 
 /**
- * 使用 AI 生成đầy đủ角色数据
+ * 使用 AI Tạođầy đủ角色数据
  */
 async function generateCharacterData(
   name: string,
@@ -230,7 +230,7 @@ async function generateCharacterData(
     // 古装剧quan trọng词（明确的古代设定）
     const ancientKeywords = ['古代', '古装', '武侠', '仙侠', '唐朝', '宋朝', '明朝', '清朝', '汉朝', '三国', '战国', '秦朝', '宫廷', '皇宫', '江湖', '修仙', '玄幻', '神话', '传说', '朝代', '皇帝', '大臣', '太监', '妃子'];
     // 未来/科幻quan trọng词
-    const futureKeywords = ['未来', '科幻', '太空', '星际', '机器人', '赛博朋克', '末日', '后启示录', '反乌托邦', '人工智能', '2100', '2200', '2300'];
+    const futureKeywords = ['未来', '科幻', '太空', '星际', '机器人', '赛博朋克', '末日', '后启示录', '反乌托邦', '人工thông minh', '2100', '2200', '2300'];
     
     const allText = `${era} ${timeline} ${genre} ${outline}`;
     
@@ -254,18 +254,18 @@ async function generateCharacterData(
     if (storyType === 'ancient') {
       const era = background.era || background.timelineSetting || '古代';
       return `【${era}服装指导】
-请根据剧本设定的历史thời đại设计服装：
+请根据剧本设定的历史thời đạiThiết kế服装：
 - 如果是客梨或武侠：古代汉服、侠客服饰、布衣草鞋
 - 如果是宫廷：宫装、朝服、官服
 - 如果是仙侠/玄幻：仙侠风格的服饰、飘逸长袍
-请根据角色身份（平民/贵族/侠客/官员）设计合适的古代服装。`;
+请根据角色身份（平民/贵族/侠客/官员）Thiết kế合适的古代服装。`;
     }
     
     // 未来/科幻剧
     if (storyType === 'future') {
       return `【未来/科幻服装指导】
-请根据剧本设定设计未来风格服装：
-- 科技感服饰、功能性装备、智能穿戴
+请根据剧本设定Thiết kế未来风格服装：
+- 科技感服饰、功能性装备、thông minh穿戴
 - 根据设定可以是乌托邦风格或反乌托邦风格
 - 注意角色身份（平民/科学家/军人/机械师）`;
     }
@@ -296,13 +296,13 @@ async function generateCharacterData(
 - 老年人：đang xử lý...棉袄、布鞋`;
       } else {
         return `【${startYear}年代服装指导】
-请根据该年代的đang xử lý...服装风格设计`;
+请根据该年代的đang xử lý...服装风格Thiết kế`;
       }
     }
     
     // 默认现代
     return `【现代服装指导】
-请设计符合当代đang xử lý...装风格，根据角色年龄和身份Chọn合适的现代服装。`;
+请Thiết kế符合当代đang xử lý...装风格，根据角色年龄和身份Chọn合适的现代服装。`;
   };
   
   // 构建年代信息字符串
@@ -322,11 +322,11 @@ async function generateCharacterData(
   const eraInfo = getEraInfo();
   const eraFashionGuidance = getEraFashionGuidance();
   
-  const systemPrompt = `你是专业的影视角色设计师，擅长从剧本信息đang xử lý...色特征并生成专业的角色数据。
+  const systemPrompt = `你是专业的影视角色Thiết kế师，擅长从剧本信息đang xử lý...色特征并Tạo专业的角色数据。
 
-请根据提供的剧本信息和角色上下文，生成đầy đủ的角色数据。
+请根据提供的剧本信息和角色上下文，Tạođầy đủ的角色数据。
 
-【服装设计要求】
+【服装Thiết kế要求】
 ${eraFashionGuidance}
 
 服装必须与剧本thời đại背景一致，不要混淆不同thời đại的服装风格。
@@ -341,7 +341,7 @@ ${eraFashionGuidance}
   "role": "角色身份/职业/在剧đang xử lý...",
   "appearance": "Đặc điểm ngoại hình描述（服装必须符合年代）",
   "relationships": "与其他角色的关系",
-  "visualPromptEn": "英文视觉提示词，用于AI图像生成，描述外貌、服装（必须符合年代）、气质",
+  "visualPromptEn": "英文视觉提示词，用于AI图像Tạo，描述外貌、服装（必须符合年代）、气质",
   "visualPromptZh": "đang xử lý...提示词",
   "importance": "protagonist/supporting/minor"
 }`;
@@ -366,7 +366,7 @@ ${contexts.slice(0, 3).join('\n\n')}
 【角色对白样本】
 ${dialogueSamples.join('\n')}
 
-请基于以上信息，生成角色「${name}」的đầy đủ数据。
+请基于以上信息，Tạo角色「${name}」的đầy đủ数据。
 
 【重要】服装必须符合故事thời đại背景（${eraInfo}）！`;
 
@@ -412,21 +412,21 @@ ${dialogueSamples.join('\n')}
       relationships: ensureString(parsed.relationships),
       visualPromptEn: ensureString(parsed.visualPromptEn),
       visualPromptZh: ensureString(parsed.visualPromptZh),
-      tags: [parsed.importance || 'minor', 'AI生成'],
+      tags: [parsed.importance || 'minor', 'AITạo'],
     };
   } catch (error) {
-    console.error('[generateCharacterData] AI生成失败:', error);
+    console.error('[generateCharacterData] AITạo失败:', error);
     // 返回基础数据
     return {
       id: `char_${Date.now()}`,
       name,
-      tags: ['AI生成'],
+      tags: ['AITạo'],
     };
   }
 }
 
 /**
- * 主函数：根据用户描述查找并生成角色
+ * 主函数：根据用户描述查找并Tạo角色
  */
 export async function findCharacterByDescription(
   userQuery: string,
@@ -487,8 +487,8 @@ export async function findCharacterByDescription(
     };
   }
   
-  // 4. 使用 AI 生成đầy đủ角色数据
-  console.log('[findCharacterByDescription] 正在生成角色数据...');
+  // 4. 使用 AI Tạođầy đủ角色数据
+  console.log('[findCharacterByDescription] 正在Tạo角色数据...');
   
   const character = await generateCharacterData(
     name,

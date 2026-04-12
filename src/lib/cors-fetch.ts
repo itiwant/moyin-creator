@@ -4,7 +4,7 @@
 /**
  * CORS-safe fetch wrapper
  *
- * 自动检测运行môi trường：
+ * Tự động检测运行môi trường：
  * - Electron 桌面chế độ → Trực tiếp使用原生 fetch()（无 CORS 限制）
  * - 浏览器开发chế độ   → 通过 Vite 开发服务器 /__api_proxy?url=... 代理转发
  * - 浏览器生产chế độ   → Trực tiếp fetch()（需后端/Nginx 提供反向代理）
@@ -26,7 +26,7 @@ function isViteDev(): boolean {
 /**
  * CORS 安全的 fetch 封装
  *
- * 在浏览器开发chế độ下，自动将请求代理到 Vite 开发服务器的
+ * 在浏览器开发chế độ下，Tự động将请求代理到 Vite 开发服务器的
  * `/__api_proxy` đang xử lý...由服务端转发请求以绕过 CORS 限制。
  *
  * @param url    目标 URL（与原生 fetch 参数相同）

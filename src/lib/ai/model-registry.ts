@@ -10,7 +10,7 @@
  *   2. 静态注册表（官方文档验证过的已知模型）
  *   3. _default 保守默认值
  *
- * 设计原则：
+ * Thiết kế原则：
  *   - 按模型名查表，不按 URL — memefast 代理的模型和直连一样
  *   - prefix 匹配按长度降序 — 避免短前缀误匹配更具体的模型
  *   - 仅覆盖 text/chat 模型 — 图像/视频/音频不走 callChatAPI
@@ -262,7 +262,7 @@ export function estimateTokens(text: string): number {
 }
 
 /**
- * 智能截断文本，不在句子或段落đang xử lý...
+ * thông minh截断文本，不在句子或段落đang xử lý...
  * 避免截断导致 JSON Cấu trúc损坏或 AI 理解混乱
  *
  * @param text gốc文本

@@ -2,11 +2,11 @@
 // Licensed under AGPL-3.0-or-later. See LICENSE for details.
 // Commercial licensing available. See COMMERCIAL_LICENSE.md.
 /**
- * Trailer Service - AI 预告片分镜挑选服务
+ * Trailer Service - AI 预告片分镜chọn服务
  * 
- * 功能：从已有的分镜đang xử lý...选quan trọng分镜，生成预告片
- * 挑选标准：
- * - 叙事功能为"cao trào/转折"的优先
+ * 功能：从已有的分镜đang xử lý...选quan trọng分镜，Tạo预告片
+ * chọn标准：
+ * - tự sự功能为"cao trào/转折"的优先
  * - 有强烈情绪标签的优先
  * - 有视觉冲击的场景优先
  * - quan trọng角色出场的优先
@@ -20,10 +20,10 @@ import { callFeatureAPI } from '@/lib/ai/feature-router';
 const DURATION_TO_SHOT_COUNT: Record<TrailerDuration, number> = {
   10: 2,   // 10秒：2-3分镜
   30: 6,   // 30秒：5-6分镜
-  60: 12,  // 1分钟：10-12分镜
+  60: 12,  // 1 phút：10-12分镜
 };
 
-/** @deprecated 不再需要手动传递，自动从ánh xạ dịch vụ获取 */
+/** @deprecated 不再需要手动传递，Tự động从ánh xạ dịch vụ获取 */
 export interface TrailerGenerationOptions {
   apiKey?: string;
   provider?: string;
@@ -38,7 +38,7 @@ export interface TrailerGenerationResult {
 }
 
 /**
- * AI 挑选预告片分镜
+ * AI chọn预告片分镜
  * 
  * @param shots Tất cả可用的分镜
  * @param background 项目背景信息
@@ -93,18 +93,18 @@ export async function selectTrailerShots(
 【预告片Cấu trúc原则】
 1. **开场**：建立氛围，吸引注意（1-2镜头）
 2. **冲突升级**：Hiển thị故事的核心冲突（2-4镜头）
-3. **cao trào悬念**：最具张力的画面，留下悬念（1-2镜头）
+3. **cao trào悬念**：最具sức căng的画面，留下悬念（1-2镜头）
 
-【挑选标准】
-- 优先Chọn叙事功能为"cao trào"、"转折"、"冲突"的镜头
+【chọn标准】
+- 优先Chọntự sự功能为"cao trào"、"转折"、"冲突"的镜头
 - 优先Chọn有强烈情绪（tense, excited, mysterious）的镜头
-- 优先Chọn有视觉冲击力的画面（动作场面、特写、对峙）
+- 优先Chọn有视觉冲击力的画面（动作场面、Cực cận cảnh、对峙）
 - 优先Chọn主要角色出场的quan trọng时刻
 - 覆盖不同 tập数，Hiển thị故事跨度
 - 避免剧透quan trọng结局
 
 【输出要求】
-请返回一 JSON 数组，包含你挑选的分镜序号（index），按预告片播放顺序排列。
+请返回一 JSON 数组，包含你chọn的分镜序号（index），按预告片播放顺序排列。
 格式：{ "selectedIndices": [1, 5, 12, 23, 45, 60] }`;
 
     const userPrompt = `【项目信息】
@@ -117,7 +117,7 @@ ${shotSummaries.map(s =>
    动作：${s.actionSummary.slice(0, 100)}
    描述：${s.visualDescription.slice(0, 100)}
    角色：${s.characterNames.join('、') || '无'}
-   叙事功能：${s.narrativeFunction || '未知'}
+   tự sự功能：${s.narrativeFunction || '未知'}
    情绪：${Array.isArray(s.emotionTags) ? s.emotionTags.join(', ') : '无'}`
 ).join('\n\n')}
 
@@ -184,26 +184,26 @@ ${shotSummaries.map(s =>
   } catch (error) {
     console.error('[TrailerService] AI selection failed:', error);
     
-    // 回退方案：使用规则挑选
+    // 回退方案：使用规则chọn
     const fallbackShots = selectTrailerShotsByRules(shots, targetCount);
     return {
       success: true,
       selectedShots: fallbackShots,
       shotIds: fallbackShots.map(s => s.id),
-      error: 'AI 挑选失败，使用规则挑选',
+      error: 'AI chọn失败，使用规则chọn',
     };
   }
 }
 
 /**
- * 规则挑选（AI 失败时的回退方案）
+ * 规则chọn（AI 失败时的回退方案）
  */
 function selectTrailerShotsByRules(shots: Shot[], targetCount: number): Shot[] {
   // 评分函数
   const scoreShot = (shot: Shot): number => {
     let score = 0;
     
-    // 叙事功能评分
+    // tự sự功能评分
     const narrativeFunction = (shot as any).narrativeFunction || '';
     if (narrativeFunction.includes('cao trào')) score += 10;
     if (narrativeFunction.includes('转折')) score += 8;
@@ -238,7 +238,7 @@ function selectTrailerShotsByRules(shots: Shot[], targetCount: number): Shot[] {
   const episodeCount = episodeSet.size;
   
   if (episodeCount > 1) {
-    // 多 tập：每 tập挑选一部分
+    // 多 tập：每 tậpchọn一部分
     const perEpisode = Math.ceil(targetCount / episodeCount);
     const selected: Shot[] = [];
     const episodeSelected = new Map<string, number>();
@@ -266,7 +266,7 @@ function selectTrailerShotsByRules(shots: Shot[], targetCount: number): Shot[] {
 }
 
 /**
- * 将挑选的 Shot 转换为 SplitScene 格式（用于 AI 导演分镜编辑）
+ * 将chọn的 Shot 转换为 SplitScene 格式（用于 AI 导演分镜chỉnh sửa）
  */
 export function convertShotsToSplitScenes(
   shots: Shot[],
@@ -304,7 +304,7 @@ export function convertShotsToSplitScenes(
     dialogue: shot.dialogue || '',
     actionSummary: shot.actionSummary || '',
     cameraMovement: shot.cameraMovement || '',
-    // 叙事驱动trường
+    // tự sự驱动trường
     narrativeFunction: (shot as any).narrativeFunction || '',
     shotPurpose: (shot as any).shotPurpose || '',
     visualFocus: (shot as any).visualFocus || '',

@@ -1124,7 +1124,7 @@ export function SplitScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
         return undefined;
       };
 
-      // gọi API API - 使用智能路由（Tự độngChọn chat completions 或 images/generations）
+      // gọi API API - 使用thông minh路由（Tự độngChọn chat completions 或 images/generations）
       console.log('[QuadGrid] Calling API, model:', model);
       const apiResult = await submitGridImageRequest({
         model,
@@ -2683,7 +2683,7 @@ export function SplitScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
         return undefined;
       };
       
-      // gọi API API Tạo九宫格ảnh - 使用智能路由（Tự độngChọn chat completions 或 images/generations）
+      // gọi API API Tạo九宫格ảnh - 使用thông minh路由（Tự độngChọn chat completions 或 images/generations）
       console.log('[MergedGen] Calling API with', apiReferenceImages.length, 'reference images, model:', model);
       const apiResult = await submitGridImageRequest({
         model,
@@ -2934,7 +2934,7 @@ export function SplitScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
   ]);
 
   // 复用单图Tạo的 API 路径，封装为通用函数（Hỗ trợKhung hình đầu/Khung hình cuối）
-  // 合并Tạo专用：使用预计算Tham chiếu cột表；不降级到单图通道
+  // 合并Tạo专用：使用ước tính算Tham chiếu cột表；不降级到单图通道
   const generateImageForSceneMerged = async (
     sceneId: number,
     prompt: string,
@@ -3371,7 +3371,7 @@ export function SplitScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
 
   return (
     <div className="space-y-4">
-      {/* 顶部 Tab 切换 */}
+      {/* Chuyển Tab đầu trang */}
       <div className="border-b -mx-4 px-4 -mt-4 pt-4">
         <Tabs value={activeTab} onValueChange={(v) => setActiveTab(v as "editing" | "trailer")} className="w-full">
           <TabsList className="w-full justify-start h-9 rounded-none bg-transparent border-b-0 p-0">
@@ -3401,7 +3401,7 @@ export function SplitScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
               <Clapperboard className="h-8 w-8 mx-auto mb-2 opacity-50" />
               <p>Trailer功能</p>
               <p className="text-xs mt-1">请在左侧「Kịch bản」面板đang xử lý...railer」Thẻ页TạoTrailer</p>
-              <p className="text-xs mt-1">挑选的Phân cảnh将在此Hiện并可thực hiệnảnh/Tạo video</p>
+              <p className="text-xs mt-1">chọn的Phân cảnh将在此Hiện并可thực hiệnảnh/Tạo video</p>
             </div>
           ) : (
             <>
@@ -3413,7 +3413,7 @@ export function SplitScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
                     {trailerScenes.length} Phân cảnh
                   </span>
                   <span className="text-xs text-muted-foreground">
-                    预计 {trailerScenes.reduce((sum, s) => sum + (s.duration || 5), 0)} 秒
+                    ước tính {trailerScenes.reduce((sum, s) => sum + (s.duration || 5), 0)} 秒
                   </span>
                 </div>
                 <div className="flex items-center gap-2">

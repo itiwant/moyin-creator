@@ -45,9 +45,9 @@ interface StylePickerProps {
   onChange: (styleId: VisualStyleId) => void;
   /** 是否使用下拉popup出chế độ（默认 true） */
   popover?: boolean;
-  /** 自定义触发器（仅 popover chế độ） */
+  /** Tùy chỉnh触发器（仅 popover chế độ） */
   trigger?: React.ReactNode;
-  /** 自定义类名 */
+  /** Tùy chỉnh类名 */
   className?: string;
   /** 禁用状态 */
   disabled?: boolean;
@@ -70,7 +70,7 @@ export function StylePicker({
   const [hoveredStyle, setHoveredStyle] = useState<StylePreset | null>(null);
   const [isOpen, setIsOpen] = useState(false);
 
-  // 用户自定义风格（用户数据，存储在 localStorage）
+  // 用户Tùy chỉnh风格（用户数据，存储在 localStorage）
   const customStyles = useCustomStyleStore((s) => s.styles);
   const customAsPresets: StylePreset[] = useMemo(() =>
     customStyles.map((s) => ({
@@ -86,7 +86,7 @@ export function StylePicker({
     [customStyles]
   );
 
-  // 获取Đang chọn的风格（内置 + 自定义）
+  // 获取Đang chọn的风格（内置 + Tùy chỉnh）
   const selectedStyle = useMemo(() => getStyleById(value), [value]);
 
   // 预览的风格（悬停优先，否则显示đã chọn的）
@@ -128,7 +128,7 @@ export function StylePicker({
             </div>
           ))}
 
-          {/* 用户自定义风格（用户人资产） */}
+          {/* 用户Tùy chỉnh风格（用户人资产） */}
           {customAsPresets.length > 0 && (
             <div className="mb-4">
               <div className="px-2 py-1.5 text-xs font-medium text-primary border-b border-primary/30 mb-2">

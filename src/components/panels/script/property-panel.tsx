@@ -67,7 +67,7 @@ import type { PendingViewpointData, ContactSheetPromptSet } from "@/stores/media
 // 状态徽章
 function StatusBadge({ status }: { status?: CompletionStatus }) {
   const config = {
-    pending: { label: "未开始", className: "bg-muted text-muted-foreground" },
+    pending: { label: "Chưa bắt đầu", className: "bg-muted text-muted-foreground" },
     in_progress: { label: "Đang thực hiện", className: "bg-yellow-500/10 text-yellow-600" },
     completed: { label: "Đã hoàn thành", className: "bg-green-500/10 text-green-600" },
   };
@@ -93,15 +93,15 @@ interface PropertyPanelProps {
   character?: ScriptCharacter;
   scene?: ScriptScene;
   shot?: Shot;
-  episode?: EpisodeDetail;  //  tập信息
-  episodeShots?: Shot[];    // 该 tập的Tất cảPhân cảnh
-  sceneShots?: Shot[];      // 该Cảnh的Tất cảPhân cảnh（用于多视角phân tích）
+  episode?: EpisodeDetail;  //  tập thông tin
+  episodeShots?: Shot[];    // Tất cả phân cảnh của tập này
+  sceneShots?: Shot[];      // Tất cả phân cảnh của cảnh này (dùng để phân tích đa góc nhìn)
   onGoToCharacterLibrary?: (characterId: string) => void;
   onGoToSceneLibrary?: (sceneId: string) => void;
   onGoToDirector?: (shotId: string) => void;
-  onGoToDirectorFromScene?: (sceneId: string) => void; // Cảnh级别跳转
-  onGenerateEpisodeShots?: (episodeIndex: number) => void; // 生成Phân cảnh
-  onCalibrateShots?: (episodeIndex: number) => void;  // 校准Phân cảnh
+  onGoToDirectorFromScene?: (sceneId: string) => void; // Chuyển cấp độ cảnh
+  onGenerateEpisodeShots?: (episodeIndex: number) => void; // Tạo phân cảnh
+  onCalibrateShots?: (episodeIndex: number) => void;  // Hiệu chuẩn phân cảnh
   // Edit callbacks
   onUpdateCharacter?: (id: string, updates: Partial<ScriptCharacter>) => void;
   onUpdateScene?: (id: string, updates: Partial<ScriptScene>) => void;
@@ -157,24 +157,24 @@ export function PropertyPanel({
     if (!scene) return;
     
     const lines: string[] = [];
-    lines.push(`# Cảnh设定：${scene.name || scene.location}`);
+    lines.push(`# Cài đặt cảnh: ${scene.name || scene.location}`);
     lines.push('');
     
-    // 基础信息
-    lines.push(`## 基础信息`);
+    // Thông tin cơ bản
+    lines.push(`## Thông tin cơ bản`);
     lines.push(`Địa điểm：${scene.location}`);
     if (scene.time) lines.push(`Thời gian：${scene.time}`);
     if (scene.atmosphere) lines.push(`Bầu không khí：${scene.atmosphere}`);
     lines.push('');
     
-    // Cảnh设计（AI校准后）
+    // CảnhThiết kế（AIHiệu chuẩn后）
     if (scene.architectureStyle || scene.lightingDesign || scene.colorPalette || scene.eraDetails) {
-      lines.push(`## Cảnh设计`);
-      if (scene.architectureStyle) lines.push(`建筑风格：${scene.architectureStyle}`);
+      lines.push(`## Thiết kế cảnh`);
+      if (scene.architectureStyle) lines.push(`Phong cách kiến trúc: ${scene.architectureStyle}`);
       if (scene.lightingDesign) lines.push(`Thiết kế ánh sáng：${scene.lightingDesign}`);
       if (scene.colorPalette) lines.push(`Bảng màu sắc：${scene.colorPalette}`);
       if (scene.eraDetails) lines.push(`Đặc trưng thời đại：${scene.eraDetails}`);
-      if (scene.keyProps && scene.keyProps.length > 0) lines.push(`quan trọng道具：${scene.keyProps.join('、')}`);
+      if (scene.keyProps && scene.keyProps.length > 0) lines.push(`Đạo cụ quan trọng: ${scene.keyProps.join('、')}`);
       if (scene.spatialLayout) lines.push(`Bố cục không gian：${scene.spatialLayout}`);
       lines.push('');
     }
@@ -205,12 +205,12 @@ export function PropertyPanel({
       });
     }
     
-    // 出Cảnh统计
+    // 出Thống kê cảnh
     if (scene.importance || scene.appearanceCount || scene.episodeNumbers?.length) {
-      lines.push(`## 出Cảnh统计`);
+      lines.push(`## 出Thống kê cảnh`);
       if (scene.importance) {
-        const importanceLabel = scene.importance === 'main' ? '主Cảnh' : 
-                               scene.importance === 'secondary' ? '次要Cảnh' : '过渡Cảnh';
+        const importanceLabel = scene.importance === 'main' ? 'Cảnh chính' : 
+                               scene.importance === 'secondary' ? 'Cảnh phụ' : 'Cảnh chuyển tiếp';
         lines.push(`重要程度：${importanceLabel}`);
       }
       if (scene.appearanceCount) lines.push(`出Cảnh次数：${scene.appearanceCount} 次`);
@@ -399,9 +399,9 @@ export function PropertyPanel({
     
     // 情绪ThẻTiếng Trung映射
     const emotionLabels: Record<string, string> = {
-      happy: '开心', sad: '悲伤', angry: '愤怒', surprised: '惊讶', fearful: '恐惧', calm: '平静',
-      tense: 'căng thẳng', excited: '兴奋', mysterious: 'bí ẩn', romantic: '浪漫', funny: '搞笑', touching: '感动',
-      serious: '严肃', relaxed: '轻松', playful: '调侃', gentle: '温柔', passionate: '激昂', low: '低沉'
+      happy: 'Vui vẻ', sad: 'Buồn bã', angry: 'Tức giận', surprised: 'Ngạc nhiên', fearful: 'Sợ hãi', calm: 'Bình tĩnh',
+      tense: 'căng thẳng', excited: 'Hứng khởi', mysterious: 'bí ẩn', romantic: 'Lãng mạn', funny: 'Hài hước', touching: 'Cảm động',
+      serious: 'Nghiêm túc', relaxed: 'Nhẹ nhàng', playful: 'Châm biếm', gentle: 'Dịu dàng', passionate: 'Sôi nổi', low: 'Trầm lắng'
     };
     
     // 格式化Phân cảnh数据
@@ -497,13 +497,13 @@ export function PropertyPanel({
 
     // 景别Tiếng Trung映射
     const shotSizeLabels: Record<string, string> = {
-      'ECU': '特写', 'CU': '近景', 'MCU': 'đang xử lý..., 'MS': 'đang xử lý...
-      'MLS': 'đang xử lý..., 'LS': '远景', 'ELS': '大远景', 'POV': '主观Phân cảnh'
+      'ECU': 'Cực cận cảnh', 'CU': 'Cận cảnh', 'MCU': 'đang xử lý..., 'MS': 'đang xử lý...
+      'MLS': 'đang xử lý..., 'LS': 'Viễn cảnh', 'ELS': 'Đại viễn cảnh', 'POV': 'Góc nhìn chủ quan'
     };
     // Phân cảnh运动Tiếng Trung映射（tương thích旧值+新预设ID）
     const cameraLabelsLegacy: Record<string, string> = {
-      'Static': '固定', 'Pan': '横摇', 'Tilt': '俯仰', 'Dolly': '推拉',
-      'Zoom': '变焦', 'Tracking': '跟拍', 'Crane': '升降', 'Handheld': '手持'
+      'Static': 'Cố định', 'Pan': 'Xoay ngang', 'Tilt': 'Nghiêng', 'Dolly': 'Kéo/đẩy',
+      'Zoom': 'Zoom', 'Tracking': 'Theo dõi', 'Crane': 'Nâng hạ', 'Handheld': 'Cầm tay'
     };
     const cameraLabels = (id: string) => {
       const preset = CAMERA_MOVEMENT_PRESETS.find(p => p.id === id);
@@ -520,8 +520,8 @@ export function PropertyPanel({
     lines.push('═══════════════════════════════════════');
     lines.push('');
 
-    // 基础信息
-    lines.push('【基础信息】');
+    // Thông tin cơ bản
+    lines.push('【Thông tin cơ bản】');
     if (shot.shotSize) {
       lines.push(`景别: ${shotSizeLabels[shot.shotSize] || shot.shotSize} (${shot.shotSize})`);
     }
@@ -551,9 +551,9 @@ export function PropertyPanel({
       lines.push('');
     }
 
-    // âm thanh设计
+    // âm thanhThiết kế
     if (shot.ambientSound || shot.soundEffect) {
-      lines.push('【âm thanh设计】');
+      lines.push('【âm thanhThiết kế】');
       if (shot.ambientSound) {
         lines.push(`môi trường音: ${shot.ambientSound}`);
       }
@@ -563,14 +563,14 @@ export function PropertyPanel({
       lines.push('');
     }
 
-    // 叙事驱动设计（基于《电影Ngôn ngữ的语法》）
+    // tự sự驱动Thiết kế（基于《电影Ngôn ngữ的语法》）
     const hasNarrative = (shot as any).narrativeFunction || (shot as any).shotPurpose || 
                          (shot as any).visualFocus || (shot as any).cameraPosition || 
                          (shot as any).characterBlocking || (shot as any).rhythm;
     if (hasNarrative) {
-      lines.push('【叙事驱动设计】基于《电影Ngôn ngữ的语法》');
+      lines.push('【tự sự驱动Thiết kế】基于《电影Ngôn ngữ的语法》');
       if ((shot as any).narrativeFunction) {
-        lines.push(`叙事功能: ${(shot as any).narrativeFunction}`);
+        lines.push(`tự sự功能: ${(shot as any).narrativeFunction}`);
       }
       if ((shot as any).shotPurpose) {
         lines.push(`Phân cảnh目的: ${(shot as any).shotPurpose}`);
@@ -591,7 +591,7 @@ export function PropertyPanel({
     }
 
     if (!hasTri) {
-      lines.push('⚠️ 该Phân cảnh尚未生成三层prompt，请先执 hàng"Hiệu chuẩn phân cảnh AI"。');
+      lines.push('⚠️ 该Phân cảnh尚未Tạo三层prompt，请先执 hàng"Hiệu chuẩn phân cảnh AI"。');
     } else {
       // ===== 首帧prompt =====
       lines.push('───────────────────────────────────────');
@@ -608,7 +608,7 @@ export function PropertyPanel({
         (promptLanguage === 'en' && !shot.imagePrompt) ||
         (promptLanguage === 'zh+en' && !shot.imagePrompt && !shot.imagePromptZh)
       ) {
-        lines.push('(未生成)');
+        lines.push('(未Tạo)');
       }
       lines.push('');
 
@@ -627,7 +627,7 @@ export function PropertyPanel({
         (promptLanguage === 'en' && !shot.videoPrompt) ||
         (promptLanguage === 'zh+en' && !shot.videoPrompt && !shot.videoPromptZh)
       ) {
-        lines.push('(未生成)');
+        lines.push('(未Tạo)');
       }
       lines.push('');
 
@@ -648,7 +648,7 @@ export function PropertyPanel({
           (promptLanguage === 'en' && !shot.endFramePrompt) ||
           (promptLanguage === 'zh+en' && !shot.endFramePrompt && !shot.endFramePromptZh)
         ) {
-          lines.push('(未生成)');
+          lines.push('(未Tạo)');
         }
       } else {
         lines.push('需要尾帧: ✗ 否（此Phân cảnh不需要单独的尾帧）');
@@ -734,7 +734,7 @@ export function PropertyPanel({
       <div className="h-full flex items-center justify-center text-muted-foreground text-sm p-4 text-center">
         Chọn tập, nhân vật, cảnh hoặc phân cảnh
         <br />
-        查看详情
+        Xem chi tiết
       </div>
     );
   }
@@ -744,13 +744,13 @@ export function PropertyPanel({
     return (
       <ScrollArea className="h-full">
         <div className="p-4 space-y-4 pb-32">
-          {/* 头部 */}
+          {/* Đầu */}
           <div className="flex items-start gap-3">
             <div className="w-10 h-10 rounded bg-primary/10 flex items-center justify-center">
               <Clapperboard className="h-5 w-5 text-primary" />
             </div>
             <div className="flex-1">
-              <h3 className="font-medium">第{episode.index} tập</h3>
+              <h3 className="font-medium">Tập {episode.index}</h3>
               <p className="text-sm text-muted-foreground">{episode.title.replace(/^第\d+ tập[：:]？/, '')}</p>
             </div>
           </div>
@@ -768,16 +768,16 @@ export function PropertyPanel({
             </div>
           ) : (
             <div className="text-xs text-muted-foreground bg-muted/30 p-3 rounded-lg">
-              未生成đại cương，Nhấp下方nút生成
+              Chưa tạo đại cương, Nhấp nút bên dưới để tạo
             </div>
           )}
 
-          {/* quan trọng事件 */}
+          {/* Sự kiện quan trọng */}
           {episode.keyEvents && episode.keyEvents.length > 0 && (
             <div>
               <div className="text-xs text-muted-foreground mb-2 flex items-center gap-1">
                 <ListChecks className="h-3 w-3" />
-                quan trọng事件
+                Sự kiện quan trọng
               </div>
               <div className="space-y-1">
                 {episode.keyEvents.map((event, i) => (
@@ -790,15 +790,15 @@ export function PropertyPanel({
             </div>
           )}
 
-          {/* Cảnh统计 */}
+          {/* Thống kê cảnh */}
           <div className="bg-muted/30 p-3 rounded-lg">
-            <div className="text-xs text-muted-foreground mb-2">Cảnh统计</div>
+            <div className="text-xs text-muted-foreground mb-2">Thống kê cảnh</div>
             <div className="text-sm">
-              Tập này共 <span className="font-medium text-primary">{episode.scenes?.length || 0}</span> Cảnh
+              Tập này có <span className="font-medium text-primary">{episode.scenes?.length || 0}</span> cảnh
             </div>
             <div className="text-xs text-muted-foreground mt-1">
-              Phân cảnh状态：{episode.shotGenerationStatus === 'completed' ? '✅ 已生成' : 
-                episode.shotGenerationStatus === 'generating' ? '⏳ Đang tạo...' : '⏹ 未生成'}
+              Phân cảnh状态：{episode.shotGenerationStatus === 'completed' ? '✅ 已Tạo' : 
+                episode.shotGenerationStatus === 'generating' ? '⏳ Đang tạo...' : '⏹ 未Tạo'}
             </div>
           </div>
 
@@ -813,7 +813,7 @@ export function PropertyPanel({
                 disabled={episode.shotGenerationStatus === 'generating'}
               >
                 <Film className="h-4 w-4 mr-2" />
-                生成Phân cảnh
+                Tạo phân cảnh
               </Button>
             )}
             {episode.shotGenerationStatus === 'completed' && (
@@ -857,7 +857,7 @@ export function PropertyPanel({
     return (
       <ScrollArea className="h-full">
         <div className="p-4 space-y-4 pb-32">
-          {/* 头部 */}
+          {/* Đầu */}
           <div className="flex items-start gap-3">
             <div className="w-10 h-10 rounded-full bg-muted flex items-center justify-center">
               <User className="h-5 w-5 text-muted-foreground" />
@@ -953,7 +953,7 @@ export function PropertyPanel({
                 </div>
               )}
               
-              {/* Prompt thị giác（世界级大师生成） */}
+              {/* Prompt thị giác（世界级大师Tạo） */}
               {((promptLanguage !== 'en' && character.visualPromptZh) || (promptLanguage !== 'zh' && character.visualPromptEn)) && (
                 <div className="bg-gradient-to-r from-purple-500/10 to-transparent p-2 rounded-lg border-l-2 border-purple-500/30">
                   <div className="text-xs text-purple-600 dark:text-purple-400 mb-1">🎨 Prompt thị giác</div>
@@ -1041,7 +1041,7 @@ export function PropertyPanel({
 
           {/* thao tác */}
           <div className="space-y-2">
-            {/* Nhân vật cha（有Nhân vật giai đoạn）：显示Gợi ý，不显示生成nút */}
+            {/* Nhân vật cha（有Nhân vật giai đoạn）：显示Gợi ý，不显示Tạonút */}
             {character.stageCharacterIds && character.stageCharacterIds.length > 0 ? (
               <div className="p-3 bg-blue-500/10 border border-blue-500/20 rounded-lg space-y-2">
                 <div className="text-xs text-blue-600 dark:text-blue-400 flex items-center gap-1 font-medium">
@@ -1049,17 +1049,17 @@ export function PropertyPanel({
                   已创建 {character.stageCharacterIds.length} giai đoạn版本
                 </div>
                 <div className="text-xs text-muted-foreground">
-                  请在đang xử lý...ấp各giai đoạn版本（如「{character.name}（青年版）」），rồi去Thư viện nhân vật生成形象
+                  请在đang xử lý...ấp各giai đoạn版本（如「{character.name}（青年版）」），rồi去Thư viện nhân vậtTạo形象
                 </div>
               </div>
             ) : (
-              /* 普通Nhân vật或Nhân vật giai đoạn：显示生成nút */
+              /* 普通Nhân vật或Nhân vật giai đoạn：显示Tạonút */
               <Button
                 className="w-full"
                 onClick={() => onGoToCharacterLibrary?.(character.id)}
               >
                 <ArrowRight className="h-4 w-4 mr-2" />
-                {character.characterLibraryId ? '查看Thư viện nhân vật形象' : '去Thư viện nhân vật生成形象'}
+                {character.characterLibraryId ? '查看Thư viện nhân vật形象' : '去Thư viện nhân vậtTạo形象'}
               </Button>
             )}
             
@@ -1112,7 +1112,7 @@ export function PropertyPanel({
     return (
       <ScrollArea className="h-full">
         <div className="p-4 space-y-4 pb-32">
-          {/* 头部 */}
+          {/* Đầu */}
           <div className="flex items-start gap-3">
             <div className="w-10 h-10 rounded bg-muted flex items-center justify-center">
               <MapPin className="h-5 w-5 text-blue-500" />
@@ -1165,7 +1165,7 @@ export function PropertyPanel({
             </div>
           ) : (
             <div className="space-y-3">
-              {/* 基础信息 */}
+              {/* Thông tin cơ bản */}
               <div>
                 <div className="text-xs text-muted-foreground mb-1">Địa điểm</div>
                 <div className="text-sm">{scene.location}</div>
@@ -1181,15 +1181,15 @@ export function PropertyPanel({
                 </div>
               )}
               
-              {/* 专业Cảnh设计trường（AI校准后显示） */}
+              {/* 专业CảnhThiết kếtrường（AIHiệu chuẩn后显示） */}
               {(scene.architectureStyle || scene.lightingDesign || scene.colorPalette || scene.eraDetails) && (
                 <>
                   <Separator className="my-2" />
-                  <div className="text-xs font-medium text-primary mb-2">Cảnh设计</div>
+                  <div className="text-xs font-medium text-primary mb-2">CảnhThiết kế</div>
                   
                   {scene.architectureStyle && (
                     <div>
-                      <div className="text-xs text-muted-foreground mb-1">建筑风格</div>
+                      <div className="text-xs text-muted-foreground mb-1">Phong cách kiến trúc</div>
                       <div className="text-sm">{scene.architectureStyle}</div>
                     </div>
                   )}
@@ -1226,7 +1226,7 @@ export function PropertyPanel({
                 </>
               )}
               
-              {/* Prompt thị giác（AI校准后显示） */}
+              {/* Prompt thị giác（AIHiệu chuẩn后显示） */}
               {((promptLanguage !== 'en' && scene.visualPrompt) || (promptLanguage !== 'zh' && scene.visualPromptEn)) && (
                 <>
                   <Separator className="my-2" />
@@ -1259,7 +1259,7 @@ export function PropertyPanel({
                         多视角联合图
                       </div>
                       <div className="text-xs text-muted-foreground">
-                        未phân tích视角（可选，Hiệu chuẩn phân cảnh AI后自动生成）
+                        未phân tích视角（可选，Hiệu chuẩn phân cảnh AI后Tự độngTạo）
                       </div>
                     </>
                   );
@@ -1313,7 +1313,7 @@ export function PropertyPanel({
                 );
               })()}
               
-              {/* 出Cảnh统计 */}
+              {/* 出Thống kê cảnh */}
               {(scene.appearanceCount || scene.episodeNumbers?.length) && (
                 <>
                   <Separator className="my-2" />
@@ -1324,7 +1324,7 @@ export function PropertyPanel({
                         scene.importance === 'secondary' ? 'bg-yellow-500/10 text-yellow-600' :
                         'bg-muted text-muted-foreground'
                       }`}>
-                        {scene.importance === 'main' ? '主Cảnh' : scene.importance === 'secondary' ? '次要Cảnh' : '过渡Cảnh'}
+                        {scene.importance === 'main' ? 'Cảnh chính' : scene.importance === 'secondary' ? 'Cảnh phụ' : 'Cảnh chuyển tiếp'}
                       </span>
                     )}
                     {scene.appearanceCount && (
@@ -1348,7 +1348,7 @@ export function PropertyPanel({
               onClick={() => onGoToSceneLibrary?.(scene.id)}
             >
               <ArrowRight className="h-4 w-4 mr-2" />
-              去Cảnh库生成nền
+              去Cảnh库Tạonền
             </Button>
             <Button
               variant="outline"
@@ -1403,7 +1403,7 @@ export function PropertyPanel({
     return (
       <ScrollArea className="h-full">
         <div className="p-4 space-y-4 pb-32">
-          {/* 头部 */}
+          {/* Đầu */}
           <div className="flex items-start gap-3">
             <div className="w-10 h-10 rounded bg-muted flex items-center justify-center">
               <Film className="h-5 w-5 text-primary" />
@@ -1525,7 +1525,7 @@ export function PropertyPanel({
                 <div className="text-sm">{shot.actionSummary}</div>
               </div>
 
-              {/* âm thanh设计 */}
+              {/* âm thanhThiết kế */}
               {((shot as any).ambientSound || (shot as any).soundEffect || shot.dialogue) && (
                 <div className="bg-muted/30 p-3 rounded-lg space-y-2">
                   <div className="text-xs text-muted-foreground flex items-center gap-1">
@@ -1577,9 +1577,9 @@ export function PropertyPanel({
                   <div className="flex flex-wrap gap-1">
                     {shot.emotionTags.map((tag, i) => {
                       const emotionLabels: Record<string, string> = {
-                        happy: '开心', sad: '悲伤', angry: '愤怒', surprised: '惊讶', fearful: '恐惧', calm: '平静',
-                        tense: 'căng thẳng', excited: '兴奋', mysterious: 'bí ẩn', romantic: '浪漫', funny: '搞笑', touching: '感动',
-                        serious: '严肃', relaxed: '轻松', playful: '调侃', gentle: '温柔', passionate: '激昂', low: '低沉'
+                        happy: 'Vui vẻ', sad: 'Buồn bã', angry: 'Tức giận', surprised: 'Ngạc nhiên', fearful: 'Sợ hãi', calm: 'Bình tĩnh',
+                        tense: 'căng thẳng', excited: 'Hứng khởi', mysterious: 'bí ẩn', romantic: 'Lãng mạn', funny: 'Hài hước', touching: 'Cảm động',
+                        serious: 'Nghiêm túc', relaxed: 'Nhẹ nhàng', playful: 'Châm biếm', gentle: 'Dịu dàng', passionate: 'Sôi nổi', low: 'Trầm lắng'
                       };
                       return (
                         <span
@@ -1596,7 +1596,7 @@ export function PropertyPanel({
             </div>
           )}
 
-          {/* 生成状态 */}
+          {/* Trạng thái tạo */}
           <div className="space-y-2">
             <div className="flex items-center justify-between text-xs">
               <span className="text-muted-foreground">Hình ảnh</span>
@@ -1633,7 +1633,7 @@ export function PropertyPanel({
               onClick={() => onGoToDirector?.(shot.id)}
             >
               <ArrowRight className="h-4 w-4 mr-2" />
-              去AI导演生成
+              去AI导演Tạo
             </Button>
             <Button
               variant="secondary"

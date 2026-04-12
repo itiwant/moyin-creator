@@ -186,7 +186,7 @@ export async function pollTaskUntilComplete(
   baseUrl: string,
   onProgress?: (progress: number, status: string) => void
 ): Promise<string> {
-  const maxAttempts = 120; // 最多2分钟
+  const maxAttempts = 120; // 最多2 phút
   const pollInterval = 2000; // 2秒
 
   for (let attempt = 0; attempt < maxAttempts; attempt++) {
@@ -225,7 +225,7 @@ export async function pollTaskUntilComplete(
 }
 
 /**
- * 一键生成视角切换（组合函数）
+ * 一键Tạo视角切换（组合函数）
  */
 export async function generateAngleSwitch(params: {
   referenceImage: string;
@@ -239,7 +239,7 @@ export async function generateAngleSwitch(params: {
 }): Promise<string> {
   const { referenceImage, direction, elevation, shotSize, apiKey, baseUrl, appId, onProgress } = params;
 
-  // 生成提示词
+  // Tạo提示词
   const anglePrompt = generateAnglePrompt(direction, elevation, shotSize);
 
   console.log('[RunningHub] Starting angle switch:', {

@@ -735,7 +735,7 @@ export function parseCharacterBios(bios: string): ScriptCharacter[] {
 
 /**
  * 紧凑格式解析：角色名：年龄：XX身份：...quan trọng行为：...
- * 自动剥离段落标记（一、核心nhân vật chính 等）提取真实角色名
+ * Tự động剥离段落标记（一、核心nhân vật chính 等）提取真实角色名
  */
 function parseCompactBioFormat(bios: string, matches: RegExpMatchArray[]): ScriptCharacter[] {
   const characters: ScriptCharacter[] = [];
@@ -886,7 +886,7 @@ function splitMultipleCharacters(rawName: string): string[] {
 }
 
 /**
- * 检查是否为有效角色名（放宽lọc，让 AI 做智能校准）
+ * 检查是否为有效角色名（放宽lọc，让 AI 做thông minhHiệu chuẩn）
  */
 function isValidCharacterName(name: string): boolean {
   // 跳过空名字
@@ -900,7 +900,7 @@ function isValidCharacterName(name: string): boolean {
   // 跳过明显的非角色词（只lọc最明显的，其他交给AI）
   const obviousNonCharacters = [
     'VO', '旁白', 'os', '左边', '右边', 'đang xử lý... '背影', '远处',
-    '效率', '回流率', '分拣', '客户', '眼眶', '微湿', '手持', '笔挺',
+    '效率', '回流率', '分拣', '客户', '眼眶', '微湿', 'Cầm tay', '笔挺',
     '上市文件', '眼神', '声音', '电视', '电话'
   ];
   if (obviousNonCharacters.includes(name)) return false;
@@ -1092,9 +1092,9 @@ function normalizeTime(time: string): string {
 function detectAtmosphere(content: string): string {
   if (content.match(/căng thẳng|危险|冲突|打斗|怒/)) return 'căng thẳng';
   if (content.match(/ấm cúng|幸福|笑|欢/)) return 'ấm cúng';
-  if (content.match(/悲伤|哭|痛|泪/)) return '悲伤';
+  if (content.match(/悲伤|哭|痛|泪/)) return 'Buồn bã';
   if (content.match(/bí ẩn|阴森|黑暗/)) return 'bí ẩn';
-  return '平静';
+  return 'Bình tĩnh';
 }
 
 // detectGenre 已移至文件顶部，支持đầy đủ的类型检测

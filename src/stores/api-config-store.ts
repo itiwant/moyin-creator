@@ -118,7 +118,7 @@ export interface ImageHostProvider {
   imageField?: string; // 表单trường名（Mặc định image）
   imagePayloadType?: 'base64' | 'file'; // ảnhtrường传输chế độ
   nameField?: string; // 表单trường名（Mặc định name）
-  staticFormFields?: Record<string, string>; // 固定附加表单trường
+  staticFormFields?: Record<string, string>; // Cố định附加表单trường
   responseUrlField?: string; // 响应đang xử lý...L trường路径（如 data.url）
   responseDeleteUrlField?: string; // 响应đang xử lý...ờng URL xóa路径
 }

@@ -5,8 +5,8 @@
  * Prompt Builder — 统一视频提示词组装模块
  *
  * 核心原则：整合为语义层次，避免碎片化堆叠导致信号稀释
- * Layer 1: 镜头设计 (Camera) - 最高优先级
- * Layer 1.5: 灯光设计 (Lighting)
+ * Layer 1: 镜头Thiết kế (Camera) - 最高优先级
+ * Layer 1.5: 灯光Thiết kế (Lighting)
  * Layer 2: 内容焦点 (Subject) - 次高优先级
  * Layer 3: 氛围修饰 (Mood) - 辅助
  * Layer 4: 场景音频 (Setting & Audio)
@@ -95,14 +95,14 @@ export interface VideoPromptConfig {
   styleTokens?: string[];
   /** 画面Tỷ lệ (仅作为上下文Tham chiếu) */
   aspectRatio?: '16:9' | '9:16';
-  /** 媒介类型 — 控制摄影参数翻译策略 */
+  /** Loại phương tiện - kiểm soát chiến lược dịch tham số chụp ảnh */
   mediaType?: MediaType;
 }
 
 // ==================== 核心函数 ====================
 
 /**
- * 构建视频生成的đầy đủ prompt
+ * 构建视频Tạo的đầy đủ prompt
  *
  * @param scene - 分镜数据 (SplitScene)
  * @param cinProfile - 摄影风格档案 (undefined 表示未设置)
@@ -117,7 +117,7 @@ export function buildVideoPrompt(
   const promptParts: string[] = [];
   const mt = config.mediaType;
 
-  // ---------- Layer 1: 镜头设计 (Camera Design) ----------
+  // ---------- Layer 1: 镜头Thiết kế (Camera Design) ----------
   const cameraDesignParts: string[] = [];
 
   // 1.0 器材类型 —— 逐镜优先，回退摄影档案
@@ -204,7 +204,7 @@ export function buildVideoPrompt(
     promptParts.push(`Camera: ${cameraDesignParts.join(', ')}`);
   }
 
-  // ---------- Layer 1.5: 灯光设计 (Lighting) ----------
+  // ---------- Layer 1.5: 灯光Thiết kế (Lighting) ----------
   const lightingParts: string[] = [];
 
   const effectiveLs = scene.lightingStyle || cinProfile?.defaultLighting?.style;

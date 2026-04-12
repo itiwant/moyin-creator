@@ -2,11 +2,11 @@
 // Licensed under AGPL-3.0-or-later. See LICENSE for details.
 // Commercial licensing available. See COMMERCIAL_LICENSE.md.
 /**
- * 风格切换重新校准服务
+ * 风格切换重新Hiệu chuẩn服务
  * 
  * 当用户在导演/S级面板切换视觉风格时，将现有 SplitScene[] 重新送入
- * 5阶段校准流程（calibrateShotsMultiStage），用新风格重写提示词和拍摄参数，
- * 同时保留已生成的图片/视频 URL không thay đổi。
+ * 5阶段Hiệu chuẩn流程（calibrateShotsMultiStage），用新风格重写提示词和拍摄参数，
+ * 同时保留已Tạo的图片/视频 URL không thay đổi。
  */
 
 import type { SplitScene } from '@/stores/director-store';
@@ -89,8 +89,8 @@ function buildGlobalContext(scriptProjectId?: string): GlobalContext {
 }
 
 /**
- * 将校准结果写回 SplitScene（对齐 full-script-service.ts:1265-1305 的映射）
- * 保留已生成的图片/视频 URL không thay đổi
+ * 将Hiệu chuẩn结果写回 SplitScene（对齐 full-script-service.ts:1265-1305 的映射）
+ * 保留已Tạo的图片/视频 URL không thay đổi
  */
 function applyCalibrationToScene(
   scene: SplitScene,
@@ -98,7 +98,7 @@ function applyCalibrationToScene(
 ): SplitScene {
   return {
     ...scene,
-    // 叙事骨架
+    // tự sự骨架
     visualDescription: calibration.visualDescription || scene.visualDescription,
     shotSize: calibration.shotSize || scene.shotSize,
     cameraMovement: calibration.cameraMovement || scene.cameraMovement,
@@ -113,7 +113,7 @@ function applyCalibrationToScene(
     endFramePrompt: calibration.endFramePrompt || scene.endFramePrompt,
     endFramePromptZh: calibration.endFramePromptZh || scene.endFramePromptZh,
     needsEndFrame: calibration.needsEndFrame ?? scene.needsEndFrame,
-    // 叙事设计
+    // tự sựThiết kế
     narrativeFunction: calibration.narrativeFunction || scene.narrativeFunction,
     shotPurpose: calibration.shotPurpose || scene.shotPurpose,
     visualFocus: calibration.visualFocus || scene.visualFocus,
@@ -147,14 +147,14 @@ export interface RecalibrationResult {
 }
 
 /**
- * 用新风格重新校准Tất cả分镜
+ * 用新风格重新Hiệu chuẩnTất cả分镜
  * 
  * @param newStyleId 新的视觉风格 ID
  * @param splitScenes 当前分镜列表
  * @param scriptProjectId 可选的 script-store projectId（默认用活跃项目）
  * @param onProgress 进度回调
- * @returns 校准后的 SplitScene[]（gọi API方负责写入 store）
- * @throws 校准失败时抛出异常（gọi API方负责捕获并保持原状态không thay đổi）
+ * @returns Hiệu chuẩn后的 SplitScene[]（gọi API方负责写入 store）
+ * @throws Hiệu chuẩn失败时抛出异常（gọi API方负责捕获并保持原状态không thay đổi）
  */
 export async function recalibrateSplitScenes(
   newStyleId: string,
@@ -167,7 +167,7 @@ export async function recalibrateSplitScenes(
     return { scenes: [], calibratedCount: 0, totalScenes: 0 };
   }
 
-  onProgress?.(0, totalScenes, '准备重新校准...');
+  onProgress?.(0, totalScenes, '准备重新Hiệu chuẩn...');
 
   // 1. SplitScene → ShotInputData
   const shotInputs = toShotInputData(splitScenes);
@@ -175,12 +175,12 @@ export async function recalibrateSplitScenes(
   // 2. 构建 GlobalContext
   const globalContext = buildGlobalContext(scriptProjectId);
 
-  // 3. gọi API 5 阶段校准
+  // 3. gọi API 5 阶段Hiệu chuẩn
   const calibrationOptions: CalibrationOptions = {
     styleId: newStyleId,
   };
 
-  onProgress?.(0, totalScenes, '正在用新风格校准分镜...');
+  onProgress?.(0, totalScenes, '正在用新风格Hiệu chuẩn分镜...');
 
   const calibrations = await calibrateShotsMultiStage(
     shotInputs,
@@ -191,7 +191,7 @@ export async function recalibrateSplitScenes(
     },
   );
 
-  // 4. 将校准结果写回 SplitScene
+  // 4. 将Hiệu chuẩn结果写回 SplitScene
   let calibratedCount = 0;
   const updatedScenes = splitScenes.map(scene => {
     const calibration = calibrations[scene.id.toString()];
@@ -202,7 +202,7 @@ export async function recalibrateSplitScenes(
     return scene;
   });
 
-  onProgress?.(calibratedCount, totalScenes, `已校准 ${calibratedCount}/${totalScenes} 分镜`);
+  onProgress?.(calibratedCount, totalScenes, `已Hiệu chuẩn ${calibratedCount}/${totalScenes} 分镜`);
 
   return {
     scenes: updatedScenes,
