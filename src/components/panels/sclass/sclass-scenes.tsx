@@ -893,7 +893,7 @@ export function SClassScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
         }
       }
 
-      // Parse result helper（用于轮询阶段）
+      // Parse result helper（用于luân phiên阶段）
       const normalizeUrl = (url: any): string | undefined => {
         if (!url) return undefined;
         if (Array.isArray(url)) return url[0] || undefined;
@@ -2349,7 +2349,7 @@ export function SClassScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
         console.log(`[MergedGen] Ref[${i}] format:`, prefix + '...');
       });
       
-      // Phân tíchkết quả辅助函数（用于轮询阶段）
+      // Phân tíchkết quả辅助函数（用于luân phiên阶段）
       const normalizeUrl = (url: any): string | undefined => {
         if (!url) return undefined;
         if (Array.isArray(url)) return url[0] || undefined;
@@ -2374,7 +2374,7 @@ export function SClassScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
       let taskId = apiResult.taskId;
       console.log('[MergedGen] API result: gridImageUrl=', gridImageUrl?.substring(0, 50), 'taskId=', taskId);
       
-      // 如果是异步任务，轮询
+      // 如果是异步任务，luân phiên
       if (!gridImageUrl && taskId) {
         console.log('[MergedGen] Polling task:', taskId);
         const pollInterval = 2000;

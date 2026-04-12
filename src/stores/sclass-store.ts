@@ -2,7 +2,7 @@
 // Licensed under AGPL-3.0-or-later. See LICENSE for details.
 // Commercial licensing available. See COMMERCIAL_LICENSE.md.
 /**
- * Hạng S Store — Seedance 2.0 多模态Sáng tácpanelTrạng tháiQuản lý
+ * Hạng S Store — Seedance 2.0 đa phương thứcSáng tácpanelTrạng tháiQuản lý
  *
  * 核心概念：
  * - ShotGroup：将 director-store đang xử lý...plitScene 按组合并，用于多Ống kínhtự sựTạo video

@@ -5,7 +5,7 @@
  * AI Feature Router
  * Routes AI requests to the bound provider based on feature bindings
  * 
- * v2: 支持多模型绑定 + 轮询调度
+ * v2: 支持多模型绑定 + luân phiên调度
  * 
  * Usage:
  *   const config = getFeatureConfig('character_generation');
@@ -32,7 +32,7 @@ export interface FeatureConfig {
   model: string; // Đang chọn的模型
 }
 
-// 多模型轮询调度器：记录每chức năng的当前chỉ mục
+// 多模型luân phiên调度器：记录每chức năng的当前chỉ mục
 const featureRoundRobinIndex: Map<AIFeature, number> = new Map();
 
 /**
@@ -139,7 +139,7 @@ export function getAllFeatureConfigs(feature: AIFeature): FeatureConfig[] {
  * Get configuration for an AI feature (with round-robin for multi-model)
  * Returns null if feature is not configured (no provider bound or no API key)
  * 
- * v2: 支持多模型轮询
+ * v2: 支持多模型luân phiên
  */
 export function getFeatureConfig(feature: AIFeature): FeatureConfig | null {
   const configs = getAllFeatureConfigs(feature);
@@ -184,20 +184,20 @@ export function getFeatureConfig(feature: AIFeature): FeatureConfig | null {
     return configs[0];
   }
   
-  // 多模型轮询
+  // 多模型luân phiên
   const currentIndex = featureRoundRobinIndex.get(feature) || 0;
   const config = configs[currentIndex % configs.length];
   
   // 更新chỉ mục（下次gọi APISử dụng下一）
   featureRoundRobinIndex.set(feature, currentIndex + 1);
   
-  console.log(`[FeatureRouter] 多模型轮询: ${feature} -> ${config.provider.name}:${config.model} (${currentIndex % configs.length + 1}/${configs.length})`);
+  console.log(`[FeatureRouter] 多模型luân phiên: ${feature} -> ${config.provider.name}:${config.model} (${currentIndex % configs.length + 1}/${configs.length})`);
   
   return config;
 }
 
 /**
- * 重置轮询chỉ mục（用于新任务开始时）
+ * 重置luân phiênchỉ mục（用于新任务开始时）
  */
 export function resetFeatureRoundRobin(feature?: AIFeature): void {
   if (feature) {
@@ -243,7 +243,7 @@ export interface CallFeatureAPIOptions {
 /**
  * 统一的 AI gọi API入sổ - Tự động从ánh xạ dịch vụ获取配置
  * 
- * v2: 支持多模型轮询
+ * v2: 支持多模型luân phiên
  * 
  * 用法：
  *   const result = await callFeatureAPI('script_analysis', systemPrompt, userPrompt);
@@ -256,7 +256,7 @@ export async function callFeatureAPI(
   userPrompt: string,
   options?: CallFeatureAPIOptions
 ): Promise<string> {
-  // Sử dụng指定配置或轮询获取
+  // Sử dụng指定配置或luân phiên获取
   const config = options?.configOverride || getFeatureConfig(feature);
   
   if (!config) {

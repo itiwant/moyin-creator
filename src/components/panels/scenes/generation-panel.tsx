@@ -1449,7 +1449,7 @@ Phong cách: ${stylePreset?.name || 'Phong cách hoạt hình'}, ánh sáng các
 
   /**
    * 一键Tự động流水线：Tạo联合图 → 切割 → LưuconCảnh
-   * 任务在后台运 hàng，người dùng可以Tiếp tụcCài đặt下一Tạo任务
+   * 任务在trang quản trị运 hàng，người dùng可以Tiếp tụcCài đặt下一Tạo任务
    */
   const handleAutoGenerateContactSheet = async () => {
     if (!contactSheetPrompt) {
@@ -1463,7 +1463,7 @@ Phong cách: ${stylePreset?.name || 'Phong cách hoạt hình'}, ánh sáng các
       return;
     }
 
-    // 快照当前Tất cả必要的Trạng thái（确保后台运 hàng时不受 UI Trạng thái变化影响）
+    // 快照当前Tất cả必要的Trạng thái（确保trang quản trị运 hàng时不受 UI Trạng thái变化影响）
     const snapshotPrompt = contactSheetPrompt;
     const snapshotStyleId = styleId;
     const snapshotAspectRatio = contactSheetAspectRatio;
@@ -1525,7 +1525,7 @@ Phong cách: ${stylePreset?.name || 'Phong cách hoạt hình'}, ánh sáng các
     setSplitViewpointImages({});
     setIsGeneratingContactSheet(false);
 
-    // 后台异步执 hàng整流水线
+    // trang quản trị异步执 hàng整流水线
     (async () => {
       try {
         // ==================== 阶段 1: Tạo联合图 ====================

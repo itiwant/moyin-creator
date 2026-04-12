@@ -5,7 +5,7 @@
  * use-sclass-generation.ts — Hạng S Seedance 2.0 Tạo video Hook
  *
  * 核心chức năng：
- * 1. generateGroupVideo(group) — mỗi nhómTạo：thu thập @tham chiếu → 构建多模态请求 → gọi API API → 轮询
+ * 1. generateGroupVideo(group) — mỗi nhómTạo：thu thập @tham chiếu → 构建đa phương thức请求 → gọi API API → luân phiên
  * 2. generateAllGroups() — Tạo hàng loạt：逐组串 hàng，各组独立Tạo
  * 3. generateSingleShot(sceneId) — ống kính đơnTạo（tương thíchchế độ）
  * 4. Tự độngTải lên base64/local ảnh到 HTTP URL
@@ -309,7 +309,7 @@ export function useSClassGeneration() {
         const imageRefs = promptResult.refs.images;
         const imageWithRoles = await prepareImageUrls(imageRefs);
 
-        // 5b. thu thậpvideo/âm thanhtham chiếu → 转 HTTP URL（Seedance 2.0 多模态输入）
+        // 5b. thu thậpvideo/âm thanhtham chiếu → 转 HTTP URL（Seedance 2.0 đa phương thức输入）
         const videoRefUrls: string[] = [];
         // nhóm trướcvideonối kết（链式Thử lại时传入）— kéo dài/Chỉnh sửa组已在 refs.videos đang xử lý...sourceVideoUrl，跳过
         if (!isExtendOrEdit && options?.prevVideoUrl) {

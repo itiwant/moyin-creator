@@ -175,7 +175,7 @@ export interface SingleEpisodeImportResult {
  * 1. preprocessLineBreaks → parseScenes → 转换为 ScriptScene[]
  * 2. 原子写回 store（episodeRawScripts + scriptData.scenes + episodes.sceneIds）
  * 3. 清理本 tập旧 shot
- * 4. 轻量 AI Tạo标题+đại cương（后台不阻塞）
+ * 4. 轻量 AI Tạo标题+đại cương（trang quản trị不阻塞）
  */
 export async function importSingleEpisodeContent(
   rawContent: string,
@@ -270,7 +270,7 @@ export async function importSingleEpisodeContent(
 
     console.log(`${TAG} Cấu trúcbổ sunghoàn thành: ${newScenes.length} 场景`);
 
-    // === 4. 轻量 AI 标题+đại cương（后台不阻塞） ===
+    // === 4. 轻量 AI 标题+đại cương（trang quản trị不阻塞） ===
     generateSingleEpisodeTitleAndSynopsis(projectId, episodeIndex).catch(e => {
       console.warn(`${TAG} 标题/đại cươngTạothất bại（不影响Cấu trúcbổ sung）:`, e);
     });
@@ -287,7 +287,7 @@ export async function importSingleEpisodeContent(
 }
 
 /**
- * 轻量 AI 为单 tậpTạo标题+đại cương（后台任务，不阻塞Cấu trúcbổ sung）
+ * 轻量 AI 为单 tậpTạo标题+đại cương（trang quản trị任务，不阻塞Cấu trúcbổ sung）
  */
 async function generateSingleEpisodeTitleAndSynopsis(
   projectId: string,
@@ -1966,7 +1966,7 @@ ${characterBios ? `
 22. 焦点变化 (focusTransition): none/rack-focus/pull-focus/follow-focus
 23. 摄影器材 (cameraRig): tripod/handheld/steadicam/dolly/crane/drone/gimbal/shoulder
 24. 运动速度 (movementSpeed): static/slow/normal/fast/whip
-25. 大气效果 (atmosphericEffects): 数组，可多选，如 ["雾气","烟尘"] 等天气/环境/艺术效果
+25. 大气效果 (atmosphericEffects): 数组，có thể chọn nhiều，如 ["雾气","烟尘"] 等天气/环境/艺术效果
 26. 效果强度 (effectIntensity): subtle/moderate/heavy
 27. 播放速度 (playbackSpeed): slow-0.25x/slow-0.5x/normal/fast-1.5x/fast-2x/timelapse
 28. 拍摄角度 (cameraAngle): eye-level/low-angle/high-angle/birds-eye/worms-eye/dutch-angle/over-shoulder/pov/aerial

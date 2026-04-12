@@ -523,7 +523,7 @@ export interface Shot {
   movementSpeed?: MovementSpeed;           // 运动Tốc độ
 
   // === 特效师 (On-set SFX) ===
-  atmosphericEffects?: AtmosphericEffect[]; // 氛围特效（可多选）
+  atmosphericEffects?: AtmosphericEffect[]; // 氛围特效（có thể chọn nhiều）
   effectIntensity?: EffectIntensity;       // 特效强度
 
   // === Tốc độ控制 (Speed Ramping) ===

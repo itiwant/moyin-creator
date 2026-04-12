@@ -172,7 +172,7 @@ const VIDEO_FORMAT_MAP: Record<string, 'openai_official' | 'unified' | 'volc' | 
   'videokéo dài': 'kling',
   'omni-video': 'kling',
   'Điều khiển hành động': 'kling',
-  '多模态videoChỉnh sửa': 'kling',
+  'đa phương thứcvideoChỉnh sửa': 'kling',
   'Người ảo': 'kling',
   '对sổ型': 'kling',
   'video特效': 'kling',
@@ -196,7 +196,7 @@ const VIDEO_FORMAT_MAP: Record<string, 'openai_official' | 'unified' | 'volc' | 
 };
 
 /**
- * 统一格式端点路径映射（端点Loại → Gửi/轮询 URL 路径）
+ * 统一格式端点路径映射（端点Loại → Gửi/luân phiên URL 路径）
  * 每种端点LoạiTrực tiếp对应Xác nhận的 URL，不再靠 fallback 猜测
  */
 const UNIFIED_ENDPOINT_PATHS: Record<string, { submit: string; poll: (id: string) => string }> = {
@@ -219,7 +219,7 @@ const UNIFIED_ENDPOINT_PATHS: Record<string, { submit: string; poll: (id: string
 const DEFAULT_UNIFIED_ENDPOINT = { submit: '/v1/video/generations', poll: (id: string) => `/v1/video/generations/${id}` };
 
 /**
- * 根据Model端点Loại查找对应的Gửi/轮询 URL 路径
+ * 根据Model端点Loại查找对应的Gửi/luân phiên URL 路径
  */
 function getUnifiedEndpointPaths(endpointTypes: string[]): { submit: string; poll: (id: string) => string } {
   for (const t of endpointTypes) {
@@ -643,7 +643,7 @@ async function callUnifiedVideoApi(
     throw new Error(`Quay lại空的任务 ID（响应格式未识别，请检查console日志）`);
   }
 
-  // 轮询：Trực tiếpSử dụng端点Loại对应的 URL
+  // luân phiên：Trực tiếpSử dụng端点Loại对应的 URL
   const pollUrl = `${rootBase}${endpointPaths.poll(taskId)}`;
   const pollInterval = 5000;
   const maxAttempts = 180;
@@ -728,7 +728,7 @@ async function callVolcVideoApi(
     }
   }
 
-  // Seedance 2.0 多模态：videotham chiếu（kéo dài/Chỉnh sửa/chuyển động máysao chép等）
+  // Seedance 2.0 đa phương thức：videotham chiếu（kéo dài/Chỉnh sửa/chuyển động máysao chép等）
   if (videoRefs && videoRefs.length > 0) {
     for (const vUrl of videoRefs) {
       if (vUrl) {
@@ -740,7 +740,7 @@ async function callVolcVideoApi(
     }
   }
 
-  // Seedance 2.0 多模态：âm thanhtham chiếu（BGM/卡点等）
+  // Seedance 2.0 đa phương thức：âm thanhtham chiếu（BGM/卡点等）
   if (audioRefs && audioRefs.length > 0) {
     for (const aUrl of audioRefs) {
       if (aUrl) {
@@ -816,7 +816,7 @@ async function callVolcVideoApi(
     throw new Error(detail || `doubao-seedance Quay lại空的任务 ID（响应格式未识别，请检查console日志）`);
   }
 
-  // 轮询: GET /volc/v1/contents/generations/tasks/{taskId}
+  // luân phiên: GET /volc/v1/contents/generations/tasks/{taskId}
   const pollInterval = 5000;
   const maxAttempts = 180; // 15 phút
 
@@ -870,7 +870,7 @@ async function callVolcVideoApi(
       throw new Error(typeof errorMsg === 'string' ? errorMsg : JSON.stringify(errorMsg));
     }
 
-    // queued / running → Tiếp tục轮询
+    // queued / running → Tiếp tụcluân phiên
     await sleepOrAbort(pollInterval, signal);
   }
   throw new Error('Tạo video quá thời gian chờ');
@@ -937,7 +937,7 @@ async function callWanVideoApi(
   const taskId = submitData.output?.task_id;
   if (!taskId) throw new Error('Quay lại空的任务 ID');
 
-  // 轮询: GET /alibailian/api/v1/tasks/{task_id}
+  // luân phiên: GET /alibailian/api/v1/tasks/{task_id}
   const pollInterval = 5000;
   const maxAttempts = 180;
 
@@ -1069,7 +1069,7 @@ async function callKlingVideoApi(
   const taskId = submitData.data?.task_id;
   if (!taskId) throw new Error('Quay lại空的任务 ID');
 
-  // 轮询 URL 镜像Gửi路径: GET /kling/v1/videos/{path}/{task_id}
+  // luân phiên URL 镜像Gửi路径: GET /kling/v1/videos/{path}/{task_id}
   const pollUrl = `${baseUrl}/kling/v1/videos/${endpointPath}/${taskId}`;
   const pollInterval = 5000;
   const maxAttempts = 180;
@@ -1169,7 +1169,7 @@ async function callOpenAIOfficialVideoApi(
   if (directUrl) return directUrl;
   if (!taskId) throw new Error('Sora Quay lại空任务 ID');
 
-  // 轮询: GET /v1/videos/{taskId}
+  // luân phiên: GET /v1/videos/{taskId}
   const pollUrl = `${baseUrl}/v1/videos/${taskId}`;
   const pollInterval = 5000;
   const maxAttempts = 180;
@@ -1261,7 +1261,7 @@ async function callReplicateVideoApi(
   const predictionId = submitData.id?.toString();
   if (!predictionId) throw new Error('Replicate Quay lại空 prediction ID');
 
-  // 轮询: GET /replicate/v1/predictions/{id}
+  // luân phiên: GET /replicate/v1/predictions/{id}
   const pollUrl = `${rootBase}/replicate/v1/predictions/${predictionId}`;
   const pollInterval = 5000;
   const maxAttempts = 180;

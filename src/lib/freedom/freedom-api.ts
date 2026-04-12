@@ -164,7 +164,7 @@ function pickFeatureConfig(feature: AIFeature, requestedModel?: string): Feature
     const exact = all.find((c) => c.model === requestedModel);
     if (exact) return exact;
     // UI 展开的变体模型（如 gemini-3.1-pro 从绑定的 gemini-3-pro 展开而来）不会
-    // 精确Khớp到任何 config.model，此时回退到轮询配置而非返回 null，
+    // 精确Khớp到任何 config.model，此时回退到luân phiên配置而非返回 null，
     // Tránhngười dùng选了可用变体却报"未配置"lỗi
   }
   return getFeatureConfig(feature) ?? all[0];
@@ -223,7 +223,7 @@ const FREEDOM_VIDEO_ROUTE_MAP: Record<string, FreedomVideoRoute> = {
   '视频延长': 'kling',
   'omni-video': 'kling',
   '动作控制': 'kling',
-  '多模态视频chỉnh sửa': 'kling',
+  'đa phương thức视频chỉnh sửa': 'kling',
   'Người ảo': 'kling',
   '对sổ型': 'kling',
   '视频特效': 'kling',
@@ -246,7 +246,7 @@ const FREEDOM_VIDEO_ROUTE_MAP: Record<string, FreedomVideoRoute> = {
 };
 
 /**
- * 统一格式端点路径映射（端点类型 → 提交/轮询 URL 路径）
+ * 统一格式端点路径映射（端点类型 → 提交/luân phiên URL 路径）
  * 每种端点类型Trực tiếp对应确定的 URL，不再靠 fallback 猜测
  */
 const UNIFIED_ENDPOINT_PATHS: Record<string, { submit: string; poll: (id: string) => string }> = {
@@ -269,7 +269,7 @@ const UNIFIED_ENDPOINT_PATHS: Record<string, { submit: string; poll: (id: string
 const DEFAULT_UNIFIED_ENDPOINT = { submit: '/v1/video/generations', poll: (id: string) => `/v1/video/generations/${id}` };
 
 /**
- * 图片端点路径映射（端点类型 → 提交/轮询 URL 路径）
+ * 图片端点路径映射（端点类型 → 提交/luân phiên URL 路径）
  * 仅用于需要Tùy chỉnh路径的端点类型，其余走默认 /v1/images/generations
  */
 const IMAGE_ENDPOINT_PATHS: Record<string, { submit: string; poll: (id: string) => string }> = {
@@ -1260,7 +1260,7 @@ async function generateVideoViaUnified(
   if (directUrl) return { url: directUrl, taskId: taskId ? String(taskId) : undefined };
   if (!taskId) throw new Error('统一视频giao diện返回空任务 ID');
 
-  // 轮询：Trực tiếpSử dụng端点类型对应的 URL
+  // luân phiên：Trực tiếpSử dụng端点类型对应的 URL
   const pollUrl = `${rootBase}${endpointPaths.poll(String(taskId))}`;
 
   for (let i = 0; i < VIDEO_POLL_MAX_ATTEMPTS; i++) {

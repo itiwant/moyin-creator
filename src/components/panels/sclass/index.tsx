@@ -4,7 +4,7 @@
 "use client";
 
 /**
- * Hạng Spanel — Seedance 2.0 多模态Sáng tácpanel
+ * Hạng Spanel — Seedance 2.0 đa phương thứcSáng tácpanel
  * 
  * 复用 director-store 的Phân cảnhdữ liệu（SplitScene[]），
  * 以「nhóm」为核心thực hiện多Ống kính合并tự sựTạo video。

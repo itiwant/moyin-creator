@@ -169,7 +169,7 @@ export function GenerationPanel({ selectedCharacter, onCharacterCreated }: Gener
         mappedAge = 'child';
       } else if (ageStr.includes('13') || ageStr.includes('18') || ageStr.includes('Thanh thiếu niên')) {
         mappedAge = 'teen';
-      } else if (ageStr.includes('19') || ageStr.includes('20') || ageStr.includes('25') || ageStr.includes('30') || ageStr.includes('青年')) {
+      } else if (ageStr.includes('19') || ageStr.includes('20') || ageStr.includes('25') || ageStr.includes('30') || ageStr.includes('trẻ')) {
         mappedAge = 'young-adult';
       } else if (ageStr.includes('35') || ageStr.includes('40') || ageStr.includes('45') || ageStr.includes('50') || ageStr.includes('đang xử lý...) {
         mappedAge = 'adult';
@@ -1360,7 +1360,7 @@ function buildCharacterSheetPrompt(
   
   if (isRealistic) {
     return isZh
-      ? `${basePrompt}, ${contentPrompt}, photography character reference layout, collage format, ${whiteBackgroundPrompt}, ${styleTokens}, cinematic lighting, hi细节Kết cấu da, 照片写实`
+      ? `${basePrompt}, ${contentPrompt}, photography character reference layout, collage format, ${whiteBackgroundPrompt}, ${styleTokens}, cinematic lighting, highly detailed skin texture, photoreal`
       : `${basePrompt}, ${contentPrompt}, photographic character reference layout, collage format, ${whiteBackgroundPrompt}, ${styleTokens}, cinematic lighting, highly detailed skin texture, photorealistic`;
   } else {
     return isZh

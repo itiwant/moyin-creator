@@ -178,7 +178,7 @@ export async function queryTaskStatus(
 }
 
 /**
- * 轮询任务直到hoàn thành
+ * luân phiên任务直到hoàn thành
  */
 export async function pollTaskUntilComplete(
   taskId: string,
@@ -259,7 +259,7 @@ export async function generateAngleSwitch(params: {
     appId,
   });
 
-  // 轮询kết quả
+  // luân phiênkết quả
   onProgress?.(10, 'POLLING');
   const resultUrl = await pollTaskUntilComplete(taskId, apiKey, baseUrl, onProgress);
 

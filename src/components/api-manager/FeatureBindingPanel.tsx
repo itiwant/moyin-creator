@@ -52,56 +52,56 @@ interface FeatureMeta {
   description: string;
   icon: ReactNode;
   requiredCapability?: ModelCapability;
-  /** Đề xuấtModelGợi ý（蓝色高亮） */
+  /** Gợi ý Model Đề xuất (đánh dấu màu xanh) */
   recommendation?: string;
 }
 
 const FEATURE_CONFIGS: FeatureMeta[] = [
   {
     key: "script_analysis",
-    name: "Kịch bản分析 / Chat",
-    description: "将故事文本分解为Cấu trúc化Kịch bản",
+    name: "Phân tích Kịch bản / Chat",
+    description: "Phân tích văn bản câu chuyện thành Kịch bản có Cấu trúc",
     icon: <FileText className="h-4 w-4" />,
     requiredCapability: "text",
   },
   {
     key: "character_generation",
     name: "Tạo ảnh",
-    description: "TạoNhân vật和CảnhẢnh tham chiếu",
+    description: "Tạo Ảnh tham chiếu Nhân vật và Cảnh",
     icon: <Image className="h-4 w-4" />,
     requiredCapability: "image_generation",
-    recommendation: "💎 Đề xuấtSử dụng Nano Banana Pro (Gemini 3 Pro)— 画质优秀、一致性好",
+    recommendation: "💎 Đề xuất Sử dụng Nano Banana Pro (Gemini 3 Pro) — chất lượng ảnh xuất sắc, nhất quán cao",
   },
   {
     key: "video_generation",
     name: "Tạo video",
-    description: "将ảnh转换为video",
+    description: "Chuyển đổi ảnh thành video",
     icon: <Video className="h-4 w-4" />,
     requiredCapability: "video_generation",
-    recommendation: "🧪 测试Đề xuất doubao-seedance-1-0-lite-t2v-250428 — 适合nhanh验证流程",
+    recommendation: "🧪 Đề xuất thử nghiệm doubao-seedance-1-0-lite-t2v-250428 — phù hợp xác minh quy trình nhanh",
   },
   {
     key: "image_understanding",
     name: "Phân tích ảnh",
-    description: "分析ảnhNội dungTạoMô tả",
+    description: "Phân tích Nội dung ảnh để Tạo Mô tả",
     icon: <ScanEye className="h-4 w-4" />,
     requiredCapability: "vision",
   },
   {
     key: "freedom_image",
     name: "Tự dopanel-ảnh",
-    description: "Tự dopanel独立的Tạo ảnh配置（Chưa cấu hình时回退到「Tạo ảnh」）",
+    description: "Cấu hình Tạo ảnh độc lập cho panel Tự do (khi Chưa cấu hình thì quay lại「Tạo ảnh」)",
     icon: <Sparkles className="h-4 w-4" />,
     requiredCapability: "image_generation",
-    recommendation: "🎨 可独立配置Tự dopanelSử dụng的Tạo ảnhModel，不影响其他panel",
+    recommendation: "🎨 Có thể cấu hình độc lập Model Tạo ảnh cho panel Tự do, không ảnh hưởng các panel khác",
   },
   {
     key: "freedom_video",
     name: "Tự dopanel-video",
-    description: "Tự dopanel独立的Tạo video配置（Chưa cấu hình时回退到「Tạo video」）",
+    description: "Cấu hình Tạo video độc lập cho panel Tự do (khi Chưa cấu hình thì quay lại「Tạo video」)",
     icon: <Clapperboard className="h-4 w-4" />,
     requiredCapability: "video_generation",
-    recommendation: "🎬 可独立配置Tự dopanelSử dụng的Tạo videoModel，不影响其他panel",
+    recommendation: "🎬 Có thể cấu hình độc lập Model Tạo video cho panel Tự do, không ảnh hưởng các panel khác",
   },
 ];
 
@@ -197,8 +197,8 @@ function modelSupportsCapability(
   modelName: string,
   provider: { platform: string; capabilities?: ModelCapability[] },
   required?: ModelCapability,
-  modelType?: string,     // "文本" | "图像" | "音video" | "检索"
-  modelTagsList?: string[] // ["Chat","识图","工具"]
+  modelType?: string,     // "văn bản" | "hình ảnh" | "âm thanh/video" | "tìm kiếm"
+  modelTagsList?: string[] // ["Chat","nhận dạng ảnh","công cụ"]
 ): boolean {
   if (!required) return true;
 
@@ -212,17 +212,17 @@ function modelSupportsCapability(
   if (modelType) {
     switch (required) {
       case 'text':
-        return modelType === '文本';
+        return modelType === 'văn bản';
       case 'image_generation':
         return modelType === 'ảnh';
       case 'video_generation':
         // 音video类đang xử lý...带“video”Thẻ的（排除纯âm thanh/TTS/Nhạc）
-        return modelType === '音video' && (modelTagsList?.some(t => t.includes('video')) ?? false);
+        return modelType === 'âm thanh/video' && (modelTagsList?.some(t => t.includes('video')) ?? false);
       case 'vision':
-        // 识图能力跨 model_type，只看 tags 是否含“识图”或“多模态”
-        return modelTagsList?.some(t => t.includes('识图') || t.includes('多模态')) ?? false;
+        // nhận dạng ảnh能力跨 model_type，只看 tags 是否含“nhận dạng ảnh”或“đa phương thức”
+        return modelTagsList?.some(t => t.includes('nhận dạng ảnh') || t.includes('đa phương thức')) ?? false;
       case 'embedding':
-        return modelType === '检索';
+        return modelType === 'tìm kiếm';
       default:
         break;
     }
@@ -488,7 +488,7 @@ export function FeatureBindingPanel() {
                       )}
                       {isFreedomFeature && invalidBindings.length > 0 && (
                         <span className="text-xs bg-amber-500/15 text-amber-700 dark:text-amber-300 px-1.5 py-0.5 rounded">
-                          暂不Khả dụng {invalidBindings.length}
+                          Tạm không khả dụng {invalidBindings.length}
                         </span>
                       )}
                     </div>
@@ -513,12 +513,12 @@ export function FeatureBindingPanel() {
                 <div className="px-4 pb-4 pt-0 border-t border-border/50">
                   {options.length === 0 ? (
                     <p className="text-xs text-muted-foreground py-2">
-                      Chưa có可选Model（请先在 API 服务商里配置Model cột表）
+                      Chưa có Model khả dụng (vui lòng cấu hình danh sách Model trong Nhà cung cấp API trước)
                     </p>
                   ) : (
                     <div className="space-y-3 pt-3">
                       <p className="text-xs text-muted-foreground">
-                        可多选，请求将按轮询分配到各Model（间隔 3 秒）
+                        Có thể chọn nhiều, yêu cầu sẽ được phân phối luân phiên đến các Model (cách 3 giây)
                       </p>
 
                       {/* Đề xuấtModelGợi ý */}
@@ -530,7 +530,7 @@ export function FeatureBindingPanel() {
                         </div>
                       )}
 
-                      {/* MemeFast nhómGợi ý横幅 */}
+                      {/* Banner Gợi ý nhóm MemeFast */}
                       {(() => {
                         const groups = new Set<string>();
                         for (const binding of currentBindings) {
@@ -547,7 +547,7 @@ export function FeatureBindingPanel() {
                         return (
                           <div className="flex flex-col gap-1.5 px-3 py-2.5 rounded-md bg-blue-500/10 border border-blue-500/30">
                             <span className="text-xs font-medium text-blue-600 dark:text-blue-400">
-                              已选的 MemeFast ModelHỗ trợ以下nhóm：
+                              Model MemeFast đã chọn Hỗ trợ các nhóm sau:
                             </span>
                             <div className="flex flex-wrap gap-1.5">
                               {sortedGroups.map(g => (
@@ -557,18 +557,18 @@ export function FeatureBindingPanel() {
                               ))}
                             </div>
                             <span className="text-[11px] text-blue-600/80 dark:text-blue-400/80">
-                              gợi ý在 memefast.top 后台为以上nhóm都Thêm Key，Key 越多可用性越高。
+                              Gợi ý thêm Key cho tất cả các nhóm trên trong trang quản trị memefast.top, càng nhiều Key thì độ khả dụng càng cao.
                             </span>
                           </div>
                         );
                       })()}
                       {isFreedomFeature && invalidBindings.length > 0 && (
                         <p className="text-[11px] text-amber-700 dark:text-amber-300">
-                          检测到暂không khả dụng绑定：系统不会Tự động清理，Model恢复后会Tự độngTiếp tục可用。
+                          Phát hiện liên kết tạm không khả dụng: hệ thống không tự động xóa, Model sẽ tự động khả dụng lại sau khi khôi phục.
                         </p>
                       )}
 
-                      {/* Tự dopanel一键Chọn tất cả（勾选=Chọn tất cả；Hủy=Tất cả不选） */}
+                      {/* Chọn tất cả một lần cho panel Tự do (chọn = Chọn tất cả; Hủy = Không chọn gì) */}
                       {isFreedomFeature && (
                         <div className="flex items-center justify-between rounded-md border border-border/60 bg-muted/30 px-3 py-2">
                           <label className="flex items-center gap-2 text-xs font-medium text-foreground">
@@ -577,7 +577,7 @@ export function FeatureBindingPanel() {
                               onCheckedChange={handleToggleSelectAll}
                               disabled={selectableOptionKeys.length === 0}
                             />
-                            Chọn tất cảModel（Hủy即Tất cả不选）
+                            Chọn tất cả Model (Hủy tức Không chọn gì)
                           </label>
                           <span className="text-[11px] text-muted-foreground">
                             {selectedSelectableCount}/{selectableOptionKeys.length}
@@ -668,7 +668,7 @@ export function FeatureBindingPanel() {
                             <div className="space-y-1 max-h-[280px] overflow-y-auto">
                               {filteredOptions.length === 0 ? (
                                 <p className="text-xs text-muted-foreground py-2 text-center">
-                                  无KhớpModel
+                                  Không có Model phù hợp
                                 </p>
                               ) : (
                                 filteredOptions.map((option) => {
@@ -724,10 +724,10 @@ export function FeatureBindingPanel() {
           <AlertCircle className="h-4 w-4 text-destructive mt-0.5 shrink-0" />
           <div className="text-xs">
             <p className="font-medium text-destructive">
-              部分服务Chưa cấu hình
+              Một số dịch vụ Chưa cấu hình
             </p>
             <p className="text-muted-foreground mt-1">
-              请在上方为每chức năngChọn「Nhà cung cấp/Model」，并确保对应Nhà cung cấp已填写 API Key。
+              Vui lòng Chọn「Nhà cung cấp/Model」cho từng chức năng ở trên, và đảm bảo Nhà cung cấp tương ứng đã điền API Key.
             </p>
           </div>
         </div>
@@ -736,12 +736,12 @@ export function FeatureBindingPanel() {
       {/* Help text */}
       <div className="text-xs text-muted-foreground bg-muted/50 p-3 rounded-lg space-y-2">
         <p>
-          <strong>💡 多Model轮询：</strong>
-          每chức năng可Chọn多Model，请求将按thứ tự分配到各Model（每次间隔 3 秒），Tránh单一 API 限流。
+          <strong>💡 Luân phiên đa Model:</strong>
+          Mỗi chức năng có thể Chọn nhiều Model, yêu cầu sẽ được phân phối theo thứ tự đến các Model (cách 3 giây mỗi lần), Tránh giới hạn tần suất API đơn lẻ.
         </p>
         <p>
-          <strong>📌 说明：</strong>
-          可Tùy chọn来自「API 服务商」里配置的Model cột表，NhấpMở rộng后可多选。
+          <strong>📌 Giải thích:</strong>
+          Có thể Tùy chọn từ danh sách Model cấu hình trong「Nhà cung cấp API」, Nhấp để Mở rộng rồi chọn nhiều.
         </p>
       </div>
     </div>

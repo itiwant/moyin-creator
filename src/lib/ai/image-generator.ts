@@ -38,7 +38,7 @@ const getRootBaseUrl = (baseUrl: string): string => {
 };
 
 /**
- * 图片端点路径映射（端点类型 → 提交/轮询 URL 路径）
+ * 图片端点路径映射（端点类型 → 提交/luân phiên URL 路径）
  * 仅用于需要Tùy chỉnh路径的端点类型，其余走默认 /v1/images/generations
  */
 const IMAGE_ENDPOINT_PATHS: Record<string, { submit: string; poll: (id: string) => string }> = {
@@ -678,7 +678,7 @@ async function submitImageTask(
       throw new Error('No task_id or image URL in response');
     }
 
-    // 返回 pollUrl 供gọi API方Sử dụngTùy chỉnh轮询路径
+    // 返回 pollUrl 供gọi API方Sử dụngTùy chỉnhluân phiên路径
     const imagePaths = getImageEndpointPaths(endpointTypes || []);
     const rootBase = getRootBaseUrl(baseUrl);
     const pollUrl = `${rootBase}${imagePaths.poll(taskId)}`;
@@ -900,7 +900,7 @@ export async function submitGridImageRequest(params: {
     || data.task_id?.toString()
     || data.id?.toString();
 
-  // 如果只有 taskId 没有 imageUrl，Tự động轮询获取kết quả（与 generateImage 行为一致）
+  // 如果只有 taskId 没有 imageUrl，Tự độngluân phiên获取kết quả（与 generateImage 行为一致）
   if (!imageUrl && taskId) {
     console.log('[GridImageAPI] Got taskId without imageUrl, polling...', taskId);
     const pollUrl = `${rootBase}${imagePaths.poll(taskId)}`;
@@ -908,7 +908,7 @@ export async function submitGridImageRequest(params: {
     return { imageUrl: polledUrl, taskId };
   }
 
-  // taskId 存在时附带 pollUrl 供外部轮询
+  // taskId 存在时附带 pollUrl 供外部luân phiên
   if (taskId) {
     const pollUrl = `${rootBase}${imagePaths.poll(taskId)}`;
     return { imageUrl, taskId, pollUrl };
@@ -920,7 +920,7 @@ export async function submitGridImageRequest(params: {
 /**
  * Kling image 原生端点Tạo
  * 提交到 /kling/v1/images/generations 或 /kling/v1/images/omni-image
- * 轮询到 /kling/v1/images/{path}/{task_id}
+ * luân phiên到 /kling/v1/images/{path}/{task_id}
  */
 async function submitViaKlingImages(
   params: { prompt: string; aspectRatio?: string; negativePrompt?: string },

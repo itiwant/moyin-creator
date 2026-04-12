@@ -34,7 +34,7 @@ export interface IProvider {
  * 默认供应商模板
  * 
  * 核心供应商：
- * 1. MemeFast API (memefast) - 全chức năng AI trung gian（推荐），支持文本/ảnh/video/识图
+ * 1. MemeFast API (memefast) - 全chức năng AI trung gian（推荐），支持文本/ảnh/video/nhận dạng ảnh
  * 2. RunningHub - góc nhìn切换/đa góc độTạo
  */
 export const DEFAULT_PROVIDERS: Omit<IProvider, 'id' | 'apiKey'>[] = [
@@ -95,7 +95,7 @@ export function classifyModelByName(modelName: string): ModelCapability[] {
   // "xxx-image-preview" 类（如 gemini-3-pro-image-preview）
   if (/image[- ]?preview/.test(name)) return ['image_generation'];
 
-  // ---- Thị giác/识图模型 ----
+  // ---- Thị giác/nhận dạng ảnh模型 ----
   if (/vision/.test(name)) return ['text', 'vision'];
 
   // ---- TTS / Audio 模型（不归入任何主phân loại）----
@@ -164,7 +164,7 @@ export function resolveImageApiFormat(endpointTypes: string[] | undefined, model
     for (const t of endpointTypes) {
       if (IMAGE_ENDPOINT_MAP[t] === 'openai_images') return 'openai_images';
     }
-    // 其次尝试 chat completions （Gemini 多模态ảnh）
+    // 其次尝试 chat completions （Gemini đa phương thứcảnh）
     for (const t of endpointTypes) {
       if (IMAGE_ENDPOINT_MAP[t] === 'openai_chat') return 'openai_chat';
     }
@@ -178,7 +178,7 @@ export function resolveImageApiFormat(endpointTypes: string[] | undefined, model
     if (/^kling-(image|omni-image)$/i.test(name)) {
       return 'kling_image';
     }
-    // Gemini image models → chat completions 多模态
+    // Gemini image models → chat completions đa phương thức
     if (name.includes('gemini') && (name.includes('image') || name.includes('imagen'))) {
       return 'openai_chat';
     }

@@ -394,9 +394,9 @@ interface APIConfigState {
   modelEndpointTypes: Record<string, string[]>;
   
   // Model metadata from /api/pricing_new (MemeFast platform classification)
-  // model_name -> model_type: "文本" | "图像" | "音video" | "检索"
+  // model_name -> model_type: "文本" | "图像" | "音video" | "tìm kiếm"
   modelTypes: Record<string, string>;
-  // model_name -> tags: ["Chat","识图","工具"] etc.
+  // model_name -> tags: ["Chat","nhận dạng ảnh","工具"] etc.
   modelTags: Record<string, string[]>;
   // model_name -> enable_groups: ["官转","纯AZ","default"] (MemeFast only)
   modelEnableGroups: Record<string, string[]>;
