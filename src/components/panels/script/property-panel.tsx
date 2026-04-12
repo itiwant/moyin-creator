@@ -897,7 +897,7 @@ export function PropertyPanel({
             <div className="space-y-3">
               <div className="space-y-1">
                 <Label className="text-xs">Danh tính/Nền</Label>
-                <Textarea value={editData.role || ""} onChange={(e) => setEditData({ ...editData, role: e.target.value })} className="min-h-[60px]" placeholder="详细的Danh tínhnềnMô tả" />
+                <Textarea value={editData.role || ""} onChange={(e) => setEditData({ ...editData, role: e.target.value })} className="min-h-[60px]" placeholder="Mô tả chi tiết Danh tính và Nền tảng" />
               </div>
               <div className="grid grid-cols-2 gap-2">
                 <div className="space-y-1">
@@ -919,7 +919,7 @@ export function PropertyPanel({
               </div>
               <div className="space-y-1">
                 <Label className="text-xs">Kỹ năng/năng lực</Label>
-                <Textarea value={editData.skills || ""} onChange={(e) => setEditData({ ...editData, skills: e.target.value })} className="min-h-[60px]" placeholder="武功、魔法、chuyên nghiệp技能等" />
+                <Textarea value={editData.skills || ""} onChange={(e) => setEditData({ ...editData, skills: e.target.value })} className="min-h-[60px]" placeholder="Võ thuật, phép thuật, kỹ năng chuyên nghiệp, v.v." />
               </div>
               <div className="space-y-1">
                 <Label className="text-xs">Hành vi/Thành tích quan trọng</Label>
@@ -1447,7 +1447,7 @@ export function PropertyPanel({
               <div className="grid grid-cols-2 gap-2">
                 <div className="space-y-1">
                   <Label className="text-xs">Kích thước cảnh</Label>
-                  <Input value={editData.shotSize || ""} onChange={(e) => setEditData({ ...editData, shotSize: e.target.value })} className="h-8" placeholder="如：WS/MS/CU/ECU" />
+                  <Input value={editData.shotSize || ""} onChange={(e) => setEditData({ ...editData, shotSize: e.target.value })} className="h-8" placeholder="Ví dụ: WS/MS/CU/ECU" />
                 </div>
                 <div className="space-y-1">
                   <Label className="text-xs">Chuyển động Phân cảnh</Label>

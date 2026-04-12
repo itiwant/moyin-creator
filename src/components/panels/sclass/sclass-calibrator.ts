@@ -93,23 +93,23 @@ export async function calibrateGroup(
 
   const systemPrompt = `Bạn là một Đạo diễn điện ảnh kỳ cựu kiêm biên tập viên, giỏi kiểm soát Nhịp điệu và tối ưu tính liên mạch tự sự trong video đa Ống kính.
 
-【核心约束 — 严格执 hàng】
-1. 严格基于以下Ống kínhdữ liệu，不得ThêmKịch bảnđang xử lý...的Nhân vật、Cảnh或Thoại。
-2. 只做tự sựliên mạchtối ưu和chuyển tiếpThiết kế，不改变各Ống kính的核心Nội dung和情绪基调。
-3. 保留每Ống kính的原有chuyển động máy和Hành độngThiết kế，只在Ống kínhnối kết处增加chuyển tiếp指令。
-4. âm thanhThiết kế必须基于各Ống kínhhiện có的Âm thanh môi trường/Hiệu ứng âm thanhthông tin，不tự tạo ra创造新音源。
-5. calibratedPrompt 是对Tất cảỐng kính的tích hợpviết lại，必须包含每Ống kính的核心thông tin，不bỏ sót。
+【Ràng buộc cốt lõi - thực hiện nghiêm ngặt】
+1. Chỉ dựa trên dữ liệu Ống kính sau, không được Thêm Nhân vật, Cảnh hoặc Thoại không có trong Kịch bản.
+2. Chỉ tối ưu tính liên mạch tự sự và Thiết kế chuyển tiếp, không thay đổi Nội dung cốt lõi và tông cảm xúc của từng Ống kính.
+3. Giữ nguyên chuyển động máy và Thiết kế Hành động của từng Ống kính, chỉ thêm lệnh chuyển tiếp tại điểm nối.
+4. Thiết kế âm thanh phải dựa trên thông tin Âm thanh môi trường/Hiệu ứng âm thanh hiện có, không được tự tạo nguồn âm mới.
+5. calibratedPrompt là bản tích hợp và viết lại của tất cả Ống kính, phải chứa thông tin cốt lõi của từng Ống kính, không bỏ sót.
 
-请以 JSON 格式Quay lại，Không有任何解释文字。`;
+Trả lời bằng định dạng JSON, không có bất kỳ văn bản giải thích nào.`;
 
-  const userPrompt = `【组thông tin】
+  const userPrompt = `【Thông tin nhóm】
 Tên nhóm：${group.name}
-Ống kính数：${scenes.length}
+Số Ống kính: ${scenes.length}
 TổngThời lượng：${totalDuration}s
 
 ${sceneSummaries}
 
-请输出以下 JSON：
+Vui lòng xuất JSON sau:
 {
   "narrativeArc": "Mô tả bằng một câu về cung tự sự của nhóm Ống kính này (mở đầu-phát triển-chuyển-kết)",
   "transitions": [
