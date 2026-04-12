@@ -4,12 +4,12 @@
 /**
  * Media-Type Tokens — 摄影参数 × 媒介类型翻译层
  *
- * 核心职责：根据视觉风格的 mediaType，将物理摄影 promptToken 翻译为
+ * 核心职责：根据Thị giác风格的 mediaType，将物理摄影 promptToken 翻译为
  * 该媒介能驾驭的等效表达。
  *
  * 翻译策略：
  * - cinematic  → 直通，保留Tất cả物理摄影词汇
- * - animation  → 虚拟摄像机语义适配（轨道→视差平移、景深→层次模糊）
+ * - animation  → 虚拟摄像机语义适配（轨道→视差平移、景深→cấp độ模糊）
  * - stop-motion → 微缩实拍约束（轨道→微型滑轨、景深→微距镜头）
  * - graphic    → 跳过物理参数，灯光→色彩/情绪/Nhịp điệuMô tả
  */
@@ -176,7 +176,7 @@ const TRANSLATION_TABLES: Partial<Record<MediaType, MediaTranslationTable>> = {
 /**
  * 将摄影参数 token 翻译为当前媒介类型的等效表达。
  *
- * @param mediaType   - 当前视觉风格的媒介类型
+ * @param mediaType   - 当前Thị giác风格的媒介类型
  * @param field       - 摄影参数维度
  * @param presetId    - 预设 ID（如 'dolly', 'shallow'）
  * @param originalToken - gốc promptToken（来自预设dữ liệu）

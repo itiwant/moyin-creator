@@ -4,7 +4,7 @@
 "use client";
 
 /**
- * StylePicker - 统一的视觉风格Chọn器
+ * StylePicker - 统一的Thị giác风格Chọn器
  * 
  * chức năng：
  * - 左侧：phân loại小图列表，可滚动

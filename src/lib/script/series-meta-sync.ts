@@ -58,7 +58,7 @@ export function populateSeriesMetaFromImport(
     characters: scriptData.characters || [],
     factions: aiAnalysis?.factions || undefined,
 
-    // 视觉系统 — Trực tiếpSử dụng用户在NhậppanelChọn的风格
+    // Thị giác系统 — Trực tiếpSử dụng用户在NhậppanelChọn的风格
     styleId: importSettings?.styleId,
     recurringLocations: undefined,
     colorPalette: undefined,

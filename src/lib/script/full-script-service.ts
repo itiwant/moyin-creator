@@ -1903,13 +1903,13 @@ ${characterBios ? `
 1. **场景归属绝对Cố định**（最重要！）：
    - 每分镜都有一【主场景】（由 sceneLocation trường指定），这是**绝对不可thay đổi的**
    - 即使分镜Mô tảđang xử lý...其他场景（如闪回、叠画、回忆画面、穿插镜头），**主场景vẫn是 sceneLocation**
-   - 闪回/叠画是「当前主场景内的视觉表现手法」，不是场景切换
+   - 闪回/叠画是「当前主场景内的Thị giác表现手法」，不是场景切换
    - 你Tạo的Tất cảMô tả（visualDescription、imagePrompt 等）都必须以**主场景为背景**
    - 如果原文包含闪回/叠画内容，用「画面叠加」「画đang xử lý...主观回忆」等方式Mô tả，而不是Mô tả成另一场景
    - 例：主场景是"张家客厅"，原文提到"闪回台球厅"，应Mô tả为"张家客厅đang xử lý...叠加台球厅的回忆画面"
 
 2. **严格基于原文**：每分镜都附带了【gốc剧本文本】，你的Tất cảTạo内容必须完全基于该原文：
-   - Mô tả thị giác必须包含原文đang xử lý...Tất cảquan trọng元素（nhân vật、动作、道具、场景）
+   - Mô tả thị giác必须包含原文đang xử lý...Tất cảquan trọng元素（nhân vật、动作、đạo cụ、场景）
    - 不得Thêm原文đang xử lý...内容
    - 不得混入其他分镜的内容
    - 不得bỏ sót原文đang xử lý...thông tin
@@ -1937,7 +1937,7 @@ ${characterBios ? `
 为每分镜Tạo：
 
 **基础trường：**
-1. đang xử lý...Mô tả (visualDescription): 详细、有画面感的**纯đang xử lý...Mô tả，必须包含原文Tất cảquan trọng元素（环境、nhân vật、动作、道具）
+1. đang xử lý...Mô tả (visualDescription): 详细、有画面感的**纯đang xử lý...Mô tả，必须包含原文Tất cảquan trọng元素（环境、nhân vật、动作、đạo cụ）
 2. 英文Mô tả thị giác (visualPrompt): 用于AI绘图的**纯英文**Mô tả，40词内
 3. Kích thước cảnh (shotSize): ECU/CU/MCU/MS/MLS/LS/WS/FS
 4. 镜头运动 (cameraMovement): none/static/tracking/orbit/zoom-in/zoom-out/pan-left/pan-right/tilt-up/tilt-down/dolly-in/dolly-out/truck-left/truck-right/crane-up/crane-down/drone-aerial/360-roll
@@ -1980,7 +1980,7 @@ ${characterBios ? `
     
     a) **场景环境**：
        - 地点类型（家庭餐厅/办公室/街道等）
-       - 环境细节（外景色、室内陈设、道具布置）
+       - 环境细节（外景色、室内陈设、đạo cụ布置）
        - 时间氛围（ban ngày/傍晚/ban đêm、季节感）
     
     b) **光线Thiết kế**：
@@ -1999,9 +1999,9 @@ ${characterBios ? `
        - nhân vật位置关系（左đang xử lý...、前后关系）
        - Tiêu điểm thị giác（主体在画面何处）
     
-    e) **重要道具**：
-       - 剧情quan trọng道具（证书、vật phẩm、食物等）
-       - 道具状态（Cầm tay/放置/Hiển thị）
+    e) **重要đạo cụ**：
+       - 剧情quan trọngđạo cụ（证书、vật phẩm、食物等）
+       - đạo cụ状态（Cầm tay/放置/Hiển thị）
     
     f) **画面风格**：
        - 电影感/写实风格/剧情照质感
@@ -2030,14 +2030,14 @@ ${characterBios ? `
        - 同样包含Tuổi、trang phục
        - **新的Biểu cảm神态**（动作hoàn thành后的情绪）
        - **新的Tư thế位置**（动作hoàn thành后的位置）
-       - 道具的新状态
+       - đạo cụ的新状态
     
     d) **bố cục与Kích thước cảnh**：
        - 如有镜头运动，Mô tả运动kết thúc后的新Kích thước cảnh
        - nhân vật新的位置关系
     
     e) **变化对比**（核心！）：
-       - 明确Mô tả与khung đầu的差异（位置/动作/Biểu cảm/道具状态）
+       - 明确Mô tả与khung đầu的差异（位置/动作/Biểu cảm/đạo cụ状态）
     
     f) **画面风格**：与khung đầu保持一致
     
@@ -2175,7 +2175,7 @@ Thoại: ${shot.dialogue || '无'}
 
 ⚠️ 重要提醒（必须遵守）：
 1. **场景归属绝对Cố định**：每分镜的【主场景】已经标注，即使原文提到闪回/叠画/回忆，主场景仍không thay đổi
-2. 不要bỏ sót原文đang xử lý...quan trọngthông tin（nhân vật、动作、道具、环境）
+2. 不要bỏ sót原文đang xử lý...quan trọngthông tin（nhân vật、动作、đạo cụ、环境）
 3. 不要Thêm原文đang xử lý...内容
 4. **đang xử lý...ường必须是纯đang xử lý...：visualDescription, ambientSound, soundEffect, imagePromptZh, videoPromptZh
 5. **英文trường必须是纯英文**：visualPrompt, imagePrompt, videoPrompt, endFramePrompt
@@ -2340,7 +2340,7 @@ ${characterBios.slice(0, 800)}
 
 注意：
 - đại cương要突出本 tập的核心冲突和转折
-- Sự kiện quan trọng要具体、可视觉化
+- Sự kiện quan trọng要具体、可Thị giác化
 - 保持前后 tập的liên mạch性
 
 请以JSON格式返回：

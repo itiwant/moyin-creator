@@ -10,8 +10,8 @@
  * 1. 统计每场景的出场次数、出现 tập数
  * 2. AI 分析识别重要场景 vs chuyển tiếp场景
  * 3. AI 合并相同地点的变体（张家客厅 = 张明家客厅）
- * 4. AI 补充场景thông tin（Phong cách kiến trúc、光影、道具等）
- * 5. 大师级场景视觉Thiết kế（chuyên nghiệp提示词Tạo）
+ * 4. AI 补充场景thông tin（Phong cách kiến trúc、光影、đạo cụ等）
+ * 5. 大师级场景Thị giácThiết kế（chuyên nghiệp提示词Tạo）
  */
 
 import type { ScriptScene, ProjectBackground, EpisodeRawScript, SceneRawContent, PromptLanguage } from '@/types/script';
@@ -50,13 +50,13 @@ export interface CalibratedScene {
   lightingDesign?: string;
   /** 色彩基调 */
   colorPalette?: string;
-  /** quan trọng道具 */
+  /** quan trọngđạo cụ */
   keyProps?: string[];
   /** Bố cục không gian */
   spatialLayout?: string;
   /** thời đại特征 */
   eraDetails?: string;
-  /** 英文视觉提示词 */
+  /** 英文Thị giác提示词 */
   visualPromptEn?: string;
   /** đang xử lý...Mô tả */
   visualPromptZh?: string;
@@ -86,7 +86,7 @@ export interface SceneStats {
   characters: string[];
   /** 时间设定 */
   times: string[];
-  /** 动作描写样本（用于推断场景道具/bố cục） */
+  /** 动作描写样本（用于推断场景đạo cụ/bố cục） */
   actionSamples: string[];
   /** Thoại样本（用于理解场景用途） */
   dialogueSamples: string[];
@@ -153,7 +153,7 @@ export function collectSceneStats(
         stat.contentSamples.push(`第${epIndex} tập: ${sample}`);
       }
       
-      // 收 tập动作描写（用于推断道具和场景bố cục）
+      // 收 tập动作描写（用于推断đạo cụ和场景bố cục）
       if (scene.actions && scene.actions.length > 0 && stat.actionSamples.length < 8) {
         // Sử dụngPhân tích出的动作描写（△开头）
         for (const action of scene.actions.slice(0, 3)) {
@@ -251,7 +251,7 @@ function cleanLocationString(location: string): string {
  * 【重要】此函数只补充hiện có场景的美术Thiết kếthông tin，不改变：
  * - 场景列表（不新增、不删除、不合并）
  * - 场景thứ tự
- * - viewpoints（多góc nhìn联合图dữ liệu）
+ * - viewpoints（Ảnh ghép đa góc nhìndữ liệu）
  * - sceneIds、shotIds 等关联dữ liệu
  */
 export async function calibrateScenes(
@@ -273,7 +273,7 @@ export async function calibrateScenes(
   
   console.log('[calibrateScenes] nhẹchế độ：为', currentScenes.length, 'hiện có场景补充美术Thiết kế');
   
-  // 1. 收 tập场景的动作描写样本（用于推断道具）
+  // 1. 收 tập场景的动作描写样本（用于推断đạo cụ）
   const stats = collectSceneStats(episodeScripts);
   
   // 2. 准备场景批处理 items（每场景带上统计thông tin）
@@ -307,7 +307,7 @@ export async function calibrateScenes(
   const seriesCtxBlock = seriesCtx ? `\n\n${seriesCtx}\n` : '';
 
   // 3. 构建共享的 system prompt
-  const systemPrompt = `你是chuyên nghiệp的影视美术指导和场景Thiết kế师，擅长为hiện có场景补充chuyên nghiệp的视觉Thiết kế方案。${seriesCtxBlock}
+  const systemPrompt = `你是chuyên nghiệp的影视美术指导和场景Thiết kế师，擅长为hiện có场景补充chuyên nghiệp的Thị giácThiết kế方案。${seriesCtxBlock}
 
 【核心任务】
 为以下场景补充美术Thiết kếthông tin，用于Tạo场景概念图。
@@ -321,7 +321,7 @@ export async function calibrateScenes(
 【场景Thiết kế要素 - 必须基于动作描写推断】
 为每场景补充：
 - Phong cách kiến trúc、光影Thiết kế、色彩基调
-- **quan trọng道具**：必须根据「动作描写」推断
+- **quan trọngđạo cụ**：必须根据「动作描写」推断
 - Bố cục không gian、thời đại特征、importance 分类
 
 请以JSON格式返回分析kết quả。`;
@@ -382,7 +382,7 @@ ${sceneList}
       "architectureStyle": "Phong cách kiến trúc",
       "lightingDesign": "光影Thiết kế",
       "colorPalette": "色彩基调",
-      "keyProps": ["道具1", "道具2"],
+      "keyProps": ["đạo cụ1", "đạo cụ2"],
       "spatialLayout": "Bố cục không gian",
       "eraDetails": "thời đại特征",
       "atmosphere": "氛围"
@@ -480,7 +480,7 @@ ${sceneList}
       };
     });
     
-    // 为主要场景Tạochuyên nghiệp视觉提示词
+    // 为主要场景Tạochuyên nghiệpThị giác提示词
     const enrichedScenes = await enrichScenesWithVisualPrompts(
       scenes,
       background,
@@ -540,10 +540,10 @@ export async function calibrateEpisodeScenes(
   return calibrateScenes(currentScenes, background, singleEpisodeScripts, options);
 }
 
-// ==================== chuyên nghiệp视觉Thiết kế ====================
+// ==================== chuyên nghiệpThị giácThiết kế ====================
 
 /**
- * 为主要场景Tạochuyên nghiệp的视觉提示词
+ * 为主要场景Tạochuyên nghiệp的Thị giác提示词
  */
 async function enrichScenesWithVisualPrompts(
   scenes: CalibratedScene[],
@@ -578,20 +578,20 @@ thời đại：${background.era || '未知'}
 ${background.outline?.slice(0, 1000) || '无'}
 
 【任务】
-为以下场景Tạochuyên nghiệp的视觉提示词：
+为以下场景Tạochuyên nghiệp的Thị giác提示词：
 
 ${keyScenes.map((s, i) => `${i+1}. ${s.name}
    - 重要性：${s.importance === 'main' ? '主场景' : '次要场景'}
    - Phong cách kiến trúc: ${s.architectureStyle || '未知'}
    - 光影：${s.lightingDesign || '未知'}
    - 色彩：${s.colorPalette || '未知'}
-   - 道具：${s.keyProps?.join(', ') || '未知'}
+   - đạo cụ：${s.keyProps?.join(', ') || '未知'}
    - thời đại：${s.eraDetails || '未知'}`).join('\n\n')}
 
 【输出要求】
 为每场景Tạo：
 ${promptLanguage !== 'en' ? '- đang xử lý...Mô tả（100-150字，包含空间感、氛围、细节）' : ''}
-${promptLanguage !== 'zh' ? '- 英文视觉提示词（50-80词，适合AI图像Tạo，包含风格、光影、bố cục）' : ''}
+${promptLanguage !== 'zh' ? '- 英文Thị giác提示词（50-80词，适合AI图像Tạo，包含风格、光影、bố cục）' : ''}
 
 请返回JSON格式：
 {
@@ -604,7 +604,7 @@ ${promptLanguage !== 'zh' ? '- 英文视觉提示词（50-80词，适合AI图像
 
   try {
     // 统一从ánh xạ dịch vụ获取配置
-    const result = await callFeatureAPI('script_analysis', systemPrompt, '请为以上场景Tạochuyên nghiệp视觉提示词');
+    const result = await callFeatureAPI('script_analysis', systemPrompt, '请为以上场景Tạochuyên nghiệpThị giác提示词');
     
     // Phân tíchkết quả
     let cleaned = result.replace(/```json\n?/g, '').replace(/```\n?/g, '').trim();

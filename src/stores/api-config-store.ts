@@ -73,7 +73,7 @@ export const AI_FEATURES: Array<{
  * 控制Tạo video的Nâng cao hàng为
  */
 export interface AdvancedGenerationOptions {
-  /** Bật视觉连续性：Tự động将上一Phân cảnhKhung hình cuối传递给下一Phân cảnh作为Tham chiếu */
+  /** BậtThị giác连续性：Tự động将上一Phân cảnhKhung hình cuối传递给下一Phân cảnh作为Tham chiếu */
   enableVisualContinuity: boolean;
   /** Bật断点续传：Tạo hàng loạtđang xử lý...从上次位置Tiếp tục */
   enableResumeGeneration: boolean;

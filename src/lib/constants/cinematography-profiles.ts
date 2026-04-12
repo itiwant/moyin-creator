@@ -163,7 +163,7 @@ const CINEMATIC_PROFILES: CinematographyProfile[] = [
     defaultSpeed: { playbackSpeed: 'normal' },
     defaultAngle: 'eye-level',
     defaultFocalLength: '85mm',
-    promptGuidance: '亲密剧情用静态镜头和浅景深把观众拉入角色的内心世界。自然侧光创造Khuôn mặt的明暗层次，暖色温传递情感温度。摄影机几乎不动，让演员的微Biểu cảm成为画面的Tất cả焦点。',
+    promptGuidance: '亲密剧情用静态镜头和浅景深把观众拉入角色的内心世界。自然侧光创造Khuôn mặt的明暗cấp độ，暖色温传递情感温度。摄影机几乎不动，让演员的微Biểu cảm成为画面的Tất cả焦点。',
     referenceFilms: ['海边的曼彻斯特', '婚姻故事', '花样年华'],
   },
   {
@@ -220,7 +220,7 @@ const DOCUMENTARY_PROFILES: CinematographyProfile[] = [
     defaultSpeed: { playbackSpeed: 'normal' },
     defaultAngle: 'eye-level',
     defaultFocalLength: '24mm',
-    promptGuidance: '新闻纪实以thông tin传达为第一优先——深景深确保画面Tất cả元素清晰可辨，高调光消除阴影让细节đầy đủ呈现。肩扛摄影保持灵活跟踪，但比Cầm tay更稳定。画面bố cục讲究thông tin层次，重要nhân vật或事件始终在Tiêu điểm thị giác。',
+    promptGuidance: '新闻纪实以thông tin传达为第一优先——深景深确保画面Tất cả元素清晰可辨，高调光消除阴影让细节đầy đủ呈现。肩扛摄影保持灵活跟踪，但比Cầm tay更稳定。画面bố cục讲究thông tincấp độ，重要nhân vật或事件始终在Tiêu điểm thị giác。',
     referenceFilms: ['聚焦', '总统班底', '华盛顿邮报'],
   },
 ];
@@ -243,7 +243,7 @@ const STYLIZED_PROFILES: CinematographyProfile[] = [
     defaultAngle: 'low-angle',
     defaultFocalLength: '35mm',
     defaultTechnique: 'reflection',
-    promptGuidance: '赛博朋克的视觉Ngôn ngữ是「冷暖冲突」——霓虹紫红与冰蓝同框，轮廓光把nhân vật从暗色背景đang xử lý...浅景深让霓虹灯化为迷幻光斑，薄霾为光线增加体积感。镜头慢速滑动穿过雨夜街道，营造未来都市的疏离感。',
+    promptGuidance: '赛博朋克的Thị giácNgôn ngữ是「冷暖冲突」——霓虹紫红与冰蓝同框，轮廓光把nhân vật从暗色背景đang xử lý...浅景深让霓虹灯化为迷幻光斑，薄霾为光线增加体积感。镜头慢速滑动穿过雨夜街道，营造未来都市的疏离感。',
     referenceFilms: ['银翼杀手2049', '攻壳机动队', '黑客帝国', '创战纪'],
   },
   {
@@ -285,7 +285,7 @@ const STYLIZED_PROFILES: CinematographyProfile[] = [
     name: 'MV风格',
     nameEn: 'Music Video',
     category: 'stylized',
-    description: '霓虹逆光、混合色温、极浅景深、斯坦尼康环绕、光粒子飞舞、视觉冲击力强',
+    description: '霓虹逆光、混合色温、极浅景深、斯坦尼康环绕、光粒子飞舞、Thị giác冲击力强',
     emoji: '🎵',
     defaultLighting: { style: 'neon', direction: 'back', colorTemperature: 'mixed' },
     defaultFocus: { depthOfField: 'ultra-shallow', focusTransition: 'pull-focus' },
@@ -295,7 +295,7 @@ const STYLIZED_PROFILES: CinematographyProfile[] = [
     defaultAngle: 'low-angle',
     defaultFocalLength: '35mm',
     defaultTechnique: 'bokeh',
-    promptGuidance: 'MV追求极致视觉冲击——每一帧都要像海报。极浅景深把一切虚化成五彩光斑，霓虹逆光勾勒nhân vật轮廓。nhanh斯坦尼康环绕拍摄，配合频繁的速度变化（慢放与快进交替）。大量Sử dụng光粒子和镜头光晕增加梦幻感。',
+    promptGuidance: 'MV追求极致Thị giác冲击——每一帧都要像海报。极浅景深把一切虚化成五彩光斑，霓虹逆光勾勒nhân vật轮廓。nhanh斯坦尼康环绕拍摄，配合频繁的速度变化（慢放与快进交替）。大量Sử dụng光粒子和镜头光晕增加梦幻感。',
     referenceFilms: ['爱乐之城MV段落', 'Beyoncé - Lemonade', 'The Weeknd - Blinding Lights'],
   },
 ];

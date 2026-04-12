@@ -4,7 +4,7 @@
 /**
  * 风格切换Hiệu chuẩn lại服务
  * 
- * 当用户在Đạo diễn/S级panel切换视觉风格时，将hiện có SplitScene[] 重新送入
+ * 当用户在Đạo diễn/S级panel切换Thị giác风格时，将hiện có SplitScene[] 重新送入
  * 5阶段Hiệu chuẩn流程（calibrateShotsMultiStage），用新风格viết lại提示词和拍摄参数，
  * 同时保留已Tạo的图片/视频 URL không thay đổi。
  */
@@ -149,7 +149,7 @@ export interface RecalibrationResult {
 /**
  * 用新风格Hiệu chuẩn lạiTất cả分镜
  * 
- * @param newStyleId 新的视觉风格 ID
+ * @param newStyleId 新的Thị giác风格 ID
  * @param splitScenes 当前分镜列表
  * @param scriptProjectId 可选的 script-store projectId（默认用đang hoạt động项目）
  * @param onProgress Tiến độ回调

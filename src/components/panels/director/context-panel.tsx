@@ -380,7 +380,7 @@ export function DirectorContextPanel() {
       narrativeFunction: (shot as any).narrativeFunction,
       shotPurpose: (shot as any).shotPurpose,
     });
-    // Sử dụng详细的视觉Mô tả作为prompt（优先）
+    // Sử dụng详细的Thị giácMô tả作为prompt（优先）
     let promptZh = shot.visualDescription || '';
     if (!promptZh) {
       const parts: string[] = [];
@@ -522,7 +522,7 @@ export function DirectorContextPanel() {
     
     let matchedCount = 0;
     const scenesToAdd = sceneShots.map((shot, shotIndexInScene) => {
-      // Sử dụng详细的视觉Mô tả作为prompt（优先）
+      // Sử dụng详细的Thị giácMô tả作为prompt（优先）
       let promptZh = shot.visualDescription || '';
       if (!promptZh) {
         const parts: string[] = [];

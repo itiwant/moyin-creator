@@ -4,13 +4,13 @@
 /**
  * Prompt Builder — 统一视频提示词组装模块
  *
- * 核心原则：tích hợp为语义层次，Tránh碎片化堆叠导致信号稀释
+ * 核心原则：tích hợp为语义cấp độ，Tránh碎片化堆叠导致信号稀释
  * Layer 1: 镜头Thiết kế (Camera) - 最高优先级
  * Layer 1.5: 灯光Thiết kế (Lighting)
  * Layer 2: 内容焦点 (Subject) - 次高优先级
  * Layer 3: 氛围修饰 (Mood) - 辅助
  * Layer 4: 场景音频 (Setting & Audio)
- * Layer 5: 视觉风格 (Style)
+ * Layer 5: Thị giác风格 (Style)
  * Base: 用户提示词
  *
  * 摄影风格档案回退规则：逐镜trường为空时Sử dụng项目级摄影档案默认值
@@ -91,7 +91,7 @@ function findPresetToken<T extends { id: string; promptToken: string }>(
 // ==================== 视频 Prompt 构建配置 ====================
 
 export interface VideoPromptConfig {
-  /** 视觉风格 tokens */
+  /** Thị giác风格 tokens */
   styleTokens?: string[];
   /** 画面Tỷ lệ (仅作为上下文Tham chiếu) */
   aspectRatio?: '16:9' | '9:16';
@@ -322,7 +322,7 @@ export function buildVideoPrompt(
     promptParts.push('Music: 禁止背景Nhạc');
   }
 
-  // ---------- Layer 5: 视觉风格 (Style) ----------
+  // ---------- Layer 5: Thị giác风格 (Style) ----------
   if (config.styleTokens && config.styleTokens.length > 0) {
     promptParts.push(`Style: ${config.styleTokens.join(', ')}`);
   }

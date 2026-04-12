@@ -469,7 +469,7 @@ export function useSClassGeneration() {
         updateGroupVideoStatus(group.id, {
           videoStatus: "failed",
           videoProgress: 0,
-          videoError: isModeration ? `Nội dungkiểm duyệt未通过: ${errorMsg}` : errorMsg,
+          videoError: isModeration ? `Nội dung không qua kiểm duyệt: ${errorMsg}` : errorMsg,
         });
 
         return {
@@ -738,7 +738,7 @@ export function useSClassGeneration() {
 
   const abortGeneration = useCallback(() => {
     abortRef.current = true;
-    toast.info("正在đang xử lý...o...");
+    toast.info("Đang tạo...");
   }, []);
 
   // ========== Thử lạimỗi nhóm ==========
@@ -777,7 +777,7 @@ export function useSClassGeneration() {
   /**
    * 基于Đã hoàn thành组Tạokéo dàicon组并Tạo video
    *
-   * @param sourceGroupId 来源组 ID（必须Đã hoàn thành且有 videoUrl）
+   * @param sourceGroupId 来nhóm nguồn ID（必须Đã hoàn thành且有 videoUrl）
    * @param extendDuration kéo dàiThời lượng (4-15s)
    * @param direction Hướng kéo dài
    * @param description 用户Mô tả bổ sung(tùy chọn)
@@ -791,14 +791,14 @@ export function useSClassGeneration() {
     ): Promise<GroupGenerationResult | null> => {
       const projectId = activeProjectId;
       if (!projectId) {
-        toast.error('无đang hoạt động项目');
+        toast.error('Không có dự án đang hoạt động');
         return null;
       }
 
       const pd = getProjectData(projectId);
       const sourceGroup = pd.shotGroups.find(g => g.id === sourceGroupId);
       if (!sourceGroup || !sourceGroup.videoUrl) {
-        toast.error('源组无Đã hoàn thànhvideo，无法kéo dài');
+        toast.error('Nhóm nguồn không có video Đã hoàn thành, không thể kéo dài');
         return null;
       }
 
@@ -829,7 +829,7 @@ export function useSClassGeneration() {
       };
 
       addShotGroup(childGroup);
-      toast.info(`đã tạokéo dàicon组「${childGroup.name}」`);
+      toast.info(`Đã tạo nhóm con kéo dài「${childGroup.name}」`);
 
       return generateGroupVideo(childGroup);
     },

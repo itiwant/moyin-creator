@@ -9,7 +9,7 @@
  * chức năng：
  * 1. Phân tích用户输入（如 "缺第10 tập的王大哥这角色"）
  * 2. 搜索剧本đang xử lý...thông tin
- * 3. AI Tạođầy đủ角色dữ liệu（包括视觉提示词）
+ * 3. AI Tạođầy đủ角色dữ liệu（包括Thị giác提示词）
  */
 
 import type { ScriptCharacter, ProjectBackground, EpisodeRawScript } from '@/types/script';
@@ -341,7 +341,7 @@ trang phục必须与剧本thời đại背景一致，不要混淆不同thời 
   "role": "角色Danh tính/职业/在剧đang xử lý...",
   "appearance": "Đặc điểm ngoại hìnhMô tả（trang phục必须符合thập niên）",
   "relationships": "与其他角色的关系",
-  "visualPromptEn": "英文视觉提示词，用于AI图像Tạo，Mô tả外貌、trang phục（必须符合thập niên）、气质",
+  "visualPromptEn": "英文Thị giác提示词，用于AI图像Tạo，Mô tả外貌、trang phục（必须符合thập niên）、气质",
   "visualPromptZh": "đang xử lý...提示词",
   "importance": "protagonist/supporting/minor"
 }`;

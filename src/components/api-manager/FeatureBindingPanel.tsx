@@ -164,7 +164,7 @@ const MODEL_CAPABILITIES: Record<string, ModelCapability[]> = {
   'grok-video-3-10s': ['video_generation'],
   'grok-video-3-15s': ['video_generation'],
 
-  // ---- Phân tích ảnh/视觉Model ----
+  // ---- Phân tích ảnh/Thị giácModel ----
   'doubao-vision': ['vision'],
 
   // ---- RunningHub 特殊Model ----

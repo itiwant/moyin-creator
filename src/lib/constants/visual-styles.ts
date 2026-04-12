@@ -2,9 +2,9 @@
 // Licensed under AGPL-3.0-or-later. See LICENSE for details.
 // Commercial licensing available. See COMMERCIAL_LICENSE.md.
 /**
- * Visual Style Presets - 视觉风格预设
+ * Visual Style Presets - Thị giác风格预设
  * 
- * 统一的视觉风格定义，Tất cả板块（剧本、角色、场景、AIĐạo diễn）共用
+ * 统一的Thị giác风格定义，Tất cả板块（剧本、角色、场景、AIĐạo diễn）共用
  * 来源：纳米漫剧流水线 - 风格库
  */
 

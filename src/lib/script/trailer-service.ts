@@ -8,7 +8,7 @@
  * chọn标准：
  * - tự sựchức năng为"cao trào/转折"的优先
  * - 有强烈情绪标签的优先
- * - 有视觉冲击的场景优先
+ * - 有Thị giác冲击的场景优先
  * - quan trọng角色出场的优先
  */
 
@@ -98,7 +98,7 @@ export async function selectTrailerShots(
 【chọn标准】
 - 优先Chọntự sựchức năng为"cao trào"、"转折"、"冲突"的镜头
 - 优先Chọn有强烈情绪（tense, excited, mysterious）的镜头
-- 优先Chọn有视觉冲击力的画面（动作场面、Cực cận cảnh、对峙）
+- 优先Chọn有Thị giác冲击力的画面（动作场面、Cực cận cảnh、对峙）
 - 优先Chọn主要角色出场的quan trọng时刻
 - Ghi đè不同 tập数，Hiển thị故事跨度
 - Tránh剧透quan trọng结局

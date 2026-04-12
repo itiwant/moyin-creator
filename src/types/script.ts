@@ -102,7 +102,7 @@ export interface ScriptCharacter {
   stageInfo?: CharacterStageInfo;  // 阶段thông tin（仅阶段角色有此trường）
   stageCharacterIds?: string[];    // 派生的阶段角色ID列表（仅基础角色有此trường）
   consistencyElements?: CharacterConsistencyElements; // 一致性元素（基础角色定义，阶段角色kế thừa）
-  visualPromptEn?: string;         // 英文视觉提示词（用于AITạo ảnh）
+  visualPromptEn?: string;         // 英文Thị giác提示词（用于AITạo ảnh）
   visualPromptZh?: string;         // đang xử lý...提示词
   
   // === 6层Danh tínhneo（AIHiệu chuẩn时填充）===
@@ -123,11 +123,11 @@ export interface ScriptScene {
   sceneLibraryId?: string; // 关联的场景库ID
   
   // === chuyên nghiệp场景Thiết kếtrường（AIHiệu chuẩn时填充）===
-  visualPromptEn?: string;      // 英文视觉提示词（用于AITạo ảnh）
+  visualPromptEn?: string;      // 英文Thị giác提示词（用于AITạo ảnh）
   architectureStyle?: string;   // Phong cách kiến trúc（现代简约/đang xử lý.../工业风/欧式等）
   lightingDesign?: string;      // 光影Thiết kế（自然光/灯光/昏暗/明亮等）
   colorPalette?: string;        // 色彩基调（暖色调/冷色调/đang xử lý...）
-  keyProps?: string[];          // quan trọng道具列表
+  keyProps?: string[];          // quan trọngđạo cụ列表
   spatialLayout?: string;       // Bố cục không gianMô tả
   eraDetails?: string;          // thời đại特征（如2000thập niên的装修风格）
   
@@ -136,7 +136,7 @@ export interface ScriptScene {
   appearanceCount?: number;     // 出场次数
   importance?: 'main' | 'secondary' | 'transition';  // 场景重要性
   
-  // === 多góc nhìn联合图（场景背景一致性）===
+  // === Ảnh ghép đa góc nhìn（场景背景一致性）===
   contactSheetImage?: string;   // 联合图Ảnh gốc（base64 或 URL）
   contactSheetImageUrl?: string; // 联合图 HTTP URL
   viewpoints?: SceneViewpointData[]; // góc nhìn列表
@@ -155,7 +155,7 @@ export interface SceneViewpointData {
   name: string;         // Tên tiếng Trung: khu bàn ăn, khu sofa、边
   nameEn: string;       // Tên tiếng Anh
   shotIds: string[];    // 关联的分镜ID列表
-  keyProps: string[];   // 该góc nhìn需要的道具
+  keyProps: string[];   // 该góc nhìn需要的đạo cụ
   gridIndex: number;    // 在联合图đang xử lý... (0-5)
 }
 
@@ -261,7 +261,7 @@ export interface SeriesMeta {
   factions?: Faction[];               // phe phái/势力
   relationships?: CharacterRelationship[];  // 角色关系
 
-  // === 视觉系统 ===
+  // === Thị giác系统 ===
   styleId?: string;
   recurringLocations?: ScriptScene[]; // 常驻场景库（≥2 tập出现的）
   colorPalette?: string;              // Toàn bộ主色调
@@ -472,7 +472,7 @@ export interface Shot {
   shotSize?: string;         // Kích thước cảnh（Wide Shot, Medium Shot, Close-up, ECU等）
   duration?: number;         // 预估thời lượng（秒）
   
-  // === 视觉Tạo ===
+  // === Thị giácTạo ===
   visualPrompt?: string;     // 英文Mô tả thị giác（用于ảnhTạo，tương thích旧版）
   
   // === 3 lớp提示词系统 (Seedance 1.5 Pro) ===

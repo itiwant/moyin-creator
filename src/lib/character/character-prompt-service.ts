@@ -30,7 +30,7 @@ export interface CharacterStageAppearance {
   stageName: string;         // 阶段名称（如"少年时期"、"成为大亨后"）
   episodeRange: string;      //  tập数范围（如"1-5"、"10-20"）
   description: string;       // 该阶段的角色Mô tả
-  visualPromptEn: string;    // 英文视觉提示词
+  visualPromptEn: string;    // 英文Thị giác提示词
   visualPromptZh: string;    // đang xử lý...提示词
   ageDescription?: string;   // TuổiMô tả
   clothingStyle?: string;    // trang phục风格
@@ -203,12 +203,12 @@ async function callAIForCharacterDesign(
   const systemPrompt = `你是好莱坞顶级角色Thiết kế大师，曾为漫威、迪士尼、皮克斯Thiết kế过无数经典角色。
 
 你的chuyên nghiệp能力：
-- **角色视觉Thiết kế**：能准确捕捉角色的外在形象、trang phục风格、肢体Ngôn ngữ
+- **角色Thị giácThiết kế**：能准确捕捉角色的外在形象、trang phục风格、肢体Ngôn ngữ
 - **角色成长cung**：理解角色在不同剧情阶段的形象变化（从少年到成年、从普通人到英雄等）
 - **AI图像Tạo经验**：深谙 Midjourney、DALL-E、Stable Diffusion 等 AI 绘图模型的工作原理，能写出高质量的提示词
 - **一致性保持**：知道如何Mô tảKhuôn mặt特征、体型等không thay đổi元素，确保角色在不同阶段仍可辨认
 
-你的任务是根据剧本thông tin，为角色Thiết kế**多阶段视觉形象**。
+你的任务是根据剧本thông tin，为角色Thiết kế**多阶段Thị giác形象**。
 
 【剧本thông tin】
 tên phim：《${context.projectTitle}》
@@ -236,7 +236,7 @@ ${context.characterAppearances.length > 0
    - Danh tính变化：普通人→商业大亨、学徒→武林高手
    - 状态变化：健康→受伤、普通→修仙后形态
    
-2. **Thiết kế多阶段形象**：为每阶段Tạo独立的视觉提示词
+2. **Thiết kế多阶段形象**：为每阶段Tạo独立的Thị giác提示词
    - 如果角色没有明显阶段变化，只需Thiết kế1阶段
    - 如果有变化，Thiết kế2-4阶段
 
@@ -266,7 +266,7 @@ ${context.characterAppearances.length > 0
       "stageName": "阶段名称（如：少年时期）",
       "episodeRange": "1-5",
       "description": "该阶段角色状态Mô tả",
-      "visualPromptEn": "该阶段英文视觉提示词",
+      "visualPromptEn": "该阶段英文Thị giác提示词",
       "visualPromptZh": "该阶段đang xử lý...提示词",
       "ageDescription": "TuổiMô tả",
       "clothingStyle": "trang phục风格",
@@ -275,7 +275,7 @@ ${context.characterAppearances.length > 0
   ]
 }`;
 
-  const userPrompt = `请为角色「${character.name}」Thiết kế多阶段视觉形象。`;
+  const userPrompt = `请为角色「${character.name}」Thiết kế多阶段Thị giác形象。`;
   
   // 统一从ánh xạ dịch vụ获取配置
   const result = await callFeatureAPI('script_analysis', systemPrompt, userPrompt);

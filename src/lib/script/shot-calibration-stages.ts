@@ -111,15 +111,15 @@ export async function calibrateShotsMultiStage(
   const mt = getMediaType(styleId || 'cinematic');
   const mediaTypeHint = mt !== 'cinematic' ? `\n【媒介类型】${getMediaTypeGuidance(mt)}` : '';
 
-  // thời đại/Bối cảnh thế giới上下文：供 Stage 2/4/5 视觉TạoSử dụng（Tránh AI 产生与thời đại不符的幻觉）
+  // thời đại/Bối cảnh thế giới上下文：供 Stage 2/4/5 Thị giácTạoSử dụng（Tránh AI 产生与thời đại不符的幻觉）
   const eraContextParts = [
     contextLine,
-    era ? `⚠️ thời đại背景：${era}——Tất cảnhân vậttrang phục、Kiểu tóc、道具、建筑必须严格符合「${era}」时期，禁止出现其他thời đại的元素（如古装剧禁止西装/T恤/手机等现代vật phẩm）` : '',
+    era ? `⚠️ thời đại背景：${era}——Tất cảnhân vậttrang phục、Kiểu tóc、đạo cụ、建筑必须严格符合「${era}」时期，禁止出现其他thời đại的元素（如古装剧禁止西装/T恤/手机等现代vật phẩm）` : '',
     worldSetting ? `Bối cảnh thế giới设定：${worldSetting.slice(0, 300)}` : '',
     characterBios ? `nhân vật造型Tham chiếu：${characterBios.slice(0, 300)}` : '',
   ].filter(Boolean);
   const eraContextBlock = eraContextParts.length > 0
-    ? `\n\n【⚠️ 剧本背景 — 视觉Tạo必须严格遵循】\n${eraContextParts.join('\n')}`
+    ? `\n\n【⚠️ 剧本背景 — Thị giácTạo必须严格遵循】\n${eraContextParts.join('\n')}`
     : '';
 
   // JSON Phân tích辅助
@@ -235,8 +235,8 @@ ${contextLine}${narrativeAnchorBlock}${episodeSynopsis ? `\n\n【本 tậpđại
 ⚠️ 规则：
 - 场景归属绝对Cố định：主场景不可thay đổi，闪回用"画面叠加"Mô tả
 - 角色列表必须đầy đủ来自原文，不增不减
-- **thời đại一致性**：nhân vậttrang phục、Kiểu tóc、道具、环境细节必须严格符合剧本设定的thời đại背景，禁止混入其他thời đại元素
-- visualDescription: 纯đang xử lý...细画面Mô tả（trang phục/道具必须符合thời đại）
+- **thời đại一致性**：nhân vậttrang phục、Kiểu tóc、đạo cụ、环境细节必须严格符合剧本设定的thời đại背景，禁止混入其他thời đại元素
+- visualDescription: 纯đang xử lý...细画面Mô tả（trang phục/đạo cụ必须符合thời đại）
 ${s2VisualPromptRule}
 - emotionTags Tùy chọn: happy/sad/angry/surprised/fearful/calm/tense/excited/mysterious/romantic/funny/touching/serious/relaxed/playful/gentle/passionate/low
 - ambientSound/soundEffect: 纯中文
@@ -330,7 +330,7 @@ a) 场景环境（地点+环境细节+时间氛围）
 b) 光线Thiết kế（光源+质感+氛围）
 c) nhân vậtMô tả（Tuổi+trang phục+Biểu cảm+Tư thế，每角色都写）
 d) bố cục与Kích thước cảnh（Kích thước cảnh+nhân vật位置关系+焦点）
-e) 重要道具（quan trọng道具+状态）
+e) 重要đạo cụ（quan trọngđạo cụ+状态）
 f) 画面风格（电影感/色调）
 ${s4LangWarning}
 
@@ -384,13 +384,13 @@ needsEndFrame 判断：
 ${s5VideoFields}：
 - Mô tả视频đang xử lý...动作（nhân vật动作、物体移动、镜头运动）
 - 强调动词，Mô tả运动quá trình
-- ⚠️ Tất cảMô tả必须保持thời đại一致性（trang phục/道具/环境不能偏离剧本设定的thời đại）
+- ⚠️ Tất cảMô tả必须保持thời đại一致性（trang phục/đạo cụ/环境不能偏离剧本设定的thời đại）
 
 ${s5EndFields}：
 仅当 needsEndFrame=true 时Tạo，否则设为空字符串。
 - Mô tả动作hoàn thành后的最终画面
 - 包含与khung đầu相同的场景环境和光线
-- 重点Mô tả与khung đầu的差异（新位置/新Tư thế/新Biểu cảm/道具新状态）
+- 重点Mô tả与khung đầu的差异（新位置/新Tư thế/新Biểu cảm/đạo cụ新状态）
 - 保持与khung đầu相同的画面风格和thời đại设定
 ${s5LangWarning}
 

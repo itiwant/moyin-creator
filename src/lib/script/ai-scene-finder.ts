@@ -9,7 +9,7 @@
  * chức năng：
  * 1. Phân tích用户输入（如 "缺第5 tập的张家客厅"）
  * 2. 搜索剧本đang xử lý...thông tin
- * 3. AI Tạođầy đủ场景dữ liệu（包括视觉提示词）
+ * 3. AI Tạođầy đủ场景dữ liệu（包括Thị giác提示词）
  */
 
 import type { ScriptScene, ProjectBackground, EpisodeRawScript, SceneRawContent } from '@/types/script';
@@ -186,7 +186,7 @@ async function generateSceneData(
   "location": "地点详细Mô tả",
   "time": "时间（如 'ban ngày'、'ban đêm'、'Hoàng hôn'、'清晨'）",
   "atmosphere": "氛围Mô tả（如 'căng thẳng'、'ấm cúng'、'压抑'、'热闹'）",
-  "visualPrompt": "英文视觉提示词，用于AI图像Tạo，Mô tả场景环境、光线、色调、Phong cách kiến trúc等",
+  "visualPrompt": "英文Thị giác提示词，用于AI图像Tạo，Mô tả场景环境、光线、色调、Phong cách kiến trúc等",
   "visualPromptZh": "đang xử lý...Mô tả",
   "tags": ["标签1", "标签2"],
   "notes": "场景备注（剧情作用）"

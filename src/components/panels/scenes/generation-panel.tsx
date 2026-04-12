@@ -2103,7 +2103,7 @@ No characters, empty environment.`;
       east: '家具或陈设',
     };
 
-    // 从视觉Mô tảđang xử lý...取墙面thông tin
+    // 从Thị giácMô tảđang xử lý...取墙面thông tin
     const wallKeywords = {
       window: ['', 'window', '阳光', 'sunlight'],
       door: ['门', 'door', '入sổ', 'entrance'],

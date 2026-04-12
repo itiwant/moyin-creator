@@ -1786,7 +1786,7 @@ export function SplitScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
       });
       toast.success(`Phân cảnh ${sceneId + 1} Tạo video hoàn tất, đã lưu vào thư viện phương tiện`);
       
-      // 视觉连续性：仅当Phân cảnhBắt buộc Khung hình cuối时，提取videokhung cuối cùng
+      // Thị giác连续性：仅当Phân cảnhBắt buộc Khung hình cuối时，提取videokhung cuối cùng
       const currentScene = splitScenes.find(s => s.id === sceneId);
       const shouldExtractEndFrame = currentScene?.needsEndFrame && !currentScene?.endFrameImageUrl;
       

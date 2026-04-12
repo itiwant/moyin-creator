@@ -539,7 +539,7 @@ const PURPOSE_PROMPT_MAP: Record<AssetPurpose, string> = {
   grid_image: '为Nhân vậtTham chiếuô图，保持Nhân vật一致性',
   camera_replicate: '精准复刻Ống kính运动轨迹和Tốc độ',
   action_replicate: '复刻Hành độngNhịp điệu和幅度',
-  effect_replicate: '复刻视觉特效和转场效果',
+  effect_replicate: '复刻Thị giác特效和转场效果',
   beat_sync: '作为背景Nhạc，videoNhịp điệu严格KhớpNhạc节拍',
   bgm: '作为背景NhạcTham chiếu',
   voice_ref: '作为语音Tham chiếu',

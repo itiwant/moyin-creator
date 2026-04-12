@@ -158,7 +158,7 @@ export function AngleController({
       });
     }
 
-    // Quay lại吸附后的视觉坐标(可选：如果想要完全吸附视觉效果，可以Sử dụng这Quay lại值)
+    // Quay lại吸附后的Thị giác坐标(可选：如果想要完全吸附Thị giác效果，可以Sử dụng这Quay lại值)
     return { theta: snappedTheta, phi: snappedPhi };
   }, [direction, elevation, shotSize, onAngleChange]);
 
@@ -272,7 +272,7 @@ export function AngleController({
     };
   };
 
-  // 计算当前视觉位置
+  // 计算当前Thị giác位置
   const controllerPos = sphericalToCartesian(theta, phi, radius);
   const projectedController = project3D(controllerPos.x, controllerPos.y, controllerPos.z);
   

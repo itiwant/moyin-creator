@@ -114,7 +114,7 @@ ${globalContextSection}【任务】
    - 古代场景：堂屋、庭院、案几等
 2. 从分镜动作和画面Mô tảđang xử lý...际需要的góc nhìn
 3. 结合本 tậpđại cương理解场景的tự sựchức năng，确定哪些góc nhìn是核心的
-4. 每góc nhìn要有quan trọng道具（从分镜的Tiêu điểm thị giác和环境声đang xử lý...
+4. 每góc nhìn要有quan trọngđạo cụ（从分镜的Tiêu điểm thị giác和环境声đang xử lý...
 5. 输出4-6góc nhìn
 
 【输出格式】
@@ -127,7 +127,7 @@ ${globalContextSection}【任务】
       "nameEn": "English Name",
       "description": "đang xử lý...（20字内）",
       "descriptionEn": "English description",
-      "keyProps": ["道具1", "道具2"],
+      "keyProps": ["đạo cụ1", "đạo cụ2"],
       "keyPropsEn": ["prop1", "prop2"],
       "shotIndexes": [1, 2]  // 哪些分镜需要这góc nhìn
     }

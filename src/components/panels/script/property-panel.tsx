@@ -189,7 +189,7 @@ export function PropertyPanel({
       lines.push('');
     }
     
-    // 多góc nhìn联合图（AIgóc nhìnphân tích的产出）
+    // Ảnh ghép đa góc nhìn（AIgóc nhìnphân tích的产出）
     if (scene.viewpoints && scene.viewpoints.length > 0) {
       lines.push(`## Ảnh kết hợp đa góc nhìn (AI phân tích)`);
       lines.push(`Số góc nhìn: ${scene.viewpoints.length}`);
@@ -1181,7 +1181,7 @@ export function PropertyPanel({
                 </div>
               )}
               
-              {/* chuyên nghiệpCảnhThiết kếtrường（AIHiệu chuẩn后显示） */}
+              {/* Trường Thiết kế Cảnh chuyên nghiệp (hiển thị sau khi AI Hiệu chuẩn) */}
               {(scene.architectureStyle || scene.lightingDesign || scene.colorPalette || scene.eraDetails) && (
                 <>
                   <Separator className="my-2" />
@@ -1213,7 +1213,7 @@ export function PropertyPanel({
                   )}
                   {scene.keyProps && scene.keyProps.length > 0 && (
                     <div>
-                      <div className="text-xs text-muted-foreground mb-1">quan trọng道具</div>
+                      <div className="text-xs text-muted-foreground mb-1">Đạo cụ quan trọng</div>
                       <div className="text-sm">{scene.keyProps.join('、')}</div>
                     </div>
                   )}
@@ -1226,7 +1226,7 @@ export function PropertyPanel({
                 </>
               )}
               
-              {/* Prompt thị giác（AIHiệu chuẩn后显示） */}
+              {/* Prompt thị giác (hiển thị sau khi AI Hiệu chuẩn) */}
               {((promptLanguage !== 'en' && scene.visualPrompt) || (promptLanguage !== 'zh' && scene.visualPromptEn)) && (
                 <>
                   <Separator className="my-2" />
@@ -1247,7 +1247,7 @@ export function PropertyPanel({
                 </>
               )}
               
-              {/* 多góc nhìn联合图预览 - 仅显示 AI phân tích的góc nhìn */}
+              {/* Xem trước ảnh ghép đa góc nhìn - chỉ hiện góc nhìn AI phân tích */}
               {sceneShots.length > 0 && (() => {
                 // 只Sử dụng AI phân tích的góc nhìn
                 if (!scene.viewpoints || scene.viewpoints.length === 0) {
@@ -1256,10 +1256,10 @@ export function PropertyPanel({
                       <Separator className="my-2" />
                       <div className="text-xs font-medium text-primary mb-2">
                         <Grid3X3 className="h-3 w-3 inline mr-1" />
-                        多góc nhìn联合图
+                        Ảnh ghép đa góc nhìn
                       </div>
                       <div className="text-xs text-muted-foreground">
-                        未phân tíchgóc nhìn（可选，Hiệu chuẩn phân cảnh AI后Tự độngTạo）
+                        Chưa phân tích góc nhìn (tùy chọn, tự động Tạo sau khi AI Hiệu chuẩn phân cảnh)
                       </div>
                     </>
                   );
@@ -1278,14 +1278,14 @@ export function PropertyPanel({
                     <Separator className="my-2" />
                     <div className="text-xs font-medium text-primary mb-2">
                       <Grid3X3 className="h-3 w-3 inline mr-1" />
-                      多góc nhìn联合图
+                      Ảnh ghép đa góc nhìn
                     </div>
                     
                     <div className="text-xs text-muted-foreground mb-2">
                       AI phân tích {viewpoints.length} góc nhìn
                     </div>
                     
-                    {/* góc nhìn cột表 */}
+                    {/* Danh sách góc nhìn */}
                     <div className="space-y-1.5">
                       {viewpoints.slice(0, 6).map((vp, idx) => (
                         <div 
@@ -1305,7 +1305,7 @@ export function PropertyPanel({
                       ))}
                       {viewpoints.length > 6 && (
                         <div className="text-xs text-muted-foreground text-center py-1">
-                          还有 {viewpoints.length - 6} góc nhìn...
+                          Còn {viewpoints.length - 6} góc nhìn nữa...
                         </div>
                       )}
                     </div>
@@ -1313,7 +1313,7 @@ export function PropertyPanel({
                 );
               })()}
               
-              {/* 出Thống kê cảnh */}
+              {/* Thống kê cảnh xuất hiện */}
               {(scene.appearanceCount || scene.episodeNumbers?.length) && (
                 <>
                   <Separator className="my-2" />
@@ -1328,10 +1328,10 @@ export function PropertyPanel({
                       </span>
                     )}
                     {scene.appearanceCount && (
-                      <span className="text-xs text-muted-foreground">出Cảnh {scene.appearanceCount} 次</span>
+                      <span className="text-xs text-muted-foreground">Xuất hiện {scene.appearanceCount} lần</span>
                     )}
                     {scene.episodeNumbers && scene.episodeNumbers.length > 0 && (
-                      <span className="text-xs text-muted-foreground">第 {scene.episodeNumbers.join(', ')}  tập</span>
+                      <span className="text-xs text-muted-foreground">Tập {scene.episodeNumbers.join(', ')}</span>
                     )}
                   </div>
                 </>
@@ -1348,7 +1348,7 @@ export function PropertyPanel({
               onClick={() => onGoToSceneLibrary?.(scene.id)}
             >
               <ArrowRight className="h-4 w-4 mr-2" />
-              去Cảnh库Tạonền
+              Đến Thư viện Cảnh Tạo nền
             </Button>
             <Button
               variant="outline"
@@ -1360,7 +1360,7 @@ export function PropertyPanel({
               ) : (
                 <Copy className="h-4 w-4 mr-2" />
               )}
-              {copiedScene ? 'Đã sao chép' : '复制Cảnhdữ liệu'}
+              {copiedScene ? 'Đã sao chép' : 'Sao chép dữ liệu Cảnh'}
             </Button>
             <Button
               variant="secondary"
@@ -1368,7 +1368,7 @@ export function PropertyPanel({
               onClick={() => onGoToDirectorFromScene?.(scene.id)}
             >
               <Film className="h-4 w-4 mr-2" />
-              去AIĐạo diễnTạo video
+              Đến AI Đạo diễn Tạo video
             </Button>
             <Button
               variant="outline"
@@ -1385,7 +1385,7 @@ export function PropertyPanel({
           <AlertDialogContent>
             <AlertDialogHeader>
               <AlertDialogTitle>Xác nhậnXóa</AlertDialogTitle>
-              <AlertDialogDescription>Xác nhận要XóaCảnh「{scene.name || scene.location}」?其下Tất cảPhân cảnh也将被Xóa。</AlertDialogDescription>
+              <AlertDialogDescription>Xác nhận Xóa Cảnh「{scene.name || scene.location}」? Tất cả Phân cảnh bên dưới cũng sẽ bị Xóa.</AlertDialogDescription>
             </AlertDialogHeader>
             <AlertDialogFooter>
               <AlertDialogCancel>Hủy</AlertDialogCancel>
@@ -1428,7 +1428,7 @@ export function PropertyPanel({
             )}
           </div>
 
-          {/* 预览图 */}
+          {/* Ảnh xem trước */}
           {shot.imageUrl && (
             <div className="rounded-lg overflow-hidden">
               <img
@@ -1450,7 +1450,7 @@ export function PropertyPanel({
                   <Input value={editData.shotSize || ""} onChange={(e) => setEditData({ ...editData, shotSize: e.target.value })} className="h-8" placeholder="如：WS/MS/CU/ECU" />
                 </div>
                 <div className="space-y-1">
-                  <Label className="text-xs">Phân cảnh运动</Label>
+                  <Label className="text-xs">Chuyển động Phân cảnh</Label>
                   <Select value={editData.cameraMovement || 'none'} onValueChange={(v) => setEditData({ ...editData, cameraMovement: v })}>
                     <SelectTrigger className="h-8 text-xs"><SelectValue /></SelectTrigger>
                     <SelectContent>
@@ -1462,7 +1462,7 @@ export function PropertyPanel({
                 </div>
               </div>
               <div className="space-y-1">
-                <Label className="text-xs">Kỹ thuật quay đặc biệt手法</Label>
+                <Label className="text-xs">Kỹ thuật quay đặc biệt</Label>
                 <Select value={editData.specialTechnique || 'none'} onValueChange={(v) => setEditData({ ...editData, specialTechnique: v })}>
                   <SelectTrigger className="h-8 text-xs"><SelectValue /></SelectTrigger>
                   <SelectContent>
@@ -1483,7 +1483,7 @@ export function PropertyPanel({
             </div>
           ) : (
             <div className="space-y-3">
-              {/* Phân cảnhthông tin：Kích thước cảnh + 运动 + thời lượng */}
+              {/* Thông tin Phân cảnh: Kích thước cảnh + chuyển động + thời lượng */}
               <div className="flex items-center gap-2 flex-wrap">
                 {shot.shotSize && (
                   <span className="px-2 py-0.5 bg-primary/10 text-primary rounded text-xs font-medium">
@@ -1508,12 +1508,12 @@ export function PropertyPanel({
                 )}
               </div>
 
-              {/* 详细Mô tả thị giác */}
+              {/* Mô tả thị giác chi tiết */}
               {(shot as any).visualDescription && (
                 <div className="bg-gradient-to-r from-primary/5 to-transparent p-3 rounded-lg border-l-2 border-primary/30">
                   <div className="text-xs text-muted-foreground mb-1 flex items-center gap-1">
                     <Sparkles className="h-3 w-3" />
-                    视觉
+                    Thị giác
                   </div>
                   <div className="text-sm leading-relaxed">{(shot as any).visualDescription}</div>
                 </div>
@@ -1534,7 +1534,7 @@ export function PropertyPanel({
                   </div>
                   {(shot as any).ambientSound && (
                     <div>
-                      <span className="text-xs text-muted-foreground">môi trường声: </span>
+                      <span className="text-xs text-muted-foreground">Âm thanh môi trường: </span>
                       <span className="text-xs italic">{(shot as any).ambientSound}</span>
                     </div>
                   )}
@@ -1553,10 +1553,10 @@ export function PropertyPanel({
                 </div>
               )}
 
-              {/* 出CảnhNhân vật */}
+              {/* Nhân vật xuất hiện trong Cảnh */}
               {shot.characterNames && shot.characterNames.length > 0 && (
                 <div>
-                  <div className="text-xs text-muted-foreground mb-1">出CảnhNhân vật</div>
+                  <div className="text-xs text-muted-foreground mb-1">Nhân vật xuất hiện</div>
                   <div className="flex flex-wrap gap-1">
                     {shot.characterNames.map((name, i) => (
                       <span
@@ -1570,10 +1570,10 @@ export function PropertyPanel({
                 </div>
               )}
 
-              {/* 情绪Thẻ */}
+              {/* Thẻ cảm xúc */}
               {shot.emotionTags && shot.emotionTags.length > 0 && (
                 <div>
-                  <div className="text-xs text-muted-foreground mb-1">情绪</div>
+                  <div className="text-xs text-muted-foreground mb-1">Cảm xúc</div>
                   <div className="flex flex-wrap gap-1">
                     {shot.emotionTags.map((tag, i) => {
                       const emotionLabels: Record<string, string> = {
@@ -1633,7 +1633,7 @@ export function PropertyPanel({
               onClick={() => onGoToDirector?.(shot.id)}
             >
               <ArrowRight className="h-4 w-4 mr-2" />
-              去AIĐạo diễnTạo
+              Đến AI Đạo diễn Tạo
             </Button>
             <Button
               variant="secondary"
@@ -1648,7 +1648,7 @@ export function PropertyPanel({
               ) : (
                 <>
                   <Copy className="h-4 w-4 mr-2" />
-                  复制3 lớppromptdữ liệu
+                  Sao chép dữ liệu 3 lớp prompt
                 </>
               )}
             </Button>
@@ -1667,7 +1667,7 @@ export function PropertyPanel({
           <AlertDialogContent>
             <AlertDialogHeader>
               <AlertDialogTitle>Xác nhậnXóa</AlertDialogTitle>
-              <AlertDialogDescription>Xác nhận要XóaPhân cảnh {shot.index} ?</AlertDialogDescription>
+              <AlertDialogDescription>Xác nhận Xóa Phân cảnh {shot.index}?</AlertDialogDescription>
             </AlertDialogHeader>
             <AlertDialogFooter>
               <AlertDialogCancel>Hủy</AlertDialogCancel>

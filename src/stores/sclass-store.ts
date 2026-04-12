@@ -172,7 +172,7 @@ export interface ShotGroup {
   extendDirection?: ExtendDirection;
   /** Chỉnh sửaLoại（仅 edit 时有效） */
   editType?: EditType;
-  /** 来源组 ID（kéo dài/Chỉnh sửa的gốcvideo组） */
+  /** 来nhóm nguồn ID（kéo dài/Chỉnh sửa的gốcvideo组） */
   sourceGroupId?: string;
   /** 来源video URL（冗余存储，Tránh原组被删后找不到） */
   sourceVideoUrl?: string;

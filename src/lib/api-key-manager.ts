@@ -95,7 +95,7 @@ export function classifyModelByName(modelName: string): ModelCapability[] {
   // "xxx-image-preview" 类（如 gemini-3-pro-image-preview）
   if (/image[- ]?preview/.test(name)) return ['image_generation'];
 
-  // ---- 视觉/识图模型 ----
+  // ---- Thị giác/识图模型 ----
   if (/vision/.test(name)) return ['text', 'vision'];
 
   // ---- TTS / Audio 模型（不归入任何主phân loại）----

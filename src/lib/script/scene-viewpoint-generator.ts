@@ -5,7 +5,7 @@
  * Scene Viewpoint Generator
  * 
  * 从场景Hiệu chuẩndữ liệu和分镜动作描写đang xử lý...角需求，
- * Tạo多góc nhìn联合图提示词，用于Tạo 6 格联合图。
+ * TạoẢnh ghép đa góc nhìn提示词，用于Tạo 6 格联合图。
  */
 
 import type { ScriptScene, Shot } from '@/types/script';
@@ -20,8 +20,8 @@ export interface SceneViewpoint {
   name: string;         // Tên tiếng Trung: khu bàn ăn, khu sofa、边
   nameEn: string;       // Tên tiếng Anh：Dining Area, Sofa Area, Window
   shotIds: string[];    // 关联的分镜ID列表
-  keyProps: string[];   // 该góc nhìn需要的道具（中文）
-  keyPropsEn: string[]; // 该góc nhìn需要的道具（英文）
+  keyProps: string[];   // 该góc nhìn需要的đạo cụ（中文）
+  keyPropsEn: string[]; // 该góc nhìn需要的đạo cụ（英文）
   description: string;  // góc nhìnMô tả（中文）
   descriptionEn: string; // góc nhìnMô tả（英文）
   gridIndex: number;    // 在联合图đang xử lý... (0-5)
@@ -450,7 +450,7 @@ export function extractViewpointsFromShots(
           if (!existing.shotIds.includes(shot.id)) {
             existing.shotIds.push(shot.id);
           }
-          // 合并道具
+          // 合并đạo cụ
           for (const prop of config.propsZh) {
             if (!existing.keyProps.includes(prop)) {
               existing.keyProps.push(prop);
@@ -573,7 +573,7 @@ export function generateContactSheetPrompt(config: ContactSheetConfig): ContactS
   // 明确指定单格子的宽高比，防止 AI 混淆（Đạo diễnpanel核心差异点）
   const panelAspect = aspectRatio === '16:9' ? '16:9 (horizontal landscape)' : '9:16 (vertical portrait)';
   promptParts.push(`Each individual panel must have a ${panelAspect} aspect ratio.`);
-  // 全局视觉风格（前置到指令区，权重最高 — 3 lớp夹击第一层）
+  // 全局Thị giác风格（前置到指令区，权重最高 — 3 lớp夹击第一层）
   if (styleStr) {
     promptParts.push(`MANDATORY Visual Style for ALL panels: ${styleStr}`);
   }
@@ -1088,7 +1088,7 @@ export function generateMultiPageContactSheetData(
     const panelAspect = aspectRatio === '16:9' ? '16:9 (horizontal landscape)' : '9:16 (vertical portrait)';
     promptParts.push(`Each individual panel must have a ${panelAspect} aspect ratio.`);
     
-    // 全局视觉风格（前置到指令区，权重最高 — 3 lớp夹击第一层）
+    // 全局Thị giác风格（前置到指令区，权重最高 — 3 lớp夹击第一层）
     if (styleStr) {
       promptParts.push(`MANDATORY Visual Style for ALL panels: ${styleStr}`);
     }
@@ -1247,7 +1247,7 @@ export function buildContactSheetDataFromViewpoints(
     scene.lightingDesign && `光影Thiết kế：${scene.lightingDesign}`,
   ].filter(Boolean).join('，');
   
-  // 视觉提示词（AI 场景Hiệu chuẩnTạo的详细场景Mô tả）
+  // Thị giác提示词（AI 场景Hiệu chuẩnTạo的详细场景Mô tả）
   const visualPromptZh = scene.visualPrompt || '';
   const visualPromptEn = scene.visualPromptEn || '';
   
@@ -1286,7 +1286,7 @@ export function buildContactSheetDataFromViewpoints(
         shotIds: vp.shotIds,
         shotIndexes,
         keyProps: vp.keyProps,
-        keyPropsEn: [], // 可能没有英文道具名，Để trống
+        keyPropsEn: [], // 可能没有英文đạo cụ名，Để trống
         gridIndex: idx,
         pageIndex,
       });
@@ -1322,7 +1322,7 @@ export function buildContactSheetDataFromViewpoints(
       promptParts.push(`Scene Context: ${sceneDescEn}`);
     }
     
-    // Thêm视觉提示词（英文）
+    // ThêmThị giác提示词（英文）
     if (visualPromptEn) {
       promptParts.push(`Visual Description: ${visualPromptEn}`);
     }
