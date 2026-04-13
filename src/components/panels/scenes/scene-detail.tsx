@@ -450,7 +450,7 @@ export function SceneDetail({ scene }: SceneDetailProps) {
                 size="sm"
                 onClick={() => {
                   selectScene(scene.id);
-                  toast.info("Vui lòng chọn chế độ "Bốn góc nhìn" ở bảng điều khiển bên trái, rồi Nhấp Tạo");
+                  toast.info('Vui lòng chọn chế độ "Bốn góc nhìn" ở bảng điều khiển bên trái, rồi Nhấp Tạo');
                 }}
               >
                 <Box className="h-4 w-4 mr-2" />
