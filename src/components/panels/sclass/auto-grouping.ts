@@ -2,14 +2,14 @@
 // Licensed under AGPL-3.0-or-later. See LICENSE for details.
 // Commercial licensing available. See COMMERCIAL_LICENSE.md.
 /**
- * auto-grouping.ts — Hạng Sthông minhnhóm算法
+ * auto-grouping.ts — Thuật toán nhóm thông minh Hạng S
  *
- * 将 director-store đang xử lý...plitScene[] Tự động分为 ShotGroup[]。
- * 策略：
- *   1. 按thứ tự贪心填装，每组TổngThời lượng ≤ maxDuration（Mặc định15s）
- *   2. Cảnhchuyển sang优先断开（不同 sceneName 的Ống kính优先不在同一组）
- *   3. Nhân vật重叠度高的Ống kính优先同组（characterIds 交 tập）
- *   4. 每组 2~maxPerGroup Ống kính
+ * Tự động phân chia SplitScene[] từ director-store thành ShotGroup[].
+ * Chiến lược:
+ *   1. Tham lam theo thứ tự, tổng thời lượng mỗi nhóm ≤ maxDuration (mặc định 15 giây)
+ *   2. Ưu tiên ngắt khi chuyển cảnh (ống kính thuộc sceneName khác nhau không ở cùng nhóm)
+ *   3. Ưu tiên gộp các ống kính có độ trùng lặp nhân vật cao (giao tập characterIds)
+ *   4. Mỗi nhóm từ 2 đến maxPerGroup ống kính
  */
 
 import type { SplitScene } from '@/stores/director-store';
