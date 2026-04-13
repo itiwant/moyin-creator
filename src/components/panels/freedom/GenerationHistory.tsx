@@ -77,7 +77,7 @@ export function GenerationHistory({ type, onSelect, className }: GenerationHisto
                 <p className="text-xs text-muted-foreground truncate">{entry.model}</p>
                 <p className="text-xs mt-0.5 line-clamp-2">{entry.prompt}</p>
                 <p className="text-[10px] text-muted-foreground mt-1">
-                  {new Date(entry.createdAt).toLocaleString('vi-VN', {
+                  {new Date(entry.createdAt).toLocaleString(undefined, {
                     month: '2-digit',
                     day: '2-digit',
                     hour: '2-digit',

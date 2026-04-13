@@ -118,7 +118,7 @@ export function SceneDetail({ scene }: SceneDetailProps) {
     const currentTags = scene.tags || [];
     if (!currentTags.includes(tag)) {
       updateScene(scene.id, { tags: [...currentTags, tag] });
-      toast.success("Thẻđã thêm");
+      toast.success("Thẻ đã thêm");
     }
     setNewTag("");
   };
@@ -147,7 +147,7 @@ export function SceneDetail({ scene }: SceneDetailProps) {
       link.click();
     } catch (error) {
       console.error('Export failed:', error);
-      toast.error("XuấtThất bại");
+      toast.error("Xuất thất bại");
     }
   };
 
@@ -260,7 +260,7 @@ export function SceneDetail({ scene }: SceneDetailProps) {
             {/* Địa điểm - có thể chỉnh sửa */}
             <div className="space-y-1">
               <div className="flex items-center justify-between">
-                <Label className="text-xs text-muted-foreground">Địa điểmMô tả</Label>
+                <Label className="text-xs text-muted-foreground">Mô tả địa điểm</Label>
                 {!isEditingLocation && (
                   <Button
                     size="icon"
@@ -295,7 +295,7 @@ export function SceneDetail({ scene }: SceneDetailProps) {
                 </div>
               ) : (
                 <p className="text-xs whitespace-pre-wrap bg-muted rounded p-2 max-h-[100px] overflow-y-auto">
-                  {scene.location || 'NhấpChỉnh sửaThêmĐịa điểmMô tả...'}
+                  {scene.location || 'Nhấp để chỉnh sửa hoặc thêm mô tả địa điểm...'}
                 </p>
               )}
             </div>
@@ -465,7 +465,7 @@ export function SceneDetail({ scene }: SceneDetailProps) {
               onClick={handleDelete}
             >
               <Trash2 className="h-4 w-4 mr-2" />
-              XóaCảnh
+              Xóa cảnh
             </Button>
           </div>
 

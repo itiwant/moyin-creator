@@ -4,14 +4,14 @@
 "use client";
 
 /**
- * Hạng Spanel — Seedance 2.0 đa phương thứcSáng tácpanel
- * 
- * 复用 director-store 的Phân cảnhdữ liệu（SplitScene[]），
- * 以「nhóm」为核心thực hiện多Ống kính合并tự sựTạo video。
- * 
- * 两种chế độ：
- * - Phân cảnhchế độ：从Kịch bảnquy trìnhNhập的Phân cảnh，按组Tạo video
- * - Tự dochế độ：纯Phương tiệnTải lên + prompt（后续实现）
+ * Bảng Hạng S — Bảng sáng tác đa phương thức Seedance 2.0
+ *
+ * Tái sử dụng dữ liệu phân cảnh (SplitScene[]) từ director-store,
+ * lấy «nhóm» làm trung tâm để thực hiện tạo video gộp nhiều ống kính.
+ *
+ * Hai chế độ:
+ * - Chế độ phân cảnh: nhập phân cảnh từ quy trình kịch bản, tạo video theo nhóm
+ * - Chế độ tự do: tải phương tiện + prompt thuần túy (triển khai sau)
  */
 
 import { useEffect } from "react";
