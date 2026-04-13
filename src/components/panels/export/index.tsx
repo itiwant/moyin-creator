@@ -52,7 +52,7 @@ export function ExportView() {
   const splitScenes = directorProject?.splitScenes || [];
   const scriptData = scriptProject?.scriptData;
   const targetDuration = scriptProject?.targetDuration || "60s";
-  const projectName = (scriptData?.title || activeProject?.name || 'Dự án chưa đặt tên').replace(/[^a-zA-Z0-9\u4e00-\u9fa5_-]/g, '_');
+  const projectName = (scriptData?.title || activeProject?.name || 'Dự án chưa đặt tên').replace(/[^\p{L}\p{N}_-]/gu, '_');
 
   // === Tiến độ计算：合并 Script shots 和 Director splitScenes 的Trạng thái ===
   const hasSplitScenes = splitScenes.length > 0;
