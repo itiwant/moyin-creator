@@ -50,9 +50,9 @@ export const SYSTEM_CATEGORIES: Array<{
   name: string;
   icon: string; // lucide icon name for UI reference
 }> = [
-  { category: 'ai-image', name: 'AI图片', icon: 'Sparkles' },
-  { category: 'ai-video', name: 'AI视频', icon: 'Film' },
-  { category: 'upload',   name: '上传文件', icon: 'CloudUpload' },
+  { category: 'ai-image', name: 'Ảnh AI', icon: 'Sparkles' },
+  { category: 'ai-video', name: 'Video AI', icon: 'Film' },
+  { category: 'upload',   name: 'Tải lênfile', icon: 'CloudUpload' },
 ];
 
 interface MediaStore {
@@ -595,8 +595,8 @@ export const useMediaStore = create<MediaStore>()(
       }
     }
     
-    // Migrate legacy "AI生成" folder → mark as system ai-image folder
-    const legacyAiFolder = folders.find((f) => f.name === 'AI生成' && !f.isSystem && f.parentId === null);
+    // Migrate legacy "AITạo" folder → mark as system ai-image folder
+    const legacyAiFolder = folders.find((f) => f.name === 'AITạo' && !f.isSystem && f.parentId === null);
     if (legacyAiFolder) {
       const hasAiImageFolder = folders.find((f) => f.isSystem && f.category === 'ai-image')
         || newFolders.find((f) => f.category === 'ai-image');
@@ -605,7 +605,7 @@ export const useMediaStore = create<MediaStore>()(
         set((state) => ({
           folders: state.folders.map((f) =>
             f.id === legacyAiFolder.id
-              ? { ...f, name: 'AI图片', isSystem: true, category: 'ai-image' as const, projectId: undefined }
+              ? { ...f, name: 'Ảnh AI', isSystem: true, category: 'ai-image' as const, projectId: undefined }
               : f
           ),
         }));
@@ -682,7 +682,7 @@ export const useMediaStore = create<MediaStore>()(
       },
       onRehydrateStorage: () => (state) => {
         if (!state) return;
-        // Initialize system folders (AI图片, AI视频, 上传文件)
+        // Initialize system folders (Ảnh AI, Video AI, Tải lênfile)
         state.initSystemFolders();
         // Migrate existing data: URLs to local files on startup
         migrateMediaDataUrls(state);

@@ -3,8 +3,8 @@
 // Commercial licensing available. See COMMERCIAL_LICENSE.md.
 /**
  * Custom Style Store
- * 用户自定义风格资产管理，独立于内置预设
- * 使用 localStorage 持久化（全局资产，不按项目分割）
+ * người dùngTùy chỉnhPhong cáchTài sảnQuản lý，độc lập于内置预设
+ * Sử dụng localStorage 持久化（全局Tài sản，不按项目分割）
  */
 
 import { create } from 'zustand';
@@ -15,16 +15,16 @@ import { registerCustomStyleLookup, type StylePreset } from '@/lib/constants/vis
 
 export interface CustomStyle {
   id: string;
-  name: string;                 // 风格名称（必填）
-  prompt: string;               // 用户原始提示词（可能混合了风格+场景描述）
-  negativePrompt: string;       // 负面提示词
-  description: string;          // 描述
-  referenceImages: string[];    // 参考图路径 (local-image://styles/...)
-  tags: string[];               // 标签
-  folderId: string | null;      // 所属文件夹
-  // === AI 提取的结构化风格词（优先级高于 prompt） ===
-  styleTokens?: string;         // 纯视觉风格关键词（画风/光线/色彩/材质）→ 角色/场景设定图使用
-  sceneTokens?: string;         // 场景/构图/道具描述 → 导演台/分镜使用
+  name: string;                 // Phong cáchTên（必填）
+  prompt: string;               // người dùnggốcprompt（可能混合了Phong cách+Mô tả cảnh）
+  negativePrompt: string;       // Prompt phủ định
+  description: string;          // Mô tả
+  referenceImages: string[];    // Ảnh tham chiếu路径 (local-image://styles/...)
+  tags: string[];               // Thẻ
+  folderId: string | null;      // 所属Thư mục
+  // === AI đã trích xuấtCấu trúc化Phong cách词（优先级高于 prompt） ===
+  styleTokens?: string;         // 纯Phong cách thị giácquan trọng词（画风/光线/色彩/材质）→ Nhân vật/Cảnhảnh thiết kếSử dụng
+  sceneTokens?: string;         // Cảnh/bố cục/Đạo cụMô tả → Đạo diễn台/Phân cảnhSử dụng
   createdAt: number;
   updatedAt: number;
 }
@@ -40,7 +40,7 @@ interface CustomStyleState {
   styles: CustomStyle[];
   folders: CustomStyleFolder[];
   selectedStyleId: string | null;
-  editingStyleId: string | null;    // null = 不在编辑, 'new' = 新建, 其他 = 编辑已有
+  editingStyleId: string | null;    // null = 不在Chỉnh sửa, 'new' = Tạo mới, 其他 = Chỉnh sửahiện có
 }
 
 interface CustomStyleActions {
@@ -162,7 +162,7 @@ export const useCustomStyleStore = create<CustomStyleStore>()(
       deleteFolder: (id) => {
         set((state) => ({
           folders: state.folders.filter((f) => f.id !== id),
-          // 移到根目录
+          // 移到Thư mục gốc
           styles: state.styles.map((s) =>
             s.folderId === id ? { ...s, folderId: null, updatedAt: Date.now() } : s
           ),
@@ -192,13 +192,13 @@ export const useCustomStyleStore = create<CustomStyleStore>()(
   )
 );
 
-// ==================== 注册自定义风格查找回调 ====================
+// ==================== 注册Tùy chỉnhPhong cách查找回调 ====================
 // 让 visual-styles.ts 的工具函数（getStyleById/getStylePrompt 等）
-// 能查找到用户自定义风格（存储在 localStorage 的用户数据）
+// 能查Tìm thấyngười dùngTùy chỉnhPhong cách（存储在 localStorage 的người dùngdữ liệu）
 
 /**
- * 从提示词中推断风格分类（支持中英文关键词）
- * 关键词匹配：
+ * 从promptđang xử lý...hong cáchphân loại（Hỗ trợTrung-Anhquan trọng词）
+ * quan trọng词Khớp：
  *   real → realistic/photorealistic/photography/写实/真人/实景/电影级/实拍/胶片
  *   3d   → 3d/render/unreal/c4d/三维/渲染/虚幻引擎
  *   stop_motion → stop motion/claymation/定格/黏土
@@ -206,19 +206,19 @@ export const useCustomStyleStore = create<CustomStyleStore>()(
  */
 function inferCategoryFromPrompt(prompt: string): import('@/lib/constants/visual-styles').StyleCategory {
   const lower = prompt.toLowerCase();
-  // 英文关键词
+  // 英文quan trọng词
   if (/\b(realistic|photorealistic|real\s?person|photography|real\s?life|cinematic\s?lighting.*skin)/.test(lower)) {
     return 'real';
   }
-  // 中文关键词：写实/真人/实景/电影级写实/实拍/胶片/剧照
-  if (/(写实|真人|实景|电影级|实拍|胶片|剧照|无\s?CGI|皮肤纹理|毛孔)/.test(prompt)) {
+  // đang xử lý...an trọng词：写实/真人/实景/电影级写实/实拍/胶片/剧照
+  if (/(写实|真人|实景|电影级|实拍|胶片|剧照|无\s?CGI|Kết cấu da|毛孔)/.test(prompt)) {
     return 'real';
   }
-  // 英文 3D 关键词
+  // 英文 3D quan trọng词
   if (/\b(3d|render|unreal\s?engine|c4d|blender|voxel|low\s?poly)/.test(lower)) {
     return '3d';
   }
-  // 中文 3D 关键词
+  // đang xử lý...D quan trọng词
   if (/(三维|3D|渲染|虚幻引擎|建模)/.test(prompt)) {
     return '3d';
   }
@@ -229,7 +229,7 @@ function inferCategoryFromPrompt(prompt: string): import('@/lib/constants/visual
   return '2d';
 }
 
-/** 从分类推断媒介类型 */
+/** 从phân loại推断媒介Loại */
 function inferMediaType(category: import('@/lib/constants/visual-styles').StyleCategory): import('@/lib/constants/visual-styles').MediaType {
   switch (category) {
     case 'real': return 'cinematic';
@@ -243,12 +243,12 @@ registerCustomStyleLookup((id: string): StylePreset | undefined => {
   const style = useCustomStyleStore.getState().styles.find(s => s.id === id);
   if (!style) return undefined;
 
-  // 智能推断 category/mediaType（用户编辑器目前无这两个字段）
+  // thông minh推断 category/mediaType（người dùngChỉnh sửa器目前无这两trường）
   const effectivePrompt = style.prompt || '';
   const category = inferCategoryFromPrompt(effectivePrompt);
   const mediaType = inferMediaType(category);
 
-  // 优先使用 AI 提取的 styleTokens（纯视觉风格），否则回退到原始 prompt
+  // 优先Sử dụng AI đã trích xuất styleTokens（纯Phong cách thị giác），否则回退到gốc prompt
   const prompt = style.styleTokens
     || effectivePrompt
     || `${style.name} style, professional quality`;

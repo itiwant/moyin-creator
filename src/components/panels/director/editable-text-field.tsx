@@ -5,7 +5,7 @@
 
 /**
  * EditableTextField Component
- * 可双击编辑的文本字段组件
+ * 可双击Chỉnh sửa的文本trường组件
  */
 
 import React, { useState, useRef } from "react";
@@ -37,14 +37,14 @@ export function EditableTextField({
   const [editValue, setEditValue] = useState(value);
   const inputRef = useRef<HTMLInputElement | HTMLTextAreaElement>(null);
 
-  // 开始编辑
+  // Bắt đầuChỉnh sửa
   const startEditing = () => {
     if (disabled) return;
     setEditValue(value);
     setIsEditing(true);
   };
 
-  // 保存编辑
+  // LưuChỉnh sửa
   const saveEdit = () => {
     if (editValue !== value) {
       onChange(editValue);
@@ -52,7 +52,7 @@ export function EditableTextField({
     setIsEditing(false);
   };
 
-  // 取消编辑
+  // HủyChỉnh sửa
   const cancelEdit = () => {
     setEditValue(value);
     setIsEditing(false);
@@ -68,7 +68,7 @@ export function EditableTextField({
     }
   };
 
-  // 自动聚焦
+  // Tự động聚焦
   React.useEffect(() => {
     if (isEditing && inputRef.current) {
       inputRef.current.focus();
@@ -110,7 +110,7 @@ export function EditableTextField({
     <div 
       className={cn("cursor-pointer group/field", className)}
       onDoubleClick={startEditing}
-      title="双击编辑"
+      title="Nhấp đúp để chỉnh sửa"
     >
       <Label className="text-[10px] text-muted-foreground flex items-center gap-1">
         {label}
@@ -121,7 +121,7 @@ export function EditableTextField({
         value ? "text-foreground/80" : "text-muted-foreground/50 italic",
         multiline && "line-clamp-2"
       )}>
-        {value || placeholder || "双击编辑..."}
+        {value || placeholder || "Nhấp đúp để chỉnh sửa..."}
       </p>
     </div>
   );

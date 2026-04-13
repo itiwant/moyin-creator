@@ -173,7 +173,7 @@ async function handleGenerateScreenplay(command: GenerateScreenplayCommand): Pro
     
     // Only require API key if not in mock mode
     if (!apiKey && !mockMode) {
-      throw new Error('未配置 API Key，请在设置中添加或启用 Mock 模式');
+      throw new Error('Chưa cấu hình API Key, vui lòng bật chế độ Mock trong cài đặt');
     }
     
     // Call the backend API with correct schema
@@ -234,7 +234,7 @@ async function generateImage(
   const provider = (config as any).imageProvider || 'memefast';
   
   if (!apiKey) {
-    throw new Error('未配置图片生成 API Key');
+    throw new Error('Chưa cấu hình API Key Tạo ảnh');
   }
   
   // Submit image generation task
@@ -290,7 +290,7 @@ async function generateVideo(
   const provider = (config as any).videoProvider || 'memefast';
   
   if (!apiKey) {
-    throw new Error('未配置视频生成 API Key');
+    throw new Error('Chưa cấu hình API Key Tạo video');
   }
   
   // Submit video generation task
@@ -347,7 +347,7 @@ async function pollTaskCompletion(
       throw new Error('Cancelled');
     }
     
-    // API Key 通过 Header 传递，避免明文出现在 URL 中（安全风险：URL 会被日志/历史记录）
+    // API Key 通过 Header 传递，Tránh明文出现在 URL đang xử lý...风险：URL 会被日志/Lịch sử）
     const statusResponse = await fetch(
       buildApiUrl(`/api/ai/task/${taskId}?provider=${provider}&type=${type}`),
       {
@@ -418,7 +418,7 @@ async function fetchAsBlob(url: string): Promise<Blob> {
 
 async function handleExecuteScene(command: ExecuteSceneCommand): Promise<void> {
   const { screenplayId, scene, config, characterBible, characterReferenceImages } = command.payload;
-  cancelled = false; // 新操作启动时重置取消标志
+  cancelled = false; // Đặt lại cờ hủy khi thao tác mới bắt đầu
 
   console.log(`[AI Worker] Executing scene ${scene.sceneId} for screenplay ${screenplayId}`);
   
@@ -574,7 +574,7 @@ function reportSceneFailed(
  */
 async function handleExecuteScreenplay(command: { type: string; payload: { screenplay: AIScreenplay; config: GenerationConfig } }): Promise<void> {
   const { screenplay, config } = command.payload;
-  cancelled = false; // 新操作启动时重置取消标志
+  cancelled = false; // Đặt lại cờ hủy khi thao tác mới bắt đầu
 
   console.log(`[AI Worker] Executing screenplay ${screenplay.id} with ${screenplay.scenes.length} scenes`);
   
@@ -655,7 +655,7 @@ async function handleExecuteScreenplay(command: { type: string; payload: { scree
  */
 async function handleExecuteScreenplayImages(command: { type: string; payload: { screenplay: AIScreenplay; config: GenerationConfig } }): Promise<void> {
   const { screenplay, config } = command.payload;
-  cancelled = false; // 新操作启动时重置取消标志
+  cancelled = false; // Đặt lại cờ hủy khi thao tác mới bắt đầu
 
   console.log(`[AI Worker] Generating images for screenplay ${screenplay.id} with ${screenplay.scenes.length} scenes`);
   
@@ -685,12 +685,12 @@ async function handleExecuteScreenplayImages(command: { type: string; payload: {
         completedCount: 0,
         failedCount: screenplay.scenes.length,
         totalCount: screenplay.scenes.length,
-        error: '未配置图片生成 API Key，请在服务映射中配置',
+        error: 'Chưa cấu hình API Key Tạo ảnh, vui lòng cấu hình trong ánh xạ dịch vụ',
       },
     });
     // Also report failure for each scene
     for (const scene of screenplay.scenes) {
-      reportSceneFailed(screenplay.id, scene.sceneId, '未配置图片生成 API Key', false);
+      reportSceneFailed(screenplay.id, scene.sceneId, 'Chưa cấu hình API Key Tạo ảnh', false);
     }
     return;
   }
@@ -758,7 +758,7 @@ async function handleExecuteScreenplayImages(command: { type: string; payload: {
  */
 async function handleExecuteScreenplayVideos(command: { type: string; payload: { screenplay: AIScreenplay; config: GenerationConfig } }): Promise<void> {
   const { screenplay, config } = command.payload;
-  cancelled = false; // 新操作启动时重置取消标志
+  cancelled = false; // Đặt lại cờ hủy khi thao tác mới bắt đầu
 
   console.log(`[AI Worker] Generating videos for screenplay ${screenplay.id} with ${screenplay.scenes.length} scenes`);
   
@@ -1194,7 +1194,7 @@ async function executeSceneInternal(
 function handleCancel(command: CancelCommand): void {
   console.log('[AI Worker] Cancelling operations');
   cancelled = true;
-  // 不自动重置 cancelled 标志，由新的生成操作启动时重置
+  // 不Tự động重置 cancelled 标志，由新的Tạothao tác启动时重置
 }
 
 // ==================== Helpers ====================

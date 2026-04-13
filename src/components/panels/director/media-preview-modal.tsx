@@ -4,9 +4,9 @@
 "use client";
 
 /**
- * 媒体预览模态组件 (Media Preview Modals)
- * 用于全屏预览图片和视频
- * 支持: HTTP URL / data URI / local-image:// 协议
+ * 媒体Xem trước模态组件 (Media Preview Modals)
+ * 用于全屏Xem trướcảnh和video
+ * Hỗ trợ: HTTP URL / data URI / local-image:// 协议
  */
 
 import React, { useEffect, useCallback } from "react";
@@ -23,7 +23,7 @@ export function ImagePreviewModal({
   isOpen, 
   onClose 
 }: ImagePreviewModalProps) {
-  // Escape 键关闭
+  // Escape 键Đóng
   const handleKeyDown = useCallback((e: KeyboardEvent) => {
     if (e.key === 'Escape') onClose();
   }, [onClose]);
@@ -59,7 +59,7 @@ export function ImagePreviewModal({
           <X className="h-5 w-5" />
         </button>
         <div className="absolute bottom-2 left-1/2 -translate-x-1/2 text-white/60 text-xs bg-black/40 px-3 py-1 rounded-full pointer-events-none">
-          点击空白处或按 Esc 关闭
+          Nhấp vào vùng trống hoặc nhấn Esc để đóng
         </div>
       </div>
     </div>

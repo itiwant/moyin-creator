@@ -4,8 +4,8 @@
 "use client";
 
 /**
- * DefaultStylesGrid - 内置风格网格浏览（只读）
- * 按分类分组展示 48 个预设风格
+ * DefaultStylesGrid - 内置Phong cáchlưới浏览（只读）
+ * 按phân loạinhómHiển thị 48 预设Phong cách
  */
 
 import { useState } from "react";
@@ -33,15 +33,15 @@ export function DefaultStylesGrid() {
     <ScrollArea className="h-full">
       <div className="p-4 space-y-4">
         <div className="flex items-center justify-between">
-          <h2 className="text-sm font-semibold text-foreground">默认风格</h2>
+          <h2 className="text-sm font-semibold text-foreground">Mặc địnhPhong cách</h2>
           <span className="text-xs text-muted-foreground">
-            {STYLE_CATEGORIES.reduce((n, c) => n + c.styles.length, 0)} 个预设
+            {STYLE_CATEGORIES.reduce((n, c) => n + c.styles.length, 0)} preset
           </span>
         </div>
 
         {STYLE_CATEGORIES.map((category) => (
           <div key={category.id}>
-            {/* 分类标题 */}
+            {/* phân loạitiêu đề */}
             <button
               className="flex items-center gap-1.5 w-full text-left py-1 text-xs font-medium text-muted-foreground hover:text-foreground transition-colors"
               onClick={() => toggleCategory(category.id)}
@@ -55,7 +55,7 @@ export function DefaultStylesGrid() {
               <span className="text-muted-foreground/60 ml-1">({category.styles.length})</span>
             </button>
 
-            {/* 风格网格 */}
+            {/* Lưới phong cách */}
             {expandedCategories.has(category.id) && (
               <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 mt-2">
                 {category.styles.map((style: StylePreset) => (

@@ -3,8 +3,8 @@
 // Commercial licensing available. See COMMERCIAL_LICENSE.md.
 
 /**
- * 品牌注册表 + 模型名 → 品牌映射
- * 用于服务映射面板的品牌分类选择
+ * thương hiệu注册表 + 模型名 → thương hiệuánh xạ
+ * 用于ánh xạ dịch vụpanel的thương hiệuphân loạiChọn
  */
 
 export interface BrandInfo {
@@ -13,7 +13,7 @@ export interface BrandInfo {
 }
 
 /**
- * 品牌注册表
+ * thương hiệu注册表
  * key: brandId, value: 显示名 + 主色
  */
 export const BRAND_REGISTRY: Record<string, BrandInfo> = {
@@ -21,18 +21,18 @@ export const BRAND_REGISTRY: Record<string, BrandInfo> = {
   anthropic:    { displayName: 'Anthropic',            color: '#D97757' },
   google:       { displayName: 'Google',               color: '#4285F4' },
   deepseek:     { displayName: 'DeepSeek',             color: '#4D6BFE' },
-  zhipu:        { displayName: 'ChatGLM (智谱)',        color: '#3485FF' },
-  doubao:       { displayName: 'Doubao (豆包)',         color: '#A569FF' },
-  kling:        { displayName: 'Kling (可灵)',          color: '#04A6F0' },
+  zhipu:        { displayName: 'ChatGLM (Zhipu)',        color: '#3485FF' },
+  doubao:       { displayName: 'Doubao',         color: '#A569FF' },
+  kling:        { displayName: 'Kling',          color: '#04A6F0' },
   midjourney:   { displayName: 'Midjourney',           color: '#000000' },
   flux:         { displayName: 'Flux',                 color: '#333333' },
   grok:         { displayName: 'Grok (xAI)',           color: '#000000' },
-  alibaba:      { displayName: 'Bailian (阿里云百炼)',   color: '#FF6A00' },
+  alibaba:      { displayName: 'Bailian (Alibaba Cloud)',   color: '#FF6A00' },
   moonshot:     { displayName: 'Moonshot',             color: '#5B5BD6' },
   minimax:      { displayName: 'Minimax',              color: '#E2167E' },
   ollama:       { displayName: 'Ollama',               color: '#333333' },
   mistral:      { displayName: 'Mistral',              color: '#FA500F' },
-  hunyuan:      { displayName: '腾讯',                  color: '#0055E9' },
+  hunyuan:      { displayName: 'Tencent',                  color: '#0055E9' },
   vidu:         { displayName: 'Vidu',                 color: '#333333' },
   replicate:    { displayName: 'Replicate',            color: '#333333' },
   wenxin:       { displayName: 'Wenxin (文心)',         color: '#0A51C3' },
@@ -47,8 +47,8 @@ export const BRAND_REGISTRY: Record<string, BrandInfo> = {
 };
 
 /**
- * 模型名前缀 → 品牌映射规则
- * 顺序重要：更具体的模式应放在前面
+ * 模型名前缀 → thương hiệuánh xạ规则
+ * thứ tựQuan trọng:更具体的chế độ应放在前面
  */
 const BRAND_PATTERNS: Array<{ pattern: RegExp; brand: string }> = [
   // OpenAI 系列
@@ -71,7 +71,7 @@ const BRAND_PATTERNS: Array<{ pattern: RegExp; brand: string }> = [
 
   // 豆包 Doubao (ByteDance)
   { pattern: /^(doubao|seed[- ]?oss)/i,                                  brand: 'doubao' },
-  // seedance (豆包视频) — must be before generic seed
+  // seedance (豆包video) — must be before generic seed
   { pattern: /^(doubao-)?seed(ance|dream)/i,                             brand: 'doubao' },
 
   // Kling (可灵)
@@ -80,7 +80,7 @@ const BRAND_PATTERNS: Array<{ pattern: RegExp; brand: string }> = [
   // Midjourney
   { pattern: /^(mj_|midjourney|niji)/i,                                     brand: 'midjourney' },
 
-  // Flux (Black Forest Labs) — 含 flux.1.x 命名变体
+  // Flux (Black Forest Labs) — 含 flux.1.x đặt tênbiến thể
   { pattern: /^(flux[-_.]|black-forest)/i,                                 brand: 'flux' },
 
   // Grok (xAI)
@@ -107,7 +107,7 @@ const BRAND_PATTERNS: Array<{ pattern: RegExp; brand: string }> = [
   // Vidu (生数科技)
   { pattern: /^vidu/i,                                                     brand: 'vidu' },
 
-  // Replicate (含 org/model 命名格式)
+  // Replicate (含 org/model đặt tênđịnh dạng)
   { pattern: /^(replicate|andreasjansson|stability-ai|cjwbw|lucataco|recraft-ai|riffusion|sujaykhandekar|prunaai)/i, brand: 'replicate' },
 
   // 百度文心 ERNIE / Embedding-V1
@@ -142,7 +142,7 @@ const BRAND_PATTERNS: Array<{ pattern: RegExp; brand: string }> = [
 ];
 
 /**
- * 根据模型名称提取品牌 ID
+ * 根据模型名称提取ID thương hiệu
  */
 export function extractBrandFromModel(modelName: string): string {
   for (const { pattern, brand } of BRAND_PATTERNS) {
@@ -152,7 +152,7 @@ export function extractBrandFromModel(modelName: string): string {
 }
 
 /**
- * 获取品牌信息（含 fallback）
+ * 获取thương hiệuthông tin（含 fallback）
  */
 export function getBrandInfo(brandId: string): BrandInfo {
   return BRAND_REGISTRY[brandId] || BRAND_REGISTRY['other'];

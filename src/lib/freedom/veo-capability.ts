@@ -37,10 +37,10 @@ export function isVeoModel(model: string): boolean {
 
 function resolveVeoEndpointFamily(endpointTypes?: string[]): VeoEndpointFamily {
   if (!endpointTypes || endpointTypes.length === 0) return 'unknown';
-  if (endpointTypes.includes('openAI视频格式') || endpointTypes.includes('openAI官方视频格式')) {
+  if (endpointTypes.includes('openAI định dạng video') || endpointTypes.includes('openAI định dạng video chính thức')) {
     return 'openai_videos';
   }
-  if (endpointTypes.includes('视频统一格式')) return 'unified';
+  if (endpointTypes.includes('video định dạng thống nhất')) return 'unified';
   return 'unknown';
 }
 
@@ -65,9 +65,9 @@ export function resolveVeoUploadCapability(
       minFiles: 1,
       maxFiles: 3,
       slots: [
-        { key: 'reference', label: '参考图 1', required: true },
-        { key: 'reference', label: '参考图 2', required: false },
-        { key: 'reference', label: '参考图 3', required: false },
+        { key: 'reference', label: 'Ảnh tham chiếu 1', required: true },
+        { key: 'reference', label: 'Ảnh tham chiếu 2', required: false },
+        { key: 'reference', label: 'Ảnh tham chiếu 3', required: false },
       ],
     };
   }
@@ -80,8 +80,8 @@ export function resolveVeoUploadCapability(
       minFiles: isVeo2Frames ? 1 : 0,
       maxFiles: 2,
       slots: [
-        { key: 'first', label: '首帧图', required: isVeo2Frames },
-        { key: 'last', label: '尾帧图', required: false },
+        { key: 'first', label: 'Ảnh khung đầu', required: isVeo2Frames },
+        { key: 'last', label: 'Ảnh khung cuối', required: false },
       ],
     };
   }
@@ -93,7 +93,7 @@ export function resolveVeoUploadCapability(
       mode: 'single',
       minFiles: 1,
       maxFiles: 1,
-      slots: [{ key: 'single', label: '首帧图', required: true }],
+      slots: [{ key: 'single', label: 'Ảnh khung đầu', required: true }],
     };
   }
 

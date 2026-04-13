@@ -4,14 +4,14 @@
 /**
  * AI Scene Calibrator
  * 
- * 使用 AI 智能校准从剧本中提取的场景列表
+ * Sử dụng AI thông minhHiệu chuẩn从剧本đang xử lý...场景列表
  * 
- * 功能：
- * 1. 统计每个场景的出场次数、出现集数
- * 2. AI 分析识别重要场景 vs 过渡场景
+ * chức năng：
+ * 1. 统计每场景的出场次数、出现 tập数
+ * 2. AI 分析识别重要场景 vs chuyển tiếp场景
  * 3. AI 合并相同地点的变体（张家客厅 = 张明家客厅）
- * 4. AI 补充场景信息（建筑风格、光影、道具等）
- * 5. 大师级场景视觉设计（专业提示词生成）
+ * 4. AI 补充场景thông tin（Phong cách kiến trúc、光影、đạo cụ等）
+ * 5. 大师级场景Thị giácThiết kế（chuyên nghiệp提示词Tạo）
  */
 
 import type { ScriptScene, ProjectBackground, EpisodeRawScript, SceneRawContent, PromptLanguage } from '@/types/script';
@@ -24,7 +24,7 @@ import { buildSeriesContextSummary } from './series-meta-sync';
 // ==================== 类型定义 ====================
 
 export interface SceneCalibrationResult {
-  /** 校准后的场景列表 */
+  /** Hiệu chuẩn后的场景列表 */
   scenes: CalibratedScene[];
   /** 被合并的场景记录 */
   mergeRecords: SceneMergeRecord[];
@@ -40,32 +40,32 @@ export interface CalibratedScene {
   atmosphere: string;
   /** 场景重要性 */
   importance: 'main' | 'secondary' | 'transition';
-  /** 出现的集数 */
+  /** 出现的 tập数 */
   episodeNumbers: number[];
   /** 出场次数 */
   appearanceCount: number;
-  /** 建筑风格 */
+  /** Phong cách kiến trúc */
   architectureStyle?: string;
-  /** 光影设计 */
+  /** 光影Thiết kế */
   lightingDesign?: string;
   /** 色彩基调 */
   colorPalette?: string;
-  /** 关键道具 */
+  /** quan trọngđạo cụ */
   keyProps?: string[];
-  /** 空间布局 */
+  /** Bố cục không gian */
   spatialLayout?: string;
-  /** 时代特征 */
+  /** thời đại特征 */
   eraDetails?: string;
-  /** 英文视觉提示词 */
+  /** 英文Thị giác提示词 */
   visualPromptEn?: string;
-  /** 中文视觉描述 */
+  /** đang xử lý...Mô tả */
   visualPromptZh?: string;
-  /** 原始名称变体 */
+  /** gốc名称变体 */
   nameVariants: string[];
 }
 
 export interface SceneMergeRecord {
-  /** 最终使用的名称 */
+  /** 最终Sử dụng的名称 */
   finalName: string;
   /** 被合并的变体 */
   variants: string[];
@@ -78,7 +78,7 @@ export interface SceneStats {
   location: string;
   /** 出场次数 */
   appearanceCount: number;
-  /** 出现的集数 */
+  /** 出现的 tập数 */
   episodeNumbers: number[];
   /** 场景内容样本 */
   contentSamples: string[];
@@ -86,13 +86,13 @@ export interface SceneStats {
   characters: string[];
   /** 时间设定 */
   times: string[];
-  /** 动作描写样本（用于推断场景道具/布局） */
+  /** 动作描写样本（用于推断场景đạo cụ/bố cục） */
   actionSamples: string[];
-  /** 对白样本（用于理解场景用途） */
+  /** Thoại样本（用于理解场景用途） */
   dialogueSamples: string[];
 }
 
-/** @deprecated 不再需要手动传递，自动从服务映射获取 */
+/** @deprecated 不再需要手动传递，Tự động从ánh xạ dịch vụ获取 */
 export interface CalibrationOptions {
   apiKey?: string;
   provider?: string;
@@ -103,7 +103,7 @@ export interface CalibrationOptions {
 // ==================== 统计函数 ====================
 
 /**
- * 从分集剧本中统计所有场景的出场数据
+ * 从tập剧本đang xử lý...ất cả场景的出场dữ liệu
  */
 export function collectSceneStats(
   episodeScripts: EpisodeRawScript[]
@@ -122,7 +122,7 @@ export function collectSceneStats(
     for (const scene of ep.scenes) {
       if (!scene || !scene.sceneHeader) continue;
       
-      // 解析场景头获取地点
+      // Phân tích场景头获取地点
       const location = extractLocationFromHeader(scene.sceneHeader);
       const key = normalizeLocation(location);
       
@@ -147,27 +147,27 @@ export function collectSceneStats(
         stat.episodeNumbers.push(epIndex);
       }
       
-      // 收集内容样本
+      // thu thập内容样本
       if (stat.contentSamples.length < 5) {
         const sample = scene.content?.slice(0, 150) || scene.sceneHeader;
-        stat.contentSamples.push(`第${epIndex}集: ${sample}`);
+        stat.contentSamples.push(`第${epIndex} tập: ${sample}`);
       }
       
-      // 收集动作描写（用于推断道具和场景布局）
+      // thu thập动作描写（用于推断đạo cụ和场景bố cục）
       if (scene.actions && scene.actions.length > 0 && stat.actionSamples.length < 8) {
-        // 使用解析出的动作描写（△开头）
+        // Sử dụngPhân tích出的动作描写（△开头）
         for (const action of scene.actions.slice(0, 3)) {
           if (action && stat.actionSamples.length < 8) {
-            stat.actionSamples.push(`第${epIndex}集: ${action.slice(0, 100)}`);
+            stat.actionSamples.push(`第${epIndex} tập: ${action.slice(0, 100)}`);
           }
         }
       } else if (scene.content && stat.actionSamples.length < 8) {
-        // 如果没有△动作，使用场景内容的前200字作为动作样本
+        // 如果没有△动作，Sử dụng场景内容的前200字作为动作样本
         const contentSample = scene.content.slice(0, 200).replace(/\n/g, ' ');
-        stat.actionSamples.push(`第${epIndex}集: ${contentSample}`);
+        stat.actionSamples.push(`第${epIndex} tập: ${contentSample}`);
       }
       
-      // 收集对白样本（用于理解场景中发生了什么）
+      // thu thậpThoại样本（用于理解场景đang xử lý...什么）
       if (scene.dialogues && stat.dialogueSamples.length < 5) {
         for (const d of scene.dialogues.slice(0, 2)) {
           if (d && stat.dialogueSamples.length < 5) {
@@ -176,14 +176,14 @@ export function collectSceneStats(
         }
       }
       
-      // 收集角色
+      // thu thập角色
       for (const char of (scene.characters || [])) {
         if (!stat.characters.includes(char)) {
           stat.characters.push(char);
         }
       }
       
-      // 收集时间
+      // thu thập时间
       const time = extractTimeFromHeader(scene.sceneHeader);
       if (time && !stat.times.includes(time)) {
         stat.times.push(time);
@@ -199,12 +199,12 @@ export function collectSceneStats(
  * 如 "1-1 日 内 沪上 张家" → "沪上 张家"
  */
 function extractLocationFromHeader(header: string): string {
-  // 去除场景编号和时间/内外标记
+  // 去除số thứ tự Cảnh和时间/内外标记
   const parts = header.split(/\s+/);
-  // 跳过 "1-1", "日/夜", "内/外"
+  // Bỏ qua "1-1", "日/夜", "内/外"
   const locationParts = parts.filter(p => 
     !p.match(/^\d+-\d+$/) && 
-    !p.match(/^(日|夜|晨|暮|黄昏|黎明)$/) &&
+    !p.match(/^(日|夜|晨|暮|Hoàng hôn|Bình minh)$/) &&
     !p.match(/^(内|外|内\/外)$/)
   );
   return locationParts.join(' ') || header;
@@ -214,12 +214,12 @@ function extractLocationFromHeader(header: string): string {
  * 从场景头提取时间
  */
 function extractTimeFromHeader(header: string): string {
-  const timeMatch = header.match(/(日|夜|晨|暮|黄昏|黎明|清晨|傍晚)/);
+  const timeMatch = header.match(/(日|夜|晨|暮|Hoàng hôn|Bình minh|清晨|傍晚)/);
   return timeMatch ? timeMatch[1] : '日';
 }
 
 /**
- * 标准化地点名称用于匹配
+ * Tiêu chuẩn化地点名称用于Khớp
  */
 function normalizeLocation(location: string): string {
   return cleanLocationString(location)
@@ -229,12 +229,12 @@ function normalizeLocation(location: string): string {
 }
 
 /**
- * 清理场景地点字符串，移除人物信息等无关内容
+ * 清理场景地点ký tự串，移除nhân vậtthông tin等无关内容
  */
 function cleanLocationString(location: string): string {
   if (!location) return '';
-  // 移除 "人物：XXX" 部分
-  let cleaned = location.replace(/\s*人物[\uff1a:].*/g, '');
+  // 移除 "nhân vật：XXX" 部分
+  let cleaned = location.replace(/\s*nhân vật[\uff1a:].*/g, '');
   // 移除 "角色：XXX" 部分
   cleaned = cleaned.replace(/\s*角色[\uff1a:].*/g, '');
   // 移除 "时间：XXX" 部分
@@ -243,27 +243,27 @@ function cleanLocationString(location: string): string {
   return cleaned.trim();
 }
 
-// ==================== 核心校准函数 ====================
+// ==================== 核心Hiệu chuẩn函数 ====================
 
 /**
- * AI 校准所有场景（轻量级模式）
+ * AI Hiệu chuẩnTất cả场景（nhẹchế độ）
  * 
- * 【重要】此函数只补充现有场景的美术设计信息，不改变：
+ * 【重要】此函数只补充hiện có场景的美术Thiết kếthông tin，不改变：
  * - 场景列表（不新增、不删除、不合并）
- * - 场景顺序
- * - viewpoints（多视角联合图数据）
- * - sceneIds、shotIds 等关联数据
+ * - 场景thứ tự
+ * - viewpoints（Ảnh ghép đa góc nhìndữ liệu）
+ * - sceneIds、shotIds 等关联dữ liệu
  */
 export async function calibrateScenes(
   currentScenes: ScriptScene[],
   background: ProjectBackground,
   episodeScripts: EpisodeRawScript[],
-  _options?: CalibrationOptions // 不再需要，保留以兼容
+  _options?: CalibrationOptions // 不再需要，保留以tương thích
 ): Promise<SceneCalibrationResult> {
   
-  // 【轻量级模式】直接使用 currentScenes，不重新统计
+  // 【nhẹchế độ】Trực tiếpSử dụng currentScenes，不lại统计
   if (!currentScenes || currentScenes.length === 0) {
-    console.warn('[calibrateScenes] currentScenes 为空，无法校准');
+    console.warn('[calibrateScenes] currentScenes 为空，Không thểHiệu chuẩn');
     return {
       scenes: [],
       mergeRecords: [],
@@ -271,12 +271,12 @@ export async function calibrateScenes(
     };
   }
   
-  console.log('[calibrateScenes] 轻量级模式：为', currentScenes.length, '个现有场景补充美术设计');
+  console.log('[calibrateScenes] nhẹchế độ：为', currentScenes.length, 'hiện có场景补充美术Thiết kế');
   
-  // 1. 收集场景的动作描写样本（用于推断道具）
+  // 1. thu thập场景的动作描写样本（用于推断đạo cụ）
   const stats = collectSceneStats(episodeScripts);
   
-  // 2. 准备场景批处理 items（每个场景带上统计信息）
+  // 2. chuẩn bị场景批处理 items（每场景带上统计thông tin）
   const batchItems = currentScenes.map((scene) => {
     const normalizedLoc = scene.location?.replace(/\s+/g, '').toLowerCase() || '';
     let sceneStat: SceneStats | undefined;
@@ -307,30 +307,30 @@ export async function calibrateScenes(
   const seriesCtxBlock = seriesCtx ? `\n\n${seriesCtx}\n` : '';
 
   // 3. 构建共享的 system prompt
-  const systemPrompt = `你是专业的影视美术指导和场景设计师，擅长为现有场景补充专业的视觉设计方案。${seriesCtxBlock}
+  const systemPrompt = `你是chuyên nghiệp的影视美术指导和场景Thiết kế师，擅长为hiện có场景补充chuyên nghiệp的Thị giácThiết kế方案。${seriesCtxBlock}
 
-【核心任务】
-为以下场景补充美术设计信息，用于生成场景概念图。
+【核心nhiệm vụ】
+为以下场景补充美术Thiết kếthông tin，用于Tạo场景ảnh khái niệm。
 
 【重要约束】
-1. **不新增场景** - 只处理列表中的场景
-2. **不删除场景** - 即使是过渡场景也保留
-3. **不合并场景** - 只记录“合并建议”，不自行合并
-4. **保持原始 sceneId** - 必须原样返回
+1. **不新增场景** - 只处理列表đang xử lý...
+2. **不删除场景** - 即使是chuyển tiếp场景也保留
+3. **不合并场景** - 只记录“合并gợi ý”，不自行合并
+4. **giữgốc sceneId** - 必须原样返回
 
-【场景设计要素 - 必须基于动作描写推断】
-为每个场景补充：
-- 建筑风格、光影设计、色彩基调
-- **关键道具**：必须根据「动作描写」推断
-- 空间布局、时代特征、importance 分类
+【场景Thiết kế要素 - 必须基于动作描写推断】
+为每场景补充：
+- Phong cách kiến trúc、光影Thiết kế、色彩基调
+- **quan trọngđạo cụ**：必须根据「动作描写」推断
+- Bố cục không gian、thời đại特征、importance 分类
 
-请以JSON格式返回分析结果。`;
+请以JSONđịnh dạng返回分析kết quả。`;
 
   // 共享的背景上下文
   const outlineContext = safeTruncate(background.outline || '', 1500);
 
   try {
-    // 闭包收集跨批次的聚合字段
+    // 闭包thu thập跨批次的聚合trường
     const allMergeRecords: SceneMergeRecord[] = [];
     const allAnalysisNotes: string[] = [];
     
@@ -346,46 +346,46 @@ export async function calibrateScenes(
             ? `\n   动作描写: ${s.actionSamples.join('; ')}`
             : '';
           const dialogueInfo = s.dialogueSamples.length
-            ? `\n   对白样本: ${s.dialogueSamples.join('; ')}`
+            ? `\n   Thoại样本: ${s.dialogueSamples.join('; ')}`
             : '';
-          return `${i + 1}. [sceneId: ${s.sceneId}] ${s.name}\n   地点: ${s.location} [出场${s.appearCount}次, 集数${s.episodes}]\n   角色: ${s.characters}${actionInfo}${dialogueInfo}`;
+          return `${i + 1}. [sceneId: ${s.sceneId}] ${s.name}\n   地点: ${s.location} [出场${s.appearCount}次,  tập数${s.episodes}]\n   角色: ${s.characters}${actionInfo}${dialogueInfo}`;
         }).join('\n\n');
         
-        const user = `【剧本信息】
-剧名：《${background.title}》
+        const user = `【剧本thông tin】
+tên phim：《${background.title}》
 ${background.genre ? `类型：${background.genre}` : ''}
-${background.era ? `时代：${background.era}` : ''}
-${background.storyStartYear ? `故事年份：${background.storyStartYear}年${background.storyEndYear && background.storyEndYear !== background.storyStartYear ? ` - ${background.storyEndYear}年` : ''}` : ''}
+${background.era ? `thời đại：${background.era}` : ''}
+${background.storyStartYear ? `Năm câu chuyện：${background.storyStartYear}年${background.storyEndYear && background.storyEndYear !== background.storyStartYear ? ` - ${background.storyEndYear}年` : ''}` : ''}
 ${background.timelineSetting ? `时间线：${background.timelineSetting}` : ''}
-${background.worldSetting ? `世界观：${safeTruncate(background.worldSetting, 200)}` : ''}
-总集数：${episodeScripts.length}集
+${background.worldSetting ? `Bối cảnh thế giới：${safeTruncate(background.worldSetting, 200)}` : ''}
+总 tập数：${episodeScripts.length} tập
 
-【故事大纲】
+【故事đại cương】
 ${outlineContext || '无'}
 
-【现有场景列表 - 请为每个场景补充美术设计】（共${batch.length}个）
+【hiện có场景列表 - 请为每场景补充美术Thiết kế】（共${batch.length}）
 ${sceneList}
 
-【输出规则】
-1. 必须返回每个场景的 sceneId（与输入完全一致）
+【Đầu ra规则】
+1. 必须返回每场景的 sceneId（与输入完全giống）
 2. keyProps 必须从动作描写中提取
-3. 合并建议放在 mergeRecords
+3. 合并gợi ý放在 mergeRecords
 
-请返回JSON格式：
+请返回JSONđịnh dạng：
 {
   "scenes": [
     {
-      "sceneId": "原始场景ID",
+      "sceneId": "gốc场景ID",
       "name": "场景名称",
       "location": "具体地点",
       "importance": "main/secondary/transition",
-      "architectureStyle": "建筑风格",
-      "lightingDesign": "光影设计",
+      "architectureStyle": "Phong cách kiến trúc",
+      "lightingDesign": "光影Thiết kế",
       "colorPalette": "色彩基调",
-      "keyProps": ["道具1", "道具2"],
-      "spatialLayout": "空间布局",
-      "eraDetails": "时代特征",
-      "atmosphere": "氛围"
+      "keyProps": ["đạo cụ1", "đạo cụ2"],
+      "spatialLayout": "Bố cục không gian",
+      "eraDetails": "thời đại特征",
+      "atmosphere": "Bầu không khí"
     }
   ],
   "mergeRecords": [],
@@ -394,7 +394,7 @@ ${sceneList}
         return { system: systemPrompt, user };
       },
       parseResult: (raw) => {
-        // 增强容错的 JSON 解析
+        // 增强容错的 JSON Phân tích
         let cleaned = raw.replace(/```json\n?/g, '').replace(/```\n?/g, '').trim();
         const jsonStart = cleaned.indexOf('{');
         const jsonEnd = cleaned.lastIndexOf('}');
@@ -406,7 +406,7 @@ ${sceneList}
         try {
           batchParsed = JSON.parse(cleaned);
         } catch (parseErr) {
-          console.warn('[calibrateScenes] 批次JSON解析失败，尝试部分解析...');
+          console.warn('[calibrateScenes] 批次JSONPhân tích thất bại，尝试部分Phân tích...');
           const partialScenes: any[] = [];
           const scenePattern = /\{\s*"sceneId"\s*:\s*"([^"]+)"[^{}]*(?:\{[^{}]*\}[^{}]*)*\}/g;
           let match;
@@ -417,23 +417,23 @@ ${sceneList}
             } catch { /* skip */ }
           }
           if (partialScenes.length > 0) {
-            batchParsed = { scenes: partialScenes, mergeRecords: [], analysisNotes: '部分解析' };
+            batchParsed = { scenes: partialScenes, mergeRecords: [], analysisNotes: '部分Phân tích' };
           } else {
             throw parseErr;
           }
         }
         
-        // 收集聚合字段
+        // thu thập聚合trường
         allMergeRecords.push(...(batchParsed.mergeRecords || []));
         if (batchParsed.analysisNotes) allAnalysisNotes.push(batchParsed.analysisNotes);
         
-        // 返回 Map<sceneId, 场景数据>
+        // 返回 Map<sceneId, 场景dữ liệu>
         const map = new Map<string, any>();
         for (const s of (batchParsed.scenes || [])) {
           if (s.sceneId) {
             map.set(s.sceneId, s);
           }
-          // 备用：用 location/name 映射
+          // 备用：用 location/name ánh xạ
           if (s.location) map.set('loc:' + normalizeLocation(s.location), s);
           if (s.name) map.set('loc:' + normalizeLocation(s.name), s);
         }
@@ -447,26 +447,26 @@ ${sceneList}
     });
     
     if (failedBatches > 0) {
-      console.warn(`[SceneCalibrator] ${failedBatches} 批次失败，使用部分结果`);
+      console.warn(`[SceneCalibrator] ${failedBatches} 批次thất bại，Sử dụng部分kết quả`);
     }
     
-    console.log('[calibrateScenes] AI 返回', sceneResults.size, '个场景结果');
+    console.log('[calibrateScenes] AI 返回', sceneResults.size, '场景kết quả');
     
-    // 【关键】按原始顺序遍历 currentScenes，只更新美术字段
+    // 【quan trọng】按gốcthứ tự遍历 currentScenes，只更新美术trường
     const scenes: CalibratedScene[] = currentScenes.map((orig, i) => {
       let aiData = sceneResults.get(orig.id);
       if (!aiData) aiData = sceneResults.get('loc:' + normalizeLocation(orig.location || ''));
       if (!aiData) aiData = sceneResults.get('loc:' + normalizeLocation(orig.name || ''));
       
       const matched = !!aiData;
-      console.log(`[calibrateScenes] 场景 #${i + 1} "${orig.name || orig.location}" (${orig.id}) -> AI 匹配: ${matched ? '✓' : '✗'}`);
+      console.log(`[calibrateScenes] 场景 #${i + 1} "${orig.name || orig.location}" (${orig.id}) -> AI Khớp: ${matched ? '✓' : '✗'}`);
       
       return {
         id: orig.id,
         name: orig.name || orig.location,
         location: orig.location,
         time: orig.time || 'day',
-        atmosphere: aiData?.atmosphere || orig.atmosphere || '平静',
+        atmosphere: aiData?.atmosphere || orig.atmosphere || 'Bình tĩnh',
         importance: aiData?.importance || (orig as any).importance || 'secondary',
         episodeNumbers: (orig as any).episodeNumbers || [],
         appearanceCount: (orig as any).appearanceCount || 1,
@@ -480,7 +480,7 @@ ${sceneList}
       };
     });
     
-    // 为主要场景生成专业视觉提示词
+    // 为主要场景Tạochuyên nghiệpThị giác提示词
     const enrichedScenes = await enrichScenesWithVisualPrompts(
       scenes,
       background,
@@ -493,7 +493,7 @@ ${sceneList}
       analysisNotes: allAnalysisNotes.join('; ') || '',
     };
   } catch (error) {
-    console.error('[SceneCalibrator] AI校准失败:', error);
+    console.error('[SceneCalibrator] AIHiệu chuẩnthất bại:', error);
     const fallbackScenes: CalibratedScene[] = Array.from(stats.values())
       .sort((a, b) => b.appearanceCount - a.appearanceCount)
       .map((s, i) => ({
@@ -501,7 +501,7 @@ ${sceneList}
         name: s.name,
         location: s.location,
         time: s.times[0] || 'day',
-        atmosphere: '平静',
+        atmosphere: 'Bình tĩnh',
         importance: (s.appearanceCount >= 5 ? 'main' : 
                     s.appearanceCount >= 2 ? 'secondary' : 'transition') as any,
         episodeNumbers: s.episodeNumbers,
@@ -512,13 +512,13 @@ ${sceneList}
     return {
       scenes: fallbackScenes,
       mergeRecords: [],
-      analysisNotes: 'AI校准失败，返回基于统计的结果',
+      analysisNotes: 'AIHiệu chuẩnthất bại，返回基于统计的kết quả',
     };
   }
 }
 
 /**
- * AI 校准单集场景
+ * AI Hiệu chuẩn单 tập场景
  */
 export async function calibrateEpisodeScenes(
   episodeIndex: number,
@@ -527,30 +527,30 @@ export async function calibrateEpisodeScenes(
   episodeScripts: EpisodeRawScript[],
   options: CalibrationOptions
 ): Promise<SceneCalibrationResult> {
-  // 找到该集的剧本
+  // Tìm thấy该 tập的剧本
   const episodeScript = episodeScripts.find(ep => ep.episodeIndex === episodeIndex);
   if (!episodeScript) {
-    throw new Error(`找不到第 ${episodeIndex} 集的剧本`);
+    throw new Error(`找不到第 ${episodeIndex}  tập的剧本`);
   }
   
-  // 只校准该集的场景
+  // 只Hiệu chuẩn该 tập的场景
   const singleEpisodeScripts = [episodeScript];
   
-  // 复用全局校准逻辑，但只传入单集数据
+  // 复用全局Hiệu chuẩn逻辑，但只传入单 tậpdữ liệu
   return calibrateScenes(currentScenes, background, singleEpisodeScripts, options);
 }
 
-// ==================== 专业视觉设计 ====================
+// ==================== chuyên nghiệpThị giácThiết kế ====================
 
 /**
- * 为主要场景生成专业的视觉提示词
+ * 为主要场景Tạochuyên nghiệp的Thị giác提示词
  */
 async function enrichScenesWithVisualPrompts(
   scenes: CalibratedScene[],
   background: ProjectBackground,
   promptLanguage: PromptLanguage = 'zh+en'
 ): Promise<CalibratedScene[]> {
-  // 只为主要场景和次要场景生成详细提示词
+  // 只为主要场景和次要场景Tạo详细提示词
   const keyScenes = scenes.filter(s => 
     s.importance === 'main' || s.importance === 'secondary'
   );
@@ -559,54 +559,54 @@ async function enrichScenesWithVisualPrompts(
     return scenes;
   }
   
-  console.log(`[enrichScenesWithVisualPrompts] 为 ${keyScenes.length} 个关键场景生成专业提示词...`);
+  console.log(`[enrichScenesWithVisualPrompts] 为 ${keyScenes.length} quan trọng场景Tạochuyên nghiệp提示词...`);
   
-  const systemPrompt = `你是好莱坞顶级美术指导，曾为《盗梦空间》《布达佩斯大饭店》等电影设计场景。
+  const systemPrompt = `你是好莱坞顶级美术指导，曾为《盗梦空间》《布达佩斯大饭店》等电影Thiết kế场景。
 
-你的专业能力：
-- **空间美学**：懂得如何用构图、光影、色彩传达情绪
-- **时代还原**：准确把握不同年代的建筑和室内装饰特征
-- **AI图像生成**：深谙 Midjourney、DALL-E 等 AI 绘图模型的最佳提示词写法
-- **电影语言**：理解场景如何为叙事服务
+你的chuyên nghiệp能力：
+- **空间美学**：懂得如何用bố cục、光影、色彩传达cảm xúc
+- **thời đại还原**：准确把握不同thập niên的建筑和室内装饰特征
+- **AI图像Tạo**：深谙 Midjourney、DALL-E 等 AI 绘图模型的最佳提示词写法
+- **电影Ngôn ngữ**：理解场景如何为tự sự服务
 
-【剧本信息】
-剧名：《${background.title}》
+【剧本thông tin】
+tên phim：《${background.title}》
 类型：${background.genre || '未知类型'}
-时代：${background.era || '未知'}
+thời đại：${background.era || '未知'}
 
-【故事大纲】
+【故事đại cương】
 ${background.outline?.slice(0, 1000) || '无'}
 
-【任务】
-为以下场景生成专业的视觉提示词：
+【nhiệm vụ】
+为以下场景Tạochuyên nghiệp的Thị giác提示词：
 
 ${keyScenes.map((s, i) => `${i+1}. ${s.name}
    - 重要性：${s.importance === 'main' ? '主场景' : '次要场景'}
-   - 建筑风格：${s.architectureStyle || '未知'}
+   - Phong cách kiến trúc: ${s.architectureStyle || '未知'}
    - 光影：${s.lightingDesign || '未知'}
    - 色彩：${s.colorPalette || '未知'}
-   - 道具：${s.keyProps?.join(', ') || '未知'}
-   - 时代：${s.eraDetails || '未知'}`).join('\n\n')}
+   - đạo cụ：${s.keyProps?.join(', ') || '未知'}
+   - thời đại：${s.eraDetails || '未知'}`).join('\n\n')}
 
-【输出要求】
-为每个场景生成：
-${promptLanguage !== 'en' ? '- 中文视觉描述（100-150字，包含空间感、氛围、细节）' : ''}
-${promptLanguage !== 'zh' ? '- 英文视觉提示词（50-80词，适合AI图像生成，包含风格、光影、构图）' : ''}
+【Đầu ra要求】
+为每场景Tạo：
+${promptLanguage !== 'en' ? '- đang xử lý...Mô tả（100-150字，chứa空间感、Bầu không khí、细节）' : ''}
+${promptLanguage !== 'zh' ? '- 英文Thị giác提示词（50-80词，适合AI图像Tạo，chứa风格、光影、bố cục）' : ''}
 
-请返回JSON格式：
+请返回JSONđịnh dạng：
 {
   "scenes": [
     {
-      "name": "场景名"${promptLanguage !== 'en' ? ',\n      "visualPromptZh": "中文视觉描述"' : ''}${promptLanguage !== 'zh' ? ',\n      "visualPromptEn": "English visual prompt for AI image generation"' : ''}
+      "name": "场景名"${promptLanguage !== 'en' ? ',\n      "visualPromptZh": "đang xử lý...Mô tả"' : ''}${promptLanguage !== 'zh' ? ',\n      "visualPromptEn": "English visual prompt for AI image generation"' : ''}
     }
   ]
 }`;
 
   try {
-    // 统一从服务映射获取配置
-    const result = await callFeatureAPI('script_analysis', systemPrompt, '请为以上场景生成专业视觉提示词');
+    // 统一从ánh xạ dịch vụ获取cấu hình
+    const result = await callFeatureAPI('script_analysis', systemPrompt, '请为以上场景Tạochuyên nghiệpThị giác提示词');
     
-    // 解析结果
+    // Phân tíchkết quả
     let cleaned = result.replace(/```json\n?/g, '').replace(/```\n?/g, '').trim();
     const jsonStart = cleaned.indexOf('{');
     const jsonEnd = cleaned.lastIndexOf('}');
@@ -620,7 +620,7 @@ ${promptLanguage !== 'zh' ? '- 英文视觉提示词（50-80词，适合AI图像
       designMap.set(s.name, s);
     }
     
-    // 合并到场景数据
+    // 合并到场景dữ liệu
     return scenes.map(s => {
       const design = designMap.get(s.name);
       if (design) {
@@ -633,15 +633,15 @@ ${promptLanguage !== 'zh' ? '- 英文视觉提示词（50-80词，适合AI图像
       return s;
     });
   } catch (error) {
-    console.error('[enrichScenesWithVisualPrompts] 生成失败:', error);
+    console.error('[enrichScenesWithVisualPrompts] Tạothất bại:', error);
     return scenes;
   }
 }
 
-// ==================== 转换函数 ====================
+// ==================== chuyển đổi函数 ====================
 
 /**
- * 将校准结果转换回 ScriptScene 格式
+ * 将Hiệu chuẩnkết quảchuyển đổi回 ScriptScene định dạng
  */
 export function convertToScriptScenes(
   calibrated: CalibratedScene[],
@@ -649,28 +649,28 @@ export function convertToScriptScenes(
   promptLanguage: PromptLanguage = 'zh+en',
 ): ScriptScene[] {
   return calibrated.map(c => {
-    // 查找原始场景数据
+    // 查找gốc场景dữ liệu
     const original = originalScenes?.find(orig => 
       orig.name === c.name || 
       orig.location === c.location ||
       normalizeLocation(orig.location) === normalizeLocation(c.location)
     );
     
-    // 清理地点字符串
+    // 清理地点ký tự串
     const cleanedLocation = cleanLocationString(c.location);
     const nextVisualPromptZh = c.visualPromptZh || original?.visualPrompt;
     const nextVisualPromptEn = c.visualPromptEn || original?.visualPromptEn;
     
     return {
-      // 保留原始字段
+      // 保留gốctrường
       ...original,
-      // 更新/补充 AI 校准的字段
+      // 更新/补充 AI Hiệu chuẩn的trường
       id: original?.id || c.id,
       name: c.name,
       location: cleanedLocation,
       time: c.time,
       atmosphere: c.atmosphere,
-      // 专业场景设计字段
+      // chuyên nghiệp场景Thiết kếtrường
       visualPrompt: promptLanguage === 'en' ? undefined : nextVisualPromptZh,
       visualPromptEn: promptLanguage === 'zh' ? undefined : nextVisualPromptEn,
       architectureStyle: c.architectureStyle,
@@ -689,7 +689,7 @@ export function convertToScriptScenes(
         `出场${c.appearanceCount}次`,
         ...(c.keyProps || []).slice(0, 3),
       ],
-      // 【修复】保留原始场景的 viewpoints 数据（AI视角分析结果）
+      // 【修复】保留gốc场景的 viewpoints dữ liệu（AIgóc nhìn分析kết quả）
       viewpoints: original?.viewpoints,
     };
   });

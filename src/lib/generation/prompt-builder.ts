@@ -4,16 +4,16 @@
 /**
  * Prompt Builder — 统一视频提示词组装模块
  *
- * 核心原则：整合为语义层次，避免碎片化堆叠导致信号稀释
- * Layer 1: 镜头设计 (Camera) - 最高优先级
- * Layer 1.5: 灯光设计 (Lighting)
+ * 核心原则：tích hợp为语义cấp độ，Tránh碎片化堆叠导致信号稀释
+ * Layer 1: 镜头Thiết kế (Camera) - 最高优先级
+ * Layer 1.5: 灯光Thiết kế (Lighting)
  * Layer 2: 内容焦点 (Subject) - 次高优先级
- * Layer 3: 氛围修饰 (Mood) - 辅助
+ * Layer 3: Bầu không khí修饰 (Mood) - 辅助
  * Layer 4: 场景音频 (Setting & Audio)
- * Layer 5: 视觉风格 (Style)
- * Base: 用户提示词
+ * Layer 5: Thị giác风格 (Style)
+ * Base: người dùng提示词
  *
- * 摄影风格档案回退规则：逐镜字段为空时使用项目级摄影档案默认值
+ * 摄影风格档案回退规则：逐镜trường为空时Sử dụng项目级摄影档案默认值
  */
 
 import type { SplitScene, EmotionTag } from '@/stores/director-store';
@@ -43,7 +43,7 @@ import { translateToken, type CinematographyField } from '@/lib/generation/media
 // ==================== 辅助函数 ====================
 
 /**
- * 根据情绪标签构建氛围描述文本
+ * 根据cảm xúc标签构建Bầu không khíMô tả文本
  */
 export function buildEmotionDescription(emotionTags: EmotionTag[]): string {
   if (!emotionTags || emotionTags.length === 0) return '';
@@ -60,12 +60,12 @@ export function buildEmotionDescription(emotionTags: EmotionTag[]): string {
   });
 
   if (labels.length === 1) {
-    return `氛围${labels[0]}，`;
+    return `Bầu không khí ${labels[0]}, `;
   } else if (labels.length === 2) {
-    return `氛围从${labels[0]}转为${labels[1]}，`;
+    return `Bầu không khí chuyển từ ${labels[0]} sang ${labels[1]}, `;
   } else {
-    const progression = labels.slice(0, -1).join('、') + '然后' + labels[labels.length - 1];
-    return `氛围依次${progression}，`;
+    const progression = labels.slice(0, -1).join('、') + 'rồi' + labels[labels.length - 1];
+    return `Bầu không khí lần lượt ${progression}, `;
   }
 }
 
@@ -85,29 +85,29 @@ function findPresetToken<T extends { id: string; promptToken: string }>(
   const preset = presets.find(p => p.id === id);
   if (!preset?.promptToken) return undefined;
   const translated = translateToken(mediaType ?? 'cinematic', field, id, preset.promptToken);
-  return translated || undefined; // 空字符串 → undefined（跳过）
+  return translated || undefined; // Chuỗi rỗng → undefined (Bỏ qua)
 }
 
-// ==================== 视频 Prompt 构建配置 ====================
+// ==================== 视频 Prompt 构建cấu hình ====================
 
 export interface VideoPromptConfig {
-  /** 视觉风格 tokens */
+  /** Tokens phong cách Thị giác */
   styleTokens?: string[];
-  /** 画面比例 (仅作为上下文参考) */
+  /** 画面Tỷ lệ (仅作为上下文Tham chiếu) */
   aspectRatio?: '16:9' | '9:16';
-  /** 媒介类型 — 控制摄影参数翻译策略 */
+  /** Loại phương tiện - kiểm soát chiến lược dịch tham số chụp ảnh */
   mediaType?: MediaType;
 }
 
 // ==================== 核心函数 ====================
 
 /**
- * 构建视频生成的完整 prompt
+ * 构建视频Tạo的đầy đủ prompt
  *
- * @param scene - 分镜数据 (SplitScene)
+ * @param scene - 分镜dữ liệu (SplitScene)
  * @param cinProfile - 摄影风格档案 (undefined 表示未设置)
- * @param config - 额外配置 (styleTokens 等)
- * @returns 组装好的完整 prompt 字符串
+ * @param config - 额外cấu hình (styleTokens , v.v.)
+ * @returns 组装好的đầy đủ prompt ký tự串
  */
 export function buildVideoPrompt(
   scene: SplitScene,
@@ -117,7 +117,7 @@ export function buildVideoPrompt(
   const promptParts: string[] = [];
   const mt = config.mediaType;
 
-  // ---------- Layer 1: 镜头设计 (Camera Design) ----------
+  // ---------- Layer 1: 镜头Thiết kế (Camera Design) ----------
   const cameraDesignParts: string[] = [];
 
   // 1.0 器材类型 —— 逐镜优先，回退摄影档案
@@ -125,10 +125,10 @@ export function buildVideoPrompt(
   const rigToken = findPresetToken(CAMERA_RIG_PRESETS, effectiveRig, mt, 'cameraRig');
   if (rigToken) cameraDesignParts.push(rigToken);
 
-  // 1.1 判断高级机位描述
+  // 1.1 判断高级vị trí cameraMô tả
   const hasCameraPosition = scene.cameraPosition?.trim();
 
-  // 1.2 起始景别（仅当没有高级机位描述时）
+  // 1.2 bắt đầuKích thước cảnh（仅当没有高级vị trí cameraMô tả时）
   if (!hasCameraPosition && scene.shotSize) {
     const shotPreset = SHOT_SIZE_PRESETS.find(p => p.id === scene.shotSize);
     if (shotPreset) {
@@ -136,11 +136,11 @@ export function buildVideoPrompt(
     }
   }
 
-  // 1.3 机位与运动
+  // 1.3 vị trí camera与运动
   if (hasCameraPosition) {
     cameraDesignParts.push(scene.cameraPosition!.trim());
   } else if (scene.cameraMovement?.trim() && scene.cameraMovement !== 'none') {
-    // 先查预设 promptToken，找不到回退原值（兼容旧数据）
+    // 先查预设 promptToken，找不到回退原值（tương thích旧dữ liệu）
     const cmPreset = CAMERA_MOVEMENT_PRESETS.find(p => p.id === scene.cameraMovement);
     cameraDesignParts.push(cmPreset?.promptToken || scene.cameraMovement.trim());
   }
@@ -159,7 +159,7 @@ export function buildVideoPrompt(
     if (token) cameraDesignParts.push(token);
   }
 
-  // 1.5 节奏修饰
+  // 1.5 Nhịp điệu修饰
   if (scene.rhythm?.trim()) {
     cameraDesignParts.push(`${scene.rhythm.trim()} rhythm`);
   }
@@ -193,7 +193,7 @@ export function buildVideoPrompt(
     if (techToken) cameraDesignParts.push(techToken);
   }
 
-  // 1.9 特殊拍摄手法
+  // 1.9 Kỹ thuật quay đặc biệt手法
   if ((scene as any).specialTechnique && (scene as any).specialTechnique !== 'none') {
     const stPreset = SPECIAL_TECHNIQUE_PRESETS.find(p => p.id === (scene as any).specialTechnique);
     if (stPreset?.promptToken) cameraDesignParts.push(stPreset.promptToken);
@@ -204,7 +204,7 @@ export function buildVideoPrompt(
     promptParts.push(`Camera: ${cameraDesignParts.join(', ')}`);
   }
 
-  // ---------- Layer 1.5: 灯光设计 (Lighting) ----------
+  // ---------- Layer 1.5: 灯光Thiết kế (Lighting) ----------
   const lightingParts: string[] = [];
 
   const effectiveLs = scene.lightingStyle || cinProfile?.defaultLighting?.style;
@@ -244,7 +244,7 @@ export function buildVideoPrompt(
     promptParts.push(`Subject: ${subjectParts.join(', ')}`);
   }
 
-  // ---------- Layer 3: 氛围修饰 (Mood & Narrative) ----------
+  // ---------- Layer 3: Bầu không khí修饰 (Mood & Narrative) ----------
   const emotionDesc = buildEmotionDescription(scene.emotionTags || []);
   if (emotionDesc) {
     promptParts.push(`Mood: ${emotionDesc}`);
@@ -257,7 +257,7 @@ export function buildVideoPrompt(
     promptParts.push(`Shot intent: ${scene.shotPurpose.trim()}`);
   }
 
-  // 3.4 氛围特效 —— 逐镜优先，回退摄影档案
+  // 3.4 Bầu không khí特效 —— 逐镜优先，回退摄影档案
   const effectiveAtmo = (scene.atmosphericEffects && scene.atmosphericEffects.length > 0)
     ? scene.atmosphericEffects
     : cinProfile?.defaultAtmosphere?.effects;
@@ -297,43 +297,43 @@ export function buildVideoPrompt(
     promptParts.push(`Setting: ${sceneInfo}`);
   }
 
-  // 对白：有内容且开启时包含，否则明确禁止
+  // Thoại：有内容且开启时chứa，否则明确bị cấm
   if (scene.audioDialogueEnabled !== false && scene.dialogue?.trim()) {
     promptParts.push(`Dialogue: "${scene.dialogue.trim()}"`);
   } else {
-    promptParts.push('Dialogue: 禁止对白');
+    promptParts.push('Dialogue: bị cấmThoại');
   }
-  // 环境音：有内容且开启时包含，否则明确禁止
+  // 环境音：有内容且开启时chứa，否则明确bị cấm
   if (scene.audioAmbientEnabled !== false && scene.ambientSound?.trim()) {
     promptParts.push(`Ambient: ${scene.ambientSound.trim()}`);
   } else {
-    promptParts.push('Ambient: 禁止环境音');
+    promptParts.push('Ambient: bị cấm环境音');
   }
-  // 音效：有内容且开启时包含，否则明确禁止
+  // Hiệu ứng âm thanh：有内容且开启时chứa，否则明确bị cấm
   if (scene.audioSfxEnabled !== false && scene.soundEffectText?.trim()) {
     promptParts.push(`SFX: ${scene.soundEffectText.trim()}`);
   } else {
-    promptParts.push('SFX: 禁止音效');
+    promptParts.push('SFX: bị cấmHiệu ứng âm thanh');
   }
-  // 背景音乐：有内容且开启时包含，否则明确禁止
+  // 背景Nhạc：有内容且开启时chứa，否则明确bị cấm
   if (scene.audioBgmEnabled === true && scene.backgroundMusic?.trim()) {
     promptParts.push(`Music: ${scene.backgroundMusic.trim()}`);
   } else {
-    promptParts.push('Music: 禁止背景音乐');
+    promptParts.push('Music: bị cấm背景Nhạc');
   }
 
-  // ---------- Layer 5: 视觉风格 (Style) ----------
+  // ---------- Layer 5: Thị giác风格 (Style) ----------
   if (config.styleTokens && config.styleTokens.length > 0) {
     promptParts.push(`Style: ${config.styleTokens.join(', ')}`);
   }
 
-  // ---------- Base Prompt: 用户视频提示词 ----------
+  // ---------- Base Prompt: người dùng视频提示词 ----------
   const basePrompt = scene.videoPromptZh || scene.videoPrompt || '';
   if (basePrompt.trim()) {
     promptParts.push(basePrompt.trim());
   }
 
-  // ---------- 速度控制 (Speed Ramping) —— 逐镜优先，回退摄影档案 ----------
+  // ---------- 速度điều khiển (Speed Ramping) —— 逐镜优先，回退摄影档案 ----------
   const effectivePbSpeed = scene.playbackSpeed || cinProfile?.defaultSpeed?.playbackSpeed;
   if (effectivePbSpeed && effectivePbSpeed !== 'normal') {
     const token = findPresetToken(PLAYBACK_SPEED_PRESETS, effectivePbSpeed, mt, 'playbackSpeed');
@@ -345,6 +345,6 @@ export function buildVideoPrompt(
     promptParts.push(scene.continuityRef.lightingContinuity.trim());
   }
 
-  // 最终组装
+  // lắp ráp cuối cùng
   return promptParts.join('. ');
 }

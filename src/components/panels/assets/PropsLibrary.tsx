@@ -3,8 +3,8 @@
 // Commercial licensing available. See COMMERCIAL_LICENSE.md.
 
 /**
- * PropsLibrary - 道具库主视图
- * 左侧目录树 + 右侧道具网格，支持自定义目录管理
+ * PropsLibrary - Thư viện đạo cụ主góc nhìn
+ * Cây thư mục bên trái + Lưới đạo cụ bên phải，Hỗ trợTùy chỉnhthư mụcQuản lý
  */
 
 import { useState, useRef } from 'react';
@@ -50,7 +50,7 @@ import {
 import { toast } from 'sonner';
 import { useResolvedImageUrl } from '@/hooks/use-resolved-image-url';
 
-// ── PropCard 子组件 ──────────────────────────────────────────────────────────
+// ── PropCard con组件 ──────────────────────────────────────────────────────────
 
 function PropCard({ item }: { item: PropItem }) {
   const { deleteProp, renameProp, moveProp, folders } = usePropsLibraryStore();
@@ -69,7 +69,7 @@ function PropCard({ item }: { item: PropItem }) {
   return (
     <>
       <div className="group relative flex flex-col rounded-lg border border-border bg-card overflow-hidden hover:border-primary/40 transition-colors">
-        {/* 图片区 */}
+        {/* Khu vực ảnh */}
         <div className="aspect-square bg-muted relative overflow-hidden">
           {resolvedUrl ? (
             <img
@@ -85,7 +85,7 @@ function PropCard({ item }: { item: PropItem }) {
               <Package className="w-8 h-8 text-muted-foreground/40" />
             </div>
           )}
-          {/* 悬浮操作菜单 */}
+          {/* Menu thao tác khi di chuột */}
           <div className="absolute top-1.5 right-1.5 opacity-0 group-hover:opacity-100 transition-opacity">
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
@@ -100,21 +100,21 @@ function PropCard({ item }: { item: PropItem }) {
               <DropdownMenuContent align="end" className="w-36">
                 <DropdownMenuItem onClick={() => { setNameInput(item.name); setRenaming(true); }}>
                   <Pencil className="mr-2 h-3.5 w-3.5" />
-                  重命名
+                  Đổi tên
                 </DropdownMenuItem>
-                {/* 移动到目录 */}
+                {/* Di chuyển đếnthư mục */}
                 {folders.length > 0 && (
                   <>
                     <DropdownMenuSeparator />
                     <DropdownMenuItem disabled className="text-xs text-muted-foreground py-1">
-                      移动到目录
+                      Di chuyển đếnthư mục
                     </DropdownMenuItem>
                     <DropdownMenuItem
                       onClick={() => moveProp(item.id, null)}
                       className={cn(item.folderId === null && 'text-primary')}
                     >
                       <Layers className="mr-2 h-3.5 w-3.5" />
-                      根目录
+                      Thư mục gốc
                     </DropdownMenuItem>
                     {folders.map((f) => (
                       <DropdownMenuItem
@@ -134,14 +134,14 @@ function PropCard({ item }: { item: PropItem }) {
                   onClick={() => setShowDeleteAlert(true)}
                 >
                   <Trash2 className="mr-2 h-3.5 w-3.5" />
-                  删除
+                  Xóa
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
           </div>
         </div>
 
-        {/* 名称区 */}
+        {/* Khu vực tên */}
         <div className="px-2 py-1.5">
           {renaming ? (
             <Input
@@ -167,25 +167,25 @@ function PropCard({ item }: { item: PropItem }) {
         </div>
       </div>
 
-      {/* 删除确认 */}
+      {/* XóaXác nhận */}
       <AlertDialog open={showDeleteAlert} onOpenChange={setShowDeleteAlert}>
         <AlertDialogContent>
           <AlertDialogHeader>
-            <AlertDialogTitle>删除道具</AlertDialogTitle>
+            <AlertDialogTitle>XóaĐạo cụ</AlertDialogTitle>
             <AlertDialogDescription>
-              确认删除「{item.name}」？此操作不可撤销。
+              Xác nhận xóa「{item.name}」？Hành động này không thể hoàn tác。
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
-            <AlertDialogCancel>取消</AlertDialogCancel>
+            <AlertDialogCancel>Hủy</AlertDialogCancel>
             <AlertDialogAction
               className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
               onClick={() => {
                 deleteProp(item.id);
-                toast.success(`已删除「${item.name}」`);
+                toast.success(`đã xóa「${item.name}」`);
               }}
             >
-              删除
+              Xóa
             </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
@@ -194,7 +194,7 @@ function PropCard({ item }: { item: PropItem }) {
   );
 }
 
-// ── FolderItem 子组件 ────────────────────────────────────────────────────────
+// ── FolderItem con组件 ────────────────────────────────────────────────────────
 
 function FolderItem({
   folder,
@@ -246,7 +246,7 @@ function FolderItem({
           <span className="flex-1 truncate">{folder.name}</span>
         )}
 
-        {/* 目录操作按钮（悬浮显示） */}
+        {/* Nút thao tác thư mục (hiện khi di chuột) */}
         {!renaming && (
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
@@ -268,7 +268,7 @@ function FolderItem({
                 }}
               >
                 <Pencil className="mr-2 h-3.5 w-3.5" />
-                重命名
+                Đổi tên
               </DropdownMenuItem>
               <DropdownMenuSeparator />
               <DropdownMenuItem
@@ -279,33 +279,33 @@ function FolderItem({
                 }}
               >
                 <Trash2 className="mr-2 h-3.5 w-3.5" />
-                删除目录
+                Xóathư mục
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
         )}
       </div>
 
-      {/* 删除目录确认 */}
+      {/* Xóathư mụcXác nhận */}
       <AlertDialog open={showDeleteAlert} onOpenChange={setShowDeleteAlert}>
         <AlertDialogContent>
           <AlertDialogHeader>
-            <AlertDialogTitle>删除目录</AlertDialogTitle>
+            <AlertDialogTitle>Xóathư mục</AlertDialogTitle>
             <AlertDialogDescription>
-              确认删除目录「{folder.name}」？目录内的道具将移至根目录，不会被删除。
+              Xác nhận xóa thư mục「{folder.name}」? Các đạo cụ trong thư mục sẽ được chuyển về Thư mục gốc, không bị xóa.
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
-            <AlertDialogCancel>取消</AlertDialogCancel>
+            <AlertDialogCancel>Hủy</AlertDialogCancel>
             <AlertDialogAction
               className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
               onClick={() => {
                 deleteFolder(folder.id);
                 setSelectedFolderId('all');
-                toast.success(`目录「${folder.name}」已删除`);
+                toast.success(`thư mục「${folder.name}」đã xóa`);
               }}
             >
-              删除
+              Xóa
             </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
@@ -314,7 +314,7 @@ function FolderItem({
   );
 }
 
-// ── 新建目录弹窗 ──────────────────────────────────────────────────────────────
+// ── Popup tạo thư mục mới ──────────────────────────────────────────────────────────────
 
 function NewFolderDialog({
   open,
@@ -333,19 +333,19 @@ function NewFolderDialog({
     setSelectedFolderId(folder.id);
     setName('');
     onOpenChange(false);
-    toast.success(`目录「${trimmed}」已创建`);
+    toast.success(`Thư mục「${trimmed}」đã tạo`);
   };
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-[320px]">
         <DialogHeader>
-          <DialogTitle>新建目录</DialogTitle>
+          <DialogTitle>Tạo mớithư mục</DialogTitle>
         </DialogHeader>
         <div className="py-2">
           <Input
             autoFocus
-            placeholder="输入目录名称，如：汽车、武器..."
+            placeholder="Nhập tên thư mục... ví dụ: xe hơi, vũ khí..."
             value={name}
             onChange={(e) => setName(e.target.value)}
             onKeyDown={(e) => {
@@ -356,10 +356,10 @@ function NewFolderDialog({
         </div>
         <DialogFooter>
           <Button variant="outline" onClick={() => onOpenChange(false)}>
-            取消
+            Hủy
           </Button>
           <Button onClick={handleConfirm} disabled={!name.trim()}>
-            创建
+            Tạo
           </Button>
         </DialogFooter>
       </DialogContent>
@@ -383,30 +383,30 @@ export function PropsLibrary() {
   const visibleItems = getPropsByFolder(selectedFolderId);
   const currentFolderName =
     selectedFolderId === 'all'
-      ? '全部道具'
-      : folders.find((f) => f.id === selectedFolderId)?.name ?? '全部道具';
+      ? 'Tất cả đạo cụ'
+      : folders.find((f) => f.id === selectedFolderId)?.name ?? 'Tất cả đạo cụ';
 
   return (
     <div className="h-full flex">
-      {/* ── 左侧目录树 ── */}
+      {/* ── Cây thư mục bên trái ── */}
       <div className="w-[160px] shrink-0 border-r border-border flex flex-col bg-panel">
-        {/* 目录树标题 */}
+        {/* Tiêu đề cây thư mục */}
         <div className="px-3 py-2.5 border-b border-border flex items-center justify-between shrink-0">
-          <span className="text-xs font-semibold text-muted-foreground">目录</span>
+          <span className="text-xs font-semibold text-muted-foreground">thư mục</span>
           <Button
             size="icon"
             variant="ghost"
             className="h-5 w-5"
             onClick={() => setNewFolderOpen(true)}
-            title="新建目录"
+            title="Tạo mớithư mục"
           >
             <FolderPlus className="h-3.5 w-3.5" />
           </Button>
         </div>
 
-        {/* 目录列表 */}
+        {/* Danh sách thư mục */}
         <ScrollArea className="flex-1 py-1.5 px-1.5">
-          {/* 全部道具 */}
+          {/* Tất cả đạo cụ */}
           <button
             className={cn(
               'flex items-center gap-1.5 w-full px-3 py-1.5 rounded-md text-xs transition-colors',
@@ -417,11 +417,11 @@ export function PropsLibrary() {
             onClick={() => setSelectedFolderId('all')}
           >
             <Package className="w-3.5 h-3.5 shrink-0" />
-            <span className="truncate">全部道具</span>
+            <span className="truncate">Tất cả đạo cụ</span>
             <span className="ml-auto text-[10px] opacity-60">{items.length}</span>
           </button>
 
-          {/* 用户自定义目录 */}
+          {/* Thư mục tùy chỉnh của người dùng */}
           {folders.map((folder) => {
             const count = items.filter((i) => i.folderId === folder.id).length;
             return (
@@ -438,15 +438,15 @@ export function PropsLibrary() {
             );
           })}
 
-          {/* 无目录提示 */}
+          {/* Gợi ý khi không có thư mục */}
           {folders.length === 0 && (
             <p className="text-[10px] text-muted-foreground px-3 py-2 leading-relaxed">
-              点击右上角 + 新建目录
+              Nhấpgóc trên phải + Tạo thư mục mới
             </p>
           )}
         </ScrollArea>
 
-        {/* 底部新建按钮 */}
+        {/* Nút Tạo mới ở dưới */}
         <div className="p-2 border-t border-border shrink-0">
           <Button
             variant="outline"
@@ -455,30 +455,30 @@ export function PropsLibrary() {
             onClick={() => setNewFolderOpen(true)}
           >
             <FolderPlus className="mr-1.5 h-3.5 w-3.5" />
-            新建目录
+            Tạo mớithư mục
           </Button>
         </div>
       </div>
 
-      {/* ── 右侧道具网格 ── */}
+      {/* ── Lưới đạo cụ bên phải ── */}
       <div className="flex-1 flex flex-col min-w-0">
-        {/* 面包屑/标题栏 */}
+        {/* Thanh breadcrumb/tiêu đề */}
         <div className="px-4 py-2.5 border-b border-border shrink-0 flex items-center gap-2">
           <Package className="w-4 h-4 text-muted-foreground" />
           <span className="text-sm font-medium">{currentFolderName}</span>
-          <span className="text-xs text-muted-foreground">({visibleItems.length} 个道具)</span>
+          <span className="text-xs text-muted-foreground">({visibleItems.length} Đạo cụ)</span>
         </div>
 
-        {/* 道具网格 */}
+        {/* Lưới đạo cụ */}
         <ScrollArea className="flex-1">
           {visibleItems.length === 0 ? (
             <div className="h-full flex flex-col items-center justify-center gap-4 text-muted-foreground py-24">
               <Package className="h-16 w-16 opacity-20" />
               <div className="text-center">
-                <p className="text-base font-medium">道具库为空</p>
+                <p className="text-base font-medium">Thư viện đạo cụ trống</p>
                 <p className="text-sm mt-1">
-                  在「自由」板块的图片工作室生成图片后，<br />
-                  点击「保存到道具库」即可添加道具
+                  Sau khi Tạo ảnh trong Studio của panel「Tự do」,<br />
+                  Nhấp「Lưu vào Thư viện đạo cụ」để Thêm đạo cụ
                 </p>
               </div>
             </div>
@@ -492,7 +492,7 @@ export function PropsLibrary() {
         </ScrollArea>
       </div>
 
-      {/* 新建目录弹窗 */}
+      {/* Popup tạo thư mục mới */}
       <NewFolderDialog open={newFolderOpen} onOpenChange={setNewFolderOpen} />
     </div>
   );

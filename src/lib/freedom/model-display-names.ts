@@ -1,9 +1,9 @@
 /**
- * 模型友好名映射表
- * API ID → 用户可读的显示名
+ * 模型友好名ánh xạ表
+ * API ID → người dùng可读的显示名
  *
- * 数据来源: https://memefast.top/api/pricing_new (2026-02-19)
- * 不在此表中的模型直接显示原始 ID
+ * dữ liệu来源: https://memefast.top/api/pricing_new (2026-02-19)
+ * 不在此表đang xử lý...Trực tiếp显示gốc ID
  */
 
 export const MODEL_DISPLAY_NAMES: Record<string, string> = {
@@ -24,10 +24,10 @@ export const MODEL_DISPLAY_NAMES: Record<string, string> = {
   'gpt-image-1-all': 'GPT Image 1 (逆向)',
   'gpt-image-1-mini': 'GPT Image 1 Mini',
   'gpt-4o-image-vip': 'GPT-4o Image VIP',
-  'sora_image': 'Sora 图片生成',
+  'sora_image': 'Sora 图片Tạo',
 
   // --- Qwen / 通义千问 ---
-  'qwen-image-edit-2509': 'Qwen 图像编辑',
+  'qwen-image-edit-2509': 'Qwen 图像chỉnh sửa',
   'qwen-image-max': '通义万相 Max',
   'qwen-image-max-2025-12-30': '通义万相 Max (2025-12-30)',
   'qwen-image-plus': '通义万相 Plus',
@@ -81,21 +81,21 @@ export const MODEL_DISPLAY_NAMES: Record<string, string> = {
   'mj-video': 'Midjourney 视频',
   'mj-video-extend': 'Midjourney 视频延长',
   'mj-video-upscale': 'Midjourney 视频放大',
-  'mj-editor': 'Midjourney 编辑',
+  'mj-editor': 'Midjourney chỉnh sửa',
   'mj-inpaint': 'Midjourney 局部重绘',
   'mj-outpaint': 'Midjourney 外扩',
   'mj-pan': 'Midjourney 平移扩展',
   'mj-upscale': 'Midjourney 放大',
   'mj-variation': 'Midjourney 变体',
-  'mj-zoom': 'Midjourney 缩放',
+  'mj-zoom': 'Midjourney Thu phóng',
   'mj_imagine': 'Midjourney 绘图',
-  'mj_blend': 'Midjourney 混合模式',
-  'mj_describe': 'Midjourney 图片描述',
+  'mj_blend': 'Midjourney 混合chế độ',
+  'mj_describe': 'Midjourney 图片Mô tả',
   'mj_shorten': 'Midjourney 提示词精简',
   'mj_uploads': 'Midjourney 图片上传',
   'mj_action': 'Midjourney 动作',
-  'mj_modal': 'Midjourney 弹窗提交',
-  'mj_fetch': 'Midjourney 任务查询',
+  'mj_modal': 'Midjourney PopupGửi',
+  'mj_fetch': 'Midjourney nhiệm vụ查询',
   'mj_notify': 'Midjourney 回调通知',
 
   // --- Ideogram ---
@@ -103,9 +103,9 @@ export const MODEL_DISPLAY_NAMES: Record<string, string> = {
   'ideogram_generate_V_1_TURBO': 'Ideogram V1 Turbo',
   'ideogram_generate_V_2': 'Ideogram V2',
   'ideogram_generate_V_3_TURBO': 'Ideogram V3 Turbo',
-  'ideogram_edit_V_3_DEFAULT': 'Ideogram V3 编辑',
-  'ideogram_edit_V_3_QUALITY': 'Ideogram V3 编辑 Quality',
-  'ideogram_edit_V_3_TURBO': 'Ideogram V3 编辑 Turbo',
+  'ideogram_edit_V_3_DEFAULT': 'Ideogram V3 chỉnh sửa',
+  'ideogram_edit_V_3_QUALITY': 'Ideogram V3 chỉnh sửa Quality',
+  'ideogram_edit_V_3_TURBO': 'Ideogram V3 chỉnh sửa Turbo',
   'ideogram_remix_V_1': 'Ideogram V1 Remix',
   'ideogram_remix_V_1_TURBO': 'Ideogram V1 Remix Turbo',
   'ideogram_remix_V_2': 'Ideogram V2 Remix',
@@ -133,10 +133,10 @@ export const MODEL_DISPLAY_NAMES: Record<string, string> = {
   'doubao-seedream-4-0-250828': 'Seedream 4.0',
   'doubao-seedream-4-5-251128': 'Seedream 4.5',
   'doubao-seedream-3-0-t2i-250415': 'Seedream 3.0',
-  'doubao-seededit-3-0-i2i-250628': 'SeedEdit 3.0 (图生图)',
+  'doubao-seededit-3-0-i2i-250628': 'SeedEdit 3.0 (Ảnh từ ảnh)',
 
   // --- Kling / 可灵 ---
-  'kling-image': 'Kling 图片生成',
+  'kling-image': 'Kling 图片Tạo',
   'kling-omni-image': 'Kling Omni 图片',
   'kling-image-recognize': 'Kling 图像识别',
   // Kling 图片模型版本 (MemeFast model_version)
@@ -164,12 +164,12 @@ export const MODEL_DISPLAY_NAMES: Record<string, string> = {
   'hidream-i1-fast': 'HiDream I1 Fast',
 
   // --- Leonardo ---
-  'leonardo-image': 'Leonardo 图片生成',
+  'leonardo-image': 'Leonardo 图片Tạo',
 
   // --- DeepSeek ---
   'deepseek-ocr': 'DeepSeek OCR',
 
-  // --- Recraftv3 (dall-e-3 格式) ---
+  // --- Recraftv3 (dall-e-3 định dạng) ---
   'recraftv3': 'Recraft V3 (dall-e-3)',
 
   // --- Kolors ---
@@ -202,16 +202,16 @@ export const MODEL_DISPLAY_NAMES: Record<string, string> = {
   'veo3': 'Veo 3',
   'veo3-fast': 'Veo 3 Fast',
   'veo3-pro': 'Veo 3 Pro',
-  'veo3-fast-frames': 'Veo 3 Fast 首尾帧',
-  'veo3-frames': 'Veo 3 首尾帧',
-  'veo3-pro-frames': 'Veo 3 Pro 首尾帧',
+  'veo3-fast-frames': 'Veo 3 Fast 首khung cuối',
+  'veo3-frames': 'Veo 3 首khung cuối',
+  'veo3-pro-frames': 'Veo 3 Pro 首khung cuối',
   'veo2': 'Veo 2',
   'veo2-fast': 'Veo 2 Fast',
   'veo2-fast-components': 'Veo 2 Fast 素材合成',
-  'veo2-fast-frames': 'Veo 2 Fast 首尾帧',
+  'veo2-fast-frames': 'Veo 2 Fast 首khung cuối',
   'veo2-pro': 'Veo 2 Pro',
   'veo2-pro-components': 'Veo 2 Pro 素材合成',
-  // veo_ 下划线格式（同模型不同端点）
+  // veo_ 下划线định dạng（同模型不同端点）
   'veo_3_1': 'Veo 3.1 (异步)',
   'veo_3_1-4K': 'Veo 3.1 4K (异步)',
   'veo_3_1-fast': 'Veo 3.1 Fast (异步)',
@@ -246,14 +246,14 @@ export const MODEL_DISPLAY_NAMES: Record<string, string> = {
   'kling-video': 'Kling 文生视频',
   'kling-omni-video': 'Kling Omni 视频',
   'kling-video-extend': 'Kling 视频延长',
-  'kling-motion-control': 'Kling 动作控制',
+  'kling-motion-control': 'Kling 动作điều khiển',
   'kling-multi-elements': 'Kling 多元素合成',
   'kling-avatar-image2video': 'Kling Avatar 图生视频',
-  'kling-advanced-lip-sync': 'Kling 高级口型同步',
+  'kling-advanced-lip-sync': 'Kling 高级sổ型同步',
   'kling-effects': 'Kling 特效',
-  'kling-audio': 'Kling 音频生成',
-  'kling-custom-voices': 'Kling 自定义音色',
-  'kling-custom-elements': 'Kling 自定义主体',
+  'kling-audio': 'Kling 音频Tạo',
+  'kling-custom-voices': 'Kling Tùy chỉnh音色',
+  'kling-custom-elements': 'Kling Tùy chỉnh主体',
   // Kling 视频模型版本 (MemeFast model_version)
   'kling-v1': 'Kling V1',
   'kling-v1-5': 'Kling V1.5',
@@ -285,13 +285,13 @@ export const MODEL_DISPLAY_NAMES: Record<string, string> = {
   'viduq2-turbo': 'Vidu Q2 Turbo',
   'viduq3-pro': 'Vidu Q3 Pro',
   'aigc-video-vidu': 'Vidu（AIGC 聚合）',
-  'vidu-video': 'Vidu 视频生成',
-  'vidu-video-ref': 'Vidu 参考视频',
+  'vidu-video': 'Vidu 视频Tạo',
+  'vidu-video-ref': 'Vidu Tham chiếu视频',
   'vidu-video-character': 'Vidu 角色视频',
-  'vidu-video-character-ref': 'Vidu 角色参考视频',
+  'vidu-video-character-ref': 'Vidu 角色Tham chiếu视频',
   'vidu-video-scene': 'Vidu 场景视频',
-  'vidu-video-scene-ref': 'Vidu 场景参考视频',
-  'vidu-video-lip-sync': 'Vidu 口型同步',
+  'vidu-video-scene-ref': 'Vidu 场景Tham chiếu视频',
+  'vidu-video-lip-sync': 'Vidu sổ型同步',
 
   // --- MiniMax / Hailuo ---
   'MiniMax-Hailuo-02': 'Hailuo 02',
@@ -328,14 +328,14 @@ export const MODEL_DISPLAY_NAMES: Record<string, string> = {
   'ltx-video-i2v': 'LTX Video 图生视频',
 
   // --- Luma ---
-  'luma_video_api': 'Luma 视频生成',
+  'luma_video_api': 'Luma 视频Tạo',
   'luma_video_extend_api': 'Luma 视频延长',
-  'luma-video': 'Luma 视频生成',
+  'luma-video': 'Luma 视频Tạo',
   'luma-video-ray2': 'Luma Ray 2',
   'luma-video-ray2-flash': 'Luma Ray 2 Flash',
 
   // --- Pika ---
-  'pika-video': 'Pika 视频生成',
+  'pika-video': 'Pika 视频Tạo',
   'pika-video-2.2': 'Pika 2.2',
 
   // --- Hunyuan / 混元 ---
@@ -359,18 +359,18 @@ export const MODEL_DISPLAY_NAMES: Record<string, string> = {
   'audio1.0': 'Audio 1.0 语音合成',
 
   // --- Whisper ---
-  'whisper-1': 'Whisper 语音转文字',
+  'whisper-1': 'Whisper 语音转văn bản',
 
   // --- SunoAI ---
-  'suno_music': 'Suno 音乐生成',
-  'suno_lyrics': 'Suno 歌词生成',
+  'suno_music': 'Suno NhạcTạo',
+  'suno_lyrics': 'Suno 歌词Tạo',
   'suno_upload': 'Suno 音频上传',
-  'suno_fetch': 'Suno 任务查询',
+  'suno_fetch': 'Suno nhiệm vụ查询',
 };
 
 /**
  * 获取模型的友好显示名
- * 优先查映射表，查不到返回原始 ID
+ * 优先查ánh xạ表，查不到返回gốc ID
  */
 export function getModelDisplayName(modelId: string): string {
   return MODEL_DISPLAY_NAMES[modelId] ?? modelId;

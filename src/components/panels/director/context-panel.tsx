@@ -5,7 +5,7 @@
 
 /**
  * Director Context Panel Component
- * 全局右栏 - AI导演模式：显示剧本层级树，让用户选择要生成的内容
+ * 全局Cột phải - AIĐạo diễnchế độ：HiệnKịch bảnphân cấp树，让người dùngChọn要Tạo的Nội dung
  */
 
 import { useState, useMemo, useCallback } from "react";
@@ -38,7 +38,7 @@ import { useProjectStore } from '@/stores/project-store';
 import { toast } from "sonner";
 import { matchSceneAndViewpoint, matchSceneAndViewpointSync, type ViewpointMatchResult } from '@/lib/scene/viewpoint-matcher';
 
-// 状态图标
+// Trạng thái图标
 function StatusIcon({ status }: { status?: CompletionStatus }) {
   switch (status) {
     case "completed":
@@ -50,7 +50,7 @@ function StatusIcon({ status }: { status?: CompletionStatus }) {
   }
 }
 
-// 导出组件
+// Xuất组件
 export function DirectorContextPanel() {
   const { setActiveTab, goToDirectorWithData } = useMediaPanelStore();
   const scriptProject = useActiveScriptProject();
@@ -63,7 +63,7 @@ export function DirectorContextPanel() {
   const splitScenes = projectData?.splitScenes || [];
   const storyboardStatus = projectData?.storyboardStatus || 'idle';
   
-  // 获取场景库数据
+  // 获取Thư viện cảnhdữ liệu
   const { scenes } = useSceneStore();
   const sceneLibraryScenes = useMemo(() => {
     if (resourceSharing.shareScenes) return scenes;
@@ -80,10 +80,10 @@ export function DirectorContextPanel() {
   const shots = scriptProject?.shots || [];
   const styleId = scriptProject?.styleId || DEFAULT_STYLE_ID;
 
-  // 从剧本添加分镜时，同步剧本风格到导演面板的 storyboardConfig
+  // 从Kịch bảnThêm phân cảnh时，同步Kịch bảnPhong cách到Đạo diễnpanel的 storyboardConfig
   const addScenesAndSyncStyle: typeof addScenesFromScript = useCallback((scenes) => {
     addScenesFromScript(scenes);
-    // 如果导演面板尚未设置 visualStyleId，从剧本项目继承
+    // 如果Đạo diễnpanelchưaCài đặt visualStyleId，从Kịch bản项目kế thừa
     const directorStyleId = projectData?.storyboardConfig?.visualStyleId;
     if (!directorStyleId && scriptProject?.styleId) {
       const style = getStyleById(scriptProject.styleId);
@@ -94,22 +94,22 @@ export function DirectorContextPanel() {
     }
   }, [addScenesFromScript, setStoryboardConfig, projectData?.storyboardConfig?.visualStyleId, scriptProject?.styleId]);
 
-  // 如果没有episodes，创建一个默认的
+  // 如果没有episodes，Tạo一Mặc định的
   const episodes = useMemo(() => {
     if (!scriptData) return [];
     if (scriptData.episodes && scriptData.episodes.length > 0) {
       return scriptData.episodes;
     }
-    // 默认单集
+    // Mặc định单 tập
     return [{
       id: "default",
       index: 1,
-      title: scriptData.title || "第1集",
+      title: scriptData.title || "Tập 1",
       sceneIds: scriptData.scenes.map((s) => s.id),
     }];
   }, [scriptData]);
 
-  // 按场景分组的shots
+  // 按Cảnhnhóm的shots
   const shotsByScene = useMemo(() => {
     const map: Record<string, Shot[]> = {};
     shots.forEach((shot) => {
@@ -142,7 +142,7 @@ export function DirectorContextPanel() {
     });
   };
 
-  // 获取角色库中的所有角色
+  // 获取Thư viện nhân vậtđang xử lý...t cảNhân vật
   const { characters } = useCharacterLibraryStore();
   const libraryCharacters = useMemo(() => {
     if (resourceSharing.shareCharacters) return characters;
@@ -150,19 +150,19 @@ export function DirectorContextPanel() {
     return characters.filter((c) => c.projectId === activeProjectId);
   }, [characters, resourceSharing.shareCharacters, activeProjectId]);
   
-  // 将剧本角色ID或角色名称映射到角色库ID
+  // 将Kịch bảnNhân vậtIDhoặcTên nhân vậtánh xạ到Thư viện nhân vậtID
   const mapScriptCharacterIdsToLibraryIds = (scriptCharIds: string[], characterNames?: string[]): string[] => {
     const libraryIds: string[] = [];
-    const addedIds = new Set<string>(); // 避免重复
+    const addedIds = new Set<string>(); // tránh trùng lặp
     
-    // 1. 先通过 characterIds 匹配
+    // 1. 先通过 characterIds Khớp
     if (scriptCharIds && scriptCharIds.length > 0 && scriptData) {
       for (const scriptCharId of scriptCharIds) {
-        // 查找剧本角色
+        // 查找Kịch bảnNhân vật
         const scriptChar = scriptData.characters.find(c => c.id === scriptCharId);
         if (!scriptChar) continue;
         
-        // 优先使用已关联的角色库ID（需校验该ID在当前可见角色库中仍有效）
+        // 优先Sử dụng已关联的Thư viện nhân vậtID（需校验该ID在当前có thể nhìn thấyThư viện nhân vậtđang xử lý...）
         if (scriptChar.characterLibraryId && !addedIds.has(scriptChar.characterLibraryId)) {
           const linkedLibraryChar = libraryCharacters.find(c => c.id === scriptChar.characterLibraryId);
           if (linkedLibraryChar) {
@@ -173,7 +173,7 @@ export function DirectorContextPanel() {
           console.warn(`[ContextPanel] Invalid characterLibraryId "${scriptChar.characterLibraryId}" for script character "${scriptChar.name}", fallback to name matching`);
         }
         
-        // 否则通过名字匹配角色库中的角色
+        // 否则通过名字KhớpThư viện nhân vậtđang xử lý...ân vật
         const libraryChar = libraryCharacters.find(c => c.name === scriptChar.name);
         if (libraryChar && !addedIds.has(libraryChar.id)) {
           libraryIds.push(libraryChar.id);
@@ -182,15 +182,15 @@ export function DirectorContextPanel() {
       }
     }
     
-    // 2. 再通过 characterNames 补充匹配（AI校准的分镜可能只有名称）
+    // 2. 再通过 characterNames 补充Khớp（AIHiệu chuẩn的Phân cảnh可能只有Tên）
     if (characterNames && characterNames.length > 0) {
       for (const charName of characterNames) {
         if (!charName) continue;
         
-        // 精确匹配
+        // 精确Khớp
         let libraryChar = libraryCharacters.find(c => c.name === charName);
         
-        // 模糊匹配：角色库名称包含分镜角色名，或分镜角色名包含角色库名称
+        // 模糊Khớp：Thư viện nhân vậtTênchứaPhân cảnhNhân vật名，hoặcPhân cảnhNhân vật名chứaThư viện nhân vậtTên
         if (!libraryChar) {
           libraryChar = libraryCharacters.find(c => 
             c.name.includes(charName) || charName.includes(c.name)
@@ -208,31 +208,31 @@ export function DirectorContextPanel() {
     return libraryIds;
   };
   
-  // 根据分镜和场景信息查找匹配的场景库视角
-  // 优先使用AI分析的shotIds关联，保底用分镜序号对应视角序号
+  // 根据Phân cảnh和Thông tin cảnh查找Khớp的Thư viện cảnhGóc nhìn
+  // 优先Sử dụngAI分析的shotIds关联，保底用Phân cảnhsố thứ tự对应Góc nhìnsố thứ tự
   const findMatchingSceneAndViewpointQuick = (shot: Shot, scene: ScriptScene, shotIndexInScene?: number): ViewpointMatchResult | null => {
     const sceneName = scene.name || '';
     
-    // 找到场景库中匹配的父场景
+    // Tìm thấyThư viện cảnhđang xử lý...Cảnh cha
     const parentScene = sceneLibraryScenes.find(s => 
       !s.parentSceneId && !s.isViewpointVariant &&
       (s.name.includes(sceneName) || sceneName.includes(s.name))
     );
     
     if (!parentScene) {
-      console.log(`[findMatchingSceneAndViewpointQuick] 未找到匹配的父场景: "${sceneName}"`);
+      console.log(`[findMatchingSceneAndViewpointQuick] Không tìm thấy Cảnh cha phù hợp: "${sceneName}"`);
       return null;
     }
     
-    // 获取该父场景的所有视角变体，按创建时间排序
+    // 获取该Cảnh cha的Tất cảGóc nhìnbiến thể，按TạoThời gian排序
     const variants = sceneLibraryScenes
       .filter(s => s.parentSceneId === parentScene.id)
       .sort((a, b) => a.createdAt - b.createdAt);
     
-    console.log(`[findMatchingSceneAndViewpointQuick] 场景 "${sceneName}" 有 ${variants.length} 个视角变体`);
+    console.log(`[findMatchingSceneAndViewpointQuick] Cảnh "${sceneName}" có ${variants.length} biến thể Góc nhìn`);
     
     if (variants.length === 0) {
-      // 没有视角变体，返回父场景
+      // 没有Góc nhìnbiến thể，Quay lạiCảnh cha
       return {
         sceneLibraryId: parentScene.id,
         viewpointId: undefined,
@@ -243,10 +243,10 @@ export function DirectorContextPanel() {
       };
     }
     
-    // 方案一：优先检查场景库视角变体的shotIds（切割时保存的）
+    // 方案一：优先kiểm traThư viện cảnhGóc nhìnbiến thể的shotIds（cắt时Lưu的）
     const variantWithShot = variants.find(v => v.shotIds?.includes(shot.id));
     if (variantWithShot) {
-      console.log(`[findMatchingSceneAndViewpointQuick] 通过场景库shotIds匹配: 分镜${shot.id} -> 视角 "${variantWithShot.viewpointName || variantWithShot.name}"`);
+      console.log(`[findMatchingSceneAndViewpointQuick] Khớp qua shotIds Thư viện cảnh: Phân cảnh${shot.id} -> Góc nhìn "${variantWith
       return {
         sceneLibraryId: variantWithShot.id,
         viewpointId: variantWithShot.viewpointId,
@@ -257,17 +257,17 @@ export function DirectorContextPanel() {
       };
     }
     
-    // 方案二：检查剧本scene.viewpoints的shotIds（AI分析时保存的）
+    // 方案二：kiểm traKịch bảnscene.viewpoints的shotIds（AI分析时Lưu的）
     if (scene.viewpoints && scene.viewpoints.length > 0) {
       const matchedViewpoint = scene.viewpoints.find(v => v.shotIds?.includes(shot.id));
       if (matchedViewpoint) {
-        // 在场景库视角变体中找到同名的
+        // 在Thư viện cảnhGóc nhìnbiến thểđang xử lý...名的
         const matchedVariant = variants.find(v => {
           const variantName = v.viewpointName || v.name || '';
           return variantName.includes(matchedViewpoint.name) || matchedViewpoint.name.includes(variantName);
         });
         if (matchedVariant) {
-          console.log(`[findMatchingSceneAndViewpointQuick] 通过剧本shotIds匹配: 分镜${shot.id} -> 视角 "${matchedVariant.viewpointName || matchedVariant.name}"`);
+          console.log(`[findMatchingSceneAndViewpointQuick] Khớp qua shotIds Kịch bản: Phân cảnh${shot.id} -> Góc nhìn "${matchedVaria
           return {
             sceneLibraryId: matchedVariant.id,
             viewpointId: matchedVariant.viewpointId,
@@ -280,16 +280,16 @@ export function DirectorContextPanel() {
       }
     }
     
-    // 方案三：保底 - 按分镜序号对应视角变体序号
-    // 分镜1 -> 视角1，分镜2 -> 视角2，...
-    // 如果分镜数超过视角数，循环使用
+    // 方案三：保底 - 按Phân cảnhsố thứ tự对应Góc nhìnbiến thểsố thứ tự
+    // Phân cảnh1 -> Góc nhìn1，Phân cảnh2 -> Góc nhìn2，...
+    // 如果Phân cảnh数超过Góc nhìn数，循环Sử dụng
     const variantIndex = shotIndexInScene !== undefined 
       ? shotIndexInScene % variants.length 
       : 0;
     
     const matchedVariant = variants[variantIndex];
     
-    console.log(`[findMatchingSceneAndViewpointQuick] 通过序号匹配: 分镜序号 ${(shotIndexInScene ?? 0) + 1} -> 视角变体 ${variantIndex + 1}: "${matchedVariant.viewpointName || matchedVariant.name}"`);
+    console.log(`[findMatchingSceneAndViewpointQuick] Khớp qua số thứ tự: Phân cảnh số thứ tự ${(shotIndexInScene ?? 0) + 1} -> Góc nh
     
     return {
       sceneLibraryId: matchedVariant.id,
@@ -301,41 +301,41 @@ export function DirectorContextPanel() {
     };
   };
   
-  // 在场景库中查找匹配的视角
+  // 在Thư viện cảnhđang xử lý...配的Góc nhìn
   const findViewpointInLibrary = (sceneName: string, viewpointName: string): ViewpointMatchResult | null => {
-    console.log(`[findViewpointInLibrary] 查找场景: "${sceneName}", 视角: "${viewpointName}"`);
-    console.log(`[findViewpointInLibrary] 场景库总数: ${sceneLibraryScenes.length}`);
+    console.log(`[findViewpointInLibrary] Tìm Cảnh: "${sceneName}", Góc nhìn: "${viewpointName}"`);
+    console.log(`[findViewpointInLibrary] Thư viện cảnhTổng số: ${sceneLibraryScenes.length}`);
     
-    // 找到匹配的父场景
+    // Tìm thấyKhớp的Cảnh cha
     const parentScenes = sceneLibraryScenes.filter(s => 
       !s.parentSceneId && !s.isViewpointVariant &&
       (s.name.includes(sceneName) || sceneName.includes(s.name))
     );
     
-    console.log(`[findViewpointInLibrary] 匹配的父场景数: ${parentScenes.length}`, parentScenes.map(s => s.name));
+    console.log(`[findViewpointInLibrary] Số Cảnh cha khớp: ${parentScenes.length}`, parentScenes.map(s => s.name));
     
     if (parentScenes.length === 0) return null;
     
-    // 在父场景的视角变体中查找匹配的视角
+    // 在Cảnh cha的Góc nhìnbiến thểđang xử lý...配的Góc nhìn
     for (const parent of parentScenes) {
       const variants = sceneLibraryScenes.filter(s => s.parentSceneId === parent.id);
-      console.log(`[findViewpointInLibrary] 父场景 "${parent.name}" 的视角变体数: ${variants.length}`, 
+      console.log(`[findViewpointInLibrary] Số biến thể Góc nhìn của Cảnh cha "${parent.name}": ${variants.length}`, 
         variants.map(v => ({ name: v.name, viewpointName: v.viewpointName, id: v.id })));
       
-      // 模糊匹配视角名称
+      // 模糊KhớpGóc nhìnTên
       const matchedVariant = variants.find(v => {
         const variantName = v.viewpointName || v.name || '';
         const isMatch = variantName.includes(viewpointName) || viewpointName.includes(variantName);
-        console.log(`[findViewpointInLibrary] 对比: "${variantName}" vs "${viewpointName}" => ${isMatch}`);
+        console.log(`[findViewpointInLibrary] So sánh: "${variantName}" vs "${viewpointName}" => ${isMatch}`);
         return isMatch;
       });
       
       if (matchedVariant) {
-        console.log(`[findViewpointInLibrary] ✅ 匹配成功: ${matchedVariant.viewpointName || matchedVariant.name}`);
-        console.log(`[findViewpointInLibrary] 图片字段:`, {
+        console.log(`[findViewpointInLibrary] ✅ KhớpThành công: ${matchedVariant.viewpointName || matchedVariant.name}`);
+        console.log(`[findViewpointInLibrary] ảnhtrường:`, {
           id: matchedVariant.id,
-          referenceImage: matchedVariant.referenceImage ? `有(${matchedVariant.referenceImage.substring(0, 50)}...)` : '无',
-          referenceImageBase64: matchedVariant.referenceImageBase64 ? `有(${matchedVariant.referenceImageBase64.substring(0, 50)}...)` : '无',
+          referenceImage: matchedVariant.referenceImage ? `có(${matchedVariant.referenceImage.substring(0, 50)}...)` : 'không',
+          referenceImageBase64: matchedVariant.referenceImageBase64 ? `có(${matchedVariant.referenceImageBase64.substring(0, 50)}...)` : 'không',
         });
         return {
           sceneLibraryId: matchedVariant.id,
@@ -348,8 +348,8 @@ export function DirectorContextPanel() {
       }
     }
     
-    console.log(`[findViewpointInLibrary] ❌ 未找到视角，返回父场景`);
-    // 没找到视角，返回父场景
+    console.log(`[findViewpointInLibrary] ❌ Không tìm thấy Góc nhìn, Quay lại Cảnh cha`);
+    // 没Tìm thấyGóc nhìn，Quay lạiCảnh cha
     const bestParent = parentScenes[0];
     return {
       sceneLibraryId: bestParent.id,
@@ -361,14 +361,14 @@ export function DirectorContextPanel() {
     };
   };
   
-  // 异步版本：关键词 + AI 匹配（用于批量添加）
+  // 异步Phiên bản：quan trọng词 + AI Khớp（用于hàng loạtThêm）
   const findMatchingSceneAndViewpointWithAI = async (sceneName: string, actionSummary: string): Promise<ViewpointMatchResult | null> => {
     return matchSceneAndViewpoint(sceneName, actionSummary, sceneLibraryScenes, true);
   };
 
-  // 添加单个分镜到分镜编辑（模式二）
+  // Thêmphân cảnh đơn到Phân cảnhChỉnh sửa（chế độ二）
   const handleAddShotToSplitScenes = (shot: Shot, scene: ScriptScene) => {
-    // Debug: 检查 Shot 中的三层提示词数据
+    // Debug: kiểm tra Shot đang xử lý...promptdữ liệu
     console.log('[ContextPanel] Adding shot to split scenes:', {
       shotId: shot.id,
       imagePrompt: shot.imagePrompt?.substring(0, 50),
@@ -380,7 +380,7 @@ export function DirectorContextPanel() {
       narrativeFunction: (shot as any).narrativeFunction,
       shotPurpose: (shot as any).shotPurpose,
     });
-    // 使用详细的视觉描述作为提示词（优先）
+    // Sử dụng详细的Thị giácMô tả作为prompt（优先）
     let promptZh = shot.visualDescription || '';
     if (!promptZh) {
       const parts: string[] = [];
@@ -389,24 +389,24 @@ export function DirectorContextPanel() {
       promptZh = parts.join(' - ');
     }
     
-    // 将剧本角色ID/名称映射到角色库ID
+    // 将Kịch bảnNhân vậtID/Tênánh xạ到Thư viện nhân vậtID
     const characterLibraryIds = mapScriptCharacterIdsToLibraryIds(shot.characterIds || [], shot.characterNames);
     
-    // 获取分镜在场景内的序号
+    // 获取Phân cảnh在Cảnh内的số thứ tự
     const sceneShots = shotsByScene[scene.id] || [];
     const shotIndexInScene = sceneShots.findIndex(s => s.id === shot.id);
     
-    // 自动匹配场景库中的场景和视角（优先使用已有的视角关联）
+    // Tự độngKhớpThư viện cảnhđang xử lý...nh和Góc nhìn（优先Sử dụnghiện có的Góc nhìn关联）
     const sceneMatch = findMatchingSceneAndViewpointQuick(shot, scene, shotIndexInScene >= 0 ? shotIndexInScene : undefined);
     
     addScenesAndSyncStyle([{
-      // 场景信息
+      // Thông tin cảnh
       sceneName: sceneMatch?.matchedSceneName || scene.name || '',
       sceneLocation: scene.location || '',
-      // 旧提示词（兼容）
+      // 旧prompt（tương thích）
       promptZh,
       promptEn: shot.visualPrompt || shot.videoPrompt || '',
-      // 三层提示词系统 (Seedance 1.5 Pro)
+      // 3 lớpprompt系统 (Seedance 1.5 Pro)
       imagePrompt: shot.imagePrompt || '',
       imagePromptZh: shot.imagePromptZh || '',
       videoPrompt: shot.videoPrompt || '',
@@ -414,31 +414,31 @@ export function DirectorContextPanel() {
       endFramePrompt: shot.endFramePrompt || '',
       endFramePromptZh: shot.endFramePromptZh || '',
       needsEndFrame: shot.needsEndFrame || false,
-      // 角色（使用角色库ID）
+      // Nhân vật（Sử dụngThư viện nhân vậtID）
       characterIds: characterLibraryIds,
-      // 情绪标签（AI校准产出）
+      // cảm xúcThẻ（AIHiệu chuẩn产出）
       emotionTags: (shot.emotionTags || []) as any,
-      // 景别
+      // Kích thước cảnh
       shotSize: shot.shotSize ? (SHOT_SIZE_MAP[shot.shotSize] || null) as any : null,
-      // 时长
+      // Thời lượng
       duration: shot.duration || 5,
-      // 音频
+      // âm thanh
       ambientSound: shot.ambientSound || '',
       soundEffects: [] as SoundEffectTag[],
       soundEffectText: shot.soundEffect || '',
-      // 对白
+      // Thoại
       dialogue: shot.dialogue || '',
-      // 动作描述
+      // Hành độngMô tả
       actionSummary: shot.actionSummary || '',
-      // 镜头运动
+      // Ống kính运动
       cameraMovement: shot.cameraMovement || '',
-      // 特殊拍摄手法
+      // Kỹ thuật quay đặc biệt手法
       specialTechnique: shot.specialTechnique || '',
-      // 场景库关联（自动匹配）
+      // Thư viện cảnh关联（Tự độngKhớp）
       sceneLibraryId: sceneMatch?.sceneLibraryId,
       viewpointId: sceneMatch?.viewpointId,
       sceneReferenceImage: sceneMatch?.sceneReferenceImage,
-      // 叙事驱动设计（基于《电影语言的语法》）
+      // tự sựdẫn dắtThiết kế（基于《电影Ngôn ngữ的语法》）
       narrativeFunction: (shot as any).narrativeFunction || '',
       shotPurpose: (shot as any).shotPurpose || '',
       visualFocus: (shot as any).visualFocus || '',
@@ -446,7 +446,7 @@ export function DirectorContextPanel() {
       characterBlocking: (shot as any).characterBlocking || '',
       rhythm: (shot as any).rhythm || '',
       visualDescription: (shot as any).visualDescription || '',
-      // 拍摄控制（灯光/焦点/器材/特效/速度）
+      // 拍摄điều khiển（灯光/焦点/器材/特效/Tốc độ）
       lightingStyle: shot.lightingStyle,
       lightingDirection: shot.lightingDirection,
       colorTemperature: shot.colorTemperature,
@@ -464,11 +464,11 @@ export function DirectorContextPanel() {
       photographyTechnique: shot.photographyTechnique,
     }]);
     
-    const matchInfo = sceneMatch ? ` (匹配: ${sceneMatch.matchedSceneName})` : '';
-    toast.success(`已添加分镜到编辑列表${matchInfo}`);
+    const matchInfo = sceneMatch ? ` (Khớp: ${sceneMatch.matchedSceneName})` : '';
+    toast.success(`Đã thêm phân cảnh vào danh sách chỉnh sửa${matchInfo}`);
   };
 
-  // 添加整个场景的所有分镜到分镜编辑（模式二）
+  // Thêm整Cảnh的Tất cảPhân cảnh到Phân cảnhChỉnh sửa（chế độ二）
   const handleAddSceneToSplitScenes = (scene: ScriptScene) => {
     const sceneShots = shotsByScene[scene.id] || [];
     
@@ -476,7 +476,7 @@ export function DirectorContextPanel() {
       const fallbackPromptZh = scene.visualPrompt?.trim()
         || [scene.location, scene.atmosphere].filter(Boolean).join(' - ')
         || scene.name
-        || '场景描述';
+        || 'Mô tả cảnh';
       const fallbackPromptEn = scene.visualPromptEn?.trim() || '';
       const matchedScene = sceneLibraryScenes.find((s) =>
         !s.parentSceneId &&
@@ -488,7 +488,7 @@ export function DirectorContextPanel() {
       );
 
       addScenesAndSyncStyle([{
-        sceneName: scene.name || scene.location || '未命名场景',
+        sceneName: scene.name || scene.location || 'Cảnh chưa đặt tên',
         sceneLocation: scene.location || '',
         promptZh: fallbackPromptZh,
         promptEn: fallbackPromptEn,
@@ -515,14 +515,14 @@ export function DirectorContextPanel() {
         sceneReferenceImage: matchedScene?.referenceImage || matchedScene?.referenceImageBase64,
       }]);
 
-      const matchInfo = matchedScene ? `（已匹配场景库：${matchedScene.name}）` : '';
-      toast.success(`该场景暂无分镜，已创建 1 条场景分镜${matchInfo}`);
+      const matchInfo = matchedScene ? `（Đã khớp Thư viện cảnh: ${matchedScene.name}）` : '';
+      toast.success(`Cảnh này chưa có phân cảnh, đã tạo 1 phân cảnh${matchInfo}`);
       return;
     }
     
     let matchedCount = 0;
     const scenesToAdd = sceneShots.map((shot, shotIndexInScene) => {
-      // 使用详细的视觉描述作为提示词（优先）
+      // Sử dụng详细的Thị giácMô tả作为prompt（优先）
       let promptZh = shot.visualDescription || '';
       if (!promptZh) {
         const parts: string[] = [];
@@ -531,21 +531,21 @@ export function DirectorContextPanel() {
         promptZh = parts.join(' - ');
       }
       
-      // 将剧本角色ID/名称映射到角色库ID
+      // 将Kịch bảnNhân vậtID/Tênánh xạ到Thư viện nhân vậtID
       const characterLibraryIds = mapScriptCharacterIdsToLibraryIds(shot.characterIds || [], shot.characterNames);
       
-      // 自动匹配场景库中的场景和视角（优先使用已有的视角关联，保底用序号）
+      // Tự độngKhớpThư viện cảnhđang xử lý...nh和Góc nhìn（优先Sử dụnghiện có的Góc nhìn关联，保底用số thứ tự）
       const sceneMatch = findMatchingSceneAndViewpointQuick(shot, scene, shotIndexInScene);
       if (sceneMatch) matchedCount++;
       
       return {
-        // 场景信息
+        // Thông tin cảnh
         sceneName: sceneMatch?.matchedSceneName || scene.name || '',
         sceneLocation: scene.location || '',
-        // 旧提示词（兼容）
+        // 旧prompt（tương thích）
         promptZh,
         promptEn: shot.visualPrompt || shot.videoPrompt || '',
-        // 三层提示词系统 (Seedance 1.5 Pro)
+        // 3 lớpprompt系统 (Seedance 1.5 Pro)
         imagePrompt: shot.imagePrompt || '',
         imagePromptZh: shot.imagePromptZh || '',
         videoPrompt: shot.videoPrompt || '',
@@ -553,31 +553,31 @@ export function DirectorContextPanel() {
         endFramePrompt: shot.endFramePrompt || '',
         endFramePromptZh: shot.endFramePromptZh || '',
         needsEndFrame: shot.needsEndFrame || false,
-        // 角色（使用角色库ID）
+        // Nhân vật（Sử dụngThư viện nhân vậtID）
         characterIds: characterLibraryIds,
-        // 情绪标签（AI校准产出）
+        // cảm xúcThẻ（AIHiệu chuẩn产出）
         emotionTags: (shot.emotionTags || []) as any,
-        // 景别
+        // Kích thước cảnh
         shotSize: shot.shotSize ? (SHOT_SIZE_MAP[shot.shotSize] || null) as any : null,
-        // 时长
+        // Thời lượng
         duration: shot.duration || 5,
-        // 音频
+        // âm thanh
         ambientSound: shot.ambientSound || '',
         soundEffects: [] as SoundEffectTag[],
         soundEffectText: shot.soundEffect || '',
-        // 对白
+        // Thoại
         dialogue: shot.dialogue || '',
-        // 动作描述
+        // Hành độngMô tả
         actionSummary: shot.actionSummary || '',
-        // 镜头运动
+        // Ống kính运动
         cameraMovement: shot.cameraMovement || '',
-        // 特殊拍摄手法
+        // Kỹ thuật quay đặc biệt手法
         specialTechnique: shot.specialTechnique || '',
-        // 场景库关联（自动匹配）
+        // Thư viện cảnh关联（Tự độngKhớp）
         sceneLibraryId: sceneMatch?.sceneLibraryId,
         viewpointId: sceneMatch?.viewpointId,
         sceneReferenceImage: sceneMatch?.sceneReferenceImage,
-        // 叙事驱动设计（基于《电影语言的语法》）
+        // tự sựdẫn dắtThiết kế（基于《电影Ngôn ngữ的语法》）
         narrativeFunction: (shot as any).narrativeFunction || '',
         shotPurpose: (shot as any).shotPurpose || '',
         visualFocus: (shot as any).visualFocus || '',
@@ -585,7 +585,7 @@ export function DirectorContextPanel() {
         characterBlocking: (shot as any).characterBlocking || '',
         rhythm: (shot as any).rhythm || '',
         visualDescription: (shot as any).visualDescription || '',
-        // 拍摄控制（灯光/焦点/器材/特效/速度）
+        // 拍摄điều khiển（灯光/焦点/器材/特效/Tốc độ）
         lightingStyle: shot.lightingStyle,
         lightingDirection: shot.lightingDirection,
         colorTemperature: shot.colorTemperature,
@@ -605,22 +605,22 @@ export function DirectorContextPanel() {
     });
     
     addScenesAndSyncStyle(scenesToAdd);
-    const matchInfo = matchedCount > 0 ? ` (${matchedCount}个已匹配场景库)` : '';
-    toast.success(`已添加 ${scenesToAdd.length} 个分镜到编辑列表${matchInfo}`);
+    const matchInfo = matchedCount > 0 ? ` (${matchedCount} cảnh khớp thư viện)` : '';
+    toast.success(`Đã thêm ${scenesToAdd.length} phân cảnh vào danh sách chỉnh sửa${matchInfo}`);
   };
 
-  // 发送单个分镜到AI导演输入（模式一）
+  // 发送phân cảnh đơn到AIĐạo diễn输入（chế độ一）
   const handleSendShot = (shot: Shot, scene: ScriptScene) => {
-    // 构建故事提示
+    // 构建故事Gợi ý
     const parts: string[] = [];
-    if (scene.location) parts.push(`场景：${scene.location}`);
-    if (scene.time) parts.push(`时间：${scene.time}`);
-    if (shot.actionSummary) parts.push(`动作：${shot.actionSummary}`);
-    if (shot.dialogue) parts.push(`对白：${shot.dialogue}`);
+    if (scene.location) parts.push(`Cảnh：${scene.location}`);
+    if (scene.time) parts.push(`Thời gian: ${scene.time}`);
+    if (shot.actionSummary) parts.push(`Hành động: ${shot.actionSummary}`);
+    if (shot.dialogue) parts.push(`Hội thoại: ${shot.dialogue}`);
 
     const storyPrompt = parts.join("\n");
 
-    // 提取角色名
+    // 提取Nhân vật名
     const characterNames: string[] = [];
     if (shot.characterIds && scriptData) {
       shot.characterIds.forEach((charId) => {
@@ -644,29 +644,29 @@ export function DirectorContextPanel() {
     setSelectedSceneId(null);
   };
 
-  // 发送整个场景到AI导演输入
+  // 发送整Cảnh到AIĐạo diễn输入
   const handleSendScene = (scene: ScriptScene) => {
     const sceneShots = shotsByScene[scene.id] || [];
 
-    // 构建故事提示 - 合并场景下所有分镜
+    // 构建故事Gợi ý - 合并Cảnh下Tất cảPhân cảnh
     const parts: string[] = [];
-    if (scene.location) parts.push(`场景：${scene.location}`);
-    if (scene.time) parts.push(`时间：${scene.time}`);
-    if (scene.atmosphere) parts.push(`氛围：${scene.atmosphere}`);
+    if (scene.location) parts.push(`Cảnh：${scene.location}`);
+    if (scene.time) parts.push(`Thời gian: ${scene.time}`);
+    if (scene.atmosphere) parts.push(`Không khí: ${scene.atmosphere}`);
 
-    // 添加所有分镜的动作和对白
+    // ThêmTất cảPhân cảnh的Hành động和Thoại
     sceneShots.forEach((shot, idx) => {
       const shotParts: string[] = [];
       if (shot.actionSummary) shotParts.push(shot.actionSummary);
       if (shot.dialogue) shotParts.push(`"${shot.dialogue}"`);
       if (shotParts.length > 0) {
-        parts.push(`[镜头${idx + 1}] ${shotParts.join(" - ")}`);
+        parts.push(`[Cảnh quay${idx + 1}] ${shotParts.join(" - ")}`);
       }
     });
 
     const storyPrompt = parts.join("\n");
 
-    // 收集场景中所有角色
+    // thu thậpCảnhđang xử lý... cảNhân vật
     const characterNames: string[] = [];
     if (scriptData) {
       const charIds = new Set<string>();
@@ -693,20 +693,20 @@ export function DirectorContextPanel() {
     setSelectedShotId(null);
   };
 
-  // 没有剧本数据时显示提示
+  // 没有Kịch bảndữ liệu时HiệnGợi ý
   if (!scriptData) {
     return (
       <div className="h-full min-w-0 flex flex-col overflow-x-hidden">
         <div className="p-3 border-b">
           <h3 className="font-medium text-sm flex items-center gap-2">
             <FileVideo className="h-4 w-4" />
-            剧本结构
+            Cấu trúc kịch bản
           </h3>
         </div>
         <div className="flex-1 flex items-center justify-center p-4">
           <div className="text-center text-muted-foreground text-sm">
-            <p>暂无剧本数据</p>
-            <p className="mt-1">请先在剧本面板解析剧本</p>
+            <p>Chưa có dữ liệu kịch bản</p>
+            <p className="mt-1">Vui lòng phân tích kịch bản trong bảng kịch bản trước</p>
           </div>
         </div>
         <div className="p-3 border-t">
@@ -717,21 +717,21 @@ export function DirectorContextPanel() {
             onClick={handleBackToScript}
           >
             <ArrowLeft className="h-4 w-4 mr-2" />
-            去剧本面板
+            Đến bảng kịch bản
           </Button>
         </div>
       </div>
     );
   }
 
-  // 计算整体进度
+  // 计算整体Tiến độ
   const overallProgress = calculateProgress(
     shots.map((s) => ({ status: getShotCompletionStatus(s) }))
   );
 
   return (
     <div className="h-full min-w-0 flex flex-col overflow-x-hidden">
-      {/* 标题和进度 */}
+      {/* Tiêu đề và Tiến trình */}
       <div className="p-3 border-b">
         <div className="flex items-center justify-between">
           <div>
@@ -741,25 +741,25 @@ export function DirectorContextPanel() {
             )}
           </div>
           <span className="text-xs text-muted-foreground">
-            进度: {overallProgress}
+            Tiến trình: {overallProgress}
           </span>
         </div>
         <p className="text-xs text-muted-foreground mt-2">
-          点击场景/分镜可发送到AI导演输入
+          Nhấp vào cảnh/phân cảnh để gửi đến đầu vào AI đạo diễn
         </p>
-        {/* 分镜编辑计数 */}
+        {/* Số lượng Phân cảnh Chỉnh sửa */}
         {splitScenes.length > 0 && (
           <div className="mt-2 px-2 py-1 bg-green-500/10 rounded text-xs text-green-600 flex items-center gap-1">
             <Plus className="h-3 w-3" />
-            <span>已添加 {splitScenes.length} 个分镜到编辑列表</span>
+            <span>Đã thêm {splitScenes.length} phân cảnh vào danh sách chỉnh sửa</span>
           </div>
         )}
       </div>
 
-      {/* 树形结构 */}
+      {/* Dạng câyCấu trúc */}
       <ScrollArea className="flex-1">
         <div className="p-2 space-y-1">
-          {/* 集列表 */}
+          {/*  Danh sách tập */}
           {episodes.map((episode) => {
             const episodeScenes = scriptData.scenes.filter((s) =>
               episode.sceneIds.includes(s.id)
@@ -773,7 +773,7 @@ export function DirectorContextPanel() {
 
             return (
               <div key={episode.id} className="space-y-0.5">
-                {/* 集标题 */}
+                {/*  tậptiêu đề */}
                 <button
                   onClick={() => toggleEpisode(episode.id)}
                   className="w-full flex items-center gap-1 px-2 py-1.5 rounded hover:bg-muted text-left"
@@ -792,7 +792,7 @@ export function DirectorContextPanel() {
                   </span>
                 </button>
 
-                {/* 场景列表 */}
+                {/* Danh sách cảnh */}
                 {expandedEpisodes.has(episode.id) && (
                   <div className="ml-4 space-y-0.5">
                     {episodeScenes.map((scene) => {
@@ -804,7 +804,7 @@ export function DirectorContextPanel() {
 
                       return (
                         <div key={scene.id} className="space-y-0.5">
-                          {/* 场景标题 */}
+                          {/* Cảnhtiêu đề */}
                           <div className="flex items-center group">
                             <button
                               onClick={() => toggleScene(scene.id)}
@@ -831,7 +831,7 @@ export function DirectorContextPanel() {
                                 {sceneProgress}
                               </span>
                             </button>
-                            {/* 添加场景所有分镜到分镜编辑 */}
+                            {/* Thêm tất cả Phân cảnh của Cảnh vào Phân cảnh Chỉnh sửa */}
                             <Button
                               variant="ghost"
                               size="sm"
@@ -840,11 +840,11 @@ export function DirectorContextPanel() {
                                 e.stopPropagation();
                                 handleAddSceneToSplitScenes(scene);
                               }}
-                              title="添加所有分镜到分镜编辑"
+                              title="Thêm tất cả phân cảnh vào chỉnh sửa"
                             >
                               <Plus className="h-3 w-3 text-green-500" />
                             </Button>
-                            {/* 发送场景按钮 */}
+                            {/* Nút gửi Cảnh */}
                             <Button
                               variant="ghost"
                               size="sm"
@@ -853,13 +853,13 @@ export function DirectorContextPanel() {
                                 e.stopPropagation();
                                 handleSendScene(scene);
                               }}
-                              title="发送整个场景到AI导演生成图片"
+                              title="Gửi toàn bộ cảnh đến AI đạo diễn để tạo ảnh"
                             >
                               <Send className="h-3 w-3 text-primary" />
                             </Button>
                           </div>
 
-                          {/* 分镜列表 */}
+                          {/* Danh sách phân cảnh */}
                           {expandedScenes.has(scene.id) && sceneShots.length > 0 && (
                             <div className="ml-4 space-y-0.5">
                               {sceneShots.map((shot) => {
@@ -874,19 +874,19 @@ export function DirectorContextPanel() {
                                         "flex-1 flex items-center gap-2 px-2 py-1 rounded hover:bg-muted text-left",
                                         isShotSelected && "bg-primary/10 ring-1 ring-primary/30"
                                       )}
-                                      title="单击: 发送到AI导演输入 | 双击: 直接添加到分镜编辑"
+                                      title="Nhấp: Gửi đến đầu vào AI đạo diễn | Nhấp đúp: Thêm trực tiếp vào phân cảnh"
                                     >
                                       <span className="text-xs font-mono text-muted-foreground w-5">
                                         {String(shot.index).padStart(2, "0")}
                                       </span>
                                       <span className="text-xs flex-1 truncate">
-                                        {shot.shotSize || "镜头"} - {shot.actionSummary?.slice(0, 20)}...
+                                        {shot.shotSize || "Cảnh quay"} - {shot.actionSummary?.slice(0, 20)}...
                                       </span>
                                       <StatusIcon
                                         status={getShotCompletionStatus(shot)}
                                       />
                                     </button>
-                                    {/* 添加到分镜按钮 */}
+                                    {/* Nút Thêm vào Phân cảnh */}
                                     <Button
                                       variant="ghost"
                                       size="sm"
@@ -895,7 +895,7 @@ export function DirectorContextPanel() {
                                         e.stopPropagation();
                                         handleAddShotToSplitScenes(shot, scene);
                                       }}
-                                      title="添加到分镜编辑"
+                                      title="Thêm vào chỉnh sửa phân cảnh"
                                     >
                                       <Plus className="h-3 w-3 text-green-500" />
                                     </Button>
@@ -915,12 +915,12 @@ export function DirectorContextPanel() {
         </div>
       </ScrollArea>
 
-      {/* 底部操作 */}
+      {/* phía dướithao tác */}
       <div className="p-3 border-t space-y-2">
-        {/* 模式说明 */}
+        {/* Giải thích chế độ */}
         <div className="text-[10px] text-muted-foreground space-y-1">
-          <p><span className="text-green-500">+</span> 添加到分镜（单独生成图片）</p>
-          <p><span className="text-primary">→</span> 发送到输入（批量生成省钱）</p>
+          <p><span className="text-green-500">+</span> Thêm vào phân cảnh (tạo ảnh riêng)</p>
+          <p><span className="text-primary">→</span> Gửi đến đầu vào (tạo hàng loạt tiết kiệm)</p>
         </div>
         <Button
           variant="outline"
@@ -929,7 +929,7 @@ export function DirectorContextPanel() {
           onClick={handleBackToScript}
         >
           <ArrowLeft className="h-4 w-4 mr-2" />
-          返回剧本
+          Quay lại kịch bản
         </Button>
       </div>
     </div>

@@ -20,24 +20,24 @@ const DEFAULT_TEMPLATES: PromptTemplateConfig = {
   sceneImage: `{{style_tokens}}, {{character_description}}, {{visual_content}}, {{camera}}, {{quality_tokens}}`,
   sceneVideo: `{{character_description}}, {{visual_content}}, {{action}}, {{camera}}`,
   negative: `blurry, low quality, watermark, text, logo, signature, bad anatomy, deformed, mutated`,
-  screenplay: `你是一个专业的视频剧本创作者。请根据以下描述创作一个短视频剧本：
+  screenplay: `Bạn là một nhà Sáng tác kịch bản video chuyên nghiệp. Hãy Sáng tác một kịch bản video ngắn dựa trên Mô tả sau:
 
-描述：{{prompt}}
+Mô tả：{{prompt}}
 
-要求：
-1. 创作 {{scene_count}} 个场景
-2. 每个场景包含：场景编号、旁白、视觉内容描述、角色动作、镜头类型、角色外观描述
-3. visualContent/action/camera/characterDescription 用英文描述
-4. narration 用中文
-5. 不要输出 mood/情绪 字段（前端不需要）
+Yêu cầu:
+1. Sáng tác {{scene_count}} Cảnh
+2. Mỗi Cảnh chứa: số thứ tự Cảnh, lời dẫn chuyện, Mô tả Nội dung Thị giác, hành động nhân vật, loại ống kính, Mô tả ngoại hình nhân vật
+3. Mô tả visualContent/action/camera/characterDescription bằng tiếng Anh
+4. narration dùng tiếng Việt
+5. Không xuất trường mood/cảm xúc (frontend không cần)
 
-输出格式为 JSON：
+Định dạng đầu ra là JSON:
 {
-  "title": "视频标题",
+  "title": "tiêu đề video",
   "scenes": [
     {
       "sceneId": 1,
-      "narration": "中文旁白",
+      "narration": "đang xử lý...",
       "visualContent": "English visual description",
       "action": "English character action",
       "camera": "Camera type in English (Close-up/Medium Shot/Wide Shot/etc.)",

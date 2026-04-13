@@ -2,11 +2,11 @@
 // Licensed under AGPL-3.0-or-later. See LICENSE for details.
 // Commercial licensing available. See COMMERCIAL_LICENSE.md.
 /**
- * 风格切换重新校准服务
+ * 风格chuyển sangHiệu chuẩn lại服务
  * 
- * 当用户在导演/S级面板切换视觉风格时，将现有 SplitScene[] 重新送入
- * 5阶段校准流程（calibrateShotsMultiStage），用新风格重写提示词和拍摄参数，
- * 同时保留已生成的图片/视频 URL 不变。
+ * 当người dùng在Đạo diễn/S级panelchuyển sangThị giác风格时，将hiện có SplitScene[] lại送入
+ * 5Giai đoạnHiệu chuẩn流程（calibrateShotsMultiStage），用新风格viết lại提示词和拍摄tham số，
+ * 同时保留已Tạo的图片/视频 URL không thay đổi。
  */
 
 import type { SplitScene } from '@/stores/director-store';
@@ -14,26 +14,26 @@ import { useScriptStore } from '@/stores/script-store';
 import { calibrateShotsMultiStage, type ShotInputData, type GlobalContext, type CalibrationOptions } from './shot-calibration-stages';
 
 /**
- * 将 SplitScene[] 转换为 ShotInputData[] 格式
- * （复用 calibrateEpisodeShots 的映射逻辑）
+ * 将 SplitScene[] chuyển đổi thành ShotInputData[] định dạng
+ * （复用 calibrateEpisodeShots 的ánh xạ逻辑）
  */
 function toShotInputData(scenes: SplitScene[]): ShotInputData[] {
   return scenes.map(scene => {
     let sourceText = scene.actionSummary || '';
     if (scene.dialogue) {
-      sourceText += `\n对白：「${scene.dialogue}」`;
+      sourceText += `\nThoại：「${scene.dialogue}」`;
     }
     return {
       shotId: scene.id.toString(),
       sourceText,
       actionSummary: scene.actionSummary || '',
       dialogue: scene.dialogue || '',
-      characterNames: [],  // SplitScene 没有 characterNames，但有 characterIds
+      characterNames: [],  // SplitScene không có characterNames, nhưng có characterIds
       sceneLocation: scene.sceneLocation || '',
       sceneAtmosphere: '',
       sceneTime: 'day',
       sceneWeather: '',
-      // 这些字段无法从 SplitScene 获取，传空串（Stage 3 仅作参考）
+      // 这些trườngKhông thể从 SplitScene 获取，传空串（Stage 3 仅作Tham chiếu）
       architectureStyle: '',
       colorPalette: '',
       eraDetails: '',
@@ -51,14 +51,14 @@ function toShotInputData(scenes: SplitScene[]): ShotInputData[] {
 function buildGlobalContext(scriptProjectId?: string): GlobalContext {
   const store = useScriptStore.getState();
   
-  // 找到活跃的 script project
+  // Tìm thấyđang hoạt động的 script project
   const projectId = scriptProjectId || store.activeProjectId;
   const project = projectId ? store.projects[projectId] : null;
   
   if (!project) {
     // 兜底：返回最小化的 context
     return {
-      title: '未命名项目',
+      title: 'Dự án chưa đặt tên',
       outline: '',
       characterBios: '',
       episodeTitle: '',
@@ -66,12 +66,12 @@ function buildGlobalContext(scriptProjectId?: string): GlobalContext {
   }
 
   const background = project.projectBackground;
-  const episodeScript = project.episodeRawScripts[0]; // 默认取第一集
+  const episodeScript = project.episodeRawScripts[0]; // Mặc định lấy tập đầu tiên
   const scriptData = project.scriptData;
   const episode = scriptData?.episodes?.[0];
 
   return {
-    title: background?.title || scriptData?.title || '未命名剧本',
+    title: background?.title || scriptData?.title || 'Kịch bản chưa đặt tên',
     genre: background?.genre || '',
     era: background?.era || '',
     outline: background?.outline || '',
@@ -89,8 +89,8 @@ function buildGlobalContext(scriptProjectId?: string): GlobalContext {
 }
 
 /**
- * 将校准结果写回 SplitScene（对齐 full-script-service.ts:1265-1305 的映射）
- * 保留已生成的图片/视频 URL 不变
+ * 将Hiệu chuẩnkết quả写回 SplitScene（对齐 full-script-service.ts:1265-1305 的ánh xạ）
+ * 保留已Tạo的图片/视频 URL không thay đổi
  */
 function applyCalibrationToScene(
   scene: SplitScene,
@@ -98,7 +98,7 @@ function applyCalibrationToScene(
 ): SplitScene {
   return {
     ...scene,
-    // 叙事骨架
+    // tự sự骨架
     visualDescription: calibration.visualDescription || scene.visualDescription,
     shotSize: calibration.shotSize || scene.shotSize,
     cameraMovement: calibration.cameraMovement || scene.cameraMovement,
@@ -113,14 +113,14 @@ function applyCalibrationToScene(
     endFramePrompt: calibration.endFramePrompt || scene.endFramePrompt,
     endFramePromptZh: calibration.endFramePromptZh || scene.endFramePromptZh,
     needsEndFrame: calibration.needsEndFrame ?? scene.needsEndFrame,
-    // 叙事设计
+    // tự sựThiết kế
     narrativeFunction: calibration.narrativeFunction || scene.narrativeFunction,
     shotPurpose: calibration.shotPurpose || scene.shotPurpose,
     visualFocus: calibration.visualFocus || scene.visualFocus,
     cameraPosition: calibration.cameraPosition || scene.cameraPosition,
     characterBlocking: calibration.characterBlocking || scene.characterBlocking,
     rhythm: calibration.rhythm || scene.rhythm,
-    // 拍摄控制
+    // 拍摄điều khiển
     lightingStyle: calibration.lightingStyle || scene.lightingStyle,
     lightingDirection: calibration.lightingDirection || scene.lightingDirection,
     colorTemperature: calibration.colorTemperature || scene.colorTemperature,
@@ -147,14 +147,14 @@ export interface RecalibrationResult {
 }
 
 /**
- * 用新风格重新校准所有分镜
+ * 用新风格Hiệu chuẩn lạiTất cả分镜
  * 
- * @param newStyleId 新的视觉风格 ID
+ * @param newStyleId 新的Thị giác风格 ID
  * @param splitScenes 当前分镜列表
- * @param scriptProjectId 可选的 script-store projectId（默认用活跃项目）
- * @param onProgress 进度回调
- * @returns 校准后的 SplitScene[]（调用方负责写入 store）
- * @throws 校准失败时抛出异常（调用方负责捕获并保持原状态不变）
+ * @param scriptProjectId 可选的 script-store projectId（默认用đang hoạt động项目）
+ * @param onProgress Tiến độ回调
+ * @returns Hiệu chuẩn后的 SplitScene[]（gọi API方负责写入 store）
+ * @throws Hiệu chuẩnthất bại时抛出异常（gọi API方负责捕获并giữ原状态không thay đổi）
  */
 export async function recalibrateSplitScenes(
   newStyleId: string,
@@ -167,7 +167,7 @@ export async function recalibrateSplitScenes(
     return { scenes: [], calibratedCount: 0, totalScenes: 0 };
   }
 
-  onProgress?.(0, totalScenes, '准备重新校准...');
+  onProgress?.(0, totalScenes, 'chuẩn bịHiệu chuẩn lại...');
 
   // 1. SplitScene → ShotInputData
   const shotInputs = toShotInputData(splitScenes);
@@ -175,12 +175,12 @@ export async function recalibrateSplitScenes(
   // 2. 构建 GlobalContext
   const globalContext = buildGlobalContext(scriptProjectId);
 
-  // 3. 调用 5 阶段校准
+  // 3. gọi API 5 Giai đoạnHiệu chuẩn
   const calibrationOptions: CalibrationOptions = {
     styleId: newStyleId,
   };
 
-  onProgress?.(0, totalScenes, '正在用新风格校准分镜...');
+  onProgress?.(0, totalScenes, 'Đang Hiệu chuẩn phân cảnh với phong cách mới...');
 
   const calibrations = await calibrateShotsMultiStage(
     shotInputs,
@@ -191,7 +191,7 @@ export async function recalibrateSplitScenes(
     },
   );
 
-  // 4. 将校准结果写回 SplitScene
+  // 4. 将Hiệu chuẩnkết quả写回 SplitScene
   let calibratedCount = 0;
   const updatedScenes = splitScenes.map(scene => {
     const calibration = calibrations[scene.id.toString()];
@@ -202,7 +202,7 @@ export async function recalibrateSplitScenes(
     return scene;
   });
 
-  onProgress?.(calibratedCount, totalScenes, `已校准 ${calibratedCount}/${totalScenes} 个分镜`);
+  onProgress?.(calibratedCount, totalScenes, `已Hiệu chuẩn ${calibratedCount}/${totalScenes} 分镜`);
 
   return {
     scenes: updatedScenes,

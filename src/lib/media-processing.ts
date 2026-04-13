@@ -26,7 +26,7 @@ export async function processMediaFiles(
     const fileType = getFileType(file);
 
     if (!fileType) {
-      toast.error(`不支持的文件类型: ${file.name}`);
+      toast.error(`Loại file không được hỗ trợ: ${file.name}`);
       continue;
     }
 
@@ -77,7 +77,7 @@ export async function processMediaFiles(
       }
     } catch (error) {
       console.error("Error processing file:", file.name, error);
-      toast.error(`处理失败: ${file.name}`);
+      toast.error(`Xử lý thất bại: ${file.name}`);
       URL.revokeObjectURL(url);
     }
   }

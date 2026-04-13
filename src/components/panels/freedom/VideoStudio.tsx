@@ -29,11 +29,11 @@ interface LocalUploadAsset {
 
 function resolveVideoCapabilityModelId(modelId: string): string {
   const lower = modelId.toLowerCase();
-  // Kling 版本化模型（kling-v* / kling-video-o1）沿用 kling-video 的能力定义
+  // Kling Phiên bản化Model（kling-v* / kling-video-o1）沿用 kling-video 的能力定义
   if (/^kling-v/i.test(modelId) || modelId === 'kling-video-o1') {
     return 'kling-video';
   }
-  // Veo 版本化模型沿用家族基础能力定义，避免 components/frames 变体丢失参数控件
+  // Veo Phiên bản化Model沿用家族Cơ bản能力定义，Tránh components/frames biến thể丢失tham số控件
   if (/^veo_3_1/i.test(modelId)) {
     return 'veo_3_1';
   }
@@ -64,7 +64,7 @@ function fileToDataUrl(file: File): Promise<string> {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
     reader.onload = () => resolve(String(reader.result || ''));
-    reader.onerror = () => reject(new Error('文件读取失败'));
+    reader.onerror = () => reject(new Error('Đọc file thất bại'));
     reader.readAsDataURL(file);
   });
 }
@@ -80,27 +80,27 @@ function getVeoUploadValidationError(
 
   if (capability.mode === 'single') {
     if (capability.minFiles > 0 && !singleUpload && !firstFrameUpload) {
-      return '当前模型需要上传 1 张图片';
+      return 'Model hiện tại cần tải lên 1 ảnh';
     }
     return null;
   }
 
   if (capability.mode === 'first_last') {
     if (capability.minFiles > 0 && !firstFrameUpload) {
-      return '当前模型需要上传首帧图片';
+      return 'Model hiện tại cần tải lên ảnh khung hình đầu';
     }
     if (!firstFrameUpload && lastFrameUpload) {
-      return '请先上传首帧图，再上传尾帧图';
+      return 'Vui lòng tải lên ảnh khung hình đầu trước, rồi tải lên ảnh khung hình cuối';
     }
     return null;
   }
 
   if (capability.mode === 'multi') {
     if (referenceUploads.length < capability.minFiles) {
-      return `当前模型至少需要 ${capability.minFiles} 张参考图`;
+      return `Model hiện tại cần ít nhất ${capability.minFiles} ảnh tham chiếu`;
     }
     if (referenceUploads.length > capability.maxFiles) {
-      return `当前模型最多支持 ${capability.maxFiles} 张参考图`;
+      return `Model hiện tại hỗ trợ tối đa ${capability.maxFiles} ảnh tham chiếu`;
     }
   }
 
@@ -225,7 +225,7 @@ export function VideoStudio() {
     try {
       setSingleUpload(await toAsset(file));
     } catch (err: unknown) {
-      const message = err instanceof Error ? err.message : '读取文件失败';
+      const message = err instanceof Error ? err.message : 'Đọc file thất bại';
       toast.error(message);
     }
   }, [toAsset]);
@@ -237,7 +237,7 @@ export function VideoStudio() {
     try {
       setFirstFrameUpload(await toAsset(file));
     } catch (err: unknown) {
-      const message = err instanceof Error ? err.message : '读取文件失败';
+      const message = err instanceof Error ? err.message : 'Đọc file thất bại';
       toast.error(message);
     }
   }, [toAsset]);
@@ -249,7 +249,7 @@ export function VideoStudio() {
     try {
       setLastFrameUpload(await toAsset(file));
     } catch (err: unknown) {
-      const message = err instanceof Error ? err.message : '读取文件失败';
+      const message = err instanceof Error ? err.message : 'Đọc file thất bại';
       toast.error(message);
     }
   }, [toAsset]);
@@ -259,14 +259,14 @@ export function VideoStudio() {
     e.target.value = '';
     if (!file) return;
     if (referenceUploads.length >= Math.max(veoCapability.maxFiles, 1)) {
-      toast.error(`当前模型最多支持 ${veoCapability.maxFiles} 张参考图`);
+      toast.error(`Model hiện tại hỗ trợ tối đa ${veoCapability.maxFiles} ảnh tham chiếu`);
       return;
     }
     try {
       const asset = await toAsset(file);
       setReferenceUploads((prev) => [...prev, asset]);
     } catch (err: unknown) {
-      const message = err instanceof Error ? err.message : '读取文件失败';
+      const message = err instanceof Error ? err.message : 'Đọc file thất bại';
       toast.error(message);
     }
   }, [referenceUploads.length, toAsset, veoCapability.maxFiles]);
@@ -321,7 +321,7 @@ export function VideoStudio() {
           className="h-24 w-full rounded border border-dashed flex flex-col items-center justify-center gap-1 text-muted-foreground hover:text-foreground hover:border-primary/40"
         >
           <Upload className="h-4 w-4" />
-          <span className="text-xs">上传图片</span>
+          <span className="text-xs">Tải lên ảnh</span>
         </button>
       )}
       {asset && (
@@ -333,7 +333,7 @@ export function VideoStudio() {
           onClick={onPick}
           disabled={videoGenerating}
         >
-          更换
+          Thay đổi
         </Button>
       )}
     </div>
@@ -341,7 +341,7 @@ export function VideoStudio() {
 
   const handleGenerate = useCallback(async () => {
     if (!videoPrompt.trim()) {
-      toast.error('请输入描述文字');
+      toast.error('Nhập mô tả văn bản');
       return;
     }
 
@@ -388,10 +388,10 @@ export function VideoStudio() {
         type: 'video',
       });
 
-      toast.success('视频生成成功！已保存到素材库');
+      toast.success('Tạo video thành công! Đã lưu vào Thư viện phương tiện');
     } catch (err: unknown) {
-      const message = err instanceof Error ? err.message : '未知错误';
-      toast.error(`生成失败: ${message}`);
+      const message = err instanceof Error ? err.message : 'Lỗi không xác định';
+      toast.error(`Tạo thất bại: ${message}`);
     } finally {
       setVideoGenerating(false);
     }
@@ -420,7 +420,7 @@ export function VideoStudio() {
           <div className="p-4 space-y-5">
             {/* Model Selection */}
             <div className="space-y-2">
-              <Label className="text-sm font-medium">模型选择</Label>
+              <Label className="text-sm font-medium">Chọn model</Label>
               <ModelSelector
                 type="video"
                 value={selectedVideoModel}
@@ -434,7 +434,7 @@ export function VideoStudio() {
             {/* Aspect Ratio */}
             {aspectRatios.length > 0 && (
               <div className="space-y-2">
-                <Label className="text-sm font-medium">宽高比</Label>
+                <Label className="text-sm font-medium">Tỷ lệ khung hình</Label>
                 <div className="flex flex-wrap gap-1.5">
                   {aspectRatios.map((ratio) => (
                     <Button
@@ -454,7 +454,7 @@ export function VideoStudio() {
             {/* Duration */}
             {durations.length > 0 && (
               <div className="space-y-2">
-                <Label className="text-sm font-medium">时长 (秒)</Label>
+                <Label className="text-sm font-medium">Thời lượng (giây)</Label>
                 <div className="flex flex-wrap gap-1.5">
                   {durations.map((d) => (
                     <Button
@@ -474,10 +474,10 @@ export function VideoStudio() {
             {/* Resolution */}
             {resolutions.length > 0 && (
               <div className="space-y-2">
-                <Label className="text-sm font-medium">分辨率</Label>
+                <Label className="text-sm font-medium">Độ phân giải</Label>
                 <Select value={videoResolution} onValueChange={setVideoResolution}>
                   <SelectTrigger className="h-9">
-                    <SelectValue placeholder="选择分辨率" />
+                    <SelectValue placeholder="ChọnĐộ phân giải" />
                   </SelectTrigger>
                   <SelectContent>
                     {resolutions.map((r) => (
@@ -491,15 +491,15 @@ export function VideoStudio() {
             {/* Veo Dynamic Uploads */}
             {veoCapability.isVeo && (
               <div className="space-y-2">
-                <Label className="text-sm font-medium">上传素材（Veo）</Label>
+                <Label className="text-sm font-medium">Tải lênPhương tiện（Veo）</Label>
                 {veoCapability.mode === 'none' ? (
                   <p className="text-xs text-muted-foreground rounded-md border px-2 py-2">
-                    当前模型仅文生视频，不需要上传图片。
+                    Model hiện tại chỉ tạo video từ văn bản, không cần Tải lên ảnh.
                   </p>
                 ) : (
                   <div className="space-y-2">
                     {veoCapability.mode === 'single' && renderUploadSlot(
-                      '参考图',
+                      'Ảnh tham chiếu',
                       singleUpload || firstFrameUpload,
                       () => singleInputRef.current?.click(),
                       () => {
@@ -512,14 +512,14 @@ export function VideoStudio() {
                     {veoCapability.mode === 'first_last' && (
                       <div className="grid grid-cols-2 gap-2">
                         {renderUploadSlot(
-                          '首帧图',
+                          'Ảnh Khung hình đầu',
                           firstFrameUpload,
                           () => firstInputRef.current?.click(),
                           () => setFirstFrameUpload(null),
                           veoCapability.minFiles > 0,
                         )}
                         {renderUploadSlot(
-                          '尾帧图',
+                          'Ảnh Khung hình cuối',
                           lastFrameUpload,
                           () => lastInputRef.current?.click(),
                           () => setLastFrameUpload(null),
@@ -535,7 +535,7 @@ export function VideoStudio() {
                             <div key={asset.id} className="relative rounded border overflow-hidden">
                               <img
                                 src={asset.dataUrl}
-                                alt={`参考图 ${index + 1}`}
+                                alt={`Ảnh tham chiếu ${index + 1}`}
                                 className="h-20 w-full object-cover"
                               />
                               <button
@@ -554,12 +554,12 @@ export function VideoStudio() {
                               className="h-20 rounded border border-dashed flex flex-col items-center justify-center gap-1 text-muted-foreground hover:text-foreground hover:border-primary/40"
                             >
                               <Upload className="h-4 w-4" />
-                              <span className="text-[11px]">添加</span>
+                              <span className="text-[11px]">Thêm</span>
                             </button>
                           )}
                         </div>
                         <p className="text-xs text-muted-foreground">
-                          已上传 {referenceUploads.length}/{veoCapability.maxFiles} 张参考图
+                          đã tải lên {referenceUploads.length}/{veoCapability.maxFiles} Ảnh tham chiếu
                         </p>
                       </div>
                     )}
@@ -570,9 +570,9 @@ export function VideoStudio() {
 
             {/* Prompt */}
             <div className="space-y-2">
-              <Label className="text-sm font-medium">描述文字</Label>
+              <Label className="text-sm font-medium">Mô tả văn bản</Label>
               <Textarea
-                placeholder="描述你想生成的视频..."
+                placeholder="Mô tả video bạn muốn Tạo..."
                 value={videoPrompt}
                 onChange={(e) => setVideoPrompt(e.target.value)}
                 className="min-h-[120px] resize-none"
@@ -615,9 +615,9 @@ export function VideoStudio() {
               disabled={videoGenerating || !videoPrompt.trim()}
             >
               {videoGenerating ? (
-                <><Loader2 className="mr-2 h-4 w-4 animate-spin" /> 生成中...</>
+                <><Loader2 className="mr-2 h-4 w-4 animate-spin" /> Đang tạo...</>
               ) : (
-                <><Sparkles className="mr-2 h-4 w-4" /> 生成视频</>
+                <><Sparkles className="mr-2 h-4 w-4" /> Tạo video</>
               )}
             </Button>
           </div>
@@ -629,7 +629,7 @@ export function VideoStudio() {
         {videoGenerating ? (
           <div className="flex flex-col items-center gap-4">
             <Loader2 className="h-12 w-12 animate-spin text-primary" />
-            <p className="text-sm text-muted-foreground">视频生成中，请稍候（可能需要 1-4 分钟）...</p>
+            <p className="text-sm text-muted-foreground">Video đang tạo, vui lòng chờ (có thể mất 1-4 phút)...</p>
           </div>
         ) : videoResult ? (
           <div className="max-w-full max-h-full relative group">
@@ -643,7 +643,7 @@ export function VideoStudio() {
             <div className="absolute bottom-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity flex gap-2">
               <Button size="sm" variant="secondary" asChild>
                 <a href={videoResult} download target="_blank" rel="noopener">
-                  <Download className="h-4 w-4 mr-1" /> 下载
+                  <Download className="h-4 w-4 mr-1" /> Tải xuống
                 </a>
               </Button>
             </div>
@@ -651,8 +651,8 @@ export function VideoStudio() {
         ) : (
           <div className="flex flex-col items-center gap-3 text-muted-foreground">
             <VideoIcon className="h-16 w-16 opacity-20" />
-            <p className="text-lg font-medium">视频工作室</p>
-            <p className="text-sm">选择模型，输入描述，生成你想要的视频</p>
+            <p className="text-lg font-medium">Studio video</p>
+            <p className="text-sm">Chọn Model, nhập Mô tả, Tạo video bạn muốn</p>
           </div>
         )}
       </div>

@@ -2,14 +2,14 @@
 // Licensed under AGPL-3.0-or-later. See LICENSE for details.
 // Commercial licensing available. See COMMERCIAL_LICENSE.md.
 /**
- * auto-grouping.ts — S级智能分组算法
+ * auto-grouping.ts — Thuật toán nhóm thông minh Hạng S
  *
- * 将 director-store 中的 SplitScene[] 自动分为 ShotGroup[]。
- * 策略：
- *   1. 按顺序贪心填装，每组总时长 ≤ maxDuration（默认15s）
- *   2. 场景切换优先断开（不同 sceneName 的镜头优先不在同一组）
- *   3. 角色重叠度高的镜头优先同组（characterIds 交集）
- *   4. 每组 2~maxPerGroup 个镜头
+ * Tự động phân chia SplitScene[] từ director-store thành ShotGroup[].
+ * Chiến lược:
+ *   1. Tham lam theo thứ tự, tổng thời lượng mỗi nhóm ≤ maxDuration (mặc định 15 giây)
+ *   2. Ưu tiên ngắt khi chuyển cảnh (ống kính thuộc sceneName khác nhau không ở cùng nhóm)
+ *   3. Ưu tiên gộp các ống kính có độ trùng lặp nhân vật cao (giao tập characterIds)
+ *   4. Mỗi nhóm từ 2 đến maxPerGroup ống kính
  */
 
 import type { SplitScene } from '@/stores/director-store';
@@ -18,13 +18,13 @@ import type { ShotGroup, SClassDuration } from '@/stores/sclass-store';
 // ==================== Config ====================
 
 export interface GroupingConfig {
-  /** 单组最大时长（秒），默认 15 */
+  /** Thời lượng tối đa mỗi nhóm (giây), mặc định 15 */
   maxDuration: number;
-  /** 单组最大镜头数，默认 4 */
+  /** Số ống kính tối đa mỗi nhóm, mặc định 4 */
   maxPerGroup: number;
-  /** 单组最小镜头数，默认 1（最后一组可能为 1） */
+  /** Số ống kính tối thiểu mỗi nhóm, mặc định 1 (nhóm cuối có thể là 1) */
   minPerGroup: number;
-  /** 默认单镜时长（当 scene.duration 未设置时），默认 5 */
+  /** Thời lượng ống kính đơn mặc định (khi scene.duration chưa cài đặt), mặc định 5 */
   defaultSceneDuration: number;
 }
 
@@ -37,12 +37,12 @@ const DEFAULT_CONFIG: GroupingConfig = {
 
 // ==================== Helpers ====================
 
-/** 获取单个分镜的有效时长 */
+/** Lấy thời lượng hiệu lực của phân cảnh đơn */
 function getSceneDuration(scene: SplitScene, defaultDuration: number): number {
   return scene.duration > 0 ? scene.duration : defaultDuration;
 }
 
-/** 计算两个镜头的角色重叠度 (0~1) */
+/** Tính độ trùng lặp nhân vật giữa hai ống kính (0~1) */
 function characterOverlap(a: SplitScene, b: SplitScene): number {
   if (!a.characterIds?.length || !b.characterIds?.length) return 0;
   const setA = new Set(a.characterIds);
@@ -51,14 +51,14 @@ function characterOverlap(a: SplitScene, b: SplitScene): number {
   return union.size > 0 ? intersection.length / union.size : 0;
 }
 
-/** 判断两个镜头是否同场景 */
+/** Kiểm tra hai ống kính có cùng cảnh không */
 function isSameScene(a: SplitScene, b: SplitScene): boolean {
-  // 使用 sceneName 判断，空值视为同场景
+  // Sử dụng sceneName 判断，空值视为同Cảnh
   if (!a.sceneName && !b.sceneName) return true;
   return a.sceneName === b.sceneName;
 }
 
-/** 生成唯一 ID */
+/** Tạo ID duy nhất */
 function genId(): string {
   return `grp_${Date.now().toString(36)}_${Math.random().toString(36).slice(2, 8)}`;
 }
@@ -66,9 +66,9 @@ function genId(): string {
 // ==================== Core Algorithm ====================
 
 /**
- * 对 SplitScene[] 执行自动分组
+ * 对 SplitScene[] 执 hàngTự độngnhóm
  *
- * @returns ShotGroup[] — 每组包含 sceneIds、totalDuration 等
+ * @returns ShotGroup[] — 每组chứa sceneIds、totalDuration 等
  */
 export function autoGroupScenes(
   scenes: SplitScene[],
@@ -87,7 +87,7 @@ export function autoGroupScenes(
     const dur = Math.round(Math.min(Math.max(currentDuration, 4), 15)) as SClassDuration;
     groups.push({
       id: genId(),
-      name: `第${groups.length + 1}组`,
+      name: `Nhóm ${groups.length + 1}`,
       sceneIds: [...currentSceneIds],
       totalDuration: dur,
       imageRefs: [],
@@ -119,15 +119,15 @@ export function autoGroupScenes(
       // 已满
       shouldBreak = true;
     } else if (currentDuration + dur > cfg.maxDuration && currentSceneIds.length > 0) {
-      // 加入后超时长上限
+      // 加入后超Thời lượng上限
       shouldBreak = true;
     } else if (currentSceneIds.length > 0) {
-      // 场景切换检测：不同场景优先断开
+      // Cảnhchuyển sang检测：不同Cảnh优先断开
       const prevScene = scenes[i - 1];
       if (prevScene && !isSameScene(prevScene, scene)) {
-        // 不同场景 —— 如果当前组已有 ≥ minPerGroup 个镜头，断开
+        // 不同Cảnh —— 如果当nhóm trướchiện có ≥ minPerGroup Ống kính，断开
         if (currentSceneIds.length >= cfg.minPerGroup) {
-          // 但若角色高度重叠，可以容忍（跨场景但同角色）
+          // 但若Nhân vật高度重叠，可以容忍（跨Cảnh但同Nhân vật）
           const overlap = characterOverlap(prevScene, scene);
           if (overlap < 0.5) {
             shouldBreak = true;
@@ -151,7 +151,7 @@ export function autoGroupScenes(
 }
 
 /**
- * 重新计算组的总时长
+ * lại计算组的TổngThời lượng
  */
 export function recalcGroupDuration(
   group: ShotGroup,
@@ -168,20 +168,20 @@ export function recalcGroupDuration(
 }
 
 /**
- * 为组生成默认名称
+ * 为组TạoMặc địnhTên
  */
 export function generateGroupName(
   group: ShotGroup,
   scenes: SplitScene[],
   groupIndex: number,
 ): string {
-  if (group.sceneIds.length === 0) return `第${groupIndex + 1}组`;
+  if (group.sceneIds.length === 0) return `Nhóm ${groupIndex + 1}`;
 
-  // 尝试使用场景名
+  // 尝试Sử dụngCảnh名
   const sceneMap = new Map(scenes.map((s) => [s.id, s]));
   const firstScene = sceneMap.get(group.sceneIds[0]);
 
-  // 使用组内顺序编号（而非 scene.id），避免 1-based ID 导致偏移
+  // Sử dụngtrong nhómthứ tự编号（而非 scene.id），Tránh 1-based ID 导致偏移
   const allIds = scenes.map(s => s.id);
   const firstIdx = allIds.indexOf(group.sceneIds[0]);
   const lastIdx = allIds.indexOf(group.sceneIds[group.sceneIds.length - 1]);
@@ -189,8 +189,8 @@ export function generateGroupName(
   const lastNum = lastIdx >= 0 ? lastIdx + 1 : firstNum + group.sceneIds.length - 1;
 
   if (firstScene?.sceneName) {
-    return `${firstScene.sceneName} (镜头${firstNum}-${lastNum})`;
+    return `${firstScene.sceneName} (Ống kính${firstNum}-${lastNum})`;
   }
 
-  return `第${groupIndex + 1}组: 镜头${firstNum}-${lastNum}`;
+  return `Nhóm ${groupIndex + 1}: Ống kính ${firstNum}-${lastNum}`;
 }

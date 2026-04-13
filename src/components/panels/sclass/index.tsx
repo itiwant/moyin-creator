@@ -4,14 +4,14 @@
 "use client";
 
 /**
- * S级面板 — Seedance 2.0 多模态创作板块
- * 
- * 复用 director-store 的分镜数据（SplitScene[]），
- * 以「分组」为核心进行多镜头合并叙事视频生成。
- * 
- * 两种模式：
- * - 分镜模式：从剧本流水线导入的分镜，按组生成视频
- * - 自由模式：纯素材上传 + 提示词（后续实现）
+ * Bảng Hạng S — Bảng sáng tác đa phương thức Seedance 2.0
+ *
+ * Tái sử dụng dữ liệu phân cảnh (SplitScene[]) từ director-store,
+ * lấy «nhóm» làm trung tâm để thực hiện tạo video gộp nhiều ống kính.
+ *
+ * Hai chế độ:
+ * - Chế độ phân cảnh: nhập phân cảnh từ quy trình kịch bản, tạo video theo nhóm
+ * - Chế độ tự do: tải phương tiện + prompt thuần túy (triển khai sau)
  */
 
 import { useEffect } from "react";
@@ -46,7 +46,7 @@ export function SClassView() {
   
   const { setActiveTab } = useMediaPanelStore();
 
-  // 判断是否有分镜数据可用
+  // 判断是否有Phân cảnhdữ liệu可用
   const hasSplitScenes = splitScenes.length > 0;
   
   // Render empty state when no split scenes available
@@ -54,12 +54,12 @@ export function SClassView() {
     <div className="flex flex-col items-center justify-center h-full gap-4 p-6 text-center">
       <Sparkles className="h-12 w-12 text-muted-foreground/30" />
       <div>
-        <h3 className="font-medium text-sm mb-1">S级 · Seedance 2.0 多模态创作</h3>
+        <h3 className="font-medium text-sm mb-1">Hạng S · Seedance 2.0 Sáng tạo đa phương thức</h3>
         <p className="text-xs text-muted-foreground max-w-[280px]">
-          请在右侧「剧本结构」栏中，点击 <span className="text-green-500 font-medium">+</span> 添加分镜到本面板，系统将自动分组进行多镜头合并叙事视频生成。
+          Vui lòng nhấp <span className="text-green-500 font-medium">+</span> Thêm phân cảnh vào panel này, hệ thống sẽ tự động phân nhóm ống kính, hợp nhất tự sự và Tạo video.
         </p>
         <p className="text-xs text-muted-foreground/60 mt-2 max-w-[280px]">
-          如右侧未显示剧本结构，请先在「剧本」面板中导入并解析剧本。
+          Nếu chưa thấy cấu trúc kịch bản ở bên phải, vui lòng nhập và phân tích kịch bản trong panel "Kịch bản" trước.
         </p>
       </div>
       <div className="flex gap-2">
@@ -68,7 +68,7 @@ export function SClassView() {
           size="sm"
           onClick={() => setActiveTab('script')}
         >
-          前往剧本面板
+          Đến panel Kịch bản
         </Button>
       </div>
     </div>
@@ -81,13 +81,13 @@ export function SClassView() {
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
             <Sparkles className="h-4 w-4 text-primary" />
-            <h2 className="font-semibold text-sm">S级</h2>
+            <h2 className="font-semibold text-sm">Hạng S</h2>
             <span className="text-xs text-muted-foreground">Seedance 2.0</span>
           </div>
           <div className="flex items-center gap-2">
             {hasSplitScenes && (
               <span className="text-xs text-muted-foreground">
-                {splitScenes.length} 个分镜
+                {splitScenes.length} phân cảnh
               </span>
             )}
             <Button

@@ -2,21 +2,21 @@
 // Licensed under AGPL-3.0-or-later. See LICENSE for details.
 // Commercial licensing available. See COMMERCIAL_LICENSE.md.
 /**
- * Visual Style Presets - 视觉风格预设
+ * Visual Style Presets - Thị giác风格预设
  * 
- * 统一的视觉风格定义，所有板块（剧本、角色、场景、AI导演）共用
- * 来源：纳米漫剧流水线 - 风格库
+ * 统一的Thị giác风格定义，Tất cả板块（剧本、角色、场景、AIĐạo diễn）共用
+ * 来源：纳米漫剧quy trình - 风格库
  */
 
 // 风格分类
 export type StyleCategory = '3d' | '2d' | 'real' | 'stop_motion';
 
 /**
- * 媒介类型 — 决定 prompt-builder 如何翻译摄影参数
- * - cinematic: 完整物理摄影词汇（真人/写实3D）
- * - animation: 动画运镜适配（2D动画/风格化3D）
+ * 媒介类型 — 决定 prompt-builder 如何翻译摄影tham số
+ * - cinematic: đầy đủ物理摄影词汇（真人/写实3D）
+ * - animation: 动画chuyển động máy适配（2D动画/风格化3D）
  * - stop-motion: 微缩实拍约束（定格动画）
- * - graphic: 仅色彩/情绪/节奏（像素/水彩/简笔画等高度抽象风格）
+ * - graphic: 仅色彩/cảm xúc/Nhịp điệu（像素/水彩/简笔画等高度抽象风格）
  */
 export type MediaType = 'cinematic' | 'animation' | 'stop-motion' | 'graphic';
 
@@ -24,15 +24,15 @@ export interface StylePreset {
   id: string;
   name: string;
   category: StyleCategory;
-  /** 媒介类型 — 控制摄影参数翻译策略 */
+  /** Loại phương tiện - kiểm soát chiến lược dịch tham số chụp ảnh */
   mediaType: MediaType;
-  /** 英文提示词 */
+  /** Prompt tiếng Anh */
   prompt: string;
-  /** 负面提示词 */
+  /** Prompt phủ định */
   negativePrompt: string;
-  /** 中文描述 */
+  /** đang xử lý... */
   description: string;
-  /** 缩略图文件名 */
+  /** Tên file thumbnail */
   thumbnail: string;
 }
 
@@ -43,47 +43,47 @@ export interface StylePreset {
 const STYLES_3D: StylePreset[] = [
   {
     id: '3d_xuanhuan',
-    name: '3D玄幻',
+    name: '3D Huyền ảo',
     category: '3d',
     mediaType: 'cinematic',
     prompt: '(best quality, masterpiece, 8k, high detailed:1.2), (stunning stylized 3D Chinese animation character render:1.3), (Unreal Engine 5 style:1.2), (cinematic lighting, soft volumetric fog:1.1), (smooth porcelain skin texture:1.1), (intricate traditional Chinese fabric details, fine embroidery, flowing robes:1.1), ethereal atmosphere, glowing spiritual energy, beautiful facial features, (delicate body proportions), sharp focus, detailed background',
     negativePrompt: '(worst quality, low quality, bad quality:1.4), (blurry, fuzzy, distorted, out of focus:1.3), (2D, flat, drawing, painting, sketch, anime, cartoon:1.2), (realistic, photo, real life, photography:1.1), (western style, modern clothing), (extra limbs, missing limbs, mutated hands, distorted body), ugly, watermark, signature, text, easynegative, bad-hands-5',
-    description: '中国风玄幻，仙侠，虚幻引擎渲染，光效华丽',
+    description: 'Huyền ảo, tiên hiệp, render Unreal Engine, hiệu ứng ánh sáng lộng lẫy',
     thumbnail: '3d_xuanhuan.png',
   },
   {
     id: '3d_american',
-    name: '3D美式',
+    name: '3D Mỹ',
     category: '3d',
     mediaType: 'animation',
     prompt: '(best quality, masterpiece, 8k, high detailed:1.2), (Disney Pixar style 3D animation:1.3), (expressive character design, large eyes:1.2), (subsurface scattering skin:1.1), (vibrant colors, warm lighting:1.1), cute, 3d render, cgsociety, detailed background, soft edges',
     negativePrompt: '(worst quality, low quality, bad quality:1.4), (blurry, fuzzy:1.3), (2D, flat, sketch, anime:1.2), (gloomy, dark, gritty), (realistic, photo), ugly, distorted',
-    description: '迪士尼/皮克斯风格，美式3D动画，色彩鲜艳，角色可爱',
+    description: 'Phong cách Disney/Pixar, hoạt hình 3D Mỹ, màu sắc tươi sáng, nhân vật dễ thương',
     thumbnail: '3d_american.png',
   },
   {
     id: '3d_q_version',
-    name: '3DQ版',
+    name: '3D Q-version',
     category: '3d',
     mediaType: 'animation',
     prompt: '(best quality, masterpiece, 8k, high detailed:1.2), (Pop Mart blind box style:1.3), (chibi 3d rendering:1.2), (Oc render:1.2), (soft studio lighting, rim light:1.1), (plastic material, smooth texture:1.1), cute, super deformed, clean background, c4d render',
     negativePrompt: '(worst quality, low quality:1.4), (rough surface), (realistic skin texture), (2D, flat), dark, scary, ugly',
-    description: '盲盒/潮玩风格，Q版三维，C4D渲染，软光',
+    description: 'Phong cách blind box/đồ chơi fashion, 3D Q-version, render C4D, ánh sáng mềm',
     thumbnail: '3d_q_version.png',
   },
   {
     id: '3d_realistic',
-    name: '3D写实',
+    name: '3D Thực tế',
     category: '3d',
     mediaType: 'cinematic',
     prompt: '(best quality, masterpiece, 8k, high detailed:1.2), (photorealistic 3D render:1.3), (hyperrealistic details:1.2), (Unreal Engine 5:1.2), (cinematic lighting, ray tracing:1.1), (highly detailed texture, pores, imperfections:1.1), sharp focus, depth of field',
     negativePrompt: '(worst quality, low quality:1.4), (cartoon, anime, painting, sketch:1.3), (stylized, 2D, flat), blurry, low res, plastic skin',
-    description: '超写实3D，电影级光照，8K分辨率，纹理细节丰富',
+    description: 'Siêu thực tế 3D, ánh sáng điện ảnh, độ phân giải 8K, chi tiết kết cấu phong phú',
     thumbnail: '3d_realistic.png',
   },
   {
     id: '3d_block',
-    name: '3D块面',
+    name: '3D Khối mặt',
     category: '3d',
     mediaType: 'animation',
     prompt: '(best quality, masterpiece, 8k:1.2), (low poly art style:1.3), (minimalist 3D:1.2), (sharp edges, geometric shapes:1.2), (flat shading, simple colors:1.1), polygon art, clean composition',
@@ -145,7 +145,7 @@ const STYLES_2D: StylePreset[] = [
     mediaType: 'animation',
     prompt: '(best quality, masterpiece, 8k, high detailed:1.2), (standard Japanese anime style:1.3), (clean lineart, flat color:1.2), (anime character design:1.1), vibrant, detailed eyes',
     negativePrompt: '(worst quality, low quality:1.4), (3D, realistic, photorealistic, cgi:1.3), (sketch, messy), ugly, bad anatomy',
-    description: '标准日式2D动画风格',
+    description: 'Tiêu chuẩn日式2D动画风格',
     thumbnail: '2d_animation.png',
   },
   {
@@ -175,7 +175,7 @@ const STYLES_2D: StylePreset[] = [
     mediaType: 'animation',
     prompt: '(best quality, masterpiece, 8k:1.2), (90s retro anime style:1.3), (cel animation aesthetic:1.2), (vintage VHS effect, lo-fi:1.1), (Sailor Moon style:1.1), matte painting background, nostalgic',
     negativePrompt: '(worst quality, low quality:1.4), (digital painting, modern anime style, 3D), (high definition, sharp), (glossy)',
-    description: '90年代复古动画，赛璐璐风格，低保真',
+    description: '90thập niên复古动画，赛璐璐风格，低保真',
     thumbnail: '2d_retro.png',
   },
   {
@@ -205,7 +205,7 @@ const STYLES_2D: StylePreset[] = [
     mediaType: 'animation',
     prompt: '(best quality, masterpiece, 8k:1.2), (80s shoujo manga style:1.3), (sparkly big eyes:1.2), (pastel colors, flowers and bubbles:1.1), (retro fashion:1.1), dreamy, romantic',
     negativePrompt: '(worst quality, low quality:1.4), (modern digital art), (3D, realistic), (dark, horror), (thick lines), ugly',
-    description: '80年代少女漫风格，星星眼，粉嫩配色',
+    description: '80thập niên少女漫风格，星星眼，粉嫩配色',
     thumbnail: '2d_retro_girl.png',
   },
   {
@@ -225,7 +225,7 @@ const STYLES_2D: StylePreset[] = [
     mediaType: 'animation',
     prompt: '(best quality, masterpiece, 8k, high detailed:1.2), (Shonen anime style:1.3), (dynamic high-impact pose:1.2), (intense action lines, speed lines:1.1), (high contrast shading:1.1), powerful, energetic',
     negativePrompt: '(worst quality, low quality:1.4), (calm, static), (shoujo style, soft), (3D, realistic), (pastel colors), boring',
-    description: '热血少年漫，动态姿势，速度线，高对比度',
+    description: '热血少年漫，动态Tư thế，速度线，高对比度',
     thumbnail: '2d_shonen.png',
   },
   {
@@ -255,7 +255,7 @@ const STYLES_2D: StylePreset[] = [
     mediaType: 'animation',
     prompt: '(best quality, masterpiece, 8k:1.2), (Tatsuki Fujimoto style:1.3), (sketchy loose lines:1.2), (cinematic movie composition:1.1), (raw emotion:1.1), chainsaw man manga style, unique',
     negativePrompt: '(worst quality, low quality:1.4), (polished digital art), (standard anime), (3D, realistic), (moe, kawaii), boring',
-    description: '藤本树/电锯人风格，线条潦草，电影感构图',
+    description: '藤本树/电锯人风格，线条潦草，电影感bố cục',
     thumbnail: '2d_fujimoto.png',
   },
   {
@@ -285,7 +285,7 @@ const STYLES_2D: StylePreset[] = [
     mediaType: 'animation',
     prompt: '(best quality, masterpiece, 8k:1.2), (Detective Conan style:1.3), (Gosho Aoyama:1.2), (distinctive sharp nose and ears:1.1), (mystery atmosphere:1.1), 90s anime aesthetic',
     negativePrompt: '(worst quality, low quality:1.4), (modern detailed eye), (3D, realistic), (fantasy), ugly',
-    description: '名侦探柯南/青山刚昌风格',
+    description: '名侦探柯Nam/青山刚昌风格',
     thumbnail: '2d_detective.png',
   },
   {
@@ -295,7 +295,7 @@ const STYLES_2D: StylePreset[] = [
     mediaType: 'animation',
     prompt: '(best quality, masterpiece, 8k, high detailed:1.2), (Slam Dunk style:1.3), (Takehiko Inoue:1.2), (realistic body proportions:1.1), (detailed muscle and sweat:1.1), intense sports atmosphere, 90s anime',
     negativePrompt: '(worst quality, low quality:1.4), (chibi, moe), (fantasy), (3D), (distorted anatomy), weak',
-    description: '灌篮高手/井上雄彦风格，写实比例',
+    description: '灌篮高手/井上雄彦风格，写实Tỷ lệ',
     thumbnail: '2d_slamdunk.png',
   },
   {
@@ -315,7 +315,7 @@ const STYLES_2D: StylePreset[] = [
     mediaType: 'animation',
     prompt: '(best quality, masterpiece, 8k, high detailed:1.2), (Death Note style:1.3), (Takeshi Obata:1.2), (gothic dark atmosphere:1.1), (intricate cross-hatching, sharp features:1.1), serious, mystery',
     negativePrompt: '(worst quality, low quality:1.4), (cute, happy, bright colors), (chibi), (thick lines), (3D), ugly',
-    description: '死亡笔记/小畑健风格，哥特，暗黑氛围',
+    description: '死亡笔记/小畑健风格，哥特，暗黑Bầu không khí',
     thumbnail: '2d_deathnote.png',
   },
   {
@@ -335,7 +335,7 @@ const STYLES_2D: StylePreset[] = [
     mediaType: 'animation',
     prompt: '(best quality, masterpiece, 8k:1.2), (1930s rubber hose animation:1.3), (Cuphead style:1.2), (vintage Disney style:1.1), (black and white, film grain:1.1), swinging limbs, pie eyes',
     negativePrompt: '(worst quality, low quality:1.4), (modern cartoon), (color), (3D, realistic), (anime), (stiff animation)',
-    description: '橡皮管动画，30年代卡通，茶杯头风格',
+    description: '橡皮管动画，30thập niên卡通，茶杯头风格',
     thumbnail: '2d_rubberhose.png',
   },
   {
@@ -365,7 +365,7 @@ const STYLES_2D: StylePreset[] = [
     mediaType: 'graphic',
     prompt: '(best quality, masterpiece, 8k, high detailed:1.2), (Chinese Gongbi painting style:1.3), (meticulous brushwork:1.2), (elegant traditional art:1.1), (ink wash painting background:1.1), delicate, cultural',
     negativePrompt: '(worst quality, low quality:1.4), (western art style), (oil painting), (sketchy), (3D, realistic), (vibrant neon colors)',
-    description: '中国工笔画风格，细腻笔触',
+    description: 'đang xử lý...画风格，细腻笔触',
     thumbnail: '2d_gongbi.png',
   },
   {
@@ -425,7 +425,7 @@ const STYLES_2D: StylePreset[] = [
     mediaType: 'animation',
     prompt: '(best quality, masterpiece, 8k, high detailed:1.2), (Junji Ito horror manga:1.3), (grotesque art style:1.2), (heavy black ink, spirals:1.1), (creepy atmosphere:1.1), body horror, nightmare',
     negativePrompt: '(worst quality, low quality:1.4), (cute, happy), (bright colors), (3D, realistic), (soft), safe',
-    description: '伊藤润二风格，恐怖漫画，螺旋，怪诞',
+    description: '伊藤润二风格，Kinh dị漫画，螺旋，怪诞',
     thumbnail: '2d_horror.png',
   },
 ];
@@ -462,7 +462,7 @@ const STYLES_REAL: StylePreset[] = [
     mediaType: 'cinematic',
     prompt: '(best quality, masterpiece, 8k, high detailed:1.2), (90s Hong Kong movie style:1.3), (Wong Kar-wai aesthetic:1.2), (neon lights, high contrast:1.1), (motion blur, film grain:1.1), dreamy, moody',
     negativePrompt: '(worst quality, low quality:1.4), (modern digital look), (clean, sharp, sterile), (3D, anime), (bright daylight), ugly',
-    description: '港风复古，王家卫风格，霓虹灯，90年代电影',
+    description: '港风复古，王家卫风格，đèn neon，90thập niên电影',
     thumbnail: 'real_hk_retro.png',
   },
   {
@@ -548,7 +548,7 @@ const STYLES_STOP_MOTION: StylePreset[] = [
 // 导出
 // ============================================================
 
-/** 所有风格预设 */
+/** Tất cả风格预设 */
 export const VISUAL_STYLE_PRESETS: readonly StylePreset[] = [
   ...STYLES_3D,
   ...STYLES_2D,
@@ -557,26 +557,26 @@ export const VISUAL_STYLE_PRESETS: readonly StylePreset[] = [
 ] as const;
 
 // ============================================================
-// 自定义风格查找回调（用户数据，存储在 localStorage）
-// 通过回调避免常量文件直接依赖 zustand store
+// Tùy chỉnh风格查找回调（người dùngdữ liệu，存储在 localStorage）
+// 通过回调Tránh常量文件Trực tiếp依赖 zustand store
 // ============================================================
 let _customStyleLookup: ((id: string) => StylePreset | undefined) | null = null;
 
 /**
- * 注册自定义风格查找函数（由 custom-style-store 调用）
- * 自定义风格是用户个人资产，不包含在内置预设中
+ * 注册Tùy chỉnh风格查找函数（由 custom-style-store gọi API）
+ * Tùy chỉnh风格是người dùng人资产，不chứa在内置预设中
  */
 export function registerCustomStyleLookup(fn: (id: string) => StylePreset | undefined) {
   _customStyleLookup = fn;
 }
 
-/** 内部：先查内置，再查自定义 */
+/** 内部：先查内置，再查Tùy chỉnh */
 function _findStyle(styleId: string): StylePreset | undefined {
   return VISUAL_STYLE_PRESETS.find(s => s.id === styleId)
     || _customStyleLookup?.(styleId);
 }
 
-/** 分类信息 */
+/** 分类thông tin */
 export const STYLE_CATEGORIES: { id: StyleCategory; name: string; styles: readonly StylePreset[] }[] = [
   { id: '3d', name: '3D风格', styles: STYLES_3D },
   { id: '2d', name: '2D动画', styles: STYLES_2D },
@@ -584,19 +584,19 @@ export const STYLE_CATEGORIES: { id: StyleCategory; name: string; styles: readon
   { id: 'stop_motion', name: '定格动画', styles: STYLES_STOP_MOTION },
 ];
 
-/** 根据 ID 获取风格（内置 + 自定义） */
+/** 根据 ID 获取风格（内置 + Tùy chỉnh） */
 export function getStyleById(styleId: string): StylePreset | undefined {
   return _findStyle(styleId);
 }
 
-/** 获取风格的提示词（styleId 为空时返回空字符串，表示不施加风格） */
+/** 获取风格的prompt（styleId 为空时返回空ký tự串，表示不施加风格） */
 export function getStylePrompt(styleId: string | null | undefined): string {
   if (!styleId) return '';
   const style = _findStyle(styleId);
   return style?.prompt || '';
 }
 
-/** 获取风格的负面提示词 */
+/** 获取风格的Prompt phủ định */
 export function getStyleNegativePrompt(styleId: string | null | undefined): string {
   if (!styleId) return '';
   const style = _findStyle(styleId);
@@ -609,19 +609,19 @@ export function getStyleName(styleId: string): string {
   return style?.name || styleId;
 }
 
-/** 获取风格缩略图路径 */
+/** 获取风格ảnh thu nhỏ路径 */
 export function getStyleThumbnail(styleId: string): string {
   const style = _findStyle(styleId);
   return style?.thumbnail || VISUAL_STYLE_PRESETS[0].thumbnail;
 }
 
 /** 
- * 兼容旧版：获取风格 tokens（拆分成数组）
- * @deprecated 建议直接使用 getStylePrompt
+ * tương thích旧版：获取风格 tokens（拆分成数组）
+ * @deprecated gợi ýTrực tiếpSử dụng getStylePrompt
  */
 export function getStyleTokens(styleId: string): string[] {
   const prompt = getStylePrompt(styleId);
-  // 简单拆分主要关键词（去除权重标记）
+  // 简单拆分主要quan trọng词（去除权重标记）
   return prompt
     .replace(/\([^)]*:[0-9.]+\)/g, (match) => match.replace(/:[0-9.]+\)/, ')'))
     .split(',')
@@ -631,11 +631,11 @@ export function getStyleTokens(styleId: string): string[] {
 }
 
 /**
- * 根据分类获取风格列表
+ * 根据分类获取风格 cột表
  * @param categoryId 分类 ID（支持旧版 'animation'/'realistic' 和新版）
  */
 export function getStylesByCategory(categoryId: string): StylePreset[] {
-  // 兼容旧版分类名称
+  // tương thích旧版分类名称
   const categoryMap: Record<string, StyleCategory[]> = {
     'animation': ['3d', '2d', 'stop_motion'],
     'realistic': ['real'],
@@ -650,7 +650,7 @@ export function getStylesByCategory(categoryId: string): StylePreset[] {
 }
 
 /**
- * 获取风格描述
+ * 获取风格Mô tả
  * @param styleId 风格 ID
  */
 export function getStyleDescription(styleId: string): string {
@@ -660,7 +660,7 @@ export function getStyleDescription(styleId: string): string {
 
 /**
  * 根据风格 ID 获取媒介类型
- * @returns 匹配的 MediaType，未找到时默认返回 'cinematic'（直通，最安全默认值）
+ * @returns Khớp的 MediaType，未Tìm thấy时默认返回 'cinematic'（直通，最an toàn默认值）
  */
 export function getMediaType(styleId: string | null | undefined): MediaType {
   if (!styleId) return 'cinematic';
@@ -668,10 +668,10 @@ export function getMediaType(styleId: string | null | undefined): MediaType {
   return style?.mediaType ?? 'cinematic';
 }
 
-/** 媒介类型中文标签 */
+/** 媒介类型đang xử lý... */
 export const MEDIA_TYPE_LABELS: Record<MediaType, string> = {
   'cinematic': '电影摄影',
-  'animation': '动画运镜',
+  'animation': '动画chuyển động máy',
   'stop-motion': '定格微缩',
   'graphic': '图形色彩',
 };

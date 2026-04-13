@@ -69,7 +69,7 @@ export function StoryboardPreview({ onBack, onSplitComplete }: StoryboardPreview
   // Or directly use the image as single scene when sceneCount is 1
   const handleSplit = useCallback(async () => {
     if (!storyboardImage) {
-      toast.error("没有可处理的故事板图片");
+      toast.error("Không có ảnh storyboard để xử lý");
       return;
     }
 
@@ -93,7 +93,7 @@ export function StoryboardPreview({ onBack, onSplitComplete }: StoryboardPreview
           imagePrompt: '',
           imagePromptZh: '',
           videoPrompt: '',
-          videoPromptZh: '场景 1',
+          videoPromptZh: 'Cảnh 1',
           needsEndFrame: false,
           endFramePrompt: '',
           endFramePromptZh: '',
@@ -128,7 +128,7 @@ export function StoryboardPreview({ onBack, onSplitComplete }: StoryboardPreview
 
         setSplitScenes([singleScene]);
         setStoryboardStatus('editing');
-        toast.success('已进入场景编辑');
+        toast.success('Đã vào chỉnh sửa cảnh');
         onSplitComplete?.();
         return;
       }
@@ -147,7 +147,7 @@ export function StoryboardPreview({ onBack, onSplitComplete }: StoryboardPreview
       });
 
       if (splitResults.length === 0) {
-        throw new Error("切割结果为空，请检查图片是否正确");
+        throw new Error("Kết quả cắt trống, vui lòng kiểm tra ảnh");
       }
 
       // Convert split results to SplitScene format
@@ -166,8 +166,8 @@ export function StoryboardPreview({ onBack, onSplitComplete }: StoryboardPreview
           height: result.height,
           imagePrompt: '',
           imagePromptZh: '',
-          videoPrompt: '', // 英文提示词，等待 AI 生成
-          videoPromptZh: `场景 ${index + 1}`, // 中文提示词默认值
+          videoPrompt: '', // English prompt, waiting for AI to generate
+          videoPromptZh: `Cảnh ${index + 1}`, // Chinese prompt default value
           needsEndFrame: false,
           endFramePrompt: '',
           endFramePromptZh: '',
@@ -183,7 +183,7 @@ export function StoryboardPreview({ onBack, onSplitComplete }: StoryboardPreview
           characterIds: [],
           emotionTags: [],
           shotSize: null,
-          duration: 5, // 默认 5 秒，支持 4-12 秒
+          duration: 5, // Default 5 seconds, supports 4-12 seconds
           ambientSound: '',
           soundEffects: [],
           soundEffectText: '',
@@ -203,7 +203,7 @@ export function StoryboardPreview({ onBack, onSplitComplete }: StoryboardPreview
 
       setSplitScenes(splitScenes);
       setStoryboardStatus('editing');
-      toast.success(`成功切割为 ${splitScenes.length} 个场景`);
+      toast.success(`Cắt thành công thành ${splitScenes.length} cảnh`);
       onSplitComplete?.();
     } catch (error) {
       const err = error as Error;
@@ -211,7 +211,7 @@ export function StoryboardPreview({ onBack, onSplitComplete }: StoryboardPreview
       setSplitError(err.message);
       setStoryboardError(err.message);
       setStoryboardStatus('error');
-      toast.error(`切割失败: ${err.message}`);
+      toast.error(`Cắt thất bại: ${err.message}`);
     } finally {
       setIsSplitting(false);
     }
@@ -229,9 +229,9 @@ export function StoryboardPreview({ onBack, onSplitComplete }: StoryboardPreview
     return (
       <div className="flex flex-col items-center justify-center py-12 space-y-4">
         <Loader2 className="h-12 w-12 animate-spin text-primary" />
-        <p className="text-sm text-muted-foreground">正在生成故事板联合图...</p>
+        <p className="text-sm text-muted-foreground">Đang tạo ảnh storyboard...</p>
         <p className="text-xs text-muted-foreground/60">
-          {storyboardConfig.sceneCount} 个场景 · {storyboardConfig.aspectRatio} · {storyboardConfig.resolution}
+          {storyboardConfig.sceneCount} cảnh · {storyboardConfig.aspectRatio} · {storyboardConfig.resolution}
         </p>
       </div>
     );
@@ -245,14 +245,14 @@ export function StoryboardPreview({ onBack, onSplitComplete }: StoryboardPreview
           <AlertCircle className="h-8 w-8 text-destructive" />
         </div>
         <div className="text-center space-y-1">
-          <p className="text-sm font-medium text-destructive">生成失败</p>
+          <p className="text-sm font-medium text-destructive">Tạo thất bại</p>
           <p className="text-xs text-muted-foreground max-w-[250px]">
-            {storyboardError || splitError || "未知错误"}
+            {storyboardError || splitError || "Lỗi không xác định"}
           </p>
         </div>
         <Button variant="outline" onClick={handleRegenerate} className="mt-4">
           <RefreshCw className="h-4 w-4 mr-2" />
-          重新生成
+          Tạo lại
         </Button>
       </div>
     );
@@ -265,11 +265,11 @@ export function StoryboardPreview({ onBack, onSplitComplete }: StoryboardPreview
         <div className="w-16 h-16 rounded-full bg-muted flex items-center justify-center">
           <ImageIcon className="h-8 w-8 text-muted-foreground" />
         </div>
-        <p className="text-sm text-muted-foreground">暂无故事板图片</p>
+        <p className="text-sm text-muted-foreground">Chưa có ảnh storyboard</p>
         {onBack && (
           <Button variant="outline" onClick={onBack} className="mt-2">
             <ArrowLeft className="h-4 w-4 mr-2" />
-            返回输入
+            Quay lại nhập
           </Button>
         )}
       </div>
@@ -283,10 +283,10 @@ export function StoryboardPreview({ onBack, onSplitComplete }: StoryboardPreview
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
           <CheckCircle2 className="h-4 w-4 text-green-500" />
-          <span className="text-sm font-medium">故事板已生成</span>
+          <span className="text-sm font-medium">Storyboard đã được tạo</span>
         </div>
         <span className="text-xs text-muted-foreground">
-          {storyboardConfig.sceneCount} 场景 · {storyboardConfig.aspectRatio} · {storyboardConfig.resolution}
+          {storyboardConfig.sceneCount} Cảnh · {storyboardConfig.aspectRatio} · {storyboardConfig.resolution}
         </span>
       </div>
 
@@ -303,7 +303,7 @@ export function StoryboardPreview({ onBack, onSplitComplete }: StoryboardPreview
         {isSplitting && (
           <div className="absolute inset-0 bg-background/80 flex flex-col items-center justify-center">
             <Loader2 className="h-8 w-8 animate-spin text-primary mb-2" />
-            <p className="text-sm text-muted-foreground">正在切割...</p>
+            <p className="text-sm text-muted-foreground">Đang cắt...</p>
           </div>
         )}
       </div>
@@ -313,7 +313,7 @@ export function StoryboardPreview({ onBack, onSplitComplete }: StoryboardPreview
         <div className="flex items-start gap-2 p-2 rounded-md bg-destructive/10 border border-destructive/20">
           <AlertCircle className="h-4 w-4 text-destructive mt-0.5 shrink-0" />
           <div className="text-xs text-destructive">
-            <p className="font-medium">切割失败</p>
+            <p className="font-medium">Cắt thất bại</p>
             <p>{splitError}</p>
           </div>
         </div>
@@ -331,11 +331,11 @@ export function StoryboardPreview({ onBack, onSplitComplete }: StoryboardPreview
                 className="flex-1"
               >
                 <RefreshCw className="h-4 w-4 mr-2" />
-                重新生成
+                Tạo lại
               </Button>
             </TooltipTrigger>
             <TooltipContent>
-              <p>返回输入界面重新生成故事板</p>
+              <p>Quay lại giao diện nhập để tạo lại storyboard</p>
             </TooltipContent>
           </Tooltip>
         </TooltipProvider>
@@ -351,18 +351,18 @@ export function StoryboardPreview({ onBack, onSplitComplete }: StoryboardPreview
                 {isSplitting ? (
                   <>
                     <Loader2 className="h-4 w-4 mr-2 animate-spin" />
-                    {storyboardConfig.sceneCount === 1 ? '处理中...' : '切割中...'}
+                    {storyboardConfig.sceneCount === 1 ? 'Đang xử lý...' : 'Đang cắt...'}
                   </>
                 ) : (
                   <>
                     <Scissors className="h-4 w-4 mr-2" />
-                    {storyboardConfig.sceneCount === 1 ? '下一步' : '切割场景'}
+                    {storyboardConfig.sceneCount === 1 ? 'Tiếp theo' : 'Cắt cảnh'}
                   </>
                 )}
               </Button>
             </TooltipTrigger>
             <TooltipContent>
-              <p>{storyboardConfig.sceneCount === 1 ? '直接进入场景编辑' : '按固定网格切割为独立场景'}</p>
+              <p>{storyboardConfig.sceneCount === 1 ? 'Vào trực tiếp chỉnh sửa cảnh' : 'Cắt thành các cảnh độc lập theo lưới cố định'}</p>
             </TooltipContent>
           </Tooltip>
         </TooltipProvider>
@@ -371,8 +371,8 @@ export function StoryboardPreview({ onBack, onSplitComplete }: StoryboardPreview
       {/* Tips */}
       <div className="text-xs text-muted-foreground bg-muted/50 rounded-md p-2">
         <p>💡 {storyboardConfig.sceneCount === 1 
-          ? '点击"下一步"直接进入场景编辑，您可以编辑场景的提示词并生成视频。'
-          : `点击"切割场景"将按 ${storyboardConfig.sceneCount} 格均匀网格切割，并自动去除边缘分隔线。切割后您可以编辑每个场景的提示词。`
+          ? 'Nhấp "Tiếp theo" để vào trực tiếp chỉnh sửa cảnh. Bạn có thể chỉnh sửa gợi ý và tạo video.'
+          : `Nhấp "Cắt cảnh" để cắt thành lưới đều ${storyboardConfig.sceneCount} ô, tự động loại bỏ đường phân cách. Sau khi cắt bạn có thể chỉnh sửa gợi ý cho mỗi cảnh.`
         }</p>
       </div>
     </div>

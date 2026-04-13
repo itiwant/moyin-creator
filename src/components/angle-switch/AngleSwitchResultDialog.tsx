@@ -5,7 +5,7 @@
 
 /**
  * Angle Switch Result Dialog
- * 视角切换结果预览对话框
+ * Chuyển góc nhìnkết quảXem trướcChat框
  */
 
 import {
@@ -88,34 +88,34 @@ export function AngleSwitchResultDialog({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="max-w-4xl">
         <DialogHeader>
-          <DialogTitle className="text-sm">视角切换 - 选择结果</DialogTitle>
+          <DialogTitle className="text-sm">Chuyển góc nhìn - Chọn kết quả</DialogTitle>
           <DialogDescription className="sr-only">
-            对比原图和生成结果，选择并应用新视角
+            So sánh ảnh gốc và kết quả tạo, chọn và áp dụng góc nhìn mới
           </DialogDescription>
         </DialogHeader>
 
         <div className="space-y-3 py-2">
-          {/* 当前对比 */}
+          {/* So sánh hiện tại */}
           <div className="grid grid-cols-2 gap-3">
-            {/* 原图 */}
+            {/* Ảnh gốc */}
             <div>
-              <div className="text-xs text-muted-foreground mb-1">原图</div>
+              <div className="text-xs text-muted-foreground mb-1">Ảnh gốc</div>
               <div className="aspect-video bg-muted rounded overflow-hidden border-2 border-border">
                 <img
                   src={result.originalImage}
-                  alt="原图"
+                  alt="Ảnh gốc"
                   className="w-full h-full object-cover"
                 />
               </div>
             </div>
 
-            {/* 当前选中 */}
+            {/* Đang chọn */}
             <div>
-              <div className="text-xs text-primary mb-1">当前选中</div>
+              <div className="text-xs text-primary mb-1">Đang chọn</div>
               <div className="aspect-video bg-muted rounded overflow-hidden border-2 border-primary">
                 <img
                   src={currentImage}
-                  alt="当前选中"
+                  alt="Đang chọn"
                   className="w-full h-full object-cover"
                 />
               </div>
@@ -123,10 +123,10 @@ export function AngleSwitchResultDialog({
             </div>
           </div>
 
-          {/* 历史记录 */}
+          {/* Lịch sử */}
           {history.length > 0 && (
             <div>
-              <div className="text-xs text-muted-foreground mb-2">历史记录 ({history.length}张)</div>
+              <div className="text-xs text-muted-foreground mb-2">Lịch sử ({history.length} ảnh)</div>
               <div className="flex gap-2 overflow-x-auto pb-2">
                 {history.map((item, index) => (
                   <button
@@ -157,19 +157,19 @@ export function AngleSwitchResultDialog({
             onClick={() => handleDownload(result.newImage, `angle-switch-${Date.now()}.png`)}
           >
             <Download className="h-4 w-4 mr-2" />
-            下载
+            Tải xuống
           </Button>
           <Button variant="outline" onClick={onRegenerate}>
             <RotateCw className="h-4 w-4 mr-2" />
-            重新生成
+            Tạo lại
           </Button>
           <Button variant="outline" onClick={() => onOpenChange(false)}>
             <X className="h-4 w-4 mr-2" />
-            取消
+            Hủy
           </Button>
           <Button onClick={onApply}>
             <Check className="h-4 w-4 mr-2" />
-            应用
+            Áp dụng
           </Button>
         </DialogFooter>
       </DialogContent>

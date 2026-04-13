@@ -4,8 +4,8 @@
 "use client";
 
 /**
- * 角色库选择弹窗组件 (Character Selector)
- * 从角色库中选择角色关联到分镜
+ * Thư viện nhân vậtChọnPopup组件 (Character Selector)
+ * 从Thư viện nhân vậtđang xử lý...hân vật关联到Phân cảnh
  */
 
 import React, { useState, useMemo } from "react";
@@ -46,7 +46,7 @@ export function CharacterSelector({
       : !activeProjectId
         ? []
         : characters.filter((c) => c.projectId === activeProjectId);
-    // 按 id 去重（项目复制会产生同 id 角色，保留首次出现的）
+    // 按 id khử trùng（项目Sao chép会产生同 id Nhân vật，保留首次出现的）
     const seen = new Set<string>();
     return list.filter((c) => {
       if (seen.has(c.id)) return false;
@@ -67,7 +67,7 @@ export function CharacterSelector({
     }
   };
 
-  // 只统计在角色库中存在的角色（过滤无效ID）
+  // 只统计在Thư viện nhân vậtđang xử lý...Nhân vật（lọc无效ID）
   const selectedCharacters = visibleCharacters.filter(c => selectedIds.includes(c.id));
   const validSelectedCount = selectedCharacters.length;
 
@@ -80,17 +80,17 @@ export function CharacterSelector({
         >
           <Users className="h-3 w-3" />
           {validSelectedCount > 0 ? (
-            <span>已选 {validSelectedCount} 个</span>
+            <span>Đã chọn {validSelectedCount}</span>
           ) : (
-            <span>角色库</span>
+            <span>Thư viện nhân vật</span>
           )}
         </button>
       </PopoverTrigger>
       <PopoverContent className="w-64 p-2" align="start">
-        <p className="text-sm font-medium mb-2">选择角色</p>
+        <p className="text-sm font-medium mb-2">Chọn nhân vật</p>
         {visibleCharacters.length === 0 ? (
           <p className="text-xs text-muted-foreground text-center py-4">
-            角色库为空，请先创建角色
+            Thư viện nhân vật trống, vui lòng tạo nhân vật trước
           </p>
         ) : (
           <div className="max-h-[280px] overflow-y-auto space-y-1">
@@ -127,7 +127,7 @@ export function CharacterSelector({
                   {/* Variation list: show when selected and has available variations */}
                   {isSelected && availableVariations.length > 0 && onChangeVariation && (
                     <div className="ml-8 mr-1 mb-1 space-y-0.5">
-                      {/* 基础定妆照 */}
+                      {/* Ảnh gốc cơ bản */}
                       <button
                         onClick={(e) => { e.stopPropagation(); onChangeVariation(char.id, undefined); }}
                         className={cn(
@@ -136,16 +136,16 @@ export function CharacterSelector({
                         )}
                       >
                         {thumbnail ? (
-                          <img src={thumbnail} alt="基础定妆照" className="w-8 h-8 rounded object-cover shrink-0 border border-muted-foreground/10" />
+                          <img src={thumbnail} alt="Ảnh gốc cơ bản" className="w-8 h-8 rounded object-cover shrink-0 border border-muted-foreground/10" />
                         ) : (
                           <div className="w-8 h-8 rounded bg-muted flex items-center justify-center shrink-0">
                             <User className="h-3 w-3" />
                           </div>
                         )}
-                        <span className="flex-1 text-[11px] truncate">基础定妆照</span>
+                        <span className="flex-1 text-[11px] truncate">Ảnh gốc cơ bản</span>
                         {!selectedVarId && <Check className="h-3 w-3 text-primary shrink-0" />}
                       </button>
-                      {/* 变体列表 */}
+                      {/* Danh sách biến thể */}
                       {availableVariations.map((v) => (
                         <button
                           key={v.id}

@@ -4,8 +4,8 @@
 "use client";
 
 /**
- * 音效标签选择器组件 (Sound Effect Tags)
- * 用于选择镜头的音效标签：自然环境、人物动作、氛围效果等
+ * Hiệu ứng âm thanhThẻChọn器组件 (Sound Effect Tags)
+ * 用于ChọnỐng kính的Hiệu ứng âm thanhThẻ：自然môi trường、nhân vậtHành động、Bầu không khí效果等
  */
 
 import { useState } from "react";
@@ -25,7 +25,7 @@ interface SoundEffectTagsProps {
   maxTags?: number;
 }
 
-// 所有音效标签的扁平列表
+// Tất cảHiệu ứng âm thanhThẻ的扁平 cột表
 const ALL_SOUND_EFFECTS = [
   ...SOUND_EFFECT_PRESETS.nature,
   ...SOUND_EFFECT_PRESETS.action,
@@ -33,12 +33,12 @@ const ALL_SOUND_EFFECTS = [
   ...SOUND_EFFECT_PRESETS.urban,
 ];
 
-// 分类名称映射
+// phân loạiTênánh xạ
 const CATEGORY_LABELS: Record<keyof typeof SOUND_EFFECT_PRESETS, string> = {
-  nature: "🌿 自然环境",
-  action: "🏃 人物动作",
-  atmosphere: "🎭 氛围效果",
-  urban: "🏙️ 城市环境",
+  nature: "🌿 Môi trường tự nhiên",
+  action: "🏃 Hành động nhân vật",
+  atmosphere: "🎭 Hiệu ứng không khí",
+  urban: "🏙️ Môi trường đô thị",
 };
 
 export function SoundEffectTags({
@@ -68,7 +68,7 @@ export function SoundEffectTags({
 
   return (
     <div className="space-y-1.5">
-      {/* 已选标签展示 */}
+      {/* Hiển thị thẻ đã chọn */}
       <div className="flex flex-wrap gap-1">
         {value.map((tagId) => (
           <span
@@ -88,17 +88,17 @@ export function SoundEffectTags({
           </span>
         ))}
         
-        {/* 添加按钮 */}
+        {/* Thêmnút */}
         {value.length < maxTags && !disabled && (
           <Popover open={isOpen} onOpenChange={setIsOpen}>
             <PopoverTrigger asChild>
               <button className="inline-flex items-center gap-0.5 px-1.5 py-0.5 border border-dashed border-muted-foreground/30 hover:border-primary/50 rounded text-[10px] text-muted-foreground hover:text-foreground transition-colors">
                 <Plus className="h-2.5 w-2.5" />
-                音效
+                Hiệu ứng âm thanh
               </button>
             </PopoverTrigger>
             <PopoverContent className="w-64 p-2" align="start">
-              <p className="text-sm font-medium mb-2">选择音效 ({value.length}/{maxTags})</p>
+              <p className="text-sm font-medium mb-2">Chọn hiệu ứng âm thanh ({value.length}/{maxTags})</p>
               <div className="max-h-[240px] overflow-y-auto space-y-2">
                 {(Object.keys(SOUND_EFFECT_PRESETS) as Array<keyof typeof SOUND_EFFECT_PRESETS>).map(
                   (category) => (

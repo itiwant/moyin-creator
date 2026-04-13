@@ -5,7 +5,7 @@
 
 /**
  * Angle Switch Dialog - 可视化版
- * 视角切换选择器 - 使用圆形轨道控制器
+ * Chuyển góc nhìnChọn器 - Sử dụngtròn轨道điều khiển器
  */
 
 import { useState, useCallback } from "react";
@@ -39,7 +39,7 @@ export interface AngleSwitchDialogProps {
   previewUrl?: string;
   sameSceneShotsCount?: number;
   isGenerating?: boolean;
-  /** 兼容旧版属性 */
+  /** Tương thích thuộc tính phiên bản cũ */
   currentSceneName?: string;
   sameSceneCount?: number;
   totalShotCount?: number;
@@ -91,15 +91,15 @@ export function AngleSwitchDialog({
       <DialogContent className="max-w-sm p-4 bg-zinc-900 border-zinc-800">
         <DialogHeader className="pb-2">
           <DialogTitle className="text-sm text-white">
-            视角切换 - {frameType === "start" ? "首帧" : "尾帧"}
+            Chuyển góc nhìn - {frameType === "start" ? "Khung hình đầu" : "Khung hình cuối"}
           </DialogTitle>
           <DialogDescription className="sr-only">
-            通过3D球面控制器选择目标视角，拖拽旋转、滚轮缩放
+            Dùng bộ điều khiển cầu 3D để chọn góc nhìn mục tiêu, kéo để xoay, cuộn để phóng to
           </DialogDescription>
         </DialogHeader>
 
         <div className="flex flex-col items-center">
-          {/* 可视化控制器 */}
+          {/* Bộ điều khiển trực quan */}
           <AngleController
             previewUrl={previewUrl}
             onAngleChange={handleAngleChange}
@@ -107,7 +107,7 @@ export function AngleSwitchDialog({
             compact
           />
 
-          {/* 按钮 */}
+          {/* nút */}
           <div className="flex gap-2 pt-4 w-full">
             <Button
               variant="outline"
@@ -116,7 +116,7 @@ export function AngleSwitchDialog({
               disabled={isGenerating}
               className="flex-1 h-8 text-xs bg-transparent border-zinc-700 hover:bg-zinc-800 text-white"
             >
-              取消
+              Hủy
             </Button>
             <Button
               size="sm"
@@ -125,9 +125,9 @@ export function AngleSwitchDialog({
               className="flex-1 h-8 text-xs bg-lime-500 hover:bg-lime-600 text-black"
             >
               {isGenerating ? (
-                <><Loader2 className="h-3 w-3 mr-1 animate-spin" />生成中</>
+                <><Loader2 className="h-3 w-3 mr-1 animate-spin" />Đang tạo</>
               ) : (
-                "生成"
+                "Tạo"
               )}
             </Button>
           </div>

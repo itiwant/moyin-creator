@@ -4,12 +4,12 @@
 "use client";
 
 /**
- * StylePicker - 统一的视觉风格选择器
+ * StylePicker - 统一的Thị giác风格Chọn器
  * 
- * 功能：
- * - 左侧：分类小图列表，可滚动
- * - 右侧：悬停/选中时显示大图预览 + 描述
- * - 支持下拉弹出模式和内嵌模式
+ * chức năng：
+ * - Bên trái：phân loại小图列表，可滚动
+ * - bên phải：Di chuột/đã chọn时显示大图预览 + Mô tả
+ * - 支持下拉popup出chế độ和内嵌chế độ
  */
 
 import React, { useState, useMemo } from "react";
@@ -30,7 +30,7 @@ import {
 } from "@/lib/constants/visual-styles";
 import { useCustomStyleStore } from "@/stores/custom-style-store";
 
-// 风格分类对应的背景色（图片已移除，使用色块占位）
+// 风格phân loại对应的背景色（ảnh已xóa，Sử dụng色块Placeholder）
 const CATEGORY_COLORS: Record<string, string> = {
   '3d': 'bg-blue-500/20 text-blue-600',
   '2d': 'bg-green-500/20 text-green-600',
@@ -39,24 +39,24 @@ const CATEGORY_COLORS: Record<string, string> = {
 };
 
 interface StylePickerProps {
-  /** 当前选中的风格 ID */
+  /** ID phong cách đang chọn */
   value: string;
-  /** 选择变化回调 */
+  /** Callback khi chọn thay đổi */
   onChange: (styleId: VisualStyleId) => void;
-  /** 是否使用下拉弹出模式（默认 true） */
+  /** Có dùng chế độ popup thả xuống (mặc định true) */
   popover?: boolean;
-  /** 自定义触发器（仅 popover 模式） */
+  /** Trigger tùy chỉnh (chỉ chế độ popover) */
   trigger?: React.ReactNode;
-  /** 自定义类名 */
+  /** Tên class tùy chỉnh */
   className?: string;
-  /** 禁用状态 */
+  /** Trạng thái vô hiệu */
   disabled?: boolean;
-  /** 未选择时的占位文字 */
+  /** Văn bản Placeholder khi chưa chọn */
   placeholder?: string;
 }
 
 /**
- * 风格选择器组件
+ * 风格Chọn器组件
  */
 export function StylePicker({
   value,
@@ -65,12 +65,12 @@ export function StylePicker({
   trigger,
   className,
   disabled = false,
-  placeholder = "选择风格",
+  placeholder = "Chọn phong cách",
 }: StylePickerProps) {
   const [hoveredStyle, setHoveredStyle] = useState<StylePreset | null>(null);
   const [isOpen, setIsOpen] = useState(false);
 
-  // 用户自定义风格（用户数据，存储在 localStorage）
+  // người dùngTùy chỉnh风格（người dùngdữ liệu，存储在 localStorage）
   const customStyles = useCustomStyleStore((s) => s.styles);
   const customAsPresets: StylePreset[] = useMemo(() =>
     customStyles.map((s) => ({
@@ -86,13 +86,13 @@ export function StylePicker({
     [customStyles]
   );
 
-  // 获取当前选中的风格（内置 + 自定义）
+  // 获取Đang chọn的风格（内置 + Tùy chỉnh）
   const selectedStyle = useMemo(() => getStyleById(value), [value]);
 
-  // 预览的风格（悬停优先，否则显示选中的）
+  // 预览的风格（Di chuột优先，否则显示đã chọn的）
   const previewStyle = hoveredStyle || selectedStyle || VISUAL_STYLE_PRESETS[0];
 
-  // 处理选择
+  // 处理Chọn
   const handleSelect = (style: StylePreset) => {
     onChange(style.id as VisualStyleId);
     if (popover) {
@@ -100,19 +100,19 @@ export function StylePicker({
     }
   };
 
-  // 内容面板
+  // Nội dungpanel
   const pickerContent = (
     <div className={cn("flex", popover ? "w-[520px] h-[400px]" : "w-full h-full", className)}>
-      {/* 左侧：风格列表 */}
+      {/* Bên trái: danh sách phong cách */}
       <ScrollArea className="w-[240px] border-r border-border">
         <div className="p-2">
           {STYLE_CATEGORIES.map((category) => (
             <div key={category.id} className="mb-4">
-              {/* 分类标题 */}
+              {/* Tiêu đề phân loại */}
               <div className="px-2 py-1.5 text-xs font-medium text-muted-foreground border-b border-border/50 mb-2">
                 {category.name}
               </div>
-              {/* 风格列表 */}
+              {/* Danh sách phong cách */}
               <div className="space-y-1">
                 {category.styles.map((style) => (
                   <StyleItem
@@ -128,11 +128,11 @@ export function StylePicker({
             </div>
           ))}
 
-          {/* 用户自定义风格（用户个人资产） */}
+          {/* Phong cách tùy chỉnh của người dùng (tài sản người dùng) */}
           {customAsPresets.length > 0 && (
             <div className="mb-4">
               <div className="px-2 py-1.5 text-xs font-medium text-primary border-b border-primary/30 mb-2">
-                我的风格
+                Phong cách của tôi
               </div>
               <div className="space-y-1">
                 {customAsPresets.map((style) => (
@@ -152,9 +152,9 @@ export function StylePicker({
         </div>
       </ScrollArea>
 
-      {/* 右侧：预览信息 */}
+      {/* Bên phải: Thông tin xem trước */}
       <div className="flex-1 p-4 flex flex-col">
-        {/* 色块占位 + 风格名称 */}
+        {/* Màu sắc Placeholder + Tên phong cách */}
         <div className={cn(
           "flex-1 flex flex-col items-center justify-center rounded-lg mb-3",
           CATEGORY_COLORS[previewStyle.category] || 'bg-muted/30'
@@ -162,7 +162,7 @@ export function StylePicker({
           <div className="text-2xl font-bold mb-2">{previewStyle.name}</div>
           <div className="text-xs opacity-70">{previewStyle.category.toUpperCase()} · {previewStyle.mediaType}</div>
         </div>
-        {/* 风格信息 */}
+        {/* Thông tin phong cách */}
         <div className="text-center">
           <div className="font-medium text-sm mb-1">{previewStyle.name}</div>
           <div className="text-xs text-muted-foreground line-clamp-2">
@@ -173,7 +173,7 @@ export function StylePicker({
     </div>
   );
 
-  // 下拉模式
+  // 下拉chế độ
   if (popover) {
     return (
       <Popover open={isOpen} onOpenChange={setIsOpen}>
@@ -197,7 +197,7 @@ export function StylePicker({
                       ? 'bg-primary/20 text-primary'
                       : CATEGORY_COLORS[selectedStyle.category] || 'bg-muted'
                   )}>
-                    {selectedStyle.id.startsWith('custom_style_') ? '★' : selectedStyle.category === '3d' ? '3D' : selectedStyle.category === '2d' ? '2D' : selectedStyle.category === 'real' ? '真' : '定'}
+                    {selectedStyle.id.startsWith('custom_style_') ? '★' : selectedStyle.category === '3d' ? '3D' : selectedStyle.category === '2d' ? '2D' : selectedStyle.category === 'real' ? 'Thực' : 'Tùy'}
                   </span>
                 )}
                 <span className={!selectedStyle ? "text-muted-foreground" : ""}>
@@ -226,12 +226,12 @@ export function StylePicker({
     );
   }
 
-  // 内嵌模式
+  // 内嵌chế độ
   return pickerContent;
 }
 
 /**
- * 单个风格项
+ * 单风格项
  */
 interface StyleItemProps {
   style: StylePreset;
@@ -254,16 +254,16 @@ function StyleItem({ style, isSelected, isCustom, onSelect, onHover, onLeave }: 
       onMouseEnter={onHover}
       onMouseLeave={onLeave}
     >
-      {/* 色块占位 */}
+      {/* Màu sắc Placeholder */}
       <span className={cn(
         "w-10 h-10 rounded flex items-center justify-center text-[10px] font-bold flex-shrink-0",
         isCustom ? 'bg-primary/20 text-primary' : CATEGORY_COLORS[style.category] || 'bg-muted'
       )}>
-        {isCustom ? '★' : style.category === '3d' ? '3D' : style.category === '2d' ? '2D' : style.category === 'real' ? '真' : '定'}
+        {isCustom ? '★' : style.category === '3d' ? '3D' : style.category === '2d' ? '2D' : style.category === 'real' ? 'Thực' : 'Tùy'}
       </span>
-      {/* 名称 */}
+      {/* Tên */}
       <span className="flex-1 text-left text-sm truncate">{style.name}</span>
-      {/* 选中标记 */}
+      {/* Dấu đã chọn */}
       {isSelected && (
         <Check className="w-4 h-4 text-primary flex-shrink-0" />
       )}

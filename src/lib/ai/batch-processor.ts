@@ -2,17 +2,17 @@
 // Licensed under AGPL-3.0-or-later. See LICENSE for details.
 // Commercial licensing available. See COMMERCIAL_LICENSE.md.
 /**
- * Adaptive Batch Processor — AI 调度中心核心组件 3
+ * Adaptive Batch Processor — AI 调度đang xử lý...组件 3
  *
- * 职责：将大量 items 自动分批发给 AI，同时满足 input 和 output token 约束。
+ * 职责：将大量 items Tự động分批发给 AI，同时满足 input 和 output token 约束。
  *
  * 核心特性：
  *   - 双重约束分批（input token + output token）
  *   - 60K token Hard Cap（防止超长上下文模型 TTFT 过高 / Lost in the middle）
- *   - 容错隔离（单批次失败不影响其他批次，部分成功也返回结果）
- *   - 单批次重试（指数退避，最多 2 次）
- *   - 并发集成（复用 runStaggered + 用户 concurrency 设置）
- *   - 进度回调
+ *   - 容错隔离（单批次thất bại不影响其他批次，部分成功也返回kết quả）
+ *   - 单批次Thử lại（指数退避，tối đa 2 次）
+ *   - 并发 tập成（复用 runStaggered + người dùng concurrency 设置）
+ *   - Tiến độ回调
  */
 
 import type { AIFeature } from '@/stores/api-config-store';
@@ -23,68 +23,68 @@ import { runStaggered } from '@/lib/utils/concurrency';
 
 // ==================== Constants ====================
 
-/** 无论模型支持多大上下文，每批 input 最多 60K token */
+/** 无论模型支持多大上下文，每批 input tối đa 60K token */
 const HARD_CAP_TOKENS = 60000;
 
-/** 单批次最大重试次数 */
+/** 单批次最大Thử lại次数 */
 const MAX_BATCH_RETRIES = 2;
 
-/** 重试基础延迟（ms），指数退避 */
+/** Thử lại基础延迟（ms），指数退避 */
 const RETRY_BASE_DELAY = 3000;
 
 // ==================== Types ====================
 
 export interface ProcessBatchedOptions<TItem, TResult> {
-  /** 待处理的所有 items */
+  /** 待处理的Tất cả items */
   items: TItem[];
 
-  /** AI 功能类型（用于从 feature-router 获取配置） */
+  /** AI chức năng类型（用于从 feature-router 获取cấu hình） */
   feature: AIFeature;
 
   /**
-   * 构建 prompt 函数 — 接收一个 batch 的 items，返回 system + user prompt
-   * 每批调用一次，prompt 中应包含全局上下文（用 safeTruncate 截断）
+   * 构建 prompt 函数 — 接收一 batch 的 items，返回 system + user prompt
+   * 每批gọi API一次，prompt đang xử lý...全局上下文（用 safeTruncate cắt ngắn）
    */
   buildPrompts: (batch: TItem[]) => { system: string; user: string };
 
   /**
-   * 解析 AI 返回的原始文本为结构化结果
+   * Phân tích AI trả vềgốc文本为Cấu trúc化kết quả
    * 返回 Map<itemKey, result>，key 用于跨批次合并
    */
   parseResult: (raw: string, batch: TItem[]) => Map<string, TResult>;
 
   /**
-   * 可选：自定义合并逻辑。默认简单合并（后者覆盖前者）
+   * 可选：Tùy chỉnh合并逻辑。默认简单合并（后者Ghi đè前者）
    */
   mergeResults?: (all: Map<string, TResult>[]) => Map<string, TResult>;
 
   /**
-   * 估算单个 item 的 input token 开销
-   * 如果不提供，使用 estimateTokens(JSON.stringify(item))
+   * 估算单 item 的 input token 开销
+   * 如果不提供，Sử dụng estimateTokens(JSON.stringify(item))
    */
   estimateItemTokens?: (item: TItem) => number;
 
   /**
-   * 估算单个 item 的 output token 开销（用于 output 约束）
+   * 估算单 item 的 output token 开销（用于 output 约束）
    * 如果不提供，默认 300 tokens/item
    */
   estimateItemOutputTokens?: (item: TItem) => number;
 
   /**
-   * 可选：callFeatureAPI 的额外选项（temperature, maxTokens 等）
+   * 可选：callFeatureAPI 的额外Tùy chọn（temperature, maxTokens 等）
    */
   apiOptions?: CallFeatureAPIOptions;
 
   /**
-   * 进度回调
+   * Tiến độ回调
    */
   onProgress?: (completed: number, total: number, message: string) => void;
 }
 
 export interface ProcessBatchedResult<TResult> {
-  /** 合并后的所有结果 */
+  /** 合并后的Tất cảkết quả */
   results: Map<string, TResult>;
-  /** 失败的批次数 */
+  /** thất bại的批次数 */
   failedBatches: number;
   /** 总批次数 */
   totalBatches: number;
@@ -93,14 +93,14 @@ export interface ProcessBatchedResult<TResult> {
 // ==================== Core ====================
 
 /**
- * 自适应批处理 AI 调用
+ * 自适应批处理 AI gọi API
  *
- * 自动完成：
+ * Tự độnghoàn thành：
  *   1. 从 Registry 查出模型的 contextWindow 和 maxOutput
- *   2. 双重约束贪心分组（input + output）
+ *   2. 双重约束贪心nhóm（input + output）
  *   3. 通过 runStaggered 并发执行
- *   4. 单批次重试 + 容错隔离
- *   5. 合并结果
+ *   4. 单批次Thử lại + 容错隔离
+ *   5. 合并kết quả
  */
 export async function processBatched<TItem, TResult>(
   opts: ProcessBatchedOptions<TItem, TResult>,
@@ -117,7 +117,7 @@ export async function processBatched<TItem, TResult>(
     onProgress,
   } = opts;
 
-  // 空输入快速返回
+  // 空输入nhanh返回
   if (items.length === 0) {
     return { results: new Map(), failedBatches: 0, totalBatches: 0 };
   }
@@ -129,7 +129,7 @@ export async function processBatched<TItem, TResult>(
   const limits = getModelLimits(modelName);
 
   const inputBudget = Math.min(Math.floor(limits.contextWindow * 0.6), HARD_CAP_TOKENS);
-  const outputBudget = Math.floor(limits.maxOutput * 0.8); // 留 20% 给 JSON 格式开销
+  const outputBudget = Math.floor(limits.maxOutput * 0.8); // 留 20% 给 JSON định dạng开销
 
   console.log(
     `[BatchProcessor] ${feature}: model=${modelName}, ` +
@@ -138,11 +138,11 @@ export async function processBatched<TItem, TResult>(
     `items=${items.length}`,
   );
 
-  // === 2. 估算 system prompt 的 token 开销（用第一个 item 试算） ===
+  // === 2. 估算 system prompt 的 token 开销（用第一 item 试算） ===
   const samplePrompts = buildPrompts([items[0]]);
   const systemPromptTokens = estimateTokens(samplePrompts.system);
 
-  // === 3. 双重约束贪心分组 ===
+  // === 3. 双重约束贪心nhóm ===
   const defaultItemTokenEstimator = (item: TItem) => estimateTokens(JSON.stringify(item));
   const defaultItemOutputEstimator = () => 300; // 默认每项 300 output tokens
 
@@ -159,22 +159,22 @@ export async function processBatched<TItem, TResult>(
   );
 
   console.log(
-    `[BatchProcessor] 分批结果: ${batches.length} 批次 ` +
+    `[BatchProcessor] 分批kết quả: ${batches.length} 批次 ` +
     `(${batches.map(b => b.length).join(', ')} items)`,
   );
 
   // 单批次无需并发调度
   if (batches.length === 1) {
-    onProgress?.(0, 1, `处理中 (1/1)...`);
+    onProgress?.(0, 1, `处理đang xử lý.../1)...`);
     try {
       const result = await executeBatchWithRetry(
         batches[0], feature, buildPrompts, parseResult, apiOptions,
       );
-      onProgress?.(1, 1, '完成');
+      onProgress?.(1, 1, 'hoàn thành');
       return { results: result, failedBatches: 0, totalBatches: 1 };
     } catch (err) {
-      console.error('[BatchProcessor] 唯一批次失败:', err);
-      onProgress?.(1, 1, '失败');
+      console.error('[BatchProcessor] 唯一批次thất bại:', err);
+      onProgress?.(1, 1, 'thất bại');
       return { results: new Map(), failedBatches: 1, totalBatches: 1 };
     }
   }
@@ -190,7 +190,7 @@ export async function processBatched<TItem, TResult>(
         batch, feature, buildPrompts, parseResult, apiOptions,
       );
       completedCount++;
-      onProgress?.(completedCount, batches.length, `批次 ${idx + 1} 完成`);
+      onProgress?.(completedCount, batches.length, `批次 ${idx + 1} hoàn thành`);
       return result;
     };
   });
@@ -206,12 +206,12 @@ export async function processBatched<TItem, TResult>(
       successResults.push(result.value);
     } else {
       failedBatches++;
-      console.error('[BatchProcessor] 批次失败:', result.reason);
+      console.error('[BatchProcessor] 批次thất bại:', result.reason);
     }
   }
 
   if (failedBatches > 0) {
-    console.warn(`[BatchProcessor] ${failedBatches}/${batches.length} 批次失败，返回部分结果`);
+    console.warn(`[BatchProcessor] ${failedBatches}/${batches.length} 批次thất bại，返回部分kết quả`);
   }
 
   // 合并
@@ -227,7 +227,7 @@ export async function processBatched<TItem, TResult>(
     }
   }
 
-  onProgress?.(batches.length, batches.length, `完成 (${failedBatches > 0 ? `${failedBatches} 批失败` : '全部成功'})`);
+  onProgress?.(batches.length, batches.length, `hoàn thành (${failedBatches > 0 ? `${failedBatches} 批thất bại` : 'Tất cả成功'})`);
 
   return { results: finalResults, failedBatches, totalBatches: batches.length };
 }
@@ -235,13 +235,13 @@ export async function processBatched<TItem, TResult>(
 // ==================== Batch Splitting ====================
 
 /**
- * 双重约束贪心分组
+ * 双重约束贪心nhóm
  *
  * 约束 1（Input）: 每批 systemPromptTokens + sum(itemTokens) ≤ inputBudget
  * 约束 2（Output）: sum(itemOutputTokens) ≤ outputBudget
  *
- * 贪心策略：依次添加 item，任一约束即将超出时开始新批次。
- * 单个 item 超出预算时仍独立成批（至少每批 1 个 item）。
+ * 贪心策略：依次Thêm item，任一约束即将vượt quá时开始新批次。
+ * 单 item vượt quá预算时仍độc lập成批（至少每批 1  item）。
  */
 function createBatches<TItem>(
   items: TItem[],
@@ -276,7 +276,7 @@ function createBatches<TItem>(
     currentOutputTokens += itemOutput;
   }
 
-  // 最后一个批次
+  // 最后一批次
   if (currentBatch.length > 0) {
     batches.push(currentBatch);
   }
@@ -287,7 +287,7 @@ function createBatches<TItem>(
 // ==================== Batch Execution ====================
 
 /**
- * 执行单个批次，带重试（指数退避，最多 MAX_BATCH_RETRIES 次）
+ * 执行单批次，带Thử lại（指数退避，tối đa MAX_BATCH_RETRIES 次）
  */
 async function executeBatchWithRetry<TItem, TResult>(
   batch: TItem[],
@@ -306,7 +306,7 @@ async function executeBatchWithRetry<TItem, TResult>(
     } catch (err) {
       lastError = err instanceof Error ? err : new Error(String(err));
 
-      // TOKEN_BUDGET_EXCEEDED 不重试（输入太大，重试也没用）
+      // TOKEN_BUDGET_EXCEEDED 不Thử lại（输入太大，Thử lại也没用）
       if ((lastError as any).code === 'TOKEN_BUDGET_EXCEEDED') {
         throw lastError;
       }
@@ -314,8 +314,8 @@ async function executeBatchWithRetry<TItem, TResult>(
       if (attempt < MAX_BATCH_RETRIES) {
         const delay = RETRY_BASE_DELAY * Math.pow(2, attempt);
         console.warn(
-          `[BatchProcessor] 批次执行失败 (attempt ${attempt + 1}/${MAX_BATCH_RETRIES + 1}), ` +
-          `${delay}ms 后重试: ${lastError.message}`,
+          `[BatchProcessor] 批次执行thất bại (attempt ${attempt + 1}/${MAX_BATCH_RETRIES + 1}), ` +
+          `${delay}ms 后Thử lại: ${lastError.message}`,
         );
         await new Promise(r => setTimeout(r, delay));
       }

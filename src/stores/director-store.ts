@@ -92,7 +92,7 @@ export {
 // 3. 瑙嗛鎻愮ず璇?(videoPrompt) - 鍔ㄦ€佸姩浣滄弿杩帮紝鐢ㄤ簬鐢熸垚瑙嗛
 export interface SplitScene {
   id: number;
-  // 鍦烘櫙鍚嶇О锛堝锛氬北鏉戝鏍★級
+  // 鍦烘櫙鍚嶇О锛堝锛氬Bắc鏉戝鏍★級
   sceneName: string;
   // 鍦烘櫙鍦扮偣锛堝锛氭暀瀹ゅ唴閮級
   sceneLocation: string;
@@ -1614,7 +1614,7 @@ export const useDirectorStore = create<DirectorStore>()(
     console.log('[DirectorStore] Added', newScenes.length, 'scenes from script, total:', splitScenes.length + newScenes.length);
   },
 
-  // 添加空白分镜（用户手动创建，自行上传图片/填写提示词/生成）
+  // Thêm空白Phân cảnh（người dùngThủ côngTạo，tự độngTải lên ảnh/填写prompt/Tạo）
   addBlankSplitScene: () => {
     const { activeProjectId, projects } = get();
     if (!activeProjectId) return;
@@ -1624,7 +1624,7 @@ export const useDirectorStore = create<DirectorStore>()(
 
     const blankScene: SplitScene = {
       id: newId,
-      sceneName: `空白分镜 ${newId + 1}`,
+      sceneName: `空白Phân cảnh ${newId + 1}`,
       sceneLocation: '',
       imageDataUrl: '',
       imageHttpUrl: null,

@@ -2,28 +2,28 @@
 // Licensed under AGPL-3.0-or-later. See LICENSE for details.
 // Commercial licensing available. See COMMERCIAL_LICENSE.md.
 /**
- * Trailer Service - AI 预告片分镜挑选服务
+ * Trailer Service - AI 预告片分镜chọn服务
  * 
- * 功能：从已有的分镜中智能挑选关键分镜，生成预告片
- * 挑选标准：
- * - 叙事功能为"高潮/转折"的优先
- * - 有强烈情绪标签的优先
- * - 有视觉冲击的场景优先
- * - 关键角色出场的优先
+ * chức năng：从hiện có的分镜đang xử lý...选quan trọng分镜，Tạo预告片
+ * chọnTiêu chuẩn：
+ * - tự sựchức năng为"cao trào/转折"的优先
+ * - 有强烈cảm xúc标签的优先
+ * - 有Thị giác冲击的场景优先
+ * - quan trọng角色出场的优先
  */
 
 import type { Shot, ProjectBackground } from '@/types/script';
 import type { SplitScene, TrailerDuration } from '@/stores/director-store';
 import { callFeatureAPI } from '@/lib/ai/feature-router';
 
-// 时长对应的分镜数量
+// thời lượng对应的分镜số lượng
 const DURATION_TO_SHOT_COUNT: Record<TrailerDuration, number> = {
-  10: 2,   // 10秒：2-3个分镜
-  30: 6,   // 30秒：5-6个分镜
-  60: 12,  // 1分钟：10-12个分镜
+  10: 2,   // 10秒：2-3分镜
+  30: 6,   // 30秒：5-6分镜
+  60: 12,  // 1 phút：10-12分镜
 };
 
-/** @deprecated 不再需要手动传递，自动从服务映射获取 */
+/** @deprecated 不再需要手动传递，Tự động从ánh xạ dịch vụ获取 */
 export interface TrailerGenerationOptions {
   apiKey?: string;
   provider?: string;
@@ -38,18 +38,18 @@ export interface TrailerGenerationResult {
 }
 
 /**
- * AI 挑选预告片分镜
+ * AI chọn预告片分镜
  * 
- * @param shots 所有可用的分镜
- * @param background 项目背景信息
- * @param duration 预告片时长
- * @param options API 配置
+ * @param shots Tất cả可用的分镜
+ * @param background 项目背景thông tin
+ * @param duration 预告片thời lượng
+ * @param options API cấu hình
  */
 export async function selectTrailerShots(
   shots: Shot[],
   background: ProjectBackground | null,
   duration: TrailerDuration,
-  _options?: TrailerGenerationOptions // 不再需要，保留以兼容
+  _options?: TrailerGenerationOptions // 不再需要，保留以tương thích
 ): Promise<TrailerGenerationResult> {
   if (shots.length === 0) {
     return {
@@ -62,7 +62,7 @@ export async function selectTrailerShots(
 
   const targetCount = DURATION_TO_SHOT_COUNT[duration];
   
-  // 如果分镜数量少于目标数量，直接返回所有分镜
+  // 如果分镜số lượng少于目标số lượng，Trực tiếp返回Tất cả分镜
   if (shots.length <= targetCount) {
     return {
       success: true,
@@ -86,52 +86,52 @@ export async function selectTrailerShots(
       shotSize: shot.shotSize || '',
     }));
 
-    const systemPrompt = `你是一位专业的电影预告片剪辑师，擅长从大量素材中挑选最具吸引力的镜头来制作预告片。
+    const systemPrompt = `你是一位chuyên nghiệp的电影预告片剪辑师，擅长从大量素材đang xử lý...具吸引力的镜头来制作预告片。
 
-你的任务是从给定的分镜列表中挑选出最适合做预告片的 ${targetCount} 个分镜。
+你的nhiệm vụ是从给定的分镜列表đang xử lý...最适合做预告片的 ${targetCount} 分镜。
 
-【预告片结构原则】
-1. **开场**：建立氛围，吸引注意（1-2个镜头）
-2. **冲突升级**：展示故事的核心冲突（2-4个镜头）
-3. **高潮悬念**：最具张力的画面，留下悬念（1-2个镜头）
+【预告片Cấu trúc原则】
+1. **开场**：建立Bầu không khí，吸引注意（1-2镜头）
+2. **冲突升级**：Hiển thị故事的核心冲突（2-4镜头）
+3. **cao trào悬念**：最具sức căng的画面，留下悬念（1-2镜头）
 
-【挑选标准】
-- 优先选择叙事功能为"高潮"、"转折"、"冲突"的镜头
-- 优先选择有强烈情绪（tense, excited, mysterious）的镜头
-- 优先选择有视觉冲击力的画面（动作场面、特写、对峙）
-- 优先选择主要角色出场的关键时刻
-- 覆盖不同集数，展示故事跨度
-- 避免剧透关键结局
+【chọnTiêu chuẩn】
+- 优先Chọntự sựchức năng为"cao trào"、"转折"、"冲突"的镜头
+- 优先Chọn有强烈cảm xúc（tense, excited, mysterious）的镜头
+- 优先Chọn有Thị giác冲击力的画面（动作场面、Cực cận cảnh、对峙）
+- 优先Chọn主要角色出场的quan trọng时刻
+- Ghi đè不同 tập数，Hiển thị故事跨度
+- Tránh剧透quan trọng结局
 
-【输出要求】
-请返回一个 JSON 数组，包含你挑选的分镜序号（index），按预告片播放顺序排列。
-格式：{ "selectedIndices": [1, 5, 12, 23, 45, 60] }`;
+【Đầu ra要求】
+请返回一 JSON 数组，chứa你chọn的分镜số thứ tự（index），按预告片播放thứ tự排列。
+định dạng：{ "selectedIndices": [1, 5, 12, 23, 45, 60] }`;
 
-    const userPrompt = `【项目信息】
-${background?.title ? `剧名：《${background.title}》` : ''}
-${background?.outline ? `大纲：${background.outline.slice(0, 500)}` : ''}
+    const userPrompt = `【项目thông tin】
+${background?.title ? `tên phim：《${background.title}》` : ''}
+${background?.outline ? `đại cương：${background.outline.slice(0, 500)}` : ''}
 
-【分镜列表】（共 ${shots.length} 个分镜）
+【分镜列表】（共 ${shots.length} 分镜）
 ${shotSummaries.map(s => 
   `[${s.index}] ${s.id}
    动作：${s.actionSummary.slice(0, 100)}
-   描述：${s.visualDescription.slice(0, 100)}
+   Mô tả：${s.visualDescription.slice(0, 100)}
    角色：${s.characterNames.join('、') || '无'}
-   叙事功能：${s.narrativeFunction || '未知'}
-   情绪：${Array.isArray(s.emotionTags) ? s.emotionTags.join(', ') : '无'}`
+   tự sựchức năng：${s.narrativeFunction || '未知'}
+   cảm xúc：${Array.isArray(s.emotionTags) ? s.emotionTags.join(', ') : '无'}`
 ).join('\n\n')}
 
-请从以上分镜中挑选 ${targetCount} 个最适合做预告片的镜头，返回 JSON 格式的序号列表。`;
+请从以上分镜đang xử lý...${targetCount} 最适合做预告片的镜头，返回 JSON định dạng的số thứ tự列表。`;
 
-    // 统一从服务映射获取配置
+    // 统一从ánh xạ dịch vụ获取cấu hình
     const result = await callFeatureAPI('script_analysis', systemPrompt, userPrompt);
 
-    // 解析 AI 返回的 JSON - 支持多种格式
+    // Phân tích AI trả về JSON - 支持多种định dạng
     let selectedIndices: number[] = [];
     
     console.log('[TrailerService] AI raw response (first 1000 chars):', result.slice(0, 1000));
     
-    // 尝试匹配 { "selectedIndices": [...] } 格式
+    // 尝试Khớp { "selectedIndices": [...] } định dạng
     const jsonMatch = result.match(/\{[\s\S]*?"selectedIndices"\s*:\s*\[[\d,\s]*\][\s\S]*?\}/);
     if (jsonMatch) {
       try {
@@ -142,7 +142,7 @@ ${shotSummaries.map(s =>
       }
     }
     
-    // 如果上面失败，尝试直接匹配数字数组 [1, 2, 3, ...]
+    // 如果上面thất bại，尝试Trực tiếpKhớp数字数组 [1, 2, 3, ...]
     if (selectedIndices.length === 0) {
       const arrayMatch = result.match(/\[\s*\d+(?:\s*,\s*\d+)*\s*\]/);
       if (arrayMatch) {
@@ -154,7 +154,7 @@ ${shotSummaries.map(s =>
       }
     }
     
-    // 如果还是失败，尝试提取所有数字
+    // 如果还是thất bại，尝试提取Tất cả数字
     if (selectedIndices.length === 0) {
       const numbers = result.match(/\b(\d{1,3})\b/g);
       if (numbers) {
@@ -166,12 +166,12 @@ ${shotSummaries.map(s =>
     }
     
     if (selectedIndices.length === 0) {
-      throw new Error('AI 返回格式错误，无法解析序号');
+      throw new Error('AI 返回định dạnglỗi，Không thểPhân tíchsố thứ tự');
     }
     
     console.log('[TrailerService] Parsed selectedIndices:', selectedIndices);
 
-    // 根据序号获取对应的分镜
+    // 根据số thứ tự获取对应的分镜
     const selectedShots = selectedIndices
       .filter(idx => idx >= 1 && idx <= shots.length)
       .map(idx => shots[idx - 1]);
@@ -184,43 +184,43 @@ ${shotSummaries.map(s =>
   } catch (error) {
     console.error('[TrailerService] AI selection failed:', error);
     
-    // 回退方案：使用规则挑选
+    // 回退方案：Sử dụng规则chọn
     const fallbackShots = selectTrailerShotsByRules(shots, targetCount);
     return {
       success: true,
       selectedShots: fallbackShots,
       shotIds: fallbackShots.map(s => s.id),
-      error: 'AI 挑选失败，使用规则挑选',
+      error: 'AI chọnthất bại，Sử dụng规则chọn',
     };
   }
 }
 
 /**
- * 规则挑选（AI 失败时的回退方案）
+ * 规则chọn（AI thất bại时的回退方案）
  */
 function selectTrailerShotsByRules(shots: Shot[], targetCount: number): Shot[] {
   // 评分函数
   const scoreShot = (shot: Shot): number => {
     let score = 0;
     
-    // 叙事功能评分
+    // tự sựchức năng评分
     const narrativeFunction = (shot as any).narrativeFunction || '';
-    if (narrativeFunction.includes('高潮')) score += 10;
+    if (narrativeFunction.includes('cao trào')) score += 10;
     if (narrativeFunction.includes('转折')) score += 8;
     if (narrativeFunction.includes('冲突')) score += 6;
     if (narrativeFunction.includes('升级')) score += 4;
     
-    // 情绪评分
+    // cảm xúc评分
     const emotionTags = (shot as any).emotionTags || [];
     if (emotionTags.includes('tense')) score += 5;
     if (emotionTags.includes('excited')) score += 5;
     if (emotionTags.includes('mysterious')) score += 4;
     if (emotionTags.includes('touching')) score += 3;
     
-    // 有对白的镜头更有吸引力
+    // 有Thoại的镜头更有吸引力
     if (shot.dialogue) score += 2;
     
-    // 有多个角色的镜头更有戏剧性
+    // 有多角色的镜头更有戏剧性
     if (shot.characterNames && shot.characterNames.length >= 2) score += 2;
     
     return score;
@@ -232,13 +232,13 @@ function selectTrailerShotsByRules(shots: Shot[], targetCount: number): Shot[] {
     score: scoreShot(shot),
   })).sort((a, b) => b.score - a.score);
 
-  // 从不同集数中均匀挑选
+  // 从不同 tập数đang xử lý...选
   const episodeIds = shots.map(s => s.episodeId).filter((id): id is string => !!id);
   const episodeSet = new Set(episodeIds);
   const episodeCount = episodeSet.size;
   
   if (episodeCount > 1) {
-    // 多集：每集挑选一部分
+    // 多 tập：每 tậpchọn一部分
     const perEpisode = Math.ceil(targetCount / episodeCount);
     const selected: Shot[] = [];
     const episodeSelected = new Map<string, number>();
@@ -253,20 +253,20 @@ function selectTrailerShotsByRules(shots: Shot[], targetCount: number): Shot[] {
       }
     }
     
-    // 按原始顺序排序（预告片按时间线）
+    // 按gốcthứ tự排序（预告片按时间线）
     return selected.sort((a, b) => {
       const idxA = shots.findIndex(s => s.id === a.id);
       const idxB = shots.findIndex(s => s.id === b.id);
       return idxA - idxB;
     });
   } else {
-    // 单集：直接取分数最高的
+    // 单 tập：Trực tiếp取分数最高的
     return scoredShots.slice(0, targetCount).map(s => s.shot);
   }
 }
 
 /**
- * 将挑选的 Shot 转换为 SplitScene 格式（用于 AI 导演分镜编辑）
+ * 将chọn的 Shot chuyển đổi thành SplitScene định dạng（用于 AI Đạo diễn分镜chỉnh sửa）
  */
 export function convertShotsToSplitScenes(
   shots: Shot[],
@@ -304,7 +304,7 @@ export function convertShotsToSplitScenes(
     dialogue: shot.dialogue || '',
     actionSummary: shot.actionSummary || '',
     cameraMovement: shot.cameraMovement || '',
-    // 叙事驱动字段
+    // tự sựdẫn dắttrường
     narrativeFunction: (shot as any).narrativeFunction || '',
     shotPurpose: (shot as any).shotPurpose || '',
     visualFocus: (shot as any).visualFocus || '',
@@ -327,7 +327,7 @@ export function convertShotsToSplitScenes(
     // 特效师
     atmosphericEffects: shot.atmosphericEffects,
     effectIntensity: shot.effectIntensity,
-    // 速度控制
+    // 速度điều khiển
     playbackSpeed: shot.playbackSpeed,
     // 连戏
     continuityRef: shot.continuityRef,

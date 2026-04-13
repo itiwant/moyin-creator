@@ -4,8 +4,8 @@
 "use client";
 
 /**
- * StyleEditor - 自定义风格编辑器
- * 新建/编辑自定义风格，支持参考图上传
+ * StyleEditor - Tùy chỉnhPhong cáchChỉnh sửa器
+ * Tạo mới/Chỉnh sửaTùy chỉnhPhong cách，Hỗ trợẢnh tham chiếuTải lên
  */
 
 import { useState, useEffect, useRef, useCallback } from "react";
@@ -21,7 +21,7 @@ import { X, ImagePlus, Save, ArrowLeft, Trash2, Sparkles, Loader2 } from "lucide
 import { toast } from "sonner";
 
 interface StyleEditorProps {
-  styleId: string | null; // null = 新建, 'new' = 新建, 其他 = 编辑
+  styleId: string | null; // null = Tạo mới, 'new' = Tạo mới, khác = Chỉnh sửa
   onClose: () => void;
 }
 
@@ -57,7 +57,7 @@ export function StyleEditor({ styleId, onClose }: StyleEditorProps) {
   const [extracting, setExtracting] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  // 加载已有数据
+  // 加载hiện códữ liệu
   useEffect(() => {
     if (existing) {
       setForm({
@@ -92,7 +92,7 @@ export function StyleEditor({ styleId, onClose }: StyleEditorProps) {
     });
   };
 
-  // 上传参考图
+  // Tải lênẢnh tham chiếu
   const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
     if (!files || files.length === 0) return;
@@ -101,7 +101,7 @@ export function StyleEditor({ styleId, onClose }: StyleEditorProps) {
     try {
       const newImages: string[] = [];
       for (const file of Array.from(files)) {
-        // 转为 data URL 再保存（避免 blob: 协议不被 Electron 支持）
+        // 转为 data URL 再Lưu（Tránh blob: 协议不被 Electron Hỗ trợ）
         const dataUrl = await fileToDataUrl(file);
         const filename = `style_ref_${Date.now()}_${file.name}`;
         const localPath = await saveImageToLocal(dataUrl, "styles", filename);
@@ -119,7 +119,7 @@ export function StyleEditor({ styleId, onClose }: StyleEditorProps) {
     }
   };
 
-  // 移除参考图
+  // xóaẢnh tham chiếu
   const removeImage = (index: number) => {
     setForm((prev) => ({
       ...prev,
@@ -127,10 +127,10 @@ export function StyleEditor({ styleId, onClose }: StyleEditorProps) {
     }));
   };
 
-  // AI 提取风格词
+  // AI trích xuất từ khóa phong cách
   const handleExtractStyle = async () => {
     if (!form.prompt.trim() && form.referenceImages.length === 0) {
-      toast.warning("请先输入风格描述或上传参考图");
+      toast.warning("Vui lòng nhập Mô tả phong cách hoặc Tải lên ảnh tham chiếu trước");
       return;
     }
     setExtracting(true);
@@ -142,16 +142,16 @@ export function StyleEditor({ styleId, onClose }: StyleEditorProps) {
         sceneTokens: result.sceneTokens,
         description: prev.description || result.summaryZh,
       }));
-      toast.success("风格提取完成");
+      toast.success("Trích xuất phong cách hoàn tất");
     } catch (err) {
-      const msg = err instanceof Error ? err.message : "提取失败";
+      const msg = err instanceof Error ? err.message : "Trích xuất thất bại";
       toast.error(msg);
     } finally {
       setExtracting(false);
     }
   };
 
-  // 保存
+  // Lưu
   const handleSave = () => {
     if (!form.name.trim()) return;
 
@@ -176,48 +176,48 @@ export function StyleEditor({ styleId, onClose }: StyleEditorProps) {
 
   return (
     <div className="h-full flex flex-col">
-      {/* 顶部栏 */}
+      {/* Thanh trên */}
       <div className="flex items-center gap-2 px-4 py-3 border-b border-border shrink-0">
         <Button variant="ghost" size="icon" className="h-7 w-7" onClick={onClose}>
           <ArrowLeft className="w-4 h-4" />
         </Button>
         <h2 className="text-sm font-semibold flex-1">
-          {isNew ? "新建风格" : "编辑风格"}
+          {isNew ? "Tạo mớiPhong cách" : "Chỉnh sửaPhong cách"}
         </h2>
         <Button size="sm" onClick={handleSave} disabled={!form.name.trim()}>
           <Save className="w-3.5 h-3.5 mr-1.5" />
-          保存
+          Lưu
         </Button>
       </div>
 
-      {/* 表单区域 */}
+      {/* Khu vực biểu mẫu */}
       <ScrollArea className="flex-1">
         <div className="p-4 space-y-5">
-          {/* 风格名称 */}
+          {/* Phong cáchTên */}
           <div className="space-y-1.5">
             <Label className="text-xs">
-              风格名称 <span className="text-destructive">*</span>
+              Phong cáchTên <span className="text-destructive">*</span>
             </Label>
             <Input
               value={form.name}
               onChange={(e) => updateField("name", e.target.value)}
-              placeholder="给风格起个名字"
+              placeholder="Đặt tên phong cách"
               className="h-8 text-sm"
             />
           </div>
 
-          {/* 风格提示词 */}
+          {/* Phong cáchprompt */}
           <div className="space-y-1.5">
-            <Label className="text-xs">风格提示词</Label>
+            <Label className="text-xs">Phong cáchprompt</Label>
             <textarea
               value={form.prompt}
               onChange={(e) => updateField("prompt", e.target.value)}
-              placeholder="输入风格关键词，中英文均可，如：anime style, soft lighting, pastel colors"
+              placeholder="Nhập từ khóa phong cách, có thể dùng tiếng Anh hoặc tiếng Việt, ví dụ: anime style, soft lighting, pastel colors"
               className="w-full min-h-[100px] rounded-md border border-input bg-background px-3 py-2 text-sm placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring resize-y"
             />
           </div>
 
-          {/* AI 提取按钮 */}
+          {/* Nút AI trích xuất */}
           <div className="pt-1">
             <Button
               variant="outline"
@@ -227,20 +227,20 @@ export function StyleEditor({ styleId, onClose }: StyleEditorProps) {
               disabled={extracting || (!form.prompt.trim() && form.referenceImages.length === 0)}
             >
               {extracting ? (
-                <><Loader2 className="w-3.5 h-3.5 mr-1.5 animate-spin" />提取中…</>
+                <><Loader2 className="w-3.5 h-3.5 mr-1.5 animate-spin" />Đang trích xuất...</>
               ) : (
-                <><Sparkles className="w-3.5 h-3.5 mr-1.5" />AI 提取风格词</>
+                <><Sparkles className="w-3.5 h-3.5 mr-1.5" />AI trích xuất từ khóa phong cách</>
               )}
             </Button>
             <p className="text-[10px] text-muted-foreground mt-1">
-              从上方描述 + 参考图中智能分离"视觉风格"和"场景内容"，使用「图片理解」服务
+              Tách "Phong cách thị giác" và "Nội dung cảnh" từ Mô tả + Ảnh tham chiếu ở trên, Sử dụng dịch vụ「Phân tích ảnh」
             </p>
           </div>
 
-          {/* 提取结果：styleTokens */}
+          {/* Kết quả trích xuất: styleTokens */}
           {form.styleTokens && (
             <div className="space-y-1.5">
-              <Label className="text-xs text-primary">✨ 视觉风格词（角色/场景设定图使用）</Label>
+              <Label className="text-xs text-primary">✨ Từ khóa phong cách thị giác (dùng cho ảnh thiết kế Nhân vật/Cảnh)</Label>
               <textarea
                 value={form.styleTokens}
                 onChange={(e) => updateField("styleTokens", e.target.value)}
@@ -249,10 +249,10 @@ export function StyleEditor({ styleId, onClose }: StyleEditorProps) {
             </div>
           )}
 
-          {/* 提取结果：sceneTokens */}
+          {/* Kết quả trích xuất: sceneTokens */}
           {form.sceneTokens && (
             <div className="space-y-1.5">
-              <Label className="text-xs text-muted-foreground">🎬 场景/构图词（导演台/分镜使用）</Label>
+              <Label className="text-xs text-muted-foreground">🎬 Từ khóa cảnh/bố cục (dùng cho bảng đạo diễn/phân cảnh)</Label>
               <textarea
                 value={form.sceneTokens}
                 onChange={(e) => updateField("sceneTokens", e.target.value)}
@@ -261,40 +261,40 @@ export function StyleEditor({ styleId, onClose }: StyleEditorProps) {
             </div>
           )}
 
-          {/* 负面提示词 */}
+          {/* Prompt phủ định */}
           <div className="space-y-1.5">
-            <Label className="text-xs">负面提示词</Label>
+            <Label className="text-xs">Prompt phủ định</Label>
             <textarea
               value={form.negativePrompt}
               onChange={(e) => updateField("negativePrompt", e.target.value)}
-              placeholder="不希望出现的元素，如：blurry, low quality, watermark"
+              placeholder="Các yếu tố không muốn xuất hiện, ví dụ: blurry, low quality, watermark"
               className="w-full min-h-[80px] rounded-md border border-input bg-background px-3 py-2 text-sm placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring resize-y"
             />
           </div>
 
-          {/* 描述 */}
+          {/* Mô tả */}
           <div className="space-y-1.5">
-            <Label className="text-xs">描述</Label>
+            <Label className="text-xs">Mô tả</Label>
             <textarea
               value={form.description}
               onChange={(e) => updateField("description", e.target.value)}
-              placeholder="简单描述这个风格的特点，方便以后查找"
+              placeholder="Mô tả ngắn gọn đặc điểm của phong cách này, để dễ tìm kiếm sau"
               className="w-full min-h-[60px] rounded-md border border-input bg-background px-3 py-2 text-sm placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring resize-y"
             />
           </div>
 
-          {/* 参考图上传 */}
+          {/* Ảnh tham chiếuTải lên */}
           <div className="space-y-1.5">
-            <Label className="text-xs">参考图</Label>
+            <Label className="text-xs">Ảnh tham chiếu</Label>
             <div className="space-y-2">
-              {/* 已上传图片 */}
+              {/* đã tải lênảnh */}
               {form.referenceImages.length > 0 && (
                 <div className="grid grid-cols-3 gap-2">
                   {form.referenceImages.map((img, i) => (
                     <div key={i} className="relative aspect-square rounded-md overflow-hidden border border-border group">
                       <LocalImage
                         src={img}
-                        alt={`参考图 ${i + 1}`}
+                        alt={`Ảnh tham chiếu ${i + 1}`}
                         className="w-full h-full object-cover"
                       />
                       <button
@@ -308,7 +308,7 @@ export function StyleEditor({ styleId, onClose }: StyleEditorProps) {
                 </div>
               )}
 
-              {/* 上传按钮 */}
+              {/* Tải lênnút */}
               <input
                 ref={fileInputRef}
                 type="file"
@@ -325,7 +325,7 @@ export function StyleEditor({ styleId, onClose }: StyleEditorProps) {
                 disabled={uploading}
               >
                 <ImagePlus className="w-3.5 h-3.5 mr-1.5" />
-                {uploading ? "上传中..." : "添加参考图"}
+                {uploading ? "Tải lênđang xử lý..." : "ThêmẢnh tham chiếu"}
               </Button>
             </div>
           </div>

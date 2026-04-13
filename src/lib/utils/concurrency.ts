@@ -2,27 +2,27 @@
 // Licensed under AGPL-3.0-or-later. See LICENSE for details.
 // Commercial licensing available. See COMMERCIAL_LICENSE.md.
 /**
- * 错开启动的并发控制执行器
+ * 错开启动的并发điều khiển执行器
  *
  * 行为：
- * - 每个新任务在前一个任务启动后至少等待 staggerMs 才启动
- * - 同时最多运行 maxConcurrent 个任务
- * - 当活跃任务数达到上限时，等待有任务完成后才启动下一个（仍保持 staggerMs 间隔）
+ * - 每新nhiệm vụ在前一nhiệm vụ启动后至少等待 staggerMs 才启动
+ * - 同时tối đa运行 maxConcurrent nhiệm vụ
+ * - 当đang hoạt độngnhiệm vụ数达到上限时，等待有nhiệm vụhoàn thành后才启动下一（仍giữ staggerMs 间隔）
  *
- * 例如 maxConcurrent=3, staggerMs=5000, 每个任务耗时20秒：
- *   t=0s:  启动任务1
- *   t=5s:  启动任务2
- *   t=10s: 启动任务3（达到并发上限）
- *   t=15s: 任务4的 stagger 到期，但并发已满，排队等待
- *   t=20s: 任务1完成 → 任务4立即启动
- *   t=25s: 任务2完成 → 任务5立即启动
+ * 例如 maxConcurrent=3, staggerMs=5000, 每nhiệm vụ耗时20秒：
+ *   t=0s:  启动nhiệm vụ1
+ *   t=5s:  启动nhiệm vụ2
+ *   t=10s: 启动nhiệm vụ3（达到并发上限）
+ *   t=15s: nhiệm vụ4的 stagger 到期，但并发已满，排队等待
+ *   t=20s: nhiệm vụ1hoàn thành → nhiệm vụ4立即启动
+ *   t=25s: nhiệm vụ2hoàn thành → nhiệm vụ5立即启动
  *
- * 例如 maxConcurrent=1, staggerMs=5000, 每个任务耗时2秒：
- *   t=0s:  启动任务1
- *   t=2s:  任务1完成
- *   t=5s:  stagger 到期 → 启动任务2（严格保持5秒间隔）
- *   t=7s:  任务2完成
- *   t=10s: 启动任务3
+ * 例如 maxConcurrent=1, staggerMs=5000, 每nhiệm vụ耗时2秒：
+ *   t=0s:  启动nhiệm vụ1
+ *   t=2s:  nhiệm vụ1hoàn thành
+ *   t=5s:  stagger 到期 → 启动nhiệm vụ2（严格giữ5秒间隔）
+ *   t=7s:  nhiệm vụ2hoàn thành
+ *   t=10s: 启动nhiệm vụ3
  */
 export async function runStaggered<T>(
   tasks: (() => Promise<T>)[],
@@ -33,7 +33,7 @@ export async function runStaggered<T>(
 
   const results: PromiseSettledResult<T>[] = new Array(tasks.length);
 
-  // 信号量：控制最大并发数
+  // 信号量：điều khiển最大并发数
   let activeCount = 0;
   const waiters: (() => void)[] = [];
 
@@ -49,23 +49,23 @@ export async function runStaggered<T>(
   const release = (): void => {
     activeCount--;
     if (waiters.length > 0) {
-      // 唤醒队列中的下一个等待者
+      // 唤醒队列đang xử lý...等待者
       activeCount++;
       const next = waiters.shift()!;
       next();
     }
   };
 
-  // 逐个启动任务，每个间隔 staggerMs
-  // 第N个任务在 N * staggerMs 后才被允许启动（stagger 保底间隔）
+  // 逐启动nhiệm vụ，每间隔 staggerMs
+  // 第Nnhiệm vụ在 N * staggerMs 后才被允许启动（stagger 保底间隔）
   // 同时受信号量限制（并发保底）
   const taskPromises = tasks.map(async (task, idx) => {
-    // 错开启动：第N个任务至少在 N * staggerMs 后才启动
+    // 错开启动：第Nnhiệm vụ至少在 N * staggerMs 后才启动
     if (idx > 0) {
       await new Promise<void>((r) => setTimeout(r, idx * staggerMs));
     }
 
-    // 获取并发槽位（如果已满则等待有任务完成）
+    // 获取并发槽位（如果已满则等待有nhiệm vụhoàn thành）
     await acquire();
 
     try {

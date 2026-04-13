@@ -57,7 +57,7 @@ Return RAW JSON (no markdown):
   "styleTokens": "token1, token2, ...",
   "sceneTokens": "token1, token2, ...",
   "category": "real",
-  "summaryZh": "中文简述"
+  "summaryZh": "đang xử lý..."
 }`;
 
 function buildEndpoint(baseUrl: string, path: string): string {
@@ -72,7 +72,7 @@ async function resolveImageUrl(src: string): Promise<string> {
 }
 
 function extractErrorMessage(status: number, errorText: string): string {
-  let message = `API 请求失败: ${status}`;
+  let message = `Yêu cầu API thất bại: ${status}`;
 
   try {
     const errorJson = JSON.parse(errorText);
@@ -84,11 +84,11 @@ function extractErrorMessage(status: number, errorText: string): string {
   }
 
   if (status === 401 || status === 403) {
-    return 'API Key 无效或已过期，请检查“图片理解”服务的 Key 配置';
+    return 'API Key không hợp lệ hoặc đãhết hạn，请kiểm tra“nhận dạng ảnh”服务的 Key cấu hình';
   }
 
   if (status >= 500) {
-    return message || `上游服务暂时不可用 (${status})`;
+    return message || `Dịch vụ thượng nguồn tạm không Khả dụng (${status})`;
   }
 
   return message;
@@ -117,13 +117,13 @@ export async function extractStyleTokens(
 ): Promise<StyleExtractionResult> {
   const config = getFeatureConfig('image_understanding');
   if (!config) {
-    throw new Error('请先在设置中为“图片理解”功能绑定 API 提供商');
+    throw new Error('请先在设置đang xử lý...片理解”chức năng绑定 API 提供商');
   }
 
   const baseUrl = config.baseUrl?.replace(/\/+$/, '');
   const model = config.model || config.models?.[0];
   if (!baseUrl || !model) {
-    throw new Error('图片理解服务缺少 Base URL 或模型配置');
+    throw new Error('Dịch vụ nhận dạng ảnh thiếu cấu hình Base URL hoặc Model');
   }
 
   const contentParts: Array<{ type: string; text?: string; image_url?: { url: string } }> = [];
@@ -203,7 +203,7 @@ export async function extractStyleTokens(
     parsed = JSON.parse(cleanContent);
   } catch {
     console.error('[StyleExtractor] Failed to parse JSON:', content);
-    throw new Error('AI 返回的格式无法解析');
+    throw new Error('Không thể Phân tích định dạng AI trả về');
   }
 
   const result: StyleExtractionResult = {

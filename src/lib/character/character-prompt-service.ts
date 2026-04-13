@@ -4,15 +4,15 @@
 /**
  * Character Prompt Generation Service
  * 
- * 专业角色设计服务，与现有角色库(character-library-store)对齐。
+ * chuyên nghiệp角色Thiết kế服务，与hiện có角色库(character-library-store)对齐。
  * 
- * 功能：
- * 1. 读取剧本元数据，理解角色成长弧线
- * 2. 根据剧情阶段生成不同的角色形象
- * 3. 生成的阶段可转换为角色库的 CharacterVariation
- * 4. 使用世界级专业人设提升 AI 生成质量
+ * chức năng：
+ * 1. 读取剧本元dữ liệu，理解角色成长cung
+ * 2. 根据剧情Giai đoạnTạo不同的角色形象
+ * 3. Tạo的Giai đoạn可chuyển đổi thành角色库的 CharacterVariation
+ * 4. Sử dụng世界级chuyên nghiệp人设提升 AI Tạo质量
  * 
- * 注意：这是一个辅助服务，不修改现有角色库的任何功能。
+ * 注意：这是一辅助服务，不修改hiện có角色库的任何chức năng。
  */
 
 import { useScriptStore } from '@/stores/script-store';
@@ -22,45 +22,45 @@ import type { CharacterVariation } from '@/stores/character-library-store';
 // ==================== 类型定义 ====================
 
 /**
- * 角色阶段形象
- * 一个角色在不同剧情阶段可能有不同的外观/状态
+ * 角色Giai đoạn形象
+ * 一角色在不同剧情Giai đoạn可能有不同的ngoại hình/状态
  */
 export interface CharacterStageAppearance {
-  stageId: string;           // 阶段ID
-  stageName: string;         // 阶段名称（如"少年时期"、"成为大亨后"）
-  episodeRange: string;      // 集数范围（如"1-5"、"10-20"）
-  description: string;       // 该阶段的角色描述
-  visualPromptEn: string;    // 英文视觉提示词
-  visualPromptZh: string;    // 中文视觉提示词
-  ageDescription?: string;   // 年龄描述
-  clothingStyle?: string;    // 服装风格
-  keyChanges?: string;       // 与上一阶段的关键变化
+  stageId: string;           // Giai đoạnID
+  stageName: string;         // Giai đoạn名称（如"少年时期"、"成为大亨后"）
+  episodeRange: string;      //  tập数范围（如"1-5"、"10-20"）
+  description: string;       // 该Giai đoạn的角色Mô tả
+  visualPromptEn: string;    // 英文Thị giác提示词
+  visualPromptZh: string;    // đang xử lý...提示词
+  ageDescription?: string;   // TuổiMô tả
+  clothingStyle?: string;    // trang phục风格
+  keyChanges?: string;       // 与上一Giai đoạn的quan trọng变化
 }
 
 /**
- * 完整角色设计
+ * đầy đủ角色Thiết kế
  */
 export interface CharacterDesign {
   characterId: string;
   characterName: string;
-  // 基础信息
-  baseDescription: string;      // 基础角色描述
+  // Thông tin cơ bản
+  baseDescription: string;      // 基础角色Mô tả
   baseVisualPromptEn: string;   // 基础英文提示词
-  baseVisualPromptZh: string;   // 基础中文提示词
-  // 多阶段形象
+  baseVisualPromptZh: string;   // 基础đang xử lý...词
+  // 多Giai đoạn形象
   stages: CharacterStageAppearance[];
-  // 一致性元素（所有阶段共享）
+  // giống性元素（Tất cảGiai đoạn共享）
   consistencyElements: {
-    facialFeatures: string;     // 面部特征（不变）
+    facialFeatures: string;     // Khuôn mặt特征（không thay đổi）
     bodyType: string;           // 体型
     uniqueMarks: string;        // 独特标记（胎记、疤痕等）
   };
-  // 元数据
+  // 元dữ liệu
   generatedAt: number;
   sourceProjectId: string;
 }
 
-/** @deprecated 不再需要手动传递，自动从服务映射获取 */
+/** @deprecated 不再需要手动传递，Tự động从ánh xạ dịch vụ获取 */
 export interface CharacterDesignOptions {
   apiKey?: string;
   provider?: string;
@@ -68,42 +68,42 @@ export interface CharacterDesignOptions {
   styleId?: string;
 }
 
-// ==================== AI 角色设计服务 ====================
+// ==================== AI 角色Thiết kế服务 ====================
 
 /**
- * 为剧本角色生成专业的多阶段角色设计
+ * 为剧本角色Tạochuyên nghiệp的多Giai đoạn角色Thiết kế
  * 
- * @param characterId 剧本中的角色ID
+ * @param characterId 剧本đang xử lý...ID
  * @param projectId 项目ID
- * @param options API配置
+ * @param options APIcấu hình
  */
 export async function generateCharacterDesign(
   characterId: string,
   projectId: string,
-  _options?: CharacterDesignOptions // 不再需要，保留以兼容
+  _options?: CharacterDesignOptions // 不再需要，保留以tương thích
 ): Promise<CharacterDesign> {
   const store = useScriptStore.getState();
   const project = store.projects[projectId];
   
   if (!project) {
-    throw new Error('项目不存在');
+    throw new Error('项目không tồn tại');
   }
   
   const scriptData = project.scriptData;
   if (!scriptData) {
-    throw new Error('剧本数据不存在');
+    throw new Error('剧本dữ liệukhông tồn tại');
   }
   
-  // 找到目标角色
+  // Tìm thấy目标角色
   const character = scriptData.characters.find(c => c.id === characterId);
   if (!character) {
-    throw new Error('角色不存在');
+    throw new Error('角色không tồn tại');
   }
   
-  // 收集角色相关的上下文信息
+  // thu thập角色相关的上下文thông tin
   const context = buildCharacterContext(project, character);
   
-  // 调用 AI 生成角色设计
+  // gọi API AI Tạo角色Thiết kế
   const design = await callAIForCharacterDesign(
     character,
     context
@@ -113,7 +113,7 @@ export async function generateCharacterDesign(
 }
 
 /**
- * 构建角色上下文信息
+ * 构建角色上下文thông tin
  */
 function buildCharacterContext(project: any, character: any): {
   projectTitle: string;
@@ -134,7 +134,7 @@ function buildCharacterContext(project: any, character: any): {
   const episodes = project.episodeRawScripts || [];
   const shots = project.shots || [];
   
-  // 收集角色在各集中的出场信息
+  // thu thập角色在各 tậpđang xử lý...thông tin
   const characterAppearances: Array<{
     episodeIndex: number;
     episodeTitle: string;
@@ -171,18 +171,18 @@ function buildCharacterContext(project: any, character: any): {
   // 构建角色传记
   const characterBio = [
     character.name,
-    character.gender ? `性别：${character.gender}` : '',
-    character.age ? `年龄：${character.age}` : '',
-    character.personality ? `性格：${character.personality}` : '',
-    character.role ? `身份：${character.role}` : '',
+    character.gender ? `Giới tính：${character.gender}` : '',
+    character.age ? `Tuổi: ${character.age}` : '',
+    character.personality ? `Tính cách：${character.personality}` : '',
+    character.role ? `Danh tính：${character.role}` : '',
     character.traits ? `特质：${character.traits}` : '',
     character.appearance ? `外貌：${character.appearance}` : '',
     character.relationships ? `关系：${character.relationships}` : '',
-    character.keyActions ? `关键事迹：${character.keyActions}` : '',
+    character.keyActions ? `Sự kiện quan trọng：${character.keyActions}` : '',
   ].filter(Boolean).join('\n');
   
   return {
-    projectTitle: background?.title || project.scriptData?.title || '未命名剧本',
+    projectTitle: background?.title || project.scriptData?.title || 'Chưa đặt tên剧本',
     genre: background?.genre || '',
     era: background?.era || '',
     outline: background?.outline || '',
@@ -193,94 +193,94 @@ function buildCharacterContext(project: any, character: any): {
 }
 
 /**
- * 调用 AI 生成角色设计
+ * gọi API AI Tạo角色Thiết kế
  */
 async function callAIForCharacterDesign(
   character: any,
   context: any
 ): Promise<CharacterDesign> {
   
-  const systemPrompt = `你是好莱坞顶级角色设计大师，曾为漫威、迪士尼、皮克斯设计过无数经典角色。
+  const systemPrompt = `你是好莱坞顶级角色Thiết kế大师，曾为漫威、迪士尼、皮克斯Thiết kế过无数经典角色。
 
-你的专业能力：
-- **角色视觉设计**：能准确捕捉角色的外在形象、服装风格、肢体语言
-- **角色成长弧线**：理解角色在不同剧情阶段的形象变化（从少年到成年、从普通人到英雄等）
-- **AI图像生成经验**：深谙 Midjourney、DALL-E、Stable Diffusion 等 AI 绘图模型的工作原理，能写出高质量的提示词
-- **一致性保持**：知道如何描述面部特征、体型等不变元素，确保角色在不同阶段仍可辨认
+你的chuyên nghiệp能力：
+- **角色Thị giácThiết kế**：能准确捕捉角色的外在形象、trang phục风格、肢体Ngôn ngữ
+- **角色成长cung**：理解角色在不同剧情Giai đoạn的形象变化（从少年到成年、从普通人到英雄等）
+- **AI图像Tạo经验**：深谙 Midjourney、DALL-E、Stable Diffusion 等 AI 绘图模型的工作原理，能写出高质量的提示词
+- **giống性giữ**：知道如何Mô tảKhuôn mặt特征、体型等không thay đổi元素，确保角色在不同Giai đoạn仍可辨认
 
-你的任务是根据剧本信息，为角色设计**多阶段视觉形象**。
+你的nhiệm vụ是根据剧本thông tin，为角色Thiết kế**多Giai đoạnThị giác形象**。
 
-【剧本信息】
-剧名：《${context.projectTitle}》
+【剧本thông tin】
+tên phim：《${context.projectTitle}》
 类型：${context.genre || '未知'}
-时代：${context.era || '现代'}
-总集数：${context.totalEpisodes}集
+thời đại：${context.era || '现代'}
+总 tập数：${context.totalEpisodes} tập
 
-【故事大纲】
+【故事đại cương】
 ${context.outline?.slice(0, 800) || '无'}
 
-【角色信息】
+【角色thông tin】
 ${context.characterBio}
 
 【角色出场统计】
 ${context.characterAppearances.length > 0 
   ? context.characterAppearances.map((a: any) => 
-      `第${a.episodeIndex}集「${a.episodeTitle}」: 出场${a.actions.length}次`
+      `第${a.episodeIndex} tập「${a.episodeTitle}」: 出场${a.actions.length}次`
     ).join('\n')
-  : '暂无出场数据'
+  : '暂无出场dữ liệu'
 }
 
-【任务要求】
-1. **分析角色成长弧线**：根据剧情判断角色是否有明显的阶段变化
-   - 年龄变化：小孩→少年→成年→老年
-   - 身份变化：普通人→商业大亨、学徒→武林高手
+【nhiệm vụ要求】
+1. **分析角色成长cung**：根据剧情判断角色是否有明显的Giai đoạn变化
+   - Tuổi变化：小孩→少年→成年→老年
+   - Danh tính变化：普通人→商业大亨、学徒→武林高手
    - 状态变化：健康→受伤、普通→修仙后形态
    
-2. **设计多阶段形象**：为每个阶段生成独立的视觉提示词
-   - 如果角色没有明显阶段变化，只需设计1个阶段
-   - 如果有变化，设计2-4个阶段
+2. **Thiết kế多Giai đoạn形象**：为每Giai đoạnTạođộc lập的Thị giác提示词
+   - 如果角色没有明显Giai đoạn变化，只需Thiết kế1Giai đoạn
+   - 如果有变化，Thiết kế2-4Giai đoạn
 
-3. **保持一致性元素**：识别角色的不变特征
-   - 面部特征（眼睛形状、五官比例）
+3. **giữgiống性元素**：识别角色的không thay đổi特征
+   - Khuôn mặt特征（眼睛形状、五官Tỷ lệ）
    - 体型特征（身高、体格）
    - 独特标记（胎记、疤痕、标志性特征）
 
 4. **提示词要求**：
-   - 英文提示词：40-60词，适合AI图像生成
-   - 中文提示词：详细描述，包含细节
+   - 英文提示词：40-60词，适合AI图像Tạo
+   - đang xử lý...词：详细Mô tả，chứa细节
 
-请以JSON格式返回：
+请以JSONđịnh dạng返回：
 {
   "characterName": "角色名",
-  "baseDescription": "角色基础描述（一句话）",
+  "baseDescription": "角色基础Mô tả（一句话）",
   "baseVisualPromptEn": "基础英文提示词",
-  "baseVisualPromptZh": "基础中文提示词",
+  "baseVisualPromptZh": "基础đang xử lý...词",
   "consistencyElements": {
-    "facialFeatures": "面部特征描述（英文）",
-    "bodyType": "体型描述（英文）",
-    "uniqueMarks": "独特标记描述（英文，如无则为空）"
+    "facialFeatures": "Khuôn mặt特征Mô tả（英文）",
+    "bodyType": "体型Mô tả（英文）",
+    "uniqueMarks": "独特标记Mô tả（英文，如无则为空）"
   },
   "stages": [
     {
       "stageId": "stage_1",
-      "stageName": "阶段名称（如：少年时期）",
+      "stageName": "Giai đoạn名称（如：少年时期）",
       "episodeRange": "1-5",
-      "description": "该阶段角色状态描述",
-      "visualPromptEn": "该阶段英文视觉提示词",
-      "visualPromptZh": "该阶段中文视觉提示词",
-      "ageDescription": "年龄描述",
-      "clothingStyle": "服装风格",
-      "keyChanges": "与上一阶段的变化（第一阶段为空）"
+      "description": "该Giai đoạn角色状态Mô tả",
+      "visualPromptEn": "该Giai đoạn英文Thị giác提示词",
+      "visualPromptZh": "该Giai đoạnđang xử lý...提示词",
+      "ageDescription": "TuổiMô tả",
+      "clothingStyle": "trang phục风格",
+      "keyChanges": "与上一Giai đoạn的变化（第一Giai đoạn为空）"
     }
   ]
 }`;
 
-  const userPrompt = `请为角色「${character.name}」设计多阶段视觉形象。`;
+  const userPrompt = `请为角色「${character.name}」Thiết kế多Giai đoạnThị giác形象。`;
   
-  // 统一从服务映射获取配置
+  // 统一从ánh xạ dịch vụ获取cấu hình
   const result = await callFeatureAPI('script_analysis', systemPrompt, userPrompt);
   
-  // 解析结果
+  // Phân tíchkết quả
   try {
     let cleaned = result.replace(/```json\n?/g, '').replace(/```\n?/g, '').trim();
     const jsonStart = cleaned.indexOf('{');
@@ -308,25 +308,25 @@ ${context.characterAppearances.length > 0
     };
   } catch (e) {
     console.error('[CharacterDesign] Failed to parse AI response:', result);
-    throw new Error('解析角色设计失败');
+    throw new Error('Phân tích角色Thiết kếthất bại');
   }
 }
 
 /**
- * 根据集数获取角色当前阶段的提示词
+ * 根据 tập数获取角色当前Giai đoạn的提示词
  * 
- * @param design 角色设计
- * @param episodeIndex 当前集数
+ * @param design 角色Thiết kế
+ * @param episodeIndex 当前 tập数
  */
 export function getCharacterPromptForEpisode(
   design: CharacterDesign,
   episodeIndex: number
 ): { promptEn: string; promptZh: string; stageName: string } {
-  // 找到对应阶段
+  // Tìm thấy对应Giai đoạn
   for (const stage of design.stages) {
     const [start, end] = stage.episodeRange.split('-').map(Number);
     if (episodeIndex >= start && episodeIndex <= end) {
-      // 组合一致性元素和阶段提示词
+      // 组合giống性元素和Giai đoạn提示词
       const consistencyPrefix = [
         design.consistencyElements.facialFeatures,
         design.consistencyElements.bodyType,
@@ -352,33 +352,33 @@ export function getCharacterPromptForEpisode(
 }
 
 /**
- * 将角色设计转换为角色库的变体格式 (CharacterVariation)
- * 可直接用于 addVariation() 方法
+ * 将角色Thiết kếchuyển đổi thành角色库的变体định dạng (CharacterVariation)
+ * 可Trực tiếp用于 addVariation() 方法
  * 
- * @param design 角色设计
- * @returns 可直接添加到角色库的变体数组
+ * @param design 角色Thiết kế
+ * @returns 可Trực tiếpThêm到角色库的变体数组
  */
 export function convertDesignToVariations(design: CharacterDesign): Array<Omit<CharacterVariation, 'id'>> {
   return design.stages.map(stage => ({
     name: stage.stageName,
-    // 组合一致性元素 + 阶段提示词
+    // 组合giống性元素 + Giai đoạn提示词
     visualPrompt: [
       design.consistencyElements.facialFeatures,
       design.consistencyElements.bodyType,
       design.consistencyElements.uniqueMarks,
       stage.visualPromptEn,
     ].filter(Boolean).join(', '),
-    // referenceImage 留空，等待用户生成
+    // referenceImage Để trống，等待người dùngTạo
     referenceImage: undefined,
     generatedAt: undefined,
   }));
 }
 
 /**
- * 为角色库中的角色生成变体（Wardrobe System）
- * 基于角色设计的不同阶段
+ * 为角色库đang xử lý...Tạo变体（Wardrobe System）
+ * 基于角色Thiết kế的不同Giai đoạn
  * 
- * @deprecated 使用 convertDesignToVariations 代替
+ * @deprecated Sử dụng convertDesignToVariations 代替
  */
 export function generateVariationsFromDesign(design: CharacterDesign): Array<{
   name: string;
@@ -391,9 +391,9 @@ export function generateVariationsFromDesign(design: CharacterDesign): Array<{
 }
 
 /**
- * 为角色库的角色更新基础描述和视觉特征
+ * 为角色库的角色更新基础Mô tả和Đặc điểm thị giác
  * 
- * @param design 角色设计
+ * @param design 角色Thiết kế
  * @returns 可用于 updateCharacter() 的更新对象
  */
 export function getCharacterUpdatesFromDesign(design: CharacterDesign): {

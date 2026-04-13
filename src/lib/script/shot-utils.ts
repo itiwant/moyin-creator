@@ -3,14 +3,14 @@
 // Commercial licensing available. See COMMERCIAL_LICENSE.md.
 /**
  * Shot Utilities - 共用工具函数
- * 抽取自 episode-tree.tsx, property-panel.tsx, context-panel.tsx 中的重复代码
+ * 抽取自 episode-tree.tsx, property-panel.tsx, context-panel.tsx đang xử lý...代码
  */
 
 import type { CompletionStatus, Shot } from "@/types/script";
 import type { ShotSizeType } from "@/stores/director-store";
 
 /**
- * 根据 Shot 的 imageStatus/videoStatus 计算完成状态
+ * 根据 Shot 的 imageStatus/videoStatus 计算hoàn thành状态
  */
 export function getShotCompletionStatus(shot: Shot): CompletionStatus {
   if (shot.imageStatus === "completed" && shot.videoStatus === "completed") {
@@ -23,7 +23,7 @@ export function getShotCompletionStatus(shot: Shot): CompletionStatus {
 }
 
 /**
- * 计算一组带 status 字段的 items 的进度字符串
+ * 计算一组带 status trường的 items 的Tiến độký tự串
  */
 export function calculateProgress(items: { status?: CompletionStatus }[]): string {
   const completed = items.filter((i) => i.status === "completed").length;
@@ -31,22 +31,22 @@ export function calculateProgress(items: { status?: CompletionStatus }[]): strin
 }
 
 /**
- * 景别名称 → ShotSizeType 映射表
- * 用于将剧本中的景别描述转换为标准化 ID
+ * Kích thước cảnh名称 → ShotSizeType ánh xạ表
+ * 用于将剧本đang xử lý...Mô tảchuyển đổi thànhTiêu chuẩn化 ID
  */
 export const SHOT_SIZE_MAP: Record<string, ShotSizeType> = {
-  'ECU': 'ecu', 'Extreme Close-Up': 'ecu', '特写': 'ecu',
-  'CU': 'cu', 'Close-Up': 'cu', '近景': 'cu',
-  'MCU': 'mcu', 'Medium Close-Up': 'mcu', '中近景': 'mcu',
-  'MS': 'ms', 'Medium Shot': 'ms', '中景': 'ms',
-  'MLS': 'mls', 'Medium Long Shot': 'mls', '中远景': 'mls',
-  'LS': 'ls', 'Long Shot': 'ls', '全景': 'ls',
-  'WS': 'ws', 'Wide Shot': 'ws', '远景': 'ws',
-  'POV': 'pov', 'POV Shot': 'pov', '主观镜头': 'pov',
+  'ECU': 'ecu', 'Extreme Close-Up': 'ecu', 'Cực cận cảnh': 'ecu',
+  'CU': 'cu', 'Close-Up': 'cu', 'Cận cảnh': 'cu',
+  'MCU': 'mcu', 'Medium Close-Up': 'mcu', 'đang xử lý...: 'mcu',
+  'MS': 'ms', 'Medium Shot': 'ms', 'đang xử lý... 'ms',
+  'MLS': 'mls', 'Medium Long Shot': 'mls', 'đang xử lý...: 'mls',
+  'LS': 'ls', 'Long Shot': 'ls', 'toàn cảnh': 'ls',
+  'WS': 'ws', 'Wide Shot': 'ws', 'Viễn cảnh': 'ws',
+  'POV': 'pov', 'POV Shot': 'pov', 'ống kính chủ quan': 'pov',
 };
 
 /**
- * 将景别字符串转换为标准化 ShotSizeType
+ * 将Kích thước cảnhký tự串chuyển đổi thànhTiêu chuẩn化 ShotSizeType
  */
 export function normalizeShotSize(shotSize: string | undefined | null): ShotSizeType | null {
   if (!shotSize) return null;

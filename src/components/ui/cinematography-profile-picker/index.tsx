@@ -4,12 +4,12 @@
 "use client";
 
 /**
- * CinematographyProfilePicker — 摄影风格档案选择器
+ * CinematographyProfilePicker — 摄影风格档案Chọn器
  *
- * 功能：
- * - 左侧：按分类显示档案列表（emoji + 名称）
- * - 右侧：悬停/选中时显示详细描述、摄影参数、参考影片
- * - 支持 Popover 弹出模式和内嵌模式
+ * chức năng：
+ * - Bên trái：按phân loại显示档案列表（emoji + 名称）
+ * - bên phải：Di chuột/đã chọn时显示详细Mô tả、摄影tham số、Tham chiếu影片
+ * - 支持 Popover popup出chế độ和内嵌chế độ
  */
 
 import React, { useState, useMemo } from "react";
@@ -31,26 +31,26 @@ import { getMediaType, MEDIA_TYPE_LABELS, type MediaType } from "@/lib/constants
 import { isFieldSkipped } from "@/lib/generation/media-type-tokens";
 
 interface CinematographyProfilePickerProps {
-  /** 当前选中的档案 ID */
+  /** ID hồ sơ đang chọn */
   value: string;
-  /** 选择变化回调 */
+  /** Callback khi chọn thay đổi */
   onChange: (profileId: string) => void;
-  /** 是否使用下拉弹出模式（默认 true） */
+  /** Có dùng chế độ popup thả xuống (mặc định true) */
   popover?: boolean;
-  /** 自定义触发器（仅 popover 模式） */
+  /** Trigger tùy chỉnh (chỉ chế độ popover) */
   trigger?: React.ReactNode;
-  /** 自定义类名 */
+  /** Tên class tùy chỉnh */
   className?: string;
-  /** 禁用状态 */
+  /** Trạng thái vô hiệu */
   disabled?: boolean;
-  /** 未选择时的占位文字 */
+  /** Văn bản Placeholder khi chưa chọn */
   placeholder?: string;
-  /** 当前视觉风格 ID（用于显示媒介适配提示） */
+  /** ID phong cách thị giác hiện tại (để hiển thị gợi ý thích nghi phương tiện) */
   styleId?: string;
 }
 
 /**
- * 摄影风格档案选择器
+ * 摄影风格档案Chọn器
  */
 export function CinematographyProfilePicker({
   value,
@@ -59,23 +59,23 @@ export function CinematographyProfilePicker({
   trigger,
   className,
   disabled = false,
-  placeholder = "选择摄影风格",
+  placeholder = "Chọn phong cách nhiếp ảnh",
   styleId,
 }: CinematographyProfilePickerProps) {
   const [hoveredProfile, setHoveredProfile] = useState<CinematographyProfile | null>(null);
   const [isOpen, setIsOpen] = useState(false);
 
-  // 获取当前选中的档案
+  // 获取Đang chọn的档案
   const selectedProfile = useMemo(() => getCinematographyProfile(value), [value]);
 
-  // 预览的档案（悬停优先，否则显示选中的，兆底第一个）
+  // 预览的档案（Di chuột优先，否则显示đã chọn的，兆底第一）
   const previewProfile = hoveredProfile || selectedProfile || CINEMATOGRAPHY_PROFILES[0];
 
   // 媒介类型适配提示
   const mediaType: MediaType | undefined = styleId ? getMediaType(styleId) : undefined;
   const showAdaptHint = mediaType && mediaType !== 'cinematic';
 
-  // 处理选择
+  // 处理Chọn
   const handleSelect = (profile: CinematographyProfile) => {
     onChange(profile.id);
     if (popover) {
@@ -83,19 +83,19 @@ export function CinematographyProfilePicker({
     }
   };
 
-  // 内容面板
+  // Nội dungpanel
   const pickerContent = (
     <div className={cn("flex", popover ? "w-[560px] h-[420px]" : "w-full h-full", className)}>
-      {/* 左侧：档案列表 */}
+      {/* Bên trái: danh sách hồ sơ */}
       <ScrollArea className="w-[220px] border-r border-border">
         <div className="p-2">
           {CINEMATOGRAPHY_PROFILE_CATEGORIES.map((category) => (
             <div key={category.id} className="mb-4">
-              {/* 分类标题 */}
+              {/* Tiêu đề phân loại */}
               <div className="px-2 py-1.5 text-xs font-medium text-muted-foreground border-b border-border/50 mb-2">
                 {category.emoji} {category.name}
               </div>
-              {/* 档案列表 */}
+              {/* Danh sách hồ sơ */}
               <div className="space-y-1">
                 {category.profiles.map((profile) => (
                   <ProfileItem
@@ -113,9 +113,9 @@ export function CinematographyProfilePicker({
         </div>
       </ScrollArea>
 
-      {/* 右侧：预览 */}
+      {/* Bên phải: Xem trước */}
       <div className="flex-1 p-4 flex flex-col overflow-hidden">
-        {/* 档案标题 */}
+        {/* Tiêu đề hồ sơ */}
         <div className="flex items-center gap-2 mb-3">
           <span className="text-2xl">{previewProfile.emoji}</span>
           <div>
@@ -124,50 +124,50 @@ export function CinematographyProfilePicker({
           </div>
         </div>
 
-        {/* 描述 */}
+        {/* Mô tả */}
         <div className="text-xs text-muted-foreground mb-3 leading-relaxed">
           {previewProfile.description}
         </div>
 
-        {/* 媒介适配提示 */}
+        {/* Gợi ý thích nghi phương tiện */}
         {showAdaptHint && (
           <div className="text-xs mb-3 px-2 py-1.5 rounded bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20">
-            ⓘ 当前视觉风格为「{MEDIA_TYPE_LABELS[mediaType]}」媒介，摄影参数将自动适配
-            {isFieldSkipped(mediaType, 'cameraRig') && '（器材/景深/转焦将被跳过）'}
+            ⓘ Phong cách thị giác hiện tại là phương tiện「{MEDIA_TYPE_LABELS[mediaType]}」, tham số nhiếp ảnh sẽ tự động thích nghi
+            {isFieldSkipped(mediaType, 'cameraRig') && '(Thiết bị/Độ sâu/Chuyển tiêu sẽ bị bỏ qua)'}
           </div>
         )}
 
-        {/* 摄影参数速览 */}
+        {/* Tổng quan tham số nhiếp ảnh */}
         <ScrollArea className="flex-1 mb-3">
           <div className="space-y-2 text-xs">
             <ParamRow
-              label="💡 灯光"
+              label="💡 Ánh sáng"
               value={`${previewProfile.defaultLighting.style} · ${previewProfile.defaultLighting.direction} · ${previewProfile.defaultLighting.colorTemperature}`}
             />
             <ParamRow
-              label="🔭 焦点"
+              label="🔭 Tiêu điểm"
               value={`${previewProfile.defaultFocus.depthOfField} · ${previewProfile.defaultFocus.focusTransition}`}
             />
             <ParamRow
-              label="🎥 器材"
+              label="🎥 Thiết bị"
               value={`${previewProfile.defaultRig.cameraRig} · ${previewProfile.defaultRig.movementSpeed}`}
             />
             {previewProfile.defaultAtmosphere.effects.length > 0 && (
               <ParamRow
-                label="🌫️ 氛围"
+                label="🌫️ Bầu không khí"
                 value={`${previewProfile.defaultAtmosphere.effects.join(" + ")} (${previewProfile.defaultAtmosphere.intensity})`}
               />
             )}
             <ParamRow
-              label="⏱️ 速度"
+              label="⏱️ Tốc độ"
               value={previewProfile.defaultSpeed.playbackSpeed}
             />
           </div>
         </ScrollArea>
 
-        {/* 参考影片 */}
+        {/* Phim tham chiếu */}
         <div className="border-t border-border/50 pt-2">
-          <div className="text-xs text-muted-foreground mb-1">🎞️ 参考影片</div>
+          <div className="text-xs text-muted-foreground mb-1">🎞️ Phim tham chiếu</div>
           <div className="flex flex-wrap gap-1">
             {previewProfile.referenceFilms.map((film) => (
               <span
@@ -183,7 +183,7 @@ export function CinematographyProfilePicker({
     </div>
   );
 
-  // 下拉模式
+  // 下拉chế độ
   if (popover) {
     return (
       <Popover open={isOpen} onOpenChange={setIsOpen}>
@@ -234,12 +234,12 @@ export function CinematographyProfilePicker({
     );
   }
 
-  // 内嵌模式
+  // 内嵌chế độ
   return pickerContent;
 }
 
 /**
- * 单个档案项
+ * 单档案项
  */
 interface ProfileItemProps {
   profile: CinematographyProfile;
@@ -263,9 +263,9 @@ function ProfileItem({ profile, isSelected, onSelect, onHover, onLeave }: Profil
     >
       {/* Emoji */}
       <span className="text-base flex-shrink-0">{profile.emoji}</span>
-      {/* 名称 */}
+      {/* Tên */}
       <span className="flex-1 text-left text-sm truncate">{profile.name}</span>
-      {/* 选中标记 */}
+      {/* Dấu đã chọn */}
       {isSelected && (
         <Check className="w-4 h-4 text-primary flex-shrink-0" />
       )}
@@ -274,7 +274,7 @@ function ProfileItem({ profile, isSelected, onSelect, onHover, onLeave }: Profil
 }
 
 /**
- * 参数行
+ * tham số行
  */
 function ParamRow({ label, value }: { label: string; value: string }) {
   return (

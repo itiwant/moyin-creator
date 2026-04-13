@@ -4,12 +4,12 @@
 "use client";
 
 /**
- * AngleController - Google Earth 风格 3D 视角控制器
+ * AngleController - Google Earth Phong cách 3D Góc nhìnđiều khiển器
  * 
  * 交互升级：
- * - 鼠标拖拽：控制旋转（水平/俯仰）
- * - 鼠标滚轮：控制缩放（景别）
- * - 磁吸效果：接近标准角度时自动吸附，解决"太丝滑"问题
+ * - 鼠标Kéo：điều khiểnXoay（水平/俯仰）
+ * - 鼠标Lăn：điều khiểnThu phóng（Kích thước cảnh）
+ * - 磁吸效果：接近Tiêu chuẩn角度时Tự động吸附，解决"太丝滑"问题
  */
 
 import React, { useState, useCallback, useEffect, useMemo, useRef } from "react";
@@ -41,8 +41,8 @@ export interface AngleControllerProps {
   compact?: boolean;
 }
 
-// ... (保持 CUBE_VERTICES 和 CUBE_EDGES 不变)
-// 立方体頂8个顶点的坐标（归一化）
+// ... (giữ CUBE_VERTICES 和 CUBE_EDGES không thay đổi)
+// 立方体頂8顶点的坐标（归一化）
 const CUBE_VERTICES = [
   { x: -1, y: -1, z: -1 },
   { x: 1, y: -1, z: -1 },
@@ -56,9 +56,9 @@ const CUBE_VERTICES = [
 
 // 立方体的12条边
 const CUBE_EDGES = [
-  [0, 1], [1, 2], [2, 3], [3, 0], // 前面
-  [4, 5], [5, 6], [6, 7], [7, 4], // 后面
-  [0, 4], [1, 5], [2, 6], [3, 7], // 连接
+  [0, 1], [1, 2], [2, 3], [3, 0], // Mặt trước
+  [4, 5], [5, 6], [6, 7], [7, 4], // Mặt sau
+  [0, 4], [1, 5], [2, 6], [3, 7], // Kết nối
 ];
 
 export function AngleController({
@@ -70,19 +70,19 @@ export function AngleController({
   isLoading = false,
   compact = false,
 }: AngleControllerProps) {
-  // 状态管理
+  // Trạng tháiQuản lý
   const [direction, setDirection] = useState<HorizontalDirection>(initialDirection);
   const [elevation, setElevation] = useState<ElevationAngle>(initialElevation);
   const [shotSize, setShotSize] = useState<ShotSize>(initialShotSize);
   
-  // 连续的视角参数 (用于渲染动画)
-  const [theta, setTheta] = useState(45); // 水平 0-360
-  const [phi, setPhi] = useState(90);    // 垂直 30-150
+  // 连续的Góc nhìntham số (用于渲染动画)
+  const [theta, setTheta] = useState(45); // Ngang 0-360
+  const [phi, setPhi] = useState(90);    // Dọc 30-150
   
-  // 图片比例状态
-  const [imgAspectRatio, setImgAspectRatio] = useState(16 / 9); // 默认宽屏
+  // ảnhTỷ lệTrạng thái
+  const [imgAspectRatio, setImgAspectRatio] = useState(16 / 9); // Mặc địnhRộng
 
-  // 交互状态
+  // 交互Trạng thái
   const [isDragging, setIsDragging] = useState(false);
   const [lastMousePos, setLastMousePos] = useState({ x: 0, y: 0 });
   const [cubeRotation, setCubeRotation] = useState(0);
@@ -100,13 +100,13 @@ export function AngleController({
     const elevIdx = ELEVATION_ANGLES.findIndex(e => e.id === initialElevation);
     
     if (dir) setTheta(dir.degrees);
-    // 粗略映射 elevation 到 phi
+    // 粗略ánh xạ elevation 到 phi
     // low(0)->130, eye(1)->90, elevated(2)->60, high(3)->40
     if (elevIdx >= 0) {
       const targetPhi = [130, 90, 60, 40][elevIdx];
       setPhi(targetPhi);
     }
-  }, []); // 仅在挂载时执行一次
+  }, []); // Chỉ chạy một lần khi mount
 
   // 动画循环
   useEffect(() => {
@@ -120,7 +120,7 @@ export function AngleController({
     };
   }, []);
 
-  // 核心逻辑：吸附到最近的标准角度 (Snapping)
+  // 核心逻辑：吸附到最近的Tiêu chuẩn角度 (Snapping)
   const snapToGrid = useCallback((t: number, p: number, sSize: ShotSize) => {
     // 1. 水平方向吸附 (每45度)
     const normalizedTheta = ((t % 360) + 360) % 360;
@@ -132,12 +132,12 @@ export function AngleController({
     let elevIndex = 1; // default eye-level
     let snappedPhi = 90;
 
-    if (p > 110) { elevIndex = 0; snappedPhi = 130; }      // low-angle (仰视 - 摄像机在下)
+    if (p > 110) { elevIndex = 0; snappedPhi = 130; }      // low-angle (nhìn lên - máy quay ở dưới)
     else if (p > 75) { elevIndex = 1; snappedPhi = 90; }   // eye-level
     else if (p > 50) { elevIndex = 2; snappedPhi = 60; }   // elevated
-    else { elevIndex = 3; snappedPhi = 40; }               // high-angle (俯视 - 摄像机在上)
+    else { elevIndex = 3; snappedPhi = 40; }               // high-angle (nhìn xuống - máy quay ở trên)
 
-    // 3. 更新状态 (如果发生变化)
+    // 3. 更新Trạng thái (如果发生变化)
     const newDir = HORIZONTAL_DIRECTIONS[dirIndex];
     const newElev = ELEVATION_ANGLES[elevIndex];
 
@@ -158,11 +158,11 @@ export function AngleController({
       });
     }
 
-    // 返回吸附后的视觉坐标(可选：如果想要完全吸附视觉效果，可以使用这个返回值)
+    // Quay lại吸附后的Thị giác坐标(可选：如果想要完全吸附Thị giác效果，可以Sử dụng这Quay lại值)
     return { theta: snappedTheta, phi: snappedPhi };
   }, [direction, elevation, shotSize, onAngleChange]);
 
-  // 处理拖拽 (Orbit Rotation)
+  // 处理Kéo (Orbit Rotation)
   const handleDrag = useCallback((clientX: number, clientY: number) => {
     const deltaX = clientX - lastMousePos.x;
     const deltaY = clientY - lastMousePos.y;
@@ -175,7 +175,7 @@ export function AngleController({
     setTheta(prev => (prev + deltaX * sensitivity) % 360);
     setPhi(prev => Math.max(30, Math.min(150, prev - deltaY * sensitivity)));
     
-    // 实时计算吸附结果
+    // 实时计算吸附kết quả
     snapToGrid(
       theta + deltaX * sensitivity, 
       phi - deltaY * sensitivity, 
@@ -183,7 +183,7 @@ export function AngleController({
     );
   }, [lastMousePos, theta, phi, shotSize, snapToGrid]);
 
-  // 处理滚轮 (Zoom) - 使用 ref 回调来避免 passive event listener 问题
+  // 处理Lăn (Zoom) - Sử dụng ref 回调来Tránh passive event listener 问题
   const handleWheelRef = useRef<(e: WheelEvent) => void>();
   handleWheelRef.current = (e: WheelEvent) => {
     e.stopPropagation();
@@ -194,8 +194,8 @@ export function AngleController({
     const currentIndex = sizes.indexOf(shotSize);
     
     let newIndex = currentIndex;
-    if (delta > 0 && currentIndex < 2) newIndex++; // 向下滚 -> 缩小/变远 (Wide)
-    if (delta < 0 && currentIndex > 0) newIndex--; // 向上滚 -> 放大/变近 (Close)
+    if (delta > 0 && currentIndex < 2) newIndex++; // Cuộn xuống -> thu nhỏ/ra xa (Wide)
+    if (delta < 0 && currentIndex > 0) newIndex--; // Cuộn lên -> phóng to/lại gần (Close)
     
     if (newIndex !== currentIndex) {
       const newSize = sizes[newIndex];
@@ -204,7 +204,7 @@ export function AngleController({
     }
   };
 
-  // 使用原生事件监听器绑定 wheel 事件（设置 passive: false）
+  // Sử dụng原生事件监听器绑定 wheel 事件（Cài đặt passive: false）
   useEffect(() => {
     const container = containerRef.current;
     if (!container) return;
@@ -240,7 +240,7 @@ export function AngleController({
     };
   }, [isDragging, handleDrag]);
 
-  // 辅助函数：坐标转换
+  // 辅助函数：坐标chuyển đổi
   const sphericalToCartesian = (t: number, p: number, r: number) => {
     const thetaRad = (t - 90) * (Math.PI / 180);
     const phiRad = p * (Math.PI / 180);
@@ -272,19 +272,19 @@ export function AngleController({
     };
   };
 
-  // 计算当前视觉位置
+  // 计算当前Thị giác位置
   const controllerPos = sphericalToCartesian(theta, phi, radius);
   const projectedController = project3D(controllerPos.x, controllerPos.y, controllerPos.z);
   
-  // 计算当前方向索引（用于高亮LED灯）
+  // 计算当前方向chỉ mục（用于高亮LED灯）
   const directionIndex = Math.round(((theta % 360) + 360) % 360 / 45) % 8;
 
-  // 计算 3D 卡片的尺寸 (适应图片比例，且不超过最大范围)
-  const maxCardSize = size * 0.7; // 增加一点最大范围
+  // 计算 3D 卡片的尺寸 (适应ảnhTỷ lệ，且不超过最大范围)
+  const maxCardSize = size * 0.7; // Tăng phạm vi tối đa một chút
   let cardWidth = maxCardSize;
   let cardHeight = maxCardSize / imgAspectRatio;
 
-  // 如果高度超出了，就以高度为基准
+  // 如果高度vượt quá了，就以高度为基准
   if (cardHeight > maxCardSize) {
     cardHeight = maxCardSize;
     cardWidth = maxCardSize * imgAspectRatio;
@@ -292,7 +292,7 @@ export function AngleController({
 
   return (
     <div className="flex flex-col items-center gap-3">
-      {/* 主控制器区域 */}
+      {/* Vùng bộ điều khiển chính */}
       <div
         ref={containerRef}
         className={cn(
@@ -302,10 +302,10 @@ export function AngleController({
         style={{ width: size, height: size }}
         onMouseDown={handleMouseDown}
       >
-        {/* 背景：深空 + 模糊 */}
+        {/* Nền: không gian sâu + mờ */}
         <div className="absolute inset-0 bg-gradient-to-b from-black/80 to-[#111] backdrop-blur-xl" />
 
-        {/* 1. 立方体网格框架 (背景层) */}
+        {/* 1. Khung lưới khối lập phương (lớp nền) */}
         <svg className="absolute inset-0 pointer-events-none" width={size} height={size}>
           {CUBE_EDGES.map(([i, j], idx) => {
             const v1 = rotateVertex(CUBE_VERTICES[i], cubeRotation);
@@ -324,7 +324,7 @@ export function AngleController({
           })}
         </svg>
 
-        {/* 2. 中央3D预览卡片 (交互核心) */}
+        {/* 2. Thẻ Xem trước (lõi tương tác) */}
         <div 
           className="absolute pointer-events-none flex items-center justify-center"
           style={{
@@ -370,7 +370,7 @@ export function AngleController({
                   />
                 </div>
                 
-                {/* 玻璃反光效果 */}
+                {/* Hiệu ứng phản chiếu kính */}
                 <div 
                   className="absolute inset-0 rounded-[8px] bg-gradient-to-tr from-white/10 via-transparent to-transparent pointer-events-none mix-blend-overlay"
                   style={{
@@ -378,7 +378,7 @@ export function AngleController({
                   }} 
                 />
                 
-                {/* 3D厚度/边框效果 */}
+                {/* Hiệu ứng độ dày/viền 3D */}
                 <div 
                   className="absolute inset-0 rounded-[8px] border border-white/20 pointer-events-none"
                   style={{ transform: 'translateZ(1px)' }}
@@ -392,14 +392,14 @@ export function AngleController({
           </div>
         </div>
 
-        {/* 3. 外围指示器层 */}
+        {/* 3. Lớp chỉ thị ngoại vi */}
         
-        {/* 圆形轨道 */}
+        {/* Quỹ đạo tròn */}
         <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
           <div className="absolute rounded-full border border-white/10" style={{ width: radius * 2, height: radius * 2 }} />
         </div>
 
-        {/* 8个方向LED灯 */}
+        {/* 8 đèn LED hướng */}
         <div className="absolute inset-0 pointer-events-none">
           {HORIZONTAL_DIRECTIONS.map((dir, i) => {
             const deg = (i * 45 - 90) * (Math.PI / 180);
@@ -419,7 +419,7 @@ export function AngleController({
           })}
         </div>
 
-        {/* 激光连接线 */}
+        {/* Đường kết nối laser */}
         <svg className="absolute inset-0 pointer-events-none" width={size} height={size}>
            <line
             x1={projectedController.x} y1={projectedController.y}
@@ -431,7 +431,7 @@ export function AngleController({
           />
         </svg>
 
-        {/* 黄色控制点 (现在作为指示器 + 辅助手柄) */}
+        {/* Điểm điều khiển vàng (hiện dùng làm chỉ thị + tay cầm phụ) */}
         <div
           className={cn(
             "absolute z-20 transition-transform duration-75",
@@ -452,7 +452,7 @@ export function AngleController({
           </div>
         </div>
         
-        {/* 加载中覆盖层 */}
+        {/* Lớp Ghi đè khi đang tải */}
         {isLoading && (
           <div className="absolute inset-0 flex items-center justify-center bg-black/60 z-50">
             <div className="w-8 h-8 border-2 border-[#ccff00] border-t-transparent rounded-full animate-spin" />
@@ -460,7 +460,7 @@ export function AngleController({
         )}
       </div>
 
-      {/* 底部信息栏 */}
+      {/* Thanh thông tin phía dưới */}
       <div className="flex items-center gap-2 px-3 py-1.5 bg-[#1a1a1a] rounded-full border border-white/5 shadow-lg">
         <span className="text-[10px] text-[#ccff00] font-mono">
           {getAngleLabel(direction, elevation, shotSize)}
@@ -481,7 +481,7 @@ export function AngleController({
       
       {!compact && (
         <div className="text-[9px] text-zinc-500 font-mono">
-          [拖拽] 旋转 · [滚轮] 缩放
+          [Kéo] Xoay · [Lăn] Thu phóng
         </div>
       )}
     </div>

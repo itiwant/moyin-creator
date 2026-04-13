@@ -4,8 +4,8 @@
 "use client";
 
 /**
- * AssetSidebar - 资产面板左侧导航树
- * 可插拔设计，后续可扩展素材库、作品库等子模块
+ * AssetSidebar - Tài sảnpanelĐiều hướng trái树
+ * 可插拔Thiết kế，后续可扩展Thư viện phương tiện、作品库等con模块
  */
 
 import { cn } from "@/lib/utils";
@@ -20,7 +20,7 @@ import {
 } from "lucide-react";
 import { useState } from "react";
 
-// 导航节点类型
+// 导航mốcLoại
 export type AssetSection = "style-default" | "style-custom" | "props-library";
 
 interface AssetSidebarProps {
@@ -39,19 +39,19 @@ interface NavModule {
 const NAV_MODULES: NavModule[] = [
   {
     id: "styles",
-    label: "风格库",
+    label: "Thư viện phong cách",
     icon: Palette,
     children: [
-      { id: "style-default", label: "默认风格", icon: Layers },
-      { id: "style-custom", label: "我的风格", icon: UserCircle },
+      { id: "style-default", label: "Mặc địnhPhong cách", icon: Layers },
+      { id: "style-custom", label: "Phong cách của tôi", icon: UserCircle },
     ],
   },
   {
     id: "props",
-    label: "道具库",
+    label: "Thư viện đạo cụ",
     icon: Box,
     children: [
-      { id: "props-library", label: "我的道具", icon: Box },
+      { id: "props-library", label: "Đạo cụ của tôi", icon: Box },
     ],
   },
 ];
@@ -72,19 +72,19 @@ export function AssetSidebar({ activeSection, onSectionChange }: AssetSidebarPro
 
   return (
     <div className="h-full flex flex-col bg-panel border-r border-border">
-      {/* 标题 */}
+      {/* tiêu đề */}
       <div className="px-3 py-3 border-b border-border shrink-0">
         <div className="flex items-center gap-2">
           <FolderOpen className="w-4 h-4 text-primary" />
-          <span className="text-sm font-semibold">个人资产库</span>
+          <span className="text-sm font-semibold">Thư viện tài sản cá nhân</span>
         </div>
       </div>
 
-      {/* 导航树 */}
+      {/* Cây điều hướng */}
       <div className="flex-1 overflow-y-auto py-2">
         {NAV_MODULES.map((mod) => (
           <div key={mod.id} className="mb-1">
-            {/* 模块标题 */}
+            {/* Tiêu đề module */}
             <button
               className="flex items-center gap-1.5 w-full px-3 py-1.5 text-xs font-medium text-muted-foreground hover:text-foreground transition-colors"
               onClick={() => toggleModule(mod.id)}
@@ -98,7 +98,7 @@ export function AssetSidebar({ activeSection, onSectionChange }: AssetSidebarPro
               {mod.label}
             </button>
 
-            {/* 子项 */}
+            {/* Mục con */}
             {expanded.has(mod.id) && (
               <div className="ml-3">
                 {mod.children.map((child) => (

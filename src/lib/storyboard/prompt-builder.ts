@@ -107,7 +107,7 @@ export function buildRegenerationPrompt(config: StoryboardPromptConfig): string 
 
 /**
  * Extract style tokens from style preset ID
- * 统一使用 visual-styles 风格库，兼容旧 ID
+ * 统一Sử dụng visual-styles 风格库，tương thích旧 ID
  */
 export function getStyleTokensFromPreset(styleId: string): string[] {
   return getStyleTokensFromVisualStyles(styleId);

@@ -12,6 +12,7 @@ import { parseApiKeys } from "@/lib/api-key-manager";
 import { Loader2 } from "lucide-react";
 import { migrateToProjectStorage, recoverFromLegacy } from "@/lib/storage-migration";
 import type { AvailableUpdateInfo } from "@/types/update";
+import { I18nProvider } from "@/i18n";
 
 let hasTriggeredStartupUpdateCheck = false;
 
@@ -22,7 +23,7 @@ function App() {
   const [startupUpdate, setStartupUpdate] = useState<AvailableUpdateInfo | null>(null);
   const [updateDialogOpen, setUpdateDialogOpen] = useState(false);
 
-  // 启动时运行存储迁移 + 数据恢复
+  // 启动时运行存储迁移 + dữ liệu恢复
   useEffect(() => {
     (async () => {
       try {
@@ -37,7 +38,7 @@ function App() {
     })();
   }, []);
 
-  // 启动时自动同步所有已配置 API Key 的供应商模型元数据
+  // 启动时Tự động同步Tất cả已cấu hình API Key 的供应商模型元dữ liệu
   useEffect(() => {
     if (isMigrating) return;
     let cancelled = false;
@@ -73,7 +74,7 @@ function App() {
     };
   }, [isMigrating]);
 
-  // 同步主题到 html 元素
+  // 同步Chủ đề到 html 元素
   useEffect(() => {
     const root = document.documentElement;
     root.classList.remove("light", "dark");
@@ -117,32 +118,34 @@ function App() {
     };
   }, [isMigrating, updateSettings.autoCheckEnabled, updateSettings.ignoredVersion]);
 
-  // 迁移中显示加载界面
+  // 迁移đang xử lý...载界面
   if (isMigrating) {
     return (
       <div className="h-screen w-screen flex items-center justify-center bg-background">
         <div className="flex flex-col items-center gap-4">
           <Loader2 className="h-8 w-8 animate-spin text-primary" />
-          <p className="text-muted-foreground">正在初始化...</p>
+          <p className="text-muted-foreground">Đang khởi tạo...</p>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="h-screen w-screen overflow-hidden">
-      <Layout />
-      <UpdateDialog
-        open={updateDialogOpen}
-        onOpenChange={setUpdateDialogOpen}
-        updateInfo={startupUpdate}
-        onIgnoreVersion={(version) => {
-          setUpdateSettings({ ignoredVersion: version });
-          setStartupUpdate(null);
-        }}
-      />
-      <Toaster richColors position="top-center" />
-    </div>
+    <I18nProvider>
+      <div className="h-screen w-screen overflow-hidden">
+        <Layout />
+        <UpdateDialog
+          open={updateDialogOpen}
+          onOpenChange={setUpdateDialogOpen}
+          updateInfo={startupUpdate}
+          onIgnoreVersion={(version) => {
+            setUpdateSettings({ ignoredVersion: version });
+            setStartupUpdate(null);
+          }}
+        />
+        <Toaster richColors position="top-center" />
+      </div>
+    </I18nProvider>
   );
 }
 
