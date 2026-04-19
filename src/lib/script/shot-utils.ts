@@ -37,12 +37,12 @@ export function calculateProgress(items: { status?: CompletionStatus }[]): strin
 export const SHOT_SIZE_MAP: Record<string, ShotSizeType> = {
   'ECU': 'ecu', 'Extreme Close-Up': 'ecu', 'Cực cận cảnh': 'ecu',
   'CU': 'cu', 'Close-Up': 'cu', 'Cận cảnh': 'cu',
-  'MCU': 'mcu', 'Medium Close-Up': 'mcu', 'đang xử lý...: 'mcu',
-  'MS': 'ms', 'Medium Shot': 'ms', 'đang xử lý... 'ms',
-  'MLS': 'mls', 'Medium Long Shot': 'mls', 'đang xử lý...: 'mls',
-  'LS': 'ls', 'Long Shot': 'ls', 'toàn cảnh': 'ls',
+  'MCU': 'mcu', 'Medium Close-Up': 'mcu', 'Trung cận cảnh': 'mcu',
+  'MS': 'ms', 'Medium Shot': 'ms', 'Trung cảnh': 'ms',
+  'MLS': 'mls', 'Medium Long Shot': 'mls', 'Trung toàn cảnh': 'mls',
+  'LS': 'ls', 'Long Shot': 'ls', 'Toàn cảnh': 'ls',
   'WS': 'ws', 'Wide Shot': 'ws', 'Viễn cảnh': 'ws',
-  'POV': 'pov', 'POV Shot': 'pov', 'ống kính chủ quan': 'pov',
+  'POV': 'pov', 'POV Shot': 'pov', 'Ống kính chủ quan': 'pov',
 };
 
 /**

@@ -111,7 +111,7 @@ export const LIGHTING_DIRECTION_PRESETS = [
 // 色温预设
 export const COLOR_TEMPERATURE_PRESETS = [
   { id: 'warm' as const, label: 'Màu ấm 3200K', labelEn: 'Warm', emoji: '🟠', promptToken: 'warm color temperature 3200K,' },
-  { id: 'neutral' as const, label: 'đang xử lý...500K', labelEn: 'Neutral', emoji: '⚪', promptToken: 'neutral daylight 5500K,' },
+  { id: 'neutral' as const, label: 'Trung tính 5500K', labelEn: 'Neutral', emoji: '⚪', promptToken: 'neutral daylight 5500K,' },
   { id: 'cool' as const, label: 'Màu lạnh 7000K', labelEn: 'Cool', emoji: '🔵', promptToken: 'cool blue color temperature,' },
   { id: 'golden-hour' as const, label: 'Giờ vàng', labelEn: 'Golden Hour', emoji: '🌇', promptToken: 'golden hour warm sunlight,' },
   { id: 'blue-hour' as const, label: 'Giờ xanh', labelEn: 'Blue Hour', emoji: '🌆', promptToken: 'blue hour twilight tones,' },
@@ -122,7 +122,7 @@ export const COLOR_TEMPERATURE_PRESETS = [
 export const DEPTH_OF_FIELD_PRESETS = [
   { id: 'ultra-shallow' as const, label: 'Cực nông f/1.4', labelEn: 'Ultra Shallow', emoji: '🔍', promptToken: 'extremely shallow depth of field, f/1.4, dreamy bokeh,' },
   { id: 'shallow' as const, label: 'Nông f/2.8', labelEn: 'Shallow', emoji: '👤', promptToken: 'shallow depth of field, soft background bokeh,' },
-  { id: 'medium' as const, label: 'đang xử lý.../5.6', labelEn: 'Medium', emoji: '👥', promptToken: 'medium depth of field,' },
+  { id: 'medium' as const, label: 'Trung bình f/5.6', labelEn: 'Medium', emoji: '👥', promptToken: 'medium depth of field,' },
   { id: 'deep' as const, label: 'Sâu f/11', labelEn: 'Deep', emoji: '🏔️', promptToken: 'deep focus, everything sharp,' },
   { id: 'split-diopter' as const, label: 'Chia diopter', labelEn: 'Split Diopter', emoji: '🪞', promptToken: 'split diopter lens, foreground and background both in focus,' },
 ] as const;
@@ -188,7 +188,7 @@ export const ATMOSPHERIC_EFFECT_PRESETS = {
 // 特效强度预设
 export const EFFECT_INTENSITY_PRESETS = [
   { id: 'subtle' as const, label: 'Nhẹ', labelEn: 'Subtle', promptToken: 'subtle' },
-  { id: 'moderate' as const, label: 'đang xử lý... labelEn: 'Moderate', promptToken: '' },
+  { id: 'moderate' as const, label: 'Vừa', labelEn: 'Moderate', promptToken: '' },
   { id: 'heavy' as const, label: 'Đậm', labelEn: 'Heavy', promptToken: 'heavy' },
 ] as const;
 
@@ -307,7 +307,7 @@ export const FOCAL_LENGTH_PRESETS = [
   { id: '35mm' as const, label: '35mm góc rộng chuẩn', labelEn: '35mm Standard Wide', emoji: '📷', promptToken: '35mm lens, natural wide perspective, street photography feel,' },
   { id: '50mm' as const, label: '50mm tiêu chuẩn', labelEn: '50mm Standard', emoji: '👁️', promptToken: '50mm standard lens, natural human eye perspective,' },
   { id: '85mm' as const, label: '85mm Chân dung', labelEn: '85mm Portrait', emoji: '🧑', promptToken: '85mm portrait lens, flattering facial proportions, smooth background compression,' },
-  { id: '105mm' as const, label: '105mm đang xử lý... labelEn: '105mm Medium Tele', emoji: '🔭', promptToken: '105mm medium telephoto, gentle background compression,' },
+  { id: '105mm' as const, label: '105mm tele vừa', labelEn: '105mm Medium Tele', emoji: '🔭', promptToken: '105mm medium telephoto, gentle background compression,' },
   { id: '135mm' as const, label: '135mm tiêu cự dài', labelEn: '135mm Telephoto', emoji: '📡', promptToken: '135mm telephoto lens, strong background compression, subject isolation,' },
   { id: '200mm' as const, label: '200mm viễn ảnh', labelEn: '200mm Long Tele', emoji: '🔬', promptToken: '200mm telephoto, extreme background compression, flattened perspective,' },
   { id: '400mm' as const, label: '400mm siêu tiêu cự dài', labelEn: '400mm Super Tele', emoji: '🛰️', promptToken: '400mm super telephoto, extreme compression, distant subject isolation,' },

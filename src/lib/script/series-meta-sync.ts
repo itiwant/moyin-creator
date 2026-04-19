@@ -63,8 +63,8 @@ export function populateSeriesMetaFromImport(
     recurringLocations: undefined,
     colorPalette: undefined,
 
-    // Cài đặt sản xuất — promptLanguage 从người dùngChọnTrực tiếpánh xạ
-    language: scriptData.language || 'đang xử lý...
+    // Cài đặt sản xuất — promptLanguage 从người dùng选择直接映射
+    language: scriptData.language || 'zh',
     promptLanguage: importSettings?.promptLanguage,
   };
 

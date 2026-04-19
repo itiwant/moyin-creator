@@ -265,11 +265,11 @@ export function detectMultiStageHints(outline: string, totalEpisodes: number): {
     }
   }
   
-  // 检测Giai đoạnquan trọng词（扩展列表）
+  // 检测关键人生阶段词（扩展列表）
   const stageKeywords = [
-    '青年', 'đang xử lý... '老年', '少年', '成年', '晚年', 
+    '青年', '中年', '老年', '少年', '成年', '晚年',
     '初期', '后期', '前期', '末期',
-    '年轻', '年迈', '成长', ' tuổi月', '年华',
+    '年轻', '年迈', '成长', '岁月', '年华',
     '创业初', '事业巅峰', '事业有成', '功成名就',
   ];
   const foundKeywords = stageKeywords.filter(k => outline.includes(k));

@@ -399,7 +399,7 @@ export function useSClassGeneration() {
             const rotated = alreadyRotatedByInner
               ? true
               : (typeof statusForHandle === "number" ? keyManager.handleError(statusForHandle, message) : false);
-            const retryableByMessage = /429|500|502|503|529|too many requests|rate|quota|service unavailable|overloaded|internal server error|server error|lỗi tải ngược|dịch vụ tải|bão hòa|tạm không khả dụng|dịch vụ tạm không khả d
+            const retryableByMessage = /429|500|502|503|529|too many requests|rate|quota|service unavailable|overloaded|internal server error|server error|bão hòa|tạm không khả dụng/i.test(message);
             const canRetry = attempt < maxVideoAttempts - 1 && (rotated || retryableByMessage);
 
             if (canRetry) {
@@ -685,7 +685,7 @@ export function useSClassGeneration() {
             const rotated = alreadyRotatedByInner
               ? true
               : (typeof statusForHandle === "number" ? keyManager.handleError(statusForHandle, message) : false);
-            const retryableByMessage = /429|500|502|503|529|too many requests|rate|quota|service unavailable|overloaded|internal server error|server error|lỗi tải ngược|dịch vụ tải|bão hòa|tạm không khả dụng|dịch vụ tạm không khả d
+            const retryableByMessage = /429|500|502|503|529|too many requests|rate|quota|service unavailable|overloaded|internal server error|server error|bão hòa|tạm không khả dụng/i.test(message);
             const canRetry = attempt < maxVideoAttempts - 1 && (rotated || retryableByMessage);
 
             if (canRetry) {

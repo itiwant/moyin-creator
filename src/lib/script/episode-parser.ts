@@ -161,7 +161,7 @@ function extractTimelineInfo(outline: string, characterBios: string): {
     if (storyStartYear >= 2000) {
       era = '现代';
     } else if (storyStartYear >= 1949) {
-      era = '现代（新đang xử lý...;
+      era = '现代（新中国）';
     } else if (storyStartYear >= 1912) {
       era = '民国';
     } else if (storyStartYear >= 1840) {
@@ -899,7 +899,7 @@ function isValidCharacterName(name: string): boolean {
   if (/[\*\-\+\=\>\<\|\[\]\{\}]/.test(name)) return false;
   // Bỏ qua明显的非角色词（只lọc最明显的，其他交给AI）
   const obviousNonCharacters = [
-    'VO', 'lời dẫn chuyện', 'os', '左边', '右边', 'đang xử lý... '背影', '远处',
+    'VO', 'lời dẫn chuyện', 'os', '左边', '右边', '侧影', '背影', '远处',
     '效率', '回流率', '分拣', '客户', '眼眶', '微湿', 'Cầm tay', '笔挺',
     '上市文件', '眼神', '声音', '电视', '电话'
   ];
@@ -1061,7 +1061,7 @@ export function convertToScriptData(
     title: background.title,
     genre: detectGenre(background.outline, background.characterBios),
     logline: extractLogline(background.outline),
-    language: 'đang xử lý...
+    language: 'zh',
     characters,
     episodes,
     scenes,

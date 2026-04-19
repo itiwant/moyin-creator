@@ -100,7 +100,7 @@ export function GenerationPanel({ selectedScene, onSceneCreated }: GenerationPan
   const allShots = currentProject?.shots || [];
 
   // promptNgôn ngữ偏好（从Kịch bảnCài đặt同步）
-  const [promptLanguage, setPromptLanguage] = useState<PromptLanguage>('vi');
+  const [promptLanguage, setPromptLanguage] = useState<PromptLanguage>('zh');
 
   // Form state
   const [name, setName] = useState("");
@@ -2633,9 +2633,9 @@ Sử dụng ánh sáng phẳng, đồng đều để đảm bảo kết cấu hi
               </summary>
               <div className="mt-2 space-y-2">
                 {(() => {
-                  const effectiveLang = promptLanguage || scriptProject?.promptLanguage || 'vi';
-                  const isZh = effectiveLang === 'vi' || effectiveLang === 'vi+en';
-                  const langLabel = isZh ? 'đang xử lý...: 'English';
+                  const effectiveLang = promptLanguage || scriptProject?.promptLanguage || 'zh';
+                  const isZh = effectiveLang === 'zh' || effectiveLang === 'zh+en';
+                  const langLabel = isZh ? 'Tiếng Việt' : 'English';
                   const currentValue = isZh
                     ? (orthographicPromptZh || orthographicPrompt || '')
                     : (orthographicPrompt || orthographicPromptZh || '');
@@ -2950,9 +2950,9 @@ Sử dụng ánh sáng phẳng, đồng đều để đảm bảo kết cấu hi
               </summary>
               <div className="mt-2 space-y-2">
                 {(() => {
-                  const effectiveLang = promptLanguage || scriptProject?.promptLanguage || 'vi';
-                  const isZh = effectiveLang === 'vi' || effectiveLang === 'vi+en';
-                  const langLabel = isZh ? 'đang xử lý...: 'English';
+                  const effectiveLang = promptLanguage || scriptProject?.promptLanguage || 'zh';
+                  const isZh = effectiveLang === 'zh' || effectiveLang === 'zh+en';
+                  const langLabel = isZh ? 'Tiếng Việt' : 'English';
                   const currentValue = isZh
                     ? (contactSheetPromptZh || contactSheetPrompt || '')
                     : (contactSheetPrompt || contactSheetPromptZh || '');

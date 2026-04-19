@@ -74,7 +74,7 @@ export const SHOT_SIZES: Array<{
   description: string;
 }> = [
   { id: 'close-up', label: 'Cực cận cảnh', description: 'Close-up' },
-  { id: 'medium-shot', label: 'đang xử lý... description: 'Medium Shot' },
+  { id: 'medium-shot', label: 'Trung cảnh', description: 'Medium Shot' },
   { id: 'wide-shot', label: 'Viễn cảnh', description: 'Wide Shot' },
 ];
 
@@ -179,19 +179,19 @@ export const COMMON_ANGLES: Array<{
   preset: Pick<AnglePreset, 'direction' | 'elevation' | 'shotSize'>;
 }> = [
   {
-    name: 'chính diện平视đang xử lý...
+    name: 'Chính diện ngang tầm mắt trung cảnh',
     preset: { direction: 'front', elevation: 'eye-level', shotSize: 'medium-shot' },
   },
   {
-    name: '右前平视đang xử lý...
+    name: 'Góc phải trước ngang tầm mắt trung cảnh',
     preset: { direction: 'front-right-quarter', elevation: 'eye-level', shotSize: 'medium-shot' },
   },
   {
-    name: 'bên cạnh平视đang xử lý...
+    name: 'Góc bên ngang tầm mắt trung cảnh',
     preset: { direction: 'right-side', elevation: 'eye-level', shotSize: 'medium-shot' },
   },
   {
-    name: 'mặt sau平视đang xử lý...
+    name: 'Mặt sau ngang tầm mắt trung cảnh',
     preset: { direction: 'back', elevation: 'eye-level', shotSize: 'medium-shot' },
   },
 ];

@@ -304,20 +304,20 @@ ${s2VisualPromptRule}
 
   // Stage 4: 根据 promptLanguage 动态调整Đầu ratrường
   const s4Fields = promptLanguage === 'zh'
-    ? 'imagePromptZh (纯đang xử lý...60-100字)'
+    ? 'imagePromptZh（纯中文，60-100字）'
     : promptLanguage === 'en'
     ? 'imagePrompt (纯英文, 60-80词)'
-    : 'imagePrompt (纯英文, 60-80词) 和 imagePromptZh (纯đang xử lý...60-100字)';
+    : 'imagePrompt (纯英文, 60-80词) 和 imagePromptZh（纯中文，60-100字）';
   const s4JsonFormat = promptLanguage === 'zh'
     ? '{"shots":{"shot_id":{"imagePromptZh":"","needsEndFrame":true}}}'
     : promptLanguage === 'en'
     ? '{"shots":{"shot_id":{"imagePrompt":"","needsEndFrame":true}}}'
     : '{"shots":{"shot_id":{"imagePrompt":"","imagePromptZh":"","needsEndFrame":true}}}';
   const s4LangWarning = promptLanguage === 'zh'
-    ? '\n⚠️ imagePromptZh 必须纯tiếng Việt'
+    ? '\n⚠️ imagePromptZh 必须为纯中文'
     : promptLanguage === 'en'
-    ? '\n⚠️ imagePrompt 必须100%纯英文，bị cấm任何đang xử lý...'
-    : '\n⚠️ imagePrompt 必须100%纯英文，bị cấm任何đang xử lý...\n⚠️ imagePromptZh 必须纯đang xử lý...
+    ? '\n⚠️ imagePrompt 必须 100% 纯英文，禁止混入中文'
+    : '\n⚠️ imagePrompt 必须 100% 纯英文，禁止混入中文\n⚠️ imagePromptZh 必须为纯中文';
 
   const s4System = `你是AI图像Tạo专家。根据Mô tả thị giác和拍摄tham số，Tạokhung đầu提示词。${eraContextBlock}
 
@@ -357,27 +357,27 @@ needsEndFrame 判断：
   onStageProgress?.(5, 5, '动态+khung cuối提示词');
   console.log('[MultiStage] Stage 5/5: 动态+khung cuối提示词');
 
-  // Stage 5: 根据 promptLanguage 动态调整Đầu ratrường
+  // Stage 5: 根据 promptLanguage 动态调整输出字段
   const s5VideoFields = promptLanguage === 'zh'
-    ? 'videoPromptZh (纯đang xử lý...
+    ? 'videoPromptZh（纯中文）'
     : promptLanguage === 'en'
     ? 'videoPrompt (纯英文)'
-    : 'videoPrompt (纯英文) / videoPromptZh (纯đang xử lý...;
+    : 'videoPrompt (纯英文) / videoPromptZh（纯中文）';
   const s5EndFields = promptLanguage === 'zh'
-    ? 'endFramePromptZh (纯đang xử lý...60-100字)'
+    ? 'endFramePromptZh（纯中文，60-100字）'
     : promptLanguage === 'en'
     ? 'endFramePrompt (纯英文, 60-80词)'
-    : 'endFramePrompt (纯英文, 60-80词) / endFramePromptZh (纯đang xử lý...60-100字)';
+    : 'endFramePrompt (纯英文, 60-80词) / endFramePromptZh（纯中文，60-100字）';
   const s5JsonFormat = promptLanguage === 'zh'
     ? '{"shots":{"shot_id":{"videoPromptZh":"","endFramePromptZh":""}}}'
     : promptLanguage === 'en'
     ? '{"shots":{"shot_id":{"videoPrompt":"","endFramePrompt":""}}}'
     : '{"shots":{"shot_id":{"videoPrompt":"","videoPromptZh":"","endFramePrompt":"","endFramePromptZh":""}}}';
   const s5LangWarning = promptLanguage === 'zh'
-    ? '\n⚠️ đang xử lý...ường必须纯tiếng Việt'
+    ? '\n⚠️ 中文字段必须为纯中文'
     : promptLanguage === 'en'
-    ? '\n⚠️ 英文trường必须100%纯英文'
-    : '\n⚠️ 英文trường100%纯英文，đang xử lý...ường纯đang xử lý...
+    ? '\n⚠️ 英文字段必须 100% 纯英文'
+    : '\n⚠️ 英文字段必须 100% 纯英文，中文字段必须为纯中文';
 
   const s5System = `你是AI视频Tạo专家。根据khung đầu画面，Tạo视频动作Mô tả和khung cuối画面。${eraContextBlock}
 

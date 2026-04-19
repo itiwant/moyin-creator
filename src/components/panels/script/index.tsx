@@ -1150,7 +1150,7 @@ export function ScriptView() {
                 notes: `Nhân vật này có ${stageCharIds.length} phiên bản giai đoạn, vui lòng tạo hình ảnh cho từng phiên bản`,
               };
               
-              console.log(`[StageAnalysis] Đã tạo ${analysis. cho nhân vật ${analysis.characterName}stages.length} Nhân vật giai đoạn`);
+              console.log(`[StageAnalysis] Đã tạo ${analysis.stages.length} Nhân vật giai đoạn cho nhân vật ${analysis.characterName}`);
             }
             
             // hợp nhấtNhân vật giai đoạn到Danh sách nhân vật，Nhân vật giai đoạn紧跟在其Nhân vật cha后面

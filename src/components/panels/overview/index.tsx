@@ -370,7 +370,7 @@ export function OverviewPanel() {
                   <EditableText value={meta.colorPalette} placeholder="Bảng màu chủ đạo..." onSave={(v) => update({ colorPalette: v })} />
                 </FieldRow>
                 <FieldRow label="Ngôn ngữ">
-                  <span className="text-xs">{meta.language || "đang xử lý...</span>
+                  <span className="text-xs">{meta.language || "đang xử lý..."}</span>
                 </FieldRow>
               </SectionCard>
 

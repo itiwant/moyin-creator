@@ -465,7 +465,7 @@ export async function findCharacterByDescription(
       confidence: 1,
       episodeNumbers: [],
       contexts: [],
-      message: `角色「${existing.name}」已存在于角色列表đang xử lý...
+      message: `角色「${existing.name}」已存在于角色列表中。`,
       character: existing,
     };
   }
@@ -481,9 +481,9 @@ export async function findCharacterByDescription(
       confidence: 0.3,
       episodeNumbers: [],
       contexts: [],
-      message: episodeNumber 
-        ? `在第 ${episodeNumber}  tậpđang xử lý...角色「${name}」。是否仍要tạo这角色？`
-        : `在剧本đang xử lý...角色「${name}」。是否仍要tạo这角色？`,
+      message: episodeNumber
+        ? `在第 ${episodeNumber} 集中未找到角色「${name}」。是否仍要创建这个角色？`
+        : `在剧本中未找到角色「${name}」。是否仍要创建这个角色？`,
     };
   }
   
@@ -509,7 +509,7 @@ export async function findCharacterByDescription(
     confidence,
     episodeNumbers: searchResult.episodeNumbers,
     contexts: searchResult.contexts,
-    message: `Tìm thấy角色「${character.name}」，出现在第 ${searchResult.episodeNumbers.join(', ')}  tập。`,
+    message: `已找到角色「${character.name}」，出现在第 ${searchResult.episodeNumbers.join(', ')} 集。`,
     character,
   };
 }
@@ -549,13 +549,13 @@ export function quickSearchCharacter(
     return {
       name,
       found: true,
-      message: `Tìm thấy「${name}」，出现在第 ${searchResult.episodeNumbers.join(', ')}  tập`,
+      message: `已找到「${name}」，出现在第 ${searchResult.episodeNumbers.join(', ')} 集。`,
     };
   }
-  
+
   return {
     name,
     found: false,
-    message: `未在剧本đang xử lý...${name}」`,
+    message: `未在剧本中找到「${name}」`,
   };
 }

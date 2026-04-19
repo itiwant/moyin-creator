@@ -246,7 +246,7 @@ export function DirectorContextPanel() {
     // 方案一：优先kiểm traThư viện cảnhGóc nhìnbiến thể的shotIds（cắt时Lưu的）
     const variantWithShot = variants.find(v => v.shotIds?.includes(shot.id));
     if (variantWithShot) {
-      console.log(`[findMatchingSceneAndViewpointQuick] Khớp qua shotIds Thư viện cảnh: Phân cảnh${shot.id} -> Góc nhìn "${variantWith
+      console.log(`[findMatchingSceneAndViewpointQuick] Khớp qua shotIds Thư viện cảnh: Phân cảnh ${shot.id} -> Góc nhìn "${variantWithShot.viewpointName || variantWithShot.name}"`);
       return {
         sceneLibraryId: variantWithShot.id,
         viewpointId: variantWithShot.viewpointId,
@@ -267,7 +267,7 @@ export function DirectorContextPanel() {
           return variantName.includes(matchedViewpoint.name) || matchedViewpoint.name.includes(variantName);
         });
         if (matchedVariant) {
-          console.log(`[findMatchingSceneAndViewpointQuick] Khớp qua shotIds Kịch bản: Phân cảnh${shot.id} -> Góc nhìn "${matchedVaria
+          console.log(`[findMatchingSceneAndViewpointQuick] Khớp qua shotIds Kịch bản: Phân cảnh ${shot.id} -> Góc nhìn "${matchedVariant.viewpointName || matchedVariant.name}"`);
           return {
             sceneLibraryId: matchedVariant.id,
             viewpointId: matchedVariant.viewpointId,
@@ -289,7 +289,7 @@ export function DirectorContextPanel() {
     
     const matchedVariant = variants[variantIndex];
     
-    console.log(`[findMatchingSceneAndViewpointQuick] Khớp qua số thứ tự: Phân cảnh số thứ tự ${(shotIndexInScene ?? 0) + 1} -> Góc nh
+    console.log(`[findMatchingSceneAndViewpointQuick] Khớp qua số thứ tự: Phân cảnh số thứ tự ${(shotIndexInScene ?? 0) + 1} -> Góc nhìn ${matchedVariant.viewpointName || matchedVariant.name}`);
     
     return {
       sceneLibraryId: matchedVariant.id,

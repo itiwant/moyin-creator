@@ -448,7 +448,7 @@ export function ScreenplayInput({ onGenerateStoryboard }: ScreenplayInputProps) 
     // Legacy workflow: Check API keys for chat
     const chatReady = isFeatureConfigured('script_analysis') || checkChatKeys().isAllConfigured;
     if (!chatReady) {
-      toast.error('Vui lòng cấu hình ánh xạ dịch vụ cho 'Phân tích kịch bản/Hội thoại' trong Cài đặt');
+      toast.error("Vui lòng cấu hình ánh xạ dịch vụ cho 'Phân tích kịch bản/Hội thoại' trong Cài đặt");
       return;
     }
 

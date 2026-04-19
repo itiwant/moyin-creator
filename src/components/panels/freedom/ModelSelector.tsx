@@ -393,7 +393,7 @@ function isModelAllowedByPanelType(
 
   // 再按 endpoint type 细lọc，排除纯âm thanh类Model
   if (endpointTypes.length > 0) {
-    return endpointTypes.some((t) => /video|video|Tạo video từ văn bản|Tạo video từ ảnh|Khung đầu/cuối|Tạo video từ tham chiếu|kéo dài|Điều khiển hành động|Người ảo số|omni-video/i.test(t));
+    return endpointTypes.some((t) => /video|video|Tạo video từ văn bản|Tạo video từ ảnh|Khung đầu\/cuối|Tạo video từ tham chiếu|kéo dài|Điều khiển hành động|Người ảo số|omni-video/i.test(t));
   }
 
   // endpoint thiếu时用Model名兜底判定（TránhTùy chỉnhMở rộng型号被误lọc）

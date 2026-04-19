@@ -130,7 +130,7 @@ export interface SplitSceneCardProps {
 
 export function SplitSceneCard({
   scene,
-  promptLanguage = 'vi',
+  promptLanguage = 'zh',
   onUpdateImagePrompt,
   onUpdateVideoPrompt,
   onUpdateEndFramePrompt,
@@ -184,11 +184,11 @@ export function SplitSceneCard({
   const resolvedEndFrameUrl = useResolvedImageUrl(effectiveEndFrameUrl);
 
   // 根据Ngôn ngữCài đặt获取对应的prompttrường值
-  const getPromptByLanguage = (vi: string | undefined, en: string | undefined): string => {
+  const getPromptByLanguage = (zh: string | undefined, en: string | undefined): string => {
     if (promptLanguage === 'en') return en || '';
-    if (promptLanguage === 'vi') return vi || '';
-    // vi+en: 优先đang xử lý...退英文
-    return vi || en || '';
+    if (promptLanguage === 'zh') return zh || '';
+    // zh+en: 优先中文，回退英文
+    return zh || en || '';
   };
 
   // Bắt đầuChỉnh sửa某prompt（根据Ngôn ngữChọn对应trường）

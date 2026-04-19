@@ -1642,7 +1642,13 @@ export function EpisodeTree({
               <div className="space-y-1 max-h-48 overflow-y-auto border rounded-md p-2">
                 {localKeptCharacters.map(char => {
                   const importance = char.tags?.find(t => ['protagonist', 'supporting', 'minor', 'extra'].includes(t));
-                  const labels: Record<string, string> = { protagonist: 'nhân vật chính', supporting: 'nhân vật phụ', minor: 'thứ yếu', extra: 'Quần chúng'                  return (
+                  const labels: Record<string, string> = {
+                    protagonist: 'nhân vật chính',
+                    supporting: 'nhân vật phụ',
+                    minor: 'thứ yếu',
+                    extra: 'Quần chúng',
+                  };
+                  return (
                     <div key={char.id} className="flex items-center justify-between px-2 py-1 rounded hover:bg-muted text-xs">
                       <div className="flex items-center gap-2">
                         <span>{char.name}</span>

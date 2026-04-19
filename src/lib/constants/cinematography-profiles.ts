@@ -335,8 +335,8 @@ const GENRE_PROFILES: CinematographyProfile[] = [
     defaultAngle: 'eye-level',
     defaultFocalLength: '24mm',
     defaultTechnique: 'high-speed',
-    promptGuidance: '动作戏的摄影追求「动能传递」——肩扛nhanhTheo dõi让观众感受冲击力，侧光强化肌肉轮廓和动作线条。đang xử lý...证主体清晰但背景有适度虚化。quan trọng动作瞬间（出拳、爆炸）可Sử dụng慢放0.5x突出力量感，随后立刻恢复正常速度。尘土和火花增加物理碰撞的真实感。',
-    referenceFilms: ['疯狂的麦克斯', '谍影重重', '突袭', '碟đang xử lý...,
+    promptGuidance: '动作戏的摄影追求「动能传递」——肩扛快速跟随让观众感受冲击力，侧光强化肌肉轮廓和动作线条。保持主体清晰，同时让背景有适度虚化。关键动作瞬间可使用 0.5x 慢放突出力量感，随后立刻恢复正常速度。尘土和火花增加物理碰撞的真实感。',
+    referenceFilms: ['疯狂的麦克斯', '谍影重重', '突袭', '碟中谍'],
   },
   {
     id: 'suspense-mystery',

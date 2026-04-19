@@ -39,7 +39,7 @@ function normalizeTimeValue(time: string | undefined): string {
     '早晨': 'dawn',
     '清晨': 'dawn',
     '日出': 'dawn',
-    'đang xử lý... 'noon',
+    '中午': 'noon',
     '正午': 'noon',
     // English mappings (pass through)
     'day': 'day',
@@ -480,7 +480,7 @@ export async function parseScript(
 
 ${rawScript}
 
-Ngôn ngữ：${options.language || 'đang xử lý...${sceneCountHint}`;
+Ngôn ngữ：${options.language || 'zh'}${sceneCountHint}`;
 
   const response = await callChatAPI(PARSE_SYSTEM_PROMPT, userPrompt, options);
   const cleaned = cleanJsonString(response);
@@ -550,7 +550,7 @@ Ngôn ngữ：${options.language || 'đang xử lý...${sceneCountHint}`;
       title: parsed.title || 'Chưa đặt tên剧本',
       genre: parsed.genre,
       logline: parsed.logline,
-      language: options.language || 'đang xử lý...
+      language: options.language || 'zh',
       characters,
       scenes,
       episodes,
@@ -582,7 +582,7 @@ export async function generateShotList(
     return [];
   }
 
-  const lang = options.language || scriptData.language || 'đang xử lý...
+  const lang = options.language || scriptData.language || 'zh';
   const allShots: Shot[] = [];
   
   // 计算每场景应该Tạo的分镜数
@@ -925,7 +925,7 @@ export async function generateScriptFromIdea(
   idea: string,
   options: ScriptGenerationOptions
 ): Promise<string> {
-  const { language = 'đang xử lý... targetDuration = '60s', sceneCount, shotCount, styleId } = options;
+  const { language = 'zh', targetDuration = '60s', sceneCount, shotCount, styleId } = options;
   
   // 根据thời lượngTạoTham chiếu范围（不是硬限制，是给 AI 的Tham chiếu）
   const durationSeconds = targetDuration === 'auto' ? 0 : (parseInt(targetDuration) || 60);

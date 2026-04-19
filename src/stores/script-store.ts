@@ -174,7 +174,7 @@ const defaultProjectData = (): ScriptProjectData => ({
   episodeRawScripts: [],
   metadataMarkdown: '',
   metadataGeneratedAt: undefined,
-  promptLanguage: 'vi',
+  promptLanguage: 'zh',
   calibrationStrictness: 'normal',
   lastFilteredCharacters: [],
   calibrationState: defaultCalibrationState(),

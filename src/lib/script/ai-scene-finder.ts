@@ -328,7 +328,7 @@ export async function findSceneByDescription(
       confidence: 1,
       episodeNumbers: [],
       contexts: [],
-      message: `场景「${existing.name || existing.location}」已存在于场景列表đang xử lý...
+      message: `场景「${existing.name || existing.location}」已存在于场景列表中。`,
       scene: existing,
     };
   }
@@ -337,16 +337,16 @@ export async function findSceneByDescription(
   const searchResult = searchSceneInScripts(name, episodeScripts, episodeNumber || undefined);
   
   if (!searchResult.found) {
-    // 没Tìm thấy但可以让người dùng确认是否tạo
+    // 没找到但可以让用户确认是否创建
     return {
       found: false,
       name,
       confidence: 0.3,
       episodeNumbers: [],
       contexts: [],
-      message: episodeNumber 
-        ? `在第 ${episodeNumber}  tậpđang xử lý...场景「${name}」。是否仍要tạo这场景？`
-        : `在剧本đang xử lý...场景「${name}」。是否仍要tạo这场景？`,
+      message: episodeNumber
+        ? `在第 ${episodeNumber} 集中未找到场景「${name}」。是否仍要创建这个场景？`
+        : `在剧本中未找到场景「${name}」。是否仍要创建这个场景？`,
     };
   }
   
@@ -372,7 +372,7 @@ export async function findSceneByDescription(
     confidence,
     episodeNumbers: searchResult.episodeNumbers,
     contexts: searchResult.contexts,
-    message: `Tìm thấy场景「${scene.name || scene.location}」，出现在第 ${searchResult.episodeNumbers.join(', ')}  tập。`,
+    message: `已找到场景「${scene.name || scene.location}」，出现在第 ${searchResult.episodeNumbers.join(', ')} 集。`,
     scene,
   };
 }
@@ -416,13 +416,13 @@ export function quickSearchScene(
     return {
       name,
       found: true,
-      message: `Tìm thấy「${name}」，出现在第 ${searchResult.episodeNumbers.join(', ')}  tập`,
+      message: `已找到「${name}」，出现在第 ${searchResult.episodeNumbers.join(', ')} 集。`,
     };
   }
-  
+
   return {
     name,
     found: false,
-    message: `未在剧本đang xử lý...${name}」`,
+    message: `未在剧本中找到「${name}」`,
   };
 }

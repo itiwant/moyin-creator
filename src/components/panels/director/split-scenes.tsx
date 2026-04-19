@@ -328,7 +328,7 @@ export function SplitScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
   const promptLanguage = useScriptStore(state => {
     const pid = state.activeProjectId;
     return pid ? state.projects[pid]?.promptLanguage : undefined;
-  }) || 'vi';
+  }) || 'zh';
 
   // Read from project data (with defaults)
   const splitScenes = projectData?.splitScenes || [];
@@ -1882,7 +1882,7 @@ export function SplitScenes({ onBack, onGenerateVideos }: SplitScenesProps) {
     );
 
     if (scenesToGenerate.length === 0) {
-      toast.info("Tất cả phân cảnh đã tạo hoặc đang tạo...
+      toast.info("Tất cả phân cảnh đã tạo hoặc đang tạo...");
       return;
     }
 

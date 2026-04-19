@@ -195,9 +195,9 @@ ${shotSummaries}
     // 降级：返回基础góc nhìn
     return {
       viewpoints: [
-        { id: 'overview', name: '全景', nameEn: 'Overview', description: '整体Bố cục không gian', descriptionEn: 'Overall spatial layout', keyProps: [], keyPropsEn: [], shotIndexes: [] },
-        { id: 'medium', name: 'đang xử lý... nameEn: 'Medium Shot', description: 'đang xử lý...', descriptionEn: 'Medium view', keyProps: [], keyPropsEn: [], shotIndexes: [] },
-        { id: 'detail', name: '细节', nameEn: 'Detail', description: '细节Cực cận cảnh', descriptionEn: 'Detail close-up', keyProps: [], keyPropsEn: [], shotIndexes: [] },
+        { id: 'overview', name: '全景', nameEn: 'Overview', description: '整体空间布局', descriptionEn: 'Overall spatial layout', keyProps: [], keyPropsEn: [], shotIndexes: [] },
+        { id: 'medium', name: '中景', nameEn: 'Medium Shot', description: '人物中景视图', descriptionEn: 'Medium view', keyProps: [], keyPropsEn: [], shotIndexes: [] },
+        { id: 'detail', name: '细节', nameEn: 'Detail', description: '细节特写', descriptionEn: 'Detail close-up', keyProps: [], keyPropsEn: [], shotIndexes: [] },
       ],
       analysisNote: 'AI 分析thất bại，Sử dụng默认góc nhìn',
     };

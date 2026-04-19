@@ -497,8 +497,14 @@ export function PropertyPanel({
 
     // Kích thước cảnhTiếng Trungánh xạ
     const shotSizeLabels: Record<string, string> = {
-      'ECU': 'Cực cận cảnh', 'CU': 'Cận cảnh', 'MCU': 'đang xử lý..., 'MS': 'đang xử lý...
-      'MLS': 'đang xử lý..., 'LS': 'Viễn cảnh', 'ELS': 'Đại viễn cảnh', 'POV': 'Góc nhìn chủ quan'
+      'ECU': 'Cực cận cảnh',
+      'CU': 'Cận cảnh',
+      'MCU': 'Trung cận cảnh',
+      'MS': 'Trung cảnh',
+      'MLS': 'Trung viễn cảnh',
+      'LS': 'Viễn cảnh',
+      'ELS': 'Đại viễn cảnh',
+      'POV': 'Góc nhìn chủ quan',
     };
     // Phân cảnh运动Tiếng Trungánh xạ（tương thích旧值+新预设ID）
     const cameraLabelsLegacy: Record<string, string> = {

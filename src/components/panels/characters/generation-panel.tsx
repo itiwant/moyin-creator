@@ -121,7 +121,7 @@ export function GenerationPanel({ selectedCharacter, onCharacterCreated }: Gener
   const [identityAnchors, setIdentityAnchors] = useState<CharacterIdentityAnchors | undefined>();
   const [charNegativePrompt, setCharNegativePrompt] = useState<CharacterNegativePrompt | undefined>();
   // === promptNgôn ngữ偏好 ===
-  const [promptLanguage, setPromptLanguage] = useState<PromptLanguage>('vi');
+  const [promptLanguage, setPromptLanguage] = useState<PromptLanguage>('zh');
   // === Thông tin thời đại（从Kịch bản元dữ liệu传递）===
   const [storyYear, setStoryYear] = useState<number | undefined>();
   const [era, setEra] = useState<string | undefined>();
@@ -156,8 +156,12 @@ export function GenerationPanel({ selectedCharacter, onCharacterCreated }: Gener
       
       // ánh xạGiới tính："Nam" -> "male", "Nữ" -> "female"
       const genderMap: Record<string, string> = {
-        'Nam': 'male', 'Nam': 'male', 'male': 'male', 'Male': 'male',
-        'Nữ': 'female', 'Nữ': 'female', 'female': 'female', 'Female': 'female',
+        'Nam': 'male',
+        'male': 'male',
+        'Male': 'male',
+        'Nữ': 'female',
+        'female': 'female',
+        'Female': 'female',
       };
       const mappedGender = genderMap[pendingCharacterData.gender || ''] || '';
       setGender(mappedGender);
@@ -171,7 +175,7 @@ export function GenerationPanel({ selectedCharacter, onCharacterCreated }: Gener
         mappedAge = 'teen';
       } else if (ageStr.includes('19') || ageStr.includes('20') || ageStr.includes('25') || ageStr.includes('30') || ageStr.includes('trẻ')) {
         mappedAge = 'young-adult';
-      } else if (ageStr.includes('35') || ageStr.includes('40') || ageStr.includes('45') || ageStr.includes('50') || ageStr.includes('đang xử lý...) {
+      } else if (ageStr.includes('35') || ageStr.includes('40') || ageStr.includes('45') || ageStr.includes('50') || ageStr.includes('Trung niên')) {
         mappedAge = 'adult';
       } else if (ageStr.includes('55') || ageStr.includes('60') || ageStr.includes('70') || ageStr.includes('Cao niên')) {
         mappedAge = 'senior';
@@ -378,7 +382,7 @@ export function GenerationPanel({ selectedCharacter, onCharacterCreated }: Gener
     try {
       // 构建prompt：根据Ngôn ngữ偏好Chọnprompt + 6层Danh tínhneo + Ảnh tham chiếu优先级逻辑 + Thông tin thời đại
       // 获取实时的Ngôn ngữ偏好（优先Sử dụng pending 传来的，其次从 scriptProject 读取）
-      const effectiveLang = promptLanguage || scriptProject?.promptLanguage || 'vi';
+      const effectiveLang = promptLanguage || scriptProject?.promptLanguage || 'zh';
       const prompt = buildCharacterSheetPrompt(
         description, 
         name, 
@@ -855,8 +859,8 @@ export function GenerationPanel({ selectedCharacter, onCharacterCreated }: Gener
                   
                   {/* Prompt thị giác chuyên nghiệp: chỉ hiện một loại theo Ngôn ngữ ưa thích, Chỉnh sửa xong Trực tiếp dùng để Tạo */}
                   {(() => {
-                    const effectiveLang = promptLanguage || scriptProject?.promptLanguage || 'vi';
-                    const showZh = effectiveLang === 'vi' || effectiveLang === 'vi+en';
+                    const effectiveLang = promptLanguage || scriptProject?.promptLanguage || 'zh';
+                    const showZh = effectiveLang === 'zh' || effectiveLang === 'zh+en';
                     const activePrompt = showZh ? visualPromptZh : visualPromptEn;
                     const setActivePrompt = showZh ? setVisualPromptZh : setVisualPromptEn;
                     const langLabel = showZh ? 'Tiếng Trung' : 'Tiếng Anh';
@@ -1155,7 +1159,7 @@ function buildPromptFromAnchors(
   if (!anchors) return '';
 
   // 根据neo值Nội dungTự động检测Ngôn ngữ（đang xử lý...o值 → đang xử lý...词）
-  const isZh = promptLanguage === 'vi' || /[\u4e00-\u9fff]/.test(anchors.faceShape || anchors.eyeShape || '');
+  const isZh = promptLanguage === 'zh' || /[\u4e00-\u9fff]/.test(anchors.faceShape || anchors.eyeShape || '');
 
   const parts: string[] = [];
 
@@ -1264,12 +1268,12 @@ function buildCharacterSheetPrompt(
   const isRealistic = stylePreset?.category === 'real';
   
   // 根据Ngôn ngữ偏好Chọn主Prompt thị giác
-  const lang = promptLanguage || 'vi';
+  const lang = promptLanguage || 'zh';
 
   // 构建thập niêntrang phụcprompt（根据Ngôn ngữ偏好）
   let eraPrompt = '';
   if (storyYear) {
-    if (lang === 'vi') {
+    if (lang === 'zh') {
       if (storyYear >= 2020) eraPrompt = `${storyYear}s contemporary style, modern casual fashion`;
       else if (storyYear >= 2010) eraPrompt = `${storyYear}s fashion, Korean influence`;
       else if (storyYear >= 2000) eraPrompt = `early 2000s style, millennium fashion`;
@@ -1288,7 +1292,7 @@ function buildCharacterSheetPrompt(
     eraPrompt = `${era} era clothing style`;
   }
   let primaryVisualPrompt: string | undefined;
-  if (lang === 'vi' || lang === 'vi+en') {
+  if (lang === 'zh' || lang === 'zh+en') {
     // đang xử lý...（vi+en 只是让người dùng同时看到两种，Tạo时用tiếng Việt）
     primaryVisualPrompt = visualPromptZh || visualPromptEn;
   } else {
@@ -1325,7 +1329,7 @@ function buildCharacterSheetPrompt(
     characterDescription = `${characterDescription}, ${eraPrompt}`;
   }
 
-  const isZh = lang === 'vi';
+  const isZh = lang === 'zh';
 
   const basePrompt = isRealistic
     ? (isZh
